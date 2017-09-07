@@ -39,7 +39,8 @@ gem "simple_form"
 gem "autoprefixer-rails"
 # securely configure Rails applications
 gem 'figaro'
-
+# setup user model authentication
+gem 'devise'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
