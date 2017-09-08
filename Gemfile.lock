@@ -44,6 +44,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (4.0.0)
+      activerecord (>= 4.0)
     arel (7.1.4)
     autoprefixer-rails (7.1.2.6)
       execjs
@@ -174,6 +176,8 @@ GEM
       rails (>= 4.0, < 6)
       remotipart (~> 1.3)
       sass-rails (>= 4.0, < 6)
+    rails_admin_tag_list (0.2.0)
+      rails_admin (>= 0.6)
     railties (5.0.5)
       actionpack (= 5.0.5)
       activesupport (= 5.0.5)
@@ -240,6 +244,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 4.0)
   autoprefixer-rails
   better_errors
   binding_of_caller
@@ -257,6 +262,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.5)
   rails_admin (>= 1.0.0.rc)
+  rails_admin_tag_list
   remotipart!
   sass-rails (~> 5.0)
   simple_form
