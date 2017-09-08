@@ -55,7 +55,8 @@ gem 'rails_admin', '>= 1.0.0.rc'
 gem 'rails_admin_tag_list'
 
 # Tags management
-gem 'acts-as-taggable-on', '~> 4.0'
+# gem 'acts-as-taggable-on', '~> 4.0'
+gem 'acts-as-taggable-on', :git => 'https://github.com/mbleigh/acts-as-taggable-on'
 
 
 group :development, :test do
