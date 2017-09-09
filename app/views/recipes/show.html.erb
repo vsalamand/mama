@@ -1,0 +1,39 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="recipe-head">
+          <div class="recipe-container-infos">
+            <div class="recipe-infos">
+              <div class="recipe-title">
+                <h2><strong><%= @recipe.title %></strong></h2>
+              </div>
+              <div class="recipe-tags">
+                <%= @recipe.tag_list %>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="recipe-ingredients">
+        <h4><strong>Ingrédients</strong></h2>
+        <div class="recipe-servings">
+          <p><%= @recipe.servings %> pers.</p>
+        </div>
+        <%= @recipe.ingredients %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="recipe-instructions">
+        <%= @recipe.instructions %>
+      </div>
+    </div>
+  </div>
+</div>
