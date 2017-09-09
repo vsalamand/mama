@@ -1,0 +1,15 @@
+.recipe-tags {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-right: 10px;
+}
+
+.tagContainer {
+  background-color: grey;
+  height: 16px;
+  padding: 0 6px;
+  line-height: 16px;
+  font-size: 12px;
+  margin-top: 2px;
+}
