@@ -45,6 +45,9 @@ gem 'pry'
 gem 'figaro'
 # setup user model authentication
 gem 'devise'
+# setup Elastic search gem
+gem 'searchkick'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
