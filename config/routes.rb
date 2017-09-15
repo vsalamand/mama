@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   get 'search', to: 'pages#search'
+  get 'suggest', to: 'pages#suggest'
 
   resources :recipes, only: [:show]
 

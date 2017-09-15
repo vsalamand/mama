@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/ankane/searchkick
+  revision: faecf4e45ae988aedb359bde038bd3e89eebd762
+  specs:
+    searchkick (2.3.2)
+      activemodel (>= 4.1)
+      elasticsearch (>= 1)
+      hashie
+
+GIT
   remote: https://github.com/mbleigh/acts-as-taggable-on
   revision: 4d9a10c25e106bd2467662baea58510a17809ca2
   specs:
@@ -219,10 +228,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    searchkick (2.3.2)
-      activemodel (>= 4.1)
-      elasticsearch (>= 1)
-      hashie
     simple_form (3.5.0)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
@@ -286,7 +291,7 @@ DEPENDENCIES
   rails_admin_tag_list
   remotipart!
   sass-rails (~> 5.0)
-  searchkick
+  searchkick!
   simple_form
   spring
   spring-watcher-listen (~> 2.0.0)

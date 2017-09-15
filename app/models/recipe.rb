@@ -9,7 +9,8 @@ class Recipe < ApplicationRecord
     {
       title: title,
       ingredients: ingredients,
-      tags: tag_list
+      tags: tag_list,
+      recommendable: recommendable
     }
   end
 end

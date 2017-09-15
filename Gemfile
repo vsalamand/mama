@@ -46,7 +46,7 @@ gem 'figaro'
 # setup user model authentication
 gem 'devise'
 # setup Elastic search gem
-gem 'searchkick'
+gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
 
 
 # Use Capistrano for deployment
