@@ -17,12 +17,12 @@
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
       <div class="recipe-ingredients-head">
         <h4><strong>Ingrédients</strong> &nbsp;</h4>
-        <p>(🍽️  <%= @recipe.servings %> pers.)</p>
+        <p>🍽️  <%= @recipe.servings %> pers.</p>
       </div>
       <div class="recipe-ingredients">
         <ul>
           <% @recipe.ingredients.split("\r\n").each do |item| %>
-            <li><%= item %></li>
+            <li class="recipe-ingredients__list__item"><%= item %></li>
           <% end %>
         </ul>
       </div>
