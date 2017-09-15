@@ -22,12 +22,21 @@
   padding: 0px 15px 15px 15px;
 }
 
+.tag-item {
+  background-color: grey;
+  color: white;
+  margin: 0px 5px 0px 0px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+
 .recipe-ingredients-head {
   display: flex;
   align-items: center;
   p {
     margin-bottom: 0px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-style: italic;
   }
 }
