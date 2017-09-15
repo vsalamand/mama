@@ -3,15 +3,15 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="recipe-head">
-          <div class="recipe-container-infos">
-            <div class="recipe-infos">
-              <div class="recipe-title">
-                <h2><strong><%= @recipe.title %></strong></h2>
+          <div class="recipe-title">
+            <h3><strong><%= @recipe.title %></strong></h3>
+          </div>
+          <div class="recipe-tags">
+            <% @recipe.tag_list.each do |tag| %>
+              <div class="tag-item">
+                <%= tag %>
               </div>
-              <div class="recipe-tags">
-                <%= @recipe.tag_list %>
-              </div>
-            </div>
+            <% end %>
           </div>
         </div>
     </div>
@@ -19,21 +19,24 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="recipe-ingredients-head">
+        <h4><strong>Ingrédients</strong> &nbsp;</h4>
+        <p><%= @recipe.servings %> 🍽️ </p>
+      </div>
       <div class="recipe-ingredients">
-        <h4><strong>Ingrédients</strong></h2>
-        <div class="recipe-servings">
-          <p><%= @recipe.servings %> pers.</p>
-        </div>
-        <%= @recipe.ingredients %>
+        <ul>
+          <% @recipe.ingredients.split("\r\n").each do |item| %>
+            <li class="recipe-ingredients__list__item"><%= item %></li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <div class="recipe-instructions">
-        <%= @recipe.instructions %>
-      </div>
+      <h4><strong>Préparation</strong></h4>
+      <%= instruction_lines(@recipe) %>
     </div>
   </div>
 </div>
