@@ -4,7 +4,7 @@
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="recipe-head">
           <div class="recipe-title">
-            <h2><strong><%= @recipe.title %></strong></h2>
+            <h3><strong><%= @recipe.title %></strong></h3>
           </div>
           <div class="recipe-tags">
             <%= @recipe.tag_list %>
@@ -15,9 +15,11 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <h4><strong>Ingrédients</strong></h2>
+      <div class="recipe-ingredients-head">
+        <h4><strong>Ingrédients</strong> &nbsp;</h4>
+        <p>(🍽️  <%= @recipe.servings %> pers.)</p>
+      </div>
       <div class="recipe-ingredients">
-        <p><%= @recipe.servings %> pers.</p>
         <ul>
           <% @recipe.ingredients.split("\r\n").each do |item| %>
             <li><%= item %></li>
@@ -29,7 +31,7 @@
 
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <h4><strong>Instructions</strong></h2>
+      <h4><strong>Préparation</strong></h4>
       <%= instruction_lines(@recipe) %>
     </div>
   </div>

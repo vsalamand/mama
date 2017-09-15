@@ -6,7 +6,7 @@ module ApplicationHelper
       unless line == "" || line == " "
         html << "<div class='recipe-instructions'>
                    <div class='instruction-line'>
-                     <div class='instruction-number'><h3>#{i}</h3></div>
+                     <div class='instruction-number'><h4>#{i}</h4></div>
                      <div class='instruction-text'><p>#{line}</p></div>
                    </div>
                 </div>"
