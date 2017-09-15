@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <h2>suggested results:</h2>
+    <% if @suggestions %>
+      <% @suggestions.each do |suggest| %>
+        <% suggest.each do |recipe|%>
+          <%= recipe.title %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
