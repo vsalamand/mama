@@ -1,6 +1,6 @@
 .recipe-head {
   background-color: white;
-  background-size: cover !important;
+  // background-size: cover !important;
   background-position: center;
   color: black;
   position: relative;
@@ -23,9 +23,9 @@
 }
 
 .tag-item {
-  background-color: grey;
+  background-color: #68D89B;
   color: white;
-  margin: 0px 5px 0px 0px;
+  margin: 0px 5px 5px 0px;
   padding: 5px;
   border-radius: 5px;
   font-size: 1.5rem;
@@ -86,15 +86,7 @@
   flex: 0 0 5%;
   h4 {
     margin: 0;
-    font-size: 2.5rem;
-  }
-}
-
-.instruction-text {
-  flex: 0 0 95%;
-  display: flex;
-  align-items: center;
-  p {
-    margin: 0px;
+    font-size: 1.9rem;
+    color: #68D89B;
   }
 }
