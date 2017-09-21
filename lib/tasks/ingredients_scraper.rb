@@ -143,6 +143,32 @@ class Scraper
     end
   end
 
+  def scrap_milk_products
+    url = "https://fr.wikipedia.org/wiki/Produit_laitier"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    milk_product = []
+    doc.search("div[class='mw-parser-output'] ul li a").each do |element|
+      milk_product << element.text
+    end
+    File.open("../../db/db_ingredients/produits_laitiers.json", 'wb') do |file|
+     file.write(JSON.generate(milk_product))
+    end
+  end
+
+  def scrap_sea_fruits
+    url = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Fruit_de_mer"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    seafruits = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      seafruits << element.text
+    end
+    File.open("../../db/db_ingredients/fruits_de_mer.json", 'wb') do |file|
+     file.write(JSON.generate(seafruits))
+    end
+  end
+
   scraper = Scraper.new
-  # scraper.scrap_cheese
+  scraper.scrap_sea_fruits
 end
