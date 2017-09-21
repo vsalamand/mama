@@ -199,6 +199,32 @@ class Scraper
     end
   end
 
+  def scrap_cereals
+    url1 = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:D%C3%A9riv%C3%A9_de_c%C3%A9r%C3%A9ale"
+    file1 = open(url1)
+    doc1 = Nokogiri::HTML(file1)
+    derives_cereals = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      derives_cereals << element.text
+    end
+    File.open("../../db/db_ingredients/cereales.json", 'wb') do |file|
+     file.write(JSON.generate(derives_cereals))
+    end
+  end
+
+  def scrap_feculents
+    url = "https://fr.wikipedia.org/wiki/F%C3%A9culent"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    feculent = []
+    doc.search("div[class='mw-parser-output'] ul li a").each do |element|
+      feculent << element.text
+    end
+    File.open("../../db/db_ingredients/feculents.json", 'wb') do |file|
+     file.write(JSON.generate(feculent))
+    end
+  end
+
   scraper = Scraper.new
-  scraper.scrap_farine
+  scraper.scrap_feculents
 end
