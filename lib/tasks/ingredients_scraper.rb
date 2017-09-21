@@ -169,6 +169,23 @@ class Scraper
     end
   end
 
+# mauvais scraper
+#https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Poisson_(aliment)
+#https://fr.wikipedia.org/wiki/Poisson_gras
+#https://fr.wikipedia.org/wiki/Poisson_blanc
+  def scrap_fish
+    url = "https://fr.wikipedia.org/wiki/Liste_des_poissons_des_lacs_et_rivi%C3%A8res_utilis%C3%A9s_en_cuisine"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    fish = []
+    doc.search("div[class='mw-parser-output'] ul li a").each do |element|
+      fish << element.text
+    end
+    File.open("../../db/db_ingredients/poissons.json", 'wb') do |file|
+     file.write(JSON.generate(fish))
+    end
+  end
+
   scraper = Scraper.new
-  scraper.scrap_sea_fruits
+  scraper.scrap_fish
 end
