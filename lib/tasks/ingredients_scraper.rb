@@ -186,6 +186,19 @@ class Scraper
     end
   end
 
+  def scrap_farine
+    url = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Farine"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    farine = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      farine << element.text
+    end
+    File.open("../../db/db_ingredients/farine.json", 'wb') do |file|
+     file.write(JSON.generate(farine))
+    end
+  end
+
   scraper = Scraper.new
-  scraper.scrap_fish
+  scraper.scrap_farine
 end
