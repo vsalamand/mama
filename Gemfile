@@ -47,6 +47,8 @@ gem 'figaro'
 gem 'devise'
 # setup Elastic search gem
 gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
+# scraper
+gem 'nokogiri'
 
 
 # Use Capistrano for deployment
