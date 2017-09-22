@@ -302,7 +302,64 @@ class Scraper
     end
   end
 
+  def scrap_farines
+    url = "https://fr.wikipedia.org/wiki/Farine"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    farine = []
+    doc.search("table tr td ul li a").each do |element|
+      farine << element.text
+    end
+    File.open("../../db/db_ingredients/farines.json", 'wb') do |file|
+     file.write(JSON.generate(farine))
+    end
+  end
+
+  def scrap_chocolats
+    url = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Chocolat"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    chocolat = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      chocolat << element.text
+    end
+    File.open("../../db/db_ingredients/chocolats.json", 'wb') do |file|
+     file.write(JSON.generate(chocolat))
+    end
+  end
+
+  def scrap_confiserie
+    url = "https://fr.wikipedia.org/wiki/Confiserie"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    confiseries = []
+    doc.search("div[class='mw-parser-output'] ul li a").each do |element|
+      confiseries << element.text
+    end
+    File.open("../../db/db_ingredients/confiserie.json", 'wb') do |file|
+     file.write(JSON.generate(confiseries))
+    end
+  end
+
+  def scrap_beverages
+    boissons = []
+    url1 = "https://fr.wikipedia.org/wiki/Boisson"
+    file1 = open(url1)
+    doc1 = Nokogiri::HTML(file1)
+    doc1.search("div[class='mw-parser-output'] ul li a").each do |element|
+      boissons << element.text
+    end
+    url2 = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Boisson"
+    file2 = open(url2)
+    doc2 = Nokogiri::HTML(file2)
+    doc2.search("div[class='mw-category-group'] ul li a").each do |element|
+      boissons << element.text
+    end
+    File.open("../../db/db_ingredients/boissons.json", 'wb') do |file|
+     file.write(JSON.generate(boissons))
+    end
+  end
 
   scraper = Scraper.new
-  # scraper.scrap_volaille
+  scraper.scrap_beverages
 end
