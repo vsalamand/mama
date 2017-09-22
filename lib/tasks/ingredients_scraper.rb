@@ -225,6 +225,84 @@ class Scraper
     end
   end
 
+  def scrap_charcuterie
+    delicatessen = []
+    url1 = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Charcuterie"
+    file1 = open(url1)
+    doc1 = Nokogiri::HTML(file1)
+    doc1.search("div[class='mw-category-group'] ul li a").each do |element|
+      delicatessen << element.text
+    end
+    url2 = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Jambon"
+    file2 = open(url2)
+    doc2 = Nokogiri::HTML(file2)
+    doc2.search("div[class='mw-category-group'] ul li a").each do |element|
+      delicatessen << element.text
+    end
+    url3 = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Saucisse"
+    file3 = open(url3)
+    doc3 = Nokogiri::HTML(file3)
+    doc3.search("div[class='mw-category-group'] ul li a").each do |element|
+      delicatessen << element.text
+    end
+    File.open("../../db/db_ingredients/charcuterie.json", 'wb') do |file|
+     file.write(JSON.generate(delicatessen))
+    end
+  end
+
+  def scrap_sugar
+    url = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:%C3%89dulcorant"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    sucres = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      sucres << element.text
+    end
+    File.open("../../db/db_ingredients/sucres.json", 'wb') do |file|
+     file.write(JSON.generate(sucres))
+    end
+  end
+
+  def scrap_beef
+    url = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:D%C3%A9coupe_du_b%C5%93uf"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    beef = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      beef << element.text
+    end
+    File.open("../../db/db_ingredients/boeuf.json", 'wb') do |file|
+     file.write(JSON.generate(beef))
+    end
+  end
+
+  def scrap_abats
+    url = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Abats"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    abats = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      abats << element.text
+    end
+    File.open("../../db/db_ingredients/abats.json", 'wb') do |file|
+     file.write(JSON.generate(abats))
+    end
+  end
+
+  def scrap_porc
+    url = "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:D%C3%A9coupe_du_porc"
+    file = open(url)
+    doc = Nokogiri::HTML(file)
+    porc = []
+    doc.search("div[class='mw-category-group'] ul li a").each do |element|
+      porc << element.text
+    end
+    File.open("../../db/db_ingredients/porc.json", 'wb') do |file|
+     file.write(JSON.generate(porc))
+    end
+  end
+
+
   scraper = Scraper.new
-  scraper.scrap_feculents
+  # scraper.scrap_volaille
 end
