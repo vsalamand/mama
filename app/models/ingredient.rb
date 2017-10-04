@@ -3,4 +3,7 @@ class Ingredient < ApplicationRecord
   has_many :items
 
   acts_as_taggable
+
+  searchkick
+
 end
