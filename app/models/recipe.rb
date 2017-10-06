@@ -1,5 +1,6 @@
 class Recipe < ApplicationRecord
   validates :title, :servings, :ingredients, :instructions, presence: :true
+  has_many :items
 
   acts_as_taggable
 
