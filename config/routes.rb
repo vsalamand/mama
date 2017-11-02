@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'suggest', to: 'actions#suggest'
       get 'search', to: 'actions#search'
+      get 'select', to: 'actions#select'
     end
   end
 
