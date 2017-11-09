@@ -1,7 +1,10 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :search]
+  skip_before_action :authenticate_user!, only: [:home, :search, :confirmation]
 
   def home
+  end
+
+  def confirmation
   end
 
   def search

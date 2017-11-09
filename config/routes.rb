@@ -15,8 +15,9 @@ Rails.application.routes.draw do
 
   get 'search', to: 'pages#search'
   get 'suggest', to: 'pages#suggest'
+  get 'confirmation', to: 'pages#confirmation'
 
-  resources :recipes, only: [:show]
+  resources :recipes
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

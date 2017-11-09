@@ -1,5 +1,6 @@
 class Recipe < ApplicationRecord
-  validates :title, :servings, :ingredients, :instructions, presence: :true
+  validates :title, :servings, :ingredients, :instructions, :status, :origin, presence: :true
+  validates :title, uniqueness: :true
   has_many :items
 
   acts_as_taggable
@@ -10,8 +11,7 @@ class Recipe < ApplicationRecord
     {
       title: title,
       ingredients: ingredients,
-      tags: tag_list,
-      recommendable: recommendable
+      tags: tag_list
     }
   end
 end
