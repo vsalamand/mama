@@ -2,6 +2,10 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: :show
   skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
 
+  def pending
+    @recipes = Recipe.where(status: "pending")
+  end
+
   def new
     @recipe = Recipe.new
   end

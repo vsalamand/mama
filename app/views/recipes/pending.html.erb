@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <h1>Nouveau contenu en attente de validation</h1>
+  </div>
+  <div class="row">
+    <% @recipes.each do |recipe| %>
+      <li>
+        <%= recipe.title %>
+<!--         <%= recipe.status %>
+        <%= recipe.created_at %> -->
+      </li>
+    <% end %>
+  </div>
+
+</div>
