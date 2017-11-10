@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="form-wrapper">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <h2>Ajouter un item</h2>
+        <div class="recipe-form">
+          <%= simple_form_for [@recipe, @item] do |f| %>
+            <%= f.input :quantity, class: 'form-control' %>
+            <%= f.association :unit, class: 'form-control' %>
+            <%= f.association :ingredient, class: 'form-control' %>
+            <%= f.submit "ajouter l'item", class: "form-control btn-death" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

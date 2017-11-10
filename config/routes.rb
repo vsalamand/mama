@@ -13,14 +13,16 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  get 'search', to: 'pages#search'
-  get 'suggest', to: 'pages#suggest'
   get 'confirmation', to: 'pages#confirmation'
 
   resources :recipes do
     collection do
       get 'pending', to: 'recipes#pending'
     end
+  end
+
+  resources :recipes do
+    resources :items
   end
 
   resources :recipes

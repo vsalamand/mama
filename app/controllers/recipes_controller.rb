@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: :show
+  before_action :set_recipe, only: [ :show, :edit, :update ]
   skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
 
   def pending
@@ -19,6 +19,9 @@ class RecipesController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def edit
   end
 
   private
