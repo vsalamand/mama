@@ -7,7 +7,7 @@
           <%= simple_form_for [@recipe, @item] do |f| %>
             <%= f.input :quantity, class: 'form-control' %>
             <%= f.association :unit, class: 'form-control' %>
-            <%= f.association :ingredient, class: 'form-control' %>
+            <%= f.collection_select :ingredient_id, Ingredient.all, :id, :name, class: 'form-control' %>
             <%= f.submit "ajouter l'item", class: "form-control btn-death" %>
           <% end %>
         </div>
