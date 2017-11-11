@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     collection do
       get 'pending', to: 'recipes#pending'
     end
+    member do
+      get :set_published_status
+      get :set_dismissed_status
+    end
     resources :items
   end
 

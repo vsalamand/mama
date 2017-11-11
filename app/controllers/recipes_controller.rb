@@ -25,6 +25,20 @@ class RecipesController < ApplicationController
   def edit
   end
 
+  def set_published_status
+    @recipe = Recipe.find(params[:id])
+    @recipe.status = "published"
+    @recipe.save
+    redirect_to recipe_path(@recipe)
+  end
+
+  def set_dismissed_status
+    @recipe = Recipe.find(params[:id])
+    @recipe.status = "dismissed"
+    @recipe.save
+    redirect_to recipe_path(@recipe)
+  end
+
   private
   def set_recipe
     @recipe = Recipe.find(params[:id])

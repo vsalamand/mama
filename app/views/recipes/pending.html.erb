@@ -5,9 +5,8 @@
   <div class="row">
     <% @recipes.each do |recipe| %>
       <li>
-        <%= recipe.title %>
-<!--         <%= recipe.status %>
-        <%= recipe.created_at %> -->
+        <%= recipe.id %> |
+        <%= link_to recipe.title, recipe_path(recipe) %>
       </li>
     <% end %>
   </div>
