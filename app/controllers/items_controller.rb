@@ -9,11 +9,23 @@ class ItemsController < ApplicationController
     @recipe = Recipe.find(params[:recipe_id])
     @item = Item.new(items_params)
     @item.recipe = @recipe
-   if @item.save
+    if @item.save
       redirect_to recipe_path(@recipe)
     else
       render 'new'
     end
+  end
+
+  def edit
+    @recipe = Recipe.find(params[:recipe_id])
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @recipe = Recipe.find(params[:recipe_id])
+    @item = Item.find(params[:id])
+    @item.update(items_params)
+    redirect_to recipe_path(@recipe)
   end
 
   private

@@ -51,6 +51,7 @@
             <%= item.quantity %>
             <%= item.unit.name if item.unit %>
             <%= item.ingredient.name %>
+            <%= link_to 'Modifier', edit_recipe_item_path(@recipe, item) %>
           </li>
         <% end %>
       </div>
