@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [ :show, :edit, :update ]
+  before_action :set_recipe, only: [ :show, :edit, :update, :set_published_status, :set_dismissed_status ]
   skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
 
   def pending
@@ -26,14 +26,12 @@ class RecipesController < ApplicationController
   end
 
   def set_published_status
-    @recipe = Recipe.find(params[:id])
     @recipe.status = "published"
     @recipe.save
     redirect_to recipe_path(@recipe)
   end
 
   def set_dismissed_status
-    @recipe = Recipe.find(params[:id])
     @recipe.status = "dismissed"
     @recipe.save
     redirect_to recipe_path(@recipe)
