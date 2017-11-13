@@ -13,10 +13,18 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  get 'search', to: 'pages#search'
-  get 'suggest', to: 'pages#suggest'
+  get 'confirmation', to: 'pages#confirmation'
 
-  resources :recipes, only: [:show]
+  resources :recipes do
+    collection do
+      get 'pending', to: 'recipes#pending'
+    end
+    member do
+      get :set_published_status
+      get :set_dismissed_status
+    end
+    resources :items
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
