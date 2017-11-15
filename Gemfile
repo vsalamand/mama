@@ -49,6 +49,8 @@ gem 'devise'
 gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
 # scraper
 gem 'nokogiri'
+#recipe microformat parser for ruby
+gem 'hangry'
 
 
 # Use Capistrano for deployment
