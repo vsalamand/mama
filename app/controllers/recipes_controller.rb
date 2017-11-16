@@ -96,15 +96,16 @@ class RecipesController < ApplicationController
   def marmiton(url)
     page =  Nokogiri::HTML(open(url).read)
     @recipe.title = page.css('h1').text
-    @recipe.servings = page.css('recipe-infos__quantity > span.title-2 recipe-infos__quantity__value').text.to_i
+    @recipe.servings = page.css('div.recipe-infos__quantity').text.gsub(/[^0-9]/, '').to_i
     ingredients = []
-    ingredients_text = page.css('ul.recipe-ingredients__list li.recipe-ingredients__list__item').each do |ingredient_tag|
+    ingredients_text = page.css('li.recipe-ingredients__list__item').each do |ingredient_tag|
       ingredients << ingredient_tag.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
     end
     @recipe.ingredients = ingredients.join("\r\n")
     steps = []
-    steps_text = page.css('ol.recipe-preparation__list').each do |step_tag|
-      steps << step_tag.text
+    steps_text = page.css('ol.recipe-preparation__list li').each do |step_tag|
+      page.css('ol.recipe-preparation__list h3').remove
+      steps << step_tag.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
     end
     @recipe.instructions = steps.join("\r\n")
   end
@@ -113,10 +114,9 @@ class RecipesController < ApplicationController
     page =  Nokogiri::HTML(open(url).read)
     @recipe.title = page.css('h1.c-article__title').text
     instructions = []
-    page.css('div.c-recipe-steps div.c-recipe-steps__item-content p').each do |element|
+    page.css('div.c-recipe-steps__item-content').each do |element|
       instructions << element.text
     end
-    binding.pry
     @recipe.instructions = instructions.join("\r\n")
     ingredients = []
     css_ingredient = "div.c-recipe-ingredients ul.c-recipe-ingredients__list li.ingredient"
