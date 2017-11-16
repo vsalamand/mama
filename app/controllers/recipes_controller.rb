@@ -25,7 +25,7 @@ class RecipesController < ApplicationController
       generate_recipe_items(@recipe)
       redirect_to confirmation_path
     else
-      render 'new'
+      redirect_to new_recipe_path
     end
   end
 
@@ -58,10 +58,12 @@ class RecipesController < ApplicationController
   recipe_ingredients = recipe.ingredients.split("\r\n")
   recipe_ingredients.each do |element|
       ingredient = Ingredient.search(element.tr("0-9", "").tr("'", " "), operator: "or")
-      element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
-      unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
-      quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
-      Item.create(ingredient: ingredient[0], unit: unit[0], quantity: quantity, recipe: recipe, recipe_ingredient: element)
+      if ingredient
+        element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
+        unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
+        quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
+        Item.create(ingredient: ingredient[0], unit: unit[0], quantity: quantity, recipe: recipe, recipe_ingredient: element)
+      end
     end
   end
 
@@ -70,6 +72,8 @@ class RecipesController < ApplicationController
     url_host = URI.parse(url).host
     if url_host == "www.cuisineaz.com"
       cuisineaz(recipe_url)
+    elsif url_host == "www.wecook.fr"
+      wecook(recipe_url)
     elsif url_host == "www.marmiton.org" || url_host == "m.marmiton.org"
       marmiton(recipe_url)
     elsif url_host == "www.750g.com"
@@ -85,7 +89,10 @@ class RecipesController < ApplicationController
     page =  Nokogiri::HTML(open(url).read)
     @recipe.title = page.css('h1').text
     instructions = []
-    page.css("#preparation p").each { |step_node| instructions << step_node.text }
+    page.css("#preparation p").each do |step_node|
+      page.css("#preparation p span").remove
+      instructions << step_node.text
+    end
     @recipe.instructions = instructions.join("\r\n")
     ingredients = []
     page.css("section.recipe_ingredients li").each { |ing_node| ingredients << ing_node.text }
@@ -98,12 +105,12 @@ class RecipesController < ApplicationController
     @recipe.title = page.css('h1').text
     @recipe.servings = page.css('div.recipe-infos__quantity').text.gsub(/[^0-9]/, '').to_i
     ingredients = []
-    ingredients_text = page.css('li.recipe-ingredients__list__item').each do |ingredient_tag|
+    page.css('li.recipe-ingredients__list__item').each do |ingredient_tag|
       ingredients << ingredient_tag.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
     end
     @recipe.ingredients = ingredients.join("\r\n")
     steps = []
-    steps_text = page.css('ol.recipe-preparation__list li').each do |step_tag|
+    page.css('ol.recipe-preparation__list li').each do |step_tag|
       page.css('ol.recipe-preparation__list h3').remove
       steps << step_tag.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
     end
@@ -111,7 +118,7 @@ class RecipesController < ApplicationController
   end
 
   def septcentcinquanteg(url)
-    page =  Nokogiri::HTML(open(url).read)
+    page = Nokogiri::HTML(open(url).read)
     @recipe.title = page.css('h1.c-article__title').text
     instructions = []
     page.css('div.c-recipe-steps__item-content').each do |element|
@@ -127,12 +134,38 @@ class RecipesController < ApplicationController
     @recipe.ingredients = ingredients.join("\r\n")
   end
 
+  def wecook(url)
+    page =  Nokogiri::HTML(open(url).read)
+    @recipe.title = page.css('[itemprop = "name"]').first.content
+    @recipe.servings = page.css('[itemprop = "recipeYield"]').first.content
+    ingredients = []
+    count = page.css('div.ingredient').count / 2
+    i = 0
+    until i == count
+      ingredients << page.css('div.ingredient')[i].text
+      i += 1
+    end
+    @recipe.ingredients = ingredients.join("\r\n")
+    instructions = []
+    page.css('[itemprop = "recipeInstructions"] span.step-description').each do |element|
+      instructions << element.text
+    end
+    @recipe.instructions = instructions.join("\r\n")
+  end
+
   def schema_org_recipe(url)
-    recipe_html_string = open(recipe_url).read
+    recipe_html_string = open(url).read
     recipe = Hangry.parse(recipe_html_string)
-    @recipe.title = recipe.name
-    @recipe.servings = recipe.yield
-    @recipe.ingredients = recipe.ingredients.join("\r\n")
-    @recipe.instructions = recipe.instructions
+    unless recipe.ingredients.nil?
+      @recipe.title = recipe.name
+      @recipe.servings = recipe.yield
+      @recipe.ingredients = recipe.ingredients.join("\r\n")
+      @recipe.instructions = recipe.instructions
+    end
   end
 end
+
+
+
+
+
