@@ -13,19 +13,29 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def import
+    @recipe = Recipe.new
+  end
+
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.status = "pending"
     if @recipe.link
       recipe_parser(@recipe.link)
+      if @recipe.save
+        generate_recipe_items(@recipe)
+        redirect_to confirmation_path
+      else
+        redirect_to import_recipes_path
+      end
     else
       @recipe.origin = "mama"
-    end
-    @recipe.status = "pending"
-    if @recipe.save
-      generate_recipe_items(@recipe)
-      redirect_to confirmation_path
-    else
-      redirect_to new_recipe_path
+      if @recipe.save
+        generate_recipe_items(@recipe)
+        redirect_to confirmation_path
+      else
+        redirect_to new_recipe_path
+      end
     end
   end
 
