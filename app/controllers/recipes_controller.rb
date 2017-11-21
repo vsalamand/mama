@@ -64,17 +64,16 @@ class RecipesController < ApplicationController
   end
 
   def generate_recipe_items(recipe)
-  recipe = Recipe.find(recipe)
-  recipe_ingredients = recipe.ingredients.split("\r\n")
-  recipe_ingredients.each do |element|
-      ingredient = Ingredient.search(element.tr("0-9", "").tr("'", " "), operator: "or")
-      if ingredient
-        element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
-        unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
-        quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
-        Item.create(ingredient: ingredient[0], unit: unit[0], quantity: quantity, recipe: recipe, recipe_ingredient: element)
+    recipe = Recipe.find(recipe)
+    recipe_ingredients = recipe.ingredients.split("\r\n")
+    recipe_ingredients.each do |element|
+        element = element.strip
+        ingredient = Ingredient.search(element.tr("0-9", "").tr("'", " "), operator: "or")
+          #   element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
+          #   unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
+          #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
+        Item.create(ingredient: ingredient[0], recipe: recipe, recipe_ingredient: element)
       end
-    end
   end
 
   def recipe_parser(url)
