@@ -56,13 +56,19 @@
 }
 
 .recipe-ingredients__list__item {
-  align-items: center;
   list-style-type: none;
   display:flex;
   flex: 0 0 95%;
   border-bottom: 1px solid lightgrey;
-  justify-content: space-between;
   padding: 10px 20px;
+  flex-direction: column;
+  p {
+    margin: 0;
+  }
+}
+
+.recipe-ingredient-item {
+  font-size: 10px
 }
 
 .recipe-instructions {

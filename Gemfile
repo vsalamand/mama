@@ -51,6 +51,8 @@ gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
 gem 'nokogiri'
 #recipe microformat parser for ruby
 gem 'hangry'
+#Bayesian Classifier
+gem 'classifier-reborn'
 
 
 # Use Capistrano for deployment
