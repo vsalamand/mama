@@ -11,7 +11,8 @@ class Recipe < ApplicationRecord
     {
       title: title,
       ingredients: ingredients,
-      tags: tag_list
+      tags: tag_list,
+      status: status
     }
   end
 end
