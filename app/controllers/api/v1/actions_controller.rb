@@ -1,11 +1,12 @@
 class Api::V1::ActionsController < Api::V1::BaseController
 #http://localhost:3000/api/v1/suggest
   def suggest
-    @recommended = Recipe.search("équilibré", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @express = Recipe.search("rapide", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @light = Recipe.search("léger", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @snack = Recipe.search("snack", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @dish = Recipe.search("gourmand", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    @suggestions = []
+    @suggestions << Recipe.search("équilibré", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    @suggestions << Recipe.search("rapide", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    @suggestions << Recipe.search("léger", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    @suggestions << Recipe.search("snack", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    @suggestions << Recipe.search("gourmand", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
     respond_to do |format|
       format.json { render :suggest }
     end

@@ -24,6 +24,7 @@ class RecipesController < ApplicationController
       recipe_parser(@recipe.link)
       if @recipe.save
         generate_recipe_items(@recipe)
+        generate_ingredients_tags(@recipe)
         redirect_to confirmation_path
       else
         redirect_to import_recipes_path
@@ -32,6 +33,7 @@ class RecipesController < ApplicationController
       @recipe.origin = "mama"
       if @recipe.save
         generate_recipe_items(@recipe)
+        generate_ingredients_tags(@recipe)
         redirect_to confirmation_path
       else
         redirect_to new_recipe_path
@@ -74,6 +76,16 @@ class RecipesController < ApplicationController
           #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
         Item.create(ingredient: ingredient[0], recipe: recipe, recipe_ingredient: element)
       end
+  end
+
+  def generate_ingredients_tags(recipe)
+    recipe = Recipe.find(recipe)
+    ingredients = []
+    recipe.items.each { |item| ingredients << item.ingredient }
+    tags = []
+    ingredients.each { |ingredient| ingredient.tags.each { |tag| tags << tag.name} }
+    recipe.tag_list.add(tags.uniq.join(', '), parse: true)
+    recipe.save
   end
 
   def recipe_parser(url)
