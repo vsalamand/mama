@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
   validates :title, uniqueness: :true
   has_many :items
 
-  acts_as_taggable
+  acts_as_ordered_taggable
 
   searchkick
 

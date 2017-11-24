@@ -11,10 +11,10 @@ json.food @suggestions do |array|
     ingredients = []
     food.items.order(:id).select { |item| ingredients << "#{item.ingredient.name.downcase}" }
     json.ingredients ingredients.join(', ')
-    json.emoji "❤️" if food.tag_list.first == "équilibré"
-    json.emoji "💛" if food.tag_list.first == "rapide"
-    json.emoji "💚" if food.tag_list.first == "léger"
-    json.emoji "💙" if food.tag_list.first == "snack"
-    json.emoji "💜" if food.tag_list.first == "gourmand"
+    json.emoji "❤️" if food.tag_list.include?("équilibré")
+    json.emoji "💛" if food.tag_list.include?("rapide")
+    json.emoji "💚" if food.tag_list.include?("léger")
+    json.emoji "💙" if food.tag_list.include?("snack")
+    json.emoji "💜" if food.tag_list.include?("gourmand")
   end
 end
