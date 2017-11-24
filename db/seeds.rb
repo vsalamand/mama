@@ -29,7 +29,7 @@ def seed(filepath, file_tags)
   serialized_ingredients = File.read(filepath)
   ingredients = JSON.parse(serialized_ingredients)
   ingredients.each do |ingredient|
-    name = ingredient
+    name = ingredient.downcase
     tags = file_tags
     seed_ingredient(name, tags)
   end

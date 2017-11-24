@@ -24,7 +24,6 @@ class RecipesController < ApplicationController
       recipe_parser(@recipe.link)
       if @recipe.save
         generate_recipe_items(@recipe)
-        generate_ingredients_tags(@recipe)
         redirect_to confirmation_path
       else
         redirect_to import_recipes_path
@@ -33,7 +32,6 @@ class RecipesController < ApplicationController
       @recipe.origin = "mama"
       if @recipe.save
         generate_recipe_items(@recipe)
-        generate_ingredients_tags(@recipe)
         redirect_to confirmation_path
       else
         redirect_to new_recipe_path
@@ -46,6 +44,7 @@ class RecipesController < ApplicationController
 
   def set_published_status
     @recipe.status = "published"
+    generate_ingredients_tags(@recipe)
     @recipe.save
     redirect_to recipe_path(@recipe)
   end

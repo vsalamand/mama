@@ -28,7 +28,7 @@
       </div>
       <div class="recipe-ingredients">
         <ul>
-          <% @recipe.items.each do |item| %>
+          <% @recipe.items.order(:id).each do |item| %>
             <li class="recipe-ingredients__list__item">
               <p><%= item.recipe_ingredient %></p>
               <% if current_user %>
