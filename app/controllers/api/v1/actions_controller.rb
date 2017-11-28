@@ -1,12 +1,15 @@
+require 'date'
+
 class Api::V1::ActionsController < Api::V1::BaseController
 #http://localhost:3000/api/v1/suggest
   def suggest
-    @suggestions = []
-    @suggestions << Recipe.search("équilibré", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("rapide", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("léger", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("snack", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("gourmand", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    date = Date.today
+    @suggestions = Recommendation.all.select { |reco| reco.recommendation_date == date }.first.daily_reco.split(',')
+    # @suggestions << Recipe.search("équilibré", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    # @suggestions << Recipe.search("rapide", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    # @suggestions << Recipe.search("léger", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    # @suggestions << Recipe.search("snack", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    # @suggestions << Recipe.search("gourmand", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
     respond_to do |format|
       format.json { render :suggest }
     end
