@@ -25,7 +25,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
   def search
     query = params[:query].present? ? params[:query] : nil
     @search = if query
-      Recipe.search(query)
+      Recipe.search(query, where: {status: "published"})
     end
     respond_to do |format|
       format.json { render :search }

@@ -148,7 +148,7 @@ class RecipesController < ApplicationController
     ingredients = []
     css_ingredient = "div.c-recipe-ingredients ul.c-recipe-ingredients__list li.ingredient"
     page.css(css_ingredient).each { |ing_node|
-      ingredients << ing_node.text
+      ingredients << ing_node.text.strip
     }
     @recipe.servings = page.css('div.u-margin-vert.u-border-top.u-border-bottom > h2').text.gsub(/[^0-9]/, '').to_i
     @recipe.ingredients = ingredients.join("\r\n")
