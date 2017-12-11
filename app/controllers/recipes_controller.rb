@@ -102,6 +102,8 @@ class RecipesController < ApplicationController
       unjourunerecette(recipe_url)
     elsif url_host == "www.mangerbouger.fr"
       mangerbouger(recipe_url)
+    elsif url_host =="www.club-sandwich.net"
+      club_sandwich(recipe_url)
     else
       schema_org_recipe(recipe_url)
     end
@@ -205,6 +207,22 @@ class RecipesController < ApplicationController
     ingredients = []
     page.css('.detail > ul > li').each do |ing|
       ingredients << ing.text
+    end
+    @recipe.ingredients = ingredients.join("\r\n")
+  end
+
+  def club_sandwich(url)
+    page =  Nokogiri::HTML(open(url).read)
+    @recipe.title = page.css('.fn').text
+    @recipe.servings = 1
+    instructions = []
+    page.css(".instructions li").each do |step_node|
+      instructions << step_node.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
+    end
+    @recipe.instructions = instructions.join("\r\n")
+    ingredients = []
+    page.css(".ingredients li").each do |ing|
+      ingredients << ing.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
     end
     @recipe.ingredients = ingredients.join("\r\n")
   end
