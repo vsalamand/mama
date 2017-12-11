@@ -15,6 +15,7 @@ class RecommendationsController < ApplicationController
     suggestions << Recipe.search("léger", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
     suggestions << Recipe.search("snack", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
     suggestions << Recipe.search("gourmand", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
+    suggestions << Recipe.search("tarte salée", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
     return suggestions.join(', ')
   end
 end
