@@ -5,7 +5,7 @@
         <h2>Proposer une recette</h2>
         <div class="recipe-form">
           <%= simple_form_for @recipe do |f| %>
-            <%= f.input :tag_list, placeholder: "Type de recette", :collection => ['équilibré', 'rapide', 'léger', 'gourmand', 'snack'], :selected => 'équilibré', label: false,class: 'form-control' %>
+            <%= f.input :tag_list, placeholder: "Type de recette", :collection => ['', 'rapide', 'léger', 'gourmand', 'snack'], :selected => '', label: false,class: 'form-control' %>
             <%= f.input :title, placeholder: "Titre de la recette", label: false, class: 'form-control' %>
             <%= f.input :servings, type: "number", label: false, class: 'form-control' %>
             <%= f.input :ingredients, placeholder: "Ingredients", label: false, class: 'form-control' %>
