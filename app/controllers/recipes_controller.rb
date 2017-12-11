@@ -98,6 +98,8 @@ class RecipesController < ApplicationController
       marmiton(recipe_url)
     elsif url_host == "www.750g.com"
       septcentcinquanteg(recipe_url)
+    elsif url_host == "www.unjourunerecette.fr"
+      unjourunerecette(recipe_url)
     else
       schema_org_recipe(recipe_url)
     end
@@ -171,6 +173,22 @@ class RecipesController < ApplicationController
       instructions << element.text
     end
     @recipe.instructions = instructions.join("\r\n")
+  end
+
+  def unjourunerecette(url)
+    page =  Nokogiri::HTML(open(url).read)
+    @recipe.title = page.css('h1').text
+    instructions = []
+    page.css("#preparation li span").each do |step_node|
+      instructions << step_node.text
+    end
+    @recipe.instructions = instructions.join("\r\n")
+    @recipe.servings = page.css('.courses .yield').text.gsub(/[^0-9]/, '').to_i
+    ingredients = []
+    page.css('.ingredient').each do |ing|
+      ingredients << ing.text
+    end
+    @recipe.ingredients = ingredients.join("\r\n")
   end
 
   def schema_org_recipe(url)
