@@ -1,12 +1,11 @@
+require 'date'
+
 class Api::V1::ActionsController < Api::V1::BaseController
-#http://localhost:3000/api/v1/suggest
+#http://localhost:3000/api/v1/suggest?date=-1
   def suggest
-    @suggestions = []
-    @suggestions << Recipe.search("équilibré", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("rapide", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("léger", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("snack", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
-    @suggestions << Recipe.search("gourmand", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1)
+    date = params[:date].present? ? params[:date].to_i.day.from_now.to_date : Date.today
+    RecommendationsController.create(date) if Recommendation.all.select { |reco| reco.recommendation_date == date }
+    @suggestions = Recommendation.all.select { |reco| reco.recommendation_date == date }.first.daily_reco.split(',')
     respond_to do |format|
       format.json { render :suggest }
     end
@@ -26,7 +25,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
   def search
     query = params[:query].present? ? params[:query] : nil
     @search = if query
-      Recipe.search(query)
+      Recipe.search(query, where: {status: "published"})
     end
     respond_to do |format|
       format.json { render :search }

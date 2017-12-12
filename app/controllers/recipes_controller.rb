@@ -98,6 +98,12 @@ class RecipesController < ApplicationController
       marmiton(recipe_url)
     elsif url_host == "www.750g.com"
       septcentcinquanteg(recipe_url)
+    elsif url_host == "www.unjourunerecette.fr"
+      unjourunerecette(recipe_url)
+    elsif url_host == "www.mangerbouger.fr"
+      mangerbouger(recipe_url)
+    elsif url_host =="www.club-sandwich.net"
+      club_sandwich(recipe_url)
     else
       schema_org_recipe(recipe_url)
     end
@@ -148,7 +154,7 @@ class RecipesController < ApplicationController
     ingredients = []
     css_ingredient = "div.c-recipe-ingredients ul.c-recipe-ingredients__list li.ingredient"
     page.css(css_ingredient).each { |ing_node|
-      ingredients << ing_node.text
+      ingredients << ing_node.text.strip
     }
     @recipe.servings = page.css('div.u-margin-vert.u-border-top.u-border-bottom > h2').text.gsub(/[^0-9]/, '').to_i
     @recipe.ingredients = ingredients.join("\r\n")
@@ -171,6 +177,54 @@ class RecipesController < ApplicationController
       instructions << element.text
     end
     @recipe.instructions = instructions.join("\r\n")
+  end
+
+  def unjourunerecette(url)
+    page =  Nokogiri::HTML(open(url).read)
+    @recipe.title = page.css('h1').text
+    instructions = []
+    page.css("#preparation li span").each do |step_node|
+      instructions << step_node.text
+    end
+    @recipe.instructions = instructions.join("\r\n")
+    @recipe.servings = page.css('.courses .yield').text.gsub(/[^0-9]/, '').to_i
+    ingredients = []
+    page.css('.ingredient').each do |ing|
+      ingredients << ing.text
+    end
+    @recipe.ingredients = ingredients.join("\r\n")
+  end
+
+  def mangerbouger(url)
+    page =  Nokogiri::HTML(open(url).read)
+    @recipe.title = page.css('.title-huge').text.strip
+    instructions = []
+    page.css(".article-content p").each do |step_node|
+      instructions << step_node.text
+    end
+    @recipe.instructions = instructions.join("\r\n")
+    @recipe.servings = page.css('.detail .label').first.text.gsub(/[^0-9]/, '').to_i
+    ingredients = []
+    page.css('.detail > ul > li').each do |ing|
+      ingredients << ing.text
+    end
+    @recipe.ingredients = ingredients.join("\r\n")
+  end
+
+  def club_sandwich(url)
+    page =  Nokogiri::HTML(open(url).read)
+    @recipe.title = page.css('.fn').text
+    @recipe.servings = 1
+    instructions = []
+    page.css(".instructions li").each do |step_node|
+      instructions << step_node.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
+    end
+    @recipe.instructions = instructions.join("\r\n")
+    ingredients = []
+    page.css(".ingredients li").each do |ing|
+      ingredients << ing.text.gsub(/\n/, "").gsub(/\t/, "").gsub(/\r/, "")
+    end
+    @recipe.ingredients = ingredients.join("\r\n")
   end
 
   def schema_org_recipe(url)
