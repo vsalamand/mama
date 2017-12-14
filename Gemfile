@@ -47,6 +47,9 @@ gem 'figaro'
 gem 'devise'
 # setup Elastic search gem
 gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
+# elasticsearch searchbox addon for heroku
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 # scraper
 gem 'nokogiri'
 #recipe microformat parser for ruby

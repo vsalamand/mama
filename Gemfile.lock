@@ -99,6 +99,11 @@ GEM
       elasticsearch-transport (= 5.0.4)
     elasticsearch-api (5.0.4)
       multi_json
+    elasticsearch-model (5.0.2)
+      activesupport (> 3)
+      elasticsearch (~> 5)
+      hashie
+    elasticsearch-rails (5.0.2)
     elasticsearch-transport (5.0.4)
       faraday
       multi_json
@@ -285,6 +290,8 @@ DEPENDENCIES
   classifier-reborn
   coffee-rails (~> 4.2)
   devise
+  elasticsearch-model
+  elasticsearch-rails
   figaro
   font-awesome-sass
   hangry
@@ -313,4 +320,4 @@ RUBY VERSION
    ruby 2.3.4p301
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
