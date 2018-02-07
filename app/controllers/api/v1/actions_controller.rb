@@ -3,8 +3,8 @@ require 'date'
 class Api::V1::ActionsController < Api::V1::BaseController
 #http://localhost:3000/api/v1/suggest?date=-1
   def suggest
-    date = params[:date].present? ? params[:date].to_i.day.from_now.to_date : Date.today
-    RecommendationsController.create(date) unless Recommendation.all.select { |reco| reco.recommendation_date == date }
+    date = params[:date].present? ? (Date.today + params[:date].to_i).strftime("%F") : Date.today.strftime("%F")
+    RecommendationsController.create(date) if Recommendation.all.select { |reco| reco.recommendation_date == date }
     @suggestions = Recommendation.all.select { |reco| reco.recommendation_date == date }.first.daily_reco.split(',')
     respond_to do |format|
       format.json { render :suggest }
@@ -17,8 +17,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
       @recipe = Recipe.find(params[:recipe])
     end
     respond_to do |format|
-      format.json { render :select }
-    end
+      format.json { render :select
+}    end
   end
 
 #http://localhost:3000/api/v1/search?query=snack+citron+cru
