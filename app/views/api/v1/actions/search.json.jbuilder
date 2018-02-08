@@ -11,9 +11,9 @@ json.food @search do |array|
   ingredients = []
   food.items.order(:id).select { |item| ingredients << "#{item.ingredient.name.downcase}" }
   json.ingredients ingredients.join(', ')
-  json.emoji "🍲" if food.tag_list.include?("rapide")
-  json.emoji "🥗" if food.tag_list.include?("léger")
-  json.emoji "🍔" if food.tag_list.include?("snack")
-  json.emoji "🔪" if food.tag_list.include?("gourmand")
-  json.emoji "🍕" if food.tag_list.include?("tarte salée")
+  json.emoji "❤️ " if food.tag_list.include?("rapide")
+  json.emoji "💚" if food.tag_list.include?("léger")
+  json.emoji "💛" if food.tag_list.include?("snack")
+  json.emoji "💙" if food.tag_list.include?("tarte salée")
+  json.emoji "💜" if food.tag_list.include?("gourmand")
 end
