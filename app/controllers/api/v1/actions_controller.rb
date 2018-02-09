@@ -17,8 +17,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
       @recipe = Recipe.find(params[:recipe])
     end
     respond_to do |format|
-      format.json { render :select
-}    end
+      format.json { render :select }
+    end
   end
 
 #http://localhost:3000/api/v1/search?query=snack+citron+cru
