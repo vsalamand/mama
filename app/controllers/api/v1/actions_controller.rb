@@ -31,4 +31,13 @@ class Api::V1::ActionsController < Api::V1::BaseController
       format.json { render :search }
     end
   end
+
+#http://localhost:3000/api/v1/recommend?type=rapide
+  def recommend
+    type = params[:type]
+    @recommendation = Recipe.find(RecommendationsController.recommend(type))
+    respond_to do |format|
+      format.json { render :recommend }
+    end
+  end
 end

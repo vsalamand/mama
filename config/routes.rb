@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get 'suggest', to: 'actions#suggest'
       get 'search', to: 'actions#search'
       get 'select', to: 'actions#select'
+      get 'recommend', to: 'actions#recommend'
     end
   end
 
