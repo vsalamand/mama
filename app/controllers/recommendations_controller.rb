@@ -4,7 +4,8 @@ class RecommendationsController < ApplicationController
   def self.create(date)
     @recommendations = Recommendation.new
     @recommendations.recommendation_date = date
-    @recommendations.daily_reco = RecommendationsController.recommend
+    type = nil
+    @recommendations.daily_reco = RecommendationsController.recommend(type)
     @recommendations.save
   end
 
