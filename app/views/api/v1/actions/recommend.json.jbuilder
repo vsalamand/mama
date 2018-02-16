@@ -6,3 +6,4 @@ json.servings @recommendation.servings
 ingredients = []
 @recommendation.items.order(:id).select { |item| ingredients << "#{item.ingredient.name.downcase}" }
 json.ingredients ingredients.join(', ')
+json.valid_user @user
