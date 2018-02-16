@@ -40,4 +40,14 @@ class Api::V1::ActionsController < Api::V1::BaseController
       format.json { render :recommend }
     end
   end
+
+#http://localhost:3000/api/v1/profile?sender_id=123456&username=test
+  def profile
+    @profile = User.find_or_create_by(sender_id: params[:sender_id])
+    @profile.username = params[:username]
+    @profile.save
+    respond_to do |format|
+      format.json { render :profile }
+    end
+  end
 end
