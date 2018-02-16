@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'search', to: 'actions#search'
       get 'select', to: 'actions#select'
       get 'recommend', to: 'actions#recommend'
+      get 'profile', to: 'actions#profile'
     end
   end
 

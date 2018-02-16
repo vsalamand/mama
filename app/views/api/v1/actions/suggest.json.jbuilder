@@ -17,4 +17,5 @@ json.food @suggestions do |array|
   json.emoji "💛" if food.tag_list.include?("snack")
   json.emoji "💙" if food.tag_list.include?("tarte salée")
   json.emoji "💜" if food.tag_list.include?("gourmand")
+  json.valid_user @user
 end
