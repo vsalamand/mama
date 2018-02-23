@@ -46,6 +46,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
   def profile
     @profile = User.find_or_create_by(sender_id: params[:user])
     @profile.username = params[:username]
+    if @profile.email.empty? then @profile.email = "#{params[:user]}@foodmama.fr" end
     @profile.save
     respond_to do |format|
       format.json { render :profile }
