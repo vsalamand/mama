@@ -69,18 +69,18 @@ class RecipesController < ApplicationController
     recipe_ingredients = recipe.ingredients.split("\r\n")
     recipe_ingredients.each do |element|
         element = element.strip
-        ingredient = Ingredient.search(element.tr("0-9", "").tr("'", " "), operator: "or")
+        food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or")
           #   element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
           #   unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
           #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
-        Item.create(ingredient: ingredient[0], recipe: recipe, recipe_ingredient: element)
+        Item.create(food: food[0], recipe: recipe, recipe_ingredient: element)
       end
   end
 
   def generate_ingredients_tags(recipe)
     recipe = Recipe.find(recipe)
     ingredients = []
-    recipe.items.each { |item| ingredients << item.ingredient }
+    recipe.items.each { |item| ingredients << item.food }
     tags = []
     ingredients.each { |ingredient| ingredient.tags.each { |tag| tags << tag.name} }
     recipe.tag_list.add(tags.uniq.join(', '), parse: true)
