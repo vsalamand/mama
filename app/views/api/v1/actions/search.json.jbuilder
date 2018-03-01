@@ -9,7 +9,7 @@ json.food @search do |array|
   json.id food.id
   json.servings food.servings
   ingredients = []
-  food.items.order(:id).select { |item| ingredients << "#{item.ingredient.name.downcase}" }
+  food.items.order(:id).select { |item| ingredients << "#{item.food.name.downcase}" }
   json.ingredients ingredients.join(', ')
   json.emoji "1️⃣" if @search.first == array
   json.emoji "2️⃣" if @search[1] == array

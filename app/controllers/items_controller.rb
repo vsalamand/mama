@@ -34,6 +34,6 @@ class ItemsController < ApplicationController
   end
 
   def items_params
-    params.require(:item).permit(:ingredient_id, :recipe, :unit_id, :quantity, :recipe_ingredient) ## Rails 4 strong params usage
+    params.require(:item).permit(:food_id, :recipe, :unit_id, :quantity, :recipe_ingredient) ## Rails 4 strong params usage
   end
 end

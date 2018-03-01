@@ -9,7 +9,7 @@ json.food @suggestions do |array|
   json.id food.id
   json.servings food.servings
   ingredients = []
-  food.items.order(:id).select { |item| ingredients << "#{item.ingredient.name.downcase}" }
+  food.items.order(:id).select { |item| ingredients << "#{item.food.name.downcase}" }
   json.ingredients ingredients.join(', ')
   # json.emoji "❤️" if food.tag_list.include?("équilibré")
   json.emoji "🍲" if food.tag_list.include?("rapide")
