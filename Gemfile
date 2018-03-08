@@ -65,7 +65,7 @@ gem 'ancestry'
 
 # RailsAdmin
 gem 'remotipart', github: 'mshibuya/remotipart'
-gem 'rails_admin', '>= 1.0.0.rc'
+gem 'rails_admin', '~> 1.3'
 gem 'rails_admin_tag_list'
 
 # Tags management
