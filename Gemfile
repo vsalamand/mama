@@ -56,6 +56,8 @@ gem 'nokogiri'
 gem 'hangry'
 #Bayesian Classifier
 gem 'classifier-reborn'
+# organize model in tree structure for categories, subscategories, etc...
+gem 'ancestry'
 
 
 # Use Capistrano for deployment
