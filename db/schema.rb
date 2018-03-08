@@ -10,16 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301191235) do
+ActiveRecord::Schema.define(version: 20180308110947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "ancestry"
+    t.index ["ancestry"], name: "index_categories_on_ancestry", using: :btree
+  end
 
   create_table "foods", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                                                              null: false
     t.datetime "updated_at",                                                              null: false
     t.string   "availability", default: "01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12"
+    t.integer  "category_id"
+    t.index ["category_id"], name: "index_foods_on_category_id", using: :btree
   end
 
   create_table "items", force: :cascade do |t|
@@ -106,6 +116,7 @@ ActiveRecord::Schema.define(version: 20180301191235) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "foods", "categories"
   add_foreign_key "items", "foods"
   add_foreign_key "items", "recipes"
   add_foreign_key "items", "units"

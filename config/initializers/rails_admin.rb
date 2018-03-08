@@ -43,4 +43,14 @@ RailsAdmin.config do |config|
     # history_show
   end
 
+  ## == Ancestry ==
+  config.model Category do
+    field :name
+    field :parent_id, :enum do
+      enum_method do
+        :parent_enum
+      end
+    end
+  end
+
 end
