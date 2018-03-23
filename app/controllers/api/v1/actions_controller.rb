@@ -62,6 +62,16 @@ class Api::V1::ActionsController < Api::V1::BaseController
     head :ok
   end
 
+  #http://localhost:3000/api/v1/remove_from_cart?product_id=123456&user=12345678
+  def remove_from_cart
+    profile = User.find_by(sender_id: params[:user])
+    cart = Cart.find_by(user_id: profile.id)
+    product = Recipe.find(params[:product_id])
+    cart_item = CartItem.find_by(cart_id: cart.id, productable_id: product.id, productable_type: product.class.name)
+    cart_item.destroy
+    head :ok
+  end
+
   #http://localhost:3000/api/v1/cart?user=12345678
   def cart
     profile = User.find_by(sender_id: params[:user])

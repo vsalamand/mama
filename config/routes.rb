@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'profile', to: 'actions#profile'
       get 'cart', to: 'actions#cart'
       get 'add_to_cart', to: 'actions#add_to_cart'
+      get 'remove_from_cart', to: 'actions#remove_from_cart'
     end
   end
 
