@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable
 
   validates :sender_id, uniqueness: true
+
+  has_one :cart
 end
