@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'cart', to: 'actions#cart'
       get 'add_to_cart', to: 'actions#add_to_cart'
       get 'remove_from_cart', to: 'actions#remove_from_cart'
+      get 'place_order', to: 'actions#place_order'
     end
   end
 

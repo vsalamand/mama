@@ -81,6 +81,15 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/place_order?cart=12345&user=12345678
+  def place_order
+    cart = Cart.find(params[:cart])
+    type = "Grocery list"
+    @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type)
+    @order.order_cart_items
+    head :ok
+  end
+
   private
   def is_valid?
     @profile = User.find_by sender_id: params[:user]
