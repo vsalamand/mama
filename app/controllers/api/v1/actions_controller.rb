@@ -53,6 +53,51 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/add_to_cart?product_id=123456&user=12345678
+  def add_to_cart
+    profile = User.find_by(sender_id: params[:user])
+    cart = Cart.find_or_create_by(user_id: profile.id)
+    product = Recipe.find(params[:product_id])
+    CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: cart.id)
+    head :ok
+  end
+
+  #http://localhost:3000/api/v1/remove_from_cart?product_id=123456&user=12345678
+  def remove_from_cart
+    profile = User.find_by(sender_id: params[:user])
+    cart = Cart.find_by(user_id: profile.id)
+    product = Recipe.find(params[:product_id])
+    cart_item = CartItem.find_by(cart_id: cart.id, productable_id: product.id, productable_type: product.class.name)
+    cart_item.destroy
+    head :ok
+  end
+
+  #http://localhost:3000/api/v1/cart?user=12345678
+  def cart
+    profile = User.find_by(sender_id: params[:user])
+    @cart = Cart.find_or_create_by(user_id: profile.id)
+    respond_to do |format|
+      format.json { render :cart }
+    end
+  end
+
+  #http://localhost:3000/api/v1/checkout?cart=12345&user=12345678
+  def checkout
+    cart = Cart.find(params[:cart])
+    type = "Grocery list"
+    @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type)
+    @order.order_cart_items
+    head :ok
+  end
+
+  #http://localhost:3000/api/v1/order?order=123456&user=12345678
+  def order
+    @order = Order.find(params[:order])
+    respond_to do |format|
+      format.json { render :order }
+    end
+  end
+
   private
   def is_valid?
     @profile = User.find_by sender_id: params[:user]

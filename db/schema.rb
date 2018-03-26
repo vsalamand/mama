@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180308110947) do
+ActiveRecord::Schema.define(version: 20180324105411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cart_items", force: :cascade do |t|
+    t.string   "name"
+    t.string   "productable_type"
+    t.integer  "productable_id"
+    t.integer  "quantity"
+    t.integer  "cart_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "order_id"
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
+    t.index ["order_id"], name: "index_cart_items_on_order_id", using: :btree
+    t.index ["productable_type", "productable_id"], name: "index_cart_items_on_productable_type_and_productable_id", using: :btree
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id", using: :btree
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -43,6 +64,16 @@ ActiveRecord::Schema.define(version: 20180308110947) do
     t.index ["food_id"], name: "index_items_on_food_id", using: :btree
     t.index ["recipe_id"], name: "index_items_on_recipe_id", using: :btree
     t.index ["unit_id"], name: "index_items_on_unit_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "cart_id"
+    t.string   "order_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_orders_on_cart_id", using: :btree
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -116,8 +147,13 @@ ActiveRecord::Schema.define(version: 20180308110947) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "orders"
+  add_foreign_key "carts", "users"
   add_foreign_key "foods", "categories"
   add_foreign_key "items", "foods"
   add_foreign_key "items", "recipes"
   add_foreign_key "items", "units"
+  add_foreign_key "orders", "carts"
+  add_foreign_key "orders", "users"
 end

@@ -8,6 +8,11 @@ Rails.application.routes.draw do
       get 'select', to: 'actions#select'
       get 'recommend', to: 'actions#recommend'
       get 'profile', to: 'actions#profile'
+      get 'cart', to: 'actions#cart'
+      get 'add_to_cart', to: 'actions#add_to_cart'
+      get 'remove_from_cart', to: 'actions#remove_from_cart'
+      get 'checkout', to: 'actions#checkout'
+      get 'order', to: 'actions#order'
     end
   end
 

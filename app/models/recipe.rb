@@ -3,6 +3,7 @@ class Recipe < ApplicationRecord
   validates :title, uniqueness: :true
   has_many :items
   has_many :foods, through: :items
+  has_many :cart_items, :as => :productable
 
   acts_as_ordered_taggable
 
