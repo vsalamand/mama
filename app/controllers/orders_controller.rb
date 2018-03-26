@@ -1,8 +1,4 @@
 class OrdersController < ApplicationController
-
-  def create
-  end
-
   private
   def set_order
     @order = Order.find(params[:id])
