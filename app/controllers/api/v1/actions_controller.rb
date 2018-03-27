@@ -58,7 +58,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     profile = User.find_by(sender_id: params[:user])
     cart = Cart.find_or_create_by(user_id: profile.id)
     product = Recipe.find(params[:product_id])
-    CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: cart.id)
+    CartItem.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: cart.id)
     head :ok
   end
 
