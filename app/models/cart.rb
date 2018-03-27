@@ -2,6 +2,8 @@ class Cart < ApplicationRecord
   validates :user_id, uniqueness: true, presence: :true
   belongs_to :users, optional: true
   has_many :cart_items
+  has_many :recipes, :through => :cart_items, :source => :productable, :source_type => 'Recipe'
+  has_many :foods, :through => :recipes
 
   def add_product(product)
 

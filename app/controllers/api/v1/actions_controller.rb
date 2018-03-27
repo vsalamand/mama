@@ -98,6 +98,15 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/grocerylist?order=123456&user=12345678
+  def grocerylist
+    @order = Order.find(params[:order])
+    @grocery_list = @order.send_grocery_list
+    respond_to do |format|
+      format.json { render :grocerylist }
+    end
+  end
+
   private
   def is_valid?
     @profile = User.find_by sender_id: params[:user]
