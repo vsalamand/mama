@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get 'remove_from_cart', to: 'actions#remove_from_cart'
       get 'checkout', to: 'actions#checkout'
       get 'order', to: 'actions#order'
+      get 'grocerylist', to: 'actions#grocerylist'
     end
   end
 
