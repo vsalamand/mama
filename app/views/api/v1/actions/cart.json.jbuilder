@@ -2,7 +2,10 @@ require 'open-uri'
 
 json.cart_id @cart.id
 json.cart @cart.cart_items do |cart_item|
-  json.product_name cart_item.name
+  json.product_name cart_item.name.upcase
+  ingredients = []
+    cart_item.productable.foods.each { |food| ingredients << "#{food.name.downcase}" }
+  json.ingredients ingredients.join(', ')
   json.quantity cart_item.quantity
   json.product_type cart_item.productable_type
   json.product_id cart_item.productable_id
