@@ -83,13 +83,16 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
-  #http://localhost:3000/api/v1/checkout?cart=12345&user=12345678
+  #http://localhost:3000/api/v1/checkout?user=12345678
   def checkout
-    cart = Cart.find(params[:cart])
+    profile = User.find_by(sender_id: params[:user])
+    cart = Cart.find_by(user_id: profile.id)
     type = "Grocery list"
     @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type)
     @order.order_cart_items
-    head :ok
+    respond_to do |format|
+      format.json { render :checkout }
+    end
   end
 
   #http://localhost:3000/api/v1/order?order=123456&user=12345678
