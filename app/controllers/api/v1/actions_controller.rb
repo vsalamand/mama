@@ -56,10 +56,12 @@ class Api::V1::ActionsController < Api::V1::BaseController
   #http://localhost:3000/api/v1/add_to_cart?product_id=123456&user=12345678
   def add_to_cart
     profile = User.find_by(sender_id: params[:user])
-    cart = Cart.find_or_create_by(user_id: profile.id)
+    @cart = Cart.find_or_create_by(user_id: profile.id)
     product = Recipe.find(params[:product_id])
-    CartItem.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: cart.id)
-    head :ok
+    @cart_item = CartItem.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: @cart.id)
+    respond_to do |format|
+      format.json { render :add_to_cart }
+    end
   end
 
   #http://localhost:3000/api/v1/remove_from_cart?product_id=123456&user=12345678
