@@ -7,4 +7,5 @@ class User < ApplicationRecord
   validates :sender_id, uniqueness: true
 
   has_one :cart
+  has_many :orders
 end
