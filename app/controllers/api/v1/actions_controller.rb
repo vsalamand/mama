@@ -106,7 +106,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
   #http://localhost:3000/api/v1/order_history?user=12345678
   def order_history
     profile = User.find_by(sender_id: params[:user])
-    @order_history = profile.orders.reverse
+    @order_history = profile.orders.reverse[0..9]
     respond_to do |format|
       format.json { render :order_history }
     end
