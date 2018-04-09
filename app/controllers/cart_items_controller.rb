@@ -3,9 +3,9 @@ class CartItemsController < ApplicationController
   before_action :set_cart_item, only: [:destroy]
 
   def self.create(product)
-    cart = Cart.find(product[:cart_id])
-    cart.add_product(product)
-    cart.save
+    @cart = Cart.find(product[:cart_id])
+    @cart.add_product(product)
+    @cart.save
   end
 
   def destroy
