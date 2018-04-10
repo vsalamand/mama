@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410153003) do
+ActiveRecord::Schema.define(version: 20180410175732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,13 +76,24 @@ ActiveRecord::Schema.define(version: 20180410153003) do
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
+  create_table "recipe_list_items", force: :cascade do |t|
+    t.integer  "recipe_id"
+    t.integer  "recipe_list_id"
+    t.integer  "position"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "name"
+    t.index ["recipe_id"], name: "index_recipe_list_items_on_recipe_id", using: :btree
+    t.index ["recipe_list_id"], name: "index_recipe_list_items_on_recipe_list_id", using: :btree
+  end
+
   create_table "recipe_lists", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
     t.text     "description"
-    t.string   "type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "recipe_list_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.index ["user_id"], name: "index_recipe_lists_on_user_id", using: :btree
   end
 
@@ -166,5 +177,7 @@ ActiveRecord::Schema.define(version: 20180410153003) do
   add_foreign_key "items", "units"
   add_foreign_key "orders", "carts"
   add_foreign_key "orders", "users"
+  add_foreign_key "recipe_list_items", "recipe_lists"
+  add_foreign_key "recipe_list_items", "recipes"
   add_foreign_key "recipe_lists", "users"
 end
