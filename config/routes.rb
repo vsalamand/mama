@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     collection do
       get 'pending', to: 'recipes#pending'
       get 'import', to: 'recipes#import'
+      get 'recipes', to: 'recipes#show'
     end
     member do
       get :set_published_status

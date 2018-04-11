@@ -32,8 +32,8 @@
             <li class="recipe-ingredients__list__item">
               <p><%= item.recipe_ingredient %></p>
               <% if current_user %>
-                <% if item.ingredient  %>
-                  <p class="recipe-ingredient-item"><%= link_to item.ingredient.name, edit_recipe_item_path(@recipe, item) %></p>
+                <% if item.food  %>
+                  <p class="recipe-ingredient-item"><%= link_to item.food.name, edit_recipe_item_path(@recipe, item) %></p>
                 <% else %>
                   <p class="recipe-ingredient-item"><%= link_to "not found", edit_recipe_item_path(@recipe, item) %></p>
                 <% end %>
