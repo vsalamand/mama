@@ -121,6 +121,14 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/recipelist?list=123456&user=12345678
+  def recipelist
+    @recipe_list = RecipeList.find(params[:list])
+    respond_to do |format|
+      format.json { render :recipelist }
+    end
+  end
+
   private
   def is_valid?
     @profile = User.find_by sender_id: params[:user]
