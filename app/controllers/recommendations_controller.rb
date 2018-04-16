@@ -17,4 +17,8 @@ class RecommendationsController < ApplicationController
     end
   end
 
+  private
+  def recommendation_params
+    params.require(:recommendation).permit(:name, :schedule, :recommendation_type)
+  end
 end

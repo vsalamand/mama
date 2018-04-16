@@ -58,6 +58,9 @@ gem 'hangry'
 gem 'classifier-reborn'
 # organize model in tree structure for categories, subscategories, etc...
 gem 'ancestry'
+# Background processing
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'
 
 
 # Use Capistrano for deployment
