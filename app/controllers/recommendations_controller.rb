@@ -1,26 +1,20 @@
 require 'date'
 
 class RecommendationsController < ApplicationController
-  def self.create(date)
-    @recommendations = Recommendation.new
-    @recommendations.recommendation_date = date
-    type = nil
-    @recommendations.daily_reco = RecommendationsController.recommend(type)
-    @recommendations.save
-  end
 
-  private
-  def self.recommend(type)
-    if type
-     return recommendation = Recipe.search("#{type}", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
-    else
-      suggestions = []
-      suggestions << Recipe.search("rapide", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
-      suggestions << Recipe.search("léger", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
-      suggestions << Recipe.search("snack", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
-      suggestions << Recipe.search("tarte salée", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
-      suggestions << Recipe.search("gourmand", fields: [:tags], where: {status: "published"}).to_a.shuffle.take(1).first.id
-      return suggestions.join(', ')
+  def self.create(type, schedule)
+    @recommendation = Recommendation.new
+    @recommendation.recommendation_type = type
+    @recommendation.schedule = schedule
+    @recommendation.name = "Week #{schedule} | menu #{type}"
+    @recommendation.save
+    case type
+      when "rapide" then Recommendation.create_express_menu(@recommendation)
+      when "snack" then Recommendation.create_snack_menu(@recommendation)
+      when "léger" then Recommendation.create_light_menu(@recommendation)
+      when "tarte salée" then Recommendation.create_tart_menu(@recommendation)
+      when "gourmand" then Recommendation.create_gourmet_menu(@recommendation)
     end
   end
+
 end

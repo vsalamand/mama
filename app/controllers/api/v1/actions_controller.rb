@@ -12,6 +12,15 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+#http://localhost:3000/api/v1/menus?user=12345678
+  def menus
+    @menus = RecipeList.where(recipe_list_type: "mama")
+    respond_to do |format|
+      format.json { render :menus }
+    end
+  end
+
+
 #http://localhost:3000/api/v1/select?recipe=6&user=12345678
   def select
     if params[:recipe].present?

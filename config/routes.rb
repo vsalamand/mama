@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       get 'suggest', to: 'actions#suggest'
+      get 'menus', to: 'actions#menus'
       get 'search', to: 'actions#search'
       get 'select', to: 'actions#select'
       get 'recommend', to: 'actions#recommend'
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
     collection do
       get 'pending', to: 'recipes#pending'
       get 'import', to: 'recipes#import'
-      get 'recipes', to: 'recipes#show'
+      # get 'recipes', to: 'recipes#show'
     end
     member do
       get :set_published_status

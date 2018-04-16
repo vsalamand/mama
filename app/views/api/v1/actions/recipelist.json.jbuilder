@@ -5,11 +5,11 @@ json.recipelist_description @recipe_list.description
 json.recipelist_count @recipe_list.recipes.count
 json.recipelist_id @recipe_list.id
 json.recipelist_type @recipe_list.recipe_list_type
-json.recipes @recipe_list.recipes do |recipe|
-  json.name recipe.title
+json.recipes @recipe_list.recipe_list_items[-10, 10].each do |item|
+  json.name item.recipe.title
   ingredients = []
-    recipe.foods.each { |food| ingredients << "#{food.name.downcase}" }
+    item.recipe.foods.each { |food| ingredients << "#{food.name.downcase}" }
   json.ingredients ingredients.join(', ')
-  json.id recipe.id
-  json.link recipe.link
+  json.id item.recipe.id
+  json.link item.recipe.link
 end

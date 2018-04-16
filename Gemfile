@@ -58,8 +58,6 @@ gem 'hangry'
 gem 'classifier-reborn'
 # organize model in tree structure for categories, subscategories, etc...
 gem 'ancestry'
-# mList management
-gem 'acts_as_list'
 
 
 # Use Capistrano for deployment
