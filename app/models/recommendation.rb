@@ -7,9 +7,9 @@ class Recommendation < ApplicationRecord
     # get all content matching the menu type
     inventory = Recipe.all.select { |r| r.tag_list.include?("rapide") && r.status == "published"}
     # get content from latest menu
-    last_content = Recommendation.where(recommendation_type: "rapide").offset(1).last.recipe_list_items
+    last_content = Recommendation.where(recommendation_type: "rapide").offset(1).last
     # remove content from latest menu to generate next menu
-    available = inventory - last_content
+    last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
     content = available.shuffle.take(10)
     # add recipes to the corresponding list
@@ -24,9 +24,9 @@ class Recommendation < ApplicationRecord
     # get all content matching the menu type
     inventory = Recipe.all.select { |r| r.tag_list.include?("snack") && r.status == "published"}
     # get content from latest menu
-    last_content = Recommendation.where(recommendation_type: "snack").offset(1).last.recipe_list_items
+    last_content = Recommendation.where(recommendation_type: "snack").offset(1).last
     # remove content from latest menu to generate next menu
-    available = inventory - last_content
+    last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
     content = available.shuffle.take(10)
     # add recipes to the corresponding list
@@ -41,9 +41,9 @@ class Recommendation < ApplicationRecord
     # get all content matching the menu type
     inventory = Recipe.all.select { |r| r.tag_list.include?("léger") && r.status == "published"}
     # get content from latest menu
-    last_content = Recommendation.where(recommendation_type: "léger").offset(1).last.recipe_list_items
+    last_content = Recommendation.where(recommendation_type: "léger").offset(1).last
     # remove content from latest menu to generate next menu
-    available = inventory - last_content
+    last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
     content = available.shuffle.take(10)
     # add recipes to the corresponding list
@@ -58,9 +58,9 @@ class Recommendation < ApplicationRecord
     # get all content matching the menu type
     inventory = Recipe.all.select { |r| r.tag_list.include?("tarte salée") && r.status == "published"}
     # get content from latest menu
-    last_content = Recommendation.where(recommendation_type: "tarte salée").offset(1).last.recipe_list_items
+    last_content = Recommendation.where(recommendation_type: "tarte salée").offset(1).last
     # remove content from latest menu to generate next menu
-    available = inventory - last_content
+    last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
     content = available.shuffle.take(10)
     # add recipes to the corresponding list
@@ -75,9 +75,9 @@ class Recommendation < ApplicationRecord
     # get all content matching the menu type
     inventory = Recipe.all.select { |r| r.tag_list.include?("gourmand") && r.status == "published"}
     # get content from latest menu
-    last_content = Recommendation.where(recommendation_type: "gourmand").offset(1).last.recipe_list_items
+    last_content = Recommendation.where(recommendation_type: "gourmand").offset(1).last
     # remove content from latest menu to generate next menu
-    available = inventory - last_content
+    last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
     content = available.shuffle.take(10)
     # add recipes to the corresponding list
