@@ -3,10 +3,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      get 'suggest', to: 'actions#suggest'
+      # get 'suggest', to: 'actions#suggest'
+      get 'menus', to: 'actions#menus'
       get 'search', to: 'actions#search'
       get 'select', to: 'actions#select'
-      get 'recommend', to: 'actions#recommend'
+      # get 'recommend', to: 'actions#recommend'
       get 'profile', to: 'actions#profile'
       get 'cart', to: 'actions#cart'
       get 'add_to_cart', to: 'actions#add_to_cart'
@@ -29,13 +30,19 @@ Rails.application.routes.draw do
     collection do
       get 'pending', to: 'recipes#pending'
       get 'import', to: 'recipes#import'
-      get 'recipes', to: 'recipes#show'
+      # get 'recipes', to: 'recipes#show'
     end
     member do
       get :set_published_status
       get :set_dismissed_status
     end
     resources :items
+  end
+
+  # Sidekiq Web UI, only for admins.
+  require "sidekiq/web"
+  authenticate :user, lambda { |u| u.admin } do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
