@@ -11,7 +11,7 @@ class Recommendation < ApplicationRecord
     # remove content from latest menu to generate next menu
     last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
-    content = available.shuffle.take(10)
+    content = available.shuffle.take(5)
     # add recipes to the corresponding list
     content.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: menu_list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -28,7 +28,7 @@ class Recommendation < ApplicationRecord
     # remove content from latest menu to generate next menu
     last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
-    content = available.shuffle.take(10)
+    content = available.shuffle.take(5)
     # add recipes to the corresponding list
     content.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: menu_list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -45,7 +45,7 @@ class Recommendation < ApplicationRecord
     # remove content from latest menu to generate next menu
     last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
-    content = available.shuffle.take(10)
+    content = available.shuffle.take(5)
     # add recipes to the corresponding list
     content.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: menu_list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -62,7 +62,7 @@ class Recommendation < ApplicationRecord
     # remove content from latest menu to generate next menu
     last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
-    content = available.shuffle.take(10)
+    content = available.shuffle.take(5)
     # add recipes to the corresponding list
     content.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: menu_list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -79,7 +79,7 @@ class Recommendation < ApplicationRecord
     # remove content from latest menu to generate next menu
     last_content ? available = inventory - last_content.recipe_list_items : available = inventory
     # find recipes for next menu
-    content = available.shuffle.take(10)
+    content = available.shuffle.take(5)
     # add recipes to the corresponding list
     content.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: menu_list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)

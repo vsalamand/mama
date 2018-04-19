@@ -5,7 +5,7 @@ json.recipelist_description @recipe_list.description
 json.recipelist_count @recipe_list.recipes.count
 json.recipelist_id @recipe_list.id
 json.recipelist_type @recipe_list.recipe_list_type
-json.recipes @recipe_list.recipe_list_items[-10, 10].each do |item|
+json.recipes @recipe_list.recipe_list_items[-5, 5].reverse.each do |item|
   json.name item.recipe.title
   ingredients = []
     item.recipe.foods.each { |food| ingredients << "#{food.name.downcase}" }
