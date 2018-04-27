@@ -2,6 +2,43 @@ class Recommendation < ApplicationRecord
   has_many :recipe_list_items
   has_many :recipes, through: :recipe_list_items
 
+
+  #1 get checklist of foods items
+  def get_food_checklist
+    food_checklist = []
+  end
+
+  #2 get list of recipes sort by nb of foods
+  def get_checklist_candidates(food_checklist)
+    candidates = []
+    @pool.select do |r|
+     if r.foods.any? { |f| food_checklist.include? f } then candidates << r end
+    end
+    candidates.sort_by{ |r| (foods - (foods - r.foods)).count }
+  end
+
+  #3 select recipes based on constraints
+  def pick_recipes(candidates, food_checklist)
+    picks = []
+    checks = []
+
+    picks << candidates.first
+    candidates.first.foods.each { |f| checks << f if food_checklist.include? f }
+
+    until picks == 5 || (candidates - picks) == 0
+      pick = (candidates - picks).find { |r| (food_checklist - checks.uniq).include? r)
+      if pick
+        picks << pick
+        pick.foods.each { |f| checks << f if food_checklist.include? f }
+      else
+        picks << (candidates - picks).first
+      end
+    end
+  end
+
+
+
+  # exclude recipes when they contain food that's not available in the given month
   def self.update_recipe_pool
     @pool = []
     current_month = Date.today.strftime("%m")
