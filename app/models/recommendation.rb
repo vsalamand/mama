@@ -2,7 +2,6 @@ class Recommendation < ApplicationRecord
   has_many :recipe_list_items
   has_many :recipes, through: :recipe_list_items
 
-
   # exclude food that's not available in the given month
   def self.update_food_pools
     @food_pool = []
@@ -21,48 +20,17 @@ class Recommendation < ApplicationRecord
     @poultry_pool = Category.find(28).foods & @food_pool
   end
 
-  #1 get checklist of foods items
-  def get_food_checklist
-    food_checklist = []
-    # pick 5 vegetables excluding (ails, ognons, echalottes...)
-    # pick any legumes
-    # pick 1 poultry
-    # pick 1 meat
-    # pick 1 fish
-    # pick 1 egg
-    food_checklist << Food.find(30)
-
+  # create a checklist of foods items
+  def get_weekly_food_checklist
+    @food_checklist = []
+    @food_checklist << @vegetable_pool.shuffle.take(3)
+    @food_checklist << @legume_pool.shuffle.take(2)
+    @food_checklist << @poultry_pool.shuffle.take(1)
+    @food_checklist << @meat_pool.shuffle.take(1)
+    @food_checklist << @fatty_fish_pool.shuffle.take(1)
+    @food_checklist << Food.find(30)
+    @food_checklist = @food_checklist.flatten
   end
-
-  #2 get list of recipes sort by nb of foods
-  def get_checklist_candidates(food_checklist)
-    candidates = []
-    @recipe_pool.select do |r|
-     if r.foods.any? { |f| food_checklist.include? f } then candidates << r end
-    end
-    candidates.sort_by{ |r| (foods - (foods - r.foods)).count }
-  end
-
-  #3 select recipes based on constraints
-  def pick_recipes(candidates, food_checklist)
-    picks = []
-    checks = []
-
-    picks << candidates.first
-    candidates.first.foods.each { |f| checks << f if food_checklist.include? f }
-
-    until picks == 5 || (candidates - picks) == 0
-      pick = (candidates - picks).find { |r| (food_checklist - checks.uniq).include? r)
-      if pick
-        picks << pick
-        pick.foods.each { |f| checks << f if food_checklist.include? f }
-      else
-        picks << (candidates - picks).first
-      end
-    end
-  end
-
-
 
   # exclude recipes when they contain food that's not available in the given month
   def self.update_recipe_pool
@@ -74,6 +42,35 @@ class Recommendation < ApplicationRecord
       end
     end
   end
+
+  # get list of recipes sort by nb of foods
+  def self.get_checklist_candidates
+    @candidates = []
+    @recipe_pool.select do |r|
+     if r.foods.any? { |f| @food_checklist.include? f } then @candidates << r end
+    end
+    @candidates = @candidates.sort_by{ |r| (@food_checklist - (@food_checklist - r.foods)).count }.reverse
+  end
+
+  # pick recipes in candidates list based on checklist constraints
+  def self.pick_recipes
+    picks = []
+    checks = []
+    # put the first candidate in the list of picks & tick the checklist
+    picks << @candidates.first
+    @candidates.first.foods.each { |f| checks << f if @food_checklist.include? f }
+    # repeat the process until the pick list is full
+    until picks.count == 10 || (@candidates - picks).count == 0
+      new_pick = (@candidates - picks).find { |r| ((@food_checklist - checks.uniq) & r.foods).any? }
+      if new_pick
+        picks << new_pick
+        new_pick.foods.each { |f| checks << f if @food_checklist.include? f }
+      else
+        picks << (@candidates - picks).first
+      end
+    end
+  end
+
 
   def self.create_express_menu(recommendation)
     # set recipe list for menu express
