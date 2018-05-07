@@ -2,16 +2,16 @@ require 'date'
 
 class RecommendationsController < ApplicationController
 
-  def self.create(type, schedule)
-    @recommendation = Recommendation.new
-    @recommendation.recommendation_type = type
-    @recommendation.schedule = schedule
-    @recommendation.name = "Week #{schedule} | #{type}"
-    @recommendation.save
+  def self.create(type, schedule, recipe_pool, checklist)
+    recommendation = Recommendation.new
+    recommendation.recommendation_type = type
+    recommendation.schedule = schedule
+    recommendation.name = "Week #{schedule} | #{type}"
+    recommendation.save
     case type
-      when "classique" then Recommendation.create_classic_basket(@recommendation)
-      when "express" then Recommendation.create_express_basket(@recommendation)
-      when "gourmand" then Recommendation.create_gourmand_basket(@recommendation)
+      when "classique" then Recommendation.create_classic_basket(recommendation, recipe_pool, checklist)
+      when "express" then Recommendation.create_express_basket(recommendation, recipe_pool, checklist)
+      when "gourmand" then Recommendation.create_gourmand_basket(recommendation, recipe_pool, checklist)
     end
   end
 
