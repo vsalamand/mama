@@ -58,13 +58,13 @@ class Recommendation < ApplicationRecord
     checks = []
     # put the first candidate in the list of picks & tick the checklist
     picks << candidates.first
-    candidates.first.foods.each { |f| checks << f if @food_checklist.include? f }
+    candidates.first.foods.each { |f| checks << f if checklist.include? f }
     # repeat the process until the pick list is full
     until picks.count == 10 || (candidates - picks).count == 0
-      new_pick = (candidates - picks).find { |r| ((@food_checklist - checks.uniq) & r.foods).any? }
+      new_pick = (candidates - picks).find { |r| ((checklist - checks.uniq) & r.foods).any? }
       if new_pick
         picks << new_pick
-        new_pick.foods.each { |f| checks << f if @food_checklist.include? f }
+        new_pick.foods.each { |f| checks << f if checklist.include? f }
       else
         picks << (candidates - picks).first
       end
@@ -78,7 +78,7 @@ class Recommendation < ApplicationRecord
     all_recipes = recipe_pool.select { |r| r.tag_list.any? { |tag| ["rapide", "léger"].include?(tag) } }
     # exclude recipes from last week recommendation
     last_reco = Recommendation.where(recommendation_type: "classique").offset(1).last
-    last_reco ? recipes = all_recipes - last_reco : recipes = all_recipes
+    last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
     # select candidate recipes based on food checklist of the week
     candidates = get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
@@ -96,7 +96,7 @@ class Recommendation < ApplicationRecord
     all_recipes = recipe_pool.select { |r| r.tag_list.any? { |tag| ["snack", "tarte salée"].include?(tag) } }
     # exclude recipes from last week recommendation
     last_reco = Recommendation.where(recommendation_type: "express").offset(1).last
-    last_reco ? recipes = all_recipes - last_reco : recipes = all_recipes
+    last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
     # select candidate recipes based on food checklist of the week
     candidates = get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
@@ -114,7 +114,7 @@ class Recommendation < ApplicationRecord
     all_recipes = recipe_pool.select { |r| r.tag_list.any? { |tag| ["gourmand"].include?(tag) } }
     # exclude recipes from last week recommendation
     last_reco = Recommendation.where(recommendation_type: "gourmand").offset(1).last
-    last_reco ? recipes = all_recipes - last_reco : recipes = all_recipes
+    last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
     # select candidate recipes based on food checklist of the week
     candidates = get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
