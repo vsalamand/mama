@@ -53,7 +53,7 @@ class Recommendation < ApplicationRecord
   end
 
   # pick recipes in candidates list based on checklist constraints
-  def self.pick_recipes(candidates)
+  def self.pick_recipes(candidates, checklist)
     picks = []
     checks = []
     # put the first candidate in the list of picks & tick the checklist
@@ -82,7 +82,7 @@ class Recommendation < ApplicationRecord
     # select candidate recipes based on food checklist of the week
     candidates = Recommendation.get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
-    picks = Recommendation.pick_recipes(candidates)
+    picks = Recommendation.pick_recipes(candidates, checklist)
     # add picks to the corresponding recipe list
     picks.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -100,7 +100,7 @@ class Recommendation < ApplicationRecord
     # select candidate recipes based on food checklist of the week
     candidates = Recommendation.get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
-    picks = Recommendation.pick_recipes(candidates)
+    picks = Recommendation.pick_recipes(candidates, checklist)
     # add picks to the corresponding recipe list
     picks.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -118,7 +118,7 @@ class Recommendation < ApplicationRecord
     # select candidate recipes based on food checklist of the week
     candidates = Recommendation.get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
-    picks = Recommendation.pick_recipes(candidates)
+    picks = Recommendation.pick_recipes(candidates, checklist)
     # add picks to the corresponding recipe list
     picks.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
