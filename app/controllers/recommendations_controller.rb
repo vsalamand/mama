@@ -6,14 +6,12 @@ class RecommendationsController < ApplicationController
     @recommendation = Recommendation.new
     @recommendation.recommendation_type = type
     @recommendation.schedule = schedule
-    @recommendation.name = "Week #{schedule} | menu #{type}"
+    @recommendation.name = "Week #{schedule} | #{type}"
     @recommendation.save
     case type
-      when "rapide" then Recommendation.create_express_menu(@recommendation)
-      when "snack" then Recommendation.create_snack_menu(@recommendation)
-      when "léger" then Recommendation.create_light_menu(@recommendation)
-      when "tarte salée" then Recommendation.create_tart_menu(@recommendation)
-      when "gourmand" then Recommendation.create_gourmet_menu(@recommendation)
+      when "classique" then Recommendation.create_classic_basket(@recommendation)
+      when "express" then Recommendation.create_express_basket(@recommendation)
+      when "gourmand" then Recommendation.create_gourmand_basket(@recommendation)
     end
   end
 
