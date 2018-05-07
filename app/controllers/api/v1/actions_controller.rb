@@ -2,11 +2,11 @@ require 'date'
 
 class Api::V1::ActionsController < Api::V1::BaseController
 
-#http://localhost:3000/api/v1/menus?user=12345678
-  def menus
-    @menus = RecipeList.where(recipe_list_type: "mama")
+#http://localhost:3000/api/v1/recommend?user=12345678
+  def recommend
+    @recommendations = RecipeList.where(recipe_list_type: "mama")
     respond_to do |format|
-      format.json { render :menus }
+      format.json { render :recommendations }
     end
   end
 

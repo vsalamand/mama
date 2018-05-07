@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # get 'suggest', to: 'actions#suggest'
-      get 'menus', to: 'actions#menus'
+      # get 'menus', to: 'actions#menus'
+      get 'recommend', to: 'actions#recommend'
       get 'search', to: 'actions#search'
       get 'select', to: 'actions#select'
-      # get 'recommend', to: 'actions#recommend'
       get 'profile', to: 'actions#profile'
       get 'cart', to: 'actions#cart'
       get 'add_to_cart', to: 'actions#add_to_cart'
