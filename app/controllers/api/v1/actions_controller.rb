@@ -6,7 +6,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
   def recommend
     @recommendations = RecipeList.where(recipe_list_type: "mama")
     respond_to do |format|
-      format.json { render :recommendations }
+      format.json { render :recommend }
     end
   end
 
