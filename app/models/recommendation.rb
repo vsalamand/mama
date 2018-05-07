@@ -44,7 +44,7 @@ class Recommendation < ApplicationRecord
   end
 
   # get list of recipes sort by nb of foods
-  def get_recipe_candidates(recipes, checklist)
+  def self.get_recipe_candidates(recipes, checklist)
     candidates = []
     recipes.select do |r|
      if r.foods.any? { |f| checklist.include? f } then candidates << r end
@@ -53,7 +53,7 @@ class Recommendation < ApplicationRecord
   end
 
   # pick recipes in candidates list based on checklist constraints
-  def pick_recipes(candidates)
+  def self.pick_recipes(candidates)
     picks = []
     checks = []
     # put the first candidate in the list of picks & tick the checklist
@@ -80,9 +80,9 @@ class Recommendation < ApplicationRecord
     last_reco = Recommendation.where(recommendation_type: "classique").offset(1).last
     last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
     # select candidate recipes based on food checklist of the week
-    candidates = get_recipe_candidates(recipes, checklist)
+    candidates = Recommendation.get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
-    picks = pick_recipes(candidates)
+    picks = Recommendation.pick_recipes(candidates)
     # add picks to the corresponding recipe list
     picks.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -98,9 +98,9 @@ class Recommendation < ApplicationRecord
     last_reco = Recommendation.where(recommendation_type: "express").offset(1).last
     last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
     # select candidate recipes based on food checklist of the week
-    candidates = get_recipe_candidates(recipes, checklist)
+    candidates = Recommendation.get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
-    picks = pick_recipes(candidates)
+    picks = Recommendation.pick_recipes(candidates)
     # add picks to the corresponding recipe list
     picks.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
@@ -116,9 +116,9 @@ class Recommendation < ApplicationRecord
     last_reco = Recommendation.where(recommendation_type: "gourmand").offset(1).last
     last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
     # select candidate recipes based on food checklist of the week
-    candidates = get_recipe_candidates(recipes, checklist)
+    candidates = Recommendation.get_recipe_candidates(recipes, checklist)
     # pick recipes for classic basket of the week
-    picks = pick_recipes(candidates)
+    picks = Recommendation.pick_recipes(candidates)
     # add picks to the corresponding recipe list
     picks.each do |recipe|
       RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
