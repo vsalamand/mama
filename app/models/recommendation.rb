@@ -49,7 +49,7 @@ class Recommendation < ApplicationRecord
     recipes.select do |r|
      if r.foods.any? { |f| checklist.include? f } then candidates << r end
     end
-    candidates = candidates.sort_by{ |r| (checklist - (checklist - r.foods)).count }.reverse
+    return candidates = candidates.sort_by{ |r| (checklist - (checklist - r.foods)).count }.reverse
   end
 
   # pick recipes in candidates list based on checklist constraints
@@ -69,6 +69,7 @@ class Recommendation < ApplicationRecord
         picks << (candidates - picks).first
       end
     end
+    return picks
   end
 
   def self.create_classic_basket(recommendation, recipe_pool, checklist)
