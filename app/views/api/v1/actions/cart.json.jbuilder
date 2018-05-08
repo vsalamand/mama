@@ -1,7 +1,7 @@
 require 'open-uri'
 
 json.cart_id @cart.id
-json.image_url "https://image.ibb.co/g7qpz7/cart.png"
+# json.image_url "https://image.ibb.co/g7qpz7/cart.png"
 json.cart_count @cart.cart_items.count
 json.cart @cart.cart_items do |cart_item|
   json.product_name cart_item.name.upcase
