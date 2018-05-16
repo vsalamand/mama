@@ -55,6 +55,9 @@ RailsAdmin.config do |config|
 
   config.model Food do
     field :name
+    field :availability
+    field :category
+    field :tag_list
     field :parent_id, :enum do
       enum_method do
         :parent_enum
