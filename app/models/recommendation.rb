@@ -21,6 +21,7 @@ class Recommendation < ApplicationRecord
     other_fish = Category.find(26).foods & food_pool
     meat = Category.find(27).foods & food_pool
     poultry = Category.find(28).foods & food_pool
+    # add grains: rice, pasta, quinoa...
     # build checklist with foods from category mix
     checklist << vegetables.shuffle.take(3)
     checklist << legumes.shuffle.take(2)
