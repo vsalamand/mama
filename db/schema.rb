@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180517150602) do
+ActiveRecord::Schema.define(version: 20180517151827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(version: 20180517150602) do
     t.string   "schedule"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "food_list_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "food_id"
+    t.integer  "food_list_id"
+    t.integer  "checklist_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["checklist_id"], name: "index_food_list_items_on_checklist_id", using: :btree
+    t.index ["food_id"], name: "index_food_list_items_on_food_id", using: :btree
+    t.index ["food_list_id"], name: "index_food_list_items_on_food_list_id", using: :btree
   end
 
   create_table "food_lists", force: :cascade do |t|
@@ -196,6 +208,9 @@ ActiveRecord::Schema.define(version: 20180517150602) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "orders"
   add_foreign_key "carts", "users"
+  add_foreign_key "food_list_items", "checklists"
+  add_foreign_key "food_list_items", "food_lists"
+  add_foreign_key "food_list_items", "foods"
   add_foreign_key "food_lists", "users"
   add_foreign_key "foods", "categories"
   add_foreign_key "items", "foods"
