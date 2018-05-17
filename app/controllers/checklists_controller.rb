@@ -6,9 +6,9 @@ class ChecklistsController < ApplicationController
     checklist.schedule = schedule
     checklist.name = "Week #{schedule} | #{type}"
     checklist.save
-    case type
-      # when "classique" then Recommendation.create_classic_basket(recommendation, recipe_pool, checklist)
-    end
+    # case type
+    #   # when "classique" then Recommendation.create_classic_basket(recommendation, recipe_pool, checklist)
+    # end
   end
 
   private
