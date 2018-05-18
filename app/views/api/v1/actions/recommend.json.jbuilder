@@ -3,7 +3,7 @@ require 'open-uri'
 json.image_url "https://image.ibb.co/hgY9z7/recommandations.png"
 json.menus @recommendations do |reco|
   json.basket_name reco.name
-  json.basket_emoji "🥕" if reco.name.include?("classique")
+  json.basket_emoji "🥕" if reco.name.include?("équilibré")
   json.basket_emoji "🍕" if reco.name.include?("express")
   json.basket_emoji "🍽️" if reco.name.include?("gourmand")
   # json.image_url "https://image.ibb.co/mKinmn/express.png" if reco.name.include?("rapide")

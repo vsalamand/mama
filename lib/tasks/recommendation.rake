@@ -17,4 +17,11 @@ namespace :recommendation do
     puts "done !"
   end
 
+  desc "update food checklists now"
+  task update_checklists_now: :environment do
+    puts "updating checklists..."
+    ChecklistJob.perform_now
+    puts "done !"
+  end
+
 end
