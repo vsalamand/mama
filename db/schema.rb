@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515153624) do
+ActiveRecord::Schema.define(version: 20180517151827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,36 @@ ActiveRecord::Schema.define(version: 20180515153624) do
     t.datetime "updated_at", null: false
     t.string   "ancestry"
     t.index ["ancestry"], name: "index_categories_on_ancestry", using: :btree
+  end
+
+  create_table "checklists", force: :cascade do |t|
+    t.string   "name"
+    t.string   "checklist_type"
+    t.string   "schedule"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "food_list_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "food_id"
+    t.integer  "food_list_id"
+    t.integer  "checklist_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["checklist_id"], name: "index_food_list_items_on_checklist_id", using: :btree
+    t.index ["food_id"], name: "index_food_list_items_on_food_id", using: :btree
+    t.index ["food_list_id"], name: "index_food_list_items_on_food_list_id", using: :btree
+  end
+
+  create_table "food_lists", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.text     "description"
+    t.string   "food_list_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["user_id"], name: "index_food_lists_on_user_id", using: :btree
   end
 
   create_table "foods", force: :cascade do |t|
@@ -178,6 +208,10 @@ ActiveRecord::Schema.define(version: 20180515153624) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "orders"
   add_foreign_key "carts", "users"
+  add_foreign_key "food_list_items", "checklists"
+  add_foreign_key "food_list_items", "food_lists"
+  add_foreign_key "food_list_items", "foods"
+  add_foreign_key "food_lists", "users"
   add_foreign_key "foods", "categories"
   add_foreign_key "items", "foods"
   add_foreign_key "items", "recipes"
