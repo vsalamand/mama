@@ -27,7 +27,7 @@ class Checklist < ApplicationRecord
     return food_pools
   end
 
-  def create_balanced_checklist(checklist, food_pools)
+  def self.create_balanced_checklist(checklist, food_pools)
     # set food list for balanced checklist
     list = FoodList.find_by(name: "équilibré", food_list_type: "mama")
     list.food_list_items.each do |item|
