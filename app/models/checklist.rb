@@ -28,18 +28,22 @@ class Checklist < ApplicationRecord
   end
 
   def create_balanced_checklist(checklist, food_pools)
-    # set recipe list for classic basket
+    # set food list for balanced checklist
     list = FoodList.find_by(name: "équilibré", food_list_type: "mama")
-    # build checklist of food
+    list.food_list_items.each do |item|
+      item.food_list_id == nil
+      item.save
+    end
+    # add food to checklist
     balanced_checklist = []
     balanced_checklist << food_pools["vegetables"].shuffle.take(4)
     balanced_checklist << food_pools["legumes"].shuffle.take(2)
-    balanced_checklist << food_pools["poultry"].shuffle.take(1)
-    balanced_checklist << food_pools["meat"].shuffle.take(1)
-    balanced_checklist << food_pools["fatty_fish"].shuffle.take(1)
-    balanced_checklist << food_pools["eggs"]
     balanced_checklist << food_pools["pasta"]
     balanced_checklist << food_pools["rice"]
+    balanced_checklist << food_pools["meat"].shuffle.take(1)
+    balanced_checklist << food_pools["fatty_fish"].shuffle.take(1)
+    balanced_checklist << food_pools["poultry"].shuffle.take(1)
+    balanced_checklist << food_pools["eggs"]
     return balanced_checklist = balanced_checklist.flatten
     balanced_checklist.each do |food|
       FoodListItem.create(name: food.name, food_id: food.id, food_list_id: list, checklist_id: checklist.id)

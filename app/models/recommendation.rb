@@ -2,36 +2,6 @@ class Recommendation < ApplicationRecord
   has_many :recipe_list_items
   has_many :recipes, through: :recipe_list_items
 
-  # create a checklist of foods items
-  def self.update_weekly_food_checklist
-    checklist = []
-    # exclude food that's not available in the given month
-    food_pool = []
-    current_month = Date.today.strftime("%m")
-    Food.all.select do |food|
-      food_pool << food if food.availability.include?(current_month)
-    end
-    # list foods by category
-    vegetables = Category.find(14).foods & food_pool
-    oelaginous = Category.find(15).foods & food_pool
-    starches = (Category.find(20).foods + Category.find(21).foods) & food_pool
-    legumes = Category.find(22).foods & food_pool
-    delicatessen = Category.find(23).foods & food_pool
-    fatty_fish = Category.find(25).foods & food_pool
-    other_fish = Category.find(26).foods & food_pool
-    meat = Category.find(27).foods & food_pool
-    poultry = Category.find(28).foods & food_pool
-    # add grains: rice, pasta, quinoa...
-    # build checklist with foods from category mix
-    checklist << vegetables.shuffle.take(3)
-    checklist << legumes.shuffle.take(2)
-    checklist << poultry.shuffle.take(1)
-    checklist << meat.shuffle.take(1)
-    checklist << fatty_fish.shuffle.take(1)
-    checklist << Food.find(30)
-    return checklist = checklist.flatten
-  end
-
   # exclude recipes when they contain food that's not available in the given month
   def self.update_recipe_pool
     recipe_pool = []
@@ -48,9 +18,9 @@ class Recommendation < ApplicationRecord
   def self.get_recipe_candidates(recipes, checklist)
     candidates = []
     recipes.select do |r|
-     if r.foods.any? { |f| checklist.include? f } then candidates << r end
+     if r.foods.any? { |f| checklist.foods.include? f } then candidates << r end
     end
-    return candidates = candidates.sort_by{ |r| (checklist - (checklist - r.foods)).count }.reverse
+    return candidates = candidates.sort_by{ |r| (checklist.foods - (checklist.foods - r.foods)).count }.reverse
   end
 
   # pick recipes in candidates list based on checklist constraints
@@ -59,13 +29,13 @@ class Recommendation < ApplicationRecord
     checks = []
     # put the first candidate in the list of picks & tick the checklist
     picks << candidates.first
-    candidates.first.foods.each { |f| checks << f if checklist.include? f }
+    candidates.first.foods.each { |f| checks << f if checklist.foods.include? f }
     # repeat the process until the pick list is full
     until picks.count == 10 || (candidates - picks).count == 0
-      new_pick = (candidates - picks).find { |r| ((checklist - checks.uniq) & r.foods).any? }
+      new_pick = (candidates - picks).find { |r| ((checklist.foods - checks.uniq) & r.foods).any? }
       if new_pick
         picks << new_pick
-        new_pick.foods.each { |f| checks << f if checklist.include? f }
+        new_pick.foods.each { |f| checks << f if checklist.foods.include? f }
       else
         picks << (candidates - picks).first
       end
@@ -73,13 +43,13 @@ class Recommendation < ApplicationRecord
     return picks
   end
 
-  def self.create_classic_basket(recommendation, recipe_pool, checklist)
+  def self.create_balanced_basket(recommendation, recipe_pool, checklist)
     # set recipe list for classic basket
-    list = RecipeList.find_by(name: "classique", recipe_list_type: "mama")
+    list = RecipeList.find_by(name: "équilibré", recipe_list_type: "mama")
     # get list of proper recipes for classic basket
     all_recipes = recipe_pool.select { |r| r.tag_list.any? { |tag| ["rapide", "léger"].include?(tag) } }
     # exclude recipes from last week recommendation
-    last_reco = Recommendation.where(recommendation_type: "classique").offset(1).last
+    last_reco = Recommendation.where(recommendation_type: "équilibré").offset(1).last
     last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
     # select candidate recipes based on food checklist of the week
     candidates = Recommendation.get_recipe_candidates(recipes, checklist)
