@@ -16,11 +16,18 @@ class Recommendation < ApplicationRecord
 
   # get list of recipes sort by nb of foods
   def self.get_recipe_candidates(recipes, checklist)
+    # list food and food children from checklist (ancestry gem)
+    food_list = []
+    checklist.foods.each { |f| food_list << f.subtree.where(category: f.category) }
+    food_list = food_list.flatten
+    # find recipes that include at least one of the food in the list
     candidates = []
     recipes.select do |r|
-     if r.foods.any? { |f| checklist.foods.include? f } then candidates << r end
+      if r.foods.any? { |f| food_list.foods.include? f }
+        then candidates << r
+      end
     end
-    return candidates = candidates.sort_by{ |r| (checklist.foods - (checklist.foods - r.foods)).count }.reverse
+    return candidates = candidates.sort_by{ |r| (food_list - (food_list - r.foods)).count }.reverse
   end
 
   # pick recipes in candidates list based on checklist constraints
