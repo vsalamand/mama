@@ -10,13 +10,13 @@ class RecommendationsController < ApplicationController
     recommendation.save
     case type
       when "classique" then
-        checklist = Checklist.find_by(checklist_type: "équilibré")
+        checklist = Checklist.where(checklist_type: "équilibré").last
         Recommendation.create_balanced_basket(recommendation, recipe_pool, checklist)
       when "express" then
-        checklist = Checklist.find_by(checklist_type: "équilibré")
+        checklist = Checklist.where(checklist_type: "équilibré").last
         Recommendation.create_express_basket(recommendation, recipe_pool, checklist)
       when "gourmand" then
-        checklist = Checklist.find_by(checklist_type: "équilibré")
+        checklist = Checklist.where(checklist_type: "équilibré").last
         Recommendation.create_gourmand_basket(recommendation, recipe_pool, checklist)
     end
   end
