@@ -9,7 +9,7 @@ class RecommendationsController < ApplicationController
     recommendation.name = "Week #{schedule} | #{type}"
     recommendation.save
     case type
-      when "classique" then
+      when "équilibré" then
         checklist = Checklist.where(checklist_type: "équilibré").last
         Recommendation.create_balanced_basket(recommendation, recipe_pool, checklist)
       when "express" then
