@@ -5,11 +5,12 @@ class Checklist < ApplicationRecord
   # create a checklist of foods items
   def self.update_food_pools
     # exclude food that's not available in the given month
-    available_food = []
     available_date = Date.today.next_week.strftime("%m")
-    Food.roots.select do |food|
-      available_food << food if food.availability.include?(available_date)
-    end
+    available_food = Food.roots.where("availability ~ ?", available_date).to_a
+      # available_food = []
+      # Food.roots.select do |food|
+      #   available_food << food if food.availability.include?(available_date)
+      # end
     # list foods by category
     food_pools = {}
     food_pools["vegetables"] = Category.find(14).foods.roots & available_food

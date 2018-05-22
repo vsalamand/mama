@@ -18,7 +18,8 @@ class Recommendation < ApplicationRecord
   def self.get_recipe_candidates(recipes, checklist)
     # list food and food children from checklist (ancestry gem)
     food_list = []
-    checklist.foods.each { |f| food_list << f.subtree.where(category: f.category) }
+    available_date = Date.today.next_week.strftime("%m")
+    checklist.foods.each { |f| food_list << f.subtree.where(category: f.category).where("availability ~ ?", available_date) }
     food_list = food_list.flatten
     # find recipes that include at least one of the food in the list
     candidates = []
