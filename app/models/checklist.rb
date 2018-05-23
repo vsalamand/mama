@@ -47,7 +47,7 @@ class Checklist < ApplicationRecord
     balanced_checklist << food_pools["eggs"]
     balanced_checklist = balanced_checklist.flatten
     balanced_checklist.each do |food|
-      FoodListItem.create(name: food.name, food_id: food.id, food_list_id: list, checklist_id: checklist.id)
+      FoodListItem.create(name: food.name, food_id: food.id, food_list_id: list.id, checklist_id: checklist.id)
     end
   end
 

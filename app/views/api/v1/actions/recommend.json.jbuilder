@@ -13,7 +13,7 @@ json.menus @recommendations do |reco|
   # json.image_url "https://image.ibb.co/ng1jXS/gourmand.png" if reco.name.include?("gourmand")
   json.basket_last_update reco.updated_at
   content = []
-  reco.recipes[-10, 10].each do |recipe|
+  reco.recipe_list_items[-10, 10].each do |recipe|
     content << recipe.title
   end
   json.basket_recipes reco.recipes.any? ? content.reverse.join("\n") : nil
