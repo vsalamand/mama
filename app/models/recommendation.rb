@@ -18,8 +18,8 @@ class Recommendation < ApplicationRecord
   def self.get_recipe_candidates(recipes, checklist)
     # list food and food children from checklist (ancestry gem)
     food_list = []
-    available_date = Date.today.next_week.strftime("%m")
-    checklist.foods.each { |f| food_list << f.subtree.where(category: f.category).where("availability ~ ?", available_date) }
+      # for each food, get the food children and verify category and availability
+    checklist.foods.each { |f| food_list << f.subtree.where(category: f.category).where("availability ~ ?", Date.today.strftime("%m")) }
     food_list = food_list.flatten
     # find recipes that include at least one of the food in the list
     candidates = []
@@ -37,13 +37,18 @@ class Recommendation < ApplicationRecord
     checks = []
     # put the first candidate in the list of picks & tick the checklist
     picks << candidates.first
-    candidates.first.foods.each { |f| checks << f if checklist.foods.include? f }
+    # tick food that's in the checklist
+    checklist.foods.each do |food|
+      checks << food if (food.subtree.where(category: f.category).where("availability ~ ?", Date.today.strftime("%m")) & candidates.first.foods).any?
+    end
     # repeat the process until the pick list is full
     until picks.count == 10 || (candidates - picks).count == 0
       new_pick = (candidates - picks).find { |r| ((checklist.foods - checks.uniq) & r.foods).any? }
       if new_pick
         picks << new_pick
-        new_pick.foods.each { |f| checks << f if checklist.foods.include? f }
+        checklist.foods.each do |food|
+          checks << food if (food.subtree.where(category: f.category).where("availability ~ ?", Date.today.strftime("%m")) & new_pick.foods).any?
+        end
       else
         picks << (candidates - picks).first
       end
