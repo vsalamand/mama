@@ -24,7 +24,7 @@ class Recommendation < ApplicationRecord
     # find recipes that include at least one of the food in the list
     candidates = []
     recipes.select do |r|
-      if r.foods.any? { |f| food_list.foods.include? f }
+      if r.foods.any? { |f| food_list.include? f }
         then candidates << r
       end
     end
