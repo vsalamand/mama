@@ -5,7 +5,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 #http://localhost:3000/api/v1/recommend?user=12345678
   def recommend
     @recommendations = []
-    @recommendations << RecipeList.find_by(name: "classique")
+    @recommendations << RecipeList.find_by(name: "équilibré")
     @recommendations << RecipeList.find_by(name: "express")
     @recommendations << RecipeList.find_by(name: "gourmand")
     respond_to do |format|
