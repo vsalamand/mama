@@ -14,7 +14,7 @@ json.menus @recommendations do |reco|
   json.basket_last_update reco.updated_at
   content = []
   reco.recipe_list_items[-10, 10].each do |recipe|
-    content << recipe.title
+    content << recipe.name
   end
   json.basket_recipes reco.recipes.any? ? content.reverse.join("\n") : nil
   json.basket_id reco.id
