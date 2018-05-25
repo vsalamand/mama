@@ -51,6 +51,11 @@ RailsAdmin.config do |config|
         :parent_enum
       end
     end
+    field :rating, :enum do
+      enum do
+        ["good", "limit", "avoid"]
+      end
+    end
   end
 
   config.model Food do
