@@ -5,6 +5,8 @@ class Recipe < ApplicationRecord
   has_many :foods, through: :items
   has_many :cart_items, :as => :productable
 
+  RATING = ["excellent", "good", "limit", "avoid"]
+
   acts_as_ordered_taggable
 
   searchkick

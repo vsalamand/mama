@@ -61,7 +61,30 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :servings, :ingredients, :instructions, :tag_list, :origin, :status, :link)
+    params.require(:recipe).permit(:title, :servings, :ingredients, :instructions, :tag_list, :origin, :status, :link, :rating)
+  end
+
+  def rate(recipe)
+    recipe = Recipe.find(recipe)
+    # get ratings for each food in recipe
+    food_ratings = []
+    recipe.foods.each { |food| food_ratings << food.category.rating if food.category.rating? }
+    # set rating based on ratings from food in recipe
+    case
+      # rate excellent if only good foods
+      when (food_ratings & ["limit", "avoid"]).empty?
+        then recipe.rating = "excellent"
+      # rate good if contains good foods and only one food to limit or avoid
+      when (food_ratings & ["good"]).any? && (food_ratings - ["good"]).count <= 1
+        then recipe.rating = "good"
+      # rate limit if more than one food to limit or avoid
+      when (food_ratings - ["good"]).count >= 2
+        then recipe.rating = "good"
+      # rate avoid if does not contain any good food
+      when (food_ratings & ["good"]).empty?
+        then recipe.rating = "avoid"
+    end
+    recipe.save
   end
 
   def generate_recipe_items(recipe)

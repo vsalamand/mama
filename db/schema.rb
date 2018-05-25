@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525134311) do
+ActiveRecord::Schema.define(version: 20180525140653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20180525134311) do
     t.string   "status"
     t.string   "origin"
     t.string   "link"
+    t.string   "rating"
   end
 
   create_table "recommendations", force: :cascade do |t|
