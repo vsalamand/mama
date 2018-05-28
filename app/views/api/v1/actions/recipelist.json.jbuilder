@@ -15,7 +15,13 @@ json.recipes @recipe_list.recipe_list_items[-10, 10].reverse.each do |item|
   ingredients = []
     item.recipe.foods.each { |food| ingredients << "#{food.name.downcase}" }
   json.ingredients ingredients.join(', ')
-  json.rating item.recipe.rating
+  case
+    when item.recipe.rating == "excellent" then json.rating "💚 excellent pour la consommation"
+    when item.recipe.rating == "good" then json.rating "💛 bon pour la consommation"
+    when item.recipe.rating == "limit" then json.rating "🧡 consommation à limiter"
+    when item.recipe.rating == "avoid" then json.rating "❤️ consommation à éviter"
+    else json.rating ""
+  end
   json.id item.recipe.id
   json.link item.recipe.link
 end
