@@ -33,8 +33,8 @@ class Recipe < ApplicationRecord
       when (food_ratings & ["good"]).any? && (food_ratings - ["good"]).count <= 1
         then self.rating = "good"
       # rate limit if more than one food to limit or avoid
-      when (food_ratings - ["good"]).count >= 2
-        then self.rating = "good"
+      when (food_ratings & ["good"]).any? && (food_ratings - ["good"]).count >= 2
+        then self.rating = "limit"
       # rate avoid if does not contain any good food
       when (food_ratings & ["good"]).empty?
         then self.rating = "avoid"
