@@ -5,9 +5,10 @@ json.order_type @order.order_type
 json.order @order.cart_items do |cart_item|
   json.product_name cart_item.name
   json.quantity cart_item.quantity
-  ingredients = []
-    cart_item.productable.foods.each { |food| ingredients << "#{food.name.downcase}" }
-  json.product_ingredients ingredients.join(', ')
+  # ingredients = []
+  #   cart_item.productable.foods.each { |food| ingredients << "#{food.name.downcase}" }
+  # json.product_ingredients ingredients.join(', ')
+  json.product_ingredients "#{cart_item.productable.foods.count} ingrédients"
   case
     when cart_item.productable.rating == "excellent" then json.product_rating "💚💖 excellent pour la consommation"
     when cart_item.productable.rating == "good" then json.product_rating "💚 bon pour la consommation"
