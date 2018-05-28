@@ -3,5 +3,4 @@ class CartItem < ApplicationRecord
   belongs_to :productable, :polymorphic => true
   belongs_to :cart, optional: true
   belongs_to :order, optional: true
-  has_many :recipes, through: :productable
 end
