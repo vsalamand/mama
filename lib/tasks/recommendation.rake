@@ -24,4 +24,11 @@ namespace :recommendation do
     puts "done !"
   end
 
+  desc "rate all recipes now"
+  task rate_recipes_now: :environment do
+    puts "rating recipes..."
+    RecipeJob.perform_now
+    puts "done !"
+  end
+
 end
