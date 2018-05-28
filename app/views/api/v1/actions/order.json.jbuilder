@@ -9,9 +9,9 @@ json.order @order.cart_items do |cart_item|
     cart_item.productable.foods.each { |food| ingredients << "#{food.name.downcase}" }
   json.product_ingredients ingredients.join(', ')
   case
-    when cart_item.productable.rating == "excellent" then json.product_rating "💚 excellent pour la consommation"
-    when cart_item.productable.rating == "good" then json.product_rating "💛 bon pour la consommation"
-    when cart_item.productable.rating == "limit" then json.product_rating "🧡 consommation à limiter"
+    when cart_item.productable.rating == "excellent" then json.product_rating "💚💖 excellent pour la consommation"
+    when cart_item.productable.rating == "good" then json.product_rating "💚 bon pour la consommation"
+    when cart_item.productable.rating == "limit" then json.product_rating "💛 consommation à limiter"
     when cart_item.productable.rating == "avoid" then json.product_rating "❤️ consommation à éviter"
     else json.product_rating ""
   end
