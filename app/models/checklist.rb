@@ -12,7 +12,7 @@ class Checklist < ApplicationRecord
 
     # Update main seasonal foods list
     seasonal_foods = FoodList.find_or_create_by(name: "seasonal foods", food_list_type: "pool")
-    # delete items in the list when they are no longer seasonal
+    #!!! delete items in the list when they are no longer seasonal
     seasonal_foods.food_list_items.each do |food_item|
       food_item.destroy if unavailable_food.include?(food_item.food)
     end

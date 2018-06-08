@@ -4,26 +4,42 @@ class Recommendation < ApplicationRecord
 
   # exclude recipes when they contain food that's not available in the given month
   def self.update_recipe_pools
+    # find recipes that contain food not available in the given month
+    available_date = Date.today.strftime("%m")
+    seasonal_foods = FoodList.find_by(name: "seasonal foods", food_list_type: "pool")
+
+
+    available_recipes = []
+    Recipe.where(status: "published").select { |recipe| availble_recipes << recipe if (recipe.foods - seasonal_foods.foods).empty? }
+
+    unavailable_recipes = Recipe.all - available_recipes
+
+
+
     Diet.where(is_active: true).each do |diet|
-      #retrieve recipe list for the diet
-      pool = RecipeList.find_by(diet_id: diet.id, recipe_list_type: "pool")
-      current_month = Date.today.strftime("%m")
-      #add recipe to the list when there is no food off season, and no food from the diet ban list, and the recipe is published
-      Recipe.all.select do |recipe|
-        unless recipe.foods.find { |food| food.availability.exclude?(current_month)} || recipe.status != "published"
-          recipe_pool << recipe
-        end
+      #Update the diet recipe list
+      seasonal_recipes = RecipeList.find_by(diet_id: diet.id, recipe_list_type: "pool")
+
+
+      #!!! delete recipe items in the list when they are no longer seasonal
+      seasonal_recipes.recipe_list_items.each do |recipe_item|
+        recipe_item.destroy if unavailable_recipes.include?(recipe_item.recipe)
+      end
+
+      # then add new seasonal/published recipes to the list
+      Recipe.where(status: "published").each do |recipe|
+        RecipeListItem.find_or_create_by(name: recipe.title, recipe_id: recipe.id, recipe_list_id: seasonal_recipes.id)
       end
 
 
-      recipe_pool = []
-      current_month = Date.today.strftime("%m")
-      Recipe.all.select do |recipe|
-        unless recipe.foods.find { |food| food.availability.exclude?(current_month)} || recipe.status != "published"
-          recipe_pool << recipe
-        end
-      end
-      return recipe_pool
+      # recipe_pool = []
+      # current_month = Date.today.strftime("%m")
+      # Recipe.all.select do |recipe|
+      #   unless recipe.foods.find { |food| food.availability.exclude?(current_month)} || recipe.status != "published"
+      #     recipe_pool << recipe
+      #   end
+      # end
+      # return recipe_pool
     end
   end
 
