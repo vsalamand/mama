@@ -3,15 +3,28 @@ class Recommendation < ApplicationRecord
   has_many :recipes, through: :recipe_list_items
 
   # exclude recipes when they contain food that's not available in the given month
-  def self.update_recipe_pool
-    recipe_pool = []
-    current_month = Date.today.strftime("%m")
-    Recipe.all.select do |recipe|
-      unless recipe.foods.find { |food| food.availability.exclude?(current_month)} || recipe.status != "published"
-        recipe_pool << recipe
+  def self.update_recipe_pools
+    Diet.where(is_active: true).each do |diet|
+      #retrieve recipe list for the diet
+      pool = RecipeList.find_by(diet_id: diet.id, recipe_list_type: "pool")
+      current_month = Date.today.strftime("%m")
+      #add recipe to the list when there is no food off season, and no food from the diet ban list, and the recipe is published
+      Recipe.all.select do |recipe|
+        unless recipe.foods.find { |food| food.availability.exclude?(current_month)} || recipe.status != "published"
+          recipe_pool << recipe
+        end
       end
+
+
+      recipe_pool = []
+      current_month = Date.today.strftime("%m")
+      Recipe.all.select do |recipe|
+        unless recipe.foods.find { |food| food.availability.exclude?(current_month)} || recipe.status != "published"
+          recipe_pool << recipe
+        end
+      end
+      return recipe_pool
     end
-    return recipe_pool
   end
 
   # get list of recipes sort by nb of foods

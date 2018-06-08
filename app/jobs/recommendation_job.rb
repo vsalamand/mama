@@ -3,7 +3,7 @@ class RecommendationJob < ApplicationJob
 
   def perform
     # create recipe recommendations of the week
-    recipe_pool = Recommendation.update_recipe_pool
+    Recommendation.update_recipe_pools
     schedule = Date.today.strftime("%W, %Y")
     recommendations = ["équilibré", "express", "gourmand"]
     recommendations.each do |type|

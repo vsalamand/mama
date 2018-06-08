@@ -6,6 +6,6 @@ class FoodList < ApplicationRecord
   has_many :foods, through: :food_list_items
   has_many :food_list_items
 
-  FOOD_LIST_TYPE = ["recommendation", "ban", "personal"]
+  FOOD_LIST_TYPE = ["recommendation", "ban", "personal", "pool"]
 
 end
