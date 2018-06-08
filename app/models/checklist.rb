@@ -28,9 +28,9 @@ class Checklist < ApplicationRecord
     return food_pools
   end
 
-  def self.create_balanced_checklist(checklist, food_pools)
-    # set food list for balanced checklist
-    list = FoodList.find_by(name: "équilibré", food_list_type: "mama")
+  def self.create_diet_checklist(checklist, diet, food_pools)
+    # set food list for diet checklist
+    list = FoodList.find_by(diet_id: diet.id, food_list_type: "recommendation")
     list.food_list_items.each do |item|
       item.food_list_id == nil
       item.save
