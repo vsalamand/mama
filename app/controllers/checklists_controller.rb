@@ -6,7 +6,7 @@ class ChecklistsController < ApplicationController
     checklist.diet_id = diet.id
     checklist.name = "Week #{schedule} | #{diet.name}"
     checklist.save
-    Checklist.pick_foods(checklist, food_pools)
+    Checklist.pick_foods(diet, food_pools)
   end
 
   private

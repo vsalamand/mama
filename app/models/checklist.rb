@@ -23,22 +23,22 @@ class Checklist < ApplicationRecord
 
     # list foods by category !!! => to refactor into food lists
     food_pools = {}
-    food_pools["vegetables"] = Category.find(14).foods.roots & available_food_root
-    food_pools["oelaginous"] = Category.find(15).foods.roots & available_food_root
-    food_pools["starches"] = (Category.find(20).foods.roots + Category.find(21).foods.roots) & available_food_root
-    food_pools["legumes"] = Category.find(22).foods.roots & available_food_root
-    food_pools["delicatessen"] = Category.find(23).foods.roots & available_food_root
-    food_pools["fatty_fish"] = Category.find(25).foods.roots & available_food_root
-    food_pools["other_fish"] = Category.find(26).foods.roots & available_food_root
-    food_pools["meat"] = Category.find(27).foods.roots & available_food_root
-    food_pools["poultry"] = Category.find(28).foods.roots & available_food_root
-    food_pools["eggs"] = Food.find(30)
-    food_pools["pasta"] = Food.find(3)
-    food_pools["rice"] = Food.find(21)
+    food_pools["vegetables"] = Category.find(14).foods.roots & available_food_root if Category.exists?(14)
+    food_pools["oelaginous"] = Category.find(15).foods.roots & available_food_root if Category.exists?(15)
+    food_pools["starches"] = (Category.find(20).foods.roots + Category.find(21).foods.roots) & available_food_root if Category.exists?(20)
+    food_pools["legumes"] = Category.find(22).foods.roots & available_food_root if Category.exists?(22)
+    food_pools["delicatessen"] = Category.find(23).foods.roots & available_food_root if Category.exists?(23)
+    food_pools["fatty_fish"] = Category.find(25).foods.roots & available_food_root if Category.exists?(25)
+    food_pools["other_fish"] = Category.find(26).foods.roots & available_food_root if Category.exists?(26)
+    food_pools["meat"] = Category.find(27).foods.roots & available_food_root if Category.exists?(27)
+    food_pools["poultry"] = Category.find(28).foods.roots & available_food_root if Category.exists?(28)
+    food_pools["eggs"] = Food.find(30) if Food.exists?(30)
+    food_pools["pasta"] = Food.find(3) if Food.exists?(3)
+    food_pools["rice"] = Food.find(21) if Food.exists?(21)
     return food_pools
   end
 
-  def self.pick_foods(checklist, food_pools)
+  def self.pick_foods(diet, food_pools)
     # # set food list for diet checklist
     # list = FoodList.find_or_create_by(name: diet.name, diet_id: diet.id, food_list_type: "recommendation")
     # list.food_list_items.each do |item|
@@ -47,17 +47,19 @@ class Checklist < ApplicationRecord
     # end
     # add food to checklist
     checklist = []
-    checklist << food_pools["vegetables"].shuffle.take(4)
-    checklist << food_pools["legumes"].shuffle.take(2)
-    checklist << food_pools["pasta"]
-    checklist << food_pools["rice"]
-    checklist << food_pools["meat"].shuffle.take(1)
-    checklist << food_pools["fatty_fish"].shuffle.take(1)
-    checklist << food_pools["poultry"].shuffle.take(1)
-    checklist << food_pools["eggs"]
+    checklist << food_pools["vegetables"].shuffle.take(4) if food_pools.has_key?("vegetables")
+    checklist << food_pools["legumes"].shuffle.take(2) if food_pools.has_key?("legumes")
+    checklist << food_pools["pasta"] if food_pools.has_key?("pasta")
+    checklist << food_pools["rice"] if food_pools.has_key?("rice")
+    checklist << food_pools["meat"].shuffle.take(1) if food_pools.has_key?("meat")
+    checklist << food_pools["fatty_fish"].shuffle.take(1) if food_pools.has_key?("fatty_fish")
+    checklist << food_pools["poultry"].shuffle.take(1) if food_pools.has_key?("poultry")
+    checklist << food_pools["eggs"] if food_pools.has_key?("eggs")
+    # # for rake tests
+    # checklist << Food.find(1893)
     checklist = checklist.flatten
     checklist.each do |food|
-      FoodListItem.create(name: food.name, food_id: food.id, checklist_id: checklist.id)
+      FoodListItem.create(name: food.name, food_id: food.id, checklist_id: diet.checklists.last.id)
     end
   end
 

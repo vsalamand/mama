@@ -12,13 +12,13 @@ class Recommendation < ApplicationRecord
     # for each diet, list all recipes that contain only seasonal food and exclude any food not approved by the diet
     Diet.all.each do |diet|
       # Get the diet recipe list
-      seasonal_recipes = RecipeList.find_by(diet_id: diet.id, recipe_list_type: "pool")
+      seasonal_recipes = RecipeList.find_or_create_by(name: "Diet seasonal recipes | #{diet.name}", diet_id: diet.id, recipe_list_type: "pool")
       #!!! delete recipe items in the list when they've become no longer seasonal
       seasonal_recipes.recipe_list_items.each do |recipe_item|
         recipe_item.destroy if unavailable_recipes.include?(recipe_item.recipe)
       end
       # Get the new list of recipes that exclude foods banned for the diet
-      banned_foods = FoodList.find_by(diet_id: diet.id, food_list_type: "ban")
+      banned_foods = FoodList.find_or_create_by(name: "Diet banned food list | #{diet.name}", diet_id: diet.id, food_list_type: "ban")
       new_diet_recipes = available_recipes.select { |recipe| (recipe.foods & banned_foods.foods).empty? }
       # then add new seasonal/published recipes to the list
       new_diet_recipes.each do |recipe|
@@ -28,7 +28,7 @@ class Recommendation < ApplicationRecord
   end
 
   # get list of recipes sort by nb of foods
-  def self.get_candidates(recommendation, diet, type)
+  def self.get_candidates(diet, type)
     # list food and food children from checklist (ancestry gem)
     food_list = []
     checklist = Checklist.find_by(diet_id: diet.id)
