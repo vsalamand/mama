@@ -3,13 +3,14 @@ class ChecklistsController < ApplicationController
   def self.create(diet, schedule, food_pools)
     checklist = Checklist.new
     checklist.schedule = schedule
+    checklist.diet_id = diet.id
     checklist.name = "Week #{schedule} | #{diet.name}"
     checklist.save
-    Checklist.create_diet_checklist(checklist, diet, food_pools)
+    Checklist.pick_foods(checklist, food_pools)
   end
 
   private
   def checklist_params
-    params.require(:checklist).permit(:name, :schedule, :diet)
+    params.require(:checklist).permit(:name, :schedule, :diet_id)
   end
 end

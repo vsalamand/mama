@@ -5,9 +5,8 @@ class RecommendationJob < ApplicationJob
     # create recipe recommendations of the week
     Recommendation.update_recipe_pools
     schedule = Date.today.strftime("%W, %Y")
-    recommendations = ["équilibré", "express", "gourmand"]
-    recommendations.each do |type|
-      RecommendationsController.create(type, schedule, recipe_pool)
+    Diet.all.each do |diet|
+      RecommendationsController.create(diet, schedule)
     end
     # create food checklists for the week after
     ChecklistJob.perform_now

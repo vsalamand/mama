@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608123125) do
+ActiveRecord::Schema.define(version: 20180611163921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,8 @@ ActiveRecord::Schema.define(version: 20180608123125) do
     t.string   "recommendation_type"
     t.string   "schedule"
     t.string   "name"
+    t.integer  "diet_id"
+    t.index ["diet_id"], name: "index_recommendations_on_diet_id", using: :btree
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -240,4 +242,5 @@ ActiveRecord::Schema.define(version: 20180608123125) do
   add_foreign_key "recipe_list_items", "recommendations"
   add_foreign_key "recipe_lists", "diets"
   add_foreign_key "recipe_lists", "users"
+  add_foreign_key "recommendations", "diets"
 end

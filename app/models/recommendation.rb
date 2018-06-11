@@ -28,15 +28,23 @@ class Recommendation < ApplicationRecord
   end
 
   # get list of recipes sort by nb of foods
-  def self.get_recipe_candidates(recipes, checklist)
+  def self.get_candidates(recommendation, diet, type)
     # list food and food children from checklist (ancestry gem)
     food_list = []
-      # for each food, get the food children and verify category and availability
+    checklist = Checklist.find_by(diet_id: diet.id)
+    # for each food, get the food children and verify category and availability
     checklist.foods.each { |food| food_list << food.subtree.where(category: food.category).where("availability ~ ?", Date.today.strftime("%m")) }
     food_list = food_list.flatten
+
+    # get list of the diet recipes that correspond to the right type of bucket
+    recipe_list = RecipeList.find_by(diet_id: diet.id, recipe_list_type: "pool").recipes.select{ |r| r.tag_list.any? { |tag| type.include?(tag) } }
+    # exclude recipes from last week recommendation if any
+    last_reco = Recommendation.find_by(diet_id: diet.id, recommendation_type: type)
+    last_reco.present? ? eligible_recipes = recipe_list - last_reco.recipes : eligible_recipes = recipe_list
+
     # find recipes that include at least one of the food in the list
     candidates = []
-    recipes.select do |r|
+    eligible_recipes.select do |r|
       if r.foods.any? { |food| food_list.include? food }
         then candidates << r
       end
@@ -45,7 +53,8 @@ class Recommendation < ApplicationRecord
   end
 
   # pick recipes in candidates list based on checklist constraints
-  def self.pick_recipes(candidates, checklist)
+  def self.pick_candidates(candidates, diet)
+    checklist = Checklist.find_by(diet_id: diet.id)
     picks = []
     checks = []
     # put the first candidate in the list of picks & tick the checklist
@@ -67,59 +76,5 @@ class Recommendation < ApplicationRecord
       end
     end
     return picks
-  end
-
-  def self.create_balanced_basket(recommendation, recipe_pool, checklist)
-    # set recipe list for classic basket
-    list = RecipeList.find_by(name: "équilibré", recipe_list_type: "mama")
-    # get list of proper recipes for classic basket
-    all_recipes = recipe_pool.select { |r| r.tag_list.any? { |tag| ["rapide", "léger"].include?(tag) } }
-    # exclude recipes from last week recommendation
-    last_reco = Recommendation.where(recommendation_type: "équilibré").offset(1).last
-    last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
-    # select candidate recipes based on food checklist of the week
-    candidates = Recommendation.get_recipe_candidates(recipes, checklist)
-    # pick recipes for classic basket of the week
-    picks = Recommendation.pick_recipes(candidates, checklist)
-    # add picks to the corresponding recipe list
-    picks.each do |recipe|
-      RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
-    end
-  end
-
-  def self.create_express_basket(recommendation, recipe_pool, checklist)
-    # set recipe list for classic basket
-    list = RecipeList.find_by(name: "express", recipe_list_type: "mama")
-    # get list of proper recipes for classic basket
-    all_recipes = recipe_pool.select { |r| r.tag_list.any? { |tag| ["snack", "tarte salée"].include?(tag) } }
-    # exclude recipes from last week recommendation
-    last_reco = Recommendation.where(recommendation_type: "express").offset(1).last
-    last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
-    # select candidate recipes based on food checklist of the week
-    candidates = Recommendation.get_recipe_candidates(recipes, checklist)
-    # pick recipes for classic basket of the week
-    picks = Recommendation.pick_recipes(candidates, checklist)
-    # add picks to the corresponding recipe list
-    picks.each do |recipe|
-      RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
-    end
-  end
-
-  def self.create_gourmand_basket(recommendation, recipe_pool, checklist)
-    # set recipe list for classic basket
-    list = RecipeList.find_by(name: "gourmand", recipe_list_type: "mama")
-    # get list of proper recipes for classic basket
-    all_recipes = recipe_pool.select { |r| r.tag_list.any? { |tag| ["gourmand"].include?(tag) } }
-    # exclude recipes from last week recommendation
-    last_reco = Recommendation.where(recommendation_type: "gourmand").offset(1).last
-    last_reco.present? ? recipes = all_recipes - last_reco.recipes : recipes = all_recipes
-    # select candidate recipes based on food checklist of the week
-    candidates = Recommendation.get_recipe_candidates(recipes, checklist)
-    # pick recipes for classic basket of the week
-    picks = Recommendation.pick_recipes(candidates, checklist)
-    # add picks to the corresponding recipe list
-    picks.each do |recipe|
-      RecipeListItem.create(recipe_id: recipe.id, recipe_list_id: list.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
-    end
   end
 end

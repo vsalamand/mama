@@ -21,7 +21,7 @@ class Checklist < ApplicationRecord
       FoodListItem.find_or_create_by(name: food.name, food_id: food.id, food_list_id: seasonal_foods.id)
     end
 
-    # list foods by category
+    # list foods by category !!! => to refactor into food lists
     food_pools = {}
     food_pools["vegetables"] = Category.find(14).foods.roots & available_food_root
     food_pools["oelaginous"] = Category.find(15).foods.roots & available_food_root
@@ -38,26 +38,26 @@ class Checklist < ApplicationRecord
     return food_pools
   end
 
-  def self.create_diet_checklist(checklist, diet, food_pools)
-    # set food list for diet checklist
-    list = FoodList.find_by(diet_id: diet.id, food_list_type: "recommendation")
-    list.food_list_items.each do |item|
-      item.food_list_id == nil
-      item.save
-    end
+  def self.pick_foods(checklist, food_pools)
+    # # set food list for diet checklist
+    # list = FoodList.find_or_create_by(name: diet.name, diet_id: diet.id, food_list_type: "recommendation")
+    # list.food_list_items.each do |item|
+    #   item.food_list_id == nil
+    #   item.save
+    # end
     # add food to checklist
-    balanced_checklist = []
-    balanced_checklist << food_pools["vegetables"].shuffle.take(4)
-    balanced_checklist << food_pools["legumes"].shuffle.take(2)
-    balanced_checklist << food_pools["pasta"]
-    balanced_checklist << food_pools["rice"]
-    balanced_checklist << food_pools["meat"].shuffle.take(1)
-    balanced_checklist << food_pools["fatty_fish"].shuffle.take(1)
-    balanced_checklist << food_pools["poultry"].shuffle.take(1)
-    balanced_checklist << food_pools["eggs"]
-    balanced_checklist = balanced_checklist.flatten
-    balanced_checklist.each do |food|
-      FoodListItem.create(name: food.name, food_id: food.id, food_list_id: list.id, checklist_id: checklist.id)
+    checklist = []
+    checklist << food_pools["vegetables"].shuffle.take(4)
+    checklist << food_pools["legumes"].shuffle.take(2)
+    checklist << food_pools["pasta"]
+    checklist << food_pools["rice"]
+    checklist << food_pools["meat"].shuffle.take(1)
+    checklist << food_pools["fatty_fish"].shuffle.take(1)
+    checklist << food_pools["poultry"].shuffle.take(1)
+    checklist << food_pools["eggs"]
+    checklist = checklist.flatten
+    checklist.each do |food|
+      FoodListItem.create(name: food.name, food_id: food.id, checklist_id: checklist.id)
     end
   end
 
