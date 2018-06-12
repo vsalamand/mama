@@ -1,18 +1,16 @@
 class ChecklistsController < ApplicationController
 
-  def self.create(type, schedule, food_pools)
+  def self.create(diet, schedule, food_pools)
     checklist = Checklist.new
-    checklist.checklist_type = type
     checklist.schedule = schedule
-    checklist.name = "Week #{schedule} | #{type}"
+    checklist.diet_id = diet.id
+    checklist.name = "Week #{schedule} | #{diet.name}"
     checklist.save
-    case type
-      when "équilibré" then Checklist.create_balanced_checklist(checklist, food_pools)
-    end
+    Checklist.pick_foods(diet, food_pools)
   end
 
   private
   def checklist_params
-    params.require(:checklist).permit(:name, :schedule, :checklist_type)
+    params.require(:checklist).permit(:name, :schedule, :diet_id)
   end
 end

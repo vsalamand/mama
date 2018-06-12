@@ -9,6 +9,13 @@ class Food < ApplicationRecord
   has_ancestry
   searchkick
 
+  def search_data
+    {
+      name: name,
+      tags: tag_list,
+    }
+  end
+
   def parent_enum
     Food.where.not(id: id).map { |f| [ f.name, f.id ] }
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525140653) do
+ActiveRecord::Schema.define(version: 20180611163921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,10 +47,19 @@ ActiveRecord::Schema.define(version: 20180525140653) do
 
   create_table "checklists", force: :cascade do |t|
     t.string   "name"
-    t.string   "checklist_type"
     t.string   "schedule"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "diet_id"
+    t.index ["diet_id"], name: "index_checklists_on_diet_id", using: :btree
+  end
+
+  create_table "diets", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.boolean  "is_active"
   end
 
   create_table "food_list_items", force: :cascade do |t|
@@ -72,6 +81,8 @@ ActiveRecord::Schema.define(version: 20180525140653) do
     t.string   "food_list_type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "diet_id"
+    t.index ["diet_id"], name: "index_food_lists_on_diet_id", using: :btree
     t.index ["user_id"], name: "index_food_lists_on_user_id", using: :btree
   end
 
@@ -129,6 +140,8 @@ ActiveRecord::Schema.define(version: 20180525140653) do
     t.string   "recipe_list_type"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "diet_id"
+    t.index ["diet_id"], name: "index_recipe_lists_on_diet_id", using: :btree
     t.index ["user_id"], name: "index_recipe_lists_on_user_id", using: :btree
   end
 
@@ -153,6 +166,8 @@ ActiveRecord::Schema.define(version: 20180525140653) do
     t.string   "recommendation_type"
     t.string   "schedule"
     t.string   "name"
+    t.integer  "diet_id"
+    t.index ["diet_id"], name: "index_recommendations_on_diet_id", using: :btree
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -210,9 +225,11 @@ ActiveRecord::Schema.define(version: 20180525140653) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "orders"
   add_foreign_key "carts", "users"
+  add_foreign_key "checklists", "diets"
   add_foreign_key "food_list_items", "checklists"
   add_foreign_key "food_list_items", "food_lists"
   add_foreign_key "food_list_items", "foods"
+  add_foreign_key "food_lists", "diets"
   add_foreign_key "food_lists", "users"
   add_foreign_key "foods", "categories"
   add_foreign_key "items", "foods"
@@ -223,5 +240,7 @@ ActiveRecord::Schema.define(version: 20180525140653) do
   add_foreign_key "recipe_list_items", "recipe_lists"
   add_foreign_key "recipe_list_items", "recipes"
   add_foreign_key "recipe_list_items", "recommendations"
+  add_foreign_key "recipe_lists", "diets"
   add_foreign_key "recipe_lists", "users"
+  add_foreign_key "recommendations", "diets"
 end

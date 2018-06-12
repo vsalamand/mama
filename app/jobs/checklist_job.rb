@@ -3,10 +3,10 @@ class ChecklistJob < ApplicationJob
 
   def perform
     schedule = Date.today.next_week.strftime("%W, %Y")
-    checklists = ["équilibré"]
+    # update seasonal foods and create food categories (will be removed during next refactoring)
     food_pools = Checklist.update_food_pools
-    checklists.each do |type|
-      ChecklistsController.create(type, schedule, food_pools)
+    Diet.all.each do |diet|
+      ChecklistsController.create(diet, schedule, food_pools)
     end
   end
 end
