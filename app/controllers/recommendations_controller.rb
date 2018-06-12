@@ -16,7 +16,7 @@ class RecommendationsController < ApplicationController
       picks = Recommendation.pick_candidates(candidates, diet)
       # create recommendation object
       recommendation.save
-      # add picks to the corresponding recipe list
+      # add picks to the recommendation bucket
       picks.each do |recipe|
         RecipeListItem.create(recipe_id: recipe.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
       end

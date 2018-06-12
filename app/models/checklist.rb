@@ -55,7 +55,7 @@ class Checklist < ApplicationRecord
     checklist << food_pools["fatty_fish"].shuffle.take(1) if food_pools.has_key?("fatty_fish")
     checklist << food_pools["poultry"].shuffle.take(1) if food_pools.has_key?("poultry")
     checklist << food_pools["eggs"] if food_pools.has_key?("eggs")
-    # # for rake tests
+    # # for rake tests, add tomato
     # checklist << Food.find(1893)
     checklist = checklist.flatten
     checklist.each do |food|
