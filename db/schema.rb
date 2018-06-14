@@ -150,8 +150,9 @@ ActiveRecord::Schema.define(version: 20180611163921) do
     t.integer  "servings"
     t.text     "ingredients"
     t.text     "instructions"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.boolean  "recommendable"
     t.string   "status"
     t.string   "origin"
     t.string   "link"
