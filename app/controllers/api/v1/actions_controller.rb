@@ -4,34 +4,10 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
 #http://localhost:3000/api/v1/recommend?user=12345678
   def recommend
-    @recommendations = []
-    @recommendations << RecipeList.find_by(name: "équilibré")
-    @recommendations << RecipeList.find_by(name: "express")
-    @recommendations << RecipeList.find_by(name: "gourmand")
+    profile = User.find_by(sender_id: params[:user])
+    @recommendation = RecipeList.find_by(name: "Weekly menu", user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
     respond_to do |format|
       format.json { render :recommend }
-    end
-  end
-
-#http://localhost:3000/api/v1/search?query=snack+citron+cru&user=12345678
-  def search
-    query = params[:query].present? ? params[:query] : nil
-    @search = if query
-      Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"})[0..4]
-    end
-    respond_to do |format|
-      format.json { render :search }
-    end
-  end
-
-#http://localhost:3000/api/v1/profile?user=123456&username=test
-  def profile
-    @profile = User.find_or_create_by(sender_id: params[:user])
-    @profile.username = params[:username]
-    if @profile.email.empty? then @profile.email = "#{params[:user]}@foodmama.fr" end
-    @profile.save
-    respond_to do |format|
-      format.json { render :profile }
     end
   end
 
@@ -41,6 +17,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     @cart = Cart.find_or_create_by(user_id: profile.id)
     product = Recipe.find(params[:product_id])
     CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: @cart.id)
+    RecipeList.add_to_user_history(profile, product)
     respond_to do |format|
       format.json { render :add_to_cart }
     end
@@ -53,6 +30,22 @@ class Api::V1::ActionsController < Api::V1::BaseController
     product = Recipe.find(params[:product_id])
     cart_item = CartItem.find_by(cart_id: cart.id, productable_id: product.id, productable_type: product.class.name)
     cart_item.destroy
+    head :ok
+  end
+
+  #http://localhost:3000/api/v1/add_to_history?product_id=123456&user=12345678
+  def add_to_history
+    profile = User.find_by(sender_id: params[:user])
+    product = Recipe.find(params[:product_id])
+    RecipeList.add_to_user_history(profile, product)
+    head :ok
+  end
+
+  #http://localhost:3000/api/v1/ban_recipe?product_id=123456&user=12345678
+  def ban_recipe
+    profile = User.find_by(sender_id: params[:user])
+    product = Recipe.find(params[:product_id])
+    RecipeList.ban_recipe(profile, product)
     head :ok
   end
 
@@ -108,6 +101,28 @@ class Api::V1::ActionsController < Api::V1::BaseController
     @recipe_list = RecipeList.find(params[:list])
     respond_to do |format|
       format.json { render :recipelist }
+    end
+  end
+
+  #http://localhost:3000/api/v1/profile?user=123456&username=test
+  def profile
+    @profile = User.find_or_create_by(sender_id: params[:user])
+    @profile.username = params[:username]
+    if @profile.email.empty? then @profile.email = "#{params[:user]}@foodmama.fr" end
+    @profile.save
+    respond_to do |format|
+      format.json { render :profile }
+    end
+  end
+
+  #http://localhost:3000/api/v1/search?query=snack+citron+cru&user=12345678
+  def search
+    query = params[:query].present? ? params[:query] : nil
+    @search = if query
+      Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"})[0..4]
+    end
+    respond_to do |format|
+      format.json { render :search }
     end
   end
 

@@ -21,6 +21,8 @@ class RecommendationsController < ApplicationController
         RecipeListItem.create(recipe_id: recipe.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
       end
     end
+    # update users weekly recommendations menu
+    Recommendation.update_user_weekly_menu(User.all, schedule)
   end
 
   private
