@@ -9,7 +9,7 @@ case
   when @recommendation.recipe.rating == "excellent" then json.rating "💖 que des aliments recommandés !"
   when @recommendation.recipe.rating == "good" then json.rating "💚 principalement des aliments recommandés"
   when @recommendation.recipe.rating == "limit" then json.rating "💛 contient des aliments à limiter"
-  when @recommendation.recipe.rating == "avoid" then json.rating "❤️ ne contient que des aliments à limiter"
+  when @recommendation.recipe.rating == "avoid" then json.rating "❤️ nombreux aliments à limiter"
   else json.rating ""
 end
 case
