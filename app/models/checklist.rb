@@ -1,5 +1,5 @@
 class Checklist < ApplicationRecord
-  has_many :food_list_items
+  has_many :food_list_items, dependent: :destroy
   has_many :foods, through: :food_list_items
 
   # create a checklist of foods items

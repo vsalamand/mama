@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       get 'cart', to: 'actions#cart'
       get 'add_to_cart', to: 'actions#add_to_cart'
       get 'remove_from_cart', to: 'actions#remove_from_cart'
+      get 'add_to_history', to: 'actions#add_to_history'
+      get 'ban_recipe', to: 'actions#ban_recipe'
       get 'checkout', to: 'actions#checkout'
       get 'order', to: 'actions#order'
       get 'order_history', to: 'actions#order_history'
