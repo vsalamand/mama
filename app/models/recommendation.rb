@@ -1,5 +1,5 @@
 class Recommendation < ApplicationRecord
-  has_many :recipe_list_items
+  has_many :recipe_list_items, dependent: :destroy
   has_many :recipes, through: :recipe_list_items
 
   # exclude recipes when they contain food that's not available in the given month
@@ -95,8 +95,11 @@ class Recommendation < ApplicationRecord
       user_recos = user_recos.flatten
       user_recos = user_recos - user_banned_recipes.recipes unless user_banned_recipes.nil?
       # update the user weekly menu recipe list
-      weekly_menu.recipe_list_items.each { |recipe_item| recipe_item.recipe_list_id = user_history.id }
-      user_recos.each { |recipe| RecipeListItem.create(name: recipe.title, recipe_id: recipe.id, recipe_list_id: weekly_menu.id, position: 0)}
+      weekly_menu.recipe_list_items.each do |recipe_item|
+        recipe_item.recipe_list_id = user_history.id
+        recipe_item.save
+      end
+      user_recos.each { |recipe| RecipeListItem.find_or_create_by(name: recipe.title, recipe_id: recipe.id, recipe_list_id: weekly_menu.id, position: 0)}
     end
   end
 end

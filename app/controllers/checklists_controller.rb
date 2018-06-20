@@ -1,11 +1,19 @@
 class ChecklistsController < ApplicationController
 
   def self.create(diet, schedule, food_pools)
-    checklist = Checklist.new
-    checklist.schedule = schedule
-    checklist.diet_id = diet.id
-    checklist.name = "Week #{schedule} | #{diet.name}"
-    checklist.save
+    # vérifier si l'objet Checklist existe déjà (au cas où l'on relance le process)
+    checklist = Checklist.find_by(diet_id: diet.id, schedule: schedule)
+    # s'il n'existe pas, alors créer un nouvel objet
+    if checklist.nil?
+      checklist = Checklist.new
+      checklist.schedule = schedule
+      checklist.diet_id = diet.id
+      checklist.name = "Week #{schedule} | #{diet.name}"
+      checklist.save
+    else
+      # s'il existe, alors détruire tous les items avant d'en remettre
+      checklist.food_list_items.destroy_all
+    end
     Checklist.pick_foods(diet, food_pools)
   end
 
