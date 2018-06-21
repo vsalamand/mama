@@ -104,6 +104,30 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/diets?user=12345678
+  def diets
+    @diets = Diet.where(is_active: true)
+    respond_to do |format|
+      format.json { render :diets }
+    end
+  end
+
+  #http://localhost:3000/api/v1/set_diet?diet=123&user=12345678
+  def set_diet
+    profile = User.find_by(sender_id: params[:user])
+    diet = Diet.find(params[:diet])
+    Diet.update_user_diet(profile, diet)
+    head :ok
+  end
+
+  #http://localhost:3000/api/v1/user_diet?user=12345678
+  def user_diet
+    @profile = User.find_by(sender_id: params[:user])
+    respond_to do |format|
+      format.json { render :user_diet }
+    end
+  end
+
   #http://localhost:3000/api/v1/profile?user=123456&username=test
   def profile
     @profile = User.find_or_create_by(sender_id: params[:user])

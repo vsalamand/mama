@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       get 'order_history', to: 'actions#order_history'
       get 'grocerylist', to: 'actions#grocerylist'
       get 'recipelist', to: 'actions#recipelist'
+      get 'diets', to: 'actions#diets'
+      get 'set_diet', to: 'actions#set_diet'
+      get 'user_diet', to: 'actions#user_diet'
     end
   end
 
