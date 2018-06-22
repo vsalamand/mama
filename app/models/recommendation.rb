@@ -18,7 +18,7 @@ class Recommendation < ApplicationRecord
         recipe_item.destroy if unavailable_recipes.include?(recipe_item.recipe)
       end
       # Get the new list of recipes that exclude foods banned for the diet
-      banned_foods = FoodList.find_or_create_by(name: "Diet banned food list", diet_id: diet.id, food_list_type: "ban")
+      banned_foods = FoodList.find_by(name: "Diet banned food list", diet_id: diet.id, food_list_type: "ban")
       new_diet_recipes = available_recipes.select { |recipe| (recipe.foods & banned_foods.foods).empty? }
       # then add new seasonal/published recipes to the list
       new_diet_recipes.each do |recipe|
