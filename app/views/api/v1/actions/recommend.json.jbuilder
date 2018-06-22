@@ -17,5 +17,5 @@ case
   when @recommendation.recipe.tag_list.include?("léger") then json.type "🥕 léger"
   when @recommendation.recipe.tag_list.include?("snack") then json.type "🍔 snack"
   when @recommendation.recipe.tag_list.include?("tarte salée") then json.type "🍕 tarte salée"
-  when @recommendation.recipe.tag_list.include?("snack") then json.type "🍽️ snack"
+  when @recommendation.recipe.tag_list.include?("gourmand") then json.type "🍽️ gourmand"
 end

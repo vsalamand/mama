@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 20180621104500) do
 
   create_table "checklists", force: :cascade do |t|
     t.string   "name"
+    t.integer  "diet_id"
     t.string   "schedule"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "diet_id"
     t.index ["diet_id"], name: "index_checklists_on_diet_id", using: :btree
   end
 
@@ -77,11 +77,11 @@ ActiveRecord::Schema.define(version: 20180621104500) do
   create_table "food_lists", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
+    t.integer  "diet_id"
     t.text     "description"
     t.string   "food_list_type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "diet_id"
     t.index ["diet_id"], name: "index_food_lists_on_diet_id", using: :btree
     t.index ["user_id"], name: "index_food_lists_on_user_id", using: :btree
   end
@@ -121,13 +121,13 @@ ActiveRecord::Schema.define(version: 20180621104500) do
   end
 
   create_table "recipe_list_items", force: :cascade do |t|
+    t.string   "name"
     t.integer  "recipe_id"
     t.integer  "recipe_list_id"
+    t.integer  "recommendation_id"
     t.integer  "position"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.string   "name"
-    t.integer  "recommendation_id"
     t.index ["recipe_id"], name: "index_recipe_list_items_on_recipe_id", using: :btree
     t.index ["recipe_list_id"], name: "index_recipe_list_items_on_recipe_list_id", using: :btree
     t.index ["recommendation_id"], name: "index_recipe_list_items_on_recommendation_id", using: :btree
@@ -136,11 +136,11 @@ ActiveRecord::Schema.define(version: 20180621104500) do
   create_table "recipe_lists", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
+    t.integer  "diet_id"
     t.text     "description"
     t.string   "recipe_list_type"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.integer  "diet_id"
     t.index ["diet_id"], name: "index_recipe_lists_on_diet_id", using: :btree
     t.index ["user_id"], name: "index_recipe_lists_on_user_id", using: :btree
   end
@@ -160,12 +160,12 @@ ActiveRecord::Schema.define(version: 20180621104500) do
   end
 
   create_table "recommendations", force: :cascade do |t|
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.string   "recommendation_type"
-    t.string   "schedule"
     t.string   "name"
     t.integer  "diet_id"
+    t.string   "recommendation_type"
+    t.string   "schedule"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.index ["diet_id"], name: "index_recommendations_on_diet_id", using: :btree
   end
 
