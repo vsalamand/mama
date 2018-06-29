@@ -3,7 +3,7 @@ class RecommendationJob < ApplicationJob
 
   def perform
     # create recipe recommendations of the week
-    Recommendation.update_recipe_pools
+    RecipeList.update_recipe_pools
     schedule = Date.today.strftime("%W, %Y")
     Diet.all.each do |diet|
       RecommendationsController.create(diet, schedule)

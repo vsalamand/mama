@@ -23,4 +23,28 @@ class RecipeList < ApplicationRecord
     recipe_item.recipe_list_id = user_banned_list.id
     recipe_item.save
   end
+
+  def self.update_recipe_pools
+    seasonal_foods = FoodList.find_by(name: "seasonal foods", food_list_type: "pool")
+    available_recipes = Recipe.where(status: "published").select { |recipe| (recipe.foods - seasonal_foods.foods).empty? }
+    # List all recipes that should be exclude from any diet
+    unavailable_recipes = Recipe.all - available_recipes
+
+    # for each diet, list all recipes that contain only seasonal food and exclude any food not approved by the diet
+    Diet.all.each do |diet|
+      # Get the diet recipe list
+      seasonal_recipes = RecipeList.find_by(diet_id: diet.id, recipe_list_type: "pool")
+      #!!! delete recipe items in the list when they've become no longer seasonal
+      seasonal_recipes.recipe_list_items.each do |recipe_item|
+        recipe_item.destroy if unavailable_recipes.include?(recipe_item.recipe)
+      end
+      # Get the new list of recipes that exclude foods banned for the diet
+      banned_foods = FoodList.find_by(diet_id: diet.id, food_list_type: "ban")
+      new_diet_recipes = available_recipes.select { |recipe| (recipe.foods & banned_foods.foods).empty? }
+      # then add new seasonal/published recipes to the list
+      new_diet_recipes.each do |recipe|
+        RecipeListItem.find_or_create_by(name: recipe.title, recipe_id: recipe.id, recipe_list_id: seasonal_recipes.id)
+      end
+    end
+  end
 end
