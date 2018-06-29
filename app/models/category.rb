@@ -2,6 +2,7 @@ class Category < ApplicationRecord
   # attr_accessible :name, :parent_id
   has_ancestry
   has_many :foods
+  has_many :diets
 
   RATING = ["good", "limit", "avoid"]
 
