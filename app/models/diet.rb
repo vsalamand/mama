@@ -5,6 +5,10 @@ class Diet < ApplicationRecord
   has_many :recipe_lists
   has_many :recommendations
   has_many :users
+  has_many :banned_categories
+  has_many :categories, through: :banned_categories
+  has_many :banned_foods
+  has_many :foods, through: :banned_foods
 
   def self.update_user_diet(user, diet)
     if user.diet =! diet

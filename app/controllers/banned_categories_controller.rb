@@ -1,0 +1,2 @@
+class BannedCategoriesController < ApplicationController
+end

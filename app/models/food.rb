@@ -4,6 +4,8 @@ class Food < ApplicationRecord
   has_many :recipes, through: :items
   has_many :cart_items, :as => :productable
   belongs_to :category
+  has_many :banned_foods
+  has_many :diets, through: :banned_foods
 
   acts_as_ordered_taggable
   has_ancestry

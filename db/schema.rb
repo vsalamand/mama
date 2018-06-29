@@ -10,17 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180629161258) do
+ActiveRecord::Schema.define(version: 20180629170839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "banned_categories", force: :cascade do |t|
-    t.string  "name"
-    t.integer "category_id"
-    t.integer "diet_id"
+    t.string   "name"
+    t.integer  "category_id"
+    t.integer  "diet_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["category_id"], name: "index_banned_categories_on_category_id", using: :btree
     t.index ["diet_id"], name: "index_banned_categories_on_diet_id", using: :btree
+  end
+
+  create_table "banned_foods", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "diet_id"
+    t.integer  "food_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diet_id"], name: "index_banned_foods_on_diet_id", using: :btree
+    t.index ["food_id"], name: "index_banned_foods_on_food_id", using: :btree
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -233,6 +245,8 @@ ActiveRecord::Schema.define(version: 20180629161258) do
 
   add_foreign_key "banned_categories", "categories"
   add_foreign_key "banned_categories", "diets"
+  add_foreign_key "banned_foods", "diets"
+  add_foreign_key "banned_foods", "foods"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "orders"
   add_foreign_key "carts", "users"
