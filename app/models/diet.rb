@@ -19,7 +19,7 @@ class Diet < ApplicationRecord
 
   def self.update_user_diet(user, diet)
     if user.diet =! diet
-      user.diet = diet
+      user.diet_id = diet.id
       user.save
       schedule = Date.today.strftime("%W, %Y")
       # onc diet is changed, user recommendations must be recomputed to match the new constraints
