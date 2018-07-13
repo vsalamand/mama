@@ -55,10 +55,10 @@ class Recommendation < ApplicationRecord
 
   def self.update_user_weekly_menu(user, schedule)
     # retrieve all the relevant information
-    weekly_menu = RecipeList.find_or_create_by(name: "Weekly menu", user_id: user.id, recipe_list_type: "recommendation")
+    weekly_menu = RecipeList.find_by(user_id: user.id, recipe_list_type: "recommendation")
     weekly_menu.diet = Diet.find(1) if weekly_menu.diet.nil?
     user_banned_recipes = RecipeList.find_by(user_id: user.id, recipe_list_type: "ban")
-    user_history = RecipeList.find_or_create_by(name: "History", user_id: user.id, recipe_list_type: "history")
+    user_history = RecipeList.find_by(user_id: user.id, recipe_list_type: "history")
     diet_recos = Recommendation.where(diet_id: weekly_menu.diet, schedule: schedule)
     # get the list of recommended recipes for the user
     user_recos = []

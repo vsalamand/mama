@@ -5,13 +5,13 @@ class Api::V1::ActionsController < Api::V1::BaseController
 #http://localhost:3000/api/v1/recommend?user=12345678
   def recommend
     profile = User.find_by(sender_id: params[:user])
-    @recommendation = RecipeList.find_by(name: "Weekly menu", user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
+    @recommendation = RecipeList.find_by(user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
     # if no more results, then generate new recommendation for the user
-    if @recommendation.nil?
-      schedule = Date.today.strftime("%W, %Y")
-      Recommendation.update_user_weekly_menu(profile, schedule)
-      @recommendation = RecipeList.find_by(name: "Weekly menu", user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
-    end
+    # if @recommendation.nil?
+    #   schedule = Date.today.strftime("%W, %Y")
+    #   Recommendation.update_user_weekly_menu(profile, schedule)
+    #   @recommendation = RecipeList.find_by(name: "Weekly menu", user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
+    # end
     respond_to do |format|
       format.json { render :recommend }
     end

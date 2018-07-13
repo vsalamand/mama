@@ -14,12 +14,12 @@ class FoodList < ApplicationRecord
     # add food in foodlist unless already in
     if diet.banned_categories.any?
       diet.banned_categories.each do |banned_category|
-        banned_category.category.foods.each { |food| FoodListItem.create(name: food.name, food_id: food.id, food_list_id: banned_foods.id) unless banned_foods.foods.include?(food)}
+        banned_category.category.foods.each { |food| FoodListItem.find_or_create_by(name: food.name, food_id: food.id, food_list_id: banned_foods.id) }
       end
     end
     if diet.banned_foods.any?
       diet.banned_foods.each do |banned_food|
-        banned_food.food.subtree.each { |food| FoodListItem.create(name: food.name, food_id: food.id, food_list_id: banned_foods.id) unless banned_foods.foods.include?(food)}
+        banned_food.food.subtree.each { |food| FoodListItem.find_or_create_by(name: food.name, food_id: food.id, food_list_id: banned_foods.id) }
       end
     end
   end
