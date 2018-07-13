@@ -18,7 +18,7 @@ class Diet < ApplicationRecord
   end
 
   def self.update_user_diet(user, diet)
-    if user.diet =! diet
+    if user.diet != diet
       user.diet_id = diet.id
       user.save
       schedule = Date.today.strftime("%W, %Y")
