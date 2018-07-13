@@ -11,18 +11,15 @@ class FoodList < ApplicationRecord
   def self.update_banned_foods(diet)
     banned_foods = FoodList.find_by(diet_id: diet.id, food_list_type: "ban")
 
-
-# ajouter moyen de ne âs recréer les food_list_items à chgaque update
-
-
+    # add food in foodlist unless already in
     if diet.banned_categories.any?
       diet.banned_categories.each do |banned_category|
-        banned_category.category.foods.each { |food| FoodListItem.create(name: food.name, food_id: food.id, food_list_id: banned_foods.id) }
+        banned_category.category.foods.each { |food| FoodListItem.create(name: food.name, food_id: food.id, food_list_id: banned_foods.id) unless banned_foods.foods.include?(food)}
       end
     end
     if diet.banned_foods.any?
       diet.banned_foods.each do |banned_food|
-        banned_food.food.subtree.each { |food| FoodListItem.create(name: food.name, food_id: food.id, food_list_id: banned_foods.id) }
+        banned_food.food.subtree.each { |food| FoodListItem.create(name: food.name, food_id: food.id, food_list_id: banned_foods.id) unless banned_foods.foods.include?(food)}
       end
     end
   end
