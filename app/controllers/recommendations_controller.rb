@@ -30,7 +30,7 @@ class RecommendationsController < ApplicationController
       end
     end
     # update users weekly recommendations menu
-    User.all.each { |user| Recommendation.update_user_weekly_menu(user, schedule) }
+    User.where(diet: diet).each { |user| Recommendation.update_user_weekly_menu(user, schedule) }
   end
 
   private
