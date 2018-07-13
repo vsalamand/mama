@@ -59,17 +59,18 @@ class Recommendation < ApplicationRecord
     # weekly_menu.diet = Diet.find(1) if weekly_menu.diet.nil?
     user_banned_recipes = RecipeList.find_by(user_id: user.id, recipe_list_type: "ban")
     user_history = RecipeList.find_by(user_id: user.id, recipe_list_type: "history")
-    diet_recos = Recommendation.where(diet_id: user.diet, schedule: schedule)
+    diet_recos = Recommendation.where(diet_id: user.diet_id, schedule: schedule)
     # get the list of recommended recipes for the user
     user_recos = []
     diet_recos.each { |reco| user_recos << reco.recipes }
     user_recos = user_recos.flatten
     user_recos = user_recos - user_banned_recipes.recipes unless user_banned_recipes.nil?
-    # update the user weekly menu recipe list
+    # pass remaining items from previous week into history list
     weekly_menu.recipe_list_items.each do |recipe_item|
       recipe_item.recipe_list_id = user_history.id
       recipe_item.save
     end
+    # add new recipe to the weekly list
     user_recos.each { |recipe| RecipeListItem.find_or_create_by(name: recipe.title, recipe_id: recipe.id, recipe_list_id: weekly_menu.id, position: 0)}
   end
 end
