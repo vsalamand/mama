@@ -2,6 +2,8 @@ class Category < ApplicationRecord
   # attr_accessible :name, :parent_id
   has_ancestry
   has_many :foods
+  has_many :banned_categories
+  has_many :diets, through: :banned_categories
 
   RATING = ["good", "limit", "avoid"]
 

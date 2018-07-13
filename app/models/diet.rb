@@ -5,6 +5,17 @@ class Diet < ApplicationRecord
   has_many :recipe_lists
   has_many :recommendations
   has_many :users
+  has_many :banned_categories
+  has_many :categories, through: :banned_categories
+  has_many :banned_foods
+  has_many :foods, through: :banned_foods
+
+  after_create do
+    FoodList.create(name: "Diet banned food list | #{self.name}", diet_id: self.id, food_list_type: "ban")
+    FoodList.update_banned_foods(self)
+    RecipeList.create(name: "Diet seasonal recipes | #{self.name}", diet_id: self.id, recipe_list_type: "pool")
+    RecipeList.update_recipe_pools
+  end
 
   def self.update_user_diet(user, diet)
     if user.diet =! diet
