@@ -129,7 +129,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
   #http://localhost:3000/api/v1/user_diet?user=12345678
   def user_diet
     @profile = User.find_by(sender_id: params[:user])
-    if @profile.diet = nil? then @profile.diet = Diet.first end
+    if @profile.diet == nil? then @profile.diet = Diet.first end
     respond_to do |format|
       format.json { render :user_diet }
     end
