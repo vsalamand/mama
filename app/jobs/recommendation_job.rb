@@ -3,6 +3,10 @@ class RecommendationJob < ApplicationJob
 
   def perform
     # create recipe recommendations of the week
+    # IF NEW FOOD IN DB, THEN:
+    # Diet.all.each do |diet|
+    #   FoodList.update_banned_foods(diet)
+    # end
     RecipeList.update_recipe_pools
     schedule = Date.today.strftime("%W, %Y")
     Diet.all.each do |diet|
