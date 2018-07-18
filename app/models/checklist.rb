@@ -9,33 +9,86 @@ class Checklist < ApplicationRecord
     available_food = Food.where("availability ~ ?", available_date)
     available_food_root = Food.roots.where("availability ~ ?", available_date).to_a
     unavailable_food = Food.all - available_food
+    # MAIN SEASONAL FOODLIST
+    seasonal_list = FoodList.find_or_create_by(name: "seasonal foods", food_list_type: "pool")
+    seasonal_candidates = Food.where("availability ~ ?", available_date)
+    Checklist.update_food(seasonal_list, unavailable_food, seasonal_candidates)
 
-    # Update main seasonal foods list
-    seasonal_foods = FoodList.find_or_create_by(name: "seasonal foods", food_list_type: "pool")
+    # SEASONAL VEGGIES
+    list = FoodList.find_or_create_by(name: "vegetables (seasonal)", food_list_type: "pool")
+    candidates = (Category.find(14).foods.roots & available_food_root) - Category.find(14).foods.tagged_with("légumes bulbes")
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL LEAFY VEGGIES
+    list = FoodList.find_or_create_by(name: "leafy vegetables (seasonal)", food_list_type: "pool")
+    candidates = Category.find(14).foods.roots.tagged_with("légumes feuilles") & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL FLOWER VEGGIES
+    list = FoodList.find_or_create_by(name: "flower vegetables (seasonal)", food_list_type: "pool")
+    candidates = Category.find(14).foods.roots.tagged_with("légumes fleurs") & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL FRUIT VEGGIES
+    list = FoodList.find_or_create_by(name: "fruit vegetables (seasonal)", food_list_type: "pool")
+    candidates = Category.find(14).foods.roots.tagged_with("légumes fruits") & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL ROOT VEGGIES
+    list = FoodList.find_or_create_by(name: "root vegetables (seasonal)", food_list_type: "pool")
+    candidates = Category.find(14).foods.roots.tagged_with("légumes racines") & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL STALK VEGGIES
+    list = FoodList.find_or_create_by(name: "stalk vegetables (seasonal)", food_list_type: "pool")
+    candidates = Category.find(14).foods.roots.tagged_with("légumes tiges") & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL LEGUMES
+    list = FoodList.find_or_create_by(name: "legumes (seasonal)", food_list_type: "pool")
+    candidates = Category.find(22).foods.roots & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL GAINS & NUTS
+    list = FoodList.find_or_create_by(name: "grains & nuts (seasonal)", food_list_type: "pool")
+    candidates = Category.find(15).foods.roots & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL CEREALS
+    list = FoodList.find_or_create_by(name: "cereals (seasonal)", food_list_type: "pool")
+    candidates = (Category.find(20).foods.roots + Category.find(21).foods.roots) & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL STARCHY FOOD
+    list = FoodList.find_or_create_by(name: "starchy foods (seasonal)", food_list_type: "pool")
+    candidates = (Category.find(14).foods.roots.tagged_with("légumes tubercules") + Category.find(22).foods.roots + Category.find(20).foods.roots + Category.find(21).foods.roots) & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL MEAT
+    list = FoodList.find_or_create_by(name: "meat (seasonal)", food_list_type: "pool")
+    candidates = (Category.find(23).foods.roots + Category.find(27).foods.roots) & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL POULTRY
+    list = FoodList.find_or_create_by(name: "poultry (seasonal)", food_list_type: "pool")
+    candidates = Category.find(28).foods.roots & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL FATTY FISHES
+    list = FoodList.find_or_create_by(name: "fatty fishes (seasonal)", food_list_type: "pool")
+    candidates = Category.find(25).foods.roots & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL FISH & SEAFOOD
+    list = FoodList.find_or_create_by(name: "fish & seafood (seasonal)", food_list_type: "pool")
+    candidates = Category.find(26).foods.roots & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL CHEESES
+    list = FoodList.find_or_create_by(name: "cheeses (seasonal)", food_list_type: "pool")
+    candidates = Category.find(30).foods.roots & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+    # SEASONAL PROTEIN
+    list = FoodList.find_or_create_by(name: "protein foods (seasonal)", food_list_type: "pool")
+    candidates = (Food.find(30) + Category.find(22).foods.roots + Category.find(15).foods.roots + Category.find(23).foods.roots + Category.find(27).foods.roots + Category.find(28).foods.roots) & available_food_root
+    Checklist.update_food(list, unavailable_food, candidates)
+  end
+
+  def self.update_food(list, unavailable_food, candidates)
     #!!! delete items in the list when they are no longer seasonal
-    seasonal_foods.food_list_items.each do |food_item|
+    list.food_list_items.each do |food_item|
       food_item.destroy if unavailable_food.include?(food_item.food)
     end
-    # then add new seasonal items in the list
-    Food.where("availability ~ ?", available_date).each do |food|
-      FoodListItem.find_or_create_by(name: food.name, food_id: food.id, food_list_id: seasonal_foods.id)
+    # then add new seasonal candidates in the list
+    candidates.each do |food|
+      FoodListItem.find_or_create_by(name: food.name, food_id: food.id, food_list_id: list.id)
     end
-
-    # list foods by category !!! => to refactor into food lists
-    food_pools = {}
-    food_pools["vegetables"] = Category.find(14).foods.roots & available_food_root if Category.exists?(14)
-    food_pools["oelaginous"] = Category.find(15).foods.roots & available_food_root if Category.exists?(15)
-    food_pools["starches"] = (Category.find(20).foods.roots + Category.find(21).foods.roots) & available_food_root if Category.exists?(20)
-    food_pools["legumes"] = Category.find(22).foods.roots & available_food_root if Category.exists?(22)
-    food_pools["delicatessen"] = Category.find(23).foods.roots & available_food_root if Category.exists?(23)
-    food_pools["fatty_fish"] = Category.find(25).foods.roots & available_food_root if Category.exists?(25)
-    food_pools["other_fish"] = Category.find(26).foods.roots & available_food_root if Category.exists?(26)
-    food_pools["meat"] = Category.find(27).foods.roots & available_food_root if Category.exists?(27)
-    food_pools["poultry"] = Category.find(28).foods.roots & available_food_root if Category.exists?(28)
-    food_pools["eggs"] = Food.find(30) if Food.exists?(30)
-    food_pools["pasta"] = Food.find(3) if Food.exists?(3)
-    food_pools["rice"] = Food.find(21) if Food.exists?(21)
-    return food_pools
   end
 
   def self.pick_foods(diet, food_pools)
