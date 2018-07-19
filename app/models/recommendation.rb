@@ -3,10 +3,10 @@ class Recommendation < ApplicationRecord
   has_many :recipes, through: :recipe_list_items
 
   # get list of recipes sort by nb of foods
-  def self.get_candidates(diet, type)
+  def self.get_candidates(diet, type, schedule)
     # list food and food children from checklist (ancestry gem)
     food_list = []
-    checklist = Checklist.find_by(diet_id: diet.id)
+    checklist = Checklist.find_by(diet_id: diet.id, schedule: schedule)
     # for each food, get the food children and verify category and availability
     checklist.foods.each { |food| food_list << food.subtree.where(category: food.category).where("availability ~ ?", Date.today.strftime("%m")) }
     food_list = food_list.flatten
