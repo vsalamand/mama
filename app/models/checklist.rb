@@ -21,6 +21,15 @@ class Checklist < ApplicationRecord
     end
   end
 
+  def self.get_food_children(checklist)
+    # for each food, get the food children and verify category and availability
+    food_list = []
+    checklist.each do |food|
+      food.subtree.where(category: food.category).where("availability ~ ?", Date.today.strftime("%m")).each { |item| food_list << item}
+    end
+    return food_list
+  end
+
   def self.update_food_pools
     # find food that's not available in the given month
     available_date = Date.today.next_week.strftime("%m")
