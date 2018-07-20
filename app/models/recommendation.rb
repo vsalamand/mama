@@ -1,6 +1,7 @@
 class Recommendation < ApplicationRecord
   has_many :recipe_list_items, dependent: :destroy
   has_many :recipes, through: :recipe_list_items
+  belongs_to :diet
 
   # get list of recipes sort by nb of foods
   def self.get_candidates(diet, type, schedule)
@@ -31,17 +32,43 @@ class Recommendation < ApplicationRecord
 
     picks = []
     checks = []
+    total_food = []
+    capping = []
     # Pick candidates with most foods in the checklist not checked already, then check the food, and continue until the pick list is full
     until picks.count == 10 || (candidates - picks).count == 0
-      new_pick = (candidates - picks).find { |r| ((food_list - Checklist.get_food_children(checks).uniq) & r.foods).any? }
-      if new_pick
-        picks << new_pick
-        (new_pick.foods & food_list).each { |food| checks << food.root}
-      else
-        picks << (candidates - picks).first
+      new_pick = (candidates - picks).find do |recipe|
+        # find candidate with food that's not in the checks yet & with food roots not in the capping list yet
+        ((food_list - Checklist.get_food_children(checks).uniq) & recipe.foods).any? && (capping & recipe.foods.roots).empty?
       end
+      if new_pick.nil?
+        new_pick = (candidates - picks).find { |recipe| (capping & recipe.foods.roots).empty? }
+      end
+      picks << new_pick
+      (new_pick.foods & food_list).each { |food| checks << food.root}
+      new_pick.foods.each { |food| total_food << food.root }
+      Recommendation.cap_food(capping, total_food)
     end
     return picks
+  end
+
+  def self.cap_food(capping, total_food)
+    capped_food = []
+    #meat
+    capped_food << (Category.find(23).foods.roots + Category.find(27).foods.roots)
+    #poultry
+    capped_food << Category.find(28).foods.roots
+    #fatty_fish
+    capped_food << Category.find(25).foods.roots
+    #fish_seafood
+    capped_food << Category.find(26).foods.roots
+    #pasta
+    capped_food << Food.find(3)
+    #rice
+    capped_food << Food.find(21)
+
+    (total_food.flatten.uniq - capping).each do |food|
+      capping << food.root if capped_food.flatten.include?(food) && total_food.flatten.count(food) > 1
+    end
   end
 
   def self.update_user_weekly_menu(user, schedule)
