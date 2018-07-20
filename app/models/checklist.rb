@@ -1,6 +1,7 @@
 class Checklist < ApplicationRecord
   has_many :food_list_items, dependent: :destroy
   has_many :foods, through: :food_list_items
+  belongs_to :diet
 
   def self.pick_foods(diet)
     # create a checklist of foods items to pick recipes
