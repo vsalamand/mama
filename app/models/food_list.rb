@@ -74,7 +74,8 @@ class FoodList < ApplicationRecord
     FoodList.update_food(list, unavailable_food, candidates)
     # SEASONAL STARCHY FOOD
     list = FoodList.find_or_create_by(name: "starchy foods", food_list_type: "pool")
-    candidates = (Category.find(14).foods.roots.tagged_with("légumes tubercules") + Category.find(22).foods.roots + Category.find(20).foods.roots + Category.find(21).foods.roots) & available_food_root
+    candidates = (Category.find(20).foods.roots + Category.find(21).foods.roots) & available_food_root
+    candidates << Food.find(53)
     FoodList.update_food(list, unavailable_food, candidates)
     # SEASONAL MEAT
     list = FoodList.find_or_create_by(name: "meat", food_list_type: "pool")

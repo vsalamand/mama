@@ -13,10 +13,10 @@ class Checklist < ApplicationRecord
     checklist <<  FoodList.find_by(name: "fruit vegetables", food_list_type: "pool").foods.shuffle.take(1)
     checklist <<  FoodList.find_by(name: "root vegetables", food_list_type: "pool").foods.shuffle.take(1)
     checklist <<  FoodList.find_by(name: "stalk vegetables", food_list_type: "pool").foods.shuffle.take(1)
-    checklist <<  FoodList.find_by(name: "cereals", food_list_type: "pool").foods.shuffle.take(2)
+    checklist <<  FoodList.find_by(name: "starchy foods", food_list_type: "pool").foods.shuffle.take(3)
     checklist <<  FoodList.find_by(name: "legumes", food_list_type: "pool").foods.shuffle.take(2)
 
-    checklist = checklist.flatten
+    checklist = checklist.flatten.uniq
     checklist.each do |food|
       FoodListItem.create(name: food.name, food_id: food.id, checklist_id: diet.checklists.last.id)
     end
