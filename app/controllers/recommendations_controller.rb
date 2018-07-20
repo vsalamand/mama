@@ -30,7 +30,11 @@ class RecommendationsController < ApplicationController
       end
     end
     # update users weekly recommendations menu
-    User.where(diet: diet).each { |user| Recommendation.update_user_weekly_menu(user, schedule) }
+    recommendations = Recommendation.where(diet_id: diet.id, schedule: schedule)
+    content = []
+    recommendations.each { |reco| content << reco.recipes }
+    content = content.flatten.shuffle
+    User.where(diet: diet).each { |user| Recommendation.update_user_weekly_menu(user, schedule, content) }
   end
 
   private
