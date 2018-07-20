@@ -15,6 +15,7 @@ class Diet < ApplicationRecord
     FoodList.update_banned_foods(self)
     RecipeList.create(name: "Diet seasonal recipes | #{self.name}", diet_id: self.id, recipe_list_type: "pool")
     RecipeList.update_recipe_pools
+    ChecklistJob.perform_now
     RecommendationsController.create(self, Date.today.strftime("%W, %Y"))
   end
 

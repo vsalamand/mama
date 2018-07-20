@@ -19,7 +19,7 @@ class RecommendationsController < ApplicationController
         recommendation.recipe_list_items.destroy_all
       end
       # select recipe candidates based on diet checklist, recipes, and recommendation type
-      candidates = Recommendation.get_candidates(diet, type)
+      candidates = Recommendation.get_candidates(diet, type, schedule)
       # pick recipes of the week for the bucket
       picks = Recommendation.pick_candidates(candidates, diet)
       # create recommendation object
