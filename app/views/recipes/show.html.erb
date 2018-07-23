@@ -7,6 +7,7 @@
             <h3><strong><%= @recipe.title %></strong></h3>
             <% if current_user %>
               <%= link_to @recipe.link, "#{@recipe.link}", target: :_blank %>
+              <%= link_to "Get PDF", recipe_path(format: :pdf) %>
             <% end %>
           </div>
           <div class="recipe-tags">

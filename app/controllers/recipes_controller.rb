@@ -5,6 +5,15 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :edit, :update, :set_published_status, :set_dismissed_status ]
   skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
 
+  def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "recipe_card"   # Excluding ".pdf" extension.
+      end
+    end
+  end
+
   def pending
     @recipes = Recipe.where(status: "pending")
   end

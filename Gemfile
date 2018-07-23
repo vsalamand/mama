@@ -61,7 +61,9 @@ gem 'ancestry'
 # Background processing
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
-
+# PDF generator
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
