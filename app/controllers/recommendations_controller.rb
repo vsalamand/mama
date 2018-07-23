@@ -2,7 +2,8 @@ require 'date'
 
 class RecommendationsController < ApplicationController
 
-  def self.create(diet, schedule)
+  def self.create(diet)
+    schedule = Date.today.strftime("%W, %Y")
     types = ["rapide", "léger", "snack", "tarte salée", "gourmand"]
     types.each do |type|
       # vérifier si l'objet recommendation existe déjà (au cas où l'on relance le process)
@@ -29,12 +30,6 @@ class RecommendationsController < ApplicationController
         RecipeListItem.create(recipe_id: recipe.id, position: 0, name: recipe.title, recommendation_id: recommendation.id)
       end
     end
-    # update users weekly recommendations menu
-    recommendations = Recommendation.where(diet_id: diet.id, schedule: schedule)
-    content = []
-    recommendations.each { |reco| content << reco.recipes }
-    content = content.flatten.shuffle
-    User.where(diet: diet).each { |user| Recommendation.update_user_weekly_menu(user, schedule, content) }
   end
 
   private

@@ -15,17 +15,24 @@ class Diet < ApplicationRecord
     FoodList.update_banned_foods(self)
     RecipeList.create(name: "Diet seasonal recipes | #{self.name}", diet_id: self.id, recipe_list_type: "pool")
     RecipeList.update_recipe_pools
+    schedule = Date.today.strftime("%W, %Y")
+    ChecklistsController.create(self, schedule)
     ChecklistJob.perform_now
-    RecommendationsController.create(self, Date.today.strftime("%W, %Y"))
+    RecommendationsController.create(self)
   end
 
   def self.update_user_diet(user, diet)
     if user.diet != diet
       user.diet_id = diet.id
       user.save
+      # REFACTO UPDATE USERR WEEKLY MENU
+      recommendations = Recommendation.where(diet_id: diet.id, schedule: schedule)
+      content = []
+      recommendations.each { |reco| content << reco.recipes }
+      content = content.flatten.shuffle
       schedule = Date.today.strftime("%W, %Y")
       # onc diet is changed, user recommendations must be recomputed to match the new constraints
-      Recommendation.update_user_weekly_menu(user, schedule)
+      Recommendation.update_user_weekly_menu(user, schedule, content)
     end
   end
 end
