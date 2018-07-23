@@ -36,13 +36,12 @@ class Recommendation < ApplicationRecord
     capping = []
     # Pick candidates with most foods in the checklist not checked already, then check the food, and continue until the pick list is full
     until picks.count == 10 || (candidates - picks).count == 0
+      # find candidate with food that's not in the checks yet & with food roots not in the capping list yet
       new_pick = (candidates - picks).find do |recipe|
-        # find candidate with food that's not in the checks yet & with food roots not in the capping list yet
         ((food_list - Checklist.get_food_children(checks).uniq) & recipe.foods).any? && (capping & recipe.foods.roots).empty?
       end
-      if new_pick.nil?
-        new_pick = (candidates - picks).find { |recipe| (capping & recipe.foods.roots).empty? }
-      end
+      new_pick = (candidates - picks).find { |recipe| (capping & recipe.foods.roots).empty? } if new_pick.nil?
+      new_pick = (candidates - picks).first if new_pick.nil?
       picks << new_pick
       (new_pick.foods & food_list).each { |food| checks << food.root}
       new_pick.foods.each { |food| total_food << food.root }
