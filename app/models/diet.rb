@@ -26,11 +26,11 @@ class Diet < ApplicationRecord
       user.diet_id = diet.id
       user.save
       # REFACTO UPDATE USERR WEEKLY MENU
+      schedule = Date.today.strftime("%W, %Y")
       recommendations = Recommendation.where(diet_id: diet.id, schedule: schedule)
       content = []
       recommendations.each { |reco| content << reco.recipes }
       content = content.flatten.shuffle
-      schedule = Date.today.strftime("%W, %Y")
       # onc diet is changed, user recommendations must be recomputed to match the new constraints
       Recommendation.update_user_weekly_menu(user, schedule, content)
     end
