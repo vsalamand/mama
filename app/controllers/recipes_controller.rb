@@ -9,7 +9,9 @@ class RecipesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "recipe_card"   # Excluding ".pdf" extension.
+        render pdf: "recipe_card",
+               orientation: 'Landscape'
+               # page_size: 'A4'
       end
     end
   end

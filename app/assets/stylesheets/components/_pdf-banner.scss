@@ -1,0 +1,27 @@
+.pdf-banner {
+  color: black;
+  text-align: left;
+  height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.pdf-banner-content {
+  align-self: center;
+}
+
+.pdf-banner-content h1 {
+  font-size: 200px;
+  font-weight: bold;
+}
+/* Logo */
+.pdf-banner-content img {
+  height: 75px;
+}
+
+/* Brandname */
+.pdf-banner-content p {
+  line-height: 75px;
+  font-size: 50px;
+  font-weight: 100;
+}
