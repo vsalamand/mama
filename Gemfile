@@ -80,7 +80,10 @@ gem 'acts-as-taggable-on', :git => 'https://github.com/mbleigh/acts-as-taggable-
 # OpenFoodFacts database API
 gem 'openfoodfacts'
 
-# Hide information on Github
+# Image storage and management
+gem 'cloudinary'
+
+# Protect secret data in .env file
 gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
