@@ -12,7 +12,7 @@ class RecipesController < ApplicationController
         render pdf: "recipe_card",
                orientation: 'Landscape',
                page_size: 'A5',
-               disable_smart_shrinking: true,
+               lowquality: true,
                margin:  {
                     top:               5,                     # default 10 (mm)
                     bottom:            0,
