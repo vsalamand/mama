@@ -12,7 +12,7 @@ class RecipesController < ApplicationController
         render pdf: "recipe_card",
                orientation: 'Landscape',
                page_size: 'A5',
-               ext_size_shrink:  0.8,
+               zoom:  0.4,
                margin:  {
                     top:               5,                     # default 10 (mm)
                     bottom:            0,
