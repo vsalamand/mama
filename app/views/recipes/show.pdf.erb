@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Mama</title>
+    <%= wicked_pdf_stylesheet_link_tag "application" -%>
+  </head>
+
+  <body>
+    <div class="pdf-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="pdf-banner-content">
+              <h1><%= @recipe.title %></h1>
+              <p><%= wicked_pdf_image_tag "Face-Savouring-Delicious-Food.jpg" %> Mama</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="pdf-shopping-list">
+          <div class="col-xs-4">
+            <div class="pdf-list-head">
+              <h2><strong>Liste de courses</strong> &nbsp;</h2>
+              <p><%= @recipe.servings %> personnes</p>
+            </div>
+            <div class="pdf-list">
+              <ul>
+                <% @recipe.items.order(:id).each do |item| %>
+                  <%= pdf_clean_item(item.recipe_ingredient) %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="pdf-recipe">
+          <div class="col-xs-8">
+            <div class="pdf-recipe-head">
+              <h2><strong>Recette</strong> &nbsp;</h2>
+              <p>Etapes à suivre</p>
+            </div>
+            <%= pdf_recipe_lines(@recipe) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
+

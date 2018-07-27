@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Recipe < ApplicationRecord
   validates :title, :servings, :ingredients, :instructions, :status, :origin, presence: :true
   validates :title, uniqueness: :true
@@ -19,6 +21,12 @@ class Recipe < ApplicationRecord
       status: status
     }
   end
+
+  def self.upload_to_cloudinary(recipe)
+    file = open("https://www.foodmama.fr/recipes/#{recipe.id}.pdf")
+    Cloudinary::Uploader.upload(file, :public_id => recipe.id)
+  end
+
 
   def rate
     # get ratings for each food in recipe

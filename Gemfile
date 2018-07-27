@@ -61,7 +61,11 @@ gem 'ancestry'
 # Background processing
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
-
+# PDF generator
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+# Makes http fun again
+gem 'httparty'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -77,6 +81,12 @@ gem 'acts-as-taggable-on', :git => 'https://github.com/mbleigh/acts-as-taggable-
 
 # OpenFoodFacts database API
 gem 'openfoodfacts'
+
+# Image storage and management
+gem 'cloudinary'
+
+# Protect secret data in .env file
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
