@@ -63,7 +63,7 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 # PDF generator
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary', '0.12.3'
+gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
 
 # Makes http fun again
 gem 'httparty'
