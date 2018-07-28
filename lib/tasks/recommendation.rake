@@ -59,4 +59,11 @@ namespace :recommendation do
     puts "done !"
   end
 
+  desc "upload recipe cards to cloudinary now"
+  task upload_cards_now: :environment do
+    puts "uploading recipe cards..."
+    CardJob.perform_now
+    puts "done !"
+  end
+
 end
