@@ -5,6 +5,7 @@ json.recipe_id @recommendation.recipe.id
 json.link @recommendation.recipe.link
 json.name @recommendation.recipe.title.upcase
 json.ingredients "📝 #{@recommendation.recipe.foods.count} ingrédients"
+json.card cl_image_path("#{@recommendation.recipe.id}",  :format => :png)
 case
   when @recommendation.recipe.rating == "excellent" then json.rating "💖 que des aliments recommandés !"
   when @recommendation.recipe.rating == "good" then json.rating "💚 principalement des aliments recommandés"
