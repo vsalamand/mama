@@ -19,4 +19,5 @@ json.order @order.cart_items do |cart_item|
   json.product_type cart_item.productable_type
   json.product_id cart_item.productable_id
   json.product_link cart_item.productable.link
+  json.card cl_image_path("#{cart_item.productable_id}",  :format => :png)
 end
