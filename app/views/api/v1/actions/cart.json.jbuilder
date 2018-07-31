@@ -19,5 +19,5 @@ json.cart @cart.cart_items.reverse do |cart_item|
   json.quantity cart_item.quantity
   json.product_type cart_item.productable_type
   json.product_id cart_item.productable_id
-  json.product_link cart_item.productable.link
+  json.product_link cl_image_path("#{cart_item.productable_id}",  :format => :png)
 end

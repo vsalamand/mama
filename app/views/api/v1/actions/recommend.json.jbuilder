@@ -2,7 +2,7 @@ require 'open-uri'
 
 json.item_id @recommendation.id
 json.recipe_id @recommendation.recipe.id
-json.link @recommendation.recipe.link
+json.link cl_image_path("#{@recommendation.recipe.id}",  :format => :png)
 json.name @recommendation.recipe.title.upcase
 json.ingredients "📝 #{@recommendation.recipe.foods.count} ingrédients"
 json.card cl_image_path("#{@recommendation.recipe.id}",  :format => :png)
