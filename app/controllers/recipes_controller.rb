@@ -2,7 +2,7 @@ require 'open-uri'
 require 'hangry'
 
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [ :show, :edit, :update, :set_published_status, :set_dismissed_status ]
+  before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
   skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
 
   def show
@@ -21,6 +21,9 @@ class RecipesController < ApplicationController
                }
       end
     end
+  end
+
+  def card
   end
 
   def pending

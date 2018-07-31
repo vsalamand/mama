@@ -2,10 +2,10 @@ require 'open-uri'
 
 json.item_id @recommendation.id
 json.recipe_id @recommendation.recipe.id
-json.link cl_image_path("#{@recommendation.recipe.id}",  :format => :png)
+json.link "https://www.foodmama.fr" + card_recipe_path(@recommendation.recipe.id)
 json.name @recommendation.recipe.title.upcase
 json.ingredients "📝 #{@recommendation.recipe.foods.count} ingrédients"
-json.card cl_image_path("#{@recommendation.recipe.id}",  :format => :png)
+# json.card cl_image_path("#{@recommendation.recipe.id}",  :format => :png,)
 case
   when @recommendation.recipe.rating == "excellent" then json.rating "💖 que des aliments recommandés !"
   when @recommendation.recipe.rating == "good" then json.rating "💚 principalement des aliments recommandés"

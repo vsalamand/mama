@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       # get 'recipes', to: 'recipes#show'
     end
     member do
+      get 'card', to: "recipes#card"
       get :set_published_status
       get :set_dismissed_status
     end
