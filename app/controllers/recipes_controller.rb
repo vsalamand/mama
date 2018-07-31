@@ -3,7 +3,7 @@ require 'hangry'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
-  skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
+  skip_before_action :authenticate_user!, only: [ :show, :card, :new, :create ]
 
   def show
     respond_to do |format|
