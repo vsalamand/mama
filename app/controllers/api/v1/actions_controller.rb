@@ -20,6 +20,14 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+#http://localhost:3000/api/v1/set_cart_size?size=x&user=12345678
+  def set_cart_size
+    profile = User.find_by(sender_id: params[:user])
+    cart = Cart.find_or_create_by(user_id: profile.id)
+    cart.set_size(params[:size])
+    head :ok
+  end
+
   #http://localhost:3000/api/v1/add_to_cart?product_id=123456&user=12345678
   def add_to_cart
     profile = User.find_by(sender_id: params[:user])
