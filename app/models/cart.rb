@@ -16,4 +16,9 @@ class Cart < ApplicationRecord
       CartItem.create(name: product[:name], productable_id: product[:productable_id], productable_type: product[:productable_type], quantity: 1, cart_id: self.id)
     end
   end
+
+  def set_size(size)
+    self.size = size
+    self.save
+  end
 end

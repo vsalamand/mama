@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'select', to: 'actions#select'
       get 'profile', to: 'actions#profile'
       get 'cart', to: 'actions#cart'
+      get 'set_cart_size', to: 'actions#set_cart_size'
       get 'add_to_cart', to: 'actions#add_to_cart'
       get 'remove_from_cart', to: 'actions#remove_from_cart'
       get 'add_to_history', to: 'actions#add_to_history'
