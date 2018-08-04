@@ -4,13 +4,13 @@ json.item_id @recommendation.id
 json.recipe_id @recommendation.recipe.id
 json.link card_recipe_url(@recommendation.recipe.id)
 json.name @recommendation.recipe.title.upcase
-json.ingredients "📝 #{@recommendation.recipe.foods.count} ingrédients"
+json.ingredients "#{@recommendation.recipe.foods.count} ingrédients"
 # json.card cl_image_path("#{@recommendation.recipe.id}",  :format => :png,)
 case
-  when @recommendation.recipe.rating == "excellent" then json.rating "Avis nutrition de Mama: 😋"
-  when @recommendation.recipe.rating == "good" then json.rating "Avis nutrition de Mama: 🙂"
-  when @recommendation.recipe.rating == "limit" then json.rating "Avis nutrition de Mama: 😕"
-  when @recommendation.recipe.rating == "avoid" then json.rating "Avis nutrition de Mama: 🙁"
+  when @recommendation.recipe.rating == "excellent" then json.rating "Avis de Mama: 😋"
+  when @recommendation.recipe.rating == "good" then json.rating "Avis de Mama: 🙂"
+  when @recommendation.recipe.rating == "limit" then json.rating "Avis de Mama: 😕"
+  when @recommendation.recipe.rating == "avoid" then json.rating "Avis de Mama: 🙁"
   else json.rating ""
 end
 case
