@@ -7,10 +7,10 @@ json.name @recommendation.recipe.title.upcase
 json.ingredients "#{@recommendation.recipe.foods.count} ingrédients"
 # json.card cl_image_path("#{@recommendation.recipe.id}",  :format => :png,)
 case
-  when @recommendation.recipe.rating == "excellent" then json.rating "Avis de Mama: 😋"
-  when @recommendation.recipe.rating == "good" then json.rating "Avis de Mama: 🙂"
-  when @recommendation.recipe.rating == "limit" then json.rating "Avis de Mama: 😕"
-  when @recommendation.recipe.rating == "avoid" then json.rating "Avis de Mama: 🙁"
+  when @recommendation.recipe.rating == "excellent" then json.rating "Avis nutritionnel: 😀"
+  when @recommendation.recipe.rating == "good" then json.rating "Avis nutritionnel: 🙂"
+  when @recommendation.recipe.rating == "limit" then json.rating "Avis nutritionnel: 😕"
+  when @recommendation.recipe.rating == "avoid" then json.rating "Avis nutritionnel: 🙁"
   else json.rating ""
 end
 case
