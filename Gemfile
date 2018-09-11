@@ -74,11 +74,11 @@ gem 'httparty'
 # RailsAdmin
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '~> 1.3'
-gem 'rails_admin_tag_list'
+# gem 'rails_admin_tag_list' => doesn't work with rails admin anymore...
 
 # Tags management
-# gem 'acts-as-taggable-on', '~> 4.0'
-gem 'acts-as-taggable-on', :git => 'https://github.com/mbleigh/acts-as-taggable-on'
+gem 'acts-as-taggable-on', '~> 6.0'
+# gem 'acts-as-taggable-on', :git => 'https://github.com/mbleigh/acts-as-taggable-on'
 
 # OpenFoodFacts database API
 gem 'openfoodfacts'
