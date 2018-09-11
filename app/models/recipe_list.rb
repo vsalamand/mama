@@ -12,8 +12,10 @@ class RecipeList < ApplicationRecord
     weekly_menu = RecipeList.find_by(name: "Weekly menu", user_id: user.id, recipe_list_type: "recommendation")
     user_history = RecipeList.find_or_create_by(name: "History", user_id: user.id, recipe_list_type: "history")
     recipe_item = RecipeListItem.find_by(recipe_list_id: weekly_menu.id, recipe_id: recipe.id)
-    recipe_item.recipe_list_id = user_history.id
-    recipe_item.save
+    unless recipe_item.nil?
+      recipe_item.recipe_list_id = user_history.id
+      recipe_item.save
+    end
   end
 
   def self.ban_recipe(user, recipe)
