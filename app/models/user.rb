@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable
 
   validates :sender_id, uniqueness: true
-  belongs_to :diet
+  belongs_to :diet, optional: true
 
   has_one :cart
   has_many :orders
