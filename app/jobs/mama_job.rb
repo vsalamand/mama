@@ -10,8 +10,10 @@ class MamaJob < ApplicationJob
     Diet.all.each do |diet|
       RecommendationsController.create(diet)
     end
-    # update users weekly recommendations menu
-    WeeklyMenuJob.perform_now
+
+    # # update users weekly recommendations menu
+    # WeeklyMenuJob.perform_now
+
     # create food checklists for the week after
     ChecklistJob.perform_now
   end
