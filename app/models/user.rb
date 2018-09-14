@@ -7,9 +7,9 @@ class User < ApplicationRecord
   validates :sender_id, uniqueness: true
   belongs_to :diet, optional: true
 
-  has_one :cart
-  has_many :orders
-  has_many :recipe_lists
+  has_one :cart, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :recipe_lists, dependent: :destroy
   has_many :foods, through: :orders
 
   after_create do
