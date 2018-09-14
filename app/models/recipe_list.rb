@@ -4,7 +4,7 @@ class RecipeList < ApplicationRecord
 
   validates :name, :recipe_list_type, presence: :true
   has_many :recipes, through: :recipe_list_items
-  has_many :recipe_list_items
+  has_many :recipe_list_items, dependent: :destroy
 
   RECIPE_LIST_TYPE = ["mama", "personal", "recommendation", "pool", "ban", "history"]
 

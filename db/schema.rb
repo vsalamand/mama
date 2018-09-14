@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180803134133) do
+ActiveRecord::Schema.define(version: 20180914132229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 20180803134133) do
   add_foreign_key "banned_foods", "diets"
   add_foreign_key "banned_foods", "foods"
   add_foreign_key "cart_items", "carts"
-  add_foreign_key "cart_items", "orders"
+  add_foreign_key "cart_items", "orders", on_delete: :cascade
   add_foreign_key "carts", "users"
   add_foreign_key "checklists", "diets"
   add_foreign_key "food_list_items", "checklists"
@@ -262,7 +262,7 @@ ActiveRecord::Schema.define(version: 20180803134133) do
   add_foreign_key "items", "foods"
   add_foreign_key "items", "recipes"
   add_foreign_key "items", "units"
-  add_foreign_key "orders", "carts"
+  add_foreign_key "orders", "carts", on_delete: :cascade
   add_foreign_key "orders", "users"
   add_foreign_key "recipe_list_items", "recipe_lists"
   add_foreign_key "recipe_list_items", "recipes"
