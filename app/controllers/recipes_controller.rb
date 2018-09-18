@@ -67,7 +67,7 @@ class RecipesController < ApplicationController
 
   def set_published_status
     @recipe.status = "published"
-    generate_ingredients_tags(@recipe)
+    # generate_ingredients_tags(@recipe)
     @recipe.save
     redirect_to recipe_path(@recipe)
   end
@@ -100,15 +100,15 @@ class RecipesController < ApplicationController
       end
   end
 
-  def generate_ingredients_tags(recipe)
-    recipe = Recipe.find(recipe)
-    ingredients = []
-    recipe.items.each { |item| ingredients << item.food }
-    tags = []
-    ingredients.each { |ingredient| ingredient.tags.each { |tag| tags << tag.name} }
-    recipe.tag_list.add(tags.uniq.join(', '), parse: true)
-    recipe.save
-  end
+  # def generate_ingredients_tags(recipe)
+  #   recipe = Recipe.find(recipe)
+  #   ingredients = []
+  #   recipe.items.each { |item| ingredients << item.food }
+  #   tags = []
+  #   ingredients.each { |ingredient| ingredient.tags.each { |tag| tags << tag.name} }
+  #   recipe.tag_list.add(tags.uniq.join(', '), parse: true)
+  #   recipe.save
+  # end
 
 # RECIPE PARSERS ==> REFACTO and MOVE
   def recipe_parser(url)

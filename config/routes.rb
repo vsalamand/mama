@@ -47,6 +47,10 @@ Rails.application.routes.draw do
     resources :items
   end
 
+  resources :meta_recipes do
+    resources :meta_recipe_items
+  end
+
   # Sidekiq Web UI, only for admins.
   require "sidekiq/web"
   authenticate :user, lambda { |u| u.admin } do

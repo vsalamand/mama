@@ -1,0 +1,2 @@
+class MetaRecipeItemsController < ApplicationController
+end

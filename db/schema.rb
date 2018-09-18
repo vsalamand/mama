@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180918100439) do
+ActiveRecord::Schema.define(version: 20180918130921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,17 @@ ActiveRecord::Schema.define(version: 20180918100439) do
     t.index ["food_id"], name: "index_items_on_food_id", using: :btree
     t.index ["recipe_id"], name: "index_items_on_recipe_id", using: :btree
     t.index ["unit_id"], name: "index_items_on_unit_id", using: :btree
+  end
+
+  create_table "meta_recipe_items", force: :cascade do |t|
+    t.integer  "meta_recipe_id"
+    t.integer  "food_id"
+    t.string   "ingredient"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "name"
+    t.index ["food_id"], name: "index_meta_recipe_items_on_food_id", using: :btree
+    t.index ["meta_recipe_id"], name: "index_meta_recipe_items_on_meta_recipe_id", using: :btree
   end
 
   create_table "meta_recipes", force: :cascade do |t|
@@ -271,6 +282,8 @@ ActiveRecord::Schema.define(version: 20180918100439) do
   add_foreign_key "items", "foods"
   add_foreign_key "items", "recipes"
   add_foreign_key "items", "units"
+  add_foreign_key "meta_recipe_items", "foods"
+  add_foreign_key "meta_recipe_items", "meta_recipes"
   add_foreign_key "orders", "carts", on_delete: :cascade
   add_foreign_key "orders", "users"
   add_foreign_key "recipe_list_items", "recipe_lists"

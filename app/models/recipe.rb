@@ -3,7 +3,7 @@ require 'open-uri'
 class Recipe < ApplicationRecord
   validates :title, :servings, :ingredients, :instructions, :status, :origin, presence: :true
   validates :title, uniqueness: :true
-  has_many :items
+  has_many :items, dependent: :destroy
   has_many :foods, through: :items
   has_many :cart_items, :as => :productable
 

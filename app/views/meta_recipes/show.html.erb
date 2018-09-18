@@ -1,0 +1,48 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="recipe-head">
+          <div class="recipe-title">
+            <h3><strong><%= @meta_recipe.name %></strong></h3>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="recipe-ingredients-head">
+        <h4><strong>Ingrédients</strong> &nbsp;</h4>
+        <p><%= @meta_recipe.servings %> 🍽️ </p>
+      </div>
+      <div class="recipe-ingredients">
+        <ul>
+          <% @meta_recipe.meta_recipe_items.order(:created_at).each do |item| %>
+            <li class="recipe-ingredients__list__item">
+              <p><%= item.ingredient %></p>
+              <% if current_user %>
+                <% if item.food  %>
+                  <p class="recipe-ingredient-item"><%= link_to item.food.name, edit_meta_recipe_meta_recipe_item_path(@meta_recipe, item) %></p>
+                <% else %>
+                  <p class="recipe-ingredient-item"><%= link_to "not found", edit_meta_recipe_meta_recipe_item_path(@meta_recipe, item) %></p>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% if current_user %>
+        <%= link_to 'Ajouter un item', new_meta_recipe_meta_recipe_item_path(@meta_recipe) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <h4><strong>Préparation</strong></h4>
+      <%= instruction_lines(@meta_recipe) %>
+    </div>
+  </div>
+
+</div>
