@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180914132229) do
+ActiveRecord::Schema.define(version: 20180918100439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,15 @@ ActiveRecord::Schema.define(version: 20180914132229) do
     t.index ["food_id"], name: "index_items_on_food_id", using: :btree
     t.index ["recipe_id"], name: "index_items_on_recipe_id", using: :btree
     t.index ["unit_id"], name: "index_items_on_unit_id", using: :btree
+  end
+
+  create_table "meta_recipes", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "servings",     default: 1
+    t.text     "ingredients"
+    t.text     "instructions"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "orders", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class MetaRecipe < ApplicationRecord
+end

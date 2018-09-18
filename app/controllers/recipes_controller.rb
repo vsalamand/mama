@@ -1,6 +1,8 @@
 require 'open-uri'
 require 'hangry'
 
+# REFACTO TO DO...
+
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
   skip_before_action :authenticate_user!, only: [ :show, :card, :new, :create ]
@@ -108,6 +110,7 @@ class RecipesController < ApplicationController
     recipe.save
   end
 
+# RECIPE PARSERS ==> REFACTO and MOVE
   def recipe_parser(url)
     recipe_url = "#{url}"
     url_host = URI.parse(url).host
