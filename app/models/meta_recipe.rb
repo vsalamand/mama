@@ -1,6 +1,8 @@
 class MetaRecipe < ApplicationRecord
   has_many :meta_recipe_items, dependent: :destroy
   has_many :foods, through: :meta_recipe_items
+  has_many :meta_recipe_list_items
+  has_many :meta_recipe_lists, through: :meta_recipe_list_items
   validates :name, uniqueness: :true
   validates :name, :servings, :ingredients, :instructions, presence: :true
 
