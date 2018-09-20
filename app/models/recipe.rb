@@ -6,6 +6,7 @@ class Recipe < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :foods, through: :items
   has_many :cart_items, :as => :productable
+  has_many :meta_recipe_lists, dependent: :nullify
 
   RATING = ["excellent", "good", "limit", "avoid"]
 
@@ -48,5 +49,17 @@ class Recipe < ApplicationRecord
         then self.rating = "avoid"
     end
     self.save
+  end
+
+  def generate_items
+    recipe_ingredients = self.ingredients.split("\r\n")
+    recipe_ingredients.each do |element|
+      element = element.strip
+      food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or")
+        #   element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
+        #   unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
+        #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
+      Item.create(food: food.first, recipe: self, recipe_ingredient: element)
+    end
   end
 end

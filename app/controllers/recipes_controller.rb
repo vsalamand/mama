@@ -46,7 +46,7 @@ class RecipesController < ApplicationController
     if @recipe.link
       recipe_parser(@recipe.link)
       if @recipe.save
-        generate_recipe_items(@recipe)
+        @recipe.generate_items
         redirect_to confirmation_path
       else
         redirect_to import_recipes_path
@@ -54,7 +54,7 @@ class RecipesController < ApplicationController
     else
       @recipe.origin = "mama"
       if @recipe.save
-        generate_recipe_items(@recipe)
+        @recipe.generate_items
         redirect_to confirmation_path
       else
         redirect_to new_recipe_path
@@ -85,19 +85,6 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:title, :servings, :ingredients, :instructions, :tag_list, :origin, :status, :link, :rating)
-  end
-
-  def generate_recipe_items(recipe)
-    recipe = Recipe.find(recipe)
-    recipe_ingredients = recipe.ingredients.split("\r\n")
-    recipe_ingredients.each do |element|
-        element = element.strip
-        food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or")
-          #   element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
-          #   unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
-          #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
-        Item.create(food: food[0], recipe: recipe, recipe_ingredient: element)
-      end
   end
 
   # def generate_ingredients_tags(recipe)

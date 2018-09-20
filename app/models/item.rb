@@ -5,4 +5,5 @@ class Item < ApplicationRecord
   belongs_to :food, optional: true
   belongs_to :recipe
   belongs_to :unit, optional: true
+
 end
