@@ -26,7 +26,11 @@
           <div class="col-xs-4">
             <div class="pdf-list-head">
               <h2><strong>Liste de courses</strong> &nbsp;</h2>
-              <p><%= @recipe.servings %> personnes</p>
+              <% if @recipe.servings > 1  %>
+                <p><%= @recipe.servings%> personnes</p>
+              <% else  %>
+                <p><%= @recipe.servings%> personne</p>
+              <% end %>
             </div>
             <div class="pdf-list">
               <ul>

@@ -69,6 +69,7 @@ class RecipesController < ApplicationController
     @recipe.status = "published"
     # generate_ingredients_tags(@recipe)
     @recipe.save
+    @recipe.upload_to_cloudinary
     redirect_to recipe_path(@recipe)
   end
 

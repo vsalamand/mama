@@ -1,5 +1,5 @@
 <%= simple_form_for [@meta_recipe, @meta_recipe_item] do |f| %>
   <%= f.input :ingredient, class: 'form-control' %>
   <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, class: 'form-control' %>
-  <%= f.submit "Valider", class: "form-control btn-death" %>
+  <%= f.submit "Valider", class: "form-control btn-primary" %>
 <% end %>
