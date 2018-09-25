@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <h1>Listes sans recettes</h1>
+  </div>
+  <div class="row">
+    <% @meta_recipe_lists.order(:id).each do |list| %>
+      <li>
+        <%= list.id %> |
+        <%= link_to list.name, meta_recipe_list_path(list) %> |
+        <%= link_to "Créer la recette", create_recipe_meta_recipe_list_path(list) %>
+      </li>
+    <% end %>
+  </div>
+
+</div>

@@ -9,10 +9,12 @@ class MetaRecipeList < ApplicationRecord
 
   # generate a recipe based on the list of meta recipes
   after_create do
-    recipe = Recipe.create(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, status: "pending", origin: "generated")
-    recipe.generate_items
+    self.create_recipe
+  end
 
-    # link meta recipe list to the recipe
+  def create_recipe
+    recipe = Recipe.create(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, status: "pending", origin: "mama")
+    recipe.generate_items
     self.recipe_id = recipe.id
     self.save
   end
@@ -28,7 +30,7 @@ class MetaRecipeList < ApplicationRecord
   def get_instructions
     instructions = []
     self.meta_recipe_list_items.each do |meta_recipe_item|
-      instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions}"
+      instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
     end
     return instructions.join("\r\n")
   end

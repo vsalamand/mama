@@ -52,6 +52,12 @@ Rails.application.routes.draw do
   end
 
   resources :meta_recipe_lists do
+    collection do
+      get :pending
+    end
+    member do
+      get :create_recipe
+    end
     resources :meta_recipe_list_items
   end
 

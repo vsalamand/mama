@@ -4,7 +4,7 @@ class MetaRecipe < ApplicationRecord
   has_many :meta_recipe_list_items
   has_many :meta_recipe_lists, through: :meta_recipe_list_items
   validates :name, uniqueness: :true
-  validates :name, :servings, :ingredients, :instructions, presence: :true
+  validates :name, :servings, :ingredients, presence: :true
 
   # generate meta recipe items
   after_create do
