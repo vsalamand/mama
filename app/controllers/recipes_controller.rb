@@ -1,6 +1,8 @@
 require 'open-uri'
 require 'hangry'
 
+# REFACTO TO DO...
+
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
   skip_before_action :authenticate_user!, only: [ :show, :card, :new, :create ]
@@ -44,7 +46,7 @@ class RecipesController < ApplicationController
     if @recipe.link
       recipe_parser(@recipe.link)
       if @recipe.save
-        generate_recipe_items(@recipe)
+        @recipe.generate_items
         redirect_to confirmation_path
       else
         redirect_to import_recipes_path
@@ -52,7 +54,7 @@ class RecipesController < ApplicationController
     else
       @recipe.origin = "mama"
       if @recipe.save
-        generate_recipe_items(@recipe)
+        @recipe.generate_items
         redirect_to confirmation_path
       else
         redirect_to new_recipe_path
@@ -65,8 +67,9 @@ class RecipesController < ApplicationController
 
   def set_published_status
     @recipe.status = "published"
-    generate_ingredients_tags(@recipe)
+    # generate_ingredients_tags(@recipe)
     @recipe.save
+    @recipe.upload_to_cloudinary
     redirect_to recipe_path(@recipe)
   end
 
@@ -85,29 +88,17 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:title, :servings, :ingredients, :instructions, :tag_list, :origin, :status, :link, :rating)
   end
 
-  def generate_recipe_items(recipe)
-    recipe = Recipe.find(recipe)
-    recipe_ingredients = recipe.ingredients.split("\r\n")
-    recipe_ingredients.each do |element|
-        element = element.strip
-        food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or")
-          #   element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
-          #   unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
-          #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
-        Item.create(food: food[0], recipe: recipe, recipe_ingredient: element)
-      end
-  end
+  # def generate_ingredients_tags(recipe)
+  #   recipe = Recipe.find(recipe)
+  #   ingredients = []
+  #   recipe.items.each { |item| ingredients << item.food }
+  #   tags = []
+  #   ingredients.each { |ingredient| ingredient.tags.each { |tag| tags << tag.name} }
+  #   recipe.tag_list.add(tags.uniq.join(', '), parse: true)
+  #   recipe.save
+  # end
 
-  def generate_ingredients_tags(recipe)
-    recipe = Recipe.find(recipe)
-    ingredients = []
-    recipe.items.each { |item| ingredients << item.food }
-    tags = []
-    ingredients.each { |ingredient| ingredient.tags.each { |tag| tags << tag.name} }
-    recipe.tag_list.add(tags.uniq.join(', '), parse: true)
-    recipe.save
-  end
-
+# RECIPE PARSERS ==> REFACTO and MOVE
   def recipe_parser(url)
     recipe_url = "#{url}"
     url_host = URI.parse(url).host

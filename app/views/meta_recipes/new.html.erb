@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="form-wrapper">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <h2>Proposer une meta recette</h2>
+        <div class="recipe-form">
+          <%= simple_form_for @meta_recipe do |f| %>
+            <%= f.input :name, placeholder: "Nom de la meta recette", label: false, class: 'form-control' %>
+            <%= f.input :servings, type: "number", label: false, class: 'form-control' %>
+            <%= f.input :ingredients, placeholder: "Ingredients", label: false, class: 'form-control' %>
+            <%= f.input :instructions, placeholder: "Préparation", label: false, class: 'form-control' %>
+            <%= f.submit "Donne à Mama", class: "form-control btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
