@@ -11,7 +11,9 @@ class MetaRecipe < ApplicationRecord
     ingredients = self.ingredients.split("\r\n")
     ingredients.each do |element|
         element = element.strip
-        food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or")
+        food = Food.search(element.tr("0-9", "").tr("'", " "), fields: [{name: :exact}], misspellings: {edit_distance: 1})
+        food = Food.search(element.tr("0-9", "").tr("'", " ")) if food.first.nil?
+        food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
         MetaRecipeItem.create(food: food.first, meta_recipe: self, name: element, ingredient: element)
       end
   end
