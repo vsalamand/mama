@@ -9,6 +9,9 @@
               <%= link_to "voir la recette #{@meta_recipe_list.recipe.id}", recipe_path(@meta_recipe_list.recipe), target: :_blank %>
             <% end %>
           </div>
+        <div>
+          <%= link_to "Créer une recette avec l'assistant", new_meta_recipe_list_path, class: "form-block btn-info" %>
+        </div>
         </div>
     </div>
   </div>

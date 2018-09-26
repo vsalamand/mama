@@ -13,7 +13,7 @@ class MetaRecipeListsController < ApplicationController
     @meta_recipe_list = MetaRecipeList.new(meta_recipe_list_params)
     @meta_recipe_list.name = @meta_recipe_list.get_title
     if @meta_recipe_list.save
-      redirect_to confirmation_path
+      redirect_to meta_recipe_list_path(@meta_recipe_list)
     else
       redirect_to new_meta_recipe_list_path
     end
