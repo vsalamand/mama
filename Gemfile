@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 gem "bootstrap-sass"
 gem "font-awesome-sass"
 gem "simple_form"
+gem 'nested_form_fields'
 gem "autoprefixer-rails"
 # debugging
 gem 'better_errors'
@@ -68,8 +69,6 @@ gem 'wkhtmltopdf-binary'
 # Makes http fun again
 gem 'httparty'
 
-# This Rails gem helps creating forms for models with nested has_many associations.
-gem 'nested_form_fields'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
