@@ -37,7 +37,7 @@ class MetaRecipeList < ApplicationRecord
         toppings << meta_recipe_item.meta_recipe.name
       end
     end
-    instructions << "<strong>Finition:</strong> #{toppings.join(", ")}" if toppings.any?
+    instructions << "<strong>Garniture:</strong> #{toppings.join(", ")}" if toppings.any?
     return instructions.join("\r\n")
   end
 
