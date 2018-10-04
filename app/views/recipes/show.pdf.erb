@@ -26,11 +26,6 @@
           <div class="col-xs-4">
             <div class="pdf-list-head">
               <h2><strong>Ingrédients</strong> &nbsp;</h2>
-              <% if @recipe.servings > 1  %>
-                <p><%= @recipe.servings%> personnes</p>
-              <% else  %>
-                <p><%= @recipe.servings%> personne</p>
-              <% end %>
             </div>
             <div class="pdf-list">
               <ul>
@@ -46,7 +41,6 @@
           <div class="col-xs-8">
             <div class="pdf-recipe-head">
               <h2><strong>Recette</strong> &nbsp;</h2>
-              <p>Etapes à suivre</p>
             </div>
             <%= pdf_recipe_lines(@recipe) %>
           </div>
