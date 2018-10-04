@@ -29,9 +29,15 @@ class MetaRecipeList < ApplicationRecord
 
   def get_instructions
     instructions = []
+    toppings = []
     self.meta_recipe_list_items.each do |meta_recipe_item|
-      instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
+      if meta_recipe_item.meta_recipe.meta_type != "Topping"
+        instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
+      else
+        toppings << meta_recipe_item.meta_recipe.name
+      end
     end
+    instructions << "<strong>Garniture:</strong> #{toppings.join(", ")}" if toppings.any?
     return instructions.join("\r\n")
   end
 

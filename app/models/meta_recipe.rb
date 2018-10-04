@@ -6,6 +6,8 @@ class MetaRecipe < ApplicationRecord
   validates :name, uniqueness: :true
   validates :name, :servings, :ingredients, presence: :true
 
+  META_TYPE = ["Topping"]
+
   # generate meta recipe items
   after_create do
     ingredients = self.ingredients.split("\r\n")
@@ -16,6 +18,10 @@ class MetaRecipe < ApplicationRecord
         food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
         MetaRecipeItem.create(food: food.first, meta_recipe: self, name: element, ingredient: element)
       end
+  end
+
+  def get_topping_ingredient
+    self.ingredients = self.name
   end
 
 end
