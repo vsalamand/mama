@@ -23,9 +23,9 @@ class Recipe < ApplicationRecord
     }
   end
 
-  def self.upload_to_cloudinary(recipe)
-    file = open("https://www.foodmama.fr/recipes/#{recipe.id}.pdf")
-    Cloudinary::Uploader.upload(file, :public_id => recipe.id)
+  def self.upload_to_cloudinary
+    file = open("https://www.foodmama.fr/recipes/#{self.id}.pdf")
+    Cloudinary::Uploader.upload(file, :public_id => self.id)
   end
 
 
