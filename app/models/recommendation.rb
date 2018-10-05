@@ -70,7 +70,7 @@ class Recommendation < ApplicationRecord
     end
   end
 
-  def self.update_user_weekly_menu(user, schedule, content)
+  def self.update_user_weekly_menu(user, content)
     # retrieve all the relevant information
     weekly_menu = RecipeList.find_by(user_id: user.id, recipe_list_type: "recommendation")
     user_banned_recipes = RecipeList.find_by(user_id: user.id, recipe_list_type: "ban")
