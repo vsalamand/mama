@@ -133,7 +133,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
   def set_diet
     profile = User.find_or_create_by(sender_id: params[:user])
     diet = Diet.find(params[:diet])
-    Diet.update_user_diet(profile, diet)
+    diet.update_user_diet(profile)
     head :ok
   end
 

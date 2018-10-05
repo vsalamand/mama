@@ -21,13 +21,13 @@ class Diet < ApplicationRecord
     RecommendationsController.create(self)
   end
 
-  def self.update_user_diet(user, diet)
-    user.diet_id = diet.id
+  def update_user_diet(user)
+    user.diet_id = self.id
     user.save
     # REFACTO UPDATE USERR WEEKLY MENU
     # schedule = Date.today.strftime("%W, %Y")
     # recommendations = Recommendation.where(diet_id: diet.id, schedule: schedule)
-    recommendations = RecipeList.where(diet_id: user.diet.id)
+    recommendations = RecipeList.where(diet_id: self.id)
     content = []
     recommendations.each { |reco| content << reco.recipes }
     content = content.flatten.shuffle
