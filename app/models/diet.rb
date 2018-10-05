@@ -27,7 +27,7 @@ class Diet < ApplicationRecord
     # REFACTO UPDATE USERR WEEKLY MENU
     # schedule = Date.today.strftime("%W, %Y")
     # recommendations = Recommendation.where(diet_id: diet.id, schedule: schedule)
-    recommendations = RecipeList.where(diet_id: diet.id)
+    recommendations = RecipeList.where(diet_id: user.diet.id)
     content = []
     recommendations.each { |reco| content << reco.recipes }
     content = content.flatten.shuffle
