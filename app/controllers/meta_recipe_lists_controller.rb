@@ -12,6 +12,7 @@ class MetaRecipeListsController < ApplicationController
   def create
     @meta_recipe_list = MetaRecipeList.new(meta_recipe_list_params)
     @meta_recipe_list.name = @meta_recipe_list.get_title
+    @meta_recipe_list.list_type = "recipe"
     if @meta_recipe_list.save
       redirect_to meta_recipe_list_path(@meta_recipe_list)
     else

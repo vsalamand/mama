@@ -7,9 +7,15 @@
           <%= simple_form_for @meta_recipe do |f| %>
             <%= f.input :name, placeholder: "Nom de la meta recette", label: false, class: 'form-control' %>
             <%= f.input :servings, type: "number", label: false, class: 'form-control' %>
-            <%= f.input :meta_type, :collection => ['Topping'], label: false, class: 'form-control' %>
+        <!--     <%= f.input :meta_type, :collection => ['Topping'], as: :radio_buttons, label: false, class: 'form-control' %> -->
             <%= f.input :ingredients, placeholder: "Ingredients", label: false, class: 'form-control' %>
             <%= f.input :instructions, placeholder: "Préparation", label: false, class: 'form-control' %>
+
+           <%=  f.nested_fields_for :meta_recipe_list_items do |item| %>
+              <%= item.remove_nested_fields_link %>
+              <%= item.collection_select :meta_recipe_list_id, MetaRecipeList.where(list_type: "pool").order(:name), :id, :name, prompt: "Select food", class: 'form-control' %>
+            <% end %>
+
             <%= f.submit "Donne à Mama", class: "form-control btn-primary" %>
           <% end %>
         </div>

@@ -6,10 +6,12 @@ class MetaRecipeList < ApplicationRecord
 
   accepts_nested_attributes_for :meta_recipe_list_items
 
+  LIST_TYPE = ["recipe", "pool"]
+
 
   # generate a recipe based on the list of meta recipes
   after_create do
-    self.create_recipe
+    self.create_recipe if self.list_type == "recipe"
   end
 
   def create_recipe
@@ -31,7 +33,7 @@ class MetaRecipeList < ApplicationRecord
     instructions = []
     toppings = []
     self.meta_recipe_list_items.each do |meta_recipe_item|
-      if meta_recipe_item.meta_recipe.meta_type != "Topping"
+      unless meta_recipe_item.meta_recipe.instructions.empty?
         instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
       else
         toppings << meta_recipe_item.meta_recipe.name
