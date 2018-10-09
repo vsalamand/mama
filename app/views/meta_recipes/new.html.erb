@@ -7,7 +7,6 @@
           <%= simple_form_for @meta_recipe do |f| %>
             <%= f.input :name, placeholder: "Nom de la meta recette", label: false, class: 'form-control' %>
             <%= f.input :servings, type: "number", label: false, class: 'form-control' %>
-        <!--     <%= f.input :meta_type, :collection => ['Topping'], as: :radio_buttons, label: false, class: 'form-control' %> -->
             <%= f.input :ingredients, placeholder: "Ingredients", label: false, class: 'form-control' %>
             <%= f.input :instructions, placeholder: "Préparation", label: false, class: 'form-control' %>
 

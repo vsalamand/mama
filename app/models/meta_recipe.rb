@@ -8,8 +8,6 @@ class MetaRecipe < ApplicationRecord
 
   accepts_nested_attributes_for :meta_recipe_list_items
 
-  META_TYPE = ["veggetable", "starch", "legume", "egg", "meat", "fish", "seafood", "delicatessen", "cheese", "bread", "dressing", "seasoning", "sauce"]
-
   # generate meta recipe items
   after_create do
     ingredients = self.ingredients.split("\r\n")
