@@ -13,7 +13,7 @@
 
            <%=  f.nested_fields_for :meta_recipe_list_items do |item| %>
               <%= item.remove_nested_fields_link %>
-              <%= item.collection_select :meta_recipe_list_id, MetaRecipeList.where(list_type: "pool").order(:name), :id, :name, prompt: "Select food", class: 'form-control' %>
+              <%= item.collection_select :meta_recipe_list_id, MetaRecipeList.where(list_type: "pool").order(:name), :id, :name, prompt: "Select category", class: 'form-control' %>
             <% end %>
 
             <%= f.submit "Donne à Mama", class: "form-control btn-primary" %>

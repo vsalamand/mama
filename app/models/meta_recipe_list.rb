@@ -4,7 +4,7 @@ class MetaRecipeList < ApplicationRecord
   has_many :meta_recipe_list_items, dependent: :destroy, inverse_of: :meta_recipe_list
   has_many :meta_recipes, through: :meta_recipe_list_items
 
-  accepts_nested_attributes_for :meta_recipe_list_items
+  accepts_nested_attributes_for :meta_recipe_list_items, allow_destroy: true
 
   LIST_TYPE = ["recipe", "pool"]
 
@@ -52,6 +52,14 @@ class MetaRecipeList < ApplicationRecord
     end
     foods.uniq.sort_by { |food| food.category.id }.each { |food| ingredients << food.name }
     return ingredients.join("\r\n")
+  end
+
+  def tag_recipe
+    tags = []
+    self.meta_recipes.each { |meta| meta.meta_recipe_lists.where(list_type: "pool").each { |pool| tags << pool.name } }
+    tags = tags.uniq.flatten.join(', ')
+    self.recipe.tag_list = tags
+    self.recipe.save
   end
 
 end

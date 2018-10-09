@@ -32,7 +32,7 @@ class MetaRecipeListsController < ApplicationController
 
   private
   def meta_recipe_list_params
-    params.require(:meta_recipe_list).permit(:name, :recipe_id, meta_recipe_list_items_attributes:[:name, :meta_recipe_list_id, :meta_recipe_id])
+    params.require(:meta_recipe_list).permit(:name, :recipe_id, meta_recipe_list_items_attributes:[:name, :meta_recipe_list_id, :meta_recipe_id, :_destroy, :id])
   end
 
 end

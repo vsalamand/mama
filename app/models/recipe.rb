@@ -7,6 +7,7 @@ class Recipe < ApplicationRecord
   has_many :foods, through: :items
   has_many :cart_items, :as => :productable
   has_many :meta_recipe_lists, dependent: :nullify
+  has_many :meta_recipes, through: :meta_recipe_lists
 
   RATING = ["excellent", "good", "limit", "avoid"]
 
