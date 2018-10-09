@@ -12,6 +12,7 @@ class MetaRecipeList < ApplicationRecord
   # generate a recipe based on the list of meta recipes
   after_create do
     self.create_recipe if self.list_type == "recipe"
+    self.tag_recipe
   end
 
   def create_recipe
@@ -56,7 +57,7 @@ class MetaRecipeList < ApplicationRecord
 
   def tag_recipe
     tags = []
-    self.meta_recipes.each { |meta| meta.meta_recipe_lists.where(list_type: "pool").each { |pool| tags << pool.name } }
+    self.meta_recipe_list_items.each { |item| tags << item.get_tags }
     tags = tags.uniq.flatten.join(', ')
     self.recipe.tag_list = tags
     self.recipe.save
