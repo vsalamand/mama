@@ -23,9 +23,8 @@ class MetaRecipeList < ApplicationRecord
   end
 
   def get_title
-    titles = []
-    self.meta_recipe_list_items.each do |meta_recipe_item|
-      titles << meta_recipe_item.meta_recipe.name
+    titles = self.meta_recipe_list_items.map do |meta_recipe_item|
+      meta_recipe_item.meta_recipe.name
     end
     return titles.join(', ').capitalize
   end
@@ -58,8 +57,7 @@ class MetaRecipeList < ApplicationRecord
 # retrieve pools from meta recipes and turn into tags
   def tag_recipe
     unless self.recipe.nil?
-      tags = []
-      self.meta_recipe_list_items.each { |item| tags << item.get_tags }
+      tags = self.meta_recipe_list_items.map { |item| item.get_tags }
       tags = tags.uniq.flatten.join(', ')
       self.recipe.tag_list = tags
       self.recipe.save
