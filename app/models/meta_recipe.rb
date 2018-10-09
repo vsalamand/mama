@@ -1,12 +1,12 @@
 class MetaRecipe < ApplicationRecord
   has_many :meta_recipe_items, dependent: :destroy
   has_many :foods, through: :meta_recipe_items
-  has_many :meta_recipe_list_items
+  has_many :meta_recipe_list_items, dependent: :destroy, inverse_of: :meta_recipe
   has_many :meta_recipe_lists, through: :meta_recipe_list_items
   validates :name, uniqueness: :true
   validates :name, :servings, :ingredients, presence: :true
 
-  META_TYPE = ["Topping"]
+  accepts_nested_attributes_for :meta_recipe_list_items
 
   # generate meta recipe items
   after_create do

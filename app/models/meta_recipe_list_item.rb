@@ -10,4 +10,10 @@ class MetaRecipeListItem < ApplicationRecord
     self.save
   end
 
+  def get_tags
+    tags = []
+    self.meta_recipe.meta_recipe_lists.where(list_type: "pool").each { |pool| tags << pool.name }
+    return tags
+  end
+
 end
