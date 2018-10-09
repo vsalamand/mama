@@ -3,11 +3,12 @@ class MetaRecipesController < ApplicationController
 
 def new
   @meta_recipe = MetaRecipe.new
+  @meta_recipe_list_item = @meta_recipe.meta_recipe_list_items.build
 end
 
 def create
   @meta_recipe = MetaRecipe.new(meta_recipe_params)
-  @meta_recipe.ingredients = @meta_recipe.get_topping_ingredient if @meta_recipe.ingredients.empty? && @meta_recipe.meta_type == "Topping"
+  @meta_recipe.ingredients = @meta_recipe.get_topping_ingredient if @meta_recipe.ingredients.empty?
   if @meta_recipe.save
     redirect_to meta_recipe_path(@meta_recipe)
   else
@@ -21,6 +22,6 @@ private
   end
 
   def meta_recipe_params
-    params.require(:meta_recipe).permit(:name, :servings, :ingredients, :instructions, :meta_type)
+    params.require(:meta_recipe).permit(:name, :servings, :ingredients, :instructions, :meta_type, meta_recipe_list_items_attributes:[:name, :meta_recipe_list_id, :meta_recipe_id])
   end
 end

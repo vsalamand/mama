@@ -4,12 +4,15 @@ class MetaRecipeList < ApplicationRecord
   has_many :meta_recipe_list_items, dependent: :destroy, inverse_of: :meta_recipe_list
   has_many :meta_recipes, through: :meta_recipe_list_items
 
-  accepts_nested_attributes_for :meta_recipe_list_items
+  accepts_nested_attributes_for :meta_recipe_list_items, allow_destroy: true
+
+  LIST_TYPE = ["recipe", "pool"]
 
 
   # generate a recipe based on the list of meta recipes
   after_create do
-    self.create_recipe
+    self.create_recipe if self.list_type == "recipe"
+    self.tag_recipe
   end
 
   def create_recipe
@@ -31,7 +34,7 @@ class MetaRecipeList < ApplicationRecord
     instructions = []
     toppings = []
     self.meta_recipe_list_items.each do |meta_recipe_item|
-      if meta_recipe_item.meta_recipe.meta_type != "Topping"
+      unless meta_recipe_item.meta_recipe.instructions.empty?
         instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
       else
         toppings << meta_recipe_item.meta_recipe.name
@@ -50,6 +53,17 @@ class MetaRecipeList < ApplicationRecord
     end
     foods.uniq.sort_by { |food| food.category.id }.each { |food| ingredients << food.name }
     return ingredients.join("\r\n")
+  end
+
+# retrieve pools from meta recipes and turn into tags
+  def tag_recipe
+    unless self.recipe.nil?
+      tags = []
+      self.meta_recipe_list_items.each { |item| tags << item.get_tags }
+      tags = tags.uniq.flatten.join(', ')
+      self.recipe.tag_list = tags
+      self.recipe.save
+    end
   end
 
 end
