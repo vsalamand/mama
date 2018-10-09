@@ -15,6 +15,9 @@ class Recipe < ApplicationRecord
 
   searchkick
 
+  after_update :upload_to_cloudinary
+
+
   def search_data
     {
       title: title,
@@ -25,8 +28,10 @@ class Recipe < ApplicationRecord
   end
 
   def upload_to_cloudinary
-    file = open("https://www.foodmama.fr/recipes/#{self.id}.pdf")
-    Cloudinary::Uploader.upload(file, :public_id => self.id)
+    if self.status = "published"
+      file = open("https://www.foodmama.fr/recipes/#{self.id}.pdf")
+      Cloudinary::Uploader.upload(file, :public_id => self.id)
+    end
   end
 
 
@@ -62,7 +67,7 @@ class Recipe < ApplicationRecord
         #   element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
         #   unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
         #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
-      Item.create(food: food.first, recipe: self, recipe_ingredient: element)
+      Item.find_or_create_by(food: food.first, recipe: self, recipe_ingredient: element)
     end
   end
 end

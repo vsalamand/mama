@@ -10,12 +10,6 @@
               <%= item.collection_select :meta_recipe_id, MetaRecipe.all.order(:name), :id, :name, prompt: "Select food", class: 'form-control' %>
             <% end %>
             <%= f.add_nested_fields_link :meta_recipe_list_items %>
-
-          <%=  f.nested_fields_for :meta_recipe_list_items do |toppings| %>
-              <%= toppings.remove_nested_fields_link %>
-              <%= toppings.collection_select :meta_recipe_id, MetaRecipeList.find_by(name: "eggs").meta_recipes.order(:name), :id, :name, prompt: "Select type of eggs", class: 'form-control' %>
-            <% end %>
-
             <%= f.submit "Proposer à Mama", class: "form-control btn-primary" %>
           <% end %>
         </div>

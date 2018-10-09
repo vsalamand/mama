@@ -55,12 +55,15 @@ class MetaRecipeList < ApplicationRecord
     return ingredients.join("\r\n")
   end
 
+# retrieve pools from meta recipes and turn into tags
   def tag_recipe
-    tags = []
-    self.meta_recipe_list_items.each { |item| tags << item.get_tags }
-    tags = tags.uniq.flatten.join(', ')
-    self.recipe.tag_list = tags
-    self.recipe.save
+    unless self.recipe.nil?
+      tags = []
+      self.meta_recipe_list_items.each { |item| tags << item.get_tags }
+      tags = tags.uniq.flatten.join(', ')
+      self.recipe.tag_list = tags
+      self.recipe.save
+    end
   end
 
 end
