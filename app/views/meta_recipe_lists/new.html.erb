@@ -7,11 +7,26 @@
           <%= simple_form_for @meta_recipe_list do |f| %>
             <%=  f.nested_fields_for :meta_recipe_list_items do |item| %>
               <%= item.remove_nested_fields_link %>
-              <%= item.collection_select :meta_recipe_id, MetaRecipe.all.order(:name), :id, :name, prompt: "Select food", class: 'form-control' %>
+              <%= item.collection_select :meta_recipe_id, MetaRecipe.all.order(:name), :id, :name, prompt: "Select food", class: 'form-control selectize' %>
             <% end %>
+
+
+            <%= render 'form_veggies', :f=>f  %>
+
+            <!-- Button trigger veggies options -->
+            <button type="button" class="btn btn-primary btn-lg" id="veggies">
+              add veggies
+            </button>
+
+
             <%= f.add_nested_fields_link :meta_recipe_list_items %>
+
+
             <%= f.submit "Proposer à Mama", class: "form-control btn-primary" %>
           <% end %>
+
+
+
         </div>
       </div>
     </div>
