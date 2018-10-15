@@ -1,4 +1,0 @@
-            <%=  f.nested_fields_for :meta_recipe_list_items do |item| %>
-              <%= item.remove_nested_fields_link %>
-              <%= item.collection_select :meta_recipe_id, MetaRecipeList.where(name: "veggies", list_type: "pool").first.meta_recipes.order(:name), :id, :name, prompt: "Select veggies", class: 'form-control' %>
-            <% end %>

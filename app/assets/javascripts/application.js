@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require nested_form_fields
 //= require turbolinks
+//= require popper
 //= require bootstrap-sprockets
 //= require_tree .

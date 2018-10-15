@@ -10,11 +10,6 @@
 import 'bootstrap';
 import '../components/selectize';
 
-console.log('Hello World from Webpacker')
-
-import { addFormOnClick } from '../components/form';
-addFormOnClick();
-
 import { initUpdateNavbarOnScroll } from '../components/navbar';
 initUpdateNavbarOnScroll();
 
