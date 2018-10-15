@@ -31,8 +31,9 @@ class MetaRecipeListsController < ApplicationController
   end
 
   private
+  # use collection_singular_ids "ids: []" to create nested meta recipe list items through meta recipes in List creatin form
   def meta_recipe_list_params
-    params.require(:meta_recipe_list).permit(:name, :recipe_id, meta_recipe_list_items_attributes:[:name, :meta_recipe_list_id, :meta_recipe_id, :_destroy, :id])
+    params.require(:meta_recipe_list).permit(:name, :recipe_id, meta_recipe_ids: [])
   end
 
 end

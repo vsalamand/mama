@@ -190,7 +190,7 @@ GEM
       rails (>= 3.2.0)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.8.4)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     openfoodfacts (0.5.1)
       hashie (~> 3.4)
@@ -273,6 +273,7 @@ GEM
     sassc (1.12.1)
       ffi (~> 1.9.6)
       sass (>= 3.3.0)
+    selectize-rails (0.12.5)
     sidekiq (5.2.1)
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
@@ -361,6 +362,7 @@ DEPENDENCIES
   remotipart!
   sass-rails (~> 5.0)
   searchkick!
+  selectize-rails
   sidekiq
   sidekiq-failures (~> 1.0)
   simple_form

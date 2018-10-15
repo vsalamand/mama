@@ -5,21 +5,21 @@
         <h2>Assistant Recette</h2>
         <div class="recipe-form">
           <%= simple_form_for @meta_recipe_list do |f| %>
-            <%=  f.nested_fields_for :meta_recipe_list_items do |item| %>
-              <%= item.remove_nested_fields_link %>
-              <%= item.collection_select :meta_recipe_id, MetaRecipe.all.order(:name), :id, :name, prompt: "Select food", class: 'form-control selectize' %>
-            <% end %>
+
+            <%= f.collection_select :meta_recipe_ids, MetaRecipe.all.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose a food", class: 'select'%>
+
+          <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "veggies", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose veggies", class: 'select'%>
+
+          <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "eggs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose eggs", class: 'select'%>
 
 
-            <%= render 'form_veggies', :f=>f  %>
 
             <!-- Button trigger veggies options -->
-            <button type="button" class="btn btn-primary btn-lg" id="veggies">
+      <!--       <button type="button" class="btn btn-primary btn-lg" id="veggies">
               add veggies
             </button>
+ -->
 
-
-            <%= f.add_nested_fields_link :meta_recipe_list_items %>
 
 
             <%= f.submit "Proposer à Mama", class: "form-control btn-primary" %>
