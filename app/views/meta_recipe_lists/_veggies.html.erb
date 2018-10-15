@@ -1,0 +1,22 @@
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+   <%= simple_form_for @meta_recipe_list do |f| %>
+
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseVeggies" aria-expanded="false" aria-controls="collapseExample">
+        Veggies
+      </button>
+    </p>
+    <div class="collapse" id="collapseVeggies">
+      <div class="card card-body">
+          <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "veggies", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose veggies", class: 'select'%>
+      </div>
+    </div>
+
+
+    <%= f.submit "Proposer à Mama", class: "form-control btn-primary" %>
+  <% end %>
+
+</div>

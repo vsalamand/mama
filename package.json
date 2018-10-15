@@ -7,6 +7,12 @@
     "selectize": "^0.12.6"
   },
   "devDependencies": {
+    "autoprefixer": "^9.2.0",
+    "css-loader": "^1.0.0",
+    "node-sass": "^4.9.4",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
     "webpack-dev-server": "2.11.2"
   }
 }
