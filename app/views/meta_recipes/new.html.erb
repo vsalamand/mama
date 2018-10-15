@@ -5,15 +5,12 @@
         <h2>Proposer une meta recette</h2>
         <div class="recipe-form">
           <%= simple_form_for @meta_recipe do |f| %>
+            <%= f.collection_select :meta_recipe_list_ids, MetaRecipeList.where(list_type: "pool").order(:name), :id, :name, {}, multiple: true, placeholder: "Select food categories", class: 'select'%>
+
             <%= f.input :name, placeholder: "Nom de la meta recette", label: false, class: 'form-control' %>
             <%= f.input :servings, type: "number", label: false, class: 'form-control' %>
             <%= f.input :ingredients, placeholder: "Ingredients", label: false, class: 'form-control' %>
             <%= f.input :instructions, placeholder: "Préparation", label: false, class: 'form-control' %>
-
-            <%=  f.nested_fields_for :meta_recipe_list_items do |item| %>
-              <%= item.remove_nested_fields_link %>
-              <%= item.collection_select :meta_recipe_list_id, MetaRecipeList.where(list_type: "pool").order(:name), :id, :name, prompt: "Select category", class: 'form-control' %>
-            <% end %>
 
             <%= f.submit "Donne à Mama", class: "form-control btn-primary" %>
           <% end %>
