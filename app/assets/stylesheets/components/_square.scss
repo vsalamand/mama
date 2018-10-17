@@ -1,0 +1,30 @@
+.square {
+    float:left;
+    position: relative;
+    width: 20%;
+    padding-bottom : 20%; /* = width for a 1:1 aspect ratio */
+    margin:2.5%;
+    overflow:hidden;
+    background-color: lightgray;
+    border-radius: 5px;
+}
+
+.content {
+    position:absolute;
+    height:100%; /* = 100% - 2*10% padding */
+    width:100%; /* = 100% - 2*5% padding */
+    // padding: 10% 5%;
+    text-align: center;
+    font-size: 10vmax;
+}
+.table{
+    display: table;
+    height:100%;
+    width:100%;
+}
+.table-cell{
+    display: table-cell;
+    vertical-align: middle;
+    height:100%;
+    width:100%;
+}
