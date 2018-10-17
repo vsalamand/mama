@@ -5,7 +5,8 @@
     padding-bottom : 20%; /* = width for a 1:1 aspect ratio */
     margin:2.5%;
     overflow:hidden;
-    background-color: lightgray;
+    background: dodgerblue;
+    border: 1px solid dodgerblue;
     border-radius: 5px;
 }
 
@@ -27,4 +28,8 @@
     vertical-align: middle;
     height:100%;
     width:100%;
+}
+.square:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
