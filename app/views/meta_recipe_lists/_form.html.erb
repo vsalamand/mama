@@ -5,17 +5,15 @@
    <%= simple_form_for @meta_recipe_list do |f| %>
 
 
+      <%= f.collection_select :meta_recipe_ids, MetaRecipe.all.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose a food", class: 'select' %>
 
-       <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-outline-primary" data-toggle="collapse" data-target="#collapseAll" aria-expanded="false" aria-controls="collapseExample">🍲</button>
-        <button type="button" class="btn btn-outline-success" data-toggle="collapse" data-target="#collapseVeggies" aria-expanded="false" aria-controls="collapseExample">🥑</button>
-        <button type="button" class="btn btn-outline-primary" data-toggle="collapse" data-target="#collapseEggs" aria-expanded="false" aria-controls="collapseExample">🥚</button>
-      </div>
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#collapseAll" aria-expanded="false" aria-controls="collapseExample">🍲</button>
+      <button type="button" class="btn btn-success btn-lg" data-toggle="collapse" data-target="#collapseVeggies" aria-expanded="false" aria-controls="collapseExample">🥑</button>
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#collapseEggs" aria-expanded="false" aria-controls="collapseExample">🥚</button>
 
 
       <div class="collapse" id="collapseAll">
         <div class="card card-body">
-            <%= f.collection_select :meta_recipe_ids, MetaRecipe.all.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose a food", class: 'select' %>
         </div>
       </div>
 
@@ -31,7 +29,11 @@
         </div>
       </div>
 
-    <%= f.submit "Proposer à Mama", class: "form-control btn-primary" %>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <%= f.submit "Proposer à Mama", class: "btn btn-primary" %>
+    </div>
+
   <% end %>
 
 </div>

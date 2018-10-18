@@ -1,0 +1,27 @@
+<%= simple_form_for @meta_recipe_list do |f| %>
+
+  <div class="base">
+    <h4>1. choisir une base</h4>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipe.all.order(:name), :id, :name, {}, multiple: true, placeholder: "🍝 quel type de pâtes ?", class: 'form-control select' %>
+    </div>
+  </div>
+
+  <div class="toppings">
+    <h4>2. choisir la garniture</h4>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "veggies", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥑 Légumes (optionnel)", class: 'form-control select'%>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "eggs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥚 Oeufs (optionnel)", class: 'form-control select'%>
+    </div>
+  </div>
+
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+    <%= f.submit "Terminer", class: "btn btn-primary" %>
+  </div>
+
+<% end %>
