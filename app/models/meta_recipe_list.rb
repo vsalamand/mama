@@ -23,13 +23,10 @@ class MetaRecipeList < ApplicationRecord
       self.recipe.save
     end
 
-    # update recipe tag name if metarecipelist pool name is updated
-    if self.changed? && self.list_type == "pool"
-      binding.pry
-    end
-
+    # # update recipe tag name if metarecipelist pool name is updated
+    # if self.changed? && self.list_type == "pool"
+    # end
   end
-
 
 
   def create_recipe

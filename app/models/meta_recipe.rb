@@ -15,18 +15,13 @@ class MetaRecipe < ApplicationRecord
   end
 
   after_update do
-  # update meta recipe items
-    if self.ingredients_changed?
-      previous_ingredients = self.changes[:ingredients].first.split("\r\n")
-      saved_ingredients = self.changes[:ingredients].second.split("\r\n")
-
-      removed_ingredients = previous_ingredients - saved_ingredients
-      self.destroy_meta_recipe_items(removed_ingredients) if removed_ingredients.any?
-
-      new_ingredients = saved_ingredients - previous_ingredients
-      self.create_meta_recipe_items(new_ingredients) if new_ingredients.any?
+    # update meta recipe items
+    self.update_meta_recipe_items if self.ingredients_changed?
+    # update meta recipe list & list items names
+    if self.name_changed?
+      self.update_meta_recipe_list_items
+      self.update_meta_recipe_lists
     end
-    # self.name_changed?
     # self.servings
     # self.ingredients
     # self.instructions
@@ -52,6 +47,27 @@ class MetaRecipe < ApplicationRecord
 
   def get_topping_ingredient
     self.ingredients = self.name
+  end
+
+  def update_meta_recipe_items
+      previous_ingredients = self.changes[:ingredients].first.split("\r\n")
+      saved_ingredients = self.changes[:ingredients].second.split("\r\n")
+
+      removed_ingredients = previous_ingredients - saved_ingredients
+      self.destroy_meta_recipe_items(removed_ingredients) if removed_ingredients.any?
+      new_ingredients = saved_ingredients - previous_ingredients
+      self.create_meta_recipe_items(new_ingredients) if new_ingredients.any?
+  end
+
+  def update_meta_recipe_list_items
+    self.meta_recipe_list_items.each { |item| item.get_name }
+  end
+
+  def update_meta_recipe_lists
+    self.meta_recipe_lists.where(list_type: "recipe").each do |list|
+      list.name = list.get_title
+      list.save
+    end
   end
 
 end
