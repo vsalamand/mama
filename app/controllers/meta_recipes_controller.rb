@@ -8,7 +8,6 @@ end
 
 def create
   @meta_recipe = MetaRecipe.new(meta_recipe_params)
-  binding.pry
   @meta_recipe.ingredients = @meta_recipe.get_topping_ingredient if @meta_recipe.ingredients.empty?
   if @meta_recipe.save
     redirect_to meta_recipe_path(@meta_recipe)

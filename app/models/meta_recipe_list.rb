@@ -66,7 +66,6 @@ class MetaRecipeList < ApplicationRecord
 
   def find_by_meta_recipe_ids(ids)
     return MetaRecipeList.select { |list| ids.compact.delete_if(&:empty?).map { |id| id.to_i }.sort.uniq == list.meta_recipe_ids.sort.uniq  }.first
-    binding.pry
   end
 
 end
