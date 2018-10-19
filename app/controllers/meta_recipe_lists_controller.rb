@@ -17,7 +17,8 @@ class MetaRecipeListsController < ApplicationController
     if @meta_recipe_list.save
       redirect_to meta_recipe_list_path(@meta_recipe_list)
     else
-      redirect_to new_meta_recipe_list_path
+      # redirect to existing meta recipe list
+      redirect_to meta_recipe_list_path(@meta_recipe_list.find_by_meta_recipe_ids(meta_recipe_list_params[:meta_recipe_ids]))
     end
   end
 
