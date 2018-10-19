@@ -15,6 +15,23 @@ class MetaRecipeList < ApplicationRecord
     self.tag_recipe
   end
 
+  # update related recipe
+  after_update do
+    # update recipe title if user updates metarecipelist name manually
+    if self.changed? && self.list_type == "recipe"
+      self.recipe.title = self.name if self.name_changed? && self.recipe.present?
+      self.recipe.save
+    end
+
+    # update recipe tag name if metarecipelist pool name is updated
+    if self.changed? && self.list_type == "pool"
+      binding.pry
+    end
+
+  end
+
+
+
   def create_recipe
     recipe = Recipe.create(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, status: "pending", origin: "mama")
     recipe.generate_items

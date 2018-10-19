@@ -10,6 +10,20 @@ class MetaRecipeListItem < ApplicationRecord
     self.save
   end
 
+  after_update do
+    if self.changed? && self.meta_recipe_list.list_type == "pool"
+      tag = self.meta_recipe_list.name
+      # find all recipes with the parent meta recipe and update tags
+      mrl_recipes = self.meta_recipe.meta_recipe_lists.where(list_type: "recipe")
+      if mrl_recipes.any?
+        mrl_recipes.each do |mrl|
+          mrl.recipe.tag_list.add(tag)
+          mrl.recipe.save
+        end
+      end
+    end
+  end
+
   def get_tags
     tags = self.meta_recipe.meta_recipe_lists.where(list_type: "pool").map do |pool|
       pool.name
