@@ -22,10 +22,12 @@ class MetaRecipe < ApplicationRecord
       self.update_meta_recipe_list_items
       self.update_meta_recipe_lists
     end
-    # self.servings
     # self.ingredients
-    # self.instructions
-    # self.meta_type
+    self.meta_recipe_lists.where(list_type: "recipe").each { |mrl| mrl.update_instructions } if self.instructions_changed?
+  end
+
+  def get_topping_ingredient
+    self.ingredients = self.name
   end
 
   def create_meta_recipe_items(ingredients)
@@ -43,10 +45,6 @@ class MetaRecipe < ApplicationRecord
       element = MetaRecipeItem.find_by(meta_recipe: self, ingredient: ingredient, name: ingredient)
       element.destroy unless element.nil?
     end
-  end
-
-  def get_topping_ingredient
-    self.ingredients = self.name
   end
 
   def update_meta_recipe_items

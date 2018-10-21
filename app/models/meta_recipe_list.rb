@@ -28,7 +28,6 @@ class MetaRecipeList < ApplicationRecord
     # end
   end
 
-
   def create_recipe
     recipe = Recipe.create(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, status: "pending", origin: "mama")
     recipe.generate_items
@@ -55,6 +54,12 @@ class MetaRecipeList < ApplicationRecord
     end
     instructions << "<strong>Garniture:</strong> #{toppings.join(", ")}" if toppings.any?
     return instructions.join("\r\n")
+  end
+
+  def update_instructions
+    recipe = self.recipe
+    recipe.instructions = self.get_instructions
+    recipe.save
   end
 
   def get_ingredients
