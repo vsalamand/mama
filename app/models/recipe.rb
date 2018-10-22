@@ -28,7 +28,7 @@ class Recipe < ApplicationRecord
   end
 
   def upload_to_cloudinary
-    if self.status = "published"
+    if self.status = "published" &&  Rails.env.production?
       file = open("https://www.foodmama.fr/recipes/#{self.id}.pdf")
       Cloudinary::Uploader.upload(file, :public_id => self.id)
     end
