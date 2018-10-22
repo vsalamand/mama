@@ -15,6 +15,7 @@ class RecipesController < ApplicationController
                orientation: 'Landscape',
                page_size: 'A5',
                zoom:  0.32,
+               background: true,
                margin:  {
                     top:               5,                     # default 10 (mm)
                     bottom:            0,

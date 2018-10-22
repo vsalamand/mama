@@ -21,7 +21,8 @@ private
     @meta_recipe = MetaRecipe.find(params[:id])
   end
 
+  # use collection_singular_ids "ids: []" to create multiple nested meta recipe list items
   def meta_recipe_params
-    params.require(:meta_recipe).permit(:name, :servings, :ingredients, :instructions, :meta_type, meta_recipe_list_items_attributes:[:name, :meta_recipe_list_id, :meta_recipe_id])
+    params.require(:meta_recipe).permit(:name, :servings, :ingredients, :instructions, :meta_type, meta_recipe_list_ids: [], meta_recipe_list_items_attributes:[:name, :meta_recipe_list_id, :meta_recipe_id])
   end
 end

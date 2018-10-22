@@ -36,10 +36,14 @@ gem 'webpacker', '~> 3.5'
 # gem 'bcrypt', '~> 3.1.7'
 # front-end setup
 gem "bootstrap-sass"
+gem 'bootstrap', '~> 4.1.3'
 gem "font-awesome-sass"
 gem "simple_form"
 gem 'nested_form_fields'
 gem "autoprefixer-rails"
+# A small gem for putting selectize.js into the Rails asset pipeline
+gem "selectize-rails"
+
 # debugging
 gem 'better_errors'
 gem 'binding_of_caller'

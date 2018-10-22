@@ -3,6 +3,7 @@ class MetaRecipeList < ApplicationRecord
   validates :name, presence: :true, uniqueness: :true
   has_many :meta_recipe_list_items, dependent: :destroy, inverse_of: :meta_recipe_list
   has_many :meta_recipes, through: :meta_recipe_list_items
+  has_many :foods, through: :meta_recipes
 
   accepts_nested_attributes_for :meta_recipe_list_items, allow_destroy: true
 
@@ -14,6 +15,7 @@ class MetaRecipeList < ApplicationRecord
     self.create_recipe if self.list_type == "recipe"
     self.tag_recipe
   end
+
 
   def create_recipe
     recipe = Recipe.create(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, status: "pending", origin: "mama")
@@ -43,15 +45,24 @@ class MetaRecipeList < ApplicationRecord
     return instructions.join("\r\n")
   end
 
+  def update_instructions
+    recipe = self.recipe
+    recipe.instructions = self.get_instructions
+    recipe.save
+  end
+
   def get_ingredients
-    foods = []
     ingredients = []
-    self.meta_recipe_list_items.each do |meta_recipe_item|
-      # ingredients << meta_recipe_item.meta_recipe.ingredients
-      meta_recipe_item.meta_recipe.foods.each { |food| foods << food }
-    end
+    foods = self.foods
     foods.uniq.sort_by { |food| food.category.id }.each { |food| ingredients << food.name }
     return ingredients.join("\r\n")
+  end
+
+  def update_ingredients
+    recipe = self.recipe
+    recipe.ingredients = self.get_ingredients
+    recipe.generate_items
+    recipe.save
   end
 
 # retrieve pools from meta recipes and turn into tags
@@ -62,6 +73,10 @@ class MetaRecipeList < ApplicationRecord
       self.recipe.tag_list = tags
       self.recipe.save
     end
+  end
+
+  def find_by_meta_recipe_ids(ids)
+    return MetaRecipeList.select { |list| ids.compact.delete_if(&:empty?).map { |id| id.to_i }.sort.uniq == list.meta_recipe_ids.sort.uniq  }.first
   end
 
 end

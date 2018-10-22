@@ -28,7 +28,7 @@ class Recipe < ApplicationRecord
   end
 
   def upload_to_cloudinary
-    if self.status = "published"
+    if self.status = "published" &&  Rails.env.production?
       file = open("https://www.foodmama.fr/recipes/#{self.id}.pdf")
       Cloudinary::Uploader.upload(file, :public_id => self.id)
     end
@@ -64,10 +64,8 @@ class Recipe < ApplicationRecord
       food = Food.search(element.tr("0-9", "").tr("'", " "), fields: [{name: :exact}], misspellings: {edit_distance: 1})
       food = Food.search(element.tr("0-9", "").tr("'", " ")) if food.first.nil?
       food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
-        #   element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
-        #   unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
-        #   quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
       Item.find_or_create_by(food: food.first, recipe: self, recipe_ingredient: element)
     end
   end
+
 end

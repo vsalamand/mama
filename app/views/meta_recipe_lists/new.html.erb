@@ -1,19 +1,144 @@
+
 <div class="container">
-  <div class="form-wrapper">
     <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-        <h2>Assistant Recette</h2>
-        <div class="recipe-form">
-          <%= simple_form_for @meta_recipe_list do |f| %>
-            <%=  f.nested_fields_for :meta_recipe_list_items do |item| %>
-              <%= item.remove_nested_fields_link %>
-              <%= item.collection_select :meta_recipe_id, MetaRecipe.all.order(:name), :id, :name, prompt: "Select food", class: 'form-control' %>
-            <% end %>
-            <%= f.add_nested_fields_link :meta_recipe_list_items %>
-            <%= f.submit "Proposer à Mama", class: "form-control btn-primary" %>
-          <% end %>
+
+      <!-- Pasta -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#pastaModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍝
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Pâtes</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'pasta' %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <!-- Pasta -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#pastaModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍝
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Pâtes</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'pasta' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pasta -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#pastaModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍝
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Pâtes</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'pasta' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pasta -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#pastaModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍝
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Pâtes</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'pasta' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
   </div>
 </div>
+
+
+
+
+

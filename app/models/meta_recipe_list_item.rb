@@ -6,6 +6,19 @@ class MetaRecipeListItem < ApplicationRecord
 
   # add name from meta recipe
   after_create do
+    self.get_name
+  end
+
+  # find all recipes with the parent meta recipe and add the new tag
+  after_update do
+    self.add_new_tag if self.meta_recipe_list.list_type == "pool" && self.changed?
+  end
+
+  # # find all recipes with the parent meta recipe and remove the tag if no other meta recipe has it
+  # before_destroy do
+  # end
+
+  def get_name
     self.name = self.meta_recipe.name
     self.save
   end
@@ -15,6 +28,17 @@ class MetaRecipeListItem < ApplicationRecord
       pool.name
     end
     return tags
+  end
+
+  def add_new_tag
+    tag = self.meta_recipe_list.name
+    mrl_recipes = self.meta_recipe.meta_recipe_lists.where(list_type: "recipe")
+    if mrl_recipes.any?
+      mrl_recipes.each do |mrl|
+        mrl.recipe.tag_list.add(tag)
+        mrl.recipe.save
+      end
+    end
   end
 
 end

@@ -1,4 +1,5 @@
 class MetaRecipeListsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
 
   def show
     @meta_recipe_list = MetaRecipeList.find(params[:id])
@@ -16,7 +17,8 @@ class MetaRecipeListsController < ApplicationController
     if @meta_recipe_list.save
       redirect_to meta_recipe_list_path(@meta_recipe_list)
     else
-      redirect_to new_meta_recipe_list_path
+      # redirect to existing meta recipe list
+      redirect_to meta_recipe_list_path(@meta_recipe_list.find_by_meta_recipe_ids(meta_recipe_list_params[:meta_recipe_ids]))
     end
   end
 
@@ -31,8 +33,9 @@ class MetaRecipeListsController < ApplicationController
   end
 
   private
+  # use collection_singular_ids "ids: []" to create nested meta recipe list items through meta recipes in List creatin form
   def meta_recipe_list_params
-    params.require(:meta_recipe_list).permit(:name, :recipe_id, meta_recipe_list_items_attributes:[:name, :meta_recipe_list_id, :meta_recipe_id, :_destroy, :id])
+    params.require(:meta_recipe_list).permit(:name, :recipe_id, meta_recipe_ids: [])
   end
 
 end

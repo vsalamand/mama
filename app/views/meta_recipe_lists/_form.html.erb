@@ -1,0 +1,39 @@
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+   <%= simple_form_for @meta_recipe_list do |f| %>
+
+
+      <%= f.collection_select :meta_recipe_ids, MetaRecipe.all.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose a food", class: 'select' %>
+
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#collapseAll" aria-expanded="false" aria-controls="collapseExample">🍲</button>
+      <button type="button" class="btn btn-success btn-lg" data-toggle="collapse" data-target="#collapseVeggies" aria-expanded="false" aria-controls="collapseExample">🥑</button>
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#collapseEggs" aria-expanded="false" aria-controls="collapseExample">🥚</button>
+
+
+      <div class="collapse" id="collapseAll">
+        <div class="card card-body">
+        </div>
+      </div>
+
+      <div class="collapse" id="collapseVeggies">
+        <div class="card card-body">
+            <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "veggies", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose veggies", class: 'select'%>
+        </div>
+      </div>
+
+      <div class="collapse" id="collapseEggs">
+        <div class="card card-body">
+            <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "eggs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "Choose eggs", class: 'select'%>
+        </div>
+      </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <%= f.submit "Proposer à Mama", class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+
+</div>
