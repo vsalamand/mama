@@ -3,6 +3,8 @@ class MetaRecipe < ApplicationRecord
   has_many :foods, through: :meta_recipe_items
   has_many :meta_recipe_list_items, dependent: :destroy, inverse_of: :meta_recipe
   has_many :meta_recipe_lists, through: :meta_recipe_list_items
+  has_many :recipes, through: :meta_recipe_lists
+  has_many :items, through: :recipes
   validates :name, uniqueness: :true
   validates :name, :servings, :ingredients, presence: :true
 
@@ -16,18 +18,31 @@ class MetaRecipe < ApplicationRecord
 
   after_update do
     # update meta recipe items
-    self.update_meta_recipe_items if self.ingredients_changed?
+    self.update_ingredients if self.ingredients_changed?
     # update meta recipe list & list items names
     if self.name_changed?
       self.update_meta_recipe_list_items
       self.update_meta_recipe_lists
     end
-    # self.ingredients
-    self.meta_recipe_lists.where(list_type: "recipe").each { |mrl| mrl.update_instructions } if self.instructions_changed?
+    # update recipe instructions
+    self.update_recipe_instructions if self.instructions_changed?
   end
 
   def get_topping_ingredient
     self.ingredients = self.name
+  end
+
+  def update_ingredients
+    previous_ingredients = self.changes[:ingredients].first.split("\r\n")
+    saved_ingredients = self.changes[:ingredients].second.split("\r\n")
+    # destroy recipe items & mr_items
+    removed_ingredients = previous_ingredients - saved_ingredients
+    self.destroy_items(removed_ingredients) if removed_ingredients.any?
+    # create new mr_items
+    new_ingredients = saved_ingredients - previous_ingredients
+    self.create_meta_recipe_items(new_ingredients) if new_ingredients.any?
+    # update recipe items
+    self.update_recipe_ingredients
   end
 
   def create_meta_recipe_items(ingredients)
@@ -40,21 +55,22 @@ class MetaRecipe < ApplicationRecord
     end
   end
 
-  def destroy_meta_recipe_items(ingredients)
+  def destroy_items(ingredients)
     ingredients.each do |ingredient|
-      element = MetaRecipeItem.find_by(meta_recipe: self, ingredient: ingredient, name: ingredient)
-      element.destroy unless element.nil?
+      mr_item = MetaRecipeItem.find_by(meta_recipe: self, ingredient: ingredient, name: ingredient)
+      # destroy recipe items
+      self.items.where(food: mr_item.food).each { |item| item.destroy unless item.nil? }
+      # deetroy metarecipe items
+      mr_item.destroy unless mr_item.nil?
     end
   end
 
-  def update_meta_recipe_items
-      previous_ingredients = self.changes[:ingredients].first.split("\r\n")
-      saved_ingredients = self.changes[:ingredients].second.split("\r\n")
+  def update_recipe_instructions
+    self.meta_recipe_lists.where(list_type: "recipe").each { |mrl| mrl.update_instructions }
+  end
 
-      removed_ingredients = previous_ingredients - saved_ingredients
-      self.destroy_meta_recipe_items(removed_ingredients) if removed_ingredients.any?
-      new_ingredients = saved_ingredients - previous_ingredients
-      self.create_meta_recipe_items(new_ingredients) if new_ingredients.any?
+  def update_recipe_ingredients
+    self.meta_recipe_lists.where(list_type: "recipe").each { |mrl| mrl.update_ingredients }
   end
 
   def update_meta_recipe_list_items
