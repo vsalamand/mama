@@ -26,8 +26,6 @@ class MetaRecipe < ApplicationRecord
     end
     # update recipe instructions
     self.update_recipe_instructions if self.instructions_changed?
-    # upload to cloudinary
-    self.recipes.each { |recipe| recipe.upload_to_cloudinary }
   end
 
   def get_topping_ingredient
@@ -83,6 +81,8 @@ class MetaRecipe < ApplicationRecord
     self.meta_recipe_lists.where(list_type: "recipe").each do |list|
       list.name = list.get_title
       list.save
+      list.recipe.title = list.name
+      list.recipe.save
     end
   end
 
