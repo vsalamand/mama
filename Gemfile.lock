@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/ankane/searchkick
-  revision: 6fe7e6078d4c6027da84bc78c71cfe9ab40cc09a
+  revision: ebbe506864a783e1922c6fa19814811c40ca5657
   specs:
-    searchkick (3.1.1)
+    searchkick (3.1.2)
       activemodel (>= 4.2)
       elasticsearch (>= 5)
       hashie
@@ -58,7 +58,7 @@ GEM
     ancestry (3.0.2)
       activerecord (>= 3.2.0)
     arel (7.1.4)
-    autoprefixer-rails (9.1.4)
+    autoprefixer-rails (9.2.1)
       execjs
     aws_cf_signer (0.1.3)
     bcrypt (3.1.12)
@@ -123,7 +123,7 @@ GEM
     erubi (1.7.1)
     erubis (2.7.0)
     execjs (2.7.0)
-    faraday (0.15.2)
+    faraday (0.15.3)
       multipart-post (>= 1.2, < 3)
     fast-stemmer (1.0.2)
     ffi (1.9.25)
@@ -131,7 +131,7 @@ GEM
       thor (~> 0.14)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
-    font-awesome-sass (5.3.1)
+    font-awesome-sass (5.4.1)
       sassc (>= 1.11)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -146,7 +146,7 @@ GEM
       domain_name (~> 0.5)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
-    i18n (1.1.0)
+    i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -175,7 +175,7 @@ GEM
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
     mime-types (3.2.2)
@@ -210,7 +210,7 @@ GEM
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
-    rack-protection (2.0.3)
+    rack-protection (2.0.4)
       rack
     rack-proxy (0.6.5)
       rack
@@ -233,7 +233,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    rails_admin (1.4.1)
+    rails_admin (1.4.2)
       builder (~> 3.1)
       coffee-rails (~> 4.0)
       font-awesome-rails (>= 3.0, < 5)
@@ -264,7 +264,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    sass (3.5.7)
+    sass (3.6.0)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -275,11 +275,11 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (1.12.1)
+    sassc (2.0.0)
       ffi (~> 1.9.6)
-      sass (>= 3.3.0)
+      rake
     selectize-rails (0.12.5)
-    sidekiq (5.2.1)
+    sidekiq (5.2.2)
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
@@ -309,7 +309,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.18)
+    uglifier (4.1.19)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
