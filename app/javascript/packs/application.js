@@ -9,7 +9,3 @@
 
 import 'bootstrap';
 import '../components/selectize';
-
-import { initUpdateNavbarOnScroll } from '../components/navbar';
-initUpdateNavbarOnScroll();
-
