@@ -17,15 +17,18 @@ class MetaRecipe < ApplicationRecord
   end
 
   after_update do
-    # update meta recipe items
-    self.update_ingredients if self.ingredients_changed?
-    # update meta recipe list & list items names
-    if self.name_changed?
-      self.update_meta_recipe_list_items
-      self.update_meta_recipe_lists
+    # if update is not a create
+    if self.changes[:created_at] =! self.changes[:updated_at]
+      # update meta recipe items
+      self.update_ingredients if self.ingredients_changed?
+      # update meta recipe list & list items names
+      if self.name_changed?
+        self.update_meta_recipe_list_items
+        self.update_meta_recipe_lists
+      end
+      # update recipe instructions
+      self.update_recipe_instructions if self.instructions_changed?
     end
-    # update recipe instructions
-    self.update_recipe_instructions if self.instructions_changed?
   end
 
   def get_topping_ingredient

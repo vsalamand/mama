@@ -2,15 +2,15 @@
 <div class="container">
     <div class="row">
 
-      <!-- Pasta -->
+      <!-- Veggies -->
       <div class="col-3">
 
         <!-- Card entry point-->
-        <div class="square" data-toggle="modal" data-target="#pastaModal">
+        <div class="square" data-toggle="modal" data-target="#veggieModal">
           <div class="content">
             <div class="table">
               <div class="table-cell">
-                🍝
+                🥑
               </div>
             </div>
           </div>
@@ -18,17 +18,116 @@
 
 
         <!-- Modal -->
-        <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
+        <div class="modal" id="veggieModal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Pâtes</h3>
+                <h3 class="modal-title" id="exampleModalLabel">Plats végétariens</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <%= render 'pasta' %>
+                <%= render 'veggie' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Salad -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#saladModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🥗
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="saladModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Salades</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'salad' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meat -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#meatModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍖
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="meatModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Viandes</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'meat' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pasta -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#fishModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🐟
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Fish -->
+        <div class="modal" id="fishModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Poissons</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'fish' %>
               </div>
             </div>
           </div>
@@ -68,15 +167,15 @@
         </div>
       </div>
 
-      <!-- Pasta -->
+      <!-- Potatoes -->
       <div class="col-3">
 
         <!-- Card entry point-->
-        <div class="square" data-toggle="modal" data-target="#pastaModal">
+        <div class="square" data-toggle="modal" data-target="#potatoModal">
           <div class="content">
             <div class="table">
               <div class="table-cell">
-                🍝
+                🥔
               </div>
             </div>
           </div>
@@ -84,32 +183,32 @@
 
 
         <!-- Modal -->
-        <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
+        <div class="modal" id="potatoModal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Pâtes</h3>
+                <h3 class="modal-title" id="exampleModalLabel">Patates</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <%= render 'pasta' %>
+                <%= render 'potatoes' %>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Pasta -->
+      <!-- Eggs -->
       <div class="col-3">
 
         <!-- Card entry point-->
-        <div class="square" data-toggle="modal" data-target="#pastaModal">
+        <div class="square" data-toggle="modal" data-target="#eggsModal">
           <div class="content">
             <div class="table">
               <div class="table-cell">
-                🍝
+                🥚
               </div>
             </div>
           </div>
@@ -117,17 +216,215 @@
 
 
         <!-- Modal -->
-        <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
+        <div class="modal" id="eggsModal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Pâtes</h3>
+                <h3 class="modal-title" id="exampleModalLabel">Oeufs</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <%= render 'pasta' %>
+                <%= render 'eggs' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Burgers -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#burgerModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍔
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="burgerModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Hamburgers</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'burgers' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Snacks -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#snackModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🥪
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="snackModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Sandwichs</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'snacks' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pizzas -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#pizzaModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍕
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="pizzaModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Pizza</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'pizzas' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Piues -->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#pieModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🥧
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="pieModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Quiches & tartes salées</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'pies' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gastronome-->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#gourmetModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🥘
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="gourmetModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Plats gourmands</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'gourmets' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kids-->
+      <div class="col-3">
+
+        <!-- Card entry point-->
+        <div class="square" data-toggle="modal" data-target="#kidsModal">
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                🍳
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal" id="kidsModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Plats rapides</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= render 'kids' %>
               </div>
             </div>
           </div>
