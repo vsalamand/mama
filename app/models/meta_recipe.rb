@@ -16,7 +16,7 @@ class MetaRecipe < ApplicationRecord
     self.create_meta_recipe_items(ingredients)
   end
 
-  after_update do
+  after_save do
     # if update is not a create
     if self.changes[:created_at] =! self.changes[:updated_at]
       # update meta recipe items

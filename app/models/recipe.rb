@@ -15,7 +15,7 @@ class Recipe < ApplicationRecord
 
   searchkick
 
-  after_update do
+  after_save do
     # if update is not a create
     if self.changes[:created_at] =! self.changes[:updated_at]
       # update to cloudinary
