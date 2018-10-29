@@ -1,0 +1,17 @@
+<%= render 'shared/admin-navbar' %>
+
+
+<div class="container">
+  <div class="row">
+    <h1>Recipes (<%= @recipes.count %>)</h1>
+  </div>
+  <div class="row">
+    <% @recipe_pools.each do |pool| %>
+      <li>
+        <%= pool.name %> |
+        <%= pool.recipes.where(status: "published").count %>
+      </li>
+    <% end %>
+  </div>
+
+</div>

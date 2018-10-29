@@ -14,7 +14,7 @@
 
   <body>
 
-    <%= render 'shared/navbar' %>
+    <%= render 'shared/navbar' unless current_page?(card_recipe_path) %>
     <%= render 'shared/flashes' %>
 
 

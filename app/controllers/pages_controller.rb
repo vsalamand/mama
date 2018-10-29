@@ -7,15 +7,10 @@ class PagesController < ApplicationController
   def confirmation
   end
 
-  def generate_recipe_items
-    recipe = Recipe.find(4)
-    recipe_ingredients = recipe.ingredients.split("\r\n")
-    recipe_ingredients.each do |element|
-      food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or")
-      element_less_ingredient = element.tr("0-9", "").downcase.split - ingredient[0]["name"].downcase.split
-      unit = Unit.search(element_less_ingredient.join(' '), operator: "or")
-      quantity = element[/[+-]?([0-9]*[\D])?[0-9]+/]
-      Item.create(food: food[0], unit: unit[0], quantity: quantity, recipe: recipe, recipe_ingredient: element)
-    end
+  def dashboard
+    @recipes = Recipe.where(status: "published")
+    @recipe_pools = RecipeList.where(recipe_list_type: "pool")
+    @meta_recipes = MetaRecipe.all
+    @mr_pools = MetaRecipeList.where(recipe_list_type: "pool")
   end
 end
