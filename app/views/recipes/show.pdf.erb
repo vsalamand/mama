@@ -8,19 +8,19 @@
 
   <body style="background: #F1F1F1">
     <div class="pdf-banner">
-      <div class="container">
+      <div class="container" style="padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
         <div class="row">
           <div class="col-xs-12">
             <div class="pdf-banner-content">
+              <p><%= wicked_pdf_image_tag "logo.png" %> mama présente :</p>
               <h1><%= @recipe.title %></h1>
-<!--               wicked_pdf_image_tag "logo.png"
- -->            </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="padding-bottom: 50px; padding-left: 20px; padding-right: 20px;">
       <div class="row">
         <div class="pdf-shopping-list">
           <div class="col-xs-4">
