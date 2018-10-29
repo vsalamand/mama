@@ -15,8 +15,13 @@ class Recipe < ApplicationRecord
 
   searchkick
 
-  after_update :upload_to_cloudinary
-
+  after_update do
+    # if update is not a create
+    if self.changes[:created_at] =! self.changes[:updated_at]
+      # update to cloudinary
+      self.upload_to_cloudinary
+    end
+  end
 
   def search_data
     {
