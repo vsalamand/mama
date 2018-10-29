@@ -10,7 +10,7 @@ class MetaRecipeListItem < ApplicationRecord
   end
 
   # find all recipes with the parent meta recipe and add the new tag
-  after_update do
+  before_save do
     self.add_new_tag if self.meta_recipe_list.list_type == "pool" && self.changed?
   end
 

@@ -18,7 +18,10 @@ class MetaRecipeList < ApplicationRecord
 
 
   def create_recipe
-    recipe = Recipe.create(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, status: "pending", origin: "mama")
+    recipe = Recipe.new(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions)
+    recipe.status = "pending"
+    recipe.origin = "mama"
+    recipe.save
     recipe.generate_items
     self.recipe_id = recipe.id
     self.save
@@ -26,6 +29,13 @@ class MetaRecipeList < ApplicationRecord
 
   def get_title
     titles = self.meta_recipe_list_items.map do |meta_recipe_item|
+      meta_recipe_item.meta_recipe.name
+    end
+    return titles.join(', ').capitalize
+  end
+
+  def update_title
+    titles = self.meta_recipe_list_items.order(:created_at).map do |meta_recipe_item|
       meta_recipe_item.meta_recipe.name
     end
     return titles.join(', ').capitalize

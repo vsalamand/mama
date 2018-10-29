@@ -15,7 +15,7 @@ class Recipe < ApplicationRecord
 
   searchkick
 
-  after_save do
+  before_save do
     # if update is not a create
     if self.changes[:created_at] =! self.changes[:updated_at]
       # update to cloudinary
@@ -33,7 +33,7 @@ class Recipe < ApplicationRecord
   end
 
   def upload_to_cloudinary
-    if self.status = "published" &&  Rails.env.production?
+    if self.status == "published" &&  Rails.env.production?
       file = open("https://www.foodmama.fr/recipes/#{self.id}.pdf")
       Cloudinary::Uploader.upload(file, :public_id => self.id)
     end

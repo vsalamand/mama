@@ -16,7 +16,7 @@ class MetaRecipe < ApplicationRecord
     self.create_meta_recipe_items(ingredients)
   end
 
-  after_save do
+  before_save do
     # if update is not a create
     if self.changes[:created_at] =! self.changes[:updated_at]
       # update meta recipe items
@@ -82,7 +82,7 @@ class MetaRecipe < ApplicationRecord
 
   def update_meta_recipe_lists
     self.meta_recipe_lists.where(list_type: "recipe").each do |list|
-      list.name = list.get_title
+      list.name = list.update_title
       list.save
       list.recipe.title = list.name
       list.recipe.save

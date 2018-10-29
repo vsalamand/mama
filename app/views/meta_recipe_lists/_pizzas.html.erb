@@ -3,7 +3,7 @@
   <div class="base">
     <h4>1. choisir la base</h4>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipe.where(name: "pâte à pizza").order(:name), :id, :name, {}, multiple: true, placeholder: "🍕 pâte à pizza", class: 'form-control select' %>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipe.where(name: "pizza").order(:name), :id, :name, {}, multiple: true, placeholder: "🍕 pâte à pizza", class: 'form-control select' %>
     </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipe.where('name LIKE ?', "%sauce tomate%").order(:name), :id, :name, {}, multiple: true, placeholder: "🥫 sauces", class: 'form-control select'%>
