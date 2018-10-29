@@ -14,7 +14,7 @@
 
   <body>
 
-    <%= render 'shared/navbar' unless current_page?(card_recipe_path) %>
+    <%= render 'shared/navbar' unless action_name.eql? "card" %>
     <%= render 'shared/flashes' %>
 
 
