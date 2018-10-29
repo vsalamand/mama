@@ -7,9 +7,11 @@
   </head>
 
   <body style="background: #F1F1F1">
-    <div class="pdf-banner">
-      <div class="container" style="padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
-        <div class="row">
+
+    <div class="container" style="padding-top: 50px; padding-bottom: 50px; padding-left: 20px; padding-right: 20px;">
+
+      <div class="row">
+        <div class="pdf-banner">
           <div class="col-xs-12">
             <div class="pdf-banner-content">
               <p><%= wicked_pdf_image_tag "logo.png" %> mama présente :</p>
@@ -18,14 +20,12 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="container" style="padding-bottom: 50px; padding-left: 20px; padding-right: 20px;">
       <div class="row">
         <div class="pdf-shopping-list">
           <div class="col-xs-4">
             <div class="pdf-list-head">
-              <h2><strong>Ingrédients</strong> &nbsp;</h2>
+              <h2>Ingrédients &nbsp;</h2>
             </div>
             <div class="pdf-list">
               <ul>
@@ -36,16 +36,17 @@
             </div>
           </div>
         </div>
-
         <div class="pdf-recipe">
           <div class="col-xs-8">
             <div class="pdf-recipe-head">
-              <h2><strong>Recette</strong> &nbsp;</h2>
+              <h2>Recette &nbsp;</h2>
             </div>
             <%= pdf_recipe_lines(@recipe) %>
           </div>
         </div>
+
       </div>
+
     </div>
 
   </body>
