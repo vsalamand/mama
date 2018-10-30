@@ -3,9 +3,6 @@
   <div class="base">
     <h4>1. choisir la base</h4>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes feuilles", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥗 légumes feuilles", class: 'form-control select' %>
-    </div>
-    <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "crudités", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍅 crudités", class: 'form-control select' %>
     </div>
   </div>
@@ -18,11 +15,8 @@
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "patates", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥔 patates", class: 'form-control select' %>
     </div>
-    <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "féculents", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌾 féculents", class: 'form-control select'%>
-    </div>
-    <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "pâtes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍝 pâtes", class: 'form-control select' %>
+   <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "céréales", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌾 riz, pâtes, quinoa...", class: 'form-control select'%>
     </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "oeufs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥚 oeufs", class: 'form-control select'%>
