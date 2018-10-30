@@ -78,7 +78,7 @@ class MetaRecipeList < ApplicationRecord
 # retrieve pools from meta recipes and turn into tags
   def tag_recipe
     unless self.recipe.nil?
-      tags = self.meta_recipe_list_items.map { |item| item.get_tags }
+      tags = self.meta_recipe_list_items.order(:id).map { |item| item.get_tags }
       tags = tags.uniq.flatten.join(', ')
       self.recipe.tag_list = tags
       self.recipe.save
