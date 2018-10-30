@@ -117,7 +117,7 @@ class Recipe < ApplicationRecord
 
       when tags.first == "pains"
         then
-          pool = RecipeList.find_or_create_by(name: "sandwichs", recipe_list_type: "pool")
+          pool = RecipeList.find_or_create_by(name: "snacks", recipe_list_type: "pool")
           RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
 
       when tags.first == "pâtes à tarte"

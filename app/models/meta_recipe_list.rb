@@ -14,6 +14,7 @@ class MetaRecipeList < ApplicationRecord
   after_create do
     self.create_recipe if self.list_type == "recipe"
     self.tag_recipe
+    self.recipe.add_to_pool
   end
 
 
