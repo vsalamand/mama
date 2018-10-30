@@ -71,6 +71,7 @@ class RecipesController < ApplicationController
     # generate_ingredients_tags(@recipe)
     @recipe.save
     @recipe.rate
+    @recipe.add_to_pool
     @recipe.upload_to_cloudinary
     redirect_to recipe_path(@recipe)
   end

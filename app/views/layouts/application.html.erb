@@ -14,7 +14,7 @@
 
   <body>
 
-    <%= render 'shared/navbar' %>
+    <%= render 'shared/navbar' unless action_name.eql? "card" %>
     <%= render 'shared/flashes' %>
 
 

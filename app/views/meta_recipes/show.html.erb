@@ -3,7 +3,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <div class="col-3">
         <div class="recipe-head">
           <div class="recipe-title">
             <h3><strong><%= @meta_recipe.name %></strong></h3>
@@ -14,7 +14,7 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <div class="col-3">
       <div class="recipe-ingredients-head">
         <h4><strong>Ingrédients</strong> &nbsp;</h4>
         <p><%= @meta_recipe.servings %> 🍽️ </p>
@@ -42,7 +42,7 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <div class="col-3">
       <h4><strong>Préparation</strong></h4>
       <%= instruction_lines(@meta_recipe) %>
     </div>

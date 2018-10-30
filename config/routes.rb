@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   get 'confirmation', to: 'pages#confirmation'
+  get 'dashboard', to: 'pages#dashboard'
 
   resources :recipes do
     collection do

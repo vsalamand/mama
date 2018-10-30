@@ -53,8 +53,8 @@ namespace :recommendation do
   end
 
   desc "rate all recipes now"
-  task rate_recipes_now: :environment do
-    puts "rating recipes..."
+  task update_recipes_now: :environment do
+    puts "updating recipes..."
     RecipeJob.perform_now
     puts "done !"
   end
