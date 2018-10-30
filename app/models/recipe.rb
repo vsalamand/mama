@@ -8,6 +8,8 @@ class Recipe < ApplicationRecord
   has_many :cart_items, :as => :productable
   has_many :meta_recipe_lists, dependent: :nullify
   has_many :meta_recipes, through: :meta_recipe_lists
+  has_many :recipe_list_items
+  has_many :recipe_lists, through: :recipe_list_items
 
   RATING = ["excellent", "good", "limit", "avoid"]
 
@@ -67,6 +69,66 @@ class Recipe < ApplicationRecord
       food = Food.search(element.tr("0-9", "").tr("'", " ")) if food.first.nil?
       food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
       Item.find_or_create_by(food: food.first, recipe: self, recipe_ingredient: element)
+    end
+  end
+
+  def add_to_pool
+    tags = self.tag_list
+    case
+      when tags.first == "légumes" || tags.first == "légumes secs" && tags.exclude?("viandes") && tags.exclude?("charcuteries")
+        then
+          pool = RecipeList.find_or_create_by(name: "veggies", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "crudités" && tags.include?("vinaigrettes")
+        then
+          pool = RecipeList.find_or_create_by(name: "salads", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "pâtes"
+        then
+          pool = RecipeList.find_or_create_by(name: "pasta", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "viandes" || tags.first == "charcuteries"
+        then
+          pool = RecipeList.find_or_create_by(name: "meat", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.include?("poissons")
+        then
+          pool = RecipeList.find_or_create_by(name: "fish", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "patates"
+        then
+          pool = RecipeList.find_or_create_by(name: "potatoes", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "oeufs"
+        then
+          pool = RecipeList.find_or_create_by(name: "eggs", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "pains hamburger"
+        then
+          pool = RecipeList.find_or_create_by(name: "hamburgers", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "pains"
+        then
+          pool = RecipeList.find_or_create_by(name: "sandwichs", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "pâtes à tarte"
+        then
+          pool = RecipeList.find_or_create_by(name: "pizzas & pies", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+
+      when tags.first == "céréales"
+        then
+          pool = RecipeList.find_or_create_by(name: "cereals", recipe_list_type: "pool")
+          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
     end
   end
 
