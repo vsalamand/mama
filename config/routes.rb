@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   get 'confirmation', to: 'pages#confirmation'
   get 'dashboard', to: 'pages#dashboard'
+  get 'assistant', to: 'meta_recipe_lists#new'
 
   resources :recipes do
     collection do
