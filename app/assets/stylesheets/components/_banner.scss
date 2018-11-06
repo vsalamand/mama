@@ -1,8 +1,9 @@
 .home-banner {
-  background-image: asset-url('banner.jpg');
+  // background-image: asset-url('banner.jpg');
   background-size: cover;
-  height: 100vh;
-  color: #eee;
+  border-radius: 5px;
+  height: 75vh;
+  color: dodgerblue;
+  font-weight: lighter;
   text-align: center;
-  padding-top: 40vh;
 }
