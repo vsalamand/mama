@@ -9,9 +9,16 @@
 
 import 'bootstrap';
 import '../components/selectize';
-import Rails from 'rails-ujs';
-import Turbolinks from 'turbolinks';
+// import Rails from 'rails-ujs';
+// import Turbolinks from 'turbolinks';
 
 
-Rails.start();
-Turbolinks.start();
+// Rails.start();
+// Turbolinks.start();
+
+
+// tryuing to close modal after submit to new tab...
+$('.modal').on('hidden.bs.modal', function () {
+  location.reload();
+});
+

@@ -1,9 +1,9 @@
-<%= simple_form_for @meta_recipe_list do |f| %>
+<%= simple_form_for @meta_recipe_list, html: { target: "_blank" } do |f| %>
 
   <div class="base">
     <h4>1. Céréales</h4>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "céréales", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌾 riz, pâtes, quinoa...", class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "céréales", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌾 riz, pâtes, quinoa...", required: true, class: 'form-control select'%>
     </div>
   </div>
 

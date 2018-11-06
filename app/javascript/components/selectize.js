@@ -4,7 +4,8 @@ import 'selectize';
 $(function() {
  $('.select').selectize({
    maxItems: 3,
-   plugins: ['remove_button']
+   plugins: ['remove_button'],
+   closeAfterSelect: true,
  });
 });
 

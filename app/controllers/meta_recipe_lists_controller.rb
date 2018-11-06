@@ -15,10 +15,14 @@ class MetaRecipeListsController < ApplicationController
     @meta_recipe_list.name = @meta_recipe_list.get_title
     @meta_recipe_list.list_type = "recipe"
     if @meta_recipe_list.save
-      redirect_to meta_recipe_list_path(@meta_recipe_list)
+      # render js: "window.location='#{card_recipe_url(@meta_recipe_list.recipe)}'"
+      redirect_to card_recipe_path(@meta_recipe_list.recipe)
+      # redirect_to meta_recipe_list_path(@meta_recipe_list)
+      # redirect_to :back
     else
       # redirect to existing meta recipe list
-      redirect_to meta_recipe_list_path(@meta_recipe_list.find_by_meta_recipe_ids(meta_recipe_list_params[:meta_recipe_ids]))
+      # redirect_to meta_recipe_list_path(@meta_recipe_list.find_by_meta_recipe_ids(meta_recipe_list_params[:meta_recipe_ids]))
+      redirect_to card_recipe_path(@meta_recipe_list.find_by_meta_recipe_ids(meta_recipe_list_params[:meta_recipe_ids]).recipe)
     end
   end
 
