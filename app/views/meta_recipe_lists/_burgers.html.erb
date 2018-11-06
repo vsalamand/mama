@@ -48,7 +48,7 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-    <%= f.submit "Valider", class: "btn btn-primary" %>
+    <%= f.submit "Valider", data: { disable_with: false }, class: "btn btn-primary" %>
   </div>
 
 <% end %>
