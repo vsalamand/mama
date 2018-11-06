@@ -17,7 +17,7 @@
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "sauces", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥫 sauces", class: 'form-control select'%>
     </div>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "assaisonnements", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌿 assaissonnements", class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "assaisonnements", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌿 herbes, épices, graines...", class: 'form-control select'%>
     </div>
   </div>
 

@@ -1,9 +1,9 @@
 <%= simple_form_for @meta_recipe_list do |f| %>
 
   <div class="base">
-    <h4>1. Poisson</h4>
+    <h4>1. Céréales</h4>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "poissons", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🐟 poissons", class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "céréales", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌾 riz, pâtes, quinoa...", class: 'form-control select'%>
     </div>
   </div>
 
@@ -16,13 +16,13 @@
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes secs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥜 légumes secs", class: 'form-control select' %>
     </div>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "patates", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥔 patates", class: 'form-control select' %>
-    </div>
-   <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "céréales", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌾 riz, pâtes, quinoa...", class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "poissons", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🐟 poissons", class: 'form-control select'%>
     </div>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "oeufs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥚 oeufs", class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "viandes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍖 viandes", class: 'form-control select'%>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "charcuteries", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥓 charcuteries", class: 'form-control select'%>
     </div>
   </div>
 
@@ -30,6 +30,9 @@
     <h4>3. Assaisonnement</h4>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "sauces", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥫 sauces", class: 'form-control select'%>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
     </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "assaisonnements", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌿 herbes, épices, graines...", class: 'form-control select'%>
