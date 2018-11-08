@@ -1,9 +1,33 @@
-.home-banner {
-  // background-image: asset-url('banner.jpg');
-  background-size: cover;
-  border-radius: 5px;
-  height: 75vh;
+.banner {
   color: dodgerblue;
-  font-weight: lighter;
   text-align: center;
+  height: calc(40vh - 70px);  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5vh;
+}
+.banner h1 {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 5vmax;
+  font-weight: lighter;
+  text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+}
+.banner p {
+  font-size: 3vmax;
+  font-weight: bold;
+  color: dodgerblue;
+  opacity: 0.9;
+  margin-bottom: 0px;
+}
+.banner h6 {
+  font-size: 1.8vmax;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+  opacity: 0.9;
+  margin-bottom: 30px;
+  margin-top: 0px;
 }
