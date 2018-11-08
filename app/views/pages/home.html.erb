@@ -1,13 +1,34 @@
-<div class="container">
-  <div class="home-banner">
+
+<div class="banner">
+  <div class="banner-content">
     <h1>Pas d'idée pour manger 😱 ?!</h1>
-    <h3>Essaye <strong>Mama</strong> ! </h3>
+    <p>👉 Mama t'aide à trouver ! 👈</p>
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-3">
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-sm-6 col-xs-12">
+        <div class="card" id="messenger">
+          <div class="card-description">
+            <p>Tu ne sais pas ce que tu veux...<br><strong>...et tu ne veux pas y penser ?<strong></p>
+            <h3>Choisis avec Mama dans Messenger 💬</h3>
+          </div>
+          <a href="http://m.me/foodmama.fr" class="card-link" target="_blank"></a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <div class="card" id="assistant">
+          <div class="card-description">
+            <p>Tu ne sais pas ce que tu veux...<br><strong>...mais tu sais un peu ?<strong></p>
+            <h3>Compose une recette en 30 secondes 🔥</h3>
+          </div>
+          <%= link_to '', assistant_path, target: 'blank', class: 'card-link' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
