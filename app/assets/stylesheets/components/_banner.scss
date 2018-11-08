@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 5vh;
 }
 .banner h1 {
   padding-left: 10px;
@@ -25,7 +26,8 @@
   font-size: 1.8vmax;
   font-weight: lighter;
   font-style: italic;
-  color: lightgray;
+  color: gray;
+  opacity: 0.9;
   margin-bottom: 30px;
   margin-top: 0px;
 }

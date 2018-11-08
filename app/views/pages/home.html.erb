@@ -12,24 +12,26 @@
   <div class="container">
     <div class="row text-center">
       <div class="col-sm-6 col-xs-12">
-        <div class="card" id="messenger">
-          <div class="card-description">
-            <div class="card-intro">1️⃣</div>
-            <p>Tu ne sais pas ce que tu veux...<br><strong>...et tu ne veux pas y penser ?<strong></p>
-            <h3>Choisis avec Mama<br>dans Messenger 💬</h3>
+        <a href="http://m.me/foodmama.fr" class="card-link" target="_blank">
+          <div class="card" id="messenger">
+            <div class="card-description">
+              <div class="card-intro">1️⃣</div>
+              <!-- <p>Tu ne sais pas ce que tu veux...<br><strong>...et tu ne veux pas y penser ?<strong></p> -->
+              <h3>Choisis un menu<br>dans Messenger 💬</h3>
+            </div>
           </div>
-          <a href="http://m.me/foodmama.fr" class="card-link" target="_blank"></a>
-        </div>
+        </a>
       </div>
       <div class="col-sm-6 col-xs-12">
-        <div class="card" id="assistant">
-          <div class="card-description">
-            <div class="card-intro">2️⃣</div>
-            <p>Tu ne sais pas ce que tu veux...<br><strong>...mais tu sais un peu ?<strong></p>
-            <h3>Compose une recette<br>en 30 secondes 🔥</h3>
+        <%= link_to assistant_path, target: 'blank' do %>
+          <div class="card" id="assistant">
+            <div class="card-description">
+              <div class="card-intro">2️⃣</div>
+              <!-- <p>Tu ne sais pas ce que tu veux...<br><strong>...mais tu sais un peu ?<strong></p> -->
+              <h3>Compose une recette<br>en 30 secondes 🔥</h3>
+            </div>
           </div>
-          <%= link_to '', assistant_path, target: 'blank', class: 'card-link' %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>

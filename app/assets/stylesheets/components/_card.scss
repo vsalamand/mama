@@ -9,11 +9,13 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 15px;
 }
 .card:hover {
   opacity:0.7;
   cursor: pointer;
+  // display: inline-block;
 }
 @media only screen and (max-width: 768px) {
   .card{
@@ -21,13 +23,19 @@
     margin-bottom: 10px;
   }
 }
+a:link{
+  text-decoration: none!important;
+}
 
 .card-description {
   // position: absolute;
   // bottom: 10px;
   // left: 10px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .card-description h3 {
   font-size: 3vmax;
 }
@@ -37,20 +45,20 @@
   font-weight: lighter;
 }
 
-.card-link {
-  // position: absolute;
-  // top: 0;
-  // bottom: 0;
-  // right: 0;
-  width: 100%;
-  z-index: 2;
-  background: black;
-  opacity: 0;
-}
-.card-link:hover {
-  opacity: 0.1;
-  cursor: pointer;
-}
+// .card-link {
+//   // position: absolute;
+//   // top: 0;
+//   // bottom: 0;
+//   // right: 0;
+//   // width: 100%;
+//   // z-index: 2;
+//   background: black;
+//   opacity: 0;
+// }
+// // .card-link:hover {
+// //   opacity: 0.1;
+// //   cursor: pointer;
+// // }
 
 #assistant {
   background-color: #6AD58B;
@@ -60,6 +68,5 @@
 }
 
 .card-intro {
-  font-size: 1.8vmax;
-  padding-bottom: 20px;
+  font-size: 3vmax;
 }
