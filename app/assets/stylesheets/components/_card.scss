@@ -6,7 +6,7 @@
   background-color: dodgerblue;
   color: white;
   // position: relative;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   padding: 15px;
@@ -53,5 +53,13 @@
 }
 
 #assistant {
-  background-color: orange
+  background-color: #6AD58B;
+}
+#assistant:hover {
+  background-color: #3ac162;
+}
+
+.card-intro {
+  font-size: 1.8vmax;
+  padding-bottom: 20px;
 }
