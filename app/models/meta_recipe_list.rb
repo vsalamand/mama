@@ -48,11 +48,20 @@ class MetaRecipeList < ApplicationRecord
       unless meta_recipe_item.meta_recipe.instructions.empty?
         instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
       else
-        toppings << meta_recipe_item.meta_recipe.name
+        toppings << meta_recipe_item.meta_recipe.name.capitalize
       end
     end
     instructions << "<strong>Garniture:</strong> #{toppings.join(", ")}" if toppings.any?
+    get_extra_instructions(instructions)
     return instructions.join("\r\n")
+  end
+
+  def get_extra_instructions(instructions)
+    # add extra cooking step for pizza
+    # if (MetaRecipeList.where(name: "pizzas", list_type: "pool").first.meta_recipes & self.meta_recipes).any?
+    if (MetaRecipe.where(name: "pizza") & self.meta_recipes).any?
+      instructions << "<strong>Cuisson:</strong> Etaler la sauce sur la pâte. Déposer la garniture. Préchauffer le four à 240°C et laisser cuire 10 minutes environ."
+    end
   end
 
   def update_instructions

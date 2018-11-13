@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row">
       <h2 class="text-center" style="padding: 10px; color: dodgerblue;">Compose ta recette<br>en 30 secondes 🔥🔥🔥</h2>
+      <h6 class="text-center" style="font-style: italic; font-size: 1.8vmax; font-weight: lighter; color: gray; opacity: 0.9;">Sélectionne un type de plat ci-dessous</h6>
     </div>
     <div class="row text-center align-items-center h-100">
 
@@ -66,7 +67,7 @@
         <div class="square" data-toggle="modal" data-target="#potatoModal">
           <div class="content">
             <div class="table">
-              <button type="button" class="table-cell">🥔</button>
+              <button type="button" class="table-cell">🍟</button>
             </div>
           </div>
         </div>
@@ -108,7 +109,7 @@
         <div class="square" data-toggle="modal" data-target="#eggsModal">
           <div class="content">
             <div class="table">
-              <button type="button" class="table-cell">🥚</button>
+              <button type="button" class="table-cell">🍳</button>
             </div>
           </div>
         </div>
@@ -157,20 +158,6 @@
 
       </div>
 
-      <!-- Fast-->
-      <div class="col-3">
-
-        <!-- Card entry point-->
-        <div class="square" data-toggle="modal" data-target="#kidsModal">
-          <div class="content">
-            <div class="table">
-              <button type="button" class="table-cell">🍳</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
       <!-- Pies -->
       <div class="col-3">
 
@@ -207,6 +194,9 @@
 <div class="modal" id="veggieModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat végétarien 🥑</h3>
+      </div>
       <div class="modal-body">
         <%= render 'veggie' %>
       </div>
@@ -219,6 +209,9 @@
 <div class="modal" id="saladModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer une salade 🥗</h3>
+      </div>
       <div class="modal-body">
         <%= render 'salad' %>
       </div>
@@ -233,6 +226,9 @@
 <div class="modal" id="meatModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat à base de viande 🍖</h3>
+      </div>
       <div class="modal-body">
         <%= render 'meat' %>
       </div>
@@ -246,6 +242,9 @@
 <div class="modal" id="fishModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat à base de poisson 🐟</h3>
+      </div>
       <div class="modal-body">
         <%= render 'fish' %>
       </div>
@@ -258,6 +257,9 @@
 <div class="modal" id="pastaModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat de pâtes 🍝</h3>
+      </div>
       <div class="modal-body">
         <%= render 'pasta' %>
       </div>
@@ -269,6 +271,9 @@
 <div class="modal" id="cerealModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat à base de céréales 🍛</h3>
+      </div>
       <div class="modal-body">
         <%= render 'cereals' %>
       </div>
@@ -282,6 +287,9 @@
 <div class="modal" id="potatoModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat à base de patates 🍟</h3>
+      </div>
       <div class="modal-body">
         <%= render 'potatoes' %>
       </div>
@@ -295,6 +303,9 @@
 <div class="modal" id="eggsModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat à base d'oeufs 🍳</h3>
+      </div>
       <div class="modal-body">
         <%= render 'eggs' %>
       </div>
@@ -307,6 +318,9 @@
 <div class="modal" id="burgerModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un hamburger 🍔</h3>
+      </div>
       <div class="modal-body">
         <%= render 'burgers' %>
       </div>
@@ -320,6 +334,9 @@
 <div class="modal" id="snackModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un sandwich 🥪</h3>
+      </div>
       <div class="modal-body">
         <%= render 'snacks' %>
       </div>
@@ -333,6 +350,9 @@
 <div class="modal" id="pizzaModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+     <div class="modal-header">
+        <h3 class="modal-title">👉 Composer une pizza 🍕</h3>
+      </div>
       <div class="modal-body">
         <%= render 'pizzas' %>
       </div>
@@ -340,25 +360,13 @@
   </div>
 </div>
 
-
-
-<!-- Kids Modal -->
-<div class="modal" id="kidsModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <%= render 'kids' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 <!-- Pies Modal -->
 <div class="modal" id="pieModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+    <div class="modal-header">
+        <h3 class="modal-title">👉 Composer une quiche 🥧</h3>
+      </div>
       <div class="modal-body">
         <%= render 'pies' %>
       </div>
@@ -372,6 +380,9 @@
 <div class="modal" id="gourmetModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+    <div class="modal-header">
+        <h3 class="modal-title">👉 Composer un plat gourmet 🥘</h3>
+      </div>
       <div class="modal-body">
         <%= render 'gourmets' %>
       </div>

@@ -1,12 +1,9 @@
 <%= simple_form_for @meta_recipe_list, html: { target: "_blank" } do |f| %>
 
   <div class="base">
-    <h4>1. Burger</h4>
+    <h4>1. Base</h4>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "pains hamburger", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍞 pains à burger", class: 'form-control select' %>
-    </div>
-    <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "hamburgers", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍔 hamburgers", class: 'form-control select' %>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "hamburgers", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍔 burgers", class: 'form-control select' %>
     </div>
   </div>
 

@@ -3,7 +3,7 @@ import 'selectize';
 
 $(function() {
  $('.select').selectize({
-   maxItems: 3,
+   maxItems: 4,
    plugins: ['remove_button'],
    closeAfterSelect: true,
  });
