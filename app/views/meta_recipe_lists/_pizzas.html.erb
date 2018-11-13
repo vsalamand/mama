@@ -5,15 +5,12 @@
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "pizzas", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍕 pizzas", class: 'form-control select' %>
     </div>
-    <div>
-      <%= f.collection_select :id, MetaRecipeList.where('name LIKE ?', "%Pizza%").where(list_type: "recipe"), :id, :name, {}, multiple: true, placeholder: "🍕 pizzas", class: 'form-control select' %>
-    </div>
   </div>
 
   <div class="toppings">
     <h4>2. Garniture</h4>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", required: true, class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
     </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "charcuteries", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥓 charcuteries", class: 'form-control select'%>

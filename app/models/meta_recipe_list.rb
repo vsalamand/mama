@@ -58,9 +58,12 @@ class MetaRecipeList < ApplicationRecord
 
   def get_extra_instructions(instructions)
     # add extra cooking step for pizza
-    # if (MetaRecipeList.where(name: "pizzas", list_type: "pool").first.meta_recipes & self.meta_recipes).any?
-    if (MetaRecipe.where(name: "pizza") & self.meta_recipes).any?
-      instructions << "<strong>Cuisson:</strong> Etaler la sauce sur la pâte. Déposer la garniture. Préchauffer le four à 240°C et laisser cuire 10 minutes environ."
+    if (MetaRecipeList.where(name: "pizzas", list_type: "pool").first.meta_recipes & self.meta_recipes).any?
+      instructions << "<strong>Cuisson:</strong> Préchauffer le four à 240°C, déposer la garniture sur la pizza, et laisser cuire 10 minutes environ."
+    end
+    # add extra cooking step for pies
+    if (MetaRecipeList.where(name: "tartes salées", list_type: "pool").first.meta_recipes & self.meta_recipes).any?
+      instructions << "<strong>Cuisson:</strong> Préchauffer le four à 200°C, verser le mélange et la garniture, et laisser cuire 30 minutes environ."
     end
   end
 

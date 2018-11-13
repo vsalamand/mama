@@ -47,7 +47,7 @@ class MetaRecipeListsController < ApplicationController
   # get all meta recipe ids during MRL creation when mixing MRL + MR
   def clean_params
     parameters = Hash.new
-    if params[:meta_recipe_list][:id].any?
+    unless params[:meta_recipe_list][:id].nil?
       # get extra meta recipe ids from MRL
       extra_ids = MetaRecipeList.find(params[:meta_recipe_list][:id].reject(&:empty?).first).meta_recipe_ids.reverse.map(&:to_s)
       # merge all meta recipe ids into params
