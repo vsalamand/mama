@@ -110,7 +110,7 @@ class Recipe < ApplicationRecord
           pool = RecipeList.find_or_create_by(name: "eggs", recipe_list_type: "pool")
           RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
 
-      when tags.first == "pains hamburger"
+      when tags.first == "hamburgers"
         then
           pool = RecipeList.find_or_create_by(name: "hamburgers", recipe_list_type: "pool")
           RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
@@ -120,7 +120,7 @@ class Recipe < ApplicationRecord
           pool = RecipeList.find_or_create_by(name: "snacks", recipe_list_type: "pool")
           RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
 
-      when tags.first == "pâtes à tarte"
+      when tags.first == "pizzas" || tags.first == "quiches"
         then
           pool = RecipeList.find_or_create_by(name: "pizzas & pies", recipe_list_type: "pool")
           RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
