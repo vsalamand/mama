@@ -1,20 +1,17 @@
 <%= simple_form_for @meta_recipe_list, html: { target: "_blank" } do |f| %>
 
   <div class="base">
-    <h4>1. Pizza</h4>
+    <h4>1. Base</h4>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipe.where(name: "pizza").order(:name), :id, :name, {}, multiple: true, placeholder: "🍕 pâte à pizza", class: 'form-control select' %>
-    </div>
-    <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipe.where('name LIKE ?', "%sauce tomate%").order(:name), :id, :name, {}, multiple: true, placeholder: "🥫 sauces", class: 'form-control select'%>
-    </div>
-    <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "pizzas", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍕 pizzas", class: 'form-control select' %>
     </div>
   </div>
 
   <div class="toppings">
     <h4>2. Garniture</h4>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
+    </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "charcuteries", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥓 charcuteries", class: 'form-control select'%>
     </div>
@@ -23,6 +20,9 @@
     </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "crudités", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍅 crudités", class: 'form-control select' %>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipe.where('name LIKE ?', "%sauce tomate%").order(:name), :id, :name, {}, multiple: true, placeholder: "🥫 sauces", class: 'form-control select'%>
     </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipe.where(name: "oeuf au plat").order(:name), :id, :name, {}, multiple: true, placeholder: "🥚 oeufs", class: 'form-control select'%>

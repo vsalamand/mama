@@ -48,11 +48,23 @@ class MetaRecipeList < ApplicationRecord
       unless meta_recipe_item.meta_recipe.instructions.empty?
         instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
       else
-        toppings << meta_recipe_item.meta_recipe.name
+        toppings << meta_recipe_item.meta_recipe.name.capitalize
       end
     end
     instructions << "<strong>Garniture:</strong> #{toppings.join(", ")}" if toppings.any?
+    get_extra_instructions(instructions)
     return instructions.join("\r\n")
+  end
+
+  def get_extra_instructions(instructions)
+    # add extra cooking step for pizza
+    if (MetaRecipeList.where(name: "pizzas", list_type: "pool").first.meta_recipes & self.meta_recipes).any?
+      instructions << "<strong>Cuisson:</strong> Préchauffer le four à 240°C, déposer la garniture sur la pizza, et laisser cuire 10 minutes environ."
+    end
+    # add extra cooking step for pies
+    if (MetaRecipeList.where(name: "tartes salées", list_type: "pool").first.meta_recipes & self.meta_recipes).any?
+      instructions << "<strong>Cuisson:</strong> Préchauffer le four à 200°C, verser le mélange et la garniture, et laisser cuire 30 minutes environ."
+    end
   end
 
   def update_instructions

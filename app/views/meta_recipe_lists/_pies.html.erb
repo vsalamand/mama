@@ -1,0 +1,35 @@
+<%= simple_form_for @meta_recipe_list, html: { target: "_blank" } do |f| %>
+
+  <div class="base">
+    <h4>1. Base</h4>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "tartes salées", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥧 quiches", class: 'form-control select' %>
+    </div>
+  </div>
+
+  <div class="toppings">
+    <h4>2. Garniture</h4>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "charcuteries", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥓 charcuteries", class: 'form-control select'%>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥦 légumes", class: 'form-control select' %>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "crudités", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍅 crudités", class: 'form-control select' %>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "assaisonnements", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🌿 herbes, épices, graines...", class: 'form-control select'%>
+    </div>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+    <%= f.submit "Valider", data: { disable_with: false }, class: "btn btn-primary" %>
+  </div>
+
+<% end %>

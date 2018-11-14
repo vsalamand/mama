@@ -11,7 +11,9 @@ class MetaRecipeListsController < ApplicationController
   end
 
   def create
-    @meta_recipe_list = MetaRecipeList.new(meta_recipe_list_params)
+    # clean params ids when mixing MRL & MR to create new MRL
+    parameters = clean_params
+    @meta_recipe_list = MetaRecipeList.new(parameters)
     @meta_recipe_list.name = @meta_recipe_list.get_title
     @meta_recipe_list.list_type = "recipe"
     if @meta_recipe_list.save
@@ -21,7 +23,8 @@ class MetaRecipeListsController < ApplicationController
       # redirect_to :back
     else
       # redirect to existing meta recipe list
-      redirect_to recipe_path(@meta_recipe_list.find_by_meta_recipe_ids(meta_recipe_list_params[:meta_recipe_ids]).recipe, format: :pdf)
+      # redirect_to recipe_path(@meta_recipe_list.find_by_meta_recipe_ids(meta_recipe_list_params[:meta_recipe_ids]).recipe, format: :pdf)
+      redirect_to recipe_path(@meta_recipe_list.find_by_meta_recipe_ids(parameters[:meta_recipe_ids]).recipe, format: :pdf)
     end
   end
 
@@ -38,7 +41,21 @@ class MetaRecipeListsController < ApplicationController
   private
   # use collection_singular_ids "ids: []" to create nested meta recipe list items through meta recipes in List creatin form
   def meta_recipe_list_params
-    params.require(:meta_recipe_list).permit(:name, :recipe_id, meta_recipe_ids: [])
+    params.require(:meta_recipe_list).permit(:name, :id, :recipe_id, meta_recipe_ids: [])
+  end
+
+  # get all meta recipe ids during MRL creation when mixing MRL + MR
+  def clean_params
+    parameters = Hash.new
+    unless params[:meta_recipe_list][:id].nil?
+      # get extra meta recipe ids from MRL
+      extra_ids = MetaRecipeList.find(params[:meta_recipe_list][:id].reject(&:empty?).first).meta_recipe_ids.reverse.map(&:to_s)
+      # merge all meta recipe ids into params
+      parameters[:meta_recipe_ids] = extra_ids + meta_recipe_list_params[:meta_recipe_ids]
+    else
+      parameters[:meta_recipe_ids] = meta_recipe_list_params[:meta_recipe_ids]
+    end
+    return parameters
   end
 
 end
