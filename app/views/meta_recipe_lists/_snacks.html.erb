@@ -8,10 +8,13 @@
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "charcuteries", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥓 charcuteries", class: 'form-control select'%>
     </div>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "crudités", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍅 crudités", class: 'form-control select' %>
     </div>
     <div>
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "crudités", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍅 crudités", class: 'form-control select' %>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥦 légumes", class: 'form-control select' %>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
     </div>
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "sauces", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥫 sauces", class: 'form-control select'%>
