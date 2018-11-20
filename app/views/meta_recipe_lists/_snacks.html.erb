@@ -20,6 +20,9 @@
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥦 légumes", class: 'form-control select' %>
     </div>
     <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "oeufs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥚 oeufs", class: 'form-control select'%>
+    </div>
+    <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
     </div>
     <div>
