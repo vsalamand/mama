@@ -13,6 +13,9 @@
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥦 légumes", class: 'form-control select' %>
     </div>
     <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "crudités", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍅 crudités", class: 'form-control select' %>
+    </div>
+    <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes secs", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥜 légumes secs", class: 'form-control select' %>
     </div>
     <div>
