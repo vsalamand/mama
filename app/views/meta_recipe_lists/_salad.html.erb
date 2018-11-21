@@ -14,6 +14,9 @@
     <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "patates", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥔 patates", class: 'form-control select' %>
     </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "légumes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥕 légumes", class: 'form-control select'%>
+    </div>
   </div>
 
   <div class="toppings">
