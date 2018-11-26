@@ -25,6 +25,12 @@
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "charcuteries", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥓 charcuteries", class: 'form-control select'%>
     </div>
     <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "viandes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍖 viandes", class: 'form-control select'%>
+    </div>
+    <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "poissons", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🐟 poissons", class: 'form-control select'%>
+    </div>
+    <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "fromages", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🧀 fromages", class: 'form-control select'%>
     </div>
   </div>
