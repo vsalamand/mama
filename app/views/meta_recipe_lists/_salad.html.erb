@@ -38,6 +38,9 @@
   <div class="toppings">
     <h4>3. Assaisonnement</h4>
     <div>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "sauces", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🥫 sauces", class: 'form-control select'%>
+    </div>
+    <div>
       <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(name: "vinaigrettes", list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "🍾 vinaigrettes", class: 'form-control select'%>
     </div>
     <div>
