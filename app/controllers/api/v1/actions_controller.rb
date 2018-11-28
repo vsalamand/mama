@@ -2,12 +2,18 @@ require 'date'
 
 class Api::V1::ActionsController < Api::V1::BaseController
 
-#http://localhost:3000/api/v1/recommend?type=salad&user=12345678
+#http://localhost:3000/api/v1/recommend?type=salad&query=butternut+carottes&user=12345678
   def recommend
     profile = User.find_by(sender_id: params[:user])
     type = params[:type]
+
+    query = params[:query].present? ? params[:query] : nil
+    foods = Food.get_foods(query) if query
+
     # @recommendation = RecipeList.find_by(user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
-    @recommendation = Recipe.where(status: "published").tagged_with(type).shuffle.first
+    content = foods.nil? ? Recipe.where(status: "published") : Recipe.search_by_food(type, foods)
+    @recommendation = content.shuffle.first
+
     respond_to do |format|
       format.json { render :recommend }
     end
@@ -165,7 +171,9 @@ class Api::V1::ActionsController < Api::V1::BaseController
   #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
   def search
     query = params[:query].present? ? params[:query] : nil
-    @search = RecipeList.search_by_food(query)
+    foods = Food.get_foods(query) if query
+    type = "seasonal"
+    @search = Recipe.search_by_food(type, foods)
     # @search = if query
       # Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"})[0..99]
     # end

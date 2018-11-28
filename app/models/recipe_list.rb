@@ -50,19 +50,4 @@ class RecipeList < ApplicationRecord
     end
   end
 
-  def self.search_by_food(query)
-    foods = []
-    query.split.each do |element|
-         element = element.strip
-         food = Food.search(element.tr("0-9", "").tr("'", " "), fields: [{name: :exact}], misspellings: {edit_distance: 1})
-         food = Food.search(element.tr("0-9", "").tr("'", " ")) if food.first.nil?
-         food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
-      foods << food.first
-    end
-
-    season_recipes = RecipeList.find_by(name: "Diet seasonal recipes", recipe_list_type: "pool")
-
-    return season_recipes.recipes.select { |r| (foods & r.foods).any? }.sort_by { |r| (foods & r.foods).count }.reverse
-
-  end
 end
