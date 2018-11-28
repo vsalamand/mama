@@ -31,6 +31,18 @@ class Recipe < ApplicationRecord
     }
   end
 
+  def select_by_food(query)
+    foods = []
+    query.split.each do |element|
+         element = element.strip
+         food = Food.search(element.tr("0-9", "").tr("'", " "), fields: [{name: :exact}], misspellings: {edit_distance: 1})
+         food = Food.search(element.tr("0-9", "").tr("'", " ")) if food.first.nil?
+         food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
+      foods << food.first
+    end
+    return @recipes.select { |r| (foods & r.foods).any? }.sort_by { |r| (foods & r.foods).count }.reverse
+  end
+
   def upload_to_cloudinary
     if self.status == "published" &&  Rails.env.production?
       file = open("https://www.foodmama.fr/recipes/#{self.id}.pdf")

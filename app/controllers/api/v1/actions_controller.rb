@@ -160,12 +160,14 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
-  #http://localhost:3000/api/v1/search?query=snack+citron+cru&user=12345678
+  #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
   def search
     query = params[:query].present? ? params[:query] : nil
-    @search = if query
-      Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"})[0..4]
-    end
+    @search = RecipeList.search_by_food(query)
+    # @search = if query
+      # Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"})[0..99]
+    # end
+
     respond_to do |format|
       format.json { render :search }
     end
