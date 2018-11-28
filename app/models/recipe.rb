@@ -14,6 +14,7 @@ class Recipe < ApplicationRecord
   RATING = ["excellent", "good", "limit", "avoid"]
 
   acts_as_ordered_taggable
+  acts_as_taggable_on :categories
 
   searchkick
 
@@ -86,62 +87,45 @@ class Recipe < ApplicationRecord
 
   def add_to_pool
     tags = self.tag_list
+
     case
-      when tags.first == "légumes" || tags.first == "légumes secs" && tags.exclude?("viandes") && tags.exclude?("charcuteries")
-        then
-          pool = RecipeList.find_or_create_by(name: "veggies", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+      when tags.first == "légumes" || tags.first == "légumes secs" || tags.first == "crudités" && tags.exclude?("viandes")
+        then self.category_list.add("veggie")
+          # pool = RecipeList.find_or_create_by(name: "veggies", recipe_list_type: "pool")
+          # RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
 
-      when tags.first == "crudités" && tags.include?("vinaigrettes")
-        then
-          pool = RecipeList.find_or_create_by(name: "salads", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
-
-      when tags.first == "pâtes"
-        then
-          pool = RecipeList.find_or_create_by(name: "pasta", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+      when tags.first == "pâtes" || tags.first == "patates" || tags.first == "céréales"
+        then self.category_list.add("starch")
 
       when tags.first == "viandes" || tags.first == "charcuteries"
-        then
-          pool = RecipeList.find_or_create_by(name: "meat", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+        then self.category_list.add("meat")
 
       when tags.include?("poissons")
-        then
-          pool = RecipeList.find_or_create_by(name: "fish", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
-
-      when tags.first == "patates"
-        then
-          pool = RecipeList.find_or_create_by(name: "potatoes", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+        then self.category_list.add("fish")
 
       when tags.first == "oeufs"
-        then
-          pool = RecipeList.find_or_create_by(name: "eggs", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+        then self.category_list.add("egg")
 
-      when tags.first == "hamburgers"
-        then
-          pool = RecipeList.find_or_create_by(name: "hamburgers", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
-
-      when tags.first == "pains"
-        then
-          pool = RecipeList.find_or_create_by(name: "snacks", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+      when tags.first == "hamburgers" || tags.first == "pains"
+        then self.category_list.add("snack")
 
       when tags.first == "pizzas" || tags.first == "quiches"
-        then
-          pool = RecipeList.find_or_create_by(name: "pizzas & pies", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
-
-      when tags.first == "céréales"
-        then
-          pool = RecipeList.find_or_create_by(name: "cereals", recipe_list_type: "pool")
-          RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+        then self.category_list.add("pizza")
     end
+
+    self.save
+  end
+
+  def seasonal?
+    seasonal_foods = FoodList.find_by(name: "seasonal foods", food_list_type: "pool")
+
+    if (self.foods - seasonal_foods.foods).empty?
+      self.category_list.add("seasonal")
+    else
+      self.category_list.remove("seasonal")
+    end
+
+    self.save
   end
 
 end

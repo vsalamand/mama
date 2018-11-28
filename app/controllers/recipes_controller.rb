@@ -29,10 +29,6 @@ class RecipesController < ApplicationController
   def card
   end
 
-  def pending
-    @recipes = Recipe.where(status: "pending")
-  end
-
   def new
     @recipe = Recipe.new
   end

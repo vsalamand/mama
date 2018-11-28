@@ -2,10 +2,12 @@ require 'date'
 
 class Api::V1::ActionsController < Api::V1::BaseController
 
-#http://localhost:3000/api/v1/recommend?user=12345678
+#http://localhost:3000/api/v1/recommend?type=salad&user=12345678
   def recommend
     profile = User.find_by(sender_id: params[:user])
-    @recommendation = RecipeList.find_by(user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
+    type = params[:type]
+    # @recommendation = RecipeList.find_by(user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
+    @recommendation = Recipe.where(status: "published").tagged_with(type).shuffle.first
     respond_to do |format|
       format.json { render :recommend }
     end
