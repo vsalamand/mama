@@ -23,4 +23,16 @@ class Food < ApplicationRecord
   def parent_enum
     Food.where.not(id: id).map { |f| [ f.name, f.id ] }
   end
+
+  def self.get_foods(query)
+    foods = []
+    query.split.each do |element|
+         element = element.strip
+         food = Food.search(element.tr("0-9", "").tr("'", " "), fields: [{name: :exact}], misspellings: {edit_distance: 1})
+         food = Food.search(element.tr("0-9", "").tr("'", " ")) if food.first.nil?
+         food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
+      foods << food.first
+    end
+    return foods
+  end
 end

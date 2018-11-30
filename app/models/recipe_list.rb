@@ -49,4 +49,5 @@ class RecipeList < ApplicationRecord
       end
     end
   end
+
 end

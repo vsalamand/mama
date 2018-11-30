@@ -34,10 +34,23 @@ Rails.application.routes.draw do
   get 'confirmation', to: 'pages#confirmation'
   get 'dashboard', to: 'pages#dashboard'
   get 'assistant', to: 'meta_recipe_lists#new'
+  get 'pending', to: 'pages#pending'
+  get 'seasonal', to: 'pages#seasonal'
+  get 'uncategorized', to: 'pages#uncategorized'
+  get 'veggie', to: 'pages#veggie'
+  get 'salad', to: 'pages#salad'
+  get 'pasta', to: 'pages#pasta'
+  get 'potato', to: 'pages#potato'
+  get 'meat', to: 'pages#meat'
+  get 'fish', to: 'pages#fish'
+  get 'egg', to: 'pages#egg'
+  get 'snack', to: 'pages#snack'
+  get 'burger', to: 'pages#burger'
+  get 'pizza', to: 'pages#pizza'
+
 
   resources :recipes do
     collection do
-      get 'pending', to: 'recipes#pending'
       get 'import', to: 'recipes#import'
       # get 'recipes', to: 'recipes#show'
     end

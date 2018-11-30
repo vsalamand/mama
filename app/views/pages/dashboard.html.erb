@@ -4,14 +4,20 @@
 <div class="container" style="display: flex; justify-content: space-evenly;">
   <div class="row">
     <h1>Recipes (<%= @recipes.count %>)</h1>
-    <% @recipe_pools.each do |pool| %>
-      <li>
-        <%= pool.name %> =
-        <%= pool.recipes.where(status: "published").count %>
-      </li>
-    <% end %>
-    <li style="color: red;"><strong>no pool</strong> = <%= @no_pool.count %></li>
+    <li><strong>🔥🔥 <%= link_to "seasonal", seasonal_path %> | <%= @seasonal.count %></strong></li>
+    <li style="color: red;"><strong>🤔🤔 <%= link_to "no category", uncategorized_path %> | <%= @no_category.count %></strong></li>
+    <li>🍛 <%= link_to "veggie", veggie_path %> | <%= @veggie.count %></li>
+    <li>🥗 <%= link_to "salad", salad_path %> | <%= @salad.count %></li>
+    <li>🍝 <%= link_to "pasta", pasta_path %> | <%= @pasta.count %></li>
+    <li>🍟 <%= link_to "potato", potato_path %> | <%= @potato.count %></li>
+    <li>🍖 <%= link_to "meat", meat_path %> | <%= @meat.count %></li>
+    <li>🐟 <%= link_to "fish", fish_path %> | <%= @fish.count %></li>
+    <li>🍳 <%= link_to "egg", egg_path %> | <%= @egg.count %></li>
+    <li>🍕 <%= link_to "pizza", pizza_path %> | <%= @pizza.count %></li>
+    <li>🍔 <%= link_to "burger", burger_path %> | <%= @burger.count %></li>
+    <li>🥪 <%= link_to "snack", snack_path %> | <%= @snack.count %></li>
   </div>
+
   <div class="row">
     <h1>Meta Recipes (<%= @meta_recipes.count %>)</h1>
     <% @mr_pools.each do |pool| %>

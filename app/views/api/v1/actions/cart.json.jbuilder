@@ -4,7 +4,7 @@ json.cart_id @cart.id
 json.cart_size @cart.size
 json.cart_count @cart.cart_items.count
 json.cart @cart.cart_items do |cart_item|
-  json.product_name cart_item.name.upcase
+  json.product_name cart_item.name
   json.product_ingredients "#{cart_item.productable.foods.count} ingrédients"
   case
     when cart_item.productable.rating == "excellent" then json.product_rating "Avis nutritionnel: 😀"

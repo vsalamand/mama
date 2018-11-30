@@ -1,0 +1,16 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <div class="row">
+    <h1>Potato recipes</h1>
+  </div>
+  <div class="row">
+    <% @recipes.order(:id).reverse.each do |recipe| %>
+      <li>
+        <%= recipe.id %> |
+        <%= link_to recipe.title, recipe_path(recipe) %>
+      </li>
+    <% end %>
+  </div>
+
+</div>
