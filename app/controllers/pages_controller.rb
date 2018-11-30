@@ -10,14 +10,17 @@ class PagesController < ApplicationController
   def dashboard
     @recipes = Recipe.where(status: "published")
     @seasonal = Recipe.where(status: "published").tagged_with("seasonal")
-    @no_category = Recipe.where(status: "published").tagged_with(["veggie", "starch", "meat", "fish", "egg", "snack", "pizza"], :exclude => true)
+    @no_category = Recipe.where(status: "published").tagged_with(["veggie", "salad", "pasta", "potato", "meat", "fish", "egg", "burger", "snack", "pizza"], :exclude => true)
 
     @veggie = Recipe.where(status: "published").tagged_with("veggie")
-    @starch = Recipe.where(status: "published").tagged_with("starch")
+    @salad = Recipe.where(status: "published").tagged_with("salad")
+    @pasta = Recipe.where(status: "published").tagged_with("pasta")
+    @potato = Recipe.where(status: "published").tagged_with("potato")
     @meat = Recipe.where(status: "published").tagged_with("meat")
     @fish = Recipe.where(status: "published").tagged_with("fish")
     @egg = Recipe.where(status: "published").tagged_with("egg")
     @snack = Recipe.where(status: "published").tagged_with("snack")
+    @burger = Recipe.where(status: "published").tagged_with("burger")
     @pizza = Recipe.where(status: "published").tagged_with("pizza")
 
     @meta_recipes = MetaRecipe.all
@@ -33,15 +36,23 @@ class PagesController < ApplicationController
   end
 
   def uncategorized
-    @recipes = Recipe.where(status: "published").tagged_with(["veggie", "starch", "meat", "fish", "egg", "snack", "pizza"], :exclude => true)
+    @recipes = Recipe.where(status: "published").tagged_with(["veggie", "salad", "pasta", "potato", "meat", "fish", "egg", "burger", "snack", "pizza"], :exclude => true)
   end
 
   def veggie
     @recipes = Recipe.where(status: "published").tagged_with("veggie")
   end
 
-  def starch
-    @recipes = Recipe.where(status: "published").tagged_with("starch")
+  def salad
+    @recipes = Recipe.where(status: "published").tagged_with("salad")
+  end
+
+  def pasta
+    @recipes = Recipe.where(status: "published").tagged_with("pasta")
+  end
+
+  def potato
+    @recipes = Recipe.where(status: "published").tagged_with("potato")
   end
 
   def meat
@@ -58,6 +69,10 @@ class PagesController < ApplicationController
 
   def snack
     @recipes = Recipe.where(status: "published").tagged_with("snack")
+  end
+
+  def burger
+    @recipes = Recipe.where(status: "published").tagged_with("burger")
   end
 
   def pizza

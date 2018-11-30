@@ -81,28 +81,35 @@ class Recipe < ApplicationRecord
     tags = self.tag_list
 
     case
-      when tags.first == "légumes" || tags.first == "légumes secs" || tags.first == "crudités" && tags.exclude?("viandes")
-        then self.category_list.add("veggie")
-          # pool = RecipeList.find_or_create_by(name: "veggies", recipe_list_type: "pool")
-          # RecipeListItem.find_or_create_by(name: self.title, recipe_id: self.id, recipe_list_id: pool.id)
+      when tags.first == "légumes" || tags.first == "légumes secs" || tags.first == "céréales"
+        then self.category_list = "veggie"
 
-      when tags.first == "pâtes" || tags.first == "patates" || tags.first == "céréales"
-        then self.category_list.add("starch")
+      when tags.first == "crudités"
+        then self.category_list = "salad"
+
+      when tags.first == "pâtes"
+        then self.category_list = "pasta"
+
+      when tags.first == "patates"
+        then self.category_list = "potato"
 
       when tags.first == "viandes" || tags.first == "charcuteries"
-        then self.category_list.add("meat")
+        then self.category_list = "meat"
 
-      when tags.include?("poissons")
-        then self.category_list.add("fish")
+      when tags.first == "poissons"
+        then self.category_list = "fish"
 
       when tags.first == "oeufs"
-        then self.category_list.add("egg")
+        then self.category_list = "egg"
 
-      when tags.first == "hamburgers" || tags.first == "pains"
-        then self.category_list.add("snack")
+      when tags.first == "pizzas"
+        then self.category_list = "pizza"
 
-      when tags.first == "pizzas" || tags.first == "quiches"
-        then self.category_list.add("pizza")
+      when tags.first == "hamburgers"
+        then self.category_list = "burger"
+
+      when tags.first == "pains"
+        then self.category_list = "snack"
     end
 
     self.save
