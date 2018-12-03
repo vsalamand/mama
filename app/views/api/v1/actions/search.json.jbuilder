@@ -1,16 +1,12 @@
 require 'open-uri'
 
-json.food @search do |array|
-  food = Recipe.find(array)
-  json.title food.title
-  json.link food.link
-  # json.domain URI.parse(food.link).host
-  json.tags food.tag_list
-  json.id food.id
-  json.servings food.servings
-  ingredients = []
-  food.items.order(:id).select { |item| ingredients << "#{item.food.name.downcase}" }
-  json.ingredients ingredients.join(', ')
+json.results @search do |array|
+  recipe = Recipe.find(array)
+  json.name recipe.title
+  json.link card_recipe_url(recipe.id)
+  json.tags recipe.tag_list
+  json.recipe_id recipe.id
+  json.category recipe.category_list
   json.emoji "1️⃣" if @search.first == array
   json.emoji "2️⃣" if @search[1] == array
   json.emoji "3️⃣" if @search[2] == array
@@ -21,6 +17,6 @@ json.food @search do |array|
   json.emoji "8️⃣" if @search[7] == array
   json.emoji "9️⃣" if @search[8] == array
   json.emoji "🔟" if @search[9] == array
-  json.rank @search.index(food)
+  json.rank @search.index(recipe)
   json.valid_user @user
 end

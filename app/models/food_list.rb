@@ -114,4 +114,10 @@ class FoodList < ApplicationRecord
       FoodListItem.find_or_create_by(name: food.name, food_id: food.id, food_list_id: list.id)
     end
   end
+
+  def self.get_foodlist(list)
+    foodlist = []
+    list.foods.each { |f| foodlist << f.name }
+    return foodlist.join(", ")
+  end
 end
