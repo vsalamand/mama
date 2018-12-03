@@ -21,6 +21,29 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
+  def search
+    query = params[:query].present? ? params[:query] : nil
+
+    @search = if query
+      Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"}, operator: "or")[0..9]
+    end
+
+    respond_to do |format|
+      format.json { render :search }
+    end
+  end
+
+  #http://localhost:3000/api/v1/foodlist
+  def foodlist
+    list = FoodList.find_by(name: "vegetables", food_list_type: "pool")
+    @foodlist = FoodList.get_foodlist(list)
+
+    respond_to do |format|
+      format.json { render :foodlist }
+    end
+  end
+
   #http://localhost:3000/api/v1/add_to_cart?product_id=123456&user=12345678
   def add_to_cart
     profile = User.find_by(sender_id: params[:user])
@@ -167,21 +190,6 @@ class Api::V1::ActionsController < Api::V1::BaseController
     @profile.save
     respond_to do |format|
       format.json { render :profile }
-    end
-  end
-
-  #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
-  def search
-    query = params[:query].present? ? params[:query] : nil
-    foods = Food.get_foods(query) if query
-    type = "seasonal"
-    @search = Recipe.search_by_food(type, foods)
-    # @search = if query
-      # Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"})[0..99]
-    # end
-
-    respond_to do |format|
-      format.json { render :search }
     end
   end
 
