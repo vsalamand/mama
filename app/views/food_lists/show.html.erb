@@ -1,0 +1,13 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <div class="row">
+    <h1><%= @foodlist.name %></h1>
+  </div>
+  <div class="row">
+    <% @foodlist.foods.order(:id).reverse.each do |food| %>
+      <li><%= food.id %> | <%= food.name %></li>
+    <% end %>
+  </div>
+
+</div>

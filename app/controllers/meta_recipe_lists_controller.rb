@@ -32,6 +32,10 @@ class MetaRecipeListsController < ApplicationController
     @meta_recipe_lists = MetaRecipeList.where(recipe_id: [nil, ""])
   end
 
+  def pool
+    @meta_recipe_list = MetaRecipeList.find(params[:meta_recipe_list_id])
+  end
+
   def create_recipe
     @meta_recipe_list = MetaRecipeList.find(params[:id])
     @meta_recipe_list.create_recipe
