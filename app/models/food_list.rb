@@ -8,6 +8,12 @@ class FoodList < ApplicationRecord
 
   FOOD_LIST_TYPE = ["recommendation", "ban", "personal", "pool"]
 
+  def self.get_foodlist(list)
+    foodlist = []
+    list.foods.sort_by { |f| f.recipes.where(status: "published").count }.reverse.each { |f| foodlist << f.name if f.recipes.where(status: "published").count > 0}
+    return foodlist.join(", ")
+  end
+
   def self.update_banned_foods(diet)
     banned_foods = FoodList.find_by(diet_id: diet.id, food_list_type: "ban")
 
@@ -113,11 +119,5 @@ class FoodList < ApplicationRecord
     candidates.each do |food|
       FoodListItem.find_or_create_by(name: food.name, food_id: food.id, food_list_id: list.id)
     end
-  end
-
-  def self.get_foodlist(list)
-    foodlist = []
-    list.foods.each { |f| foodlist << f.name }
-    return foodlist.join(", ")
   end
 end

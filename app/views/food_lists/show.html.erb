@@ -5,8 +5,8 @@
     <h1><%= @foodlist.name %></h1>
   </div>
   <div class="row">
-    <% @foodlist.foods.order(:id).reverse.each do |food| %>
-      <li><%= food.id %> | <%= food.name %></li>
+    <% @foods.each do |food| %>
+      <li><%= food.recipes.where(status: "published").count %> | <%= food.name %></li>
     <% end %>
   </div>
 
