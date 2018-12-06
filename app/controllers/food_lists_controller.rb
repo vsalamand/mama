@@ -3,6 +3,7 @@ class FoodListsController < ApplicationController
 
   def show
     @foods = @foodlist.foods.sort_by { |food| food.recipes.where(status: "published").count }.reverse
+    @seasonal_foods = Food.select_seasonal_food(@foods)
   end
 
   private

@@ -38,4 +38,8 @@ class Food < ApplicationRecord
     end
     return foods
   end
+
+  def self.select_seasonal_food(foods)
+    return foods.select { |food| food.availability.include?(Date.today.next_week.strftime("%m") )}
+  end
 end
