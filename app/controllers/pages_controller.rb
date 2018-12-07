@@ -25,6 +25,9 @@ class PagesController < ApplicationController
 
     @meta_recipes = MetaRecipe.all
     @mr_pools = MetaRecipeList.where(list_type: "pool").sort_by { |pool| pool.meta_recipes.count}.reverse
+
+    @foods = Food.all
+    @foodlists = FoodList.where(food_list_type: "pool")
   end
 
   def pending

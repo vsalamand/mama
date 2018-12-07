@@ -4,28 +4,116 @@
 <div class="container" style="display: flex; justify-content: space-evenly;">
   <div class="row">
     <h1>Recipes (<%= @recipes.count %>)</h1>
-    <li><strong>🔥🔥 <%= link_to "seasonal", seasonal_path %> | <%= @seasonal.count %></strong></li>
-    <li style="color: red;"><strong>🤔🤔 <%= link_to "no category", uncategorized_path %> | <%= @no_category.count %></strong></li>
-    <li>🍛 <%= link_to "veggie", veggie_path %> | <%= @veggie.count %></li>
-    <li>🥗 <%= link_to "salad", salad_path %> | <%= @salad.count %></li>
-    <li>🍝 <%= link_to "pasta", pasta_path %> | <%= @pasta.count %></li>
-    <li>🍟 <%= link_to "potato", potato_path %> | <%= @potato.count %></li>
-    <li>🍖 <%= link_to "meat", meat_path %> | <%= @meat.count %></li>
-    <li>🐟 <%= link_to "fish", fish_path %> | <%= @fish.count %></li>
-    <li>🍳 <%= link_to "egg", egg_path %> | <%= @egg.count %></li>
-    <li>🍕 <%= link_to "pizza", pizza_path %> | <%= @pizza.count %></li>
-    <li>🍔 <%= link_to "burger", burger_path %> | <%= @burger.count %></li>
-    <li>🥪 <%= link_to "snack", snack_path %> | <%= @snack.count %></li>
+
+    <table>
+
+      <thead>
+        <tr>
+          <td><strong>Nb of recipes   |</strong></td>
+          <td><strong>Recipe category</strong></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><%= @seasonal.count %></td>
+          <td>🔥 <%= link_to "seasonal", seasonal_path %></td>
+        </tr>
+        <tr>
+          <td><%= @no_category.count %></td>
+          <td>🤔 <%= link_to "no category", uncategorized_path %></td>
+        </tr>
+        <tr>
+          <td><%= @veggie.count %></td>
+          <td>🥕 <%= link_to "veggie", veggie_path %></td>
+        </tr>
+        <tr>
+          <td><%= @salad.count %></td>
+          <td>🥗 <%= link_to "salad", salad_path %></td>
+        </tr>
+        <tr>
+          <td><%= @pasta.count %></td>
+          <td>🍝 <%= link_to "pasta", pasta_path %></td>
+        </tr>
+        <tr>
+          <td><%= @potato.count %></td>
+          <td>🍟 <%= link_to "potato", potato_path %></td>
+        </tr>
+        <tr>
+          <td><%= @meat.count %></td>
+          <td>🍖 <%= link_to "meat", meat_path %></td>
+        </tr>
+        <tr>
+          <td><%= @fish.count %></td>
+          <td>🐟 <%= link_to "fish", fish_path %></td>
+        </tr>
+        <tr>
+          <td><%= @egg.count %></td>
+          <td>🍳 <%= link_to "egg", egg_path %></td>
+        </tr>
+        <tr>
+          <td><%= @pizza.count %></td>
+          <td>🍕 <%= link_to "pizza", pizza_path %></td>
+        </tr>
+        <tr>
+          <td><%= @burger.count %></td>
+          <td>🍔 <%= link_to "burger", burger_path %></td>
+        </tr>
+        <tr>
+          <td><%= @snack.count %></td>
+          <td>🥪 <%= link_to "snack", snack_path %></td>
+        </tr>
+      </tbody>
+
+    </table>
   </div>
 
   <div class="row">
     <h1>Meta Recipes (<%= @meta_recipes.count %>)</h1>
-    <% @mr_pools.each do |pool| %>
-      <li>
-        <%= pool.name %> =
-        <%= pool.meta_recipes.count %>
-      </li>
-    <% end %>
+
+    <table>
+
+      <thead>
+        <tr>
+          <td><strong>Nb of recipes  |</strong></td>
+          <td><strong>Name</strong></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @mr_pools.each do |mrl| %>
+          <tr>
+            <td><%= mrl.meta_recipes.count %></td>
+            <td><%= link_to mrl.name, meta_recipe_list_pool_path(mrl) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="row">
+    <h1>Foods (<%= @foods.count %> | <%= @foods.where("availability ~ ?", Date.today.next_week.strftime("%m")).count %>)</h1>
+
+    <table>
+
+      <thead>
+        <tr>
+          <td><strong>Nb of foods  |</strong></td>
+          <td><strong>Name</strong></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @foodlists.each do |foodlist| %>
+          <tr>
+            <td><%= foodlist.foods.count %></td>
+            <td><%= link_to foodlist.name, food_list_path(foodlist) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
   </div>
 
 </div>

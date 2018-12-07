@@ -8,6 +8,9 @@ class Food < ApplicationRecord
   belongs_to :category
   has_many :banned_foods
   has_many :diets, through: :banned_foods
+  has_many :food_list_items
+  has_many :food_lists, through: :food_list_items
+
 
   acts_as_ordered_taggable
   has_ancestry
@@ -34,5 +37,9 @@ class Food < ApplicationRecord
       foods << food.first
     end
     return foods
+  end
+
+  def self.select_seasonal_food(foods)
+    return foods.select { |food| food.availability.include?(Date.today.next_week.strftime("%m") )}
   end
 end

@@ -1,0 +1,13 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <div class="row">
+    <h1><%= @meta_recipe_list.name %></h1>
+  </div>
+  <div class="row">
+    <% @meta_recipe_list.meta_recipes.order(:id).reverse.each do |mr| %>
+      <li><%= mr.id %> | <%= link_to mr.name, meta_recipe_path(mr) %></li>
+    <% end %>
+  </div>
+
+</div>

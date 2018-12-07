@@ -61,13 +61,16 @@ Rails.application.routes.draw do
       get :set_dismissed_status
     end
     resources :items
+
   end
+  resources :food_lists
 
   resources :meta_recipes do
     resources :meta_recipe_items
   end
 
   resources :meta_recipe_lists do
+    get 'pool', to: 'meta_recipe_lists#pool'
     collection do
       get :pending
     end
