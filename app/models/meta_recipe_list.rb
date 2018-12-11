@@ -46,7 +46,7 @@ class MetaRecipeList < ApplicationRecord
     toppings = []
     seasonings = []
 
-    self.meta_recipe_list_items.each do |meta_recipe_item|
+    self.meta_recipe_list_items.order(:updated_at).each do |meta_recipe_item|
 
       if meta_recipe_item.meta_recipe.instructions?
         instructions << "<strong>#{meta_recipe_item.meta_recipe.name.capitalize}:</strong> #{meta_recipe_item.meta_recipe.instructions.gsub("\r\n", " ")}" unless meta_recipe_item.meta_recipe.instructions.empty?
