@@ -66,4 +66,11 @@ namespace :recommendation do
     puts "done !"
   end
 
+  desc "upload meta recipe groups now"
+  task upload_metarecipes_now: :environment do
+    puts "uploading metarecipe groups..."
+    MetaRecipesJob.perform_now
+    puts "done !"
+  end
+
 end
