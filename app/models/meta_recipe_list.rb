@@ -78,9 +78,12 @@ class MetaRecipeList < ApplicationRecord
   end
 
   def update_instructions
-    recipe = self.recipe
-    recipe.instructions = self.get_instructions
-    recipe.save
+    unless self.recipe.nil?
+      recipe = self.recipe
+      recipe.instructions = self.get_instructions
+      recipe.save
+      recipe.upload_to_cloudinary
+    end
   end
 
   def get_ingredients
