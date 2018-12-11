@@ -10,10 +10,14 @@ class MetaRecipe < ApplicationRecord
 
   accepts_nested_attributes_for :meta_recipe_list_items
 
+  acts_as_ordered_taggable
+  acts_as_taggable_on :groups
+
   # create meta recipe items
   after_create do
     ingredients = self.ingredients.split("\r\n")
     self.create_meta_recipe_items(ingredients)
+    self.add_groups
   end
 
   before_save do
@@ -29,6 +33,13 @@ class MetaRecipe < ApplicationRecord
       # update recipe instructions
       self.update_recipe_instructions if self.instructions_changed?
     end
+  end
+
+  def add_groups
+    pools = []
+    self.meta_recipe_lists.where(list_type: "pool").each { |pool| pools << pool.name }
+    self.group_list = pools.join(", ")
+    self.save
   end
 
   def get_topping_ingredient
