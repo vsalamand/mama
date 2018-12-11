@@ -2,8 +2,8 @@ class CardsJob < ApplicationJob
   queue_as :default
 
   def perform
-    Recipe.all.each do |recipe|
-      Recipe.upload_to_cloudinary(recipe)
+    Recipe.where(status: "published").each do |recipe|
+      recipe.upload_to_cloudinary
     end
   end
 end
