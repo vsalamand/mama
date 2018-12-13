@@ -23,5 +23,7 @@ module Mama
     # -- all .rb files in that directory are automatically loaded.
     config.active_job.queue_adapter = :sidekiq
 
+    config.serve_static_assets = true
+
   end
 end
