@@ -1,31 +1,46 @@
 .banner {
   color: dodgerblue;
-  text-align: center;
-  height: calc(40vh - 70px);  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  // text-align: left;
+  height: calc(150vh - 70px);  /* if you have a 70px navbar => height: calc(100vh - 70px); */
   background-size: cover !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   margin-bottom: 5vh;
 }
 .banner h1 {
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 5vmax;
-  font-weight: lighter;
+  font-size: 3vmax;
+  // font-weight: lighter;
   text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
 }
-.banner p {
-  font-size: 3vmax;
-  font-weight: bold;
-  color: dodgerblue;
-  opacity: 0.9;
-  margin-bottom: 0px;
-}
-.banner h6 {
-  font-size: 1.8vmax;
+.banner h2 {
+  font-size: 2.5vmax;
   font-weight: lighter;
-  color: gray;
   opacity: 0.9;
-  margin: 0px;
+  margin-bottom: 10vh;
+}
+
+.banner p {
+  color: gray;
+  font-size: 1vmax;
+  font-weight: lighter;
+  opacity: 0.9;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.btn-treehouse {
+  font-size: 2vmax;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: dodgerblue;
+  transition: background 0.3s ease;
+}
+.btn-treehouse:hover {
+  opacity: 0.9;
+  text-decoration: none;
+  color: white;
 }
