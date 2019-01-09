@@ -7,6 +7,7 @@ json.results @search do |array|
   json.tags recipe.tag_list
   json.recipe_id recipe.id
   json.category recipe.category_list
+  json.checklist Checklist.get_checklist(recipe.foods)
   json.emoji "1️⃣" if @search.first == array
   json.emoji "2️⃣" if @search[1] == array
   json.emoji "3️⃣" if @search[2] == array

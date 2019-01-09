@@ -17,7 +17,7 @@ class Checklist < ApplicationRecord
   end
 
   def self.seasonal_vegetables?(foods)
-    (foods & FoodList.find_by(name: "#{Date.today.next_week.strftime("%m")} vegetables", food_list_type: "pool").foods).any? ? true : false
+    (foods & (FoodList.find_by(name: "#{Date.today.next_week.strftime("%m")} vegetables", food_list_type: "pool").foods - FoodList.find_by(name: "leafy vegetables", food_list_type: "pool").foods)).any? ? true : false
   end
 
   def self.cruciferous_vegetables?(foods)
