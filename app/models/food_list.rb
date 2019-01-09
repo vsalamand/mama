@@ -94,13 +94,16 @@ class FoodList < ApplicationRecord
     # BULB VEGGIES
     foods = Category.find(14).foods.tagged_with("légumes bulbes")
     FoodList.find_or_create_by(name: "bulb vegetables", food_list_type: "pool").update_food(foods)
+    # CRUCIFEROUS VEGGIES
+    foods = Category.find(14).foods.tagged_with("légumes crucifères")
+    FoodList.find_or_create_by(name: "cruciferous vegetables", food_list_type: "pool").update_food(foods)
 
     # LEGUMES
     foods = Category.find(22).foods
     FoodList.find_or_create_by(name: "legumes", food_list_type: "pool").update_food(foods)
-    # GAINS & NUTS
+    # OLEAGINOUS
     foods = Category.find(15).foods
-    FoodList.find_or_create_by(name: "grains & nuts", food_list_type: "pool").update_food(foods)
+    FoodList.find_or_create_by(name: "oleaginous", food_list_type: "pool").update_food(foods)
 
     # CEREALS
     foods = (Category.find(20).foods + Category.find(21).foods)
