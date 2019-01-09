@@ -18,3 +18,4 @@ json.cart @cart.cart_items do |cart_item|
   json.product_id cart_item.productable_id
   json.product_link card_recipe_url(cart_item.productable_id)
 end
+json.checklist Checklist.get_checklist(@cart.foods)
