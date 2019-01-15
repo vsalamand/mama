@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       # get 'suggest', to: 'actions#suggest'
       # get 'menus', to: 'actions#menus'
       get 'recommend', to: 'actions#recommend'
+      get 'get_recommendations', to: 'actions#get_recommendations'
       get 'card', to: 'actions#card'
       get 'search', to: 'actions#search'
       get 'foodlist', to: 'actions#foodlist'

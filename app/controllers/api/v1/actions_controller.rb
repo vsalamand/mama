@@ -21,6 +21,21 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/get_recommendations?user=12345678
+  def get_recommendations
+    categories = Recipe.category_counts
+
+    content = []
+    categories.each do |category|
+      content << Recipe.where(status: "published").tagged_with(category.name).shuffle.first unless category.name == "seasonal"
+    end
+    @recommendations = content.uniq.shuffle
+
+    respond_to do |format|
+      format.json { render :get_recommendations }
+    end
+  end
+
   #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
   def search
     query = params[:query].present? ? params[:query] : nil
