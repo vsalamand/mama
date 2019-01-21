@@ -1,0 +1,99 @@
+.nobreak {
+  break-inside: avoid !important;
+}
+
+.pdf-banner {
+  // background-color: #F1F1F1;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.pdf-banner-content {
+  align-self: center;
+}
+
+.pdf-banner-content h1 {
+  // font-size: 100px;
+  font-weight: bold;
+  color: dodgerblue;
+}
+/* Logo */
+.pdf-banner-content img {
+  height: 25px;
+}
+
+/* Brandname */
+.pdf-banner-content p {
+  // font-size: 50px;
+  font-weight: lighter;
+}
+
+
+// RECIPE INSTRUCTIONS
+.pdf-recipe-head {
+  display: flex;
+  align-items: center;
+  p {
+    // margin-bottom: 10px;
+    // font-size: 30px;
+    font-style: italic;
+  }
+}
+
+.pdf-instruction-list {
+  // background-color: #F1F1F1;
+  border-radius: 2px;
+  // margin-top: 10px;
+  ul {
+    padding: 0px 0px;
+  }
+  li:last-child {
+  border-bottom: none;
+  }
+}
+
+.pdf-instruction-text {
+  padding: 5px 0px;
+  // font-size: 50px;
+  p {
+    margin: 0px;
+    // font-family: Open Sans;
+  }
+}
+
+
+// SHOPPING LIST
+
+.pdf-list-head {
+  display: flex;
+  align-items: center;
+  p {
+    // margin-bottom: 10px;
+    // font-size: 30px;
+    font-style: italic;
+  }
+}
+
+.pdf-list {
+  // background-color:  #F1F1F1;
+  border-radius: 2px;
+  // margin-top: 10px;
+  ul {
+    list-style-position: inside;
+    // list-style-type: circle;
+    padding: 0px 0px;
+  }
+  li:last-child {
+  border-bottom: none;
+  }
+}
+
+.pdf-list-item {
+  padding: 5px 0px;
+  // font-size: 50px;
+  p {
+    margin: 0px;
+  }
+}

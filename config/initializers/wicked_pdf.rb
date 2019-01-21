@@ -19,3 +19,7 @@ WickedPdf.config = {
   # (but can be overridden in `render :pdf` calls)
   # layout: 'pdf.html',
 }
+
+if Rails.env.development?
+  WickedPdf.config[:lowquality] = true
+end
