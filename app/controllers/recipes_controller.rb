@@ -12,12 +12,14 @@ class RecipesController < ApplicationController
       format.html
       format.pdf do
         render pdf: "recipe_card",
-               orientation: 'Landscape',
-               page_size: 'A5',
-               zoom:  0.32,
+               # orientation: 'Landscape',
+               # dpi: 300,
+               page_size: 'A4',
+               # zoom:  0.32,
                background: true,
+               show_as_html: params.key?('debug'),
                margin:  {
-                    top:               5,                     # default 10 (mm)
+                    top:               10,                     # default 10 (mm)
                     bottom:            0,
                     left:              5,
                     right:             5
