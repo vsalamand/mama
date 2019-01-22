@@ -19,7 +19,7 @@ class RecipesController < ApplicationController
                background: true,
                show_as_html: params.key?('debug'),
                margin:  {
-                    top:               10,                     # default 10 (mm)
+                    top:               5,                     # default 10 (mm)
                     bottom:            0,
                     left:              5,
                     right:             5

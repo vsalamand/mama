@@ -1,15 +1,16 @@
-.recipe-tags {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  padding-right: 10px;
+.tags {
+  background-color: dodgerblue;
+  color: white;
+  margin: 0px 5px 5px 0px;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
 }
 
 .tagContainer {
-  background-color: grey;
-  height: 16px;
-  padding: 0 6px;
-  line-height: 16px;
-  font-size: 12px;
-  margin-top: 2px;
+  background-color: dodgerblue;
+  color: white;
+  margin: 0px 5px 5px 0px;
+  padding: 5px;
+  border-radius: 5px;
 }

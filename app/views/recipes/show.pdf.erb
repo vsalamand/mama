@@ -14,8 +14,12 @@
         <div class="pdf-banner">
           <div class="col-xs-12">
             <div class="pdf-banner-content">
-              <p><%= params.key?('debug') ? image_tag('logo.png') : wicked_pdf_image_tag('logo.png') %> Mama</p>
-              <h1><%= @recipe.title %></h1>
+              <div class="center"><%= params.key?('debug') ? image_tag('logo.png') : wicked_pdf_image_tag('logo.png') %></div>
+              <div class="pdf-recipe-head">
+                <div class="pdf-recipe-title">
+                  <h1><%= @recipe.title %></h1>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -25,21 +29,15 @@
         <div class="pdf-shopping-list">
           <div class="col-xs-12">
             <div class="pdf-list-head">
-              <h2>Ingrédients &nbsp;</h2>
+              <h4><strong>Ingrédients &nbsp;</strong></h4>
             </div>
-
-            <% @recipe.items.order(:id).each_slice(5) do |group| %>
-              <div class="col-xs-3">
-                <div class="pdf-list">
-                  <ul>
-                    <% group.each do |item| %>
-                      <%= pdf_clean_item(item.recipe_ingredient) %>
-                    <% end %>
-                  </ul>
-               </div>
-              </div>
-            <% end %>
-
+            <div class="pdf-ingredients">
+                <% @recipe.items.order(:id).each do |item| %>
+                  <div class="tags">
+                    <%= item.recipe_ingredient %>
+                  </div>
+                <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -47,8 +45,8 @@
       <div class="row">
         <div class="pdf-recipe">
           <div class="col-xs-12">
-            <div class="pdf-recipe-head">
-              <h2>Préparation &nbsp;</h2>
+            <div class="pdf-instruction-head">
+              <h4><strong>Préparation &nbsp;</strong></h4>
             </div>
             <%= pdf_recipe_lines(@recipe) %>
           </div>
