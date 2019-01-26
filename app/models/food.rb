@@ -13,6 +13,8 @@ class Food < ApplicationRecord
 
 
   acts_as_ordered_taggable
+  acts_as_taggable_on :shelves
+
   has_ancestry
   searchkick
 
@@ -42,4 +44,21 @@ class Food < ApplicationRecord
   def self.select_seasonal_food(foods)
     return foods.select { |food| food.availability.include?(Date.today.next_week.strftime("%m") )}
   end
+
+  def add_to_shelf
+    if (Category.find(1).subtree + Category.find(3).subtree).include?(self.category)
+      self.shelf_list = "Fruits et légumes"
+    elsif Category.find(2).subtree.include?(self.category)
+      self.shelf_list = "Céréales"
+    elsif (Category.find(5).subtree + Category.find(24).subtree).include?(self.category)
+      self.shelf_list = "Crèmerie"
+    elsif Category.find(4).subtree.include?(self.category)
+      self.shelf_list = "Viandes et poissons"
+    else
+      self.shelf_list = "Epicerie"
+    end
+
+    self.save
+  end
+
 end

@@ -8,9 +8,32 @@
 }
 
 .tagContainer {
-  background-color: dodgerblue;
   color: white;
   margin: 0px 5px 5px 0px;
   padding: 5px;
   border-radius: 5px;
+}
+
+.greenTag {
+  background-color: #68D89B;
+}
+
+.blueTag {
+  background-color: dodgerblue;
+}
+
+.redTag {
+  background-color: #EE5F5B;
+}
+
+.yellowTag {
+  background-color: #FDB631;
+}
+
+.orangeTag {
+  background-color: #E67E22;
+}
+
+.purpleTag {
+  background-color: #8A2BE2;
 }

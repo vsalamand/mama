@@ -70,4 +70,28 @@ module ApplicationHelper
               </li>"
     return html.join.html_safe
   end
+
+  def show_shelves(recipe)
+    html = []
+
+    shelves = recipe.get_shelves
+    types = Hash.new
+    types["Fruits et légumes"] = "greenTag"
+    types["Céréales"] = "purpleTag"
+    types["Viandes et poissons"] = "redTag"
+    types["Crèmerie"] = "yellowTag"
+    types["Epicerie"] = "blueTag"
+
+    types.each do |type, tag|
+      unless shelves["#{type}"].nil?
+        shelves.has_key?("#{type}")
+        html << "<h5><strong>#{type}</strong></h5>"
+        shelves["#{type}"].each do |food|
+          html << "<div class=\"tags #{tag}\">#{food.name}</div>"
+        end
+      end
+
+    end
+    return html.join.html_safe
+  end
 end

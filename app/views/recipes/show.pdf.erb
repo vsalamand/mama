@@ -32,11 +32,7 @@
               <h4><strong>Ingrédients &nbsp;</strong></h4>
             </div>
             <div class="pdf-ingredients">
-                <% @recipe.items.order(:id).each do |item| %>
-                  <div class="tags">
-                    <%= item.recipe_ingredient %>
-                  </div>
-                <% end %>
+              <%= show_shelves(@recipe) %>
             </div>
           </div>
         </div>
