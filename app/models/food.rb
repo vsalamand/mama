@@ -46,16 +46,20 @@ class Food < ApplicationRecord
   end
 
   def add_to_shelf
-    if (Category.find(1).subtree + Category.find(3).subtree).include?(self.category)
-      self.shelf_list = "Fruits et légumes"
+    if (Category.find(1).subtree - Category.find(15).subtree).include?(self.category)
+      self.shelf_list = "fruits et légumes"
+    elsif Category.find(3).subtree.include?(self.category)
+      self.shelf_list = "légumineuses"
+    elsif Category.find(15).subtree.include?(self.category)
+      self.shelf_list = "oléagineux"
     elsif Category.find(2).subtree.include?(self.category)
-      self.shelf_list = "Céréales"
+      self.shelf_list = "céréales"
     elsif (Category.find(5).subtree + Category.find(24).subtree).include?(self.category)
-      self.shelf_list = "Crèmerie"
+      self.shelf_list = "crèmerie"
     elsif Category.find(4).subtree.include?(self.category)
-      self.shelf_list = "Viandes et poissons"
+      self.shelf_list = "viandes et poissons"
     else
-      self.shelf_list = "Epicerie"
+      self.shelf_list = "épicerie"
     end
 
     self.save

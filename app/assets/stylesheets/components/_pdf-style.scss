@@ -11,7 +11,7 @@
   // background-size: cover !important;
   background-position: center;
   position: relative;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  // box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
   margin-top: 15px;
   margin-bottom: 15px;
   border-radius: 2px;
@@ -20,6 +20,7 @@
 .pdf-recipe-title {
   padding: 5px 15px 5px 15px;
   h1 {
+    font-size: 40px;
     margin-top: 10px;
     text-align: left;
   }
@@ -51,6 +52,7 @@
 
 // RECIPE INSTRUCTIONS
 .pdf-instructions {
+  font-size: 15px;
   background-color: white;
   border-radius: 2px;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
@@ -63,7 +65,6 @@
 }
 
 .pdf-instruction-head {
-  margin-top: 10px;
   display: flex;
   align-items: center;
   p {
@@ -97,9 +98,9 @@
 
 // SHOPPING LIST
 .pdf-ingredients {
+  font-size: 15px;
   padding: 0px 15px 5px 15px;
   background-color: white;
-  margin-bottom: 10px;
 }
 // .pdf-ingredients {
 //   padding: 5px 15px 5px 15px;

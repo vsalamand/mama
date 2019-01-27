@@ -76,19 +76,23 @@ module ApplicationHelper
 
     shelves = recipe.get_shelves
     types = Hash.new
-    types["Fruits et légumes"] = "greenTag"
-    types["Céréales"] = "purpleTag"
-    types["Viandes et poissons"] = "redTag"
-    types["Crèmerie"] = "yellowTag"
-    types["Epicerie"] = "blueTag"
+    types["fruits et légumes"] = "greenTag"
+    types["légumineuses"] = "purpleTag"
+    types["oléagineux"] = "lightredTag"
+    types["céréales"] = "yellowTag"
+    types["viandes et poissons"] = "redTag"
+    types["crèmerie"] = "orangeTag"
+    types["épicerie"] = "blueTag"
 
     types.each do |type, tag|
       unless shelves["#{type}"].nil?
         shelves.has_key?("#{type}")
-        html << "<h5><strong>#{type}</strong></h5>"
+        html << "<div class=\"tagContainer\">"
+        # html << "<h5><strong>#{type}</strong></h5>"
         shelves["#{type}"].each do |food|
           html << "<div class=\"tags #{tag}\">#{food.name}</div>"
         end
+        html << "</div>"
       end
 
     end
