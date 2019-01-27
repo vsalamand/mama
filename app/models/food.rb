@@ -18,6 +18,10 @@ class Food < ApplicationRecord
   has_ancestry
   searchkick
 
+  after_create do
+    self.add_to_shelf
+  end
+
   def search_data
     {
       name: name,
