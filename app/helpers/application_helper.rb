@@ -76,8 +76,8 @@ module ApplicationHelper
 
     shelves = recipe.get_shelves
     types = Hash.new
-    types["céréales"] = "yellowTag"
     types["viandes et poissons"] = "redTag"
+    types["céréales"] = "yellowTag"
     types["fruits et légumes"] = "greenTag"
     types["légumineuses"] = "purpleTag"
     types["oléagineux"] = "lightredTag"
