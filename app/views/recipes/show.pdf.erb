@@ -8,8 +8,7 @@
 
   <body>
 
-    <div class="container nobreak">
-
+    <div class="wrapper">
       <div class="row">
         <div class="pdf-banner">
           <div class="col-xs-12">
@@ -24,6 +23,9 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="container nobreak">
 
       <div class="row">
         <div class="pdf-shopping-list">
@@ -32,16 +34,11 @@
               <h4><strong>Ingrédients &nbsp;</strong></h4>
             </div>
             <div class="pdf-ingredients">
-                <% @recipe.items.order(:id).each do |item| %>
-                  <div class="tags">
-                    <%= item.recipe_ingredient %>
-                  </div>
-                <% end %>
+              <%= show_shelves(@recipe) %>
             </div>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="pdf-recipe">
           <div class="col-xs-12">
