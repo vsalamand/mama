@@ -21,15 +21,30 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
-  #http://localhost:3000/api/v1/get_recommendations?user=12345678
+  #http://localhost:3000/api/v1/get_recommendations??type=salad&user=12345678
   def get_recommendations
-    categories = Recipe.category_counts
+    # categories = Recipe.category_counts
+    categories = Hash.new
+
+    type = params[:type]
+    if type.present?
+      categories["#{type}"] = 10
+    else
+      categories["veggie"] = 1
+      categories["salad"] = 1
+      categories["meat"] = 1
+      categories["fish"] = 1
+      categories["pasta"] = 1
+      categories["potato"] = 1
+      categories["pizza"] = 1
+      categories["snack"] = 1
+    end
 
     content = []
-    categories.each do |category|
-      content << Recipe.where(status: "published").tagged_with(category.name).shuffle.first unless category.name == "seasonal"
+    categories.each do |category, quantity|
+      content << Recipe.where(status: "published").tagged_with(category).shuffle.take(quantity)
     end
-    @recommendations = content.uniq.shuffle
+    @recommendations = content.flatten.uniq
 
     respond_to do |format|
       format.json { render :get_recommendations }
