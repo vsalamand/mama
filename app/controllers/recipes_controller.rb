@@ -15,7 +15,7 @@ class RecipesController < ApplicationController
                # orientation: 'Landscape',
                # dpi: 300,
                page_size: 'A4',
-               zoom:  0.79,
+               zoom:  0.9,
                background: true,
                show_as_html: params.key?('debug'),
                margin:  {
