@@ -1,3 +1,21 @@
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '1192259447586250',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v3.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <div class="wrapper">
   <div class="container">
@@ -6,10 +24,17 @@
       <div class="row text-center">
         <div class="col-xs-12">
 
-          <h1>Mama trouve des idées de recettes simples pour bien manger 💚</h1>
-          <h2>En 2 minutes tu sais quoi manger et quoi acheter !<br>C'est gratuit et ça marche sur Messenger.</h2>
+          <h1>Trouve des idées repas simples et appétissantes avec Mama 💚</h1>
+          <h2>C'est gratuit et ça marche sur Messenger.</h2>
 
-          <a href="http://eepurl.com/ga_1AP" class="btn-treehouse">DÉMARRER</a>
+          <div class="fb-send-to-messenger"
+            messenger_app_id="1192259447586250"
+            page_id="111163226267868"
+            data-ref="website"
+            color="blue"
+            cta_text="GET_STARTED_IN_MESSENGER"
+            size="xlarge">
+          </div>
 
         </div>
       </div>
@@ -22,7 +47,7 @@
     <div style="margin-top: 50px; margin-bottom: 50px; display: flex; align-items: center; justify-content: center;">
       <div class="row text-center">
         <div class="col-xs-12">
-          <%= cl_image_tag("product_demo", class: "img-responsive") %>
+          <%= cl_image_tag("product_presentation", class: "img-responsive") %>
         </div>
       </div>
     </div>
