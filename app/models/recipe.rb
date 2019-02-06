@@ -133,7 +133,7 @@ class Recipe < ApplicationRecord
     return "🍖" if self.category_list.include?("meat")
     return "🐟" if self.category_list.include?("fish")
     return "🍝" if self.category_list.include?("pasta")
-    return "🍟" if self.category_list.include?("potato")
+    return "🥔" if self.category_list.include?("potato")
     return "🍕" if self.category_list.include?("pizza")
     return "🍔" if self.category_list.include?("burger")
     return "🍳" if self.category_list.include?("egg")
