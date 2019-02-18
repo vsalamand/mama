@@ -223,6 +223,14 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/get_sender_ids
+  def get_sender_ids
+    @users = User.get_sender_ids
+    respond_to do |format|
+      format.json { render :get_sender_ids }
+    end
+  end
+
   private
   def is_valid?
     @profile = User.find_by sender_id: params[:user]

@@ -20,4 +20,10 @@ class User < ApplicationRecord
     # # Update weekly recos for new user !!!!!!=> will be done wdurin set_diet process
     # Recommendation.update_user_weekly_menu(self, Date.today.strftime("%W, %Y"))
   end
+
+  def self.get_sender_ids
+    sender_ids = []
+    User.all.order(:id).each { |user| sender_ids << user.sender_id if user.sender_id.scan(/\D/).empty?}
+    return sender_ids
+  end
 end
