@@ -76,7 +76,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/add_to_cart?product_id=123456&user=1191499810899113
   def add_to_cart
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     @cart = Cart.find_or_create_by(user_id: profile.id)
     product = Recipe.find(params[:product_id])
     CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: @cart.id)
@@ -88,7 +88,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
 #http://localhost:3000/api/v1/card?recipe_id=123456&user=12345678
   def card
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     @recipe = Recipe.find(params[:recipe_id])
     respond_to do |format|
       format.json { render :card }
@@ -97,7 +97,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
 #http://localhost:3000/api/v1/set_cart_size?size=x&user=12345678
   def set_cart_size
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     cart = Cart.find_or_create_by(user_id: profile.id)
     cart.set_size(params[:size])
     head :ok
@@ -105,7 +105,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/remove_from_cart?product_id=123456&user=12345678
   def remove_from_cart
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     cart = Cart.find_by(user_id: profile.id)
     product = Recipe.find(params[:product_id])
     cart_item = CartItem.find_by(cart_id: cart.id, productable_id: product.id, productable_type: product.class.name)
@@ -115,7 +115,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/add_to_history?product_id=123456&user=12345678
   def add_to_history
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     product = Recipe.find(params[:product_id])
     RecipeList.add_to_user_history(profile, product)
     head :ok
@@ -123,7 +123,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/ban_recipe?product_id=123456&user=12345678
   def ban_recipe
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     product = Recipe.find(params[:product_id])
     RecipeList.ban_recipe(profile, product)
     head :ok
@@ -131,7 +131,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/cart?user=1191499810899113
   def cart
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     @cart = Cart.find_or_create_by(user_id: profile.id)
     respond_to do |format|
       format.json { render :cart }
@@ -140,7 +140,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/checkout?user=12345678
   def checkout
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     cart = Cart.find_by(user_id: profile.id)
     type = "Grocery list"
     @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type)
@@ -160,7 +160,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/order_history?user=12345678
   def order_history
-    profile = User.find_by(sender_id: params[:user])
+    profile = User.find_or_create_by(sender_id: params[:user])
     @order_history = profile.orders.reverse[0..9]
     respond_to do |format|
       format.json { render :order_history }
@@ -202,7 +202,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/user_diet?user=12345678
   def user_diet
-    @profile = User.find_by(sender_id: params[:user])
+    @profile = User.find_or_create_by(sender_id: params[:user])
     if @profile.diet.nil?
       @profile.diet = Diet.first
       @profile.save
@@ -229,6 +229,13 @@ class Api::V1::ActionsController < Api::V1::BaseController
     respond_to do |format|
       format.json { render :get_sender_ids }
     end
+  end
+
+  #http://localhost:3000/api/v1/destroy_user?user=123456
+  def destroy_user
+    @profile = User.find_or_create_by(sender_id: params[:user])
+    @profile.destroy
+    head :ok
   end
 
   private
