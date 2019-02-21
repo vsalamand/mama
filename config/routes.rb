@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get 'set_diet', to: 'actions#set_diet'
       get 'user_diet', to: 'actions#user_diet'
       get 'get_sender_ids', to: 'actions#get_sender_ids'
+      get 'destroy_user', to: 'actions#destroy_user'
     end
   end
 
