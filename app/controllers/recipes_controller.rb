@@ -39,6 +39,15 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def search
+    # @recipes = Recipe.where(status: "published")
+    query = params[:query].present? ? params[:query] : nil
+
+    @results = if query
+      Recipe.search(query, fields: [:title, :ingredients, :tags, :categories], where: {status: "published"})[0..99]
+    end
+  end
+
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.status = "pending"
@@ -63,6 +72,7 @@ class RecipesController < ApplicationController
 
   def edit
   end
+
 
   def set_published_status
     @recipe.status = "published"

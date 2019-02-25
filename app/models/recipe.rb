@@ -28,6 +28,7 @@ class Recipe < ApplicationRecord
       title: title,
       ingredients: ingredients,
       tags: tag_list,
+      categories: category_list,
       status: status
     }
   end

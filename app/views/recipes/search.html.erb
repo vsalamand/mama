@@ -1,0 +1,27 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+
+  <div class="row">
+    <%= form_tag(search_recipes_path, :method => "get") do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Search Recipes", required: true %>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <h2>search results:</h2>
+    <h6><%= @results.size %> results</h6>
+    <% if @results %>
+      <ol>
+        <% @results.each do |recipe| %>
+          <li>
+            (<%= recipe.id %>)
+            <%= link_to recipe.title, recipe_path(recipe) %>
+          </li>
+        <% end %>
+      </ol>
+    <% end %>
+  </div>
+
+</div>

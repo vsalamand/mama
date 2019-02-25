@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   resources :recipes do
     collection do
       get 'import', to: 'recipes#import'
-      # get 'recipes', to: 'recipes#show'
+      get 'search', to: 'recipes#search'
     end
     member do
       get 'card', to: "recipes#card"
