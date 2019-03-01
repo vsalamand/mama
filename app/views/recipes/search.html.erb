@@ -10,17 +10,19 @@
   </div>
 
   <div class="row">
-    <h2>search results:</h2>
-    <h6><%= @results.size %> results</h6>
     <% if @results %>
-      <ol>
-        <% @results.each do |recipe| %>
-          <li>
-            (<%= recipe.id %>)
-            <%= link_to recipe.title, recipe_path(recipe) %>
-          </li>
-        <% end %>
-      </ol>
+      <h2>search results:</h2>
+      <h6><%= @results.size %> results</h6>
+      <% if @results %>
+        <ol>
+          <% @results.each do |recipe| %>
+            <li>
+              (<%= recipe.id %>)
+              <%= link_to recipe.title, recipe_path(recipe) %>
+            </li>
+          <% end %>
+        </ol>
+      <% end %>
     <% end %>
   </div>
 

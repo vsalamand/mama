@@ -66,8 +66,9 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/foodlist
   def foodlist
-    list = FoodList.find_by(name: "vegetables", food_list_type: "pool")
-    @foodlist = FoodList.get_foodlist(list)
+    list = FoodList.find_by(name: "vegetables", food_list_type: "pool").foods
+    foods = Food.select_seasonal_food(list)
+    @foodlist = FoodList.get_foodlist(foods)
 
     respond_to do |format|
       format.json { render :foodlist }

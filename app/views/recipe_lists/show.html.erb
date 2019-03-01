@@ -1,0 +1,30 @@
+<div class="container">
+
+  <div class="row">
+    <h1><strong><%= @recipe_list.name %></strong></h1>
+    <h5>Type: <%= @recipe_list.recipe_list_type %> </h5>
+    <h5>User: <%= @recipe_list.user.id unless @recipe_list.user.nil? %> </h5>
+    <h5>Diet: <%= @recipe_list.diet.name unless @recipe_list.diet.nil? %> </h5>
+    <p><%= @recipe_list.description %></p>
+  </div>
+
+  <div class="row">
+    <h3>Foodlist:</h3>
+    <h5><%= @recipe_list.foods.uniq.size %> foods</h5>
+    <p><%= @foods %></p>
+  </div>
+
+
+  <div class="row">
+    <h3>Recipes:</h3>
+    <ol>
+      <% @recipe_list.recipe_list_items.order(:id).each do |rli| %>
+        <li>
+          (<%= rli.id %>)
+          <%= link_to rli.recipe.title, recipe_path(rli.recipe) %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+
+</div>

@@ -37,8 +37,10 @@ Rails.application.routes.draw do
 
   get 'confirmation', to: 'pages#confirmation'
   get 'dashboard', to: 'pages#dashboard'
-  get 'assistant', to: 'meta_recipe_lists#new'
   get 'pending', to: 'pages#pending'
+
+  get 'assistant', to: 'meta_recipe_lists#new'
+
   get 'seasonal', to: 'pages#seasonal'
   get 'uncategorized', to: 'pages#uncategorized'
   get 'veggie', to: 'pages#veggie'
@@ -66,7 +68,8 @@ Rails.application.routes.draw do
     resources :items
 
   end
-  resources :food_lists
+
+  resources :food_lists, :recipe_lists
 
   resources :meta_recipes do
     resources :meta_recipe_items
