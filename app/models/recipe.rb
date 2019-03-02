@@ -8,8 +8,10 @@ class Recipe < ApplicationRecord
   has_many :cart_items, :as => :productable
   has_many :meta_recipe_lists, dependent: :nullify
   has_many :meta_recipes, through: :meta_recipe_lists
-  has_many :recipe_list_items
+  has_many :recipe_list_items, dependent: :destroy, inverse_of: :recipe
   has_many :recipe_lists, through: :recipe_list_items
+
+  accepts_nested_attributes_for :recipe_list_items
 
   RATING = ["excellent", "good", "limit", "avoid"]
 

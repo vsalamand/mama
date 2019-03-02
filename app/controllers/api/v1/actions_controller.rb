@@ -31,8 +31,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
       categories["#{type}"] = 10
     else
       categories["veggie"] = 1
-      categories["salad"] = 1
       categories["potato"] = 1
+      categories["salad"] = 1
       categories["meat"] = 1
       categories["fish"] = 1
       categories["pasta"] = 1
