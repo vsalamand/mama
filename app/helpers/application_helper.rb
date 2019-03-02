@@ -71,10 +71,10 @@ module ApplicationHelper
     return html.join.html_safe
   end
 
-  def show_shelves(recipe)
+  def show_shelves(foods)
     html = []
 
-    shelves = recipe.get_shelves
+    shelves = Food.get_shelves(foods)
     types = Hash.new
     types["viandes et poissons"] = "redTag"
     types["céréales"] = "yellowTag"

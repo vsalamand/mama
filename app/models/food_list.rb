@@ -13,7 +13,7 @@ class FoodList < ApplicationRecord
 
     foodlist = []
     # foods.sort_by { |f| f.recipes.where(status: "published").count }.reverse.each { |f| foodlist << f.name if f.recipes.where(status: "published").count > 0}
-    foods.uniq.sort_by { |f| f.category_id }.select { |food| foodlist << food.name if food.recipes.where(status: "published").count > 0 }
+    foods.uniq.sort_by { |f| f.category_id }.map { |food| foodlist << food.name if food.recipes.where(status: "published").count > 0 }
     return foodlist.join(", ")
   end
 

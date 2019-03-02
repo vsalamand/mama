@@ -7,7 +7,7 @@ class RecipeList < ApplicationRecord
   has_many :recipe_list_items, dependent: :destroy
   has_many :foods, through: :recipes
 
-  RECIPE_LIST_TYPE = ["mama", "personal", "recommendation", "pool", "ban", "history"]
+  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "recommendation", "pool", "ban", "history"]
 
   def self.add_to_user_history(user, recipe)
     weekly_menu = RecipeList.find_by(name: "Weekly menu", user_id: user.id, recipe_list_type: "recommendation")

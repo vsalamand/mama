@@ -45,6 +45,15 @@ class Food < ApplicationRecord
     return foods
   end
 
+  def self.get_shelves(foods)
+    shelves = Hash.new
+    foods.tag_counts_on(:shelves).each do |shelf|
+      shelves["#{shelf.name}"] = foods.tagged_with("#{shelf.name}").uniq
+    end
+
+    return shelves
+  end
+
   def self.select_seasonal_food(foods)
     return foods.select { |food| food.availability.include?(Date.today.next_week.strftime("%m") )}
   end

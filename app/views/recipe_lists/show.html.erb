@@ -1,17 +1,22 @@
+<%= render 'shared/admin-navbar' %>
+
+
 <div class="container">
 
   <div class="row">
     <h1><strong><%= @recipe_list.name %></strong></h1>
+    <%= link_to 'Edit this recipe list', edit_recipe_list_path(@recipe_list), class: "form-control btn-primary" %>
     <h5>Type: <%= @recipe_list.recipe_list_type %> </h5>
     <h5>User: <%= @recipe_list.user.id unless @recipe_list.user.nil? %> </h5>
     <h5>Diet: <%= @recipe_list.diet.name unless @recipe_list.diet.nil? %> </h5>
+    <h5>Description:</h5>
     <p><%= @recipe_list.description %></p>
   </div>
 
   <div class="row">
     <h3>Foodlist:</h3>
     <h5><%= @recipe_list.foods.uniq.size %> foods</h5>
-    <p><%= @foods %></p>
+    <%= show_shelves(@recipe_list.foods) %>
   </div>
 
 

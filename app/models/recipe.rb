@@ -141,18 +141,13 @@ class Recipe < ApplicationRecord
     return "🥪" if self.category_list.include?("snack")
   end
 
-  def get_shelves
-    shelves = Hash.new
-    self.foods.tag_counts_on(:shelves).each do |shelf|
-      shelves["#{shelf.name}"] = self.foods.tagged_with("#{shelf.name}")
-    end
-    return shelves
+  # def get_shelves
+  #   shelves = Hash.new
+  #   self.foods.tag_counts_on(:shelves).each do |shelf|
+  #     shelves["#{shelf.name}"] = self.foods.tagged_with("#{shelf.name}")
+  #   end
 
-    # ingredients = self.items.order(:id).map { |item| item.food}
-    # ingredients.tag_counts_on(:shelves).each do |shelf|
-    #   shelves["#{shelf.name}"] = self.foods.tagged_with("#{shelf.name}")
-    # end
-    # return shelves
-  end
+  #   return shelves
+  # end
 
 end

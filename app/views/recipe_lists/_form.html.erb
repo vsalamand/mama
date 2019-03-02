@@ -1,0 +1,6 @@
+
+  <%= simple_form_for @recipe_list do |f| %>
+    <%= f.input :name, placeholder: "Name", label: false, class: 'form-control' %>
+    <%= f.input :description, type: "Add a description", as: :text, label: false, class: 'form-control' %>
+    <%= f.submit "Create", class: "form-control btn-primary" %>
+  <% end %>
