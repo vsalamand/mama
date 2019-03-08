@@ -31,8 +31,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
       categories["#{type}"] = 10
     else
       categories["veggie"] = 1
-      categories["salad"] = 1
       categories["potato"] = 1
+      categories["salad"] = 1
       categories["meat"] = 1
       categories["fish"] = 1
       categories["pasta"] = 1
@@ -66,8 +66,9 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/foodlist
   def foodlist
-    list = FoodList.find_by(name: "vegetables", food_list_type: "pool")
-    @foodlist = FoodList.get_foodlist(list)
+    list = FoodList.find_by(name: "vegetables", food_list_type: "pool").foods
+    foods = Food.select_seasonal_food(list)
+    @foodlist = FoodList.get_foodlist(foods)
 
     respond_to do |format|
       format.json { render :foodlist }

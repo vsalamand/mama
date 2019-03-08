@@ -4,9 +4,19 @@ class RecipeList < ApplicationRecord
 
   validates :name, :recipe_list_type, presence: :true
   has_many :recipes, through: :recipe_list_items
-  has_many :recipe_list_items, dependent: :destroy
+  has_many :recipe_list_items, dependent: :destroy, inverse_of: :recipe_list
+  has_many :foods, through: :recipes
 
-  RECIPE_LIST_TYPE = ["mama", "personal", "recommendation", "pool", "ban", "history"]
+  accepts_nested_attributes_for :recipe_list_items, allow_destroy: true
+
+  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "recommendation", "pool", "ban", "history"]
+
+
+  def get_description
+    foodlist = self.foods.uniq.sort_by { |f| f.category_id }.map { |food| food.name if food.shelf_list != ["épicerie"]}.compact
+    self.description = foodlist.join(", ")
+    self.save
+  end
 
   def self.add_to_user_history(user, recipe)
     weekly_menu = RecipeList.find_by(name: "Weekly menu", user_id: user.id, recipe_list_type: "recommendation")

@@ -8,8 +8,10 @@ class Recipe < ApplicationRecord
   has_many :cart_items, :as => :productable
   has_many :meta_recipe_lists, dependent: :nullify
   has_many :meta_recipes, through: :meta_recipe_lists
-  has_many :recipe_list_items
+  has_many :recipe_list_items, dependent: :destroy, inverse_of: :recipe
   has_many :recipe_lists, through: :recipe_list_items
+
+  accepts_nested_attributes_for :recipe_list_items
 
   RATING = ["excellent", "good", "limit", "avoid"]
 
@@ -28,6 +30,7 @@ class Recipe < ApplicationRecord
       title: title,
       ingredients: ingredients,
       tags: tag_list,
+      categories: category_list,
       status: status
     }
   end
@@ -140,18 +143,13 @@ class Recipe < ApplicationRecord
     return "🥪" if self.category_list.include?("snack")
   end
 
-  def get_shelves
-    shelves = Hash.new
-    self.foods.tag_counts_on(:shelves).each do |shelf|
-      shelves["#{shelf.name}"] = self.foods.tagged_with("#{shelf.name}")
-    end
-    return shelves
+  # def get_shelves
+  #   shelves = Hash.new
+  #   self.foods.tag_counts_on(:shelves).each do |shelf|
+  #     shelves["#{shelf.name}"] = self.foods.tagged_with("#{shelf.name}")
+  #   end
 
-    # ingredients = self.items.order(:id).map { |item| item.food}
-    # ingredients.tag_counts_on(:shelves).each do |shelf|
-    #   shelves["#{shelf.name}"] = self.foods.tagged_with("#{shelf.name}")
-    # end
-    # return shelves
-  end
+  #   return shelves
+  # end
 
 end

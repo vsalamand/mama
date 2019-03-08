@@ -9,13 +9,12 @@ class FoodList < ApplicationRecord
   FOOD_LIST_TYPE = ["recommendation", "ban", "personal", "pool"]
 
   # send a short list of seasonal foods
-  def self.get_foodlist(list)
-    foods = Food.select_seasonal_food(list.foods)
+  def self.get_foodlist(foods)
 
     foodlist = []
-    foods.sort_by { |f| f.recipes.where(status: "published").count }.reverse.each { |f| foodlist << f.name if f.recipes.where(status: "published").count > 0}
-
-    return foodlist.shuffle[0..9].join(", ")
+    # foods.sort_by { |f| f.recipes.where(status: "published").count }.reverse.each { |f| foodlist << f.name if f.recipes.where(status: "published").count > 0}
+    foods.uniq.sort_by { |f| f.category_id }.map { |food| foodlist << food.name if food.recipes.where(status: "published").count > 0 }
+    return foodlist.join(", ")
   end
 
   def self.update_food_pools

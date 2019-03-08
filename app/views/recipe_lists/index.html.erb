@@ -1,0 +1,23 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+
+
+  <div class="row">
+    <h3>Recipe lists:</h3>
+    <h5><%= link_to 'NEW', new_recipe_list_path %></h5>
+
+    <% unless @recipe_lists.nil? %>
+        <ol>
+          <% @recipe_lists.order(:id).reverse.each do |list| %>
+            <li>
+              (<%= list.id %>)
+              <%= link_to list.name, recipe_list_path(list) %>
+            </li>
+          <% end %>
+        </ol>
+    <% end %>
+
+  </div>
+
+</div>

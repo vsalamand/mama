@@ -39,6 +39,15 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def search
+    # @recipes = Recipe.where(status: "published")
+    query = params[:query].present? ? params[:query] : nil
+
+    @results = if query
+      Recipe.search(query, fields: [:title, :ingredients, :tags, :categories], where: {status: "published"})[0..99]
+    end
+  end
+
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.status = "pending"
@@ -64,6 +73,7 @@ class RecipesController < ApplicationController
   def edit
   end
 
+
   def set_published_status
     @recipe.status = "published"
     # generate_ingredients_tags(@recipe)
@@ -86,7 +96,7 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :servings, :ingredients, :instructions, :tag_list, :origin, :status, :link, :rating)
+    params.require(:recipe).permit(:title, :servings, :ingredients, :instructions, :tag_list, :origin, :status, :link, :rating, recipe_list_ids: [], recipe_list_items_attributes:[:name, :recipe_list_id, :recipe_id])
   end
 
   # def generate_ingredients_tags(recipe)
