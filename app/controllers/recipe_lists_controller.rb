@@ -18,6 +18,7 @@ class RecipeListsController < ApplicationController
     @recipe_list.recipe_list_type = "curated"
     @recipe_list.get_description
     if @recipe_list.save
+      @recipe_list.get_description
       redirect_to recipe_list_path(@recipe_list)
     else
       redirect_to new_recipe_list_path
