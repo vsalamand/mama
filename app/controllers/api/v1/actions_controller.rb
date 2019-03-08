@@ -56,7 +56,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     query = params[:query].present? ? params[:query] : nil
 
     @search = if query
-      Recipe.search(query, fields: [:title, :ingredients, :tags], where: {status: "published"}, operator: "or")[0..9]
+      Recipe.search(query, fields: [:title, :ingredients, :tags, :categories], where: {status: "published"}, operator: "or")[0..9]
     end
 
     respond_to do |format|
