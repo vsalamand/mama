@@ -75,6 +75,8 @@ gem 'wkhtmltopdf-binary'
 # Makes http fun again
 gem 'httparty'
 
+# Analytics for Rails
+gem 'ahoy_matey'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -49,6 +49,12 @@ class Api::V1::ActionsController < Api::V1::BaseController
     respond_to do |format|
       format.json { render :get_recommendations }
     end
+
+    # Analytics
+    recommendations = Hash.new
+    recommendations["recipes"] = @recommendations.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
+    recommendations["type"] = type
+    ahoy.track "get_recommendations", recommendations
   end
 
   #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
@@ -62,6 +68,12 @@ class Api::V1::ActionsController < Api::V1::BaseController
     respond_to do |format|
       format.json { render :search }
     end
+
+    # Analytics
+    results = Hash.new
+    results["recipes"] = @search.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
+    results["query"] = query
+    ahoy.track "search", results
   end
 
   #http://localhost:3000/api/v1/foodlist
