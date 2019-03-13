@@ -2,25 +2,6 @@ require 'date'
 
 class Api::V1::ActionsController < Api::V1::BaseController
 
-#http://localhost:3000/api/v1/recommend?type=salad&query=butternut+carottes&user=12345678
-  def recommend
-    # profile = User.find_by(sender_id: params[:user])
-    # @recommendation = RecipeList.find_by(user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
-
-    type = params[:type]
-    query = params[:query].present? ? params[:query] : nil
-    foods = Food.get_foods(query) if query
-
-    content = foods.nil? ? Recipe.where(status: "published").tagged_with(type) : Recipe.search_by_food(type, foods)
-    content = Recipe.where(status: "published").tagged_with(type) if content.empty?
-
-    @recommendation = content.shuffle.first
-
-    respond_to do |format|
-      format.json { render :recommend }
-    end
-  end
-
   #http://localhost:3000/api/v1/get_recommendations??type=salad&user=12345678
   def get_recommendations
     # categories = Recipe.category_counts
@@ -57,6 +38,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
     ahoy.track "get_recommendations", recommendations
   end
 
+
+
   #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
   def search
     query = params[:query].present? ? params[:query] : nil
@@ -76,27 +59,27 @@ class Api::V1::ActionsController < Api::V1::BaseController
     ahoy.track "search", results
   end
 
-  #http://localhost:3000/api/v1/foodlist
-  def foodlist
-    list = FoodList.find_by(name: "vegetables", food_list_type: "pool").foods
-    foods = Food.select_seasonal_food(list)
-    @foodlist = FoodList.get_foodlist(foods)
 
-    respond_to do |format|
-      format.json { render :foodlist }
-    end
-  end
 
-  #http://localhost:3000/api/v1/add_to_cart?product_id=123456&user=1191499810899113
+  #http://localhost:3000/api/v1/add_to_cart?product_id=123456&position=0&context=get_reco&user=1191499810899113
   def add_to_cart
     profile = User.find_or_create_by(sender_id: params[:user])
     @cart = Cart.find_or_create_by(user_id: profile.id)
     product = Recipe.find(params[:product_id])
+    position = params[:position]
+    context = params[:context]
     CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: @cart.id)
     RecipeList.add_to_user_history(profile, product)
     respond_to do |format|
       format.json { render :add_to_cart }
     end
+
+    # Analytics
+    cart_item = Hash.new
+    cart_item["context"] = context
+    cart_item["position"] = position
+    cart_item["recipes"] = product.id
+    ahoy.track "add_to_cart", cart_item
   end
 
 #http://localhost:3000/api/v1/card?recipe_id=123456&user=12345678
@@ -105,6 +88,140 @@ class Api::V1::ActionsController < Api::V1::BaseController
     @recipe = Recipe.find(params[:recipe_id])
     respond_to do |format|
       format.json { render :card }
+    end
+  end
+
+
+
+  #http://localhost:3000/api/v1/cart?user=1191499810899113
+  def cart
+    profile = User.find_or_create_by(sender_id: params[:user])
+    @cart = Cart.find_or_create_by(user_id: profile.id)
+    respond_to do |format|
+      format.json { render :cart }
+    end
+  end
+
+
+
+  #http://localhost:3000/api/v1/checkout?context=cart&user=12345678
+  def checkout
+    profile = User.find_or_create_by(sender_id: params[:user])
+    context = params[:context]
+    type = "Grocery list"
+    cart = Cart.find_by(user_id: profile.id)
+
+    @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type, context: context)
+
+    @order.order_cart_items
+
+    respond_to do |format|
+      format.json { render :checkout }
+    end
+  end
+
+  #http://localhost:3000/api/v1/direct_checkout?product_id=123456&position=0&context=get_reco&user=1191499810899113
+  def direct_checkout
+    profile = User.find_or_create_by(sender_id: params[:user])
+    product = Recipe.find(params[:product_id])
+    position = params[:position]
+    context = params[:context]
+    type = "Grocery list"
+
+    @order = Order.create(user_id: profile.id, order_type: type, context: context)
+
+    CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, order_id: @order.id)
+
+    respond_to do |format|
+      format.json { render :checkout }
+    end
+
+    # Analytics
+    direct_checkout = Hash.new
+    direct_checkout["context"] = context
+    direct_checkout["position"] = position
+    direct_checkout["recipes"] = product.id
+    ahoy.track "direct_checkout", direct_checkout
+  end
+
+
+
+  #http://localhost:3000/api/v1/order?order=123456&user=12345678
+  def order
+    @order = Order.find(params[:order])
+    respond_to do |format|
+      format.json { render :order }
+    end
+
+    # Analytics
+    order = Hash.new
+    order["order_id"] = @order.id
+    order["type"] = @order.order_type
+    order["context"] = @order.context
+    order["recipes"] = @order.recipes.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
+    ahoy.track "order", order
+  end
+
+
+
+  #http://localhost:3000/api/v1/grocerylist?order=123456&user=12345678
+  def grocerylist
+    @order = Order.find(params[:order])
+    @grocery_list = @order.send_grocery_list
+    respond_to do |format|
+      format.json { render :grocerylist }
+    end
+  end
+
+
+
+    #http://localhost:3000/api/v1/profile?user=123456&username=test
+  def profile
+    @profile = User.find_or_create_by(sender_id: params[:user])
+    @profile.username = params[:username]
+    if @profile.email.empty? then @profile.email = "#{params[:user]}@foodmama.fr" end
+    @profile.save
+    respond_to do |format|
+      format.json { render :profile }
+    end
+  end
+
+
+
+
+  #http://localhost:3000/api/v1/get_sender_ids
+  def get_sender_ids
+    @users = User.get_sender_ids
+    respond_to do |format|
+      format.json { render :get_sender_ids }
+    end
+  end
+
+
+
+  #http://localhost:3000/api/v1/destroy_user?user=123456
+  def destroy_user
+    @profile = User.find_or_create_by(sender_id: params[:user])
+    @profile.destroy
+    head :ok
+
+    # Analytics
+    ahoy.track "destroy_user", @profile
+  end
+
+
+
+
+## STANDBY
+
+  #http://localhost:3000/api/v1/foodlist
+  def foodlist
+    list = FoodList.find_by(name: "vegetables", food_list_type: "pool").foods
+    foods = Food.select_seasonal_food(list)
+    @foodlist = FoodList.get_foodlist(foods)
+
+    respond_to do |format|
+      format.json { render :foodlist }
     end
   end
 
@@ -142,34 +259,6 @@ class Api::V1::ActionsController < Api::V1::BaseController
     head :ok
   end
 
-  #http://localhost:3000/api/v1/cart?user=1191499810899113
-  def cart
-    profile = User.find_or_create_by(sender_id: params[:user])
-    @cart = Cart.find_or_create_by(user_id: profile.id)
-    respond_to do |format|
-      format.json { render :cart }
-    end
-  end
-
-  #http://localhost:3000/api/v1/checkout?user=12345678
-  def checkout
-    profile = User.find_or_create_by(sender_id: params[:user])
-    cart = Cart.find_by(user_id: profile.id)
-    type = "Grocery list"
-    @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type)
-    @order.order_cart_items
-    respond_to do |format|
-      format.json { render :checkout }
-    end
-  end
-
-  #http://localhost:3000/api/v1/order?order=123456&user=12345678
-  def order
-    @order = Order.find(params[:order])
-    respond_to do |format|
-      format.json { render :order }
-    end
-  end
 
   #http://localhost:3000/api/v1/order_history?user=12345678
   def order_history
@@ -180,12 +269,23 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
-  #http://localhost:3000/api/v1/grocerylist?order=123456&user=12345678
-  def grocerylist
-    @order = Order.find(params[:order])
-    @grocery_list = @order.send_grocery_list
+
+#http://localhost:3000/api/v1/recommend?type=salad&query=butternut+carottes&user=12345678
+  def recommend
+    # profile = User.find_by(sender_id: params[:user])
+    # @recommendation = RecipeList.find_by(user_id: profile.id, recipe_list_type: "recommendation").recipe_list_items.first
+
+    type = params[:type]
+    query = params[:query].present? ? params[:query] : nil
+    foods = Food.get_foods(query) if query
+
+    content = foods.nil? ? Recipe.where(status: "published").tagged_with(type) : Recipe.search_by_food(type, foods)
+    content = Recipe.where(status: "published").tagged_with(type) if content.empty?
+
+    @recommendation = content.shuffle.first
+
     respond_to do |format|
-      format.json { render :grocerylist }
+      format.json { render :recommend }
     end
   end
 
@@ -225,31 +325,6 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
-  #http://localhost:3000/api/v1/profile?user=123456&username=test
-  def profile
-    @profile = User.find_or_create_by(sender_id: params[:user])
-    @profile.username = params[:username]
-    if @profile.email.empty? then @profile.email = "#{params[:user]}@foodmama.fr" end
-    @profile.save
-    respond_to do |format|
-      format.json { render :profile }
-    end
-  end
-
-  #http://localhost:3000/api/v1/get_sender_ids
-  def get_sender_ids
-    @users = User.get_sender_ids
-    respond_to do |format|
-      format.json { render :get_sender_ids }
-    end
-  end
-
-  #http://localhost:3000/api/v1/destroy_user?user=123456
-  def destroy_user
-    @profile = User.find_or_create_by(sender_id: params[:user])
-    @profile.destroy
-    head :ok
-  end
 
   private
   def is_valid?

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  authenticated :user, ->(user) { user.admin? } do
+    mount Blazer::Engine, at: "blazer"
+  end
+
+
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # get 'suggest', to: 'actions#suggest'
@@ -19,6 +24,7 @@ Rails.application.routes.draw do
       get 'add_to_history', to: 'actions#add_to_history'
       get 'ban_recipe', to: 'actions#ban_recipe'
       get 'checkout', to: 'actions#checkout'
+      get 'direct_checkout', to: 'actions#direct_checkout'
       get 'order', to: 'actions#order'
       get 'order_history', to: 'actions#order_history'
       get 'grocerylist', to: 'actions#grocerylist'

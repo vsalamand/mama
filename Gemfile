@@ -77,6 +77,9 @@ gem 'httparty'
 
 # Analytics for Rails
 gem 'ahoy_matey'
+# Business intelligence made simple
+gem 'blazer'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
