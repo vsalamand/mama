@@ -31,10 +31,12 @@ class Api::V1::ActionsController < Api::V1::BaseController
       format.json { render :get_recommendations }
     end
 
+
     # Analytics
     recommendations = Hash.new
     recommendations["recipes"] = @recommendations.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
     recommendations["type"] = type
+    recommendations["sender_id"] = params[:user].to_i
     ahoy.track "get_recommendations", recommendations
   end
 
@@ -56,6 +58,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     results = Hash.new
     results["recipes"] = @search.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
     results["query"] = query
+    results["sender_id"] = params[:user].to_i
     ahoy.track "search", results
   end
 
@@ -69,7 +72,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     position = params[:position]
     context = params[:context]
     CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: @cart.id)
-    RecipeList.add_to_user_history(profile, product)
+    #RecipeList.add_to_user_history(profile, product)
     respond_to do |format|
       format.json { render :add_to_cart }
     end
@@ -79,6 +82,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     cart_item["context"] = context
     cart_item["position"] = position
     cart_item["recipes"] = product.id
+    cart_item["sender_id"] = params[:user].to_i
     ahoy.track "add_to_cart", cart_item
   end
 
@@ -107,11 +111,10 @@ class Api::V1::ActionsController < Api::V1::BaseController
   #http://localhost:3000/api/v1/checkout?context=cart&user=12345678
   def checkout
     profile = User.find_or_create_by(sender_id: params[:user])
-    context = params[:context]
-    type = "Grocery list"
+    type = "grocery list"
     cart = Cart.find_by(user_id: profile.id)
 
-    @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type, context: context)
+    @order = Order.create(user_id: cart.user_id, cart_id: cart.id, order_type: type, context: "cart")
 
     @order.order_cart_items
 
@@ -126,9 +129,9 @@ class Api::V1::ActionsController < Api::V1::BaseController
     product = Recipe.find(params[:product_id])
     position = params[:position]
     context = params[:context]
-    type = "Grocery list"
+    type = "grocery list"
 
-    @order = Order.create(user_id: profile.id, order_type: type, context: context)
+    @order = Order.create(user_id: profile.id, order_type: type, context: "direct_checkout")
 
     CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, order_id: @order.id)
 
@@ -141,6 +144,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     direct_checkout["context"] = context
     direct_checkout["position"] = position
     direct_checkout["recipes"] = product.id
+    direct_checkout["sender_id"] = params[:user].to_i
     ahoy.track "direct_checkout", direct_checkout
   end
 
@@ -158,6 +162,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     order["order_id"] = @order.id
     order["type"] = @order.order_type
     order["context"] = @order.context
+    order["sender_id"] = params[:user].to_i
     order["recipes"] = @order.recipes.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
     ahoy.track "order", order
   end

@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   has_many :recipes, :through => :cart_items, :source => :productable, :source_type => 'Recipe'
   has_many :foods, :through => :recipes
 
-  ORDER_TYPE = ["Grocery list", "Drop-off"]
+  ORDER_TYPE = ["grocery list", "drop-off"]
 
   def order_cart_items
     self.cart.cart_items.each do |cart_item|

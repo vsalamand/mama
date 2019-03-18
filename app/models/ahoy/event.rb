@@ -5,7 +5,7 @@ class Ahoy::Event < ApplicationRecord
 
   # if event is receipe view, we need to pass the user id otherwise ahoy can't find it
   after_create do
-    self.user_id = self.properties["user_id"] if self.properties["user_id"].present? && self.name == "recipe_view"
+    self.user_id = User.find_or_create_by(sender_id: self.properties["sender_id"]).id if self.properties["sender_id"].present?
     self.save
   end
 
