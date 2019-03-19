@@ -29,6 +29,19 @@ class RecipesController < ApplicationController
   end
 
   def card
+    # Analytics
+    profile = User.find_or_create_by(sender_id: params[:user])
+    product = Recipe.find(params[:id])
+    position = params[:position]
+    context = params[:context]
+    if params[:user].present?
+      recipe_view = Hash.new
+      recipe_view["context"] = context
+      recipe_view["position"] = position
+      recipe_view["recipe_id"] = product.id
+      recipe_view["sender_id"] = params[:user].to_i
+      ahoy.track "recipe_view", recipe_view
+    end
   end
 
   def new

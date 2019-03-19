@@ -11,6 +11,11 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :recipe_lists, dependent: :destroy
   has_many :foods, through: :orders
+  has_many :recipes, through: :orders
+
+  has_many :visits, class_name: "Ahoy::Visit"
+  has_many :events, class_name: "Ahoy::Event"
+
 
   after_create do
     Cart.create(user_id: self.id)

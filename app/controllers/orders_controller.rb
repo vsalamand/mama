@@ -5,6 +5,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:user_id, :cart_id, :order_type)
+    params.require(:order).permit(:user_id, :cart_id, :order_type, :context)
   end
 end
