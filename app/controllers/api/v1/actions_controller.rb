@@ -37,6 +37,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
     recommendations["recipes"] = @recommendations.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
     recommendations["type"] = type
     recommendations["sender_id"] = params[:user].to_i
+    recommendations["source"] = { version: "shuffle"}
     ahoy.track "get_recommendations", recommendations
   end
 
