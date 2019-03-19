@@ -82,7 +82,7 @@ config.webpacker.check_yarn_integrity = false
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   #Database URL to run Blazer in production
-  ENV["BLAZER_DATABASE_URL"] = heroku config:get DATABASE_URL -a food-mama
+  ENV["BLAZER_DATABASE_URL"] = DATABASE_URL
 
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
