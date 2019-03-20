@@ -14,12 +14,14 @@ class User < ApplicationRecord
   has_many :foods, through: :orders
   has_many :recipes, through: :orders
 
-  has_many :visits, class_name: "Ahoy::Visit"
-  has_many :events, class_name: "Ahoy::Event"
+  has_many :visits, class_name: "Ahoy::Visit", dependent: :destroy
+  has_many :events, class_name: "Ahoy::Event", dependent: :destroy
 
 
   after_create do
     Cart.create(user_id: self.id)
+    if self.email.empty? then self.email = "#{self.sender_id}@foodmama.fr" end
+
     # RecipeList.create(name: "Banned recipes", user_id: self.id, recipe_list_type: "ban")
     #RecipeList.create(name: "Weekly menu", user_id: self.id, recipe_list_type: "recommendation")
     #RecipeList.create(name: "History", user_id: self.id, recipe_list_type: "history")

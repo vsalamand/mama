@@ -4,6 +4,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/get_recommendations??type=salad&user=12345678
   def get_recommendations
+    profile = User.find_or_create_by(sender_id: params[:user])
     # categories = Recipe.category_counts
     categories = Hash.new
 
@@ -45,6 +46,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
   def search
+    profile = User.find_or_create_by(sender_id: params[:user])
+
     query = params[:query].present? ? params[:query] : nil
 
     @search = if query
