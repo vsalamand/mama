@@ -20,7 +20,6 @@ class User < ApplicationRecord
 
   after_create do
     Cart.create(user_id: self.id)
-    if self.email.empty? then self.email = "#{self.sender_id}@foodmama.fr" end
 
     # RecipeList.create(name: "Banned recipes", user_id: self.id, recipe_list_type: "ban")
     #RecipeList.create(name: "Weekly menu", user_id: self.id, recipe_list_type: "recommendation")
@@ -33,5 +32,14 @@ class User < ApplicationRecord
     sender_ids = []
     User.all.order(:id).each { |user| sender_ids << user.sender_id if user.sender_id.present? && user.sender_id.scan(/\D/).empty? }
     return sender_ids
+  end
+
+  def self.check_or_create_user(sender_id, username)
+    profile = User.find_by(sender_id: sender_id)
+    if profile.nil?
+      profile = User.create(sender_id: sender_id, username: username, email: "#{sender_id}@foodmama.fr")
+      profile.save
+    end
+    return profile
   end
 end

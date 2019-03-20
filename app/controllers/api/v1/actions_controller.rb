@@ -4,7 +4,6 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/get_recommendations??type=salad&user=12345678
   def get_recommendations
-    profile = User.find_or_create_by(sender_id: params[:user])
     # categories = Recipe.category_counts
     categories = Hash.new
 
@@ -46,8 +45,6 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/search?query=poireau+butternut+épinards+carottes&user=12345678
   def search
-    profile = User.find_or_create_by(sender_id: params[:user])
-
     query = params[:query].present? ? params[:query] : nil
 
     @search = if query
@@ -186,10 +183,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
     #http://localhost:3000/api/v1/profile?user=123456&username=test
   def profile
-    @profile = User.find_or_create_by(sender_id: params[:user])
-    @profile.username = params[:username]
-    if @profile.email.empty? then @profile.email = "#{params[:user]}@foodmama.fr" end
-    @profile.save
+    @profile = User.check_or_create_user(params[:user], params[:username])
     respond_to do |format|
       format.json { render :profile }
     end
