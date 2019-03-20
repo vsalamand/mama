@@ -208,8 +208,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
     @profile.destroy
     head :ok
 
-    # Analytics
-    ahoy.track "destroy_user", @profile
+    # Analytics !! need to refacto becasue it creates new user after recording the vent
+    #ahoy.track "destroy_user", @profile
   end
 
 
