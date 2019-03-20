@@ -250,20 +250,20 @@ class Api::V1::ActionsController < Api::V1::BaseController
   end
 
   #http://localhost:3000/api/v1/add_to_history?product_id=123456&user=12345678
-  def add_to_history
-    profile = User.find_or_create_by(sender_id: params[:user])
-    product = Recipe.find(params[:product_id])
-    RecipeList.add_to_user_history(profile, product)
-    head :ok
-  end
+#  def add_to_history
+ #   profile = User.find_or_create_by(sender_id: params[:user])
+  #  product = Recipe.find(params[:product_id])
+   # RecipeList.add_to_user_history(profile, product)
+    #head :ok
+  #end
 
   #http://localhost:3000/api/v1/ban_recipe?product_id=123456&user=12345678
-  def ban_recipe
-    profile = User.find_or_create_by(sender_id: params[:user])
-    product = Recipe.find(params[:product_id])
-    RecipeList.ban_recipe(profile, product)
-    head :ok
-  end
+ # def ban_recipe
+  #  profile = User.find_or_create_by(sender_id: params[:user])
+   # product = Recipe.find(params[:product_id])
+   # RecipeList.ban_recipe(profile, product)
+   # head :ok
+  #end
 
 
   #http://localhost:3000/api/v1/order_history?user=12345678
