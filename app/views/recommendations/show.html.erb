@@ -19,5 +19,18 @@
     <%= link_to 'View website', @recommendation.link, :target => "_blank" %>
   </div>
 
+  <div class="row">
+    <h3>Recipe Lists:</h3>
+    <h5><%= link_to 'ADD NEW', new_recommendation_recommendation_item_path(@recommendation) %></h5>
+    <ol>
+      <% @recommendation.recommendation_items.order(:id).each do |item| %>
+        <li>
+          (<%= item.id %>)
+          <%= link_to item.name, edit_recommendation_recommendation_item_path(@recommendation, item) %>
+          <%= link_to item.recipe_list.name, recipe_list_path(item.recipe_list) %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
 
 </div>

@@ -1,0 +1,6 @@
+<%= simple_form_for [@recommendation, @recommendation_item] do |f| %>
+  <%= f.input :name, class: 'form-control' %>
+  <%= f.collection_select :recipe_list_id, RecipeList.where(recipe_list_type: "curated" ).order(:id), :id, :name, {}, class: 'form-control select'%>
+  <%= f.submit "Valider", class: "form-control btn-primary" %>
+<% end %>
+

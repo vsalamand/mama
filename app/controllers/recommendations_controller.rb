@@ -6,7 +6,7 @@ class RecommendationsController < ApplicationController
 
   def show
     @recommendation = Recommendation.find(params[:id])
-    # @recommendation.recommendation_items.build
+    @recommendation.recommendation_items.build
   end
 
   def new
@@ -34,6 +34,6 @@ class RecommendationsController < ApplicationController
 
   private
   def recommendation_params
-    params.require(:recommendation).permit(:name, :date, :description, :image_url, :link, :user_id)
+    params.require(:recommendation).permit(:name, :date, :description, :image_url, :link, :user_id, recipe_list_ids: [])
   end
 end

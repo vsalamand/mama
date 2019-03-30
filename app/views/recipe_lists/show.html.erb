@@ -29,4 +29,16 @@
     </ol>
   </div>
 
+  <div class="row">
+    <h3>Recommendations:</h3>
+    <ul>
+      <% @recipe_list.recommendations.order(:id).each do |reco| %>
+        <li>
+          (<%= reco.id %>)
+          <%= link_to reco.name, recommendation_path(reco) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
 </div>

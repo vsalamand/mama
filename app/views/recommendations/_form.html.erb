@@ -1,14 +1,16 @@
 
   <%= simple_form_for @recommendation do |f| %>
-    <%= f.input :name, placeholder: "Write a catchy title !", label: false, class: 'form-control' %>
+    <%= f.input :name, placeholder: "Write a catchy title !", class: 'form-control' %>
     <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username, class: 'form-control' %>
+    <%= f.input :date, as: :datetime, class: 'form-control' %>
+    <%= f.input :description, type: "What's interesting in here ?", as: :text, class: 'form-control' %>
+    <%= f.input :image_url, placeholder: "Insert an image url", class: 'form-control' %>
+    <%= f.input :link, placeholder: "Insert link url", class: 'form-control' %>
 
+    <h3>Recipe lists:</h3>
 
-    <%= f.input :date, as: :datetime, label: false, class: 'form-control' %>
+    <%= f.collection_select :recipe_list_ids, RecipeList.where(recipe_list_type: "curated" ).order(:id), :id, :name, {}, multiple: true, class: 'form-control select'%>
 
-    <%= f.input :description, type: "What's interesting in here ?", as: :text, label: false, class: 'form-control' %>
-    <%= f.input :image_url, placeholder: "Insert an image url", label: false, class: 'form-control' %>
-    <%= f.input :link, placeholder: "Insert link url", label: false, class: 'form-control' %>
 
     <%= f.submit "Validate", class: "form-control btn-primary" %>
   <% end %>
