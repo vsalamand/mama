@@ -9,7 +9,7 @@ class RecipeList < ApplicationRecord
 
   accepts_nested_attributes_for :recipe_list_items, allow_destroy: true
 
-  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "recommendation", "pool", "ban", "history"]
+  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool",]
 
 
   def get_description
@@ -17,6 +17,12 @@ class RecipeList < ApplicationRecord
     self.description = foodlist.join(", ")
     self.save
   end
+
+  def get_top_foods
+    # create hash of food roots sorted by count, and return a list of food names sorted by count
+    foodlist = Hash[self.foods.group_by{|x| x.root}.map {|k,v| [k, v.size] }.sort_by {|k, v| v}.reverse].keys.flatten.map(&:name)
+  end
+
 
   def self.add_to_user_history(user, recipe)
     weekly_menu = RecipeList.find_by(name: "Weekly menu", user_id: user.id, recipe_list_type: "recommendation")
