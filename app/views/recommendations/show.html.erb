@@ -27,6 +27,7 @@
         <li>
           (<%= item.id %>)
           <%= link_to item.name, edit_recommendation_recommendation_item_path(@recommendation, item) %>
+          formule <%= item.recipe_list.formula_list %>
           <%= link_to item.recipe_list.name, recipe_list_path(item.recipe_list) %>
         </li>
       <% end %>

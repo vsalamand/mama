@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190330111331) do
+ActiveRecord::Schema.define(version: 20190330180656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,8 +296,6 @@ ActiveRecord::Schema.define(version: 20190330111331) do
     t.string   "recipe_list_type"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.integer  "diet_id"
-    t.index ["diet_id"], name: "index_recipe_lists_on_diet_id", using: :btree
     t.index ["user_id"], name: "index_recipe_lists_on_user_id", using: :btree
   end
 
@@ -417,7 +415,6 @@ ActiveRecord::Schema.define(version: 20190330111331) do
   add_foreign_key "orders", "users"
   add_foreign_key "recipe_list_items", "recipe_lists"
   add_foreign_key "recipe_list_items", "recipes"
-  add_foreign_key "recipe_lists", "diets"
   add_foreign_key "recipe_lists", "users"
   add_foreign_key "recommendation_items", "recipe_lists"
   add_foreign_key "recommendation_items", "recommendations"

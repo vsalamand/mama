@@ -12,6 +12,7 @@
           <% @recipe_lists.order(:id).reverse.each do |list| %>
             <li>
               (<%= list.id %>)
+              formule <%= list.formula_list %>
               <%= link_to list.name, recipe_list_path(list) %>
             </li>
           <% end %>

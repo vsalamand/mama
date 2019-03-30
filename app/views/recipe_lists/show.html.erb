@@ -5,9 +5,11 @@
 
   <div class="row">
     <h1><strong><%= @recipe_list.name %></strong></h1>
+    <h4>Formule: <%= @recipe_list.formula_list %></h4>
+    <% unless @recipe_list.user.nil? %>
+      <h3>by <%= @recipe_list.user.username %></h3>
+    <% end  %>
     <h5><%= link_to 'EDIT', edit_recipe_list_path(@recipe_list) %></h5>
-    <p><%= @recipe_list.description %></p>
-    <h3><%= @recipe_list.get_top_foods[0..5].join(", ") %></h3>
   </div>
 
   <div class="row">
