@@ -1,11 +1,12 @@
 
   <%= simple_form_for @recipe_list do |f| %>
 
-    <%= f.input :formula_list, placeholder: "Formula", :collection => ['', 'healthy', 'fast food', 'gourmand', 'rapide'], :selected => '',class: 'form-control' %>
+    <%= f.input :tag_list, input_html: {value: f.object.tag_list.to_s} %>
 
     <%= f.input :name, placeholder: "Leave empty to generate automatically", class: 'form-control' %>
     <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username, class: 'form-control' %>
     <%= f.input :description, type: "Add a description", as: :text, class: 'form-control' %>
+
 
     <h3>Recipes:</h3>
 

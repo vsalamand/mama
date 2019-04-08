@@ -1,15 +1,16 @@
 require 'open-uri'
 
-json.count @recommendations.size
+json.name @recommendations.name
+json.recipe_list_name @recommendations.recipe_list.name
+json.count @recommendations.recipe_list.recipes.size
 json.context "get_recommendations"
-json.recommendations @recommendations.each do |recommendation|
-  json.item_id recommendation.id
-  json.recipe_id recommendation.id
-  json.link card_recipe_url(recommendation.id)
-  json.name recommendation.title
-  json.tags recommendation.tag_list
-  json.category recommendation.category_list
-  json.checklist Checklist.get_checklist(recommendation.foods)
-  json.emoji recommendation.get_emoji
-  json.rank @recommendations.index(recommendation)
+json.recipes @recommendations.recipe_list.recipes.each do |recipe|
+  json.id recipe.id
+  json.link card_recipe_url(recipe.id)
+  json.name recipe.title
+  json.tags recipe.tag_list
+  json.category recipe.category_list
+  json.checklist Checklist.get_checklist(recipe.foods)
+  json.emoji recipe.get_emoji
+  json.rank @recommendations.recipe_list.recipes.index(recipe)
 end

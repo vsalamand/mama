@@ -48,7 +48,7 @@ class Food < ApplicationRecord
   def self.get_shelves(foods)
     shelves = Hash.new
     foods.tag_counts_on(:shelves).each do |shelf|
-      shelves["#{shelf.name}"] = foods.tagged_with("#{shelf.name}").uniq
+      shelves["#{shelf.name}"] = foods.tagged_with("#{shelf.name}").distinct
     end
 
     return shelves

@@ -1,11 +1,6 @@
 require 'open-uri'
 
 json.recipelist_name @recipe_list.name
-# json.image_url "https://image.ibb.co/mKinmn/express.png" if @recipe_list.name.include?("rapide")
-# json.image_url "https://image.ibb.co/hcQsmn/light.png" if @recipe_list.name.include?("léger")
-# json.image_url "https://image.ibb.co/gMonmn/snack.png" if @recipe_list.name.include?("snack")
-# json.image_url "https://image.ibb.co/b3uhK7/tarte.png" if @recipe_list.name.include?("tarte salée")
-# json.image_url "https://image.ibb.co/ng1jXS/gourmand.png" if @recipe_list.name.include?("gourmand")
 json.recipelist_description @recipe_list.description
 json.recipelist_count @recipe_list.recipes.count
 json.recipelist_id @recipe_list.id

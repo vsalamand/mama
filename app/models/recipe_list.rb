@@ -13,8 +13,6 @@ class RecipeList < ApplicationRecord
   accepts_nested_attributes_for :recommendation_items
 
   acts_as_ordered_taggable
-  acts_as_taggable_on :formulas
-
 
   RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool",]
 
@@ -35,7 +33,7 @@ class RecipeList < ApplicationRecord
   end
 
   def get_description
-    foodlist = self.foods.uniq.sort_by { |f| f.category_id }.map { |food| food.name if food.shelf_list != ["épicerie"]}.compact
+    foodlist = self.foods.distinct.sort_by { |f| f.category_id }.map { |food| food.name if food.shelf_list != ["épicerie"]}.compact
     self.description = foodlist.join(", ")
     self.save
   end

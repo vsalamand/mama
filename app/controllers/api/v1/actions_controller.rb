@@ -2,42 +2,19 @@ require 'date'
 
 class Api::V1::ActionsController < Api::V1::BaseController
 
-  #http://localhost:3000/api/v1/get_recommendations??type=salad&user=12345678
+  #http://localhost:3000/api/v1/get_recommendations?id=32038238&user=12345678
   def get_recommendations
-    # categories = Recipe.category_counts
-    categories = Hash.new
-
-    type = params[:type]
-    if type.present?
-      categories["#{type}"] = 10
-    else
-      categories["veggie"] = 1
-      categories["potato"] = 1
-      categories["salad"] = 1
-      categories["meat"] = 1
-      categories["fish"] = 1
-      categories["pasta"] = 1
-      categories["pizza"] = 1
-      categories["snack"] = 1
-    end
-
-    content = []
-    categories.each do |category, quantity|
-      content << Recipe.where(status: "published").tagged_with(category).shuffle.take(quantity)
-    end
-    @recommendations = content.flatten.uniq
+    @recommendations = RecommendationItem.find(params[:id])
 
     respond_to do |format|
       format.json { render :get_recommendations }
     end
 
-
     # Analytics
     recommendations = Hash.new
-    recommendations["recipes"] = @recommendations.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
-    recommendations["type"] = type
+    recommendations["recipes"] = @recommendations.recipe_list.recipes.map.with_index { |recipe, index| ["recipe_id_#{index}", recipe.id] }.to_h
     recommendations["sender_id"] = params[:user].to_i
-    recommendations["source"] = { version: "shuffle"}
+    recommendations["source"] = { type: @recommendations.recipe_list.recipe_list_type, recommendation_item_id: @recommendations.id }
     ahoy.track "get_recommendations", recommendations
   end
 
@@ -65,13 +42,14 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
 
 
-  #http://localhost:3000/api/v1/add_to_cart?product_id=123456&position=0&context=get_reco&user=1191499810899113
+  #http://localhost:3000/api/v1/add_to_cart?product_id=123456&position=0&context=get_reco&referral=21&user=1191499810899113
   def add_to_cart
     profile = User.find_or_create_by(sender_id: params[:user])
     @cart = Cart.find_or_create_by(user_id: profile.id)
     product = Recipe.find(params[:product_id])
     position = params[:position]
     context = params[:context]
+    referral = params[:referral]
     CartItemsController.create(name: product.title, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: @cart.id)
     #RecipeList.add_to_user_history(profile, product)
     respond_to do |format|
@@ -81,8 +59,9 @@ class Api::V1::ActionsController < Api::V1::BaseController
     # Analytics
     cart_item = Hash.new
     cart_item["context"] = context
-    cart_item["position"] = position
+    cart_item["position"] = position.to_i
     cart_item["recipes"] = product.id
+    cart_item["referral"] = referral.to_i
     cart_item["sender_id"] = params[:user].to_i
     ahoy.track "add_to_cart", cart_item
   end
@@ -124,12 +103,13 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
-  #http://localhost:3000/api/v1/direct_checkout?product_id=123456&position=0&context=get_reco&user=1191499810899113
+  #http://localhost:3000/api/v1/direct_checkout?product_id=123456&position=0&context=get_reco&referral=212&&user=1191499810899113
   def direct_checkout
     profile = User.find_or_create_by(sender_id: params[:user])
     product = Recipe.find(params[:product_id])
     position = params[:position]
     context = params[:context]
+    referral = params[:referral]
     type = "grocery list"
 
     @order = Order.create(user_id: profile.id, order_type: type, context: "direct_checkout")
@@ -143,7 +123,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
     # Analytics
     direct_checkout = Hash.new
     direct_checkout["context"] = context
-    direct_checkout["position"] = position
+    direct_checkout["position"] = position.to_i
+    direct_checkout["referral"] = referral.to_i
     direct_checkout["recipes"] = product.id
     direct_checkout["sender_id"] = params[:user].to_i
     ahoy.track "direct_checkout", direct_checkout
@@ -212,7 +193,13 @@ class Api::V1::ActionsController < Api::V1::BaseController
     #ahoy.track "destroy_user", @profile
   end
 
-
+  #http://localhost:3000/api/v1/get_post?recommendation=43434&user=123456
+  def get_post
+    params[:recommendation].present? ? @recommendation = Recommendation.find(params[:recommendation]) : @recommendation = Recommendation.last
+    respond_to do |format|
+      format.json { render :get_post }
+    end
+  end
 
 
 ## STANDBY

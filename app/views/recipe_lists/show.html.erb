@@ -5,7 +5,7 @@
 
   <div class="row">
     <h1><strong><%= @recipe_list.name %></strong></h1>
-    <h4>Formule: <%= @recipe_list.formula_list %></h4>
+    <h4>#<%= @recipe_list.tag_list %></h4>
     <% unless @recipe_list.user.nil? %>
       <h3>by <%= @recipe_list.user.username %></h3>
     <% end  %>
@@ -18,6 +18,17 @@
     <%= show_shelves(@recipe_list.foods) %>
   </div>
 
+  <div class="row">
+    <h3>Checklist:</h3>
+    <ul>
+      <%= @checklist["seasonal vegetables"] ? "✅ légumes de saison" : "❌ légumes de saison" %>
+      <%= @checklist["cruciferous vegetables"] ? "✅ légumes crucifères" : "❌ légumes crucifères" %>
+      <%= @checklist["leafy vegetables"] ? "✅ légumes feuilles" : "❌ légumes feuilles" %>
+      <%= @checklist["legumes"] ? "✅ légumes secs" : "❌ légumes secs" %>
+      <%= @checklist["cereals"] ? "✅ céréales" : "❌ céréales" %>
+      <%= @checklist["oleaginous"] ? "✅ oléagineux" : "❌ oléagineux" %>
+    </ul>
+  </div>
 
   <div class="row">
     <h3>Recipes:</h3>
