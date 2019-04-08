@@ -22,14 +22,15 @@ class RecipeList < ApplicationRecord
 
   def get_name
     if self.name.blank?
-      self.name = Hash[self.foods.group_by{|x| x.root}.map {|k,v| [k, v.size] }.sort_by {|k, v| v}.reverse].keys.flatten.map(&:name)[0..6].join(", ").capitalize
+      self.name = self.get_top_foods[0..6].join(", ")
       self.save
     end
   end
 
   def get_top_foods
     # create hash of food roots sorted by count, and return a list of food names sorted by count
-    foodlist = Hash[self.foods.group_by{|x| x.root}.map {|k,v| [k, v.size] }.sort_by {|k, v| v}.reverse].keys.flatten.map(&:name)
+    foodlist = self.foods - Food.get_condiment_food
+    return Hash[foodlist.group_by{|x| x.root}.map {|k,v| [k, v.size] }.sort_by {|k, v| v}.reverse].keys.flatten.map(&:name)
   end
 
   def get_description

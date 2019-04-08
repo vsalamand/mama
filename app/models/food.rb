@@ -58,6 +58,11 @@ class Food < ApplicationRecord
     return foods.select { |food| food.availability.include?(Date.today.next_week.strftime("%m") )}
   end
 
+  def self.get_condiment_food
+    return Category.find(14).foods.tagged_with("légumes bulbes") + Category.find(6).subtree.map { |c| c.foods }.flatten + Category.find(44).foods + Category.find(38).foods
+
+  end
+
   def add_to_shelf
     if (Category.find(1).subtree - Category.find(15).subtree).include?(self.category)
       self.shelf_list = "fruits et légumes"
