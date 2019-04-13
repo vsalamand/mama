@@ -9,7 +9,7 @@ json.results @search do |array|
   json.recipe_id recipe.id
   json.category recipe.category_list
   json.checklist Checklist.get_checklist(recipe.foods)
-  json.emoji recipe.get_emoji
+  # json.emoji recipe.get_emoji
   json.rank @search.index(recipe)
   json.valid_user @user
 end

@@ -11,6 +11,12 @@
   </div>
 
   <div class="row">
+    <h5><strong>Status</strong></h5>
+    <p><%= @recommendation.is_active %></p>
+    <h5><%= link_to 'Publier', publish_recommendation_path(@recommendation) %></h5>
+  </div>
+
+  <div class="row">
     <h5>Description:</h5>
     <p><%= @recommendation.description %></p>
     <h5>Image url:</h5>

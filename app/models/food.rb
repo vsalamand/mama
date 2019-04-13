@@ -59,7 +59,7 @@ class Food < ApplicationRecord
   end
 
   def self.get_condiment_food
-    return Category.find(14).foods.tagged_with("légumes bulbes") + Category.find(6).subtree.map { |c| c.foods }.flatten + Category.find(44).foods + Category.find(38).foods
+    return Category.find(14).foods.tagged_with("légumes bulbes") + Category.find(6).subtree.map { |c| c.foods }.flatten + Category.find(44).foods + Category.find(38).foods + Category.find(42).foods + Category.find(39).foods
 
   end
 

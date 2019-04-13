@@ -18,7 +18,7 @@ class MetaRecipeList < ApplicationRecord
 
 
   def create_recipe
-    recipe = Recipe.new(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions)
+    recipe = Recipe.new(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, link: self.link)
     recipe.status = "pending"
     recipe.origin = "mama"
     recipe.save

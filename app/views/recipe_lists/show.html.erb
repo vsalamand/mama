@@ -5,6 +5,7 @@
 
   <div class="row">
     <h1><strong><%= @recipe_list.name %></strong></h1>
+    <h5><%= @recipe_list.description %></h5>
     <h4>#<%= @recipe_list.tag_list %></h4>
     <% unless @recipe_list.user.nil? %>
       <h3>by <%= @recipe_list.user.username %></h3>

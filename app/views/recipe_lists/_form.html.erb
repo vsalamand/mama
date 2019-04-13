@@ -10,22 +10,7 @@
 
     <h3>Recipes:</h3>
 
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("veggie").order(:title), :id, :title, {}, multiple: true, placeholder: "🥕 veggie", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("potato").order(:title), :id, :title, {}, multiple: true, placeholder: "🍟 potato", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("salad").order(:title), :id, :title, {}, multiple: true, placeholder: "🥗 salad", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("meat").order(:title), :id, :title, {}, multiple: true, placeholder: "🍖 meat", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("fish").order(:title), :id, :title, {}, multiple: true, placeholder: "🐟 fish", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("pasta").order(:title), :id, :title, {}, multiple: true, placeholder: "🍝 pasta", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("pizza").order(:title), :id, :title, {}, multiple: true, placeholder: "🍕 pizza", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("snack").order(:title), :id, :title, {}, multiple: true, placeholder: "🥪 snack", class: 'form-control select'%>
-
+    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").order(:created_at).reverse, :id, :title, {}, multiple: true, placeholder: "Select recipe", class: 'form-control select'%>
 
     <%= f.submit "Validate", class: "form-control btn-primary" %>
   <% end %>

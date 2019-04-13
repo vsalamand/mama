@@ -195,7 +195,7 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/get_post?recommendation=43434&user=123456
   def get_post
-    params[:recommendation].present? ? @recommendation = Recommendation.find(params[:recommendation]) : @recommendation = Recommendation.last
+    params[:recommendation].present? ? @recommendation = Recommendation.find(params[:recommendation]) : @recommendation = Recommendation.where(is_active: true).last
     respond_to do |format|
       format.json { render :get_post }
     end

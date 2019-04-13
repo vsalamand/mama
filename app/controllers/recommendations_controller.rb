@@ -32,8 +32,14 @@ class RecommendationsController < ApplicationController
     redirect_to recommendation_path(@recommendation)
   end
 
+  def publish
+    @recommendation = Recommendation.find(params[:id])
+    @recommendation.set_active
+    redirect_to recommendation_path(@recommendation)
+  end
+
   private
   def recommendation_params
-    params.require(:recommendation).permit(:name, :date, :description, :image_url, :link, :user_id, recipe_list_ids: [])
+    params.require(:recommendation).permit(:name, :date, :description, :is_active, :image_url, :link, :user_id, recipe_list_ids: [])
   end
 end

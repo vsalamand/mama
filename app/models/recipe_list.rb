@@ -16,7 +16,7 @@ class RecipeList < ApplicationRecord
 
   RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool",]
 
-  after_create_commit :get_name
+  # after_create_commit :get_name
   after_update_commit :get_name
 
 
@@ -34,8 +34,8 @@ class RecipeList < ApplicationRecord
   end
 
   def get_description
-    foodlist = self.foods.distinct.sort_by { |f| f.category_id }.map { |food| food.name if food.shelf_list != ["épicerie"]}.compact
-    self.description = foodlist.join(", ")
+    # foodlist = self.foods.distinct.sort_by { |f| f.category_id }.map { |food| food.name if food.shelf_list != ["épicerie"]}.compact
+    self.description = self.get_top_foods.join(", ")
     self.save
   end
 

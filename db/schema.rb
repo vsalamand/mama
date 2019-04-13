@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190330180656) do
+ActiveRecord::Schema.define(version: 20190413154019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,6 +254,7 @@ ActiveRecord::Schema.define(version: 20190330180656) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "list_type"
+    t.string   "link"
     t.index ["recipe_id"], name: "index_meta_recipe_lists_on_recipe_id", using: :btree
   end
 
@@ -324,14 +325,15 @@ ActiveRecord::Schema.define(version: 20190330180656) do
   end
 
   create_table "recommendations", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "name"
     t.datetime "date"
     t.text     "description"
     t.string   "image_url"
     t.string   "link"
     t.integer  "user_id"
+    t.boolean  "is_active",   default: false
     t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
   end
 

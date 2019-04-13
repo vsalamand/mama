@@ -80,6 +80,9 @@ Rails.application.routes.draw do
 
   resources :recommendations  do
     resources :recommendation_items
+    member do
+      get :publish
+    end
   end
 
   resources :meta_recipes do

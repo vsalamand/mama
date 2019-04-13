@@ -9,7 +9,7 @@
 
     <h3>Recipe lists:</h3>
 
-    <%= f.collection_select :recipe_list_ids, RecipeList.where(recipe_list_type: "curated" ).order(:id), :id, :name, {}, multiple: true, class: 'form-control select'%>
+    <%= f.collection_select :recipe_list_ids, RecipeList.where(recipe_list_type: "curated" ).order(:id).reverse, :id, :name, {}, multiple: true, class: 'form-control select'%>
 
 
     <%= f.submit "Validate", class: "form-control btn-primary" %>

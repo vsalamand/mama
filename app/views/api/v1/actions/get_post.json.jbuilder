@@ -12,4 +12,5 @@ json.items @recommendation.recommendation_items.each do |item|
   json.id item.id
   json.recipe_list_id item.recipe_list_id
   json.recipe_list_name item.recipe_list.name
+  json.recipe_list_description item.recipe_list.description
 end

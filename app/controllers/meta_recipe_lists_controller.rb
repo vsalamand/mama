@@ -17,7 +17,8 @@ class MetaRecipeListsController < ApplicationController
     @meta_recipe_list.name = @meta_recipe_list.get_title
     @meta_recipe_list.list_type = "recipe"
     if @meta_recipe_list.save
-      redirect_to recipe_path(@meta_recipe_list.recipe, format: :pdf)
+      redirect_to pending_path
+      # redirect_to recipe_path(@meta_recipe_list.recipe, format: :pdf)
       # redirect_to card_recipe_url(@meta_recipe_list.recipe)
       # redirect_to meta_recipe_list_path(@meta_recipe_list)
       # redirect_to :back
@@ -45,7 +46,7 @@ class MetaRecipeListsController < ApplicationController
   private
   # use collection_singular_ids "ids: []" to create nested meta recipe list items through meta recipes in List creatin form
   def meta_recipe_list_params
-    params.require(:meta_recipe_list).permit(:name, :id, :recipe_id, meta_recipe_ids: [])
+    params.require(:meta_recipe_list).permit(:name, :link, :id, :recipe_id, meta_recipe_ids: [])
   end
 
   # get all meta recipe ids during MRL creation when mixing MRL + MR
