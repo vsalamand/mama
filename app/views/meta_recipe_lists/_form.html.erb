@@ -1,6 +1,8 @@
 <%= simple_form_for @meta_recipe_list, html: { target: "_blank" } do |f| %>
 
-      <%= f.collection_select :meta_recipe_ids, MetaRecipeList.where(list_type: "pool").first.meta_recipes.order(:name), :id, :name, {}, multiple: true, placeholder: "Select meta recipes", class: 'form-control select' %>
+      <%= f.input :link, placeholder: "Lien de la recette", class: 'form-control' %>
+      <%= f.input :author, placeholder: "Qui est l'auteur ?", class: 'form-control' %>
+      <%= f.collection_select :meta_recipe_ids, MetaRecipe.order(:name), :id, :name, {}, multiple: true, placeholder: "Select meta recipes", class: 'form-control select' %>
 
     <%= f.submit "Valider", data: { disable_with: false }, class: "btn btn-primary" %>
 <% end %>

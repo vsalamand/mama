@@ -7,11 +7,12 @@
         <h2>Proposer une recette</h2>
         <div class="recipe-form">
           <%= simple_form_for @recipe do |f| %>
-            <%= f.input :link, placeholder: "Lien de la recette", label: false, class: 'form-control' %>
-            <%= f.input :title, placeholder: "Titre de la recette", label: false, class: 'form-control' %>
-            <%= f.input :servings, placeholder: "Nombre de personnes", type: "number", label: false, class: 'form-control' %>
-            <%= f.input :ingredients, placeholder: "Ingredients", label: false, class: 'form-control' %>
-            <%= f.input :instructions, placeholder: "Préparation", label: false, class: 'form-control' %>
+            <%= f.input :link, placeholder: "Lien de la recette", class: 'form-control' %>
+            <%= f.input :origin, placeholder: "Qui est l'auteur ?", class: 'form-control' %>
+            <%= f.input :title, placeholder: "Titre de la recette", class: 'form-control' %>
+            <%= f.input :servings, placeholder: "Nombre de personnes", type: "number", class: 'form-control' %>
+            <%= f.input :ingredients, placeholder: "Ingredients", class: 'form-control' %>
+            <%= f.input :instructions, placeholder: "Préparation", class: 'form-control' %>
             <%= f.submit "Envoyer à Mama", class: "form-control btn-primary" %>
           <% end %>
         </div>

@@ -74,7 +74,7 @@ class RecipesController < ApplicationController
         redirect_to import_recipes_path
       end
     else
-      @recipe.origin = "mama"
+      @recipe.origin = "mama" if @recipe.origin.blank?
       @recipe.title = @recipe.title.downcase.capitalize
       if @recipe.save
         @recipe.generate_items

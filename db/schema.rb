@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190413154019) do
+ActiveRecord::Schema.define(version: 20190414150654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 20190413154019) do
     t.datetime "updated_at", null: false
     t.string   "list_type"
     t.string   "link"
+    t.string   "author"
     t.index ["recipe_id"], name: "index_meta_recipe_lists_on_recipe_id", using: :btree
   end
 

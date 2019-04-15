@@ -18,9 +18,9 @@ class MetaRecipeList < ApplicationRecord
 
 
   def create_recipe
-    recipe = Recipe.new(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, link: self.link)
+    recipe = Recipe.new(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, link: self.link, origin: self.author)
     recipe.status = "pending"
-    recipe.origin = "mama"
+    recipe.origin = "mama" if recipe.origin.blank?
     recipe.save
     recipe.generate_items
     self.recipe_id = recipe.id

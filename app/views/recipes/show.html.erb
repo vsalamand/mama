@@ -7,6 +7,7 @@
         <div class="recipe-head">
           <div class="recipe-title">
             <h3><strong><%= @recipe.title %></strong></h3>
+            <h5>by <%= @recipe.origin %></h5>
             <% if current_user %>
               <%= link_to @recipe.link, "#{@recipe.link}", target: :_blank %>
               <%= link_to "Get PDF", recipe_path(format: :pdf) %>
