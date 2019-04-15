@@ -5,7 +5,7 @@ require 'hangry'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
-  skip_before_action :authenticate_user!, only: [ :show, :card, :new, :create ]
+  skip_before_action :authenticate_user!, only: [ :show, :card ]
 
   def show
     respond_to do |format|
@@ -57,26 +57,28 @@ class RecipesController < ApplicationController
     query = params[:query].present? ? params[:query] : nil
 
     @results = if query
-      Recipe.search(query, fields: [:title, :ingredients, :tags, :categories], where: {status: "published"})[0..99]
+      Recipe.search(query, fields: [:title, :ingredients, :tags, :categories])[0..99]
     end
   end
 
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.status = "pending"
-    if @recipe.link
+    if @recipe.title.nil?
       recipe_parser(@recipe.link)
+      @recipe.title = @recipe.title.downcase.capitalize
       if @recipe.save
         @recipe.generate_items
-        redirect_to confirmation_path
+        redirect_to pending_path
       else
         redirect_to import_recipes_path
       end
     else
-      @recipe.origin = "mama"
+      @recipe.origin = "mama" if @recipe.origin.blank?
+      @recipe.title = @recipe.title.downcase.capitalize
       if @recipe.save
         @recipe.generate_items
-        redirect_to confirmation_path
+        redirect_to pending_path
       else
         redirect_to new_recipe_path
       end
@@ -84,6 +86,12 @@ class RecipesController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    @recipe.update(recipe_params)
+    @recipe.generate_items
+    redirect_to recipe_path(@recipe)
   end
 
 

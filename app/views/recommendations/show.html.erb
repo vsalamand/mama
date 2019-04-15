@@ -1,0 +1,43 @@
+<%= render 'shared/admin-navbar' %>
+
+
+<div class="container">
+
+  <div class="row">
+    <h1><strong><%= @recommendation.name %></strong></h1>
+    <h3>by <%= @recommendation.user.username %></h3>
+    <h5><%= link_to 'EDIT', edit_recommendation_path(@recommendation) %></h5>
+    <p>Schedule Date: <strong>week <%= @recommendation.date.strftime('%W') %></strong></p>
+  </div>
+
+  <div class="row">
+    <h5><strong>Status</strong></h5>
+    <p><%= @recommendation.is_active %></p>
+    <h5><%= link_to 'Publier', publish_recommendation_path(@recommendation) %></h5>
+  </div>
+
+  <div class="row">
+    <h5>Description:</h5>
+    <p><%= @recommendation.description %></p>
+    <h5>Image url:</h5>
+    <%= link_to 'View image', @recommendation.image_url, :target => "_blank" %>
+    <h5>Url Link:</h5>
+    <%= link_to 'View website', @recommendation.link, :target => "_blank" %>
+  </div>
+
+  <div class="row">
+    <h3>Recipe Lists:</h3>
+    <h5><%= link_to 'ADD NEW', new_recommendation_recommendation_item_path(@recommendation) %></h5>
+    <ol>
+      <% @recommendation.recommendation_items.order(:id).each do |item| %>
+        <li>
+          (<%= item.id %>)
+          <%= link_to item.name, edit_recommendation_recommendation_item_path(@recommendation, item) %>
+          #<%= item.recipe_list.tag_list %>
+          <%= link_to item.recipe_list.name, recipe_list_path(item.recipe_list) %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+
+</div>

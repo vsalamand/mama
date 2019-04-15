@@ -48,7 +48,7 @@ class Food < ApplicationRecord
   def self.get_shelves(foods)
     shelves = Hash.new
     foods.tag_counts_on(:shelves).each do |shelf|
-      shelves["#{shelf.name}"] = foods.tagged_with("#{shelf.name}").uniq
+      shelves["#{shelf.name}"] = foods.tagged_with("#{shelf.name}").distinct
     end
 
     return shelves
@@ -56,6 +56,11 @@ class Food < ApplicationRecord
 
   def self.select_seasonal_food(foods)
     return foods.select { |food| food.availability.include?(Date.today.next_week.strftime("%m") )}
+  end
+
+  def self.get_condiment_food
+    return Category.find(14).foods.tagged_with("légumes bulbes") + Category.find(6).subtree.map { |c| c.foods }.flatten + Category.find(44).foods + Category.find(38).foods + Category.find(42).foods + Category.find(39).foods
+
   end
 
   def add_to_shelf

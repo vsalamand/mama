@@ -1,0 +1,23 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+
+
+  <div class="row">
+    <h3>Recommendations:</h3>
+    <h5><%= link_to 'NEW', new_recommendation_path %></h5>
+
+    <% unless @recommendations.nil? %>
+        <ol>
+          <% @recommendations.order(:id).reverse.each do |reco| %>
+            <li>
+              (<%= reco.id %>)
+              <%= link_to reco.name, recommendation_path(reco) %>
+            </li>
+          <% end %>
+        </ol>
+    <% end %>
+
+  </div>
+
+</div>

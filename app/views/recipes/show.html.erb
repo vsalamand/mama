@@ -1,3 +1,4 @@
+<%= render 'shared/admin-navbar' %>
 
 <div class="container">
 
@@ -6,6 +7,7 @@
         <div class="recipe-head">
           <div class="recipe-title">
             <h3><strong><%= @recipe.title %></strong></h3>
+            <h5>by <%= @recipe.origin %></h5>
             <% if current_user %>
               <%= link_to @recipe.link, "#{@recipe.link}", target: :_blank %>
               <%= link_to "Get PDF", recipe_path(format: :pdf) %>
@@ -14,6 +16,7 @@
               <%= link_to "| voir les meta recettes", meta_recipe_list_path(@recipe.meta_recipe_lists.last), target: :_blank %>
             <% end %>
           </div>
+           <h5><%= link_to 'EDIT', edit_recipe_path(@recipe) %></h5>
           <div class="recipe-tags">
             <% @recipe.tag_list.each do |tag| %>
               <div class="tag-item">

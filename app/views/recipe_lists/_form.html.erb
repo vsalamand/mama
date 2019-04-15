@@ -1,25 +1,16 @@
 
   <%= simple_form_for @recipe_list do |f| %>
-    <%= f.input :name, placeholder: "Name", label: false, class: 'form-control' %>
-    <%= f.input :description, type: "Add a description", as: :text, label: false, class: 'form-control' %>
+
+    <%= f.input :tag_list, input_html: {value: f.object.tag_list.to_s} %>
+
+    <%= f.input :name, placeholder: "Leave empty to generate automatically", class: 'form-control' %>
+    <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username, class: 'form-control' %>
+    <%= f.input :description, type: "Add a description", as: :text, class: 'form-control' %>
 
 
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("veggie").order(:title), :id, :title, {}, multiple: true, placeholder: "🥕 veggie", class: 'form-control select'%>
+    <h3>Recipes:</h3>
 
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("potato").order(:title), :id, :title, {}, multiple: true, placeholder: "🍟 potato", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("salad").order(:title), :id, :title, {}, multiple: true, placeholder: "🥗 salad", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("meat").order(:title), :id, :title, {}, multiple: true, placeholder: "🍖 meat", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("fish").order(:title), :id, :title, {}, multiple: true, placeholder: "🐟 fish", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("pasta").order(:title), :id, :title, {}, multiple: true, placeholder: "🍝 pasta", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("pizza").order(:title), :id, :title, {}, multiple: true, placeholder: "🍕 pizza", class: 'form-control select'%>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").tagged_with("snack").order(:title), :id, :title, {}, multiple: true, placeholder: "🥪 snack", class: 'form-control select'%>
-
+    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").order(:created_at).reverse, :id, :title, {}, multiple: true, placeholder: "Select recipe", class: 'form-control select'%>
 
     <%= f.submit "Validate", class: "form-control btn-primary" %>
   <% end %>

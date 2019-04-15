@@ -5,8 +5,12 @@
 
   <div class="row">
     <h1><strong><%= @recipe_list.name %></strong></h1>
+    <h5><%= @recipe_list.description %></h5>
+    <h4>#<%= @recipe_list.tag_list %></h4>
+    <% unless @recipe_list.user.nil? %>
+      <h3>by <%= @recipe_list.user.username %></h3>
+    <% end  %>
     <h5><%= link_to 'EDIT', edit_recipe_list_path(@recipe_list) %></h5>
-    <p><%= @recipe_list.description %></p>
   </div>
 
   <div class="row">
@@ -15,6 +19,17 @@
     <%= show_shelves(@recipe_list.foods) %>
   </div>
 
+  <div class="row">
+    <h3>Checklist:</h3>
+    <ul>
+      <%= @checklist["seasonal vegetables"] ? "✅ légumes de saison" : "❌ légumes de saison" %>
+      <%= @checklist["cruciferous vegetables"] ? "✅ légumes crucifères" : "❌ légumes crucifères" %>
+      <%= @checklist["leafy vegetables"] ? "✅ légumes feuilles" : "❌ légumes feuilles" %>
+      <%= @checklist["legumes"] ? "✅ légumes secs" : "❌ légumes secs" %>
+      <%= @checklist["cereals"] ? "✅ céréales" : "❌ céréales" %>
+      <%= @checklist["oleaginous"] ? "✅ oléagineux" : "❌ oléagineux" %>
+    </ul>
+  </div>
 
   <div class="row">
     <h3>Recipes:</h3>
@@ -26,6 +41,18 @@
         </li>
       <% end %>
     </ol>
+  </div>
+
+  <div class="row">
+    <h3>Recommendations:</h3>
+    <ul>
+      <% @recipe_list.recommendations.order(:id).each do |reco| %>
+        <li>
+          (<%= reco.id %>)
+          <%= link_to reco.name, recommendation_path(reco) %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
 </div>

@@ -7,12 +7,12 @@
         <h2>Importer une recette</h2>
         <div class="recipe-form">
           <%= simple_form_for @recipe do |f| %>
-            <%= f.input :tag_list, placeholder: "Type de recette", :collection => ['', 'rapide', 'léger', 'gourmand', 'snack', 'tarte salée'], :selected => '', label: false,class: 'form-control' %>
             <%= f.input :link, placeholder: "Lien de la recette", label: false, class: 'form-control' %>
             <%= f.submit "Envoyer à Mama", class: "form-control btn-primary" %>
           <% end %>
         </div>
-        <%= link_to 'Ou créer une nouvelle recette', new_recipe_path %>
+        <h5><%= link_to 'Créer une recette existante', new_recipe_path %></h5>
+        <h5><%= link_to 'Construire une nouvelle recette', new_meta_recipe_list_path %></h5>
       </div>
     </div>
   </div>

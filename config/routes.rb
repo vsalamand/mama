@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'user_diet', to: 'actions#user_diet'
       get 'get_sender_ids', to: 'actions#get_sender_ids'
       get 'destroy_user', to: 'actions#destroy_user'
+      get 'get_post', to: 'actions#get_post'
     end
   end
 
@@ -76,6 +77,13 @@ Rails.application.routes.draw do
   end
 
   resources :food_lists, :recipe_lists
+
+  resources :recommendations  do
+    resources :recommendation_items
+    member do
+      get :publish
+    end
+  end
 
   resources :meta_recipes do
     resources :meta_recipe_items

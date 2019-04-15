@@ -16,8 +16,7 @@
             <%= f.submit "Envoyer à Mama", class: "form-control btn-primary" %>
           <% end %>
         </div>
-        <h5><%= link_to 'Importer une recette existante', import_recipes_path %></h5>
-        <h5><%= link_to 'Construire une nouvelle recette', new_meta_recipe_list_path %></h5>
+        <%= link_to 'Annuler', recipe_path(@recipe) %>
       </div>
     </div>
   </div>

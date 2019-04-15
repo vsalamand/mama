@@ -17,7 +17,7 @@
         <ol>
           <% @results.each do |recipe| %>
             <li>
-              (<%= recipe.id %>)
+              (<%= recipe.id %> | <%= recipe.status %>)
               <%= link_to recipe.title, recipe_path(recipe) %>
             </li>
           <% end %>
