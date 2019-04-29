@@ -5,7 +5,7 @@ json.recipe_list_name @recommendations.recipe_list.name
 json.recipe_list_description @recommendations.recipe_list.description
 json.count @recommendations.recipe_list.recipes.size
 json.context "get_recommendations"
-json.recipes @recommendations.recipe_list.recipes.each do |recipe|
+json.recipes @recommendations.recipe_list.recipes.reverse.each do |recipe|
   json.id recipe.id
   json.link recipe.link.blank? ? card_recipe_url(recipe.id) : recipe.link
   json.name recipe.title
