@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get 'get_sender_ids', to: 'actions#get_sender_ids'
       get 'destroy_user', to: 'actions#destroy_user'
       get 'get_post', to: 'actions#get_post'
+      get 'get_recipe', to: 'actions#get_recipe'
     end
   end
 
