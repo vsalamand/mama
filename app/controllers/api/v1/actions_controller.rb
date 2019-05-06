@@ -201,6 +201,14 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/get_recipe/id
+  def get_recipe
+    @recipe = Recipe.find(params[:id])
+    respond_to do |format|
+      format.json { render :get_recipe }
+    end
+  end
+
 
 ## STANDBY
 
