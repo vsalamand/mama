@@ -80,4 +80,11 @@ namespace :recommendation do
     puts "done !"
   end
 
+  desc "update items now"
+  task update_items_now: :environment do
+    puts "uploading items..."
+    UpdateItemsJob.perform_now
+    puts "done !"
+  end
+
 end
