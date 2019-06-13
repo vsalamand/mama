@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190608103056) do
+ActiveRecord::Schema.define(version: 20190613131900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,8 +239,11 @@ ActiveRecord::Schema.define(version: 20190608103056) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "name"
+    t.integer  "unit_id"
+    t.float    "quantity"
     t.index ["food_id"], name: "index_meta_recipe_items_on_food_id", using: :btree
     t.index ["meta_recipe_id"], name: "index_meta_recipe_items_on_meta_recipe_id", using: :btree
+    t.index ["unit_id"], name: "index_meta_recipe_items_on_unit_id", using: :btree
   end
 
   create_table "meta_recipe_list_items", force: :cascade do |t|
@@ -417,6 +420,7 @@ ActiveRecord::Schema.define(version: 20190608103056) do
   add_foreign_key "items", "units"
   add_foreign_key "meta_recipe_items", "foods"
   add_foreign_key "meta_recipe_items", "meta_recipes"
+  add_foreign_key "meta_recipe_items", "units"
   add_foreign_key "meta_recipe_list_items", "meta_recipe_lists"
   add_foreign_key "meta_recipe_list_items", "meta_recipes"
   add_foreign_key "meta_recipe_lists", "recipes"
