@@ -35,6 +35,6 @@ private
   end
 
   def meta_recipe_items_params
-    params.require(:meta_recipe_item).permit(:food_id, :meta_recipe, :ingredient, :name)
+    params.require(:meta_recipe_item).permit(:food_id, :meta_recipe, :ingredient, :name, :quantity, :unit)
   end
 end
