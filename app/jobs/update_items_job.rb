@@ -6,6 +6,7 @@ class UpdateItemsJob < ApplicationJob
     Recipe.all.each do |recipe|
       puts recipe.title
       Item.update_recipe_items(recipe)
+      sleep(12.0/24.0)
     end
   end
 end

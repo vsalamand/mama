@@ -18,7 +18,7 @@ class MetaRecipeItem < ApplicationRecord
   def self.update_meta_recipe_items(meta_recipe)
     ingredients = meta_recipe.ingredients.split("\r\n")
     ingredients.each do |element|
-      mr_item = MetaRecipeItem.find_by(meta_recipe: meta_recipe, ingredient: element)
+      mr_item = MetaRecipeItem.find_by(meta_recipe: meta_recipe, ingredient: element.strip)
       unless mr_item.nil?
         mr_item.quantity = mr_item.food.serving if mr_item.food.serving.present?
         mr_item.unit = mr_item.food.unit if mr_item.food.unit.present?

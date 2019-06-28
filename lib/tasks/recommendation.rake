@@ -87,4 +87,18 @@ namespace :recommendation do
     puts "done !"
   end
 
+  desc "update meta recipe items now"
+  task update_meta_recipe_items_now: :environment do
+    puts "uploading items..."
+    MetaRecipeItemsJob.perform_now
+    puts "done !"
+  end
+
+  desc "update meta recipe list recipes  now"
+  task update_meta_recipe_list_recipes_now: :environment do
+    puts "uploading items..."
+    UpdateMetaRecipeListRecipesJob.perform_now
+    puts "done !"
+  end
+
 end

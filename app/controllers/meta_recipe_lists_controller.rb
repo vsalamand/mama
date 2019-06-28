@@ -16,7 +16,6 @@ class MetaRecipeListsController < ApplicationController
     @meta_recipe_list = MetaRecipeList.new(parameters)
     @meta_recipe_list.name = @meta_recipe_list.get_title
     @meta_recipe_list.list_type = "recipe"
-    binding.pry
     if @meta_recipe_list.save
       redirect_to pending_path
       # redirect_to recipe_path(@meta_recipe_list.recipe, format: :pdf)

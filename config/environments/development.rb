@@ -57,4 +57,8 @@ config.webpacker.check_yarn_integrity = true
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # whitelist ip address becasue I'm blocked when I try to create a new recipe in development
+  # error = Cannot render console from 54.217.138.189! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  config.web_console.whitelisted_ips = '54.217.138.189'
 end
