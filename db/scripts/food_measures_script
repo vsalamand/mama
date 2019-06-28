@@ -1,0 +1,43 @@
+volum_cat = [31, 35, 36, 39, 40, 41]
+ung = [42, 44]
+dixg = [18, 30, 32, 33, 34, 37, 38]
+trenteg = [12, 15]
+cinquanteg = [16, 17, 23]
+soixanteg = [20, 21, 22]
+centg = [14, 11, 13, 47, 19, 25, 26, 27, 28, 29]
+quinzeml = [35, 36]
+centecinquanteml = [45]
+deuxcentcinquanteml = [31, 39, 40, 41]
+
+Food.all.each do |food|
+  if volum_cat.include?(food.category_id) then food.measure = "volume"
+   else food.measure = "weight"
+  end
+
+  if food.measure = "weight" then food.unit_id = 2
+    else food.unit = 5
+  end
+
+  if ung.include?(food.category_id)
+    food.serving = 1
+  elsif dixg.include?(food.category_id)
+    food.serving = 10
+  elsif trenteg.include?(food.category_id)
+    food.serving = 30
+  elsif cinquanteg.include?(food.category_id)
+    food.serving = 50
+  elsif soixanteg.include?(food.category_id)
+    food.serving = 60
+  elsif centg.include?(food.category_id)
+    food.serving = 100
+  elsif quinzeml.include?(food.category_id)
+    food.serving = 15
+  elsif centecinquanteml.include?(food.category_id)
+    food.serving = 150
+  elsif deuxcentcinquanteml.include?(food.category_id)
+    food.serving = 250
+  end
+
+  food.save
+
+end
