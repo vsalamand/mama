@@ -209,6 +209,23 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/get_foods
+  def get_foods
+    @foods = Food.all
+    respond_to do |format|
+      format.json { render :get_foods }
+    end
+  end
+
+  #http://localhost:3000/api/v1/get_units
+  def get_units
+    @units = Unit.all
+    respond_to do |format|
+      format.json { render :get_units }
+    end
+  end
+
+
 
 ## STANDBY
 

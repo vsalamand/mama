@@ -1,6 +1,7 @@
 class MetaRecipeListItem < ApplicationRecord
   belongs_to :meta_recipe_list
   belongs_to :meta_recipe, inverse_of: :meta_recipe_list_items
+  has_many :meta_recipe_items, through: :meta_recipe
 
   accepts_nested_attributes_for :meta_recipe
 

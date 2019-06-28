@@ -68,7 +68,7 @@ class RecipesController < ApplicationController
       recipe_parser(@recipe.link)
       @recipe.title = @recipe.title.downcase.capitalize
       if @recipe.save
-        @recipe.generate_items
+        Item.add_recipe_items(@recipe)
         redirect_to pending_path
       else
         redirect_to import_recipes_path
@@ -77,7 +77,7 @@ class RecipesController < ApplicationController
       @recipe.origin = "mama" if @recipe.origin.blank?
       @recipe.title = @recipe.title.downcase.capitalize
       if @recipe.save
-        @recipe.generate_items
+        Item.add_recipe_items(@recipe)
         redirect_to pending_path
       else
         redirect_to new_recipe_path
@@ -90,7 +90,6 @@ class RecipesController < ApplicationController
 
   def update
     @recipe.update(recipe_params)
-    @recipe.generate_items
     redirect_to recipe_path(@recipe)
   end
 

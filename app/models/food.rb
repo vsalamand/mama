@@ -6,10 +6,14 @@ class Food < ApplicationRecord
   has_many :meta_recipes, through: :meta_recipe_items
   has_many :cart_items, :as => :productable
   belongs_to :category
+  belongs_to :unit, optional: true
   has_many :banned_foods
   has_many :diets, through: :banned_foods
   has_many :food_list_items
   has_many :food_lists, through: :food_list_items
+  has_many :units, through: :items
+
+  enum measure: {weight: 'weight', volume: 'volume', piece: 'piece'}
 
 
   acts_as_ordered_taggable

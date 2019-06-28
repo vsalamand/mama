@@ -16,15 +16,26 @@ class MetaRecipeList < ApplicationRecord
     self.tag_recipe
   end
 
-
   def create_recipe
-    recipe = Recipe.new(title: self.get_title, servings: 1, ingredients: self.get_ingredients, instructions: self.get_instructions, link: self.link, origin: self.author)
+    recipe = Recipe.new(title: self.get_title, servings: 1, ingredients: self.list_ingredients, instructions: self.get_instructions, link: self.link, origin: self.author)
     recipe.status = "pending"
     recipe.origin = "mama" if recipe.origin.blank?
     recipe.save
-    recipe.generate_items
+    Thread.new do
+      Item.add_recipe_items(recipe)
+    end
     self.recipe_id = recipe.id
     self.save
+  end
+
+  def update_recipe
+    recipe = self.recipe
+    recipe.ingredients = self.list_ingredients
+    recipe.instructions = self.get_instructions
+    recipe.save
+    Thread.new do
+      Item.update_recipe_items(recipe)
+    end
   end
 
   def get_title
@@ -86,17 +97,55 @@ class MetaRecipeList < ApplicationRecord
     end
   end
 
-  def get_ingredients
+  def get_ingredients_data
+    # get meta recipe list items
+    mrl_items = self.meta_recipe_list_items.order(:id)
+    # get related meta recipe items
+    mr_items = mrl_items.map { |mrl_item| mrl_item.meta_recipe_items.order(:id) }.flatten
+    # sort by food categories
+    sorted_items = mr_items.sort_by { |item| item.food }
+    # get ingredients lines from items
+    data = Hash.new
+    sorted_items.each do |item|
+      if data.has_key?("#{item.name}")
+        data["#{item.name}"]["quantity"].present? ? data[item.name]["quantity"] = item.quantity + data["#{item.name}"]["quantity"] : data[item.name]["quantity"] = item.quantity
+      else
+        data[item.name] = Hash.new
+        data[item.name]["quantity"] = item.quantity
+        data[item.name]["unit"] = item.unit
+      end
+    end
+    return data
+  end
+
+  def list_ingredients
+    # retrieve ingredients hash
+    data = self.get_ingredients_data
+    # get ingredients text from data
     ingredients = []
-    foods = self.foods
-    foods.uniq.sort_by { |food| food.category.id }.each { |food| ingredients << food.name }
+    data.each do |key, hash|
+      ingredients << "#{key} (#{hash["quantity"] if hash["quantity"].present?} #{hash["unit"].name if hash["unit"].present?})"
+    end
     return ingredients.join("\r\n")
   end
 
-  def update_ingredients
+  def update_ingredients_items
+    # retrieve ingredients hash
+    data = self.get_ingredients_data
+    # get recipe
     recipe = self.recipe
-    recipe.ingredients = self.get_ingredients
-    recipe.generate_items
+    # get ingredients text from data and match with recipe items
+    recipe.items.each do |item|
+      if data.has_key?(item.recipe_ingredient.strip)
+        item.quantity = data[item.recipe_ingredient.strip]["quantity"]
+        item.unit = data[item.recipe_ingredient.strip]["unit"] if data[item.recipe_ingredient.strip]["unit"].present?
+        item.recipe_ingredient = "#{item.recipe_ingredient.strip} (#{item.quantity} #{item.unit.name if item.unit.present?})"
+        item.save
+      end
+    end
+    # update recipe ingredients and items
+    recipe.ingredients = self.list_ingredients
+    # recipe.generate_items
     recipe.save
   end
 

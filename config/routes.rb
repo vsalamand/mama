@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       get 'destroy_user', to: 'actions#destroy_user'
       get 'get_post', to: 'actions#get_post'
       get 'get_recipe', to: 'actions#get_recipe'
+      get 'get_foods', to: 'actions#get_foods'
+      get 'get_units', to: 'actions#get_units'
     end
   end
 
