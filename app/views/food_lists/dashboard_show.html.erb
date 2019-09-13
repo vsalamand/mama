@@ -1,0 +1,53 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container" style="display: flex; justify-content: space-around;">
+
+  <div class="row">
+    <h1>All <%= @foodlist.name %> (<%= @foods.count %>)</h1>
+
+    <table>
+
+      <thead>
+        <tr>
+          <td><strong>Nb of recipes   |</strong></td>
+          <td><strong>Food name</strong></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @foods.each do |food| %>
+          <tr>
+            <td><%= food.recipes.where(status: "published").count %></td>
+            <td><%= link_to food.name, rails_admin.show_path(model_name: 'food', id: food.id) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+
+
+  <div class="row">
+    <h1 style="color: green"><%= @foodlist.name.capitalize %> of the month (<%= @seasonal_foods.count %>)</h1>
+    <table>
+
+      <thead>
+        <tr>
+          <td><strong>Nb of recipes   |</strong></td>
+          <td><strong>Food name</strong></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @seasonal_foods.each do |food| %>
+          <tr>
+            <td><%= food.recipes.where(status: "published").count %></td>
+            <td><%= link_to food.name, rails_admin.show_path(model_name: 'food', id: food.id) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

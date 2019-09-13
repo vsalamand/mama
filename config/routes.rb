@@ -79,7 +79,20 @@ Rails.application.routes.draw do
 
   end
 
-  resources :food_lists, :recipe_lists
+  resources :recipe_lists
+
+  resources :food_lists do
+    member do
+      get :add
+    end
+    resources :food_list_items
+  end
+
+  resources :food_list_items do
+    member do
+      get :create_foodlist_item
+    end
+  end
 
   resources :recommendations  do
     resources :recommendation_items

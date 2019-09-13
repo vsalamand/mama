@@ -1,0 +1,21 @@
+<div class="container">
+
+
+  <div class="row">
+    <h3>Shopping lists:</h3>
+    <h5><%= link_to 'NEW', new_food_list_path %></h5>
+
+    <% unless @foodlists.nil? %>
+        <ol>
+          <% @foodlists.order(:id).reverse.each do |list| %>
+            <li>
+              (<%= list.id %>)
+              <%= link_to list.name, food_list_path(list) %>
+            </li>
+          <% end %>
+        </ol>
+    <% end %>
+
+  </div>
+
+</div>
