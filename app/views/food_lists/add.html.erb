@@ -18,9 +18,9 @@
     <% end %>
   </div>
   <div class="row">
-    <% if @foods %>
-      <% @foods.each do |food| %>
-        <%= food.name %>
+    <% if @search %>
+      <% @search.each do |food| %>
+        <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
       <% end %>
     <% end %>
   </div>
