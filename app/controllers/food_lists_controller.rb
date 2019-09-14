@@ -41,7 +41,7 @@ class FoodListsController < ApplicationController
       Food.search(query, fields: [:name])[0..99]
     end
     @similar_food = @foodlist.get_similar_food
-    @seasonal_produce = @foodlist.get_seasonal_produce
+    @seasonal_produce = @foodlist.get_seasonal_produce - @foodlist.foods
   end
 
   # def show

@@ -1,22 +1,23 @@
 <div class="container">
-
   <div class="row">
-    <h1><strong><%= @foodlist.name %></strong></h1>
-    <h4><strong>Ajouter des ingrédients</strong></h4>
+    <h1><strong>Ajouter des ingrédients</strong></h1>
+  </div>
+  <div class="row">
+    <h4><strong><%= @foodlist.name %></strong></h4>
+    <h4><%= @foodlist.foods.size %> ingrédients</h4>
     <%= link_to 'Revenir', food_list_path(@foodlist), class: 'btn btn-primary btn-lg' %>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
+    <h4><strong>Recherche:</strong></h4>
     <%= form_tag(add_food_list_path, :method => "get") do %>
       <%= text_field_tag :query, params[:query], placeholder: "Chercher des ingrédients", required: true %>
       <%= submit_tag "Chercher" %>
     <% end %>
   </div>
-
   <div class="row">
-    <h5>résultats:</h5>
     <% if @foods %>
       <% @foods.each do |food| %>
         <%= food.name %>
