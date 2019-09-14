@@ -3,14 +3,17 @@
 
   <div class="row">
     <h3>Shopping lists:</h3>
-    <h5><%= link_to 'NEW', new_food_list_path %></h5>
+    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#shoppinglistModal">
+      Créer une nouvelle liste de courses
+    </button>
 
     <% unless @foodlists.nil? %>
         <ol>
-          <% @foodlists.order(:id).reverse.each do |list| %>
+          <% @foodlists.order(:id).reverse.each do |foodlist| %>
             <li>
-              (<%= list.id %>)
-              <%= link_to list.name, food_list_path(list) %>
+              (<%= foodlist.id %>)
+              <%= link_to foodlist.name, food_list_path(foodlist) %>
+              <%= foodlist.foods.size %> ingrédients
             </li>
           <% end %>
         </ol>
@@ -18,4 +21,17 @@
 
   </div>
 
+</div>
+
+<div class="modal" id="shoppinglistModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">👉 Créer une nouvelle liste de courses</h3>
+      </div>
+      <div class="modal-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
 </div>

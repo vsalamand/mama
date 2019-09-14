@@ -11,11 +11,11 @@ class FoodListsController < ApplicationController
 
   def create
     @foodlist = FoodList.new(food_list_params)
-    @foodlist.name = "Liste de courses (#{Date.today.strftime('%d %m %Y')})"
+    @foodlist.name = "Liste de courses (#{current_user.food_lists.where(food_list_type: "grocery_list").size + 1})"
     @foodlist.user = current_user
     @foodlist.food_list_type = "grocery_list"
     if @foodlist.save
-      redirect_to food_list_path(@foodlist)
+      redirect_to add_food_list_path(@foodlist)
     else
       redirect_to new_food_list_path
     end
@@ -32,6 +32,7 @@ class FoodListsController < ApplicationController
   end
 
   def index
+    @foodlist = FoodList.new
     @foodlists = current_user.food_lists.where(food_list_type: "grocery_list")
   end
 

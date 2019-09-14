@@ -28,9 +28,11 @@
 
 <div class="container">
   <div class="row">
-    <h4><strong>Similaires:</strong></h4>
-    <% @similar_food.each do |food| %>
-        <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+    <% unless @similar_food.nil? %>
+      <h4><strong>Similaires:</strong></h4>
+      <% @similar_food.each do |food| %>
+          <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+      <% end %>
     <% end %>
   </div>
 </div>

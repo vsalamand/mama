@@ -13,14 +13,18 @@ class FoodList < ApplicationRecord
 
   # get list of similar foods from smartmama
   def get_similar_food
-    items = []
-    self.foods.map {|x| x.name}.each { |food| items << "item=#{food}"}
-    url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/predict?#{items.join("&")}"))
-    data = JSON.parse(open(url).read)
-    result = data.map {|x| x.values[0]}
-    suggested_foods = []
-    result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
-    return suggested_foods
+    if self.foods.any?
+      items = []
+      self.foods.map {|x| x.name}.each { |food| items << "item=#{food}"}
+      url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/predict?#{items.join("&")}"))
+      data = JSON.parse(open(url).read)
+      result = data.map {|x| x.values[0]}
+      suggested_foods = []
+      result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
+      return suggested_foods
+    else
+      return nil
+    end
   end
 
   # get list of vegetables & fruits of the month

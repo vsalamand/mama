@@ -1,15 +1,8 @@
 
   <%= simple_form_for @foodlist do |f| %>
 
-    <h4>Suggested:</h4>
-    <%= f.input :food_ids, collection: @similar_food, class: 'form-control'%>
+    <%= f.input :name, input_html: { value: "Liste de courses (#{current_user.food_lists.where(food_list_type: "grocery_list").size + 1})" }, label: false, class: 'form-control'%>
 
-    <h4>Seasonal:</h4>
-    <%= f.collection_select :food_ids, @seasonal_produce, :id, :name, {}, multiple: true, class: 'form-control'%>
-
-
-    <h4>All food:</h4>
-    <%= f.collection_select :food_ids, Food.all, :id, :name, {}, multiple: true, class: 'form-control'%>
-
-    <%= f.submit "Validate", class: "form-control btn-primary" %>
+    <%= f.submit "Continuer", class: "form-control btn-primary" %>
+    <%= link_to 'Annuler', food_lists_path(@foodlists), class: "form-control btn-default" %>
   <% end %>
