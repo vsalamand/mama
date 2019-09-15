@@ -1,53 +1,24 @@
-<%= render 'shared/admin-navbar' %>
-
-<div class="container" style="display: flex; justify-content: space-around;">
+<div class="container">
 
   <div class="row">
-    <h1>All <%= @foodlist.name %> (<%= @foods.count %>)</h1>
+    <h1><strong><%= @foodlist.name %></strong></h1>
+    <h4><%= @foodlist.foods.size %> ingrédients</h4>
+    <%= link_to 'Revenir', food_lists_path(@foodlists), class: 'btn btn-primary btn-md' %>
+    <%= link_to 'Ajouter des ingrédients', add_food_list_path(@foodlist), class: 'btn btn-default btn-block' %>
 
-    <table>
-
-      <thead>
-        <tr>
-          <td><strong>Nb of recipes   |</strong></td>
-          <td><strong>Food name</strong></td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @foods.each do |food| %>
-          <tr>
-            <td><%= food.recipes.where(status: "published").count %></td>
-            <td><%= link_to food.name, rails_admin.show_path(model_name: 'food', id: food.id) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-
-    </table>
   </div>
 
-
   <div class="row">
-    <h1 style="color: green"><%= @foodlist.name.capitalize %> of the month (<%= @seasonal_foods.count %>)</h1>
-    <table>
-
-      <thead>
-        <tr>
-          <td><strong>Nb of recipes   |</strong></td>
-          <td><strong>Food name</strong></td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @seasonal_foods.each do |food| %>
-          <tr>
-            <td><%= food.recipes.where(status: "published").count %></td>
-            <td><%= link_to food.name, rails_admin.show_path(model_name: 'food', id: food.id) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-
-    </table>
+    <ul>
+      <% @foodlist.food_list_items.order(:id).each do |fli| %>
+        <li>
+          <h3>
+            <%= fli.food.name.capitalize %>
+            <%= link_to 'remove', food_list_food_list_item_path(fli.food_list, fli), method: :delete %>
+          </h3>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
 </div>
