@@ -58,7 +58,7 @@ gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 # scraper
-gem 'nokogiri'
+# gem 'nokogiri'
 #recipe microformat parser for ruby
 gem 'hangry'
 #Bayesian Classifier

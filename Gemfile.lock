@@ -398,7 +398,6 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   nested_form_fields
-  nokogiri
   openfoodfacts
   pg (~> 0.18)
   pry
@@ -427,4 +426,4 @@ RUBY VERSION
    ruby 2.4.4p296
 
 BUNDLED WITH
-   1.16.5
+   2.0.1
