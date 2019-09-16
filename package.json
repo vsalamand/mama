@@ -1,9 +1,6 @@
 {
   "name": "mama",
   "version": "1.0.0",
-  "engines": {
-    "node": "12.10.0"
-  },
   "main": "index.js",
   "repository": "git@github.com:vsalamand/mama.git",
   "author": "Vincent Salamand <salamandvincent@gmail.com>",
@@ -22,7 +19,6 @@
     "bootstrap": "^4.3.1",
     "bootstrap3": "^3.3.5",
     "bootstrap4": "^0.0.1-security",
-    "fsevents": "^2.0.7",
     "jquery": "^3.4.1",
     "popper.js": "^1.14.4",
     "rails-ujs": "^5.2.1",

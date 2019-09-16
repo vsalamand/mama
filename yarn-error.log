@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/vincentsalamand/code/vsalamand/mama/package.json: Unexpected token / in JSON at position 780
+  SyntaxError: /Users/vincentsalamand/code/vsalamand/mama/package.json: Unexpected token / in JSON at position 617
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -43,16 +43,13 @@ npm manifest:
       "bootstrap": "^4.3.1",
       "bootstrap3": "^3.3.5",
       "bootstrap4": "^0.0.1-security",
-      "fsevents": "^2.0.7",
+      // "fsevents": "^2.0.7",
       "jquery": "^3.4.1",
       "popper.js": "^1.14.4",
       "rails-ujs": "^5.2.1",
       "selectize": "^0.12.6",
       "turbolinks": "^5.2.0"
-    },
-    // "resolutions": {
-    //   "**/**/fsevents": "^1.2.9"
-    // }
+    }
   }
 
 yarn manifest: 
@@ -3330,7 +3327,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
     integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
   
-  fsevents@^1.2.7, fsevents@^1.2.9:
+  fsevents@^1.2.7:
     version "1.2.9"
     resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.9.tgz#3f5ed66583ccd6f400b5a00db6f7e861363e388f"
     integrity sha512-oeyj2H3EjjonWcFjD5NvZNE9Rqe4UW+nQBU2HNeKw0koVLEFIhtyETyAakeAM3de7Z/SW5kcA+fZUait9EApnw==
