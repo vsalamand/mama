@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190613131900) do
+ActiveRecord::Schema.define(version: 20190921095845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,12 @@ ActiveRecord::Schema.define(version: 20190613131900) do
     t.index ["unit_id"], name: "index_items_on_unit_id", using: :btree
   end
 
+  create_table "merchants", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "meta_recipe_items", force: :cascade do |t|
     t.integer  "meta_recipe_id"
     t.integer  "food_id"
@@ -346,6 +352,15 @@ ActiveRecord::Schema.define(version: 20190613131900) do
     t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
   end
 
+  create_table "stores", force: :cascade do |t|
+    t.string   "name"
+    t.string   "store_type"
+    t.integer  "merchant_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["merchant_id"], name: "index_stores_on_merchant_id", using: :btree
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.string   "taggable_type"
@@ -432,5 +447,6 @@ ActiveRecord::Schema.define(version: 20190613131900) do
   add_foreign_key "recommendation_items", "recipe_lists"
   add_foreign_key "recommendation_items", "recommendations"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "stores", "merchants"
   add_foreign_key "users", "diets"
 end
