@@ -49,6 +49,19 @@ class Food < ApplicationRecord
     return foods
   end
 
+  def self.match_food(text)
+    foods = []
+
+    elements = text.split
+    while elements.any?
+      foods << Food.find_by(name: elements.join(' '))
+      foods << Food.search(elements.join(' '), misspellings: {edit_distance: 1}, body_options: {min_score: 65}).first
+      elements.pop
+    end
+    foods.compact!
+    return foods.first
+  end
+
   def self.get_shelves(foods)
     shelves = Hash.new
     foods.tag_counts_on(:shelves).each do |shelf|
