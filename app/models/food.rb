@@ -12,6 +12,10 @@ class Food < ApplicationRecord
   has_many :food_list_items
   has_many :food_lists, through: :food_list_items
   has_many :units, through: :items
+  has_many :products
+  has_many :store_items, through: :products
+  has_many :stores, through: :store_items
+  has_many :merchants, through: :stores
 
   enum measure: {weight: 'weight', volume: 'volume', piece: 'piece'}
 
