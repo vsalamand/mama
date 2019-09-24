@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190921095845) do
+ActiveRecord::Schema.define(version: 20190924102053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -294,6 +294,21 @@ ActiveRecord::Schema.define(version: 20190921095845) do
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
+  create_table "products", force: :cascade do |t|
+    t.integer  "food_id"
+    t.integer  "ean"
+    t.string   "name"
+    t.float    "quantity"
+    t.integer  "unit_id"
+    t.string   "brand"
+    t.string   "origin"
+    t.boolean  "is_frozen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_products_on_food_id", using: :btree
+    t.index ["unit_id"], name: "index_products_on_unit_id", using: :btree
+  end
+
   create_table "recipe_list_items", force: :cascade do |t|
     t.integer  "recipe_id"
     t.integer  "recipe_list_id"
@@ -350,6 +365,37 @@ ActiveRecord::Schema.define(version: 20190921095845) do
     t.integer  "user_id"
     t.boolean  "is_active",   default: false
     t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
+  end
+
+  create_table "store_item_histories", force: :cascade do |t|
+    t.integer  "store_item_id"
+    t.float    "price_per_unit"
+    t.boolean  "is_promo"
+    t.boolean  "is_available"
+    t.date     "date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["store_item_id"], name: "index_store_item_histories_on_store_item_id", using: :btree
+  end
+
+  create_table "store_items", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "store_id"
+    t.integer  "store_product_id"
+    t.string   "clean_name"
+    t.string   "name"
+    t.float    "price"
+    t.float    "price_per_unit"
+    t.boolean  "is_promo"
+    t.float    "promo_price_per_unit"
+    t.string   "shelter"
+    t.string   "url"
+    t.string   "image_url"
+    t.boolean  "is_available"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["product_id"], name: "index_store_items_on_product_id", using: :btree
+    t.index ["store_id"], name: "index_store_items_on_store_id", using: :btree
   end
 
   create_table "stores", force: :cascade do |t|
@@ -441,12 +487,17 @@ ActiveRecord::Schema.define(version: 20190921095845) do
   add_foreign_key "meta_recipe_lists", "recipes"
   add_foreign_key "orders", "carts", on_delete: :cascade
   add_foreign_key "orders", "users"
+  add_foreign_key "products", "foods"
+  add_foreign_key "products", "units"
   add_foreign_key "recipe_list_items", "recipe_lists"
   add_foreign_key "recipe_list_items", "recipes"
   add_foreign_key "recipe_lists", "users"
   add_foreign_key "recommendation_items", "recipe_lists"
   add_foreign_key "recommendation_items", "recommendations"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "store_item_histories", "store_items"
+  add_foreign_key "store_items", "products"
+  add_foreign_key "store_items", "stores"
   add_foreign_key "stores", "merchants"
   add_foreign_key "users", "diets"
 end
