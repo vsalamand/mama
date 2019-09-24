@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190924102053) do
+ActiveRecord::Schema.define(version: 20190924153649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,7 +296,7 @@ ActiveRecord::Schema.define(version: 20190924102053) do
 
   create_table "products", force: :cascade do |t|
     t.integer  "food_id"
-    t.integer  "ean"
+    t.bigint   "ean"
     t.string   "name"
     t.float    "quantity"
     t.integer  "unit_id"
@@ -388,12 +388,12 @@ ActiveRecord::Schema.define(version: 20190924102053) do
     t.float    "price_per_unit"
     t.boolean  "is_promo"
     t.float    "promo_price_per_unit"
-    t.string   "shelter"
     t.string   "url"
     t.string   "image_url"
     t.boolean  "is_available"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.text     "shelters",             default: [],              array: true
     t.index ["product_id"], name: "index_store_items_on_product_id", using: :btree
     t.index ["store_id"], name: "index_store_items_on_store_id", using: :btree
   end
