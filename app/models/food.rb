@@ -67,14 +67,14 @@ class Food < ApplicationRecord
   end
 
   def get_cheapest_store_item
-    cheapest_store_item = self.store_items.pluck(:price_per_unit, :id).min
-    cheapest_store_item = StoreItem.find(cheapest_store_item.second)
+    cheapest_store_item = self.store_items.pluck(:price_per_unit, :id).reject {|x| x.first < 0.02}.min
+    cheapest_store_item = StoreItem.find(cheapest_store_item.second) if cheapest_store_item.present?
     return cheapest_store_item
   end
 
   def get_store_items
     store_items = []
-    data = self.store_items.pluck(:price_per_unit, :id)
+    data = self.store_items.pluck(:price_per_unit, :id).reject {|x| x.first < 0.02}
     data.each{ |store_item| store_items << StoreItem.find(store_item.second) }
     return store_items
   end

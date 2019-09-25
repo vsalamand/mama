@@ -1,0 +1,16 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <div class="row">
+    <h1>Food sans products </h1>
+  </div>
+  <div class="row">
+    <% @foods_without_products.sort_by{|food| food.recipes.size }.reverse.each do |food| %>
+      <li>
+        <%= food.id %> |
+        <%= link_to food.name, rails_admin.show_path(model_name: 'food', id: food.id) %>
+      </li>
+    <% end %>
+  </div>
+
+</div>

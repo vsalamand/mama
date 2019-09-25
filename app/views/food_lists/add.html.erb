@@ -20,7 +20,18 @@
   <div class="row">
     <% if @search %>
       <% @search.each do |food| %>
-        <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+        <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+            <div class="btn btn-default btn-sm">
+              <h5 class="text-left"><%= food.name %></h5>
+              <% if food.store_items.any? %>
+                <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€ / <%= food.get_cheapest_store_item.product.unit.name %></p>
+                <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+              <% else %>
+                <p class="text-left">dès X€</p>
+                <p class="text-left">@nowhere</p>
+              <% end %>
+            </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
@@ -31,7 +42,18 @@
     <% unless @similar_food.nil? %>
       <h4><strong>Similaires:</strong></h4>
       <% @similar_food.each do |food| %>
-          <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+        <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+            <div class="btn btn-default btn-sm">
+              <h5 class="text-left"><%= food.name %></h5>
+              <% if food.store_items.any? %>
+                <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€ / <%= food.get_cheapest_store_item.product.unit.name %></p>
+                <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+              <% else %>
+                <p class="text-left">dès X€</p>
+                <p class="text-left">@nowhere</p>
+              <% end %>
+            </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
@@ -41,7 +63,18 @@
   <div class="row">
     <h4><strong>De saison:</strong></h4>
     <% @seasonal_produce.each do |food| %>
-        <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+        <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+            <div class="btn btn-default btn-sm">
+              <h5 class="text-left"><%= food.name %></h5>
+              <% if food.store_items.any? %>
+                <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€ / <%= food.get_cheapest_store_item.product.unit.name %></p>
+                <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+              <% else %>
+                <p class="text-left">dès X€</p>
+                <p class="text-left">@nowhere</p>
+              <% end %>
+            </div>
+        <% end %>
     <% end %>
   </div>
 </div>

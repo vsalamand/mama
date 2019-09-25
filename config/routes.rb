@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   get 'confirmation', to: 'pages#confirmation'
   get 'dashboard', to: 'pages#dashboard'
   get 'pending', to: 'pages#pending'
+  get 'unmatch_foods', to: 'pages#unmatch_foods'
+  get 'unmatch_products', to: 'pages#unmatch_products'
 
   get 'assistant', to: 'meta_recipe_lists#new'
 
