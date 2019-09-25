@@ -7,7 +7,7 @@
   <div class="row">
     <% @foods_without_products.sort_by{|food| food.recipes.size }.reverse.each do |food| %>
       <li>
-        <%= food.id %> |
+        <%= food.recipes.size %> |
         <%= link_to food.name, rails_admin.show_path(model_name: 'food', id: food.id) %>
       </li>
     <% end %>
