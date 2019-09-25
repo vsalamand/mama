@@ -66,6 +66,23 @@ class Food < ApplicationRecord
     return foods.first
   end
 
+  def get_cheapest_store_item
+    cheapest_store_item = self.store_items.pluck(:price_per_unit, :id).min
+    cheapest_store_item = StoreItem.find(cheapest_store_item.second)
+    return cheapest_store_item
+  end
+
+  def get_store_items
+    store_items = []
+    data = self.store_items.pluck(:price_per_unit, :id)
+    data.each{ |store_item| store_items << StoreItem.find(store_item.second) }
+    return store_items
+  end
+
+  def self.get_foods_without_product
+    return Food.includes(:products).where(products: {id: nil})
+  end
+
   def self.get_shelves(foods)
     shelves = Hash.new
     foods.tag_counts_on(:shelves).each do |shelf|
