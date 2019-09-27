@@ -3,8 +3,10 @@
   <div class="row">
     <h1><strong><%= @foodlist.name %></strong></h1>
     <h4><%= @foodlist.foods.size %> ingrédients</h4>
-    <%= link_to 'Revenir', food_lists_path(@foodlists), class: 'btn btn-primary btn-md' %>
-    <%= link_to 'Ajouter des ingrédients', add_food_list_path(@foodlist), class: 'btn btn-default btn-block' %>
+    <% if @foodlist.food_list_type == "grocery_list" %>
+      <%= link_to 'Revenir', food_lists_path(@foodlists), class: 'btn btn-primary btn-md' %>
+      <%= link_to 'Ajouter des ingrédients', add_food_list_path(@foodlist), class: 'btn btn-default btn-block' %>
+    <% end %>
 
   </div>
 
@@ -14,7 +16,14 @@
         <li>
           <h3>
             <%= fli.food.name.capitalize %>
-            <%= link_to 'remove', food_list_food_list_item_path(fli.food_list, fli), method: :delete %>
+            <h6>
+              <% if fli.food.store_items.any? %>
+                🛒<%= fli.food.get_cheapest_store_item.name %> à <strong><%= fli.food.get_cheapest_store_item.price %>€</strong> (➡ <%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>) @<%= fli.food.get_cheapest_store_item.store.name %>
+              <% else %>
+                🛒Aucun résultat disponible
+              <% end %>
+              <%= link_to 'remove', food_list_food_list_item_path(fli.food_list, fli), method: :delete %>
+            </h6>
           </h3>
         </li>
       <% end %>

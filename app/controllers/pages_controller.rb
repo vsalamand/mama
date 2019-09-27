@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :search, :confirmation]
 
   def home
+    @foodlist = FoodList.new
   end
 
   def confirmation
@@ -23,15 +24,24 @@ class PagesController < ApplicationController
     @burger = Recipe.where(status: "published").tagged_with("burger")
     @pizza = Recipe.where(status: "published").tagged_with("pizza")
 
-    @meta_recipes = MetaRecipe.all
-    @mr_pools = MetaRecipeList.where(list_type: "pool").sort_by { |pool| pool.meta_recipes.count}.reverse
+    @products = Product.all
+    @no_food_products = Product.get_products_without_foods
 
     @foods = Food.all
+    @foods_without_products = Food.get_foods_without_product
     @foodlists = FoodList.where(food_list_type: "pool")
   end
 
   def pending
     @recipes = Recipe.where(status: "pending")
+  end
+
+  def unmatch_foods
+    @foods_without_products = Food.get_foods_without_product
+  end
+
+  def unmatch_products
+    @no_food_products = Product.get_products_without_foods
   end
 
   def seasonal

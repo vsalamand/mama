@@ -1,0 +1,17 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <div class="row">
+    <h1>Products sans food </h1>
+  </div>
+  <div class="row">
+    <% @no_food_products.sort_by{|product| product.store_items.size }.each do |product| %>
+      <li>
+        <%= product.store_items.size %> |
+        <%= product.ean %> |
+        <%= link_to product.name, rails_admin.show_path(model_name: 'product', id: product.id) %>
+      </li>
+    <% end %>
+  </div>
+
+</div>

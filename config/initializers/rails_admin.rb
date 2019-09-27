@@ -77,6 +77,7 @@ RailsAdmin.config do |config|
     field :serving
     field :unit
     field :unit_per_piece
+    field :products
     field :tag_list
   end
 

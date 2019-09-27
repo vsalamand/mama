@@ -1,5 +1,7 @@
 class FoodListItemsController < ApplicationController
   before_action :set_food_list_item, only: [:destroy]
+  skip_before_action :authenticate_user!, only: [:create_foodlist_item, :destroy]
+
 
   def create_foodlist_item
     food = Food.find(params[:format])
@@ -9,16 +11,16 @@ class FoodListItemsController < ApplicationController
 
     unless current_item
       FoodListItem.create(name: food.name, food_id: food.id, food_list_id: @foodlist.id)
-      redirect_to add_food_list_path(@foodlist)
+       redirect_to :back
     else
-      redirect_to add_food_list_path(@foodlist)
+       redirect_to :back
     end
   end
 
   def destroy
     @foodlist = FoodList.find(params[:food_list_id])
     @foodlist_item.destroy
-    redirect_to food_list_path(@foodlist)
+    redirect_to :back
   end
 
   private

@@ -1,17 +1,39 @@
 <div class="container">
-  <div class="row">
-    <h1><strong>Ajouter des ingrédients</strong></h1>
-  </div>
-  <div class="row">
-    <h4><strong><%= @foodlist.name %></strong></h4>
-    <h4><%= @foodlist.foods.size %> ingrédients</h4>
+  <% if current_user  %>
     <%= link_to 'Revenir', food_list_path(@foodlist), class: 'btn btn-primary btn-lg' %>
+  <% end %>
+  <div class="row">
+    <h1><strong><%= @foodlist.name %></strong></h1>
+    <h4><%= @foodlist.foods.size %> ingrédients</h4>
+  </div>
+
+  <div class="row">
+    <ul>
+      <% @foodlist.food_list_items.order(:id).each do |fli| %>
+        <li>
+          <h3>
+            <%= fli.food.name.capitalize %>
+            <h6>
+              <% if fli.food.store_items.where(is_available: true).any? %>
+                🛒<%= fli.food.get_cheapest_store_item.name %> à <strong><%= fli.food.get_cheapest_store_item.price %>€</strong> (➡ <%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>) @<%= fli.food.get_cheapest_store_item.store.name %>
+              <% else %>
+                🛒Aucun résultat disponible
+              <% end %>
+              <%= link_to 'remove', food_list_food_list_item_path(fli.food_list, fli), method: :delete %>
+            </h6>
+          </h3>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
-    <h4><strong>Recherche:</strong></h4>
+    <h1><strong>Ajouter des ingrédients</strong></h1>
+  </div>
+  <div class="row">
+    <h4><strong>RECHERCHE 🔎 </strong></h4>
     <%= form_tag(add_food_list_path, :method => "get") do %>
       <%= text_field_tag :query, params[:query], placeholder: "Chercher des ingrédients", required: true %>
       <%= submit_tag "Chercher" %>
@@ -20,7 +42,20 @@
   <div class="row">
     <% if @search %>
       <% @search.each do |food| %>
-        <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+        <% if food.present? %>
+          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+              <div class="btn btn-default btn-sm <%= @foodlist.foods.include?(food) ? ' disabled' : nil %>">
+                <h5 class="text-left"><%= food.name %></h5>
+                <% if food.store_items.where(is_available: true).any? %>
+                  <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></p>
+                  <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+                <% else %>
+                  <p class="text-left">aucun produit disponible</p>
+                  <p class="text-left">hors saison</p>
+                <% end %>
+              </div>
+          <% end %>
+        <%end %>
       <% end %>
     <% end %>
   </div>
@@ -29,9 +64,17 @@
 <div class="container">
   <div class="row">
     <% unless @similar_food.nil? %>
-      <h4><strong>Similaires:</strong></h4>
+      <h4><strong><%= @foodlist.foods.first.name.upcase %> + ⬇️ = ❤️</strong></h4>
       <% @similar_food.each do |food| %>
-          <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+        <% if food.present? && food.store_items.where(is_available: true).any? %>
+          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+              <div class="btn btn-default btn-sm">
+                <h5 class="text-left"><%= food.name %></h5>
+                <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></p>
+                <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+              </div>
+          <% end %>
+        <%end %>
       <% end %>
     <% end %>
   </div>
@@ -39,9 +82,54 @@
 
 <div class="container">
   <div class="row">
-    <h4><strong>De saison:</strong></h4>
-    <% @seasonal_produce.each do |food| %>
-        <%=  link_to food.name, create_foodlist_item_food_list_item_path(@foodlist, food), class: 'btn btn-default btn-sm' %>
+    <h4><strong>TOP DU MOMENT 🔥</strong></h4>
+    <% @top_foods.each do |food| %>
+      <% if food.present? && food.store_items.where(is_available: true).any? %>
+        <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+            <div class="btn btn-default btn-sm">
+              <h5 class="text-left"><%= food.name %></h5>
+              <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></p>
+              <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+            </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <h4><strong>EN PROMO 🤑</strong></h4>
+    <% @promo_foods.each do |food| %>
+      <% if food.present? && food.store_items.where(is_available: true).any? %>
+        <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+            <div class="btn btn-default btn-sm">
+              <h5 class="text-left"><%= food.name %></h5>
+              <p class="text-left"><%= food.get_promo_store_item.promo_price_per_unit %>€/<%= food.get_promo_store_item.product.unit.name %> (<strike><%= food.get_promo_store_item.price_per_unit %>€/<%= food.get_promo_store_item.product.unit.name %></strike>)</p>
+              <p class="text-left">@<%= food.get_promo_store_item.store.name %></p>
+            </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container">
+  <% @reco_recipes.each do |recipe|  %>
+    <div class="row">
+      <h4><strong><%= recipe.title.upcase %> 🍳</strong></h4>
+      <h5><%= link_to "cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h5>
+      <% recipe.foods.each do |food| %>
+        <% if food.present? && food.store_items.where(is_available: true).any? %>
+          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+              <div class="btn btn-default btn-sm <%= @foodlist.foods.include?(food) ? ' disabled' : nil %>">
+                <h5 class="text-left"><%= food.name %></h5>
+                  <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></p>
+                <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+              </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

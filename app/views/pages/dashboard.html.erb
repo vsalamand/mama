@@ -3,7 +3,7 @@
 
 <div class="container" style="display: flex; justify-content: space-evenly;">
   <div class="row">
-    <h1>Recipes (<%= @recipes.count %>)</h1>
+    <h1>Recipes (<%= @recipes.size %>)</h1>
 
     <table>
 
@@ -16,51 +16,51 @@
 
       <tbody>
         <tr>
-          <td><%= @seasonal.count %></td>
+          <td><%= @seasonal.size %></td>
           <td>🔥 <%= link_to "seasonal", seasonal_path %></td>
         </tr>
         <tr>
-          <td><%= @no_category.count %></td>
+          <td><%= @no_category.size %></td>
           <td>🤔 <%= link_to "no category", uncategorized_path %></td>
         </tr>
         <tr>
-          <td><%= @veggie.count %></td>
+          <td><%= @veggie.size %></td>
           <td>🥕 <%= link_to "veggie", veggie_path %></td>
         </tr>
         <tr>
-          <td><%= @salad.count %></td>
+          <td><%= @salad.size %></td>
           <td>🥗 <%= link_to "salad", salad_path %></td>
         </tr>
         <tr>
-          <td><%= @pasta.count %></td>
+          <td><%= @pasta.size %></td>
           <td>🍝 <%= link_to "pasta", pasta_path %></td>
         </tr>
         <tr>
-          <td><%= @potato.count %></td>
+          <td><%= @potato.size %></td>
           <td>🍟 <%= link_to "potato", potato_path %></td>
         </tr>
         <tr>
-          <td><%= @meat.count %></td>
+          <td><%= @meat.size %></td>
           <td>🍖 <%= link_to "meat", meat_path %></td>
         </tr>
         <tr>
-          <td><%= @fish.count %></td>
+          <td><%= @fish.size %></td>
           <td>🐟 <%= link_to "fish", fish_path %></td>
         </tr>
         <tr>
-          <td><%= @egg.count %></td>
+          <td><%= @egg.size %></td>
           <td>🍳 <%= link_to "egg", egg_path %></td>
         </tr>
         <tr>
-          <td><%= @pizza.count %></td>
+          <td><%= @pizza.size %></td>
           <td>🍕 <%= link_to "pizza", pizza_path %></td>
         </tr>
         <tr>
-          <td><%= @burger.count %></td>
+          <td><%= @burger.size %></td>
           <td>🍔 <%= link_to "burger", burger_path %></td>
         </tr>
         <tr>
-          <td><%= @snack.count %></td>
+          <td><%= @snack.size %></td>
           <td>🥪 <%= link_to "snack", snack_path %></td>
         </tr>
       </tbody>
@@ -69,31 +69,29 @@
   </div>
 
   <div class="row">
-    <h1>Meta Recipes (<%= @meta_recipes.count %>)</h1>
+    <h1>Products (<%= @products.size %>)</h1>
 
     <table>
 
       <thead>
         <tr>
-          <td><strong>Nb of recipes  |</strong></td>
+          <td><strong>Nb of products  |</strong></td>
           <td><strong>Name</strong></td>
         </tr>
       </thead>
 
       <tbody>
-        <% @mr_pools.each do |mrl| %>
           <tr>
-            <td><%= mrl.meta_recipes.count %></td>
-            <td><%= link_to mrl.name, meta_recipe_list_pool_path(mrl) %></td>
+            <td><%= @no_food_products.size %></td>
+            <td><%= link_to "liste de produits sans food", unmatch_products_path %></td>
           </tr>
-        <% end %>
       </tbody>
 
     </table>
   </div>
 
   <div class="row">
-    <h1>Foods (<%= @foods.count %> | <%= @foods.where("availability ~ ?", Date.today.next_week.strftime("%m")).count %>)</h1>
+    <h1>Foods (<%= @foods.size %>)</h1>
 
     <table>
 
@@ -105,9 +103,13 @@
       </thead>
 
       <tbody>
+          <tr>
+            <td><%= @foods_without_products.size %></td>
+            <td><%= link_to "liste de foods sans products", unmatch_foods_path %></td>
+          </tr>
         <% @foodlists.each do |foodlist| %>
           <tr>
-            <td><%= foodlist.foods.count %></td>
+            <td><%= foodlist.foods.size %></td>
             <td><%= link_to foodlist.name, food_list_path(foodlist) %></td>
           </tr>
         <% end %>
