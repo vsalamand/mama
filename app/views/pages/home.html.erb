@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   window.fbAsyncInit = function() {
     FB.init({
       appId            : '1192259447586250',
@@ -15,7 +15,7 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script>
+</script> -->
 
 <div class="wrapper">
   <div class="container">
@@ -24,25 +24,27 @@
       <div class="row text-center">
         <div class="col-xs-12">
 
-          <h1>Trouve des idées repas simples et appétissantes avec Mama 💚</h1>
-          <h2>C'est gratuit et ça marche sur Messenger.</h2>
+          <h1>Mangez mieux au meilleur prix !</h1>
+          <h3>Préparez votre liste de courses en 2mn sur ClubMama.</h3>
 
-          <div class="fb-send-to-messenger"
+<!--           <div class="fb-send-to-messenger"
             messenger_app_id="1192259447586250"
             page_id="111163226267868"
             data-ref="website"
             color="blue"
             cta_text="GET_STARTED_IN_MESSENGER"
             size="xlarge">
-          </div>
-
+          </div> -->
+           <button type="button" class="btn btn-primary btn-large" data-toggle="modal" data-target="#shoppinglistModal" style="font-size: 2.5em">
+            🔥 Cliquer ici 🔥
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="wrapper">
+<!-- <div class="wrapper">
   <div class="container">
     <div style="margin-top: 50px; margin-bottom: 50px; display: flex; align-items: center; justify-content: center;">
       <div class="row text-center">
@@ -52,11 +54,18 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
-<div class="footer">
-  <div class="footer-copyright">
-    💌 hello@foodmama.fr
+<div class="modal" id="shoppinglistModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Nouvelle liste de courses</h3>
+      </div>
+      <div class="modal-body">
+        <%= render 'food_lists/form' %>
+      </div>
+    </div>
   </div>
 </div>

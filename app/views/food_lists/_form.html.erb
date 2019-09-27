@@ -1,8 +1,10 @@
 
   <%= simple_form_for @foodlist do |f| %>
 
-    <%= f.input :name, input_html: { value: "Liste de courses (#{current_user.food_lists.where(food_list_type: "grocery_list").size + 1})" }, label: false, class: 'form-control'%>
+    <%= f.input :name, input_html: { value: "Liste de courses" + "#{" #"  if user_signed_in?}"+ "#{(current_user.food_lists.where(food_list_type: "grocery_list").size + 1) if user_signed_in? }" }, label: false %>
 
     <%= f.submit "Continuer", class: "form-control btn-primary" %>
-    <%= link_to 'Annuler', food_lists_path(@foodlists), class: "form-control btn-default" %>
-  <% end %>
+
+
+
+  <% end  %>

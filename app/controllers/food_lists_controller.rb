@@ -1,5 +1,6 @@
 class FoodListsController < ApplicationController
   before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item ]
+  skip_before_action :authenticate_user!, only: [:create, :add]
 
   def show
     @foodlist.food_list_items.build
@@ -11,13 +12,13 @@ class FoodListsController < ApplicationController
 
   def create
     @foodlist = FoodList.new(food_list_params)
-    @foodlist.name = "Liste de courses (#{current_user.food_lists.where(food_list_type: "grocery_list").size + 1})"
+    @foodlist.name = "Liste de courses" + "#{(current_user.food_lists.where(food_list_type: "grocery_list").size + 1) if user_signed_in? }"
     @foodlist.user = current_user
     @foodlist.food_list_type = "grocery_list"
     if @foodlist.save
       redirect_to add_food_list_path(@foodlist)
     else
-      redirect_to new_food_list_path
+      redirect_to :back
     end
   end
 
@@ -43,6 +44,7 @@ class FoodListsController < ApplicationController
     @top_foods = @foodlist.get_top_foods
     @promo_foods = @foodlist.get_promo_foods
     @similar_food = @foodlist.get_similar_food
+    @reco_recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
   end
 
   # def show
