@@ -1,6 +1,6 @@
 class FoodListItemsController < ApplicationController
   before_action :set_food_list_item, only: [:destroy]
-  skip_before_action :authenticate_user!, only: [:crecreate_foodlist_itemate, :destroy]
+  skip_before_action :authenticate_user!, only: [:create_foodlist_item, :destroy]
 
 
   def create_foodlist_item
