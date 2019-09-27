@@ -1,15 +1,35 @@
 <div class="container">
+  <%= link_to 'Revenir', food_list_path(@foodlist), class: 'btn btn-primary btn-lg' %>
   <div class="row">
-    <h1><strong>Ajouter des ingrédients</strong></h1>
-  </div>
-  <div class="row">
-    <h4><strong><%= @foodlist.name %></strong></h4>
+    <h1><strong><%= @foodlist.name %></strong></h1>
     <h4><%= @foodlist.foods.size %> ingrédients</h4>
-    <%= link_to 'Revenir', food_list_path(@foodlist), class: 'btn btn-primary btn-lg' %>
+  </div>
+
+  <div class="row">
+    <ul>
+      <% @foodlist.food_list_items.order(:id).each do |fli| %>
+        <li>
+          <h3>
+            <%= fli.food.name.capitalize %>
+            <h6>
+              <% if fli.food.store_items.any? %>
+                🛒<%= fli.food.get_cheapest_store_item.name %> à <strong><%= fli.food.get_cheapest_store_item.price %>€</strong> (➡ <%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>) @<%= fli.food.get_cheapest_store_item.store.name %>
+              <% else %>
+                🛒Aucun résultat disponible
+              <% end %>
+              <%= link_to 'remove', food_list_food_list_item_path(fli.food_list, fli), method: :delete %>
+            </h6>
+          </h3>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
 
 <div class="container">
+  <div class="row">
+    <h1><strong>Ajouter des ingrédients</strong></h1>
+  </div>
   <div class="row">
     <h4><strong>Recherche:</strong></h4>
     <%= form_tag(add_food_list_path, :method => "get") do %>
@@ -20,6 +40,54 @@
   <div class="row">
     <% if @search %>
       <% @search.each do |food| %>
+        <% if food.present? %>
+          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+              <div class="btn btn-default btn-sm">
+                <h5 class="text-left"><%= food.name %></h5>
+                <% if food.store_items.any? %>
+                  <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€ / <%= food.get_cheapest_store_item.product.unit.name %></p>
+                  <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+                <% else %>
+                  <p class="text-left">dès X€</p>
+                  <p class="text-left">@nowhere</p>
+                <% end %>
+              </div>
+          <% end %>
+        <%end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <% unless @similar_food.nil? %>
+      <h4><strong>Suggestions:</strong></h4>
+      <% @similar_food.each do |food| %>
+        <% if food.present? %>
+          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
+              <div class="btn btn-default btn-sm">
+                <h5 class="text-left"><%= food.name %></h5>
+                <% if food.store_items.any? %>
+                  <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€ / <%= food.get_cheapest_store_item.product.unit.name %></p>
+                  <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+                <% else %>
+                  <p class="text-left">dès X€</p>
+                  <p class="text-left">@nowhere</p>
+                <% end %>
+              </div>
+          <% end %>
+        <%end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <h4><strong>Les plus populaires:</strong></h4>
+    <% @top_foods.each do |food| %>
+      <% if food.present? %>
         <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
             <div class="btn btn-default btn-sm">
               <h5 class="text-left"><%= food.name %></h5>
@@ -39,15 +107,15 @@
 
 <div class="container">
   <div class="row">
-    <% unless @similar_food.nil? %>
-      <h4><strong>Similaires:</strong></h4>
-      <% @similar_food.each do |food| %>
+    <h4><strong>En promo:</strong></h4>
+    <% @promo_foods.each do |food| %>
+      <% if food.present? %>
         <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
             <div class="btn btn-default btn-sm">
               <h5 class="text-left"><%= food.name %></h5>
               <% if food.store_items.any? %>
-                <p class="text-left">dès <%= food.get_cheapest_store_item.price_per_unit %>€ / <%= food.get_cheapest_store_item.product.unit.name %></p>
-                <p class="text-left">@<%= food.get_cheapest_store_item.store.name %></p>
+                <p class="text-left"> <strike><%= food.get_promo_store_item.price_per_unit %></strike> <%= food.get_promo_store_item.promo_price_per_unit %>€ / <%= food.get_promo_store_item.product.unit.name %></p>
+                <p class="text-left">@<%= food.get_promo_store_item.store.name %></p>
               <% else %>
                 <p class="text-left">dès X€</p>
                 <p class="text-left">@nowhere</p>
@@ -63,6 +131,7 @@
   <div class="row">
     <h4><strong>De saison:</strong></h4>
     <% @seasonal_produce.each do |food| %>
+      <% if food.present? %>
         <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), :action => 'go' do %>
             <div class="btn btn-default btn-sm">
               <h5 class="text-left"><%= food.name %></h5>
@@ -75,6 +144,7 @@
               <% end %>
             </div>
         <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>

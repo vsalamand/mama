@@ -72,6 +72,12 @@ class Food < ApplicationRecord
     return cheapest_store_item
   end
 
+  def get_promo_store_item
+    promo_store_item = self.store_items.pluck(:is_promo, :id).min
+    promo_store_item = StoreItem.find(promo_store_item.second) if promo_store_item.present?
+    return promo_store_item
+  end
+
   def get_store_items
     store_items = []
     data = self.store_items.pluck(:price_per_unit, :id).reject {|x| x.first < 0.02}

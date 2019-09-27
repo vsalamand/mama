@@ -40,8 +40,10 @@ class FoodListsController < ApplicationController
     query = params[:query].present? ? params[:query] : nil
     @search = Food.search(query, fields: [:name])[0..9] if query
 
+    @top_foods = FoodList.get_top_foods
+    @promo_foods = FoodList.get_promo_foods
     @similar_food = @foodlist.get_similar_food
-    @seasonal_produce = @foodlist.get_seasonal_produce - @foodlist.foods
+    @seasonal_produce = FoodList.get_seasonal_produce - @foodlist.foods
   end
 
   # def show

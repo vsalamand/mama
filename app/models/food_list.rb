@@ -20,8 +20,10 @@ class FoodList < ApplicationRecord
         url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/predict?#{items.join("&")}"))
         data = JSON.parse(open(url).read)
         result = data.map {|x| x.values[0]}
+
         suggested_foods = []
         result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
+
         return suggested_foods
       rescue
         return nil
@@ -32,8 +34,34 @@ class FoodList < ApplicationRecord
   end
 
   # get list of vegetables & fruits of the month
-  def get_seasonal_produce
+  def self.get_seasonal_produce
     return Food.where(category: 14).where("availability ~ ?", "#{Date.today.strftime('%m')}") - Category.find(14).foods.tagged_with("légumes bulbes")
+  end
+
+  # get list of seasonings
+  def self.get_seasonings
+    category_ids = []
+    # sel
+    category_ids << Category.find(10).child_ids
+    # matières grasses ajoutées
+    category_ids << Category.find(6).child_ids
+    # herbes ou épices
+    category_ids << Category.find(43).child_ids
+
+    seasonings = Food.where("category_id IN (?)", category_ids.flatten) + Category.find(14).foods.tagged_with("légumes bulbes")
+    return seasonings
+  end
+
+  # get list of most popular food in recipes
+  def self.get_top_foods
+    top_foods = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(30)
+    clean_top_foods = top_foods - FoodList.get_seasonings
+    return clean_top_foods
+  end
+
+  # get list of food with current store items promotion
+  def self.get_promo_foods
+    return Food.includes(:store_items).where(store_items: {is_promo: true})
   end
 
   # send a short list of seasonal foods
