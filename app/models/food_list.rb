@@ -17,7 +17,7 @@ class FoodList < ApplicationRecord
       begin
         items = []
         # self.foods.map {|x| x.name}.each { |food| items << "item=#{food}"}
-        items << "item=#{self.foods.first.name}"
+        items << "item=#{self.food_list_items.last.food.name}"
         url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/predict?#{items.join("&")}"))
         data = JSON.parse(open(url).read)
         result = data.map {|x| x.values[0]}
