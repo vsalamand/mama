@@ -18,7 +18,7 @@ class FoodListsController < ApplicationController
     if @foodlist.save
       redirect_to add_food_list_path(@foodlist)
     else
-      redirect_to :back
+      redirect_back(fallback_location:"/")
     end
   end
 

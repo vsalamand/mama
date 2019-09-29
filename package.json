@@ -20,7 +20,7 @@
     "bootstrap3": "^3.3.5",
     "bootstrap4": "^0.0.1-security",
     "jquery": "^3.4.1",
-    "popper.js": "^1.14.4",
+    "popper.js": "^1.15.0",
     "rails-ujs": "^5.2.1",
     "selectize": "^0.12.6",
     "turbolinks": "^5.2.0"

@@ -1,7 +1,7 @@
-<div class="navbar-wagon">
-  <!-- Logo -->
-  <a href="/" class="navbar-wagon-brand">
-    <%= image_tag "logo.png", height: 50 %>
-  </a>
+<nav class="navbar sticky-top navbar-expand-lg navbar-white bg-white d-flex shadow-sm mb-4">
+  <a class="navbar-brand text-dark" href="/">😋 FoodMama</a>
 
-</div>
+  <% if params[:controller] == "food_lists" && params[:action] == "add" %>
+  <% end %>
+
+</nav>

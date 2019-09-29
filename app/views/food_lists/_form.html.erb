@@ -1,10 +1,11 @@
+<form>
+  <div class="form-group">
+    <%= simple_form_for @foodlist do |f| %>
 
-  <%= simple_form_for @foodlist do |f| %>
+      <%= f.input :name, input_html: { value: "Liste de courses" + "#{" #"  if user_signed_in?}"+ "#{(current_user.food_lists.where(food_list_type: "grocery_list").size + 1) if user_signed_in? }" }, class: "form-control", label: false %>
 
-    <%= f.input :name, input_html: { value: "Liste de courses" + "#{" #"  if user_signed_in?}"+ "#{(current_user.food_lists.where(food_list_type: "grocery_list").size + 1) if user_signed_in? }" }, label: false %>
+      <%= f.submit "Continuer", class: "btn btn-flat" %>
+    <% end  %>
+  </div>
+</form>
 
-    <%= f.submit "Continuer", class: "form-control btn-primary" %>
-
-
-
-  <% end  %>

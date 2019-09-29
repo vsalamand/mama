@@ -1,32 +1,50 @@
-<div class="container">
-  <% if current_user  %>
-    <%= link_to 'Revenir', food_list_path(@foodlist), class: 'btn btn-primary btn-lg' %>
-  <% end %>
-  <div class="row">
-    <h1><strong><%= @foodlist.name %></strong></h1>
-    <h4><%= @foodlist.foods.size %> ingrédients</h4>
-  </div>
 
-  <div class="row">
-    <ul>
+<div class="container">
+
+    <div class="shadow p-3 mb-4 bg-white rounded">
+      <h2 class="w-75 p-2"><%= @foodlist.name  %> <span class="badge badge-primary"> <%= @foodlist.foods.size %></span></h2>
+      <a class="btn btn-flat ml-auto p-2" data-toggle="modal" data-target="#shoppinglistModal" >📝 Envoyer la liste</a>
+    </div>
+</div>
+
+<div class="container">
+  <div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="list-group list-group-flush">
       <% @foodlist.food_list_items.order(:id).each do |fli| %>
-        <li>
-          <h3>
-            <%= fli.food.name.capitalize %>
-            <h6>
+        <a href="#" class="list-group-item list-group-item-action rounded">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= fli.food.name.capitalize %></h5>
+            <small>
+              <span class="badge badge-secondary">1er prix <%= fli.food.get_cheapest_store_item.store.name %></span>
+            </small>
+          </div>
+          <div class="d-flex w-100 justify-content-between">
+            <small class="mb-1">
               <% if fli.food.store_items.where(is_available: true).any? %>
-                🛒<%= fli.food.get_cheapest_store_item.name %> à <strong><%= fli.food.get_cheapest_store_item.price %>€</strong> (➡ <%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>) @<%= fli.food.get_cheapest_store_item.store.name %>
+                <%= fli.food.get_cheapest_store_item.name %> à <strong><%= fli.food.get_cheapest_store_item.price %>€</strong>
               <% else %>
-                🛒Aucun résultat disponible
+                Aucun résultat disponible
               <% end %>
-              <%= link_to 'remove', food_list_food_list_item_path(fli.food_list, fli), method: :delete %>
-            </h6>
-          </h3>
-        </li>
+            </small>
+            <small>
+              <% if fli.food.store_items.where(is_available: true).any? %>
+                soit <%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>
+              <% else %>
+                Aucun résultat disponible
+              <% end %>
+            </small>
+
+          </div>
+        </a>
       <% end %>
     </ul>
   </div>
 </div>
+
+
+
+
+
 
 <div class="container">
   <div class="row">
@@ -133,3 +151,4 @@
     </div>
   <% end %>
 </div>
+
