@@ -1,6 +1,8 @@
-<div class="container">
-  <div class="alert alert-danger" role="alert">
-    😅 La fonctionnalité "📝 Envoyer la liste" n'est pas encore prête !
+<div class="jumbotron jumbotron-fluid alert-danger">
+  <div class="container">
+    <h1 class="display-4">😅</h1>
+    <p class="lead">Cette fonctionnalité n'est pas encore prête</p>
+    <hr class="my-4">
   </div>
 </div>
 
@@ -23,7 +25,7 @@
         <% @foodlist.food_list_items.order(:id).each do |fli| %>
           <div class="pl-0 pr-0 list-group-item list-group-item-action border-top border-bottom">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><%= fli.food.name.capitalize %></h5>
+              <h6 class="mb-1"><strong><%= fli.food.name.capitalize %></strong></h6>
               <small>
                 <span class="badge badge-secondary">le moins cher | <%= fli.food.get_cheapest_store_item.store.name %></span>
               </small>

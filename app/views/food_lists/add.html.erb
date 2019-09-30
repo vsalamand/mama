@@ -14,7 +14,7 @@
         <% @foodlist.food_list_items.order(:id).each do |fli| %>
           <div class="pl-0 pr-0 list-group-item list-group-item-action border-top border-bottom">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><%= fli.food.name.capitalize %></h5>
+              <h6 class="mb-1"><strong><%= fli.food.name.capitalize %></strong></h6>
               <small>
                 <span class="badge badge-secondary">le moins cher | <%= fli.food.get_cheapest_store_item.store.name %></span>
               </small>
@@ -27,6 +27,8 @@
                   Aucun résultat disponible
                 <% end %>
               </small>
+            </div>
+            <div class="d-flex w-100 justify-content-between">
               <small>
                 <% if fli.food.store_items.where(is_available: true).any? %>
                   <%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>
@@ -49,24 +51,28 @@
   <% end %>
 </div>
 
+<div class="container p-3 mb-5 ">
+  <hr class="my-1">
+</div>
+
 
 
 <div class="container">
   <div class="shadow p-3 mb-3 bg-white">
     <div class="search-form-control form-group">
       <%= form_tag(add_food_list_path, :method => "get") do %>
-        <%= text_field_tag :query, params[:query], placeholder: "Chercher des ingrédients", required: true, class: "form-control string required" %>
-        <%= submit_tag "🔎 Chercher",  class: "btn btn-flat" %>
+        <%= text_field_tag :query, params[:query], placeholder: "Recherche", required: true, class: "form-control string required" %>
+        <%= submit_tag "🔎",  class: "btn btn-flat" %>
       <% end %>
     </div>
 
     <% if @search %>
         <div class="list-group list-group-flush">
-          <% @search[0..4].each do |food| %>
+          <% @search[0..2].each do |food| %>
             <% if food.present? %>
               <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                   <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><%= food.name %></h5>
+                    <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                     <small>
                       <% if food.store_items.where(is_available: true).any? %>
                         <span class="badge badge-secondary">le moins cher | <%= food.get_cheapest_store_item.store.name %></span>
@@ -81,6 +87,8 @@
                         Aucun produit référencé disponible
                       <% end %>
                     </small>
+                  </div>
+                  <div class="d-flex w-100 justify-content-between">
                     <small>
                       <% if food.store_items.where(is_available: true).any? %>
                         <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -99,13 +107,13 @@
 <% unless @similar_food.nil? %>
   <div class="container">
     <div class="shadow p-3 mb-3 bg-white rounded">
-      <h3 class="shadow p-3 mb-3 bg-white rounded"><%= @foodlist.foods.first.name.capitalize %> + ⬇️ = ❤️</h3>
+      <h4 class="shadow p-3 mb-3 bg-white rounded"><%= @foodlist.foods.first.name.capitalize %> + ⬇️ = ❤️</h4>
       <div class="list-group list-group-flush">
-        <% @similar_food[0..4].each do |food| %>
+        <% @similar_food[0..2].each do |food| %>
           <% if food.present? && food.store_items.where(is_available: true).any? %>
             <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1"><%= food.name %></h5>
+                  <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                   <small>
                     <% if food.store_items.where(is_available: true).any? %>
                       <span class="badge badge-secondary">le moins cher | <%= food.get_cheapest_store_item.store.name %></span>
@@ -120,6 +128,8 @@
                       Aucun produit référencé disponible
                     <% end %>
                   </small>
+                </div>
+                <div class="d-flex w-100 justify-content-between">
                   <small>
                     <% if food.store_items.where(is_available: true).any? %>
                       <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -130,13 +140,13 @@
           <% end %>
         <% end %>
 
-        <% if @similar_food.size > 5 %>
+        <% if @similar_food.size > 3 %>
           <div class="collapse" id="collapseSimilarfoods">
-            <% @similar_food[5..9].each do |food| %>
+            <% @similar_food[3..9].each do |food| %>
               <% if food.present? && food.store_items.where(is_available: true).any? %>
                 <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
                     <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1"><%= food.name %></h5>
+                      <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                       <small>
                         <% if food.store_items.where(is_available: true).any? %>
                           <span class="badge badge-secondary">le moins cher | <%= food.get_cheapest_store_item.store.name %></span>
@@ -151,6 +161,8 @@
                           Aucun produit référencé disponible
                         <% end %>
                       </small>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
                       <small>
                         <% if food.store_items.where(is_available: true).any? %>
                           <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -173,13 +185,13 @@
 
 <div class="container">
   <div class="shadow p-3 mb-4 bg-white rounded">
-    <h3 class="shadow p-3 mb-3 bg-white rounded">🔥 Top du moment</h3>
+    <h4 class="shadow p-3 mb-3 bg-white rounded">🔥 Top du moment</h4>
     <div class="list-group list-group-flush">
-      <% @top_foods[0..4].each do |food| %>
+      <% @top_foods[0..2].each do |food| %>
         <% if food.present? && food.store_items.where(is_available: true).any? %>
           <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"><%= food.name %></h5>
+                <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                 <small>
                   <% if food.store_items.where(is_available: true).any? %>
                     <span class="badge badge-secondary">le moins cher | <%= food.get_cheapest_store_item.store.name %></span>
@@ -194,6 +206,8 @@
                     Aucun produit référencé disponible
                   <% end %>
                 </small>
+              </div>
+              <div class="d-flex w-100 justify-content-between">
                 <small>
                   <% if food.store_items.where(is_available: true).any? %>
                     <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -204,13 +218,13 @@
         <% end %>
       <% end %>
 
-      <% if @promo_foods.size > 5 %>
+      <% if @promo_foods.size > 3 %>
         <div class="collapse" id="collapseTopfoods">
-          <% @top_foods[5..-1].each do |food| %>
+          <% @top_foods[3..-1].each do |food| %>
             <% if food.present? && food.store_items.where(is_available: true).any? %>
               <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
                   <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><%= food.name %></h5>
+                    <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                     <small>
                       <% if food.store_items.where(is_available: true).any? %>
                         <span class="badge badge-secondary">le moins cher | <%= food.get_cheapest_store_item.store.name %></span>
@@ -225,6 +239,8 @@
                         Aucun produit référencé disponible
                       <% end %>
                     </small>
+                  </div>
+                  <div class="d-flex w-100 justify-content-between">
                     <small>
                       <% if food.store_items.where(is_available: true).any? %>
                         <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -246,13 +262,13 @@
 
 <div class="container">
   <div class="shadow p-3 mb-4 bg-white rounded">
-    <h3 class="shadow p-3 mb-3 bg-white rounded">🤑 Promotions</h3>
+    <h4 class="shadow p-3 mb-3 bg-white rounded">🤑 Promotions</h4>
     <div class="list-group list-group-flush">
-      <% @promo_foods[0..4].each do |food| %>
+      <% @promo_foods[0..2].each do |food| %>
         <% if food.present? %>
           <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"><%= food.name %></h5>
+                <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                 <small>
                   <% if food.store_items.where(is_available: true).any? %>
                     <span class="badge badge-warning">promo | <%= food.get_cheapest_store_item.store.name %></span>
@@ -267,6 +283,8 @@
                     Aucun produit référencé disponible
                   <% end %>
                 </small>
+              </div>
+              <div class="d-flex w-100 justify-content-between">
                 <small>
                   <% if food.store_items.where(is_available: true).any? %>
                     <%= food.get_cheapest_store_item.promo_price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -278,13 +296,13 @@
         <% end %>
       <% end %>
 
-      <% if @promo_foods.size > 5 %>
+      <% if @promo_foods.size > 3 %>
         <div class="collapse" id="collapsePromofoods">
-          <% @promo_foods[5..-1].each do |food| %>
+          <% @promo_foods[3..-1].each do |food| %>
             <% if food.present? && food.store_items.where(is_available: true).any? %>
               <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom  #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                   <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><%= food.name %></h5>
+                    <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                     <small>
                       <% if food.store_items.where(is_available: true).any? %>
                         <span class="badge badge-warning">promo | <%= food.get_cheapest_store_item.store.name %></span>
@@ -299,6 +317,8 @@
                         Aucun produit référencé disponible
                       <% end %>
                     </small>
+                  </div>
+                  <div class="d-flex w-100 justify-content-between">
                     <small>
                       <% if food.store_items.where(is_available: true).any? %>
                         <%= food.get_cheapest_store_item.promo_price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -323,15 +343,15 @@
   <div class="container">
     <div class="shadow p-3 mb-4 bg-white rounded">
       <div class="shadow p-3 mb-3 bg-white rounded" >
-        <h3><%= recipe.title %></h3>
+        <h4><%= recipe.title %></h4>
         <h6 class=""><%= link_to "cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h6>
       </div>
       <div class="list-group list-group-flush">
-        <% recipe.foods[0..4].each do |food| %>
+        <% recipe.foods[0..2].each do |food| %>
           <% if food.present?  %>
             <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1"><%= food.name %></h5>
+                  <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                   <small>
                     <% if food.store_items.where(is_available: true).any? %>
                       <span class="badge badge-secondary">le moins cher | <%= food.get_cheapest_store_item.store.name %></span>
@@ -346,6 +366,8 @@
                       Aucun produit référencé disponible
                     <% end %>
                   </small>
+                </div>
+                <div class="d-flex w-100 justify-content-between">
                   <small>
                     <% if food.store_items.where(is_available: true).any? %>
                       <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
@@ -356,13 +378,13 @@
           <% end %>
         <% end %>
 
-        <% if recipe.foods.size > 5 %>
+        <% if recipe.foods.size > 3 %>
           <div class="collapse" id="collapseRecipe-<%= index %>">
-            <% recipe.foods[5..-1].each do |food| %>
+            <% recipe.foods[3..-1].each do |food| %>
               <% if food.present?  %>
                 <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                     <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1"><%= food.name %></h5>
+                      <h6 class="mb-1"><strong><%= food.name %></strong></h6>
                       <small>
                         <% if food.store_items.where(is_available: true).any? %>
                           <span class="badge badge-secondary">le moins cher | <%= food.get_cheapest_store_item.store.name %></span>
@@ -377,6 +399,8 @@
                           Aucun produit référencé disponible
                         <% end %>
                       </small>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
                       <small>
                         <% if food.store_items.where(is_available: true).any? %>
                           <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
