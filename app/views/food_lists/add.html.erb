@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="shadow p-3 mb-4 bg-white rounded">
-    <h2 class="w-75 p-2"><%= @foodlist.name  %> <span class="badge badge-primary"> <%= @foodlist.foods.size %></span></h2>
+    <h2 class="pl-0 pr-0" id="title"><%= @foodlist.name  %> <span class="badge badge-primary"> <%= @foodlist.foods.size %></span></h2>
   </div>
 </div>
 
@@ -11,7 +11,7 @@
     <div class="shadow p-3 mb-5 bg-white rounded">
       <div class="list-group list-group-flush">
         <% @foodlist.food_list_items.order(:id).each do |fli| %>
-          <div class="list-group-item list-group-item-action border-top border-bottom">
+          <div class="pl-0 pr-0 list-group-item list-group-item-action border-top border-bottom">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><%= fli.food.name.capitalize %></h5>
               <small>
@@ -63,7 +63,7 @@
         <div class="list-group list-group-flush">
           <% @search[0..4].each do |food| %>
             <% if food.present? %>
-              <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
+              <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%= food.name %></h5>
                     <small>
@@ -102,7 +102,7 @@
       <div class="list-group list-group-flush">
         <% @similar_food[0..4].each do |food| %>
           <% if food.present? && food.store_items.where(is_available: true).any? %>
-            <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom"  do %>
+            <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1"><%= food.name %></h5>
                   <small>
@@ -133,7 +133,7 @@
           <div class="collapse" id="collapseSimilarfoods">
             <% @similar_food[5..9].each do |food| %>
               <% if food.present? && food.store_items.where(is_available: true).any? %>
-                <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom"  do %>
+                <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
                     <div class="d-flex w-100 justify-content-between">
                       <h5 class="mb-1"><%= food.name %></h5>
                       <small>
@@ -160,7 +160,7 @@
               <% end %>
             <% end %>
           </div>
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSimilarfoods" aria-expanded="false" aria-controls="collapseSimilarfoods">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSimilarfoods" aria-expanded="false" aria-controls="collapseSimilarfoods" id="view_more_similar_food">
             Afficher la suite
           </button>
         <% end %>
@@ -176,7 +176,7 @@
     <div class="list-group list-group-flush">
       <% @top_foods[0..4].each do |food| %>
         <% if food.present? && food.store_items.where(is_available: true).any? %>
-          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom"  do %>
+          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1"><%= food.name %></h5>
                 <small>
@@ -207,7 +207,7 @@
         <div class="collapse" id="collapseTopfoods">
           <% @top_foods[5..-1].each do |food| %>
             <% if food.present? && food.store_items.where(is_available: true).any? %>
-              <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom"  do %>
+              <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%= food.name %></h5>
                     <small>
@@ -249,7 +249,7 @@
     <div class="list-group list-group-flush">
       <% @promo_foods[0..4].each do |food| %>
         <% if food.present? %>
-          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom"  do %>
+          <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom"  do %>
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1"><%= food.name %></h5>
                 <small>
@@ -281,7 +281,7 @@
         <div class="collapse" id="collapsePromofoods">
           <% @promo_foods[5..-1].each do |food| %>
             <% if food.present? && food.store_items.where(is_available: true).any? %>
-              <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom  #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
+              <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom  #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                   <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%= food.name %></h5>
                     <small>
@@ -328,7 +328,7 @@
       <div class="list-group list-group-flush">
         <% recipe.foods[0..4].each do |food| %>
           <% if food.present?  %>
-            <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
+            <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1"><%= food.name %></h5>
                   <small>
@@ -359,7 +359,7 @@
           <div class="collapse" id="collapseRecipe-<%= index %>">
             <% recipe.foods[5..-1].each do |food| %>
               <% if food.present?  %>
-                <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
+                <%= link_to create_foodlist_item_food_list_item_path(@foodlist, food), class: "pl-0 pr-0 list-group-item list-group-item-action  border-top border-bottom #{@foodlist.foods.include?(food) ? ' disabled' : nil}"  do %>
                     <div class="d-flex w-100 justify-content-between">
                       <h5 class="mb-1"><%= food.name %></h5>
                       <small>
@@ -386,7 +386,7 @@
               <% end %>
             <% end %>
           </div>
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseRecipe-<%= index %>" aria-expanded="false" aria-controls="collapseRecipe-<%= index %>">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseRecipe-<%= index %>" aria-expanded="false" aria-controls="collapseRecipe-<%= index %>" id="test" onclick="hideViewMoreOnClick(this)">
             Afficher la suite
           </button>
         <% end %>
@@ -395,32 +395,3 @@
     </div>
   </div>
 <% end %>
-
-
-<div class="modal" id="ShareShoppinglistModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">📝 Envoyer la liste</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-danger" role="alert">
-          😅 Cette fonctionnalité n'est pas encore prête !
-        </div>
-
-        <ul>
-          <% @foodlist.foods.each do |food| %>
-            <li><%= food.name%></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-

@@ -18,7 +18,9 @@ import '../components/selectize';
 
 
 // tryuing to close modal after submit to new tab...
-$('.modal').on('hidden.bs.modal', function () {
-  location.reload();
-});
+// $('.modal').on('hidden.bs.modal', function () {
+//   location.reload();
+// });
 
+import { hideViewMoreOnClick } from '../components/view_more';
+hideViewMoreOnClick();

@@ -2,7 +2,7 @@
   <a class="navbar-brand text-dark" href="/">😋 FoodMama</a>
 
   <% if params[:controller] == "food_lists" && params[:action] == "add" %>
-    <a class="btn btn-flat ml-auto p-2" data-toggle="modal" data-target="#ShareShoppinglistModal" >📝 Envoyer la liste</a>
+    <%= link_to '📝 Envoyer la liste', food_list_path(@foodlist), class: 'btn btn-flat ml-auto p-2' %>
   <% end %>
 
 </nav>
