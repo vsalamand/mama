@@ -7,7 +7,8 @@
 
 <div class="container">
   <div class="shadow p-3 mb-4 bg-white rounded">
-    <h2 class="pl-0 pr-0" id="title"><%= @foodlist.name  %> <span class="badge badge-primary"> <%= @foodlist.foods.size %></span></h2>
+    <h2 class="pl-0 pr-0" id="title"><%= @foodlist.name  %></h2>
+    <p class="font-weight-light"><%= @foodlist.foods.size %> <%= (@foodlist.foods.size > 1)? "articles" : "article"%></p>
     <% if @foodlist.food_list_type == "grocery_list" %>
       <%= link_to 'Ajouter des articles', add_food_list_path(@foodlist), class: 'btn btn-flat' %>
     <% end %>

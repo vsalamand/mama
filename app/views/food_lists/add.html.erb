@@ -1,7 +1,8 @@
 
 <div class="container">
   <div class="shadow p-3 mb-4 bg-white rounded">
-    <h2 class="pl-0 pr-0" id="title"><%= @foodlist.name  %> <span class="badge badge-primary"> <%= @foodlist.foods.size %></span></h2>
+    <h2 class="pl-0 pr-0" id="title"><%= @foodlist.name  %> </h2>
+    <p class="font-weight-light"><%= @foodlist.foods.size %> <%= (@foodlist.foods.size > 1)? "articles" : "article"%></p>
   </div>
 </div>
 
