@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# ruby '2.4.4'
+ruby '2.4.4'
 # ruby '2.6.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -36,8 +36,7 @@ gem 'webpacker', '~> 3.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # front-end setup
-gem "bootstrap-sass"
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap'
 gem "font-awesome-sass"
 gem "simple_form"
 gem 'nested_form_fields'

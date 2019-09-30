@@ -23,7 +23,8 @@ class FoodList < ApplicationRecord
         result = data.map {|x| x.values[0]}
 
         suggested_foods = []
-        result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
+        # result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
+        result.each { |food| suggested_foods << Food.find_by(name: food) }
 
         # filter out seasonings and foods in shoppinglist
         suggested_foods = suggested_foods - FoodList.get_seasonings - self.foods

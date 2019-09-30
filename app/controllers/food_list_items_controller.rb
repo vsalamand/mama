@@ -11,16 +11,16 @@ class FoodListItemsController < ApplicationController
 
     unless current_item
       FoodListItem.create(name: food.name, food_id: food.id, food_list_id: @foodlist.id)
-       redirect_to :back
+      redirect_back(fallback_location:"/")
     else
-       redirect_to :back
+      redirect_back(fallback_location:"/")
     end
   end
 
   def destroy
     @foodlist = FoodList.find(params[:food_list_id])
     @foodlist_item.destroy
-    redirect_to :back
+    redirect_back(fallback_location:"/")
   end
 
   private

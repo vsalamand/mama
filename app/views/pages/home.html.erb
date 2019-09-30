@@ -1,67 +1,24 @@
-<!-- <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId            : '1192259447586250',
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v3.2'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script> -->
-
-<div class="wrapper">
+<div class="banner">
   <div class="container">
-
-    <div class="banner">
-      <div class="row text-center">
-        <div class="col-xs-12">
-
-          <h1>Mangez mieux au meilleur prix !</h1>
-          <h3>Préparez votre liste de courses en 2mn sur ClubMama.</h3>
-
-<!--           <div class="fb-send-to-messenger"
-            messenger_app_id="1192259447586250"
-            page_id="111163226267868"
-            data-ref="website"
-            color="blue"
-            cta_text="GET_STARTED_IN_MESSENGER"
-            size="xlarge">
-          </div> -->
-           <button type="button" class="btn btn-primary btn-large" data-toggle="modal" data-target="#shoppinglistModal" style="font-size: 2.5em">
-            🔥 Cliquer ici 🔥
-          </button>
-        </div>
-      </div>
+    <div class="shadow p-3 mb-5 bg-white rounded">
+      <h1 class="w-75 p-2">Manger mieux <strong>au meilleur prix</strong></h1>
+      <p class="w-75 p-2">Préparez votre liste de courses en 2mn sur FoodMama !</p>
+    </div>
+    <div>
+      <a class="btn btn-lg btn-flat" data-toggle="modal" data-target="#shoppinglistModal" >Cliquer ici pour commencer</a>
     </div>
   </div>
 </div>
 
-<!-- <div class="wrapper">
-  <div class="container">
-    <div style="margin-top: 50px; margin-bottom: 50px; display: flex; align-items: center; justify-content: center;">
-      <div class="row text-center">
-        <div class="col-xs-12">
-          <%= cl_image_tag("hp_product_demo", class: "img-responsive") %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 
 <div class="modal" id="shoppinglistModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Nouvelle liste de courses</h3>
+        <h3 class="modal-title">📝  Nouvelle liste de courses</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <%= render 'food_lists/form' %>
