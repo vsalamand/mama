@@ -1,42 +1,36 @@
-<% if food.present? %>
-  <div class= "pl-3 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
+<div class="grocerylist-item-card">
+  <div class="pl-3 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
     <div class="foodlist-item">
-      <div class="d-flex w-90 justify-content-start">
-        <small><%= "✅" if @foodlist.foods.include?(food) %> </small>
-        <h6 class="mb-1"><strong><%= food.name.capitalize %></strong></h6>
+      <div class="d-flex w-90 justify-content-between">
+        <h6 class="mb-1"><strong><%= fli.food.name.capitalize %></strong></h6>
       </div>
       <div class="d-flex w-90 justify-content-between">
         <small class="mb-1">
-          <% if food.store_items.exists?(is_available: true) %>
-            <% if food.store_items.exists?(is_promo: true) %>
-              <span class="badge badge-warning">promo</span>
-            <% else %>
-              <span class="badge badge-secondary">le moins cher</span>
-            <% end %>
-            <%= food.get_cheapest_store_item.name %> à <strong><%= food.get_cheapest_store_item.price %>€</strong>
+          <% if fli.food.store_items.where(is_available: true).any? %>
+            <span class="badge badge-secondary">le moins cher</span>
+            <%= fli.food.get_cheapest_store_item.name %> à <strong><%= fli.food.get_cheapest_store_item.price %>€</strong>
           <% else %>
-            Aucun produit référencé disponible
+            Aucun résultat disponible
           <% end %>
         </small>
       </div>
       <div class="d-flex w-90 justify-content-between">
         <small>
-          <% if food.store_items.exists?(is_available: true) %>
-            <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
-            <% if food.store_items.exists?(is_promo: true) %>
-              | <strike><%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></strike>
-            <% end %>
-            <span>chez <%= food.get_cheapest_store_item.store.name %></span>
+          <% if fli.food.store_items.where(is_available: true).any? %>
+            <%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>
+            <span>chez <%= fli.food.get_cheapest_store_item.store.name %></span>
           <% end %>
         </small>
       </div>
     </div>
-    <% unless foodlist.foods.include?(food) %>
-       <%= link_to create_foodlist_item_food_list_item_path(foodlist, food), remote: true do %>
-          <button type="button" class="btn btn-outline-primary btn-sm">Ajouter</button>
-       <% end %>
-     <% else %>
-        <button type="button" class="btn btn-outline-success btn-sm disabled">Ajouté !</button>
+
+    <% if params[:controller] == "food_lists" && params[:action] == "add" %>
+     <%= link_to food_list_food_list_item_path(fli.food_list, fli), method: :delete, remote: true do %>
+        <button type="button" class="close m-3" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+     <% end %>
     <% end %>
+
   </div>
-<% end %>
+</div>
