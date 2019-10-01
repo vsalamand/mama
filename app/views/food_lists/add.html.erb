@@ -180,7 +180,7 @@
               <% end %>
             <% end %>
           </div>
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSimilarfoods" aria-expanded="false" aria-controls="collapseSimilarfoods" id="view_more_similar_food">
+          <button class="btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseSimilarfoods" aria-expanded="false" aria-controls="collapseSimilarfoods">
             Afficher la suite
           </button>
         <% end %>
@@ -225,7 +225,7 @@
         <% end %>
       <% end %>
 
-      <% if @promo_foods.size > 3 %>
+      <% if @top_foods.size > 3 %>
         <div class="collapse" id="collapseTopfoods">
           <% @top_foods[3..-1].each do |food| %>
             <% if food.present? && food.store_items.where(is_available: true).any? %>
@@ -258,7 +258,7 @@
             <% end %>
           <% end %>
         </div>
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTopfoods" aria-expanded="false" aria-controls="collapseTopfoods">
+        <button class="btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseTopfoods" aria-expanded="false" aria-controls="collapseTopfoods">
           Afficher la suite
         </button>
       <%end %>
@@ -337,7 +337,7 @@
             <% end %>
           <% end %>
         </div>
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsePromofoods" aria-expanded="false" aria-controls="collapsePromofoods">
+        <button class="btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapsePromofoods" aria-expanded="false" aria-controls="collapsePromofoods">
           Afficher la suite
         </button>
       <% end %>
@@ -418,7 +418,7 @@
               <% end %>
             <% end %>
           </div>
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseRecipe-<%= index %>" aria-expanded="false" aria-controls="collapseRecipe-<%= index %>" id="test" onclick="hideViewMoreOnClick(this)">
+          <button class="btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseRecipe-<%= index %>" aria-expanded="false" aria-controls="collapseRecipe-<%= index %>">
             Afficher la suite
           </button>
         <% end %>
