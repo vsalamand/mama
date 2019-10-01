@@ -59,13 +59,13 @@ class FoodList < ApplicationRecord
   # get list of most popular food in recipes
   def get_top_foods
     top_foods = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(30)
-    clean_top_foods = top_foods - FoodList.get_seasonings - self.foods
+    clean_top_foods = top_foods - FoodList.get_seasonings
     return clean_top_foods
   end
 
   # get list of food with current store items promotion
   def get_promo_foods
-    return Food.includes(:store_items).where(store_items: {is_promo: true}) - self.foods
+    return Food.includes(:store_items).where(store_items: {is_promo: true})
   end
 
   # send a short list of seasonal foods
