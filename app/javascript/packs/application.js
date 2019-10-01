@@ -23,3 +23,5 @@ import '../components/selectize';
 
 import { hideViewMoreBtn } from '../components/view_more';
 hideViewMoreBtn();
+// import { addItem } from '../components/add_item';
+// addItem();

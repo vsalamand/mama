@@ -11,7 +11,7 @@ class FoodListItemsController < ApplicationController
 
     unless current_item
       FoodListItem.create(name: food.name, food_id: food.id, food_list_id: @foodlist.id)
-      redirect_back(fallback_location:"/")
+      head :ok
     else
       redirect_back(fallback_location:"/")
     end
@@ -20,7 +20,10 @@ class FoodListItemsController < ApplicationController
   def destroy
     @foodlist = FoodList.find(params[:food_list_id])
     @foodlist_item.destroy
-    redirect_back(fallback_location:"/")
+    respond_to do |format|
+      format.html { redirect_back(fallback_location:"/") }
+      format.js   { render :layout => false }  # <-- will render `app/views/food_list_items/destroy.js.erb`
+    end
   end
 
   private
