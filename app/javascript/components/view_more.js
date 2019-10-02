@@ -1,9 +1,9 @@
-const hideViewMoreOnClick = () => {
-  // debugger
-  const view_more = document.getElementById();
-  view_more.addEventListener("click", (event) => {
-    view_more.style.display = "none";
+const hideViewMoreBtn = () => {
+  document.querySelectorAll(".view-more").forEach((vm) => {
+    vm.addEventListener("click", (event) => {
+      event.currentTarget.style.display = "none";
+    });
   });
 }
 
-export { hideViewMoreOnClick };
+export { hideViewMoreBtn };

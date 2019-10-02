@@ -16,11 +16,10 @@ import '../components/selectize';
 // Rails.start();
 // Turbolinks.start();
 
-
 // tryuing to close modal after submit to new tab...
 // $('.modal').on('hidden.bs.modal', function () {
 //   location.reload();
 // });
 
-import { hideViewMoreOnClick } from '../components/view_more';
-hideViewMoreOnClick();
+import { hideViewMoreBtn } from '../components/view_more';
+hideViewMoreBtn();

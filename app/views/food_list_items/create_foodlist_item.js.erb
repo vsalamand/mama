@@ -1,0 +1,24 @@
+// add eventlistener on all buttons
+const addFoodBtns = document.querySelectorAll(".add-food-btn-id<%= @food.id %>")
+addFoodBtns.forEach((btn) => {
+  btn.addEventListener("click", (event) => {
+    event.preventDefault();
+  });
+})
+
+// then when click is detected do the following:
+// add new card to grocerylist
+const groceryListCards = document.querySelector("#grocerylist-items");
+newCardHtml = "<%= j render 'food_list_items/item-card', fli: @foodlist_item, foodlist: @foodlist %>";
+groceryListCards.insertAdjacentHTML('beforeend', newCardHtml);
+
+// update all cards with the selected food
+const foodId = ".food-card-id<%= @food.id %>";
+document.querySelectorAll(foodId).forEach((card) => {
+  $(card).html("<%= j render 'foods/food-card', food: @food, foodlist: @foodlist %>");
+});
+
+// Increment counters
+document.querySelectorAll(".grocerylist-count").forEach((counter) => {
+  counter.innerHTML = document.getElementById("grocerylist-items").childElementCount;
+});

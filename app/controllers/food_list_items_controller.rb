@@ -4,23 +4,26 @@ class FoodListItemsController < ApplicationController
 
 
   def create_foodlist_item
-    food = Food.find(params[:format])
+    @food = Food.find(params[:format])
     @foodlist = FoodList.find(params[:id])
 
-    current_item = @foodlist.food_list_items.find_by(food_id: food.id)
+    current_item = @foodlist.food_list_items.find_by(food_id: @food.id)
 
     unless current_item
-      FoodListItem.create(name: food.name, food_id: food.id, food_list_id: @foodlist.id)
-      redirect_back(fallback_location:"/")
+      @foodlist_item = FoodListItem.create(name: @food.name, food_id: @food.id, food_list_id: @foodlist.id)
+      render "create_foodlist_item.js.erb"
     else
-      redirect_back(fallback_location:"/")
+      head :ok
+    #   redirect_back(fallback_location:"/")
     end
   end
 
   def destroy
     @foodlist = FoodList.find(params[:food_list_id])
+    @food = @foodlist_item.food
     @foodlist_item.destroy
-    redirect_back(fallback_location:"/")
+    # redirect_back(fallback_location:"/")
+    render "destroy.js.erb"
   end
 
   private

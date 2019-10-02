@@ -43,7 +43,7 @@ class FoodListsController < ApplicationController
 
     @top_foods = @foodlist.get_top_foods
     @promo_foods = @foodlist.get_promo_foods
-    @similar_food = @foodlist.get_similar_food
+    # @similar_food = @foodlist.get_similar_food
     @reco_recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
   end
 
