@@ -1,0 +1,4 @@
+
+$('.card-item').bind('ajax:success', function() {
+  $(this).closest('div').html("<%= j render 'foods/food-card', food: @food, foodlist: @foodlist %>");
+});

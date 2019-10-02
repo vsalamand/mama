@@ -41,7 +41,7 @@
     </div>
 
     <% if @search %>
-        <div class="list-group list-group-flush">
+        <div class="list-group list-group-flush" id="cards-block-search">
           <% @search[0..2].each do |food| %>
             <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
           <% end %>
@@ -50,7 +50,7 @@
   </div>
 </div>
 
-
+<!--
 <% unless @similar_food.nil? %>
   <div class="container">
     <div class="shadow p-3 mb-2 bg-white rounded">
@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-<% end %>
+<% end %> -->
 
 
 <div class="container">
@@ -85,15 +85,18 @@
     <small><%= @top_foods.size %> articles</small>
   </div>
   <div class="shadow p-0 mb-5 bg-white rounded">
-    <div class="list-group list-group-flush">
-      <% @top_foods[0..2].each do |food| %>
+    <div class="list-group list-group-flush" id="cards-block-topfoods">
+      <% @top_foods[0..2].each_with_index do |food, index| %>
+        <div id="card-topfoods-#<%= index %>">
             <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
+        </div>
       <% end %>
-
       <% if @top_foods.size > 3 %>
         <div class="collapse" id="collapseTopfoods">
-          <% @top_foods[3..-1].each do |food| %>
-            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
+          <% @top_foods[3..-1].each_with_index do |food, index| %>
+            <div id="card-topfoods-expanded-#<%= index %>">
+              <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
+            </div>
           <% end %>
         </div>
         <button class="mt-2 btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseTopfoods" aria-expanded="false" aria-controls="collapseTopfoods">
@@ -111,7 +114,7 @@
     <small><%= @promo_foods.size %> articles</small>
   </div>
   <div class="shadow p-0 mb-5 bg-white rounded">
-    <div class="list-group list-group-flush">
+    <div class="list-group list-group-flush" id="cards-block-promo">
       <% @promo_foods[0..2].each do |food| %>
             <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
       <% end %>
@@ -139,7 +142,7 @@
       <h6 ><%= link_to "Cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h6>
     </div>
     <div class="shadow p-0 mb-5 bg-white rounded">
-      <div class="list-group list-group-flush">
+      <div class="list-group list-group-flush" id="cards-block-recipe#<%= index %>">
         <% recipe.foods[0..2].each do |food| %>
           <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
         <% end %>
