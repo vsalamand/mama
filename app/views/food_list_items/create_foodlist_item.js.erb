@@ -17,3 +17,8 @@ const foodId = ".food-card-id<%= @food.id %>";
 document.querySelectorAll(foodId).forEach((card) => {
   $(card).html("<%= j render 'foods/food-card', food: @food, foodlist: @foodlist %>");
 });
+
+// Increment counters
+document.querySelectorAll(".grocerylist-count").forEach((counter) => {
+  counter.innerHTML = document.getElementById("grocerylist-items").childElementCount;
+});

@@ -1,5 +1,5 @@
 <div class= "pl-3 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
-  <div class="foodlist-item">
+  <div class="food-card">
     <div class="d-flex w-90 justify-content-start">
       <small><%= "✅" if @foodlist.foods.include?(food) %> </small>
       <h6 class="mb-1"><strong><%= food.name.capitalize %></strong></h6>
@@ -32,7 +32,7 @@
   </div>
   <% unless foodlist.foods.include?(food) %>
      <%= link_to create_foodlist_item_food_list_item_path(foodlist, food), remote: true do %>
-        <button type="button" class="btn btn-outline-primary btn-sm add-food-btn-id<%= food.id %>">Ajouter</button>
+        <button type="button" class="btn btn-outline-primary btn-sm add-food add-food-btn-id<%= food.id %>">Ajouter</button>
      <% end %>
    <% else %>
       <button type="button" class="btn btn-outline-success btn-sm disabled">Ajouté !</button>
