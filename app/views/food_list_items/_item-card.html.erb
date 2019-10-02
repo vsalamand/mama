@@ -23,14 +23,10 @@
         </small>
       </div>
     </div>
-
-    <% if params[:controller] == "food_lists" && params[:action] == "add" %>
-     <%= link_to food_list_food_list_item_path(fli.food_list, fli), method: :delete, remote: true do %>
-        <button type="button" class="close m-3" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-     <% end %>
-    <% end %>
-
+   <%= link_to food_list_food_list_item_path(fli.food_list, fli), method: :delete, remote: true do %>
+      <button type="button" class="close m-3 remove-item" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+   <% end %>
   </div>
 </div>

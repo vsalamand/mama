@@ -1,4 +1,8 @@
-
 $('.card-item').bind('ajax:success', function() {
+  // update clicked card
   $(this).closest('div').html("<%= j render 'foods/food-card', food: @food, foodlist: @foodlist %>");
+  // add new card to grocerylist
+  const groceryListCards = document.querySelector("#grocerylist-items");
+  newCardHtml = "<%= j render 'food_list_items/item-card', fli: @foodlist_item, foodlist: @foodlist %>"
+  groceryListCards.insertAdjacentHTML('beforeend', newCardHtml);
 });

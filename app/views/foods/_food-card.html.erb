@@ -34,7 +34,7 @@
       </div>
       <% unless foodlist.foods.include?(food) %>
          <%= link_to create_foodlist_item_food_list_item_path(foodlist, food), remote: true do %>
-            <button type="button" class="btn btn-outline-primary btn-sm">Ajouter</button>
+            <button type="button" class="btn btn-outline-primary btn-sm add-item">Ajouter</button>
          <% end %>
        <% else %>
           <button type="button" class="btn btn-outline-success btn-sm disabled">Ajouté !</button>

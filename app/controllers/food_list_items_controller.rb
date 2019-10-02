@@ -10,7 +10,7 @@ class FoodListItemsController < ApplicationController
     current_item = @foodlist.food_list_items.find_by(food_id: @food.id)
 
     unless current_item
-      FoodListItem.create(name: @food.name, food_id: @food.id, food_list_id: @foodlist.id)
+      @foodlist_item = FoodListItem.create(name: @food.name, food_id: @food.id, food_list_id: @foodlist.id)
       render "create_foodlist_item.js.erb"
     else
       redirect_back(fallback_location:"/")

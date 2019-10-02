@@ -23,5 +23,9 @@ import '../components/selectize';
 
 import { hideViewMoreBtn } from '../components/view_more';
 hideViewMoreBtn();
-// import { addItem } from '../components/add_item';
-// addItem();
+
+import { IncrementCounter } from '../components/add_item';
+IncrementCounter();
+
+import { DecreaseCounter } from '../components/remove_item';
+DecreaseCounter();

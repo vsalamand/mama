@@ -2,14 +2,15 @@
 <div class="container">
   <div class="shadow p-3 mb-4 bg-white rounded">
     <h2 class="pl-0 pr-0 mb-0" id="title"><%= @foodlist.name  %> </h2>
-    <small class="grocerylist-count font-weight-light"><%= @foodlist.foods.size %> <%= (@foodlist.foods.size > 1)? "articles" : "article"%></small>
+    <small class="grocerylist-count font-weight-light"><%= @foodlist.foods.size.to_i %></small>
+    <small class="font-weight-light"><%= (@foodlist.foods.size > 1)? "articles" : "article"%></small>
   </div>
 </div>
 
 <div class="container">
   <% if @foodlist.foods.any? %>
     <div class="shadow p-0 mb-5 bg-white rounded">
-      <div class="list-group list-group-flush">
+      <div class="list-group list-group-flush" id="grocerylist-items">
         <% @foodlist.food_list_items.order(:id).each_with_index do |fli, index| %>
           <%= render 'food_list_items/item-card', fli: fli, foodlist: @foodlist %>
         <% end %>
@@ -87,16 +88,12 @@
   <div class="shadow p-0 mb-5 bg-white rounded">
     <div class="list-group list-group-flush" id="cards-block-topfoods">
       <% @top_foods[0..2].each_with_index do |food, index| %>
-        <div id="card-topfoods-#<%= index %>">
-            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-        </div>
+          <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
       <% end %>
       <% if @top_foods.size > 3 %>
         <div class="collapse" id="collapseTopfoods">
           <% @top_foods[3..-1].each_with_index do |food, index| %>
-            <div id="card-topfoods-expanded-#<%= index %>">
-              <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-            </div>
+            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
           <% end %>
         </div>
         <button class="mt-2 btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseTopfoods" aria-expanded="false" aria-controls="collapseTopfoods">
