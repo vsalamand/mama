@@ -1,6 +1,6 @@
 <div class="container">
   <div class="shadow p-0 mb-5 bg-white" id="searchbox">
-    <div class="p-3 search-form-control form-group">
+    <div class="p-3 mb-0 search-form-control form-group">
       <%= form_tag(add_food_list_path, :method => "get", remote: true, authenticity_token: true, id: "livesearch") do %>
         <%= text_field_tag :query, params[:query], placeholder: "Recherche", id: "keywords", class: "form-control string" %>
       <% end %>
@@ -45,31 +45,7 @@
     <h4 class="mb-0">🔥 Les plus courants</h4>
     <small><%= @top_foods.size %> articles</small>
   </div>
-  <div class="shadow p-0 mb-5 bg-white rounded">
-    <div class="list-group list-group-flush" id="cards-block-topfoods">
-      <% @top_foods[0..2].each do |food| %>
-        <% if food.present? %>
-          <div class="food-card-id<%= food.id %>">
-            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-          </div>
-        <% end %>
-      <% end %>
-      <% if @top_foods.size > 3 %>
-        <div class="collapse" id="collapseTopfoods">
-          <% @top_foods[3..-1].each do |food| %>
-            <% if food.present? %>
-              <div class="food-card-id<%= food.id %>">
-                <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-        <button class="mt-2 btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseTopfoods" aria-expanded="false" aria-controls="collapseTopfoods">
-          Voir plus
-        </button>
-      <%end %>
-    </div>
-  </div>
+  <%= render 'cards-block', food_data: Recipe.find(1280).foods, type: "topFoods" %>
 </div>
 
 
@@ -78,33 +54,10 @@
     <h4 class="mb-0">🤑 Promotions</h4>
     <small><%= @promo_foods.size %> articles</small>
   </div>
-  <div class="shadow p-0 mb-5 bg-white rounded">
-    <div class="list-group list-group-flush" id="cards-block-promo">
-      <% @promo_foods[0..2].each do |food| %>
-        <% if food.present? %>
-          <div class="food-card-id<%= food.id %>">
-            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-          </div>
-        <% end %>
-      <% end %>
+  <%= render 'cards-block', food_data: @promo_foods, type: "promoFoods" %>
 
-      <% if @promo_foods.size > 3 %>
-        <div class="collapse" id="collapsePromofoods">
-          <% @promo_foods[3..-1].each do |food| %>
-            <% if food.present? %>
-              <div class="food-card-id<%= food.id %>">
-                <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-        <button class="mt-2 btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapsePromofoods" aria-expanded="false" aria-controls="collapsePromofoods">
-          Voir plus
-        </button>
-      <% end %>
-    </div>
-  </div>
 </div>
+
 
 
 <% @reco_recipes.each_with_index do | recipe, index|  %>
@@ -114,32 +67,6 @@
       <small><%= recipe.foods.size %> ingrédients</small>
       <h6 ><%= link_to "Cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h6>
     </div>
-    <div class="shadow p-0 mb-5 bg-white rounded">
-      <div class="list-group list-group-flush" id="cards-block-recipe#<%= index %>">
-        <% recipe.foods[0..2].each do |food| %>
-          <% if food.present? %>
-            <div class="food-card-id<%= food.id %>">
-              <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-            </div>
-          <% end %>
-        <% end %>
-
-        <% if recipe.foods.size > 3 %>
-          <div class="collapse" id="collapseRecipe-<%= index %>">
-            <% recipe.foods[3..-1].each do |food| %>
-              <% if food.present? %>
-                <div class="food-card-id<%= food.id %>">
-                  <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-          <button class="mt-2 btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseRecipe-<%= index %>" aria-expanded="false" aria-controls="collapseRecipe-<%= index %>">
-            Voir plus
-          </button>
-        <% end %>
-
-      </div>
-    </div>
+    <%= render 'cards-block', food_data: recipe.foods, type: "recipe-#{index}" %>
   </div>
 <% end %>
