@@ -1,6 +1,6 @@
 class FoodListsController < ApplicationController
-  before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item ]
-  skip_before_action :authenticate_user!, only: [:create, :add, :new, :show]
+  before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item, :live_search ]
+  skip_before_action :authenticate_user!, only: [:create, :add, :new, :show, :live_search]
 
   def show
     @foodlist.food_list_items.build
@@ -38,15 +38,20 @@ class FoodListsController < ApplicationController
   end
 
   def add
-    query = params[:query].present? ? params[:query] : nil
-    @search = Food.search(query, fields: [:name])[0..9] if query
-
     @top_foods = @foodlist.get_top_foods
     @promo_foods = @foodlist.get_promo_foods
     # @similar_food = @foodlist.get_similar_food
     @reco_recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
-  end
 
+    @search = Food.search(params[:query], limit: 10) if params[:query]
+    if @search
+      respond_to do |format|
+        format.html { }
+        format.js {}
+      end
+    end
+
+  end
 
   # def show
   #   @foods = @foodlist.foods.sort_by { |food| food.recipes.where(status: "published").count }.reverse

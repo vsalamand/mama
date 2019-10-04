@@ -24,7 +24,8 @@ class Food < ApplicationRecord
   acts_as_taggable_on :shelves
 
   has_ancestry
-  searchkick
+  searchkick word_start: [:name]
+
 
   after_create do
     self.add_to_shelf

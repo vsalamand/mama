@@ -1,0 +1,11 @@
+<% if search_results %>
+    <div class="list-group list-group-flush" id="search-results">
+      <% search_results[0..2].each do |food| %>
+        <% if food.present? && food.store_items.any? %>
+          <div class="food-card-id<%= food.id %>">
+            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+<% end %>

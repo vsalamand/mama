@@ -83,6 +83,7 @@ Rails.application.routes.draw do
 
   resources :recipe_lists
 
+
   resources :food_lists do
     member do
       get :add

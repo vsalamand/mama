@@ -3,7 +3,7 @@
 
     <%= f.input :name, input_html: { value: "Liste de courses" + "#{" #"  if user_signed_in?}"+ "#{(current_user.food_lists.where(food_list_type: "grocery_list").size + 1) if user_signed_in? }" }, class: "form-control", label: false %>
 
-    <%= f.submit "Continuer", class: "btn btn-flat" %>
+    <%= f.submit "Remplir la liste", class: "btn btn-flat" %>
   <% end  %>
 </div>
 

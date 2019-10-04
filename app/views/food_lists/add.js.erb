@@ -1,0 +1,4 @@
+const searchResults = document.querySelector("#searchbox-results");
+
+searchResults.innerHTML = "";
+searchResults.innerHTML = ("<%= j render 'live-search', search_results: @search %>");
