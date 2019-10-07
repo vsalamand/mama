@@ -2,29 +2,22 @@
   <div class="food-card">
     <div class="d-flex w-90 justify-content-start">
       <small><%= "✅" if @foodlist.foods.include?(food) %> </small>
-      <h6 class="mb-1"><strong><%= food.name.capitalize %></strong></h6>
+      <h7 class="mb-1"><%= food.name.capitalize %></h7>
     </div>
-    <div class="d-flex w-90 justify-content-between">
-      <small class="mb-1">
-        <% if food.store_items.exists?(is_available: true) %>
+    <% if food.store_items.exists?(is_available: true) && food.store_items.exists?(is_promo: true)%>
+      <div class="d-flex w-90 justify-content-between">
+        <small class="mb-1">
           <%= food.get_cheapest_store_item.name %> à <strong><%= food.get_cheapest_store_item.price %>€</strong>
-        <% else %>
-          Aucun produit référencé disponible
-        <% end %>
-      </small>
-    </div>
-    <div class="d-flex w-90 justify-content-between">
-      <small>
-        <% if food.store_items.exists?(is_available: true) && food.store_items.exists?(is_promo: true)%>
+        </small>
+      </div>
+      <div class="d-flex w-90 justify-content-between">
+        <small>
           <%= food.get_cheapest_store_item.promo_price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
             | <strike><%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></strike>
           <span>chez <%= food.get_cheapest_store_item.store.name %></span>
-        <% elsif food.store_items.exists?(is_available: true) %>
-          <%= food.get_cheapest_store_item.promo_price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
-          <span>chez <%= food.get_cheapest_store_item.store.name %></span>
-        <% end %>
-      </small>
-    </div>
+        </small>
+      </div>
+    <% end %>
   </div>
   <% unless foodlist.foods.include?(food) %>
      <%= link_to create_foodlist_item_food_list_item_path(foodlist, food), remote: true do %>
