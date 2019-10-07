@@ -1,0 +1,21 @@
+<div class="shadow p-0 mb-5 bg-white rounded">
+  <div class="list-group list-group-flush" id="cards-block-<%= type %>">
+    <% food_data[0..2].each do |food| %>
+        <div class="food-card-id<%= food.id %>">
+          <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
+        </div>
+    <% end %>
+    <% if food_data.size > 3 %>
+      <div class="collapse" id="collapse<%= type %>">
+        <% food_data[3..-1].each do |food| %>
+            <div class="food-card-id<%= food.id %>">
+              <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
+            </div>
+        <% end %>
+      </div>
+      <button class="mt-2 btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapse<%= type %>" aria-expanded="false" aria-controls="collapse<%= type %>">
+        Voir plus
+      </button>
+    <% end %>
+  </div>
+</div>

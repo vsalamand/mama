@@ -83,9 +83,11 @@ Rails.application.routes.draw do
 
   resources :recipe_lists
 
+
   resources :food_lists do
     member do
       get :add
+      get 'fetch_recipes', to: "food_lists#fetch_recipes"
     end
     resources :food_list_items
   end
@@ -95,6 +97,7 @@ Rails.application.routes.draw do
       get :create_foodlist_item
     end
   end
+
 
   resources :recommendations  do
     resources :recommendation_items

@@ -1,11 +1,3 @@
-<div class="jumbotron jumbotron-fluid alert-danger">
-  <div class="container">
-    <h1 class="display-4">😅</h1>
-    <p class="lead">Cette fonctionnalité n'est pas encore prête</p>
-    <hr class="my-4">
-  </div>
-</div>
-
 <div class="container">
   <div class="shadow p-3 mb-2 bg-white rounded">
     <h2 class="pl-0 pr-0 mb-0" id="title"><%= @foodlist.name  %> </h2>
@@ -13,7 +5,7 @@
     <small class="font-weight-light"><%= (@foodlist.foods.size > 1)? "articles" : "article"%></small>
   </div>
   <% if @foodlist.food_list_type == "grocery_list" %>
-    <%= link_to 'Modifier la liste', add_food_list_path(@foodlist), class: 'btn btn-flat btn-block p-3 mb-4' %>
+    <%= link_to 'Compléter la liste', add_food_list_path(@foodlist), class: 'btn btn-flat btn-block p-3 mb-4' %>
   <% end %>
 </div>
 
