@@ -39,34 +39,18 @@
   </div>
 <% end %> -->
 
-
 <div class="container">
   <div class="shadow p-3 mb-2 bg-white rounded">
-    <h4 class="mb-0">🔥 Les plus courants</h4>
-    <small><%= @top_foods.size %> articles</small>
-  </div>
-  <%= render 'cards-block', food_data: Recipe.find(1280).foods, type: "topFoods" %>
-</div>
-
-
-<div class="container">
-  <div class="shadow p-3 mb-2 bg-white rounded">
-    <h4 class="mb-0">🤑 Promotions</h4>
+    <h4 class="mb-0">🤑 Promos en cours</h4>
     <small><%= @promo_foods.size %> articles</small>
   </div>
   <%= render 'cards-block', food_data: @promo_foods, type: "promoFoods" %>
+</div>
+
+
+<div data="<%= params[:id] %>" id="fetch_recipes">
 
 </div>
 
 
 
-<% @reco_recipes.each_with_index do | recipe, index|  %>
-  <div class="container">
-    <div class="shadow p-3 mb-2 bg-white rounded" >
-      <h4 class="mb-0"><%= recipe.title %></h4>
-      <small><%= recipe.foods.size %> ingrédients</small>
-      <h6 ><%= link_to "Cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h6>
-    </div>
-    <%= render 'cards-block', food_data: recipe.foods, type: "recipe-#{index}" %>
-  </div>
-<% end %>

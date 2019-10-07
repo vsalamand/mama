@@ -15,11 +15,12 @@
     </div>
     <div class="d-flex w-90 justify-content-between">
       <small>
-        <% if food.store_items.exists?(is_available: true) %>
-          <%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
-          <% if food.store_items.exists?(is_promo: true) %>
+        <% if food.store_items.exists?(is_available: true) && food.store_items.exists?(is_promo: true)%>
+          <%= food.get_cheapest_store_item.promo_price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
             | <strike><%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></strike>
-          <% end %>
+          <span>chez <%= food.get_cheapest_store_item.store.name %></span>
+        <% elsif food.store_items.exists?(is_available: true) %>
+          <%= food.get_cheapest_store_item.promo_price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
           <span>chez <%= food.get_cheapest_store_item.store.name %></span>
         <% end %>
       </small>

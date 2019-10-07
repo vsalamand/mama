@@ -25,4 +25,5 @@ import { hideViewMoreBtn } from '../components/view_more';
 hideViewMoreBtn();
 
 import '../components/live_search';
+import '../components/load_recipe_items';
 
