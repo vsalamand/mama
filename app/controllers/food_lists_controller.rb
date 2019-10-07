@@ -1,6 +1,6 @@
 class FoodListsController < ApplicationController
-  before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item, :live_search ]
-  skip_before_action :authenticate_user!, only: [:create, :add, :new, :show, :live_search]
+  before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item, :fetch_recipes ]
+  skip_before_action :authenticate_user!, only: [:create, :add, :new, :show]
   protect_from_forgery except: :add
 
   def show
@@ -42,15 +42,17 @@ class FoodListsController < ApplicationController
     @promo_foods = @foodlist.get_promo_foods
     # @similar_food = @foodlist.get_similar_food
     @search = Food.search(params[:query], limit: 10) if params[:query]
-    @recommended_recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
 
     respond_to do |format|
-      if @recommended_recipes
-        format.js { render 'fetch_recipes.js.erb'}
-      end
       format.html { }
       format.js {}
     end
+
+  end
+
+  def fetch_recipes
+    @recommended_recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
+    render 'fetch_recipes.js.erb'
   end
 
   # def show

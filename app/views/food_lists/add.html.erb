@@ -11,34 +11,6 @@
   </div>
 </div>
 
-<!--
-<% unless @similar_food.nil? %>
-  <div class="container">
-    <div class="shadow p-3 mb-2 bg-white rounded">
-      <h4 class="mb-0"><%= @foodlist.foods.first.name.capitalize %> + ⬇️ = ❤️</h4>
-      <small><%= @similar_food[0..9].size %> articles</small>
-    </div>
-    <div class="shadow p-0 mb-5 bg-white rounded">
-      <div class="list-group list-group-flush">
-        <% @similar_food[0..2].each do |food| %>
-            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-        <% end %>
-
-        <% if @similar_food.size > 3 %>
-          <div class="collapse" id="collapseSimilarfoods">
-            <% @similar_food[3..9].each do |food| %>
-            <%= render 'foods/food-card', food: food, foodlist: @foodlist %>
-            <% end %>
-          </div>
-          <button class="mt-2 btn btn-link view-more" type="button" data-toggle="collapse" data-target="#collapseSimilarfoods" aria-expanded="false" aria-controls="collapseSimilarfoods">
-            Voir plus
-          </button>
-        <% end %>
-      </div>
-    </div>
-  </div>
-<% end %> -->
-
 <div class="container">
   <div class="shadow p-3 mb-2 bg-white rounded">
     <h4 class="mb-0">🤑 Promos en cours</h4>
@@ -54,3 +26,5 @@
 
 
 
+<%= javascript_pack_tag 'live_search' %>
+<%= javascript_pack_tag 'load_recipes' %>

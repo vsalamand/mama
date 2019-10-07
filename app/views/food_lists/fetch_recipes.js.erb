@@ -1,3 +1,2 @@
-const fetchRecipes = document.querySelector("#fetch_recipes");
 
-fetchRecipes.innerHTML = ("<%= j render 'recommended_recipes', recipes_list: @recommended_recipes %>");
+document.querySelector("#fetch_recipes").innerHTML = ("<%= j render 'recommended_recipes', recipes_list: @recommended_recipes %>");
