@@ -8,5 +8,19 @@
       </button>
     <% end  %>
   <% end %>
+  <% if params[:controller] == "food_lists" && params[:action] == "products" %>
+    <%= link_to food_list_path(@foodlist), class: 'ml-auto p-2' do %>
+      <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
+        Liste de courses <span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
+      </button>
+    <% end  %>
+  <% end %>
+  <% if params[:controller] == "food_lists" && params[:action] == "show" %>
+    <%= link_to cart_path(current_user.cart), class: 'ml-auto p-2', target: :_blank do %>
+      <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
+        🛒  Voir les prix <span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
+      </button>
+    <% end  %>
+  <% end %>
 
 </nav>

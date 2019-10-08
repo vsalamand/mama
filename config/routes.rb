@@ -83,6 +83,10 @@ Rails.application.routes.draw do
 
   resources :recipe_lists
 
+  resources :carts, only: [:show]
+
+  resources :cart_items, only: [:destroy, :edit, :update]
+
 
   resources :food_lists do
     member do

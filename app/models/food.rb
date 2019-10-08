@@ -74,7 +74,7 @@ class Food < ApplicationRecord
   end
 
   def get_promo_store_item
-    promo_store_item = self.store_items.pluck(:is_promo, :id, :is_available).reject {|x| x[2] == false }.min
+    promo_store_item = self.store_items.pluck(:is_promo, :id, :is_available).reject {|x| x[0] == false }.min
     promo_store_item = StoreItem.find(promo_store_item.second) if promo_store_item.present?
     return promo_store_item
   end

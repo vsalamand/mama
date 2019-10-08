@@ -14,6 +14,12 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+  end
+
   def destroy
     @cart_item.destroy
   end

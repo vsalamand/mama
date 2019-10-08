@@ -4,20 +4,25 @@
       <small><%= "✅" if @foodlist.foods.include?(food) %> </small>
       <h7 class="mb-1"><%= food.name.capitalize %></h7>
     </div>
+
     <% if food.store_items.exists?(is_available: true) && food.store_items.exists?(is_promo: true)%>
       <div class="d-flex w-90 justify-content-between">
-        <small class="mb-1">
-          <%= food.get_cheapest_store_item.name %> à <strong><%= food.get_cheapest_store_item.price %>€</strong>
+        <small class="mr-1">
+          <%= food.get_promo_store_item.name %></strong>
         </small>
+        <small class="mr-1"><strong>à <%= food.get_promo_store_item.get_best_price %>€</strong></small>
       </div>
-      <div class="d-flex w-90 justify-content-between">
-        <small>
-          <%= food.get_cheapest_store_item.promo_price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %>
-            | <strike><%= food.get_cheapest_store_item.price_per_unit %>€/<%= food.get_cheapest_store_item.product.unit.name %></strike>
-          <span>chez <%= food.get_cheapest_store_item.store.name %></span>
+
+      <div class="d-flex w-90 justify-content-start">
+        <span class="badge badge-warning mr-1 font-weight-light">promo</span>
+        <small class="mr-1 font-weight-light"><%= sprintf("%.2f", food.get_promo_store_item.promo_price_per_unit) %>€ / <%= food.get_promo_store_item.product.unit.name %></small>
+        <small class="mr-1 font-weight-light"> au lieu de </small>
+        <small class="font-weight-light">
+            <%= sprintf("%.2f", food.get_promo_store_item.price_per_unit) %>€ / <%= food.get_promo_store_item.product.unit.name %>
         </small>
       </div>
     <% end %>
+
   </div>
   <% unless foodlist.foods.include?(food) %>
      <%= link_to create_foodlist_item_food_list_item_path(foodlist, food), remote: true do %>

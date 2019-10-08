@@ -4,22 +4,6 @@
       <div class="d-flex w-90 justify-content-between">
         <h7 class="mb-1"><%= fli.food.name.capitalize %></h7>
       </div>
-<!--
-       <% if fli.food.store_items.exists?(is_available: true) && fli.food.store_items.exists?(is_promo: true)%>
-        <div class="d-flex w-90 justify-content-between">
-          <small class="mb-1">
-            <%= fli.food.get_cheapest_store_item.name %> à <strong><%= fli.food.get_cheapest_store_item.price %>€</strong>
-          </small>
-        </div>
-        <div class="d-flex w-90 justify-content-between">
-          <small>
-            <%= fli.food.get_cheapest_store_item.promo_price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %>
-              | <strike><%= fli.food.get_cheapest_store_item.price_per_unit %>€/<%= fli.food.get_cheapest_store_item.product.unit.name %></strike>
-            <span>chez <%= fli.food.get_cheapest_store_item.store.name %></span>
-          </small>
-        </div>
-      <% end %> -->
-
     </div>
 
    <%= link_to food_list_food_list_item_path(fli.food_list, fli), method: :delete, remote: true do %>
