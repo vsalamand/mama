@@ -12,14 +12,21 @@ class Cart < ApplicationRecord
       current_item.quantity += 1
       current_item.save
     else
-      CartItem.create(name: product.name, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart_id: self.id)
+      CartItem.create(name: product.name, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart: self)
     end
   end
 
   def clean_cart
     if self.cart_items.any?
-      self.cart_items.each{ |item| item.destroy }
+      self.cart_items.destroy_all
     end
+  end
+
+  def get_new_cart(products)
+    #clean current items
+    self.clean_cart
+    #add new item
+    products.each{ |product| self.add_product(product)}
   end
 
   def get_total_price
