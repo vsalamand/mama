@@ -22,10 +22,7 @@ class FoodListItemsController < ApplicationController
     @foodlist = FoodList.find(params[:food_list_id])
     @food = @foodlist_item.food
     @foodlist_item.destroy
-    respond_to do |format|
-      format.html { redirect_back(fallback_location:"/") }
-      format.js
-    end
+    render "destroy.js.erb"
   end
 
   private

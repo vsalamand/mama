@@ -83,11 +83,15 @@ Rails.application.routes.draw do
 
   resources :recipe_lists
 
+  resources :carts do
+    resources :cart_items, only: [:show, :destroy, :edit, :update]
+  end
 
   resources :food_lists do
     member do
       get :add
       get 'fetch_recipes', to: "food_lists#fetch_recipes"
+      get 'get_cart', to: "food_lists#get_cart"
     end
     resources :food_list_items
   end

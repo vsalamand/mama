@@ -1,6 +1,6 @@
 class FoodListsController < ApplicationController
-  before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item, :fetch_recipes ]
-  skip_before_action :authenticate_user!, only: [:create, :add, :new, :show, :fetch_recipes]
+  before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item, :fetch_recipes, :get_cart ]
+  skip_before_action :authenticate_user!, only: [:create, :add, :new, :show, :fetch_recipes, :get_cart ]
 
   def show
     @foodlist.food_list_items.build
@@ -52,6 +52,15 @@ class FoodListsController < ApplicationController
   def fetch_recipes
     @recommended_recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
     render 'fetch_recipes.js.erb'
+  end
+
+  def get_cart
+    # get list of cheapest store items from grocery list
+    cheap_products = StoreItem.get_cheap_store_items(@foodlist.foods)
+    # fill cart with new items
+    @cart = Cart.find_by(user_id: current_user)
+    @cart.get_new_cart(cheap_products)
+    redirect_to cart_path(@cart)
   end
 
   # def show

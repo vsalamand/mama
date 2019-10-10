@@ -14,6 +14,24 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def show
+    @cart_item = CartItem.find_by(productable_id: params[:id])
+    @cart = Cart.find(params[:cart_id])
+    @store_item = StoreItem.find(@cart_item.productable_id)
+    @product = @store_item.product
+    @food = @store_item.food
+  end
+
+  def edit
+  end
+
+  def update
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.update(cart_item_params)
+    @cart = Cart.find(params[:cart_id])
+    redirect_to cart_path(@cart)
+  end
+
   def destroy
     @cart_item.destroy
   end

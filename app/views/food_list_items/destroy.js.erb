@@ -1,23 +1,9 @@
-// add eventlistener on all buttons
-const deleteItemBtns = document.querySelectorAll(".grocerylist-item-card-id<%= @food.id %>")
-deleteItemBtns.forEach((btn) => {
-  btn.addEventListener("click", (event) => {
-    event.preventDefault();
-  });
-})
-
 // then when click is detected do the following:
 // remove card from grocerylist
 const groceryListCard = document.querySelector(".grocerylist-item-card-id<%= @foodlist_item.food.id %>");
 groceryListCard.remove();
 
-// update all cards with the selected food
-const foodId = ".food-card-id<%= @food.id %>";
-document.querySelectorAll(foodId).forEach((card) => {
-  $(card).html("<%= j render 'foods/food-card', food: @food, foodlist: @foodlist %>");
-});
-
 // Increment counters
-document.querySelectorAll(".grocerylist-count").forEach((counter) => {
-  counter.innerHTML = document.getElementById("grocerylist-items").childElementCount;
-});
+let counter = document.querySelector(".grocerylist-count");
+let count = parseInt(document.querySelector(".grocerylist-count").innerHTML);
+counter.innerHTML = count - 1;
