@@ -33,8 +33,8 @@
         </h7>
         <% unless @store_item == store_item %>
           <%= simple_form_for [@cart, @cart_item], remote: true do |f| %>
-            <%= f.input :productable_id, value: store_item.id, as: :hidden, :wrapper_html=> { class: "m-0" } %>
-            <%= f.input :name, value: store_item.name, as: :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :productable_id, input_html: {value: store_item.id}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+            <%= f.input :name, input_html: {value: store_item.name}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
             <%= f.submit "Choisir", class: "btn btn-outline-primary btn-sm " %>
           <% end %>
         <% else %>
