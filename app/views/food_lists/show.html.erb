@@ -24,9 +24,10 @@
   <% end %>
 </div>
 
-
-<div class="container">
-  <% if @foodlist.food_list_type == "grocery_list" %>
-    <%= link_to 'Compléter la liste', add_food_list_path(@foodlist), class: 'btn btn-flat btn-block p-3 mb-4' %>
-  <% end %>
-</div>
+<% if @foodlist.user == current_user %>
+  <div class="container">
+    <% if @foodlist.food_list_type == "grocery_list" %>
+      <%= link_to 'Compléter la liste', add_food_list_path(@foodlist), class: 'btn btn-flat btn-mg p-3 mb-3' %>
+    <% end %>
+  </div>
+<% end %>

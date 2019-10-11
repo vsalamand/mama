@@ -6,10 +6,13 @@
       </div>
     </div>
 
-   <%= link_to food_list_food_list_item_path(fli.food_list, fli), method: :delete, remote: true do %>
-      <button type="button" class="close ml-2 mr-3 remove-item" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-   <% end %>
+    <% if @foodlist.user == current_user %>
+     <%= link_to food_list_food_list_item_path(fli.food_list, fli), method: :delete, remote: true do %>
+        <button type="button" class="close ml-2 mr-3 remove-item" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+     <% end %>
+    <% end %>
+
   </div>
 </div>
