@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ClubMama | Manger mieux au meilleur prix !</title>
+    <title>ClubMama | Manger mieux et moins cher !</title>
     <!-- Google result description-->
-    <meta name="description" content="Préparez votre liste de courses en 2mn sur ClubMama.">
+    <meta name="description" content="Votre liste de courses en 2mn sur ClubMama.">
     <!-- Facebook post-->
-    <meta property="og:title" content="ClubMama | Manger mieux au meilleur prix !">
-    <meta property="og:description" content="Préparez votre liste de courses en 2mn sur ClubMama.">
+    <meta property="og:title" content="ClubMama | Manger mieux et moins cher !">
+    <meta property="og:description" content="Votre liste de courses en 2mn sur ClubMama.">
     <meta property="og:site_name" content="ClubMama"/>
 
     <%= csrf_meta_tags %>
@@ -25,7 +25,6 @@
   <body>
 
     <%= render 'shared/navbar' unless action_name.eql? "card" %>
-    <%= render 'shared/flashes' %>
 
 
     <%= yield %>

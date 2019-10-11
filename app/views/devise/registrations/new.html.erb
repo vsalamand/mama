@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="shadow p-2 mb-5 bg-white rounded">
+      <h2 class="mb-3">Créer un compte</h2>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="">
+          <%= f.input :username,
+                      label: false,
+                      autofocus: true,
+                      placeholder: "Nom d'utilisateur" %>
+          <%= f.input :email,
+                      label: false,
+                      placeholder: "Adresse email",
+                      input_html: { autocomplete: "email" }%>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Inscription", class: "btn btn-lg btn-flat mb-3" %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+
+  </div>
+</div>
+

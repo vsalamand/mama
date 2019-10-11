@@ -41,7 +41,10 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users
+  # devise_for :users
+  devise_for :users, controllers: {
+      sessions: 'users/sessions'
+    }
 
   root to: 'pages#home'
 
@@ -65,6 +68,8 @@ Rails.application.routes.draw do
   get 'snack', to: 'pages#snack'
   get 'burger', to: 'pages#burger'
   get 'pizza', to: 'pages#pizza'
+
+  get 'profile', to: 'pages#profile'
 
 
   resources :recipes do
@@ -95,6 +100,7 @@ Rails.application.routes.draw do
     end
     resources :food_list_items
   end
+
 
   resources :food_list_items do
     member do

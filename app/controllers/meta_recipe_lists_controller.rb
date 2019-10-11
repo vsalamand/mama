@@ -1,5 +1,6 @@
 class MetaRecipeListsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :show, :new, :create ]
+  before_action :authenticate_admin!
 
   def show
     @meta_recipe_list = MetaRecipeList.find(params[:id])
