@@ -1,6 +1,6 @@
 <div class="container">
   <div class="shadow p-0 mb-5 bg-white" id="searchbox">
-    <div class="p-3 mb-0 search-form-control form-group">
+    <div class="p-2 mb-0 search-form-control form-group">
       <%= form_tag(add_food_list_path, :method => "get", remote: true, authenticity_token: true, id: "livesearch") do %>
         <%= text_field_tag :query, params[:query], placeholder: "Recherche", id: "keywords", class: "form-control string" %>
       <% end %>
@@ -12,7 +12,7 @@
 </div>
 
 <div class="container">
-  <div class="shadow p-3 mb-2 bg-white rounded">
+  <div class="shadow p-2 mb-2 bg-white rounded">
     <h4 class="mb-0">🤑 Promos en cours</h4>
     <small><%= @promo_foods.size %> articles</small>
   </div>

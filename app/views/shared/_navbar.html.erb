@@ -16,12 +16,12 @@
   <% if params[:controller] == "food_lists" && params[:action] == "add" %>
     <%= link_to food_list_path(@foodlist), class: 'ml-auto p-2' do %>
       <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
-        <strong> Liste </strong><span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
+        <strong> Liste de courses </strong><span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
       </button>
     <% end  %>
   <% end %>
 
-  <% if params[:controller] == "food_lists" && params[:action] == "show" %>
+  <% if params[:controller] == "food_lists" && params[:action] == "show" && @foodlist.foods.size > 0 %>
     <%= link_to get_cart_food_list_path(@foodlist), class: 'ml-auto p-2', target: :_blank do %>
       <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
         <strong> Voir les prix </strong><span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>

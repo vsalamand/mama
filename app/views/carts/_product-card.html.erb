@@ -1,6 +1,6 @@
 
   <div class="cartgrocerylist-product-card-id<%= product_item.id %>">
-    <div class="pl-3 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
+    <div class="pl-2 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
 
       <%= link_to cart_cart_item_path(@cart, product_item) do %>
         <div class="product-info d-flex align-items-center justify-content-start">
@@ -11,12 +11,7 @@
             </div>
           <% if product_item.is_promo == true %>
             <div class="d-flex w-90 justify-content-start">
-                <span class="badge badge-warning mr-1 font-weight-light">promo</span>
-                <small class="mr-1 font-weight-light"><%= sprintf("%.2f", product_item.promo_price_per_unit) %>€ / <%= product_item.unit.name %></small>
-                <small class="mr-1 font-weight-light"> au lieu de </small>
-                <small class="font-weight-light">
-                    <%= sprintf("%.2f",product_item.price_per_unit) %>€ / <%= product_item.unit.name %>
-                </small>
+                <small class="mr-1 font-weight-light"><%= sprintf("%.2f", product_item.promo_price_per_unit) %>€ / <%= product_item.unit.name %> au lieu de %= sprintf("%.2f",product_item.price_per_unit) %>€ / <%= product_item.unit.name %></small>
             </div>
           <% else %>
             <div class="d-flex w-90 justify-content-start">

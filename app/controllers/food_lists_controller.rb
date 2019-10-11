@@ -1,6 +1,7 @@
 class FoodListsController < ApplicationController
   before_action :set_food_list, only: [ :show, :edit, :update, :add, :destroy_item, :fetch_recipes, :get_cart ]
   skip_before_action :authenticate_user!, only: [:show]
+  before_action :authenticate_admin!, only: [:index, :new, :create]
 
   def show
     @foodlist.food_list_items.build

@@ -1,6 +1,7 @@
 class RecommendationItemsController < ApplicationController
   before_action :set_recommendation, only: [ :new, :create, :edit, :update ]
   before_action :set_recommendation_item, only: [ :edit, :update ]
+  before_action :authenticate_admin!
 
   def new
     @recommendation_item = RecommendationItem.new

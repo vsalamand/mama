@@ -1,4 +1,5 @@
 class RecipeListsController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @recipe_lists = RecipeList.where(recipe_list_type: "curated")

@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
+  before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
     @foodlist = FoodList.new
