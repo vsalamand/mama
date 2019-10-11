@@ -1,10 +1,22 @@
-<nav class="navbar sticky-top navbar-expand-md navbar-white bg-white d-flex shadow-sm mb-4 pt-0 pb-0">
-  <a class="navbar-brand text-dark" href="/">😋 ClubMama</a>
+<nav class="navbar sticky-top navbar-expand-md navbar-white bg-white d-flex shadow-sm mb-3 pt-0 pb-0">
+  <a class="navbar-brand text-dark mr-1" href="/">😋</a>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-dark pb-0 pt-0" href="/">ClubMama <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <% if user_signed_in? %>
+          <%= link_to current_user.username, profile_path, class:"nav-link disabled pb-0 pt-0" %>
+        <% end %>
+      </li>
+    </ul>
+
 
   <% if params[:controller] == "food_lists" && params[:action] == "add" %>
     <%= link_to food_list_path(@foodlist), class: 'ml-auto p-2' do %>
       <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
-        Liste de courses <span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
+        <strong> Liste </strong><span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
       </button>
     <% end  %>
   <% end %>
@@ -12,7 +24,7 @@
   <% if params[:controller] == "food_lists" && params[:action] == "show" %>
     <%= link_to get_cart_food_list_path(@foodlist), class: 'ml-auto p-2', target: :_blank do %>
       <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
-        Voir les prix <span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
+        <strong> Voir les prix </strong><span class="badge badge-light grocerylist-count"> <%= @foodlist.foods.size %></span>
       </button>
     <% end  %>
   <% end %>
@@ -20,7 +32,7 @@
   <% if params[:controller] == "cart_items" && params[:action] == "show" %>
     <%= link_to cart_path(params[:cart_id]), class: 'ml-auto p-2' do %>
       <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
-        Retour au panier
+        <strong> Retour</strong>
       </button>
     <% end  %>
   <% end %>

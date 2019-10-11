@@ -4,8 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
-  validates :sender_id, uniqueness: true
-  validates :email, :uniqueness => {:allow_blank => true}
+  # validates :sender_id, uniqueness: true
+  validates :username, uniqueness: true
+  validates :email, uniqueness: true
+
+  # validates :email, :uniqueness => {:allow_blank => true}
   belongs_to :diet, optional: true
 
   has_one :cart, dependent: :destroy
@@ -20,13 +23,8 @@ class User < ApplicationRecord
 
 
   after_create do
+    FoodList.create(name: "Liste de courses", food_list_type: "grocery_list", user_id: self.id)
     Cart.create(user_id: self.id)
-
-    # RecipeList.create(name: "Banned recipes", user_id: self.id, recipe_list_type: "ban")
-    #RecipeList.create(name: "Weekly menu", user_id: self.id, recipe_list_type: "recommendation")
-    #RecipeList.create(name: "History", user_id: self.id, recipe_list_type: "history")
-    # # Update weekly recos for new user !!!!!!=> will be done wdurin set_diet process
-    # Recommendation.update_user_weekly_menu(self, Date.today.strftime("%W, %Y"))
   end
 
   def self.get_sender_ids
@@ -42,5 +40,11 @@ class User < ApplicationRecord
       profile.save
     end
     return profile
+  end
+
+
+  protected
+  def password_required?
+    confirmed? ? super : false
   end
 end

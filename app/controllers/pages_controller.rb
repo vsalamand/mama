@@ -1,8 +1,17 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :search, :confirmation]
+  skip_before_action :authenticate_user!, only: [:home]
 
   def home
     @foodlist = FoodList.new
+
+    # if user is logged in, display the user grocery list
+    if user_signed_in?
+      foodlist = current_user.food_lists.first
+      redirect_to food_list_path(foodlist)
+    end
+  end
+
+  def profile
   end
 
   def confirmation
