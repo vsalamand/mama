@@ -20,10 +20,10 @@ class Recipe < ApplicationRecord
 
   searchkick
 
-  before_save do
-    # update to cloudinary
-    self.upload_to_cloudinary
-  end
+  # before_save do
+  #   # update to cloudinary
+  #   self.upload_to_cloudinary
+  # end
 
   def search_data
     {
