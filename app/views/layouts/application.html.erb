@@ -27,13 +27,16 @@
   <body>
 
     <%= render 'shared/navbar' unless action_name.eql? "card" %>
+     <div id="page-container">
+       <div id="content-wrap">
+         <!-- all other page content -->
+          <%= yield %>
+       </div>
+        <%= render 'shared/footer' unless action_name.eql? "card" %>
+     </div>
 
-    <div   style="height:100vh;">
-      <%= yield %>
-    </div>
 
 
-    <%= render 'shared/footer' unless action_name.eql? "card" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
