@@ -86,7 +86,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :lists, only: [ :show ] do
+  resources :lists, only: [ :show, :destroy ] do
     get 'explore', to: "lists#explore"
     resources :list_items, only: [ :create, :show, :destroy ]
   end

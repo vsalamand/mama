@@ -1,3 +1,13 @@
-  <li class="list-group-item list-item-id<%= item.id %>">
-    <%= item.name %>
+  <li class="list-group-item list-item-id<%= item.id %> d-flex align-items-center justify-content-between">
+    <div>
+      <%= item.name %>
+    </div>
+    <div class="d-flex align-items-center">
+      <%= simple_form_for([ @list, @list_item ], remote: true) do |form| %>
+        <%= form.input :name, as: :string, label: false, input_html: {value: item.name}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+        <%= form.submit "Copier", class:"btn btn-outline-primary btn-sm" %>
+      <% end %>
+    </div>
   </li>
+
+

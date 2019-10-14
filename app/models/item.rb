@@ -6,8 +6,19 @@ class Item < ApplicationRecord
 
   belongs_to :food, optional: true
   belongs_to :recipe, optional: true
-  belongs_to :list, optional: true
+  belongs_to :list_item, optional: true
   belongs_to :unit, optional: true
+
+  def self.create_list_item(list_item)
+    url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{list_item["name"]}")
+    parser = JSON.parse(open(url).read).first
+
+    quantity = parser['quantity_match'] if parser['quantity_match'].present?
+    food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
+    unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
+
+    Item.create(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item["name"])
+  end
 
   def self.add_recipe_items(recipe)
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")

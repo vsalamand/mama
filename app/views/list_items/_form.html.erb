@@ -1,3 +1,3 @@
-<%= simple_form_for([ list, list_item ]) do |form| %>
+<%= simple_form_for([ list, list_item ], remote: true) do |form| %>
   <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un élément" %>
 <% end %>

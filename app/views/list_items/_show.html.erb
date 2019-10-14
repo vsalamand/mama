@@ -1,11 +1,6 @@
-<div class="grocerylist-item-id<%= list_item.id %>">
-  <div class="pl-2 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
-    <div class="foodlist-item">
-      <div class="d-flex w-90 justify-content-between">
-        <p class="mb-1"><%= list_item.name %></p>
-      </div>
-    </div>
 
+  <li class="list-group-item grocerylist-item-id<%= list_item.id %>">
+    <%= list_item.name %>
     <% if @list.user == current_user %>
      <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
         <button type="button" class="close ml-2 mr-3 remove-item" aria-label="Close">
@@ -13,6 +8,4 @@
         </button>
      <% end %>
     <% end %>
-
-  </div>
-</div>
+  </li>

@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
 
   def update
     @item.update(items_params)
-    redirect_to recipe_path(@recipe)
+    redirect_back(fallback_location:"/")
   end
 
   private

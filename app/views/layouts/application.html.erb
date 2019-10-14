@@ -32,9 +32,9 @@
          <!-- all other page content -->
           <%= yield %>
        </div>
-        <%= render 'shared/footer' unless action_name.eql? "card" %>
      </div>
 
+      <%= render 'shared/footer' unless action_name.eql? "card" %>
 
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
