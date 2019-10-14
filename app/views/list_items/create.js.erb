@@ -1,0 +1,16 @@
+function refreshForm(innerHTML) {
+  const newListItemForm = document.getElementById('new_list_item');
+  newListItemForm.innerHTML = innerHTML;
+}
+
+function addListItem(reviewHTML) {
+  const listItems = document.getElementById('list_items');
+  listItems.insertAdjacentHTML('beforeend', reviewHTML);
+}
+
+<% if @list_item.errors.any? %>
+  refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
+<% else %>
+  addListItem('<%= j render "list_items/show", list_item: @list_item %>');
+  refreshForm('<%= j render "list_items/form", list: @list, list_item: list_item.new %>');
+<% end %>

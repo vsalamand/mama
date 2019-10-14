@@ -86,6 +86,13 @@ Rails.application.routes.draw do
 
   end
 
+  resources :lists, only: [ :show ] do
+    get 'explore', to: "lists#explore"
+    resources :list_items, only: [ :create, :show, :destroy ]
+  end
+
+
+
   resources :recipe_lists
 
   resources :carts do

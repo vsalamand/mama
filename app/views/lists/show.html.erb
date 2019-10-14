@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="shadow p-3 mb-2 bg-white rounded">
+    <h2 class="pl-0 pr-0 mb-0" id="title"><%= @list.name.capitalize  %> </h2>
+    <small class="grocerylist-count"><%= @list.list_items.size %></small><small></%> <%= @list.list_items.size < 2 ?  " élément" : " éléments" %></small>
+  </div>
+</div>
+
+
+<div class="container" id="list_items">
+    <div class="shadow p-0 mb-5 bg-white rounded">
+      <div class="list-group list-group-flush">
+        <% if @list.list_items.any? %>
+          <% @list.list_items.order(:id).each do |list_item| %>
+            <%= render 'list_items/show', list_item: list_item %>
+          <% end %>
+        <% end %>
+       <% if @list.user == current_user%>
+        <%= render 'list_items/form', list: @list, list_item: @list_item %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'explore', list_explore_path(@list) %>

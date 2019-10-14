@@ -51,7 +51,7 @@
         <ul>
           <% @recipe.items.order(:id).each do |item| %>
             <li class="recipe-ingredients__list__item">
-              <p><%= item.recipe_ingredient %></p>
+              <p><%= item.name %></p>
               <% if current_user %>
                 <% if item.food  %>
                   <p class="recipe-ingredient-item"><%= item.quantity %> <%= item.unit.name if item.unit_id %> <%= link_to item.food.name, edit_recipe_item_path(@recipe, item) %></p>
