@@ -88,7 +88,9 @@ Rails.application.routes.draw do
 
   resources :lists, only: [ :show, :destroy ] do
     get 'explore', to: "lists#explore"
+    get 'fetch_recipes', to: "lists#fetch_recipes"
     resources :list_items, only: [ :create, :show, :destroy ]
+    # post 'copy_item', to: "list_items#copy_item"
   end
 
 

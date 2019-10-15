@@ -16,11 +16,12 @@
         <ul class="list-group list-group-flush shadow">
         <% if recipe.items.any? %>
           <% recipe.items.order(:id).each do |recipe_item| %>
-            <%= render 'items/show', item: recipe_item %>
+            <div class="recipe-item-card-id<%= recipe_item.id %>">
+              <%= render 'items/show', item: recipe_item %>
+            </div>
           <% end %>
         <% end %>
         </ul>
     </div>
   <% end %>
 </div>
-

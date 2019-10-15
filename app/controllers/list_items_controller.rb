@@ -1,5 +1,6 @@
 class ListItemsController < ApplicationController
 
+
   def create
     @list = List.find(params[:list_id])
     @list_item = ListItem.new(list_item_params)

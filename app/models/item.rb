@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   belongs_to :unit, optional: true
 
   def self.create_list_item(list_item)
-    url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{list_item["name"]}")
+    url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
     parser = JSON.parse(open(url).read).first
 
     quantity = parser['quantity_match'] if parser['quantity_match'].present?

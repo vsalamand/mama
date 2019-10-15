@@ -7,12 +7,14 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
+    @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
   end
 
-  def explore
+  def fetch_recipes
     @list = List.find(params[:list_id])
     @list_item = ListItem.new
     @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
+    render 'fetch_recipes.js.erb'
   end
 
   private
