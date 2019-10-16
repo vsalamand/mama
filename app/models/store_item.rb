@@ -13,7 +13,7 @@ class StoreItem < ApplicationRecord
 
   def self.get_cheap_store_items(list_items)
     cheap_store_items = []
-    list_items.each{ |list_item| cheap_store_items << list_item.food.get_cheapest_store_item if list_item.food.present? }
+    list_items.each{ |list_item| cheap_store_items << list_item.items.last.food.get_cheapest_store_item if list_item.items.last.food.present? }
     return cheap_store_items.reject(&:blank?)
   end
 end

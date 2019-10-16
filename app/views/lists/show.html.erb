@@ -5,7 +5,7 @@
       <small class="grocerylist-count"><%= @list_items.size %></small><small></%> <%= @list.list_items.size < 2 ?  " élément" : " éléments" %></small>
     </div>
     <div>
-      <%= link_to list_get_cart_path(@list), class: 'mr-1', target: :_blank do %>
+      <%= link_to list_get_cart_path(@list), class: 'mr-1' do %>
         <button type="button" class="btn btn-sm btn-outline-primary ml-auto p-2">
           Voir les prix
         </button>

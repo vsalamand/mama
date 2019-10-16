@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
 
   after_create do
-    FoodList.create(name: "Liste de courses", food_list_type: "grocery_list", user_id: self.id)
+    List.create(name: "Liste de courses", user_id: self.id)
     Cart.create(user_id: self.id)
   end
 

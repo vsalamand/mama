@@ -29,12 +29,4 @@
     <% end  %>
   <% end %>
 
-  <% if params[:controller] == "cart_items" && params[:action] == "show" %>
-    <%= link_to cart_path(params[:cart_id]), class: 'ml-auto p-2' do %>
-      <button type="button" class="btn btn-sm btn-flat ml-auto p-2">
-        Retour
-      </button>
-    <% end  %>
-  <% end %>
-
 </nav>

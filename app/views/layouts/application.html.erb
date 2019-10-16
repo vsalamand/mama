@@ -22,6 +22,8 @@
     <%= stylesheet_pack_tag 'application' %>
 
 
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'load' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'load' %>
   </head>
 
   <body>
@@ -38,7 +40,5 @@
 
 
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

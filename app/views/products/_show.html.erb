@@ -1,31 +1,18 @@
-<div class="container mb-4">
-  <%= link_to "Retour", cart_path(@cart), class: "mt-3 btn btn-outline-secondary btn-block"  %>
-</div>
-
 <div class="container">
   <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
     <div>
-      <h2 class="pl-0 pr-0 mb-0" id="title"><%= @food.name.capitalize %></h2>
+      <h2 class="pl-0 pr-0 mb-0" id="title"><%= food.name.capitalize %></h2>
       <p class="mb-0 font-weight-light">Liste des produits disponibles chez Leclerc</p>
     </div>
   </div>
 </div>
 
 <div class="container">
+  <% if food.store_items.any? %>
     <div class="shadow p-0 mb-5 bg-white rounded">
       <div class="list-group list-group-flush">
-        <%= render 'product-card', store_item: @store_item %>
-      </div>
-    </div>
-</div>
-
-
-<div class="container">
-  <% if @food.store_items.any? %>
-    <div class="shadow p-0 mb-5 bg-white rounded">
-      <div class="list-group list-group-flush">
-        <% @food.store_items.sort_by{ |item| item.price }.each do |store_item| %>
-          <%= render 'product-card', store_item: store_item %>
+        <% food.store_items.sort_by{ |item| item.price }.each do |store_item| %>
+          <%= render 'products/available_products', store_item: store_item %>
         <% end %>
       </div>
     </div>
