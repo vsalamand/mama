@@ -1,4 +1,6 @@
 class ListItemsController < ApplicationController
+  before_action :set_list_item, only: [ :show, :create, :edit, :update ]
+  before_action :set_list, only: [ :show, :create, :edit, :update ]
 
 
   def create
@@ -23,15 +25,34 @@ class ListItemsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    @list_item.update(list_item_params)
+    @list_item.name = list_item_params[:items_attributes]["0"][:name]
+    @list_item.save
+    redirect_to list_path(@list)
+  end
+
   def destroy
     @list_item = ListItem.find(params[:id])
     @list_item.delete
     render "delete.js.erb"
   end
 
+
   private
 
   def list_item_params
-    params.require(:list_item).permit(:name, :list_id, :deleted)
+    params.require(:list_item).permit(:name, :list_id, :deleted, items_attributes:[:id, :name, :quantity, :food_id, :unit_id, :list_item_id, :recipe_id])
+  end
+
+  def set_list_item
+    @list_item = ListItem.find(params[:id])
+  end
+
+  def set_list
+    @list = List.find(params[:list_id])
   end
 end

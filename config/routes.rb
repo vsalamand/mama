@@ -87,10 +87,11 @@ Rails.application.routes.draw do
   end
 
   resources :lists, only: [ :show, :destroy ] do
-    get 'explore', to: "lists#explore"
     get 'fetch_recipes', to: "lists#fetch_recipes"
-    resources :list_items, only: [ :create, :show, :destroy ]
-    # post 'copy_item', to: "list_items#copy_item"
+    get 'get_cart', to: "lists#get_cart"
+    resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
+      resources :items
+    end
   end
 
 

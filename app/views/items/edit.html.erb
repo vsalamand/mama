@@ -1,13 +1,31 @@
-<div class="container">
-  <div class="form-wrapper">
-    <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-        <h2>Modifier un item</h2>
-        <div class="recipe-form">
-          <%= render 'form' %>
+<% if params[:recipe_id].present? %>
+  <div class="container">
+    <div class="form-wrapper">
+      <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+          <h2>Modifier un item</h2>
+          <div class="recipe-form">
+            <%= render 'form' %>
+          </div>
+          <%= link_to 'Annuler', recipe_path(@recipe) %>
         </div>
-        <%= link_to 'Annuler', recipe_path(@recipe) %>
       </div>
     </div>
   </div>
-</div>
+ <% end %>
+
+<% if params[:list_item_id].present? %>
+  <div class="container">
+    <div class="form-wrapper">
+      <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+          <h2>Modifier un item</h2>
+          <div class="recipe-form">
+            <%= render 'validate' %>
+          </div>
+          <%= link_to 'Annuler', list_path(@list_item.list) %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

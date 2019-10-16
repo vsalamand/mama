@@ -17,6 +17,16 @@ class ListsController < ApplicationController
     render 'fetch_recipes.js.erb'
   end
 
+  def get_cart
+    @list = List.find(params[:list_id])
+    # get list of cheapest store items from grocery list
+    cheap_products = StoreItem.get_cheap_store_items(@list.list_items.not_deleted)
+    # fill cart with new items
+    @cart = Cart.find_by(user_id: current_user)
+    @cart.get_new_cart(cheap_products)
+    redirect_to cart_path(@cart)
+  end
+
   private
   def list_params
     params.require(:list).permit(:id, :name, :user_id)
