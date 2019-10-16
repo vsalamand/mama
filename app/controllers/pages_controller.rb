@@ -7,7 +7,11 @@ class PagesController < ApplicationController
 
     # if user is logged in, display the user grocery list
     if user_signed_in?
-      list = current_user.lists.first
+      if current_user.lists.any?
+        list = current_user.lists.first
+      else
+        List.create(name: "Liste de courses", user_id: current_user.id)
+      end
       redirect_to list_path(list)
     end
   end
