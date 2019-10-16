@@ -136,10 +136,10 @@ class MetaRecipeList < ApplicationRecord
     recipe = self.recipe
     # get ingredients text from data and match with recipe items
     recipe.items.each do |item|
-      if data.has_key?(item.recipe_ingredient.strip)
-        item.quantity = data[item.recipe_ingredient.strip]["quantity"]
-        item.unit = data[item.recipe_ingredient.strip]["unit"] if data[item.recipe_ingredient.strip]["unit"].present?
-        item.recipe_ingredient = "#{item.recipe_ingredient.strip} (#{item.quantity} #{item.unit.name if item.unit.present?})"
+      if data.has_key?(item.name.strip)
+        item.quantity = data[item.name.strip]["quantity"]
+        item.unit = data[item.name.strip]["unit"] if data[item.name.strip]["unit"].present?
+        item.name = "#{item.name.strip} (#{item.quantity} #{item.unit.name if item.unit.present?})"
         item.save
       end
     end

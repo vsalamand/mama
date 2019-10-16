@@ -1,5 +1,5 @@
 class FoodListItem < ApplicationRecord
-  belongs_to :food, inverse_of: :food_list_items
+  belongs_to :food, inverse_of: :food_list_items, optional: true
   belongs_to :food_list, optional: true
   belongs_to :checklist, optional: true
   # validates :name, presence: :true

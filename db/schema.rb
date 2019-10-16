@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190924153649) do
+ActiveRecord::Schema.define(version: 20191014142541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,12 +224,31 @@ ActiveRecord::Schema.define(version: 20190924153649) do
     t.integer  "recipe_id"
     t.integer  "unit_id"
     t.float    "quantity"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "recipe_ingredient"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "name"
+    t.integer  "list_item_id"
     t.index ["food_id"], name: "index_items_on_food_id", using: :btree
+    t.index ["list_item_id"], name: "index_items_on_list_item_id", using: :btree
     t.index ["recipe_id"], name: "index_items_on_recipe_id", using: :btree
     t.index ["unit_id"], name: "index_items_on_unit_id", using: :btree
+  end
+
+  create_table "list_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "list_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "deleted",    default: false
+    t.index ["list_id"], name: "index_list_items_on_list_id", using: :btree
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_lists_on_user_id", using: :btree
   end
 
   create_table "merchants", force: :cascade do |t|
@@ -477,8 +496,11 @@ ActiveRecord::Schema.define(version: 20190924153649) do
   add_foreign_key "foods", "categories"
   add_foreign_key "foods", "units"
   add_foreign_key "items", "foods"
+  add_foreign_key "items", "list_items"
   add_foreign_key "items", "recipes"
   add_foreign_key "items", "units"
+  add_foreign_key "list_items", "lists"
+  add_foreign_key "lists", "users"
   add_foreign_key "meta_recipe_items", "foods"
   add_foreign_key "meta_recipe_items", "meta_recipes"
   add_foreign_key "meta_recipe_items", "units"

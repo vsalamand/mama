@@ -17,13 +17,14 @@ class User < ApplicationRecord
   has_many :foods, through: :orders
   has_many :recipes, through: :orders
   has_many :food_lists, dependent: :destroy
+  has_many :lists, dependent: :destroy
 
   has_many :visits, class_name: "Ahoy::Visit", dependent: :destroy
   has_many :events, class_name: "Ahoy::Event", dependent: :destroy
 
 
   after_create do
-    FoodList.create(name: "Liste de courses", food_list_type: "grocery_list", user_id: self.id)
+    List.create(name: "Liste de courses", user_id: self.id)
     Cart.create(user_id: self.id)
   end
 

@@ -1,4 +1,4 @@
-<%= simple_form_for [@recipe, @item] do |f| %>
+<%= simple_form_for @list_item do |f| %>
   <%= f.input :name, class: 'form-control' %>
   <%= f.input :quantity, class: 'form-control' %>
   <%= f.collection_select :unit_id, Unit.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>

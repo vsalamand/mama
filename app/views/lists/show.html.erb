@@ -1,0 +1,50 @@
+<div class="container ">
+  <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
+    <div>
+      <h2 class="pl-0 pr-0 mb-0" id="title"><%= @list.name.capitalize  %> </h2>
+      <small class="grocerylist-count"><%= @list_items.size %></small><small></%> <%= @list.list_items.size < 2 ?  " élément" : " éléments" %></small>
+    </div>
+    <div>
+      <%= link_to list_get_cart_path(@list), class: 'mr-1' do %>
+        <button type="button" class="btn btn-sm btn-outline-primary ml-auto p-2">
+          Voir les prix
+        </button>
+      <% end  %>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="shadow p-0 mb-4 bg-white rounded">
+    <div class="list-group list-group-flush" id="list_items">
+      <% if @list_items.any? %>
+        <% @list_items.order(:id).each do |list_item| %>
+          <%= render 'list_items/show', list_item: list_item %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div>
+      <% if @list.user == current_user%>
+        <%= render 'list_items/form', list: @list, list_item: @list_item %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <button class="mt-2 btn btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement en cours..." }>
+    Afficher les recettes du moment
+  </button>
+</div>
+
+
+<div data="<%= params[:id] %>" id="fetch_recipes" class="mb-4">
+
+</div>
+
+
+<%= javascript_pack_tag 'load_recipes' %>
+

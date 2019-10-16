@@ -3,12 +3,12 @@ class PagesController < ApplicationController
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
-    @foodlist = FoodList.new
+    @list = List.new
 
     # if user is logged in, display the user grocery list
     if user_signed_in?
-      foodlist = current_user.food_lists.first
-      redirect_to food_list_path(foodlist)
+      list = current_user.lists.first
+      redirect_to list_path(list)
     end
   end
 
