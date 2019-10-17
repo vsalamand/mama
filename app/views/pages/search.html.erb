@@ -1,13 +1,13 @@
 <div class="container">
 
-  <div class="row">
+  <div>
     <%= form_tag(search_path, :method => "get") do %>
       <%= text_field_tag :query, params[:query], placeholder: "Search Recipes", required: true %>
       <%= submit_tag "Search" %>
     <% end %>
   </div>
 
-  <div class="row">
+  <div>
     <h2>search results:</h2>
     <% if @recipes %>
       <% @recipes.each do |recipe| %>

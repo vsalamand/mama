@@ -2,18 +2,15 @@
 
 <div class="container">
   <div class="form-wrapper">
-    <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
+
         <h2>Importer une recette</h2>
         <div class="recipe-form">
           <%= simple_form_for @recipe do |f| %>
-            <%= f.input :link, placeholder: "Lien de la recette", label: false, class: 'form-control' %>
-            <%= f.submit "Envoyer à Mama", class: "form-control btn-primary" %>
+            <%= f.input :link, placeholder: "Lien de la recette", label: false %>
+            <%= f.submit "Envoyer", class: "btn btn-primary" %>
           <% end %>
         </div>
         <h5><%= link_to 'Créer une recette existante', new_recipe_path %></h5>
         <h5><%= link_to 'Construire une nouvelle recette', new_meta_recipe_list_path %></h5>
-      </div>
-    </div>
   </div>
 </div>
