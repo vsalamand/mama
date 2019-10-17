@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_recipe, only: [ :new, :create, :edit, :update ]
-  before_action :set_list_item, only: [ :edit, :update ]
+  before_action :set_list_item, only: [ :edit, :update, :unvalidate, :validate ]
   before_action :set_item, only: [ :edit, :update ]
 
   def new
@@ -18,13 +18,24 @@ class ItemsController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
     @item.update(items_params)
     redirect_to recipe_path(@recipe) if params[:recipe_id].present?
     redirect_to list_path(@list_item.list) if params[:list_item_id].present?
+  end
+
+  def validate
+    item = @list_item.items.last
+    item.validate
+  end
+
+  def unvalidate
+    @list = @list_item.list
+    item = @list_item.items.last
+    item.unvalidate
+    render "unvalidate.js.erb"
   end
 
   private

@@ -39,7 +39,7 @@ class ListItemsController < ApplicationController
     @list_item.update(list_item_params)
     @list_item.name = list_item_params[:items_attributes]["0"][:name]
     @list_item.save
-    redirect_to list_path(@list)
+    redirect_back(fallback_location:"/")
   end
 
   def destroy
@@ -52,7 +52,7 @@ class ListItemsController < ApplicationController
   private
 
   def list_item_params
-    params.require(:list_item).permit(:name, :list_id, :deleted, items_attributes:[:id, :name, :quantity, :food_id, :unit_id, :list_item_id, :recipe_id])
+    params.require(:list_item).permit(:name, :list_id, :deleted, items_attributes:[:id, :name, :quantity, :food_id, :unit_id, :list_item_id, :is_validated, :recipe_id])
   end
 
   def set_list_item
