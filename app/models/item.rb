@@ -51,6 +51,15 @@ class Item < ApplicationRecord
         item.save
       end
     end
+  end
 
+  def validate
+    self.is_validated = true
+    self.save
+  end
+
+  def unvalidate
+    self.is_validated = false
+    self.save
   end
 end
