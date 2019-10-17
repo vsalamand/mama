@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="shadow p-3 bg-white rounded d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-start flex-column">
+      <h4><%= list_item.name %></h4>
+      <small class="font-weight-light">
+        ✅ <%= list_item.items.last.quantity %> <%= list_item.items.last.unit.name if list_item.items.last.unit.present? %> <%= list_item.items.last.food.name if list_item.items.last.food.present? %>
+      </small>
+    </div>
+
+     <%= link_to list_list_item_item_unvalidate_path(list.id, list_item.id, list_item.items.last.id), remote: true do %>
+        <button type="button" class="btn btn-outline-primary btn-sm unvalidate-item">Modifier</button>
+     <% end %>
+
+  </div>
+</div>
+
+<div class="container p-4">
+  <hr class="my-4">
+</div>
+
+
+<%= render 'products/show', food: list_item.items.last.food %>

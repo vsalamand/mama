@@ -1,7 +1,8 @@
-<%= simple_form_for([ list, list_item ], remote: true) do |form| %>
 
-  <div class="shadow p-3 mb-2 bg-white">
-      <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un élément", class:"form-control p-0 mt-3 mb-3" %>
-  </div>
+    <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
 
-<% end %>
+      <div class="shadow p-3 mb-2 bg-white">
+          <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un élément", class:"form-control p-0 mt-3 mb-3" %>
+      </div>
+
+    <% end %>

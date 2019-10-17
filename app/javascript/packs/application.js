@@ -9,6 +9,8 @@
 
 import 'bootstrap';
 import '../components/selectize';
+import '../components/selectize1';
+
 // import Rails from 'rails-ujs';
 // import Turbolinks from 'turbolinks';
 

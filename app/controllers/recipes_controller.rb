@@ -99,6 +99,7 @@ class RecipesController < ApplicationController
     @recipe.status = "published"
     # generate_ingredients_tags(@recipe)
     @recipe.save
+    @recipe.items.each{ |item| item.validate }
     @recipe.rate
     @recipe.add_to_pool
     # @recipe.upload_to_cloudinary
@@ -108,6 +109,7 @@ class RecipesController < ApplicationController
   def set_dismissed_status
     @recipe.status = "dismissed"
     @recipe.save
+    @recipe.items.each{ |item| item.unvalidate }
     redirect_to recipe_path(@recipe)
   end
 

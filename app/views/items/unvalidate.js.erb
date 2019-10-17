@@ -1,0 +1,3 @@
+const detailView = document.querySelector("#detail-view");
+detailView.innerHTML = "";
+detailView.innerHTML = ("<%= j render 'list_items/unvalidated_form', list: @list, list_item: @list_item %>");
