@@ -7,15 +7,22 @@ class ListItemsController < ApplicationController
     @list = List.find(params[:list_id])
     @list_item = ListItem.new(list_item_params)
     @list_item.list = @list
+    # verify if validated item with same input already exists
+    valid_item = Item.find_by(name: @list_item.name, is_validated: true)
+
     if @list_item.save
       # render view
       respond_to do |format|
         format.html { redirect_to list_path(@list) }
         format.js  # <-- will render `app/views/list_items/create.js.erb`
       end
-      # create item
-      Thread.new  do
-        Item.create_list_item(@list_item)
+      # create new item or copy item if from recipe
+      Thread.new do
+        if valid_item.present?
+          Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
+        else
+          Item.create_list_item(@list_item)
+       end
       end
     else
       respond_to do |format|
