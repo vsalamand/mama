@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   belongs_to :recipe, optional: true
   belongs_to :list_item, optional: true
   belongs_to :unit, optional: true
+  validates :food_id, presence: true
 
   def self.create_list_item(list_item)
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
@@ -54,7 +55,7 @@ class Item < ApplicationRecord
   end
 
   def validate
-    self.is_validated = true
+    self.is_validated = true if self.food.present?
     self.save
   end
 

@@ -3,7 +3,7 @@
     <div class="d-flex align-items-start flex-column">
       <h4><%= list_item.name %></h4>
       <small class="font-weight-light">
-        ✅ <%= list_item.items.last.quantity %> <%= list_item.items.last.unit.name if list_item.items.last.unit.present? %> <%= list_item.items.last.food.name %>
+        ✅ <%= list_item.items.last.quantity %> <%= list_item.items.last.unit.name if list_item.items.last.unit.present? %> <%= list_item.items.last.food.name if list_item.items.last.food.present? %>
       </small>
     </div>
 

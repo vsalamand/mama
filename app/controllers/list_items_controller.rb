@@ -37,9 +37,16 @@ class ListItemsController < ApplicationController
 
   def update
     @list_item.update(list_item_params)
-    @list_item.name = list_item_params[:items_attributes]["0"][:name]
-    @list_item.save
-    redirect_back(fallback_location:"/")
+    # if list item contains an item, then update it
+    if list_item_params[:items_attributes].present?
+      @list_item.name = list_item_params[:items_attributes]["0"][:name]
+      Item.find(list_item_params[:items_attributes]["0"][:id]).validate
+      @list_item.save
+      render "update.js.erb"
+    else
+      @list_item.save
+      redirect_to list_path(@list)
+    end
   end
 
   def destroy

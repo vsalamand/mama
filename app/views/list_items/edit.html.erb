@@ -10,11 +10,17 @@
 </div>
 
 <div id="detail-view">
-  <% if @list_item.items.last.is_validated == true %>
-    <%= render 'validated_form', list: @list, list_item: @list_item %>
+  <% if @list_item.items.any? %>
+
+    <% if @list_item.items.last.is_validated == true  %>
+      <%= render 'validated_form', list: @list, list_item: @list_item %>
+    <% else %>
+      <%= render 'unvalidated_form', list: @list, list_item: @list_item %>
+    <% end  %>
+
   <% else %>
-    <%= render 'unvalidated_form', list: @list, list_item: @list_item %>
-  <% end  %>
+    <%= render 'noitem_form', list: @list, list_item: @list_item %>
+  <% end %>
 </div>
 
 

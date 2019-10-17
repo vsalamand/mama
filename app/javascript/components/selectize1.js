@@ -2,9 +2,10 @@ import $ from 'jquery';
 import 'selectize';
 
 $(function() {
- $('.select').selectize({
+ $('.selectone').selectize({
    plugins: ['remove_button'],
    closeAfterSelect: true,
+   maxItems: 1,
  });
 });
 
