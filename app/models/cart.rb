@@ -5,14 +5,16 @@ class Cart < ApplicationRecord
   has_many :recipes, :through => :cart_items, :source => :productable, :source_type => 'Recipe'
   has_many :foods, :through => :recipes
 
-  def add_product(product)
-    current_item = self.cart_items.find_by(productable_id: product.id, productable_type: product.class.name)
+  def add_product(product_data)
+    # product data is a hash with List item + item + store item (cheap)
+    product = StoreItem.find(product_data["store_item"])
+    current_item = self.cart_items.find_by(item_id: product_data["item"])
 
     if current_item
-      current_item.quantity += 1
+      # current_item.quantity += 1
       current_item.save
     else
-      CartItem.create(name: product.name, productable_id: product.id, productable_type: product.class.name, quantity: 1, cart: self)
+      CartItem.create(name: product.name, productable_id: product.id, productable_type: product.class.name, quantity: 1, item_id: product_data["item"], cart: self)
     end
   end
 
@@ -22,11 +24,11 @@ class Cart < ApplicationRecord
     end
   end
 
-  def get_new_cart(products)
-    #clean current items
-    self.clean_cart
+  def update_cart(products_data)
+    # clean current items
+    # self.clean_cart
     #add new item
-    products.each{ |product| self.add_product(product)}
+    products_data.each{ |product_data| self.add_product(product_data) if product_data["store_item"].present? }
   end
 
   def get_total_price
