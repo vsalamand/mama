@@ -10,7 +10,7 @@ json.link @recipe.link
 json.items @recipe.items.each do |item|
   if item.food.present?
     json.id item.id
-    json.recipe_ingredient item.recipe_ingredient
+    json.recipe_ingredient item.name
     json.food_id  item.food_id
     json.quantity item.quantity
     json.unit_id  item.unit_id
