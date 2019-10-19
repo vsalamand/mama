@@ -35,3 +35,17 @@
     </div>
   <% end %>
 </div>
+
+<% if @unavailable.any? %>
+  <div class="container">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+      <small class="mb-0 font-weight-light">Pas de résultat pour:</small>
+      <div>
+        <% @unavailable.each do |toto| %>
+          <p class="mb-0 font-weight-light"><%= toto.name  %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

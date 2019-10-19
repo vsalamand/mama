@@ -10,6 +10,9 @@ class ListItem < ApplicationRecord
   #add a model scope to fetch only non-deleted records
   scope :not_deleted, -> { where(deleted: false) }
   scope :deleted, -> { where(deleted: true) }
+  # scope to get list items in the lsit with no associated items
+  scope :no_items, -> { includes(:items).where( deleted: false, :items => { :id => nil } ) }
+
 
 
   #create the soft delete method
