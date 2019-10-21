@@ -4,7 +4,7 @@
       <h4 class="mb-0"><%= recipe.title %></h4>
       <small><%= recipe.foods.size %> ingrédients</small>
       <small><%= recipe.servings %></small><small></%> <%= recipe.servings.size < 2 ?  " portion" : " portions" %></small>
-      <h6 ><%= link_to "Cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h6>
+      <h7 ><%= link_to "Cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h7>
     </div>
   </div>
   <div class="container pb-4">

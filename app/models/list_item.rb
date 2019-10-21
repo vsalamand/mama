@@ -3,7 +3,7 @@ class ListItem < ApplicationRecord
   validates :name, presence: true
   has_many :items
   has_many :cart_items, through: :items
-  has_one :food, through: :items
+  has_many :food, through: :items
 
   accepts_nested_attributes_for :items
 
@@ -12,6 +12,7 @@ class ListItem < ApplicationRecord
   scope :deleted, -> { where(deleted: true) }
   # scope to get list items in the lsit with no associated items
   scope :no_items, -> { includes(:items).where( deleted: false, :items => { :id => nil } ) }
+  scope :to_validate, -> { includes(:items).where( :items => { :is_validated => false } ) }
 
 
 

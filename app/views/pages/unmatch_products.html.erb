@@ -1,10 +1,10 @@
 <%= render 'shared/admin-navbar' %>
 
 <div class="container">
-  <div class="row">
+  <div>
     <h1>Products sans food </h1>
   </div>
-  <div class="row">
+  <div>
     <% @no_food_products.sort_by{|product| product.store_items.size }.each do |product| %>
       <li>
         <%= product.store_items.size %> |

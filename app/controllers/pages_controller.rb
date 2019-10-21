@@ -23,27 +23,14 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @recipes = Recipe.where(status: "published")
-    @seasonal = Recipe.where(status: "published").tagged_with("seasonal")
-    @no_category = Recipe.where(status: "published").tagged_with(["veggie", "salad", "pasta", "potato", "meat", "fish", "egg", "burger", "snack", "pizza"], :exclude => true)
-
-    @veggie = Recipe.where(status: "published").tagged_with("veggie")
-    @salad = Recipe.where(status: "published").tagged_with("salad")
-    @pasta = Recipe.where(status: "published").tagged_with("pasta")
-    @potato = Recipe.where(status: "published").tagged_with("potato")
-    @meat = Recipe.where(status: "published").tagged_with("meat")
-    @fish = Recipe.where(status: "published").tagged_with("fish")
-    @egg = Recipe.where(status: "published").tagged_with("egg")
-    @snack = Recipe.where(status: "published").tagged_with("snack")
-    @burger = Recipe.where(status: "published").tagged_with("burger")
-    @pizza = Recipe.where(status: "published").tagged_with("pizza")
+    @items_validation_size = ListItem.all.to_validate.size
+    @list_items_verification_size = ListItem.all.no_items.size
 
     @products = Product.all
     @no_food_products = Product.get_products_without_foods
 
     @foods = Food.all
     @foods_without_products = Food.get_foods_without_product
-    @foodlists = FoodList.where(food_list_type: "pool")
   end
 
   def pending
@@ -56,6 +43,14 @@ class PagesController < ApplicationController
 
   def unmatch_products
     @no_food_products = Product.get_products_without_foods
+  end
+
+  def verify_items
+    @list_items = ListItem.all.to_validate
+  end
+
+  def verify_listitems
+    @list_items = ListItem.all.no_items
   end
 
   def seasonal

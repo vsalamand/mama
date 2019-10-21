@@ -1,0 +1,9 @@
+<div class="container">
+  <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
+
+        <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un élément" %>
+        <%= form.submit "Modifier", class: "btn btn-primary" %>
+
+  <% end %>
+</div>
+

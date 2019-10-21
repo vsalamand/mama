@@ -11,6 +11,9 @@ class Item < ApplicationRecord
   validates :food_id, presence: true
   has_one :cart_item
 
+  scope :to_validate, -> { where(is_validated: false) }
+
+
   def self.create_list_item(list_item)
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
     parser = JSON.parse(open(url).read).first

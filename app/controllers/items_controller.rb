@@ -29,13 +29,21 @@ class ItemsController < ApplicationController
   def validate
     item = @list_item.items.last
     item.validate
+    render "validate.js.erb"
   end
 
   def unvalidate
     @list = @list_item.list
-    item = @list_item.items.last
-    item.unvalidate
+    @item = @list_item.items.last
+    @item.unvalidate
     render "unvalidate.js.erb"
+  end
+
+  def destroy
+    @item = Item.find(params[:id])
+    @list = @item.list_item.list
+    @item.destroy
+    redirect_to list_path(@list)
   end
 
   private
@@ -52,6 +60,6 @@ class ItemsController < ApplicationController
   end
 
   def items_params
-    params.require(:item).permit(:food_id, :recipe, :list_item, :unit_id, :quantity, :name) ## Rails 4 strong params usage
+    params.require(:item).permit(:food_id, :recipe, :list_item, :unit_id, :quantity, :name, :is_validated) ## Rails 4 strong params usage
   end
 end

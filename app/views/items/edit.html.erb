@@ -12,9 +12,8 @@
       </div>
     </div>
   </div>
- <% end %>
 
-<% if params[:list_item_id].present? %>
+<% elsif params[:list_item_id].present? %>
   <div class="container">
     <div class="form-wrapper">
       <div class="row">
@@ -24,6 +23,35 @@
             <%= render 'validate' %>
           </div>
           <%= link_to 'Annuler', list_path(@list_item.list) %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <div class="container">
+    <div class="form-wrapper">
+      <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+          <h2>Modifier un item</h2>
+          <div class="recipe-form">
+
+            <%= simple_form_for @item do |f| %>
+              <%= f.input :name, class: 'form-control' %>
+              <%= f.input :quantity, class: 'form-control' %>
+              <%= f.collection_select :unit_id, Unit.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+              <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+              <%= f.input :is_validated, class: 'form-control' %>
+              <%= f.submit "Valider", class: "form-control btn-primary" %>
+            <% end %>
+
+          </div>
+          <div class="mt-3">
+            <%= link_to "Admin", rails_admin.show_path(model_name: 'item', id: @item.id), class:"btn btn-secondary" %>
+          </div>
+          <div class="mt-3">
+            <%= link_to "Supprimer", @item, method: :delete, class:"btn btn-danger" %>
+          </div>
         </div>
       </div>
     </div>

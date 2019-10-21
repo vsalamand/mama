@@ -1,10 +1,11 @@
 import $ from 'jquery';
 import 'selectize';
 
-$(function() {
+$(document).on('turbolinks:load', function() {
  $('.selectone').selectize({
    plugins: ['remove_button'],
    closeAfterSelect: true,
+   searchField: ['name'],
    maxItems: 1,
  });
 });
