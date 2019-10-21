@@ -1,10 +1,12 @@
 <% recipes.each_with_index do | recipe, index|  %>
   <div class="container pt-4">
-    <div class="shadow p-3 mb-2 bg-white rounded" >
+    <div class="shadow p-3 mb-2 bg-white rounded d-flex flex-column" >
       <h4 class="mb-0"><%= recipe.title %></h4>
       <small><%= recipe.foods.size %> ingrédients</small>
-      <small><%= recipe.servings %></small><small></%> <%= recipe.servings.size < 2 ?  " portion" : " portions" %></small>
-      <h6 ><%= link_to "Cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h6>
+      <div>
+        <small>➡️quantités pour <%= recipe.servings %></small><small><%= (recipe.servings < 2) ?  " portion" : " portions" %></small>
+      </div>
+      <h7 ><%= link_to "Cliquer ici pour voir la recette", recipe.link, target: "_blank" %></h7>
     </div>
   </div>
   <div class="container pb-4">

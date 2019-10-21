@@ -1,7 +1,7 @@
 <div class="container ">
   <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
     <div>
-      <h2 class="pl-0 pr-0 mb-0" id="title"><%= @list.name.capitalize  %> </h2>
+      <h4 class="pl-0 pr-0 mb-0" id="title"><%= @list.name.capitalize  %> </h4>
       <small class="grocerylist-count"><%= @list_items.size %></small><small></%> <%= @list.list_items.size < 2 ?  " élément" : " éléments" %></small>
     </div>
     <div>
@@ -34,11 +34,15 @@
   </div>
 </div>
 
-<div class="container">
-  <button class="mt-2 btn btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement en cours..." }>
-    Afficher les recettes du moment
-  </button>
-</div>
+
+<% if @list.user == current_user%>
+  <div class="container">
+    <button class="mt-2 btn btn-outline-primary fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement en cours..." }>
+      Afficher les recettes du moment
+    </button>
+  </div>
+<% end %>
+
 
 
 <div data="<%= params[:id] %>" id="fetch_recipes" class="mb-4">

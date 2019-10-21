@@ -1,6 +1,7 @@
 class ListItemsController < ApplicationController
   before_action :set_list_item, only: [ :show, :edit, :update ]
   before_action :set_list, only: [ :show, :create, :edit, :update ]
+  skip_before_action :authenticate_user!, only: [:show]
 
 
   def create

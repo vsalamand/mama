@@ -1,0 +1,17 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <div>
+    <h1>Verify Items </h1>
+  </div>
+  <div>
+    <% @list_items.reverse.each do |list_item| %>
+      <li>
+        <%= list_item.id %> |
+        <%= link_to list_item.name, edit_item_path(list_item.items.last), target: '_blank' %>
+      </li>
+    <% end %>
+  </div>
+
+</div>
+

@@ -1,39 +1,27 @@
-<div class="container">
-  <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
 
-     <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
-
-        <%= form.fields_for :items do |f| %>
-          <div class="form-group row mb-0">
-            <label for="inputName" class="col-sm-12 col-form-label"></label>
-            <div class="col-sm-12">
-              <%= f.input :name, label: false %>
-            </div>
-          </div>
-          <div class="form-group row mb-0">
-            <label for="inputQuantity" class="col-sm-3 col-form-label">Quantité</label>
-            <div class="col-sm-4">
-              <%= f.input :quantity, label: false %>
-            </div>
-          </div>
-          <div class="form-group row mb-0 d-flex align-items-center">
-            <label for="inputUnit" class="col-sm-3 col-form-label" for="inlineFormUnitSelect">Mesure</label>
-            <div class="col-sm-7">
-              <%= f.collection_select :unit_id, Unit.all.order(:name), :id, :name, :include_blank => true, class: 'selectone' %>
-            </div>
-          </div>
-          <div class="form-group row mb-0 d-flex align-items-center">
-            <label for="inputFood" class="col-sm-3 col-form-label">Ingrédient</label>
-            <div class="col-sm-9">
-              <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'selectone' %>
-            </div>
-          </div>
-
-        <% end %>
-
-        <%= form.submit "Valider les informations pour afficher les prix", class: "mt-3 btn btn-primary btn-block" %>
-      <% end %>
-
-  </div>
+<div class="container p-4">
+  <hr class="my-4">
 </div>
 
+<div class="container">
+  <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
+    <div>
+      <p class="mb-0 font-weight-light">Produits disponibles chez Leclerc pour:</p>
+      <div class="d-flex align-items-center justify-content-start">
+        <h4 class="pl-0 pr-0 mb-0" id="title"><%= item.food.name.capitalize %> </h4>
+        <h7 class="ml-1 font-weight-light"> <%= item.quantity if item.quantity %> <%= item.unit.name if item.unit %></h7>
+      </div>
+      <div class="mt-3">
+        <p class="mb-0">Les informations ci-dessus sont-elles correctes ?</p>
+        <div class="m-0">
+         <%= link_to list_list_item_item_unvalidate_path(@list_item.list, @list_item, item), remote: true do %>
+            <button type="button" class="btn btn-secondary btn-sm unvalidate-item">Non</button>
+         <% end %>
+         <%= link_to list_list_item_item_validate_path(@list_item.list, @list_item, item), remote: true do %>
+            <button type="button" class="btn btn-primary btn-sm validate-item">Oui ! Afficher les prix</button>
+         <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

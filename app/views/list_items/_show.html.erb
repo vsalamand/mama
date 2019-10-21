@@ -1,11 +1,13 @@
 
   <li class="list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>">
-    <%= link_to list_item.name, edit_list_list_item_path(@list, list_item) %>
     <% if @list.user == current_user %>
-     <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
+      <%= link_to list_item.name, edit_list_list_item_path(@list, list_item) %>
+      <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
         <button type="button" class="close ml-2 mr-0 remove-item" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-     <% end %>
+      <% end %>
+    <% else %>
+      <%= list_item.name %>
     <% end %>
   </li>

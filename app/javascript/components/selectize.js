@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import 'selectize';
 
-$(function() {
+$(document).on('turbolinks:load', function() {
  $('.select').selectize({
    plugins: ['remove_button'],
    closeAfterSelect: true,

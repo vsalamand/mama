@@ -53,9 +53,11 @@ Rails.application.routes.draw do
   get 'pending', to: 'pages#pending'
   get 'unmatch_foods', to: 'pages#unmatch_foods'
   get 'unmatch_products', to: 'pages#unmatch_products'
+  get 'verify_items', to: 'pages#verify_items'
+  get 'verify_listitems', to: 'pages#verify_listitems'
+
 
   get 'assistant', to: 'meta_recipe_lists#new'
-
   get 'seasonal', to: 'pages#seasonal'
   get 'uncategorized', to: 'pages#uncategorized'
   get 'veggie', to: 'pages#veggie'
@@ -100,6 +102,7 @@ Rails.application.routes.draw do
 
 
   resources :recipe_lists
+  resources :items
 
   resources :carts do
     resources :cart_items, only: [:show, :destroy, :edit, :update]

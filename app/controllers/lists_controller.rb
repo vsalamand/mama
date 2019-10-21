@@ -19,12 +19,14 @@ class ListsController < ApplicationController
 
   def get_cart
     @list = List.find(params[:list_id])
-    # get list of cheapest store items from grocery list
-    cheap_products = StoreItem.get_cheap_store_items(@list.list_items.not_deleted)
+    # get array of hash with list item + item + store item (cheap)
+    products_data = @list.get_products
     # fill cart with new items
     @cart = Cart.find_by(user_id: current_user)
-    @cart.get_new_cart(cheap_products)
+    @cart.update_cart(products_data)
     redirect_to cart_path(@cart)
+    # get list of cheapest store items from grocery list
+    # cheap_products = StoreItem.get_cheap_store_items(@list.list_items.not_deleted)
   end
 
   private
