@@ -27,6 +27,7 @@
           <% @item.food.store_items.sort_by{ |item| item.price }.each do |store_item| %>
             <%= render 'product-card', store_item: store_item %>
           <% end %>
+          <%= render 'no-product-card' %>
         </div>
       </div>
     <% else %>

@@ -1,0 +1,19 @@
+
+  <div class="cartgrocerylist-product-card-id">
+    <div class="pl-1 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
+
+      <div class="product-info d-flex align-items-center justify-content-start">
+        <div class="d-flex justify-content-center">
+
+          <%= simple_form_for [@cart, @cart_item], remote: true do |f| %>
+            <%= f.input :productable_id, input_html: {value: nil }, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+            <%= f.input :name, input_html: {value: nil }, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.submit "Cliquer ici si vous ne trouvez pas le bon produit", class: "btn btn-link " %>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+

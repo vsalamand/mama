@@ -33,9 +33,11 @@ class Cart < ApplicationRecord
 
   def get_total_price
     prices_list = []
-    self.cart_items.each do |item|
-      price = item.quantity * StoreItem.find(item.productable_id).price
-      prices_list << price
+    self.cart_items.each do |cart_item|
+      if cart_item.productable_id.present?
+        price = cart_item.quantity * StoreItem.find(cart_item.productable_id).price
+        prices_list << price
+      end
     end
     return sprintf("%.2f", prices_list.inject(0){|sum,x| sum + x })
   end

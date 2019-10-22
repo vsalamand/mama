@@ -1,0 +1,22 @@
+
+  <div class="cartgrocerylist-product-card-id">
+    <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+        <small class="ml-1 font-weight-light"><%= item.name %></small>
+      <div class="d-flex align-items-center justify-content-between">
+
+
+        <%= link_to cart_cart_item_path(@cart, cart_item) do %>
+          <div class="product-info d-flex align-items-center justify-content-start">
+            <div class="product-description">
+              <div class="d-flex w-90 justify-content-between flex-column">
+                <h7 class="ml-1 mb-0">Vous n'avez pas trouvé le bon produit</h7>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+
+      </div>
+    </div>
+  </div>
+
