@@ -8,6 +8,7 @@
           <div class="d-flex w-90 justify-content-between flex-column">
             <h7 class="mb-0"><%= store_item.name %></h7>
           </div>
+
           <% if store_item.is_promo == true %>
             <div class="d-flex w-90 justify-content-start">
                 <span class="badge badge-warning mr-1 font-weight-light">promo</span>
@@ -24,6 +25,7 @@
                 </small>
             </div>
           <% end %>
+
           <% if store_item.product.is_reported == false %>
             <p class="m-0"><small>
               <%= link_to 'Signaler une erreur', cart_cart_item_report_path(@cart, @cart_item, store_item.product), remote:true, class:"p-0 m-0 btn btn-sm btn-outline font-weight-light" %>
@@ -31,6 +33,7 @@
           <% else %>
             <p class="m-0"><small class="font-weight-light">En cours de vérification</small></p>
           <% end %>
+
         </div>
       </div>
 
