@@ -1,0 +1,17 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <div>
+    <h1>Verify Reported Products </h1>
+  </div>
+  <div>
+    <% @products.reverse.each do |product| %>
+      <li>
+        <%= product.id %> |
+        <%= link_to product.name, rails_admin.edit_path(model_name: 'product', id: product.id), target: '_blank' %>
+      </li>
+    <% end %>
+  </div>
+
+</div>
+

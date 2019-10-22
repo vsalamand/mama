@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191018143304) do
+ActiveRecord::Schema.define(version: 20191022150008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -325,8 +325,9 @@ ActiveRecord::Schema.define(version: 20191018143304) do
     t.string   "brand"
     t.string   "origin"
     t.boolean  "is_frozen"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "is_reported", default: false
     t.index ["food_id"], name: "index_products_on_food_id", using: :btree
     t.index ["unit_id"], name: "index_products_on_unit_id", using: :btree
   end

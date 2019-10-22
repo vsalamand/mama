@@ -1,0 +1,16 @@
+    <% if item.food.store_items.any? %>
+      <div class="shadow p-0 mb-5 bg-white rounded">
+        <div class="list-group list-group-flush">
+          <% item.food.store_items.sort_by{ |item| item.price }.each do |store_item| %>
+            <%= render 'cart_items/product-card', store_item: store_item %>
+          <% end %>
+          <%= render 'cart_items/no-product-card' %>
+        </div>
+      </div>
+    <% else %>
+      <div class="shadow p-0 mb-5 bg-white rounded">
+        <a class="list-group-item list-group-item-action">
+          <p class="mb-1">Aucun produit trouvé.</p>
+        </a>
+      </div>
+    <% end %>

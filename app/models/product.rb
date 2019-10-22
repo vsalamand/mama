@@ -11,4 +11,9 @@ class Product < ApplicationRecord
   def self.get_products_without_foods
     return Product.where(food_id: nil)
   end
+
+  def report
+    self.is_reported = true
+    self.save
+  end
 end
