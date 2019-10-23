@@ -7,21 +7,20 @@
   <div class="container">
     <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
       <div>
-        <p class="mb-0 font-weight-light">Produits disponibles chez Leclerc pour:</p>
         <div class="d-flex align-items-center justify-content-start">
           <h4 class="pl-0 pr-0 mb-0" id="title"><%= @item.food.name.capitalize %> </h4>
           <h7 class="ml-1 font-weight-light"> <%= @item.quantity if @item.quantity %> <%= @item.unit.name if @item.unit %></h7>
         </div>
          <%= link_to list_list_item_item_unvalidate_path(@item.list_item.list, @item.list_item, @item), remote: true do %>
-            <button type="button" class="p-0 btn btn-link btn-sm unvalidate-item">Signaler une erreur ci-dessus</button>
+            <button type="button" class="p-0 btn btn-link btn-sm unvalidate-item">Pas la bonne recherche ?</button>
          <% end %>
       </div>
     </div>
   </div>
 
 
-  <div class="container" id="products-block">
-    <%= render 'products-block', item: @item %>
+  <div id="products-block">
+    <%= render 'products-block', food: @item.food %>
   </div>
 
 </div>

@@ -16,6 +16,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    @food = Food.find(params[:format])
+    if params[:cart_id].present?
+      @cart = Cart.find(params[:cart_id])
+      @cart_item = CartItem.find(params[:cart_item_id])
+      @item = @cart_item.item
+      render "search.js.erb"
+    end
+  end
+
   private
   def products_params
     params.require(:product).permit(:id, :food_id, :ean, :name, :quantity, :unit_id, :brand, :origin, :is_frozen, :is_reported)

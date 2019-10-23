@@ -101,16 +101,16 @@ Rails.application.routes.draw do
     end
   end
 
-
+  resources :carts do
+    resources :cart_items, only: [:show, :destroy, :edit, :update] do
+      get 'report', to: "products#report"
+      get 'search', to: "products#search"
+    end
+  end
 
   resources :recipe_lists
   resources :items
 
-  resources :carts do
-    resources :cart_items, only: [:show, :destroy, :edit, :update] do
-      get 'report', to: "products#report"
-    end
-  end
 
   resources :food_lists do
     member do
