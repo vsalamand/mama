@@ -28,7 +28,7 @@
 
           <% if store_item.product.is_reported == false %>
             <p class="m-0"><small>
-              <%= link_to 'Signaler une erreur', cart_cart_item_report_path(@cart, @cart_item, store_item.product), remote:true, class:"p-0 m-0 btn btn-sm btn-outline font-weight-light" %>
+              <%= link_to 'Signaler une erreur', cart_cart_item_report_path(@cart, @cart_item, store_item), remote:true, class:"p-0 m-0 btn btn-sm btn-outline font-weight-light" %>
             </small></p>
           <% else %>
             <p class="m-0"><small class="font-weight-light">En cours de vérification</small></p>

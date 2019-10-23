@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   belongs_to :list_item, optional: true
   belongs_to :unit, optional: true
   validates :food_id, presence: true
-  has_one :cart_item
+  has_one :cart_item, dependent: :destroy
 
   scope :to_validate, -> { where(is_validated: false) }
 

@@ -1,17 +1,17 @@
 class ProductsController < ApplicationController
 
   def report
-    product = Product.find(params[:format])
+    product = StoreItem.find(params[:format]).product
     product.report
     if params[:cart_id].present?
       @cart = Cart.find(params[:cart_id])
       @cart_item = CartItem.find(params[:cart_item_id])
-      @item = @cart_item.item
+      @food = StoreItem.find(params[:format]).food
       render "cart_report.js.erb"
     elsif params[:list_id].present?
       @list = List.find(params[:list_id])
       @list_item = ListItem.find(params[:list_item_id])
-      @item = @list_item.items.last
+      @food = StoreItem.find(params[:format]).food
       render "list_report.js.erb"
     end
   end
@@ -22,7 +22,12 @@ class ProductsController < ApplicationController
       @cart = Cart.find(params[:cart_id])
       @cart_item = CartItem.find(params[:cart_item_id])
       @item = @cart_item.item
-      render "search.js.erb"
+      render "cart_search.js.erb"
+    elsif params[:list_id].present?
+      @list = List.find(params[:list_id])
+      @list_item = ListItem.find(params[:list_item_id])
+      @item = @list_item.items.last
+      render "list_search.js.erb"
     end
   end
 

@@ -98,6 +98,7 @@ Rails.application.routes.draw do
         get 'unvalidate', to: "items#unvalidate"
       end
       get 'report', to: "products#report"
+      get 'search', to: "products#search"
     end
   end
 
