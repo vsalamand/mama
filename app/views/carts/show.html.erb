@@ -13,22 +13,28 @@
     </div>
     <div>
       <h2 class="pl-0 pr-0 mb-0"><%= @cart.get_total_price %>€</h2>
-      <p class="mb-0 font-weight-light"><%= @cart.cart_items.size %> articles</p>
     </div>
   </div>
 </div>
 
 <div class="container">
   <% if @cart.cart_items.any? %>
-    <div class="shadow p-0 mb-5 bg-white rounded">
-      <div class="list-group list-group-flush">
-        <% @cart.cart_items.order(:item_id).each do |cart_item| %>
+    <div class="shadow p-0 mb-2 bg-white rounded">
+      <div class="list-group list-group-flush mb-2">
+        <% @cart.cart_items.where.not(productable_id: nil).order(:item_id).each do |cart_item| %>
           <%= render 'product-card', product_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item, item: cart_item.item %>
         <% end %>
       </div>
     </div>
+    <div class="shadow p-0 mb-2 bg-white rounded">
+      <div class="list-group list-group-flush">
+        <% @cart.cart_items.where(productable_id: [nil, ""]).order(:item_id).each do |cart_item| %>
+          <%= render 'no-product-card', cart_item: cart_item, item: cart_item.item %>
+        <% end %>
+      </div>
+    </div>
   <% else %>
-    <div class="shadow p-0 mb-5 bg-white rounded">
+    <div class="shadow p-0 mb-2 bg-white rounded">
       <a class="list-group-item list-group-item-action">
         <p class="mb-1">Le panier est vide.</p>
       </a>

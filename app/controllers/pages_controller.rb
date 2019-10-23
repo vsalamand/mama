@@ -25,6 +25,7 @@ class PagesController < ApplicationController
   def dashboard
     @items_validation_size = ListItem.all.to_validate.size
     @list_items_verification_size = ListItem.all.no_items.size
+    @reported_products = Product.where(is_reported: true).size
 
     @products = Product.all
     @no_food_products = Product.get_products_without_foods
@@ -51,6 +52,10 @@ class PagesController < ApplicationController
 
   def verify_listitems
     @list_items = ListItem.all.no_items
+  end
+
+  def verify_products
+    @products = Product.where(is_reported: true)
   end
 
   def seasonal

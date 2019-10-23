@@ -1,0 +1,3 @@
+const productsBlock = document.querySelector("#products-block");
+productsBlock.innerHTML = "";
+productsBlock.innerHTML = ("<%= j render 'products/products-block', food: @food %>");

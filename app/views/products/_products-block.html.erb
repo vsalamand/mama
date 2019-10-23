@@ -1,0 +1,32 @@
+<% if food.get_related_foods.any? %>
+  <div class="container">
+    <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-start flex-column">
+      <div>
+        <small class="btn btn-link btn-sm disabled p-0"><%= food.name.capitalize %></small>
+        <% food.get_related_foods.each do |food| %>
+          <small>
+            <%= link_to food.name.capitalize, list_list_item_search_path(@list, @list_item, food), remote:true, class:"p-0 m-0 btn btn-sm btn-link" %>
+          </small>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="container">
+  <% if food.store_items.any? %>
+    <div class="shadow p-0 mb-5 bg-white rounded">
+      <div class="list-group list-group-flush">
+        <% food.store_items.sort_by{ |item| item.price }.each do |store_item| %>
+          <%= render 'products/available_products', store_item: store_item %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="shadow p-0 mb-5 bg-white rounded">
+      <a class="list-group-item list-group-item-action">
+        <p class="mb-1">Aucun produit trouvé.</p>
+      </a>
+    </div>
+  <% end %>
+</div>

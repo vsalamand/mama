@@ -54,6 +54,14 @@ class Food < ApplicationRecord
     return foods
   end
 
+  def get_related_foods
+    related_foods = []
+    related_foods << self.parent if self.has_parent?
+    related_foods << self.children if self.has_children?
+    related_foods << self.siblings if self.has_parent? && self.has_siblings?
+    return related_foods.flatten
+  end
+
   def self.match_food(text)
     foods = []
 

@@ -7,35 +7,20 @@
   <div class="container">
     <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
       <div>
-        <p class="mb-0 font-weight-light">Produits disponibles chez Leclerc pour:</p>
         <div class="d-flex align-items-center justify-content-start">
           <h4 class="pl-0 pr-0 mb-0" id="title"><%= @item.food.name.capitalize %> </h4>
           <h7 class="ml-1 font-weight-light"> <%= @item.quantity if @item.quantity %> <%= @item.unit.name if @item.unit %></h7>
         </div>
          <%= link_to list_list_item_item_unvalidate_path(@item.list_item.list, @item.list_item, @item), remote: true do %>
-            <button type="button" class="p-0 btn btn-link btn-sm unvalidate-item">Cliquer ici si ces informations ne sont pas bonnes</button>
+            <button type="button" class="p-0 btn btn-link btn-sm unvalidate-item">Pas la bonne recherche ?</button>
          <% end %>
       </div>
     </div>
   </div>
 
 
-  <div class="container">
-    <% if @item.food.store_items.any? %>
-      <div class="shadow p-0 mb-5 bg-white rounded">
-        <div class="list-group list-group-flush">
-          <% @item.food.store_items.sort_by{ |item| item.price }.each do |store_item| %>
-            <%= render 'product-card', store_item: store_item %>
-          <% end %>
-        </div>
-      </div>
-    <% else %>
-      <div class="shadow p-0 mb-5 bg-white rounded">
-        <a class="list-group-item list-group-item-action">
-          <p class="mb-1">Aucun produit trouvé.</p>
-        </a>
-      </div>
-    <% end %>
+  <div id="products-block">
+    <%= render 'products-block', food: @item.food %>
   </div>
 
 </div>

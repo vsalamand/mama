@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   get 'unmatch_products', to: 'pages#unmatch_products'
   get 'verify_items', to: 'pages#verify_items'
   get 'verify_listitems', to: 'pages#verify_listitems'
+  get 'verify_products', to: 'pages#verify_products'
 
 
   get 'assistant', to: 'meta_recipe_lists#new'
@@ -96,17 +97,21 @@ Rails.application.routes.draw do
         get 'validate', to: "items#validate"
         get 'unvalidate', to: "items#unvalidate"
       end
+      get 'report', to: "products#report"
+      get 'search', to: "products#search"
     end
   end
 
-
+  resources :carts do
+    resources :cart_items, only: [:show, :destroy, :edit, :update] do
+      get 'report', to: "products#report"
+      get 'search', to: "products#search"
+    end
+  end
 
   resources :recipe_lists
   resources :items
 
-  resources :carts do
-    resources :cart_items, only: [:show, :destroy, :edit, :update]
-  end
 
   resources :food_lists do
     member do
