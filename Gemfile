@@ -116,6 +116,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Rails ERD generates diagrams using Graphviz, a visualisation library
   gem "rails-erd"
+  gem 'letter_opener'
 end
 
 

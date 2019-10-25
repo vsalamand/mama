@@ -1,0 +1,8 @@
+Panier de courses Leclerc:
+<% @cart.cart_items.each do |cart_item| %>
+  - <%= cart_item.name.strip %> (<%= StoreItem.find(cart_item.productable_id).price %>€)
+<% end %>
+
+
+Envoyé par <%= @cart.user.username %> depuis clubmama.co
+<%= link_to "clubmama.co", root_url  %>

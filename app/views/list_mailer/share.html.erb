@@ -1,0 +1,11 @@
+<p style="margin:0;">Liste de courses:</p>
+<ul style="list-style-type:none; padding:0; margin:0;">
+  <% @list.list_items.not_deleted.each do |list_item| %>
+    <li>- <%= list_item.name %></li>
+  <% end %>
+</ul>
+
+<br>
+<br>
+<p style="margin:0;">Envoyé par <%= @list.user.username %></p>
+<%= link_to "Cliquer ici pour ouvrir la liste sur clubmama.co", list_url(@list), class:"p-0" %>

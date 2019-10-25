@@ -28,6 +28,9 @@ class User < ApplicationRecord
     Cart.create(user_id: self.id)
   end
 
+  after_create :send_welcome_email
+
+
   def self.get_sender_ids
     sender_ids = []
     User.all.order(:id).each { |user| sender_ids << user.sender_id if user.sender_id.present? && user.sender_id.scan(/\D/).empty? }
@@ -41,6 +44,13 @@ class User < ApplicationRecord
       profile.save
     end
     return profile
+  end
+
+
+  private
+
+  def send_welcome_email
+    UserMailer.welcome(self)
   end
 
 

@@ -1,0 +1,7 @@
+Liste de courses:
+<% @list.list_items.not_deleted.each do |list_item| %>
+  - <%= list_item.name %>
+<% end %>
+
+
+Envoyé par <%= @list.user.username %> depuis clubmama.co
