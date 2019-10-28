@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   end
 
   resources :carts do
+    post 'share', to: "carts#share"
     resources :cart_items, only: [:show, :destroy, :edit, :update] do
       get 'report', to: "products#report"
       get 'search', to: "products#search"

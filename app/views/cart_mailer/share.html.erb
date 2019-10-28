@@ -4,6 +4,7 @@
     <li>- <%= cart_item.name %> (<%= StoreItem.find(cart_item.productable_id).price %>€)</li>
   <% end %>
 </ul>
+<p>Total: <%= @cart.get_total_price %>€</p>
 
 <br>
 <br>

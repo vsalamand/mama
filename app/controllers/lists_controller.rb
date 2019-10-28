@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:show]
+  skip_before_action :authenticate_user!, only: [:show, :get_cart]
   before_action :authenticate_admin!, only: [:index, :new, :create]
 
   def show
@@ -22,7 +22,7 @@ class ListsController < ApplicationController
     # get array of hash with list item + item + store item (cheap)
     products_data = @list.get_products
     # fill cart with new items
-    @cart = Cart.find_by(user_id: current_user)
+    @cart = @list.user.cart
     @cart.update_cart(products_data)
     redirect_to cart_path(@cart)
     # get list of cheapest store items from grocery list

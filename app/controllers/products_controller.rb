@@ -14,6 +14,7 @@ class ProductsController < ApplicationController
       @food = StoreItem.find(params[:format]).food
       render "list_report.js.erb"
     end
+    ReportMailer.report_product(product)
   end
 
   def search
