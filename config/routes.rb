@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   resources :lists, only: [ :show, :destroy ] do
     get 'fetch_recipes', to: "lists#fetch_recipes"
     get 'get_cart', to: "lists#get_cart"
+    post 'share', to: "lists#share"
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       resources :items do
         get 'validate', to: "items#validate"
@@ -103,6 +104,8 @@ Rails.application.routes.draw do
   end
 
   resources :carts do
+    post 'share', to: "carts#share"
+    post 'special_share', to: "carts#special_share"
     resources :cart_items, only: [:show, :destroy, :edit, :update] do
       get 'report', to: "products#report"
       get 'search', to: "products#search"

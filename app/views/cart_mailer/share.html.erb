@@ -1,0 +1,12 @@
+<p style="margin:0;">Panier de courses Leclerc:</p>
+<ul style="list-style-type:none; padding:0; margin:0;">
+  <% @cart.cart_items.each do |cart_item| %>
+    <li>- <%= cart_item.name %> (<%= StoreItem.find(cart_item.productable_id).price %>€)</li>
+  <% end %>
+</ul>
+<p>Total: <%= @cart.get_total_price %>€</p>
+
+<br>
+<br>
+<p style="margin:0;">Envoyé par <%= @cart.user.username %></p>
+<p style="margin:0;"><%= link_to "clubmama.co", root_url  %></p>

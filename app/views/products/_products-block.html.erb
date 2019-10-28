@@ -5,7 +5,7 @@
         <small class="btn btn-link btn-sm disabled p-0"><%= food.name.capitalize %></small>
         <% food.get_related_foods.each do |food| %>
           <small>
-            <%= link_to food.name.capitalize, list_list_item_search_path(@list, @list_item, food), remote:true, class:"p-0 m-0 btn btn-sm btn-link" %>
+            <%= link_to food.name.capitalize, list_list_item_search_path(@list_item.list, @list_item, food), remote:true, class:"p-0 m-0 btn btn-sm btn-link" %>
           </small>
         <% end %>
       </div>

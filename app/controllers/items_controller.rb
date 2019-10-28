@@ -36,6 +36,8 @@ class ItemsController < ApplicationController
     @list = @list_item.list
     @item = @list_item.items.last
     @item.unvalidate
+    mail = ReportMailer.report_item(@item)
+    mail.deliver_now
     render "unvalidate.js.erb"
   end
 
