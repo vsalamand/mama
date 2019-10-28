@@ -28,8 +28,6 @@ class User < ApplicationRecord
     Cart.create(user_id: self.id)
   end
 
-  after_create :send_welcome_email
-
 
   def self.get_sender_ids
     sender_ids = []

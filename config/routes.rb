@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   resources :lists, only: [ :show, :destroy ] do
     get 'fetch_recipes', to: "lists#fetch_recipes"
     get 'get_cart', to: "lists#get_cart"
+    post 'share', to: "lists#share"
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       resources :items do
         get 'validate', to: "items#validate"

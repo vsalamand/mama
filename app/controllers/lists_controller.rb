@@ -29,6 +29,13 @@ class ListsController < ApplicationController
     # cheap_products = StoreItem.get_cheap_store_items(@list.list_items.not_deleted)
   end
 
+  def share
+    list = List.find(params[:list_id])
+    email = params[:email]
+    ListMailer.share(list, email)
+    redirect_to list_path(list)
+  end
+
   private
   def list_params
     params.require(:list).permit(:id, :name, :user_id)
