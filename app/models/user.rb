@@ -28,6 +28,8 @@ class User < ApplicationRecord
     Cart.create(user_id: self.id)
   end
 
+  after_create :subscribe_to_newsletter
+
 
   def self.get_sender_ids
     sender_ids = []
@@ -47,9 +49,13 @@ class User < ApplicationRecord
 
   private
 
-  def send_welcome_email
-    UserMailer.welcome(self)
+  def subscribe_to_newsletter
+    SubscribeToNewsletterService.new(self).call
   end
+
+  # def send_welcome_email
+  #   UserMailer.welcome(self)
+  # end
 
 
   protected

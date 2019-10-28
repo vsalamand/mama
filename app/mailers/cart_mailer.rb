@@ -9,4 +9,9 @@ class CartMailer < ApplicationMailer
     @cart = cart
     mail(from: cart.user.email, to: email, subject: 'Panier de courses')
   end
+
+  def special_share(cart, email)
+    @cart = cart
+    mail(from: cart.user.email, to: email, subject: 'Panier de courses')
+  end
 end

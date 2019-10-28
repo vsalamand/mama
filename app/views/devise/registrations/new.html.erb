@@ -13,10 +13,13 @@
                       label: false,
                       placeholder: "Adresse email",
                       input_html: { autocomplete: "email" }%>
+          <%= f.input :password,
+                      label: false,
+                      placeholder: "Mot de passe" %>
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Inscription", class: "btn btn-lg btn-flat mb-3" %>
+          <%= f.button :submit, "Inscription", class: "btn btn-lg btn-primary mb-3" %>
         </div>
       <% end %>
 

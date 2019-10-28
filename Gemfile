@@ -79,6 +79,11 @@ gem 'httparty'
 gem 'ahoy_matey'
 # Business intelligence made simple
 gem 'blazer'
+# transactional emails
+gem 'postmark-rails'
+# marketing emails on mailchimp
+gem 'gibbon'
+
 
 
 # Use Capistrano for deployment

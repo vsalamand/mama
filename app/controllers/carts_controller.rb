@@ -13,7 +13,16 @@ class CartsController < ApplicationController
   def share
     cart = Cart.find(params[:cart_id])
     email = params[:email]
-    CartMailer.share(cart, email)
+    mail = CartMailer.share(cart, email)
+    mail.deliver_now
+    redirect_to cart_path(cart)
+  end
+
+  def special_share
+    cart = Cart.find(params[:cart_id])
+    email = params[:email]
+    mail = CartMailer.special_share(cart, email)
+    mail.deliver_now
     redirect_to cart_path(cart)
   end
 

@@ -32,7 +32,8 @@ class ListsController < ApplicationController
   def share
     list = List.find(params[:list_id])
     email = params[:email]
-    ListMailer.share(list, email)
+    mail = ListMailer.share(list, email)
+    mail.deliver_now
     redirect_to list_path(list)
   end
 
