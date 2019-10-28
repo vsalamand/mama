@@ -7,6 +7,6 @@ class ListMailer < ApplicationMailer
   #
   def share(list, email)
     @list = list
-    mail(from: list.user.email, to: email, subject: 'Liste de courses')
+    mail(to: email, subject: 'Liste de courses')
   end
 end

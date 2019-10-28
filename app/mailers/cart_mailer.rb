@@ -7,11 +7,11 @@ class CartMailer < ApplicationMailer
   #
   def share(cart, email)
     @cart = cart
-    mail(from: cart.user.email, to: email, subject: 'Panier de courses')
+    mail(to: email, subject: 'Panier de courses')
   end
 
   def special_share(cart, email)
     @cart = cart
-    mail(from: cart.user.email, to: email, subject: 'Panier de courses')
+    mail(to: email, subject: 'Panier de courses')
   end
 end
