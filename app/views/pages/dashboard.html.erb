@@ -70,3 +70,13 @@
   </div>
 
 </div>
+
+<div class="container fixed-bottom p-4">
+  <h4>Mettre à jour le catalogue produits</h4>
+  <div>
+    <%= form_tag import_path, multipart: true do%>
+     <%= file_field_tag :file %>
+     <%= submit_tag "Import CSV and update catalog"%>
+    <% end %>
+  </div>
+</div>

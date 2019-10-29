@@ -2,10 +2,10 @@ require 'csv'
 
 namespace :import do
   desc "Import new product data from Leclerc catalog CSV"
-  task catalog: :environment do
-
-    file_path = Rails.root.join('db', 'product_catalogs', 'leclerc_catalog.csv')
-    catalog = CSV.read(file_path, headers: true)
+  task catalog: [:file] :environment do |t, args|
+    binding.pry
+    # file_path = Rails.root.join('db', 'product_catalogs', 'leclerc_catalog.csv')
+    catalog = CSV.read(args[:file], headers: true)
 
     store = Store.first
 
