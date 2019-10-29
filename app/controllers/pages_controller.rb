@@ -58,52 +58,9 @@ class PagesController < ApplicationController
     @products = Product.where(is_reported: true)
   end
 
-  def seasonal
-    @recipes = Recipe.where(status: "published").tagged_with("seasonal")
-  end
-
-  def uncategorized
-    @recipes = Recipe.where(status: "published").tagged_with(["veggie", "salad", "pasta", "potato", "meat", "fish", "egg", "burger", "snack", "pizza"], :exclude => true)
-  end
-
-  def veggie
-    @recipes = Recipe.where(status: "published").tagged_with("veggie")
-  end
-
-  def salad
-    @recipes = Recipe.where(status: "published").tagged_with("salad")
-  end
-
-  def pasta
-    @recipes = Recipe.where(status: "published").tagged_with("pasta")
-  end
-
-  def potato
-    @recipes = Recipe.where(status: "published").tagged_with("potato")
-  end
-
-  def meat
-    @recipes = Recipe.where(status: "published").tagged_with("meat")
-  end
-
-  def fish
-    @recipes = Recipe.where(status: "published").tagged_with("fish")
-  end
-
-  def egg
-    @recipes = Recipe.where(status: "published").tagged_with("egg")
-  end
-
-  def snack
-    @recipes = Recipe.where(status: "published").tagged_with("snack")
-  end
-
-  def burger
-    @recipes = Recipe.where(status: "published").tagged_with("burger")
-  end
-
-  def pizza
-    @recipes = Recipe.where(status: "published").tagged_with("pizza")
+  def import
+   StoreItem.import(params[:file])
+   redirect_back(fallback_location:"/")
   end
 
 end

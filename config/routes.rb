@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get 'verify_items', to: 'pages#verify_items'
   get 'verify_listitems', to: 'pages#verify_listitems'
   get 'verify_products', to: 'pages#verify_products'
+  post 'import', to: 'pages#import'
 
 
   get 'assistant', to: 'meta_recipe_lists#new'
