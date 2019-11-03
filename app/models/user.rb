@@ -11,7 +11,7 @@ class User < ApplicationRecord
   # validates :email, :uniqueness => {:allow_blank => true}
   belongs_to :diet, optional: true
 
-  has_one :cart, dependent: :destroy
+  has_many :carts, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :recipe_lists, dependent: :destroy
   has_many :foods, through: :orders

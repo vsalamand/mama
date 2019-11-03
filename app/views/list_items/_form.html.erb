@@ -2,7 +2,13 @@
     <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
 
       <div class="shadow p-3 mb-2 bg-white">
-          <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un élément", class:"form-control p-0 mt-3 mb-3" %>
+          <%= form.input :name, as: :string, label: false, placeholder: "Que voulez-vous ajouter à la liste ?", class:"form-control p-0 mt-3 mb-1" %>
+          <div class="d-flex align-items-center justify-content-end">
+
+            <%= form.submit 'Ajouter', class:"btn btn-sm btn-primary" %>
+
+          </div>
+
       </div>
 
     <% end %>

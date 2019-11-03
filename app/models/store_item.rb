@@ -15,10 +15,22 @@ class StoreItem < ApplicationRecord
     return sprintf("%.2f", best_price)
   end
 
-  def self.get_cheap_store_items(list_items)
-    cheap_store_items = []
-    list_items.each{ |list_item| cheap_store_items << list_item.items.last.food.get_cheapest_store_item if list_item.items.any? && list_item.items.last.food.present? }
-    return cheap_store_items.reject(&:blank?)
+  def self.get_cheap_store_items(list, merchant)
+    merchant_products = []
+    list.list_items.not_deleted.each do |list_item|
+      dic = Hash.new
+      dic["list_item"] = list_item.id
+      dic["item"] = list_item.items.last.id if list_item.items.any?
+      dic["store_item"] = StoreItem.get_cheapest_store_item(list_item.items.last, merchant).id if list_item.items.any? && list_item.items.last.food.present?
+      merchant_products << dic
+    end
+    return merchant_products
+  end
+
+  def self.get_cheapest_store_item(item, merchant)
+    cheapest_store_item = item.food.store_items.where(store: merchant.stores.first).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false }.min
+    cheapest_store_item = StoreItem.find(cheapest_store_item.second) if cheapest_store_item.present?
+    return cheapest_store_item
   end
 
   # Import CSV and update product / items catalog

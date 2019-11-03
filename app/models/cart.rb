@@ -1,6 +1,7 @@
 class Cart < ApplicationRecord
-  validates :user_id, uniqueness: true, presence: :true
+  validates :user_id, presence: :true
   belongs_to :user, optional: true
+  belongs_to :merchant, optional: true
   has_many :cart_items, dependent: :destroy
   has_many :recipes, :through => :cart_items, :source => :productable, :source_type => 'Recipe'
   has_many :foods, :through => :recipes
@@ -24,11 +25,11 @@ class Cart < ApplicationRecord
     end
   end
 
-  def update_cart(products_data)
+  def update_cart(merchant_products)
     # clean current items
     # self.clean_cart
     #add new item
-    products_data.each{ |product_data| self.add_product(product_data) if product_data["store_item"].present? }
+    merchant_products.each{ |product_data| self.add_product(product_data) if product_data["store_item"].present? }
   end
 
   def get_total_price
@@ -45,5 +46,14 @@ class Cart < ApplicationRecord
   def set_size(size)
     self.size = size
     self.save
+  end
+
+  # update cart for each available merchant
+  def self.get_carts(list, user)
+    Merchant.all.each do |merchant|
+      merchant_products = StoreItem.get_cheap_store_items(list, merchant)
+      cart = Cart.find_or_create_by(user_id: user.id, merchant_id: merchant.id)
+      cart.update_cart(merchant_products)
+    end
   end
 end
