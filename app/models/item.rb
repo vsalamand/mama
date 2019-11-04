@@ -22,7 +22,7 @@ class Item < ApplicationRecord
     food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
     unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
 
-    Item.create(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item["name"])
+    Item.create(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item["name"], is_validated: false)
   end
 
   def self.add_recipe_items(recipe)
