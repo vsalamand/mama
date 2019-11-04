@@ -7,7 +7,7 @@ class ReportMailer < ApplicationMailer
   #
   def report_item(item)
     @item = item
-    mail(to: "mama@clubmama.co", subject: "[clubmama][report][item] #{@item.name}")
+    mail(to: "mama@clubmama.co", subject: "[clubmama][report][item]")
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -17,6 +17,6 @@ class ReportMailer < ApplicationMailer
   #
   def report_product(product)
     @product = product
-    mail(to: "mama@clubmama.co", subject: "[clubmama][report][product] #{@product.name}")
+    mail(to: "mama@clubmama.co", subject: "[clubmama][report][product]")
   end
 end

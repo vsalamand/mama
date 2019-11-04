@@ -5,47 +5,37 @@
       <small class="grocerylist-count"><%= @list_items.size %></small><small></%> <%= @list.list_items.size < 2 ?  " élément" : " éléments" %></small>
     </div>
     <div>
-
-    </div>
-  </div>
-</div>
-
-<!-- Button trigger modal -->
-<div class="container pl-3 p-1 mb-2">
-  <div class="d-flex align-items-center">
-    <button type="button" class="btn btn-sm btn-success p-2 m-1" data-toggle="modal" data-target="#shareModal">
-      Envoyer par email
-    </button>
-    <%= link_to list_get_cart_path(@list), class: 'mr-1' do %>
-      <button type="button" class="btn btn-sm btn-primary p-2 m-1">
-        Voir les prix
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-sm btn-outline-secondary m-1" data-toggle="modal" data-target="#shareModal">
+        Envoyer
       </button>
-    <% end  %>
-  </div>
-
-  <!-- Modal -->
-    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="shareModalLabel">Envoyer par email</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <%= form_tag(list_share_path(@list), class: 'form-group') do |f| %>
-            <div class="modal-body">
-              <%= text_field_tag 'email', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control" %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
-              <%= submit_tag "submit",:value => "Envoyer", class:"btn btn-primary"%>
-            </div>
-          <% end %>
-        </div>
-      </div>
     </div>
+  </div>
 </div>
+
+      <!-- Modal -->
+        <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="shareModalLabel">Envoyer par email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <%= form_tag(list_share_path(@list), class: 'form-group') do |f| %>
+                <div class="modal-body">
+                  <%= text_field_tag 'email', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control" %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                  <%= submit_tag "submit",:value => "Envoyer", class:"btn btn-primary"%>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
 
 
 
@@ -68,13 +58,13 @@
 </div>
 
 
-<% if @list.user == current_user%>
-  <div class="container">
-    <button class="mt-2 btn btn-outline-primary fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement en cours..." }>
+<div class="container pl-3 p-1 mb-2">
+  <div class="d-flex align-items-center justify-content-center">
+    <button class="btn btn-sm btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement..." }>
       Afficher les recettes du moment
     </button>
   </div>
-<% end %>
+</div>
 
 
 

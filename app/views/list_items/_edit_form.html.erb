@@ -2,6 +2,7 @@
   <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
 
         <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un élément" %>
+        <%= link_to "Retour", list_path(@list), class: "btn btn-secondary"  %>
         <%= form.submit "Modifier", class: "btn btn-primary" %>
 
   <% end %>

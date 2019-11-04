@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191022150008) do
+ActiveRecord::Schema.define(version: 20191103095111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,9 +149,11 @@ ActiveRecord::Schema.define(version: 20191022150008) do
 
   create_table "carts", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "size"
+    t.integer  "merchant_id"
+    t.index ["merchant_id"], name: "index_carts_on_merchant_id", using: :btree
     t.index ["user_id"], name: "index_carts_on_user_id", using: :btree
   end
 
@@ -491,6 +493,7 @@ ActiveRecord::Schema.define(version: 20191022150008) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "items"
   add_foreign_key "cart_items", "orders", on_delete: :cascade
+  add_foreign_key "carts", "merchants"
   add_foreign_key "carts", "users"
   add_foreign_key "checklists", "diets"
   add_foreign_key "food_list_items", "checklists"

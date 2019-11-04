@@ -1,6 +1,11 @@
 class CartsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
+  def index
+    @carts = current_user.carts
+    @list = current_user.lists.first
+  end
+
   def show
     # trick to set cart object in order to get cart items because otherwise @cart is considered empty...
     # @cart = Cart.find_by(user_id: user)

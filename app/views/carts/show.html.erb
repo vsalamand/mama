@@ -1,15 +1,12 @@
-<div class="container mb-4">
-  <%= link_to "Retour vers la liste de courses", list_path(@list), class: "mt-3 btn btn-outline-secondary btn-block"  %>
-</div>
+
+
 
 
 <div class="container">
   <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
-    <div>
+    <div class="d-flex align-items-center">
       <h4 class="pl-0 pr-0 mb-0" id="title">Panier</h4>
-      <p class="mb-0 font-weight-light">Leclerc</p>
-      <small class="mb-0 font-weight-light">Sélection:</small>
-      <span class="badge badge-primary font-weight-light">premiers prix</span>
+      <h4 class="ml-1 badge badge-primary"><%= @cart.merchant.name.upcase %></h4>
     </div>
     <div>
       <h2 class="pl-0 pr-0 mb-0"><%= @cart.get_total_price %>€</h2>
@@ -17,17 +14,59 @@
   </div>
 </div>
 
+
+<div class="container">
+  <% if @cart.cart_items.any? %>
+    <div class="shadow p-0 mb-2 bg-white rounded">
+      <div class="list-group list-group-flush mb-2">
+        <% @cart.cart_items.where.not(productable_id: nil).order(:item_id).each do |cart_item| %>
+          <%= render 'product-card', product_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item, item: cart_item.item %>
+        <% end %>
+      </div>
+    </div>
+    <div class="shadow p-0 mb-2 bg-white rounded">
+      <div class="list-group list-group-flush">
+        <% @cart.cart_items.where(productable_id: [nil, ""]).order(:item_id).each do |cart_item| %>
+          <%= render 'no-product-card', cart_item: cart_item, item: cart_item.item %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="shadow p-0 mb-2 bg-white rounded">
+      <a class="list-group-item list-group-item-action">
+        <p class="mb-1">Le panier est vide.</p>
+      </a>
+    </div>
+  <% end %>
+</div>
+
+<% if @unavailable.any? %>
+  <div class="container">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+      <small class="mb-0 font-weight-light">Pas de résultat pour:</small>
+      <div>
+        <% @unavailable.each do |toto| %>
+          <p class="mb-0 font-weight-light"><%= toto.name  %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="container pl-3 p-1 mb-2">
-  <div class="d-flex align-items-center">
-  <!-- Button trigger modal -->
-    <button type="button" class="btn btn-sm btn-success p-2 m-1" data-toggle="modal" data-target="#shareModal">
-      Envoyer par email
-    </button>
-    <% if current_user.present? && current_user.admin == true %>
-      <button type="button" class="btn btn-sm btn-warning p-2 m-1" data-toggle="modal" data-target="#adminShareModal">
-        Magic share
+  <div class="d-flex  align-items-center justify-content-between">
+    <%= link_to "Retour", carts_path, class: "btn btn-outline-secondary"  %>
+    <div class="d-flex align-items-center justify-content-end">
+    <!-- Button trigger modal -->
+      <button type="button" class="btn btn-sm btn-outline-success p-2 m-1" data-toggle="modal" data-target="#shareModal">
+        Envoyer
       </button>
-    <% end %>
+      <% if current_user.present? && current_user.admin == true %>
+        <button type="button" class="btn btn-sm btn-outline-warning p-2 m-1" data-toggle="modal" data-target="#adminShareModal">
+          Magic share
+        </button>
+      <% end %>
+    </div>
   </div>
 
   <!-- Modal -->
@@ -75,44 +114,4 @@
         </div>
       </div>
     </div>
-
 </div>
-
-<div class="container">
-  <% if @cart.cart_items.any? %>
-    <div class="shadow p-0 mb-2 bg-white rounded">
-      <div class="list-group list-group-flush mb-2">
-        <% @cart.cart_items.where.not(productable_id: nil).order(:item_id).each do |cart_item| %>
-          <%= render 'product-card', product_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item, item: cart_item.item %>
-        <% end %>
-      </div>
-    </div>
-    <div class="shadow p-0 mb-2 bg-white rounded">
-      <div class="list-group list-group-flush">
-        <% @cart.cart_items.where(productable_id: [nil, ""]).order(:item_id).each do |cart_item| %>
-          <%= render 'no-product-card', cart_item: cart_item, item: cart_item.item %>
-        <% end %>
-      </div>
-    </div>
-  <% else %>
-    <div class="shadow p-0 mb-2 bg-white rounded">
-      <a class="list-group-item list-group-item-action">
-        <p class="mb-1">Le panier est vide.</p>
-      </a>
-    </div>
-  <% end %>
-</div>
-
-<% if @unavailable.any? %>
-  <div class="container">
-    <div class="shadow p-3 mb-5 bg-white rounded">
-      <small class="mb-0 font-weight-light">Pas de résultat pour:</small>
-      <div>
-        <% @unavailable.each do |toto| %>
-          <p class="mb-0 font-weight-light"><%= toto.name  %></p>
-        <% end %>
-      </div>
-    </div>
-  </div>
-<% end %>
-
