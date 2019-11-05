@@ -8,8 +8,8 @@ class Item < ApplicationRecord
   belongs_to :recipe, optional: true
   belongs_to :list_item, optional: true
   belongs_to :unit, optional: true
-  validates :food_id, presence: true
-  has_one :cart_item, dependent: :destroy
+  # validates :food_id, presence: true
+  has_many :cart_items, dependent: :destroy
 
   scope :to_validate, -> { where(is_validated: false) }
 
@@ -24,6 +24,7 @@ class Item < ApplicationRecord
 
     Item.create(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item["name"], is_validated: false)
   end
+
 
   def self.add_recipe_items(recipe)
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")

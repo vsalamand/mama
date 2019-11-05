@@ -7,6 +7,16 @@ class Product < ApplicationRecord
   has_many :merchants, through: :stores
   has_many :cart_items, :as => :productable
 
+  searchkick
+
+
+  def search_data
+    {
+      name: name,
+      brand: brand
+    }
+  end
+
 
   def self.get_products_without_foods
     return Product.where(food_id: nil)
