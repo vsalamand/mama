@@ -21,14 +21,19 @@ class StoreItem < ApplicationRecord
       dic = Hash.new
       dic["list_item"] = list_item.id
       dic["item"] = list_item.items.last.id if list_item.items.any?
-      dic["store_item"] = StoreItem.get_cheapest_store_item(list_item.items.last, merchant) if list_item.items.any? && list_item.items.last.food.present?
+      if list_item.items.any? && list_item.items.last.food.present?
+        dic["store_item"] = StoreItem.get_cheapest_store_item(list_item.items.last.food, merchant)
+      else
+        # if no item.food, then search best product match and get product food
+        dic["store_item"] = StoreItem.get_cheapest_store_item(Product.where.not(food: nil).search(list_item.items.last.name).first.food, merchant)
+      end
       merchant_products << dic
     end
     return merchant_products
   end
 
-  def self.get_cheapest_store_item(item, merchant)
-    cheapest_store_item = item.food.store_items.where(store: merchant.stores.first).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false }.min
+  def self.get_cheapest_store_item(food, merchant)
+    cheapest_store_item = food.store_items.where(store: merchant.stores.first).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false }.min
     cheapest_store_item = StoreItem.find(cheapest_store_item.second).id if cheapest_store_item.present?
     return cheapest_store_item
   end

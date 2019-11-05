@@ -19,7 +19,7 @@ class ListItem < ApplicationRecord
   #create the soft delete method
   def delete
     update(deleted: true)
-    self.items.each{ |item| item.cart_item.destroy if item.cart_item.present? } if self.items.any?
+    self.items.each{ |item| item.cart_items.destroy_all if item.cart_items.any? } if self.items.any?
   end
 
   # make an undelete method

@@ -1,0 +1,21 @@
+<div class="container">
+
+  <div>
+    <%= form_tag(products_search_path, :method => "get") do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Search products", required: true %>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+
+  <div>
+    <h2>search results:</h2>
+    <% if @results %>
+      <% @results.each do |product| %>
+        <ul>
+          <li><%= product.name %></li>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

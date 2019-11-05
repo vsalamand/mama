@@ -63,4 +63,9 @@ class PagesController < ApplicationController
    redirect_back(fallback_location:"/")
   end
 
+  def products_search
+    query = params[:query].present? ? params[:query] : nil
+    @results = Product.search(query) if query
+  end
+
 end

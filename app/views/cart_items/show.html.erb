@@ -17,7 +17,11 @@
 
 
   <div id="products-block">
-    <%= render 'products-block', food: @item.food %>
+    <% if @item.food.present? %>
+      <%= render 'products-block', food: @item.food %>
+    <% else %>
+      <%= render 'products-block', food: Product.where.not(food: nil).search(@item.name) %>
+    <% end %>
   </div>
 
   <div class="container">
