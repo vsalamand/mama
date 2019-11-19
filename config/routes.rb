@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
   # devise_for :users
   devise_for :users, controllers: {
+      registrations: "registrations",
       sessions: 'users/sessions'
     }
 
@@ -58,7 +59,7 @@ Rails.application.routes.draw do
   get 'verify_products', to: 'pages#verify_products'
   post 'import', to: 'pages#import'
   get 'products_search', to: 'pages#products_search'
-
+  get 'thank_you', to: "pages#thank_you"
 
 
   get 'assistant', to: 'meta_recipe_lists#new'

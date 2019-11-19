@@ -1,4 +1,4 @@
-class SubscribeToNewsletterService
+class SubscribeToWaitingList
   def initialize(user)
     @user = user
     @gibbon = Gibbon::Request.new(api_key: ENV['MAILCHIMP_API_KEY'])

@@ -1,14 +1,14 @@
 <div class="container">
-  <div class="shadow p-2 mb-5 bg-white rounded">
+  <div class="shadow p-3 mt-5 mb-5 bg-white rounded">
 
-      <h2 class="mb-3">Connexion</h2>
+      <h2 class="mb-3">Se connecter</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-inputs">
-          <%= f.input :username,
+          <%= f.input :email,
                       label: false,
                       autofocus: true,
-                      placeholder: "Nom d'utilisateur" %>
+                      placeholder: "Votre Adresse Email" %>
           <%= f.input :password,
                       label: false,
                       placeholder: "Mot de passe",
@@ -17,12 +17,16 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Connexion", class: "btn btn-lg btn-primary mb-3" %>
+          <%= f.button :submit, "Connexion", class: "btn btn-flat btn-lg mb-3" %>
         </div>
       <% end %>
 
-      <%= render "devise/shared/links" %>
+      <%= link_to "Mot de passe oublié?", new_password_path(resource_name) %><br />
 
   </div>
 </div>
+
+  <div class="container p-3">
+    <%= link_to "Retour vers la page d'accueil", root_path, class:"btn btn-secondary mt-4" %>
+  </div>
 

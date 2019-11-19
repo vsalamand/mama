@@ -1,8 +1,33 @@
+
+<div class="banner d-flex align-items-center" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574159533/daniel-von-appen-_6uPgukLUV8-unsplash-min_he8rot.jpg);">
+
+  <div class="container d-flex flex-column">
+
+    <div>
+      <h1 class="display-4 mb-4">Mangez bien et pas cher !</h1>
+      <p class="lead mb-4">ClubMama vous permet de trouver les meilleurs paniers de courses à proximité.</p>
+    </div>
+
+    <div>
+      <%= form_for(:user, :url => registration_path(:user), class:"form-inline") do |f| %>
+        <div class="p-3 form-group row flex-wrap">
+          <%= f.text_field :email, placeholder: "Votre Adresse Email", class:"mb-2 mr-4 form-control-lg col-md-4 bg-transparent text-white  border" %>
+          <%= f.submit "S'inscrire sur la liste", class:"mb-2 btn btn-flat btn-lg col-xs-2" %>
+        </div>
+      <% end %>
+    </div>
+
+    <small> <%= link_to "J'ai déjà un compte", new_user_session_path, class:"text-light font-weight-light font-italic" %></small>
+
+  </div>
+</div>
+
+
 <div class="banner d-flex align-items-center">
   <div class="container d-flex flex-column">
     <div class="shadow p-3 mb-5 bg-white rounded">
-      <h1 class="w-75 p-2">Manger bien et pas cher 💚</h1>
-      <p class="w-75 p-2">Votre liste de courses en 2mn sur ClubMama !</p>
+      <h1 class="w-75 p-2">Mangez bien et pas cher 💚</h1>
+      <p class="w-75 p-2">ClubMama vous trouve les meilleurs paniers de courses en magasin !</p>
     </div>
     <div>
       <%= link_to "Cliquer ici pour commencer", new_user_registration_path, class: "btn btn-lg btn-outline-primary" %>
