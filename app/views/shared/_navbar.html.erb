@@ -1,23 +1,28 @@
-<nav class="navbar sticky-top navbar-expand-md navbar-white bg-white d-flex shadow-sm mb-3 pt-0 pb-0">
-  <a class="navbar-brand text-dark mr-1" href="/">😋</a>
+<% unless params[:controller] == "pages" && params[:action] == "home" %>
 
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link text-dark pb-0 pt-0" href="/">ClubMama <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <% if user_signed_in? %>
-          <%= link_to current_user.username, profile_path, class:"nav-link text-black-50 pb-0 pt-0" %>
-        <% end %>
-      </li>
-    </ul>
+  <nav class="navbar sticky-top navbar-expand-md navbar-white bg-white d-flex shadow-sm pt-0 pb-0">
+    <div class="d-flex flex-row align-items-center">
+      <a class="navbar-brand text-dark mr-1" href="/"><%= cl_image_tag("logo_qj08zi", width: 20, height: 20) %></a>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link text-dark pb-0 pt-0" href="/">ClubMama <span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-item">
+              <% if user_signed_in? %>
+                <%= link_to current_user.email, profile_path, class:"nav-link text-black-50 pb-0 pt-0" %>
+              <% end %>
+            </li>
+        </ul>
+    </div>
 
-  <% if params[:controller] == "lists" && params[:action] == "show" %>
-    <%= link_to list_get_cart_path(@list), class: 'ml-auto p-2' do %>
-      <button type="button" class="btn btn-sm btn-primary ml-auto p-2">
-        Continuer vers le panier
-      </button>
-    <% end  %>
-  <% end %>
+    <% if params[:controller] == "lists" && params[:action] == "show" %>
+      <%= link_to list_get_cart_path(@list), class: 'ml-auto p-2' do %>
+        <button type="button" class="btn btn-sm btn-primary ml-auto p-2">
+          Continuer vers le panier
+        </button>
+      <% end  %>
+    <% end %>
 
-</nav>
+  </nav>
+
+<% end %>

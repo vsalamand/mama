@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable
 
   # validates :sender_id, uniqueness: true
-  validates :username, uniqueness: true
+  # validates :username, uniqueness: true
   validates :email, uniqueness: true
 
   # validates :email, :uniqueness => {:allow_blank => true}
@@ -28,7 +28,8 @@ class User < ApplicationRecord
     Cart.create(user_id: self.id)
   end
 
-  after_create :subscribe_to_newsletter
+  after_create :subscribe_to_waiting_list
+  after_create :send_welcome_email_to_waiting_list_users
 
 
   def self.get_sender_ids
@@ -49,13 +50,13 @@ class User < ApplicationRecord
 
   private
 
-  def subscribe_to_newsletter
-    SubscribeToNewsletterService.new(self).call
+  def subscribe_to_waiting_list
+    SubscribeToWaitingList.new(self).call
   end
 
-  # def send_welcome_email
-  #   UserMailer.welcome(self)
-  # end
+  def send_welcome_email_to_waiting_list_users
+    UserMailer.waiting_list(self)
+  end
 
 
   protected

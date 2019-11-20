@@ -12,20 +12,20 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    attributes = [:username, :email]
+    attributes = [:email]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
     devise_parameter_sanitizer.permit(:account_update, keys: attributes)
   end
 
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
 
     # For additional in app/views/devise/registrations/edit.html.erb
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :email])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email])
 
     # For additional fields in app/views/devise/session/new.html.erb
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:username])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
   end
 
   def after_sign_out_path_for(resource_or_scope)

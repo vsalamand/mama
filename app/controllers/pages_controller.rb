@@ -4,16 +4,25 @@ class PagesController < ApplicationController
 
   def home
     @list = List.new
+    @recipes = RecipeList.last.recipes[0..1]
 
-    # if user is logged in, display the user grocery list
-    if user_signed_in?
+    # if user is logged in and a beta user, display the user grocery list
+    if user_signed_in? && current_user.beta == true
       if current_user.lists.any?
         list = current_user.lists.first
       else
         List.create(name: "Liste de courses", user_id: current_user.id)
       end
       redirect_to list_path(list)
+
+    # else, get user to the thank you page
+    elsif user_signed_in? && current_user.beta == false
+      redirect_to thank_you_path
     end
+  end
+
+  def thank_you
+    @user = current_user
   end
 
   def profile
