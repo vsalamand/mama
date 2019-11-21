@@ -55,7 +55,8 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email_to_waiting_list_users
-    UserMailer.waiting_list(self)
+    mail = UserMailer.waiting_list(self)
+    mail.deliver_now
   end
 
 
