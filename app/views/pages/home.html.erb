@@ -5,12 +5,12 @@
 
     <div>
       <h1 class="display-4 mb-4">Mangez bien et pas cher</h1>
-      <p class="w-75 lead mb-4">ClubMama vous propose des sélections de produits à partir de votre liste de courses pour acheter malin chez vos marchands préférés.</p>
+      <p class="pr-4 lead mb-4">ClubMama vous propose des sélections de produits à partir de votre liste de courses pour acheter malin chez vos marchands préférés.</p>
     </div>
 
     <div>
       <%= form_for(:user, :url => registration_path(:user), class:"form-inline") do |f| %>
-        <div class="p-3 form-group row flex-wrap">
+        <div class="p-3 form-group row flex-wrap mb-0">
           <%= f.text_field :email, placeholder: "Votre Adresse Email", class:"mb-2 mr-4 form-control-lg col-md-4 bg-transparent text-white  border" %>
           <%= f.submit "Ça m'intéresse !", class:"mb-2 btn btn-flat btn-lg col-xs-2" %>
         </div>
@@ -45,21 +45,21 @@
         <img src="https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574253497/s-o-c-i-a-l-c-u-t-SLuOk-mDh0c-unsplash-min_wk4m5x.jpg" class="card-img-top" alt="inspiration recettes">
         <div class="card-body">
           <h5 class="card-title" style="color:#FF3463;">Inspirez vous des meilleures recettes</h5>
-          <p class="card-text">Vous ne savez pas quoi faire à manger ? Nous trouvons la bonne idée.</p>
+          <p class="card-text">Vous ne savez pas quoi faire à manger ? ClubMama trouve la bonne idée.</p>
         </div>
       </div>
       <div class="card">
         <img src="https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574253497/7shifts-h4F3S4rJW14-unsplash-min_xsjyse.jpg" class="card-img-top" alt="comparateur de prix">
         <div class="card-body">
           <h5 class="card-title" style="color:#FF3463;">Comparez les produits et les prix</h5>
-          <p class="card-text">Quel produit choisir ? Qui est le moins cher ? Quelles sont les bonnes affaires ?</p>
+          <p class="card-text">Quels produits choisir ? Qui est le moins cher ? Quels sont les bons plans ?</p>
         </div>
       </div>
       <div class="card">
         <img src="https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574253500/freestocks-org-mw6Onwg4frY-unsplash-min_aotltw.jpg" class="card-img-top" alt="paniers de courses">
         <div class="card-body">
           <h5 class="card-title" style="color:#FF3463;">Choisissez votre panier de courses</h5>
-          <p class="card-text">Ne perdez plus de temps en rayon, nous sélections les produits qui vous plaisent.</p>
+          <p class="card-text">Ne perdez plus de temps en rayon, ClubMama sélectionne les produits qui vous plaisent.</p>
         </div>
       </div>
     </div>
