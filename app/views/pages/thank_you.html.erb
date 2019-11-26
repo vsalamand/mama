@@ -3,8 +3,8 @@
     <div class="d-flex flex-column">
       <div class="shadow-lg p-3 mt-4 mb-5 bg-light rounded">
         <h1 class="text-center" style="color:#FF3463;"><strong>Merci !</strong></h1>
-        <p class="text-center font-weight-light">Vous êtes inscrit·e sur la liste d'attente en position:</p>
-        <h1 class="text-center" style="color:#FF3463;"><%= @user.id %></h1>
+        <p class="text-center font-weight-light">Vous êtes inscrit.e sur la liste d'attente en position:</p>
+        <h1 class="text-center"><%= @user.id %></h1>
       </div>
     </div>
   </div>
@@ -12,11 +12,8 @@
   <div class="container">
     <div class="d-flex flex-column">
       <div class="shadow p-3 mb-4 bg-light rounded">
-        <p class="text-center font-weight-light">En attendant de recevoir votre invitation, <br>retrouvez les listes de courses des <strong>meilleures recettes</strong> sur Instagram !</p>
-        <h1 class="text-center pb-5"><a href="https://www.instagram.com/clubmama_/" target="_blank"><i class="fab fa-instagram"></i></a></h1>
-
-        <h4 class="text-center" style="color:#FF3463;">Vous souhaitez obtenir un accès plus rapidement ?</h4>
-        <p class="text-center font-weight-light">Invitez vos amis à s'inscrire en partageant ce lien unique:</p>
+        <h4 class="text-center" style="color:#FF3463;"><strong>Aidez-nous à faire connaître ClubMama !</strong> </h4>
+        <p class="text-center font-weight-light">Invitez vos amis à s'inscrire en partageant ce lien:</p>
         <p class="text-center" style="color:#FF3463;"><strong>https://www.clubmama.co?ref=<%= @user.id %></strong></p>
       </div>
     </div>
