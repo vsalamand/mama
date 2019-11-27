@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
+
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KBZQ9D3');</script>
+    <!-- End Google Tag Manager -->
+
     <title>ClubMama | Mangez bien et pas cher !</title>
     <!-- Google result description-->
     <meta name="description" content="Optimisez vos listes de courses avec ClubMama pour faire vos achats l'esprit tranquille chez vos marchands préférés !">
     <!-- Facebook post-->
     <meta property="og:title" content="ClubMama | Mangez bien et pas cher !">
-    <meta property="og:description" content="Optimisez vos listes de courses avec ClubMama pour faire vos achats l'esprit tranquille chez vos marchands préférés !">
+    <meta property="og:description" content="Optimisez vos listes de courses avec ClubMama pour faire vos achats l'esprit tranquille !">
     <meta property="og:site_name" content="ClubMama"/>
 
     <%= csrf_meta_tags %>
@@ -26,7 +35,12 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBZQ9D3"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <%= render 'shared/navbar' unless action_name.eql? "card" %>
      <div id="page-container">
