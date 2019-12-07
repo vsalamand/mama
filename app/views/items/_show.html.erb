@@ -1,12 +1,16 @@
   <li class="list-group-item d-flex align-items-center justify-content-between">
-    <div>
-      <%= item.food.name %>
-    </div>
-    <div class="d-flex align-items-center">
+    <h4 class="text-muted">
+      <%= item.name.capitalize %>
+    </h4>
+
+<% if false %>
+     <div class="d-flex align-items-center">
       <%= simple_form_for([ @list, @list_item ], remote: true) do |form| %>
         <%= form.input :name, as: :string, label: false, :as => :hidden, :input_html => { :value => item.food.name }, :wrapper_html => { class: "m-0" } %>
         <%= form.submit "copier" , data: { disable_with: "copie en cours..." }, class:"btn btn-outline-primary btn-sm copy-item-btn" %>
       <% end %>
     </div>
+<% end %>
+
   </li>
 

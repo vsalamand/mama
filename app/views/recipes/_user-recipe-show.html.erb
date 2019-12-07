@@ -1,0 +1,50 @@
+<div class="container my-3">
+  <h1 class="mb-0"><%= @recipe.title.capitalize %></h1>
+  <p class="ml-1 text-muted">de <%= @recipe.origin %></p>
+</div>
+
+
+<div class="container mt-3">
+  <div class="shadow p-3 mb-1 bg-white rounded d-flex align-items-center justify-content-between">
+    <div>
+      <h3 class="pl-0 pr-0 mb-0" id="title">Liste de courses pour <%= @recipe.servings %></h3>
+      <small class="grocerylist-count"><%= @recipe.items.size %></small><small></%> <%= @recipe.items.size < 2 ?  " élément" : " éléments" %></small>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-3">
+  <div class="shadow p-0 bg-white rounded">
+    <div class="list-group list-group-flush" id="list_items">
+      <% if @recipe.items.any? %>
+        <% @recipe.items.order(:id).each do |item| %>
+          <%= render 'items/show', item: item %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container d-flex justify-content-end">
+
+    <%= link_to "Voir la recette", @recipe.link, class:"ml-1 btn btn-sm btn-flat", style:"color:#FF3463;", target: "_blank" %>
+</div>
+
+
+<div class="container my-3">
+  <div class="shadow p-3 mb-1 bg-white rounded d-flex align-items-center justify-content-between">
+    <div>
+      <h3 class="pl-0 pr-0 mb-0" id="title">Paniers de courses</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <h5 class="p-3 mt-3 mb-0 font-weight-light">Sélections 1er prix</h5>
+  <div class="shadow p-0 mb-4 bg-white rounded">
+    <ul class="list-group list-group-flush">
+      <%= render 'store-benchmark', recipe: @recipe %>
+    </ul>
+  </div>
+</div>
+

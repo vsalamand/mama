@@ -1,0 +1,51 @@
+
+
+<div class="container mt-3 mb-5">
+  <h1>Listes de courses</h1>
+
+  <div class="list-group shadow">
+    <a href="#" class="list-group-item list-group-item-action active">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Nouvelle liste</h5>
+      </div>
+      <p class="mb-1">Cliquer ici pour créer une nouvelle liste de courses.</p>
+    </a>
+
+    <% @user.lists.each do |list| %>
+      <%= link_to list_path(list), class:"list-group-item list-group-item-action" do %>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><%= list.name.capitalize %></h5>
+          <small class="text-muted"></small>
+        </div>
+        <p class="mb-1"><%= list.list_items.not_deleted.map{ |item| item.name.capitalize}.join(', ') %></p>
+        <small class="text-muted"></small>
+      <% end %>
+    <% end %>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div class="container my-5">
+  <h1>Idées repas</h1>
+  <p><small>Inspirez-vous pour compléter vos listes de courses</small></p>
+
+  <div class="list-group shadow">
+
+    <% @recipes.each do |recipe| %>
+      <%= link_to recipe_path(recipe), class:"list-group-item list-group-item-action" do %>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><%= recipe.title.capitalize %></h5>
+        </div>
+        <p class="mb-1"><%= recipe.items.map{ |item| item.name.capitalize}.join(', ') %></p>
+        <small class="text-muted"><%= recipe.origin %></small>
+      <% end %>
+    <% end %>
+
+  </div>
+
+</div>

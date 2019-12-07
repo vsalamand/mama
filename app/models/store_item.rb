@@ -32,9 +32,9 @@ class StoreItem < ApplicationRecord
     return merchant_products
   end
 
-  def self.get_cheapest_store_item(food, merchant)
-    cheapest_store_item = food.store_items.where(store: merchant.stores.first).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false }.min
-    cheapest_store_item = StoreItem.find(cheapest_store_item.second).id if cheapest_store_item.present?
+  def self.get_cheapest_store_item(food, store)
+    cheapest_store_item = food.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false }.min
+    cheapest_store_item = StoreItem.find(cheapest_store_item.second) if cheapest_store_item.present?
     return cheapest_store_item
   end
 
