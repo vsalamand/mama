@@ -19,16 +19,9 @@ class ListsController < ApplicationController
 
   def get_cart
     @list = List.find(params[:list_id])
-    # # get array of hash with list item + item + store item (cheap)
-    # products_data = @list.get_products
-    # # fill cart with new items
-    # @cart = @list.user.cart
-    # @cart.update_cart(products_data)
     user = current_user
     Cart.get_carts(@list, user)
     redirect_to carts_path
-    # get list of cheapest store items from grocery list
-    # cheap_products = StoreItem.get_cheap_store_items(@list.list_items.not_deleted)
   end
 
   def share
@@ -39,7 +32,9 @@ class ListsController < ApplicationController
     redirect_to list_path(list)
   end
 
+
   private
+
   def list_params
     params.require(:list).permit(:id, :name, :user_id)
   end

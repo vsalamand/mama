@@ -5,7 +5,7 @@ require 'hangry'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
-  skip_before_action :authenticate_user!, only: [ :show, :card ]
+  skip_before_action :authenticate_user!, only: [ :show, :card, :cart ]
   before_action :authenticate_admin!, only: [:new, :import, :create, :import, :search]
 
   def show
@@ -111,6 +111,11 @@ class RecipesController < ApplicationController
     @recipe.save
     @recipe.items.each{ |item| item.unvalidate }
     redirect_to recipe_path(@recipe)
+  end
+
+  def cart
+    @recipe = Recipe.find(params[:id])
+    @store = Store.find(params[:store_id])
   end
 
   private

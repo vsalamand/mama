@@ -61,21 +61,6 @@ Rails.application.routes.draw do
   get 'products_search', to: 'pages#products_search'
   get 'thank_you', to: "pages#thank_you"
 
-
-  get 'assistant', to: 'meta_recipe_lists#new'
-  get 'seasonal', to: 'pages#seasonal'
-  get 'uncategorized', to: 'pages#uncategorized'
-  get 'veggie', to: 'pages#veggie'
-  get 'salad', to: 'pages#salad'
-  get 'pasta', to: 'pages#pasta'
-  get 'potato', to: 'pages#potato'
-  get 'meat', to: 'pages#meat'
-  get 'fish', to: 'pages#fish'
-  get 'egg', to: 'pages#egg'
-  get 'snack', to: 'pages#snack'
-  get 'burger', to: 'pages#burger'
-  get 'pizza', to: 'pages#pizza'
-
   get 'profile', to: 'pages#profile'
 
 
@@ -88,6 +73,7 @@ Rails.application.routes.draw do
       get 'card', to: "recipes#card"
       get :set_published_status
       get :set_dismissed_status
+      get :cart
     end
     resources :items
 

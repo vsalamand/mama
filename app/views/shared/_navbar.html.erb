@@ -1,15 +1,15 @@
 <% unless params[:controller] == "pages" && params[:action] == "home" && !current_user %>
 
-  <nav class="navbar sticky-top navbar-expand-md navbar-white bg-white d-flex shadow-sm pt-0 pb-0">
+  <nav class="navbar sticky-top navbar-expand-md d-flex shadow-sm pt-0 pb-0" style="background-color: #FF3463;">
     <div class="d-flex flex-row align-items-center">
       <a class="navbar-brand text-dark mr-1" href="/"><%= cl_image_tag("logo_qj08zi", width: 20, height: 20) %></a>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link text-dark pb-0 pt-0" href="/">ClubMama <span class="sr-only">(current)</span></a>
+            <a class="nav-link text-white pb-0 pt-0" href="/">Club<strong>Mama</strong></a>
           </li>
             <li class="nav-item">
               <% if user_signed_in? %>
-                <%= link_to current_user.email, profile_path, class:"nav-link text-black-50 pb-0 pt-0" %>
+                <%= link_to current_user.email, profile_path, class:"nav-link text-white pb-0 pt-0" %>
               <% end %>
             </li>
         </ul>
