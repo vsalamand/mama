@@ -80,7 +80,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :lists, only: [ :show, :destroy ] do
+  resources :lists do
     get 'fetch_recipes', to: "lists#fetch_recipes"
     get 'get_cart', to: "lists#get_cart"
     post 'share', to: "lists#share"

@@ -1,7 +1,21 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
   skip_before_action :authenticate_user!, only: [:show, :get_cart]
-  before_action :authenticate_admin!, only: [:index, :new, :create]
+  before_action :authenticate_admin!, only: [:index]
+
+  def new
+    @list = List.new
+  end
+
+  def create
+    @list = List.new(list_params)
+    @list.user_id = current_user.id
+    if @list.save
+      redirect_to list_path(@list)
+    else
+      redirect_to new_list_path
+    end
+  end
 
   def show
     @list = List.find(params[:id])

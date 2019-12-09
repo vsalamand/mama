@@ -23,11 +23,6 @@ class User < ApplicationRecord
   has_many :events, class_name: "Ahoy::Event", dependent: :destroy
 
 
-  after_create do
-    List.create(name: "Liste de courses", user_id: self.id)
-    Cart.create(user_id: self.id)
-  end
-
   after_create :subscribe_to_waiting_list
   after_create :send_welcome_email_to_waiting_list_users
 
