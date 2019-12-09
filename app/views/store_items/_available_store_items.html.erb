@@ -2,7 +2,7 @@
   <div class="cartgrocerylist-product-card-id<%= store_item.id %>">
     <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
-      <small class="ml-1 font-weight-light"><%= item.name %></small>
+      <small class="ml-1 font-weight-light"><%= item.name unless item.nil? %></small>
 
       <div class="d-flex align-items-center justify-content-between">
 
@@ -37,6 +37,14 @@
           </h5>
         </div>
 
+      </div>
+
+      <div class="mt-1">
+        <%= link_to "Fiche produit", product_path(store_item.product), class:"btn btn-sm btn-secondary px-1 py-0" %>
+
+        <% unless params[:controller] == "stores" %>
+          <%= link_to "Autres produits en rayon", store_catalog_path(store_item.store, :food_id => store_item.food.id ), class:"btn btn-sm btn-primary  px-1 py-0" %>
+        <% end %>
       </div>
 
     </div>

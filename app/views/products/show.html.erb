@@ -1,0 +1,65 @@
+<div class="container my-4">
+  <h3><%= @product.food.name.capitalize %></h3>
+  <h1 class="mb-0"><%= @product.name.capitalize %></h1>
+  <% if @product.brand %>
+    <p class="ml-1 text-muted">de <%= @product.brand %></p>
+  <% end %>
+</div>
+
+<div class="container">
+  <img src="<%= @product.store_items.last.image_url %>"  height="150" width="150" class="ml-1 mr-1" />
+</div>
+
+<div class="container mt-3">
+  <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
+    <div>
+      <h3 class="pl-0 pr-0 mb-0" id="title">Prix</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <%= render 'store-benchmark' %>
+</div>
+
+
+<% if @product.get_related_products.size > 0 %>
+  <div class="container mt-3">
+    <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
+      <div>
+        <h3 class="pl-0 pr-0 mb-0" id="title">Produits similaires</h3>
+      </div>
+    </div>
+  </div>
+  <div class="container mb-5">
+    <div class="shadow bg-white">
+        <div class="list-group list-group-flush mb-2">
+          <% @product.get_related_products.each do |product| %>
+            <%= render 'related-products', product: product %>
+          <% end %>
+        </div>
+    </div>
+  </div>
+<% end %>
+
+
+<% if @product.get_related_recipes.size > 0 %>
+  <div class="container mt-3">
+    <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
+      <div>
+        <h3 class="pl-0 pr-0 mb-0" id="title">Idées repas</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mb-5">
+    <div class="list-group shadow">
+
+      <% @product.get_related_recipes.each do |recipe| %>
+        <%= render 'recipes/recipe-list-group-item', recipe: recipe %>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>
+

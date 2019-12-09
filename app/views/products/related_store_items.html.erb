@@ -1,17 +1,10 @@
-<% if food.get_related_foods.any? %>
-  <div class="container">
-    <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-start flex-column">
-      <div>
-        <small class="btn btn-link btn-sm disabled p-0"><%= food.name.capitalize %></small>
-        <% food.get_related_foods.each do |food| %>
-          <small>
-            <%= link_to food.name.capitalize, list_list_item_search_path(@list_item.list, @list_item, food), remote:true, class:"p-0 m-0 btn btn-sm btn-link" %>
-          </small>
-        <% end %>
-      </div>
+<div class="container my-4">
+  <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
+    <div>
+      <h2 class="mb-0"><strong><%= @store.name.capitalize %></strong></h2>
     </div>
   </div>
-<% end %>
+</div>
 
 <div class="container">
   <% if food.store_items.any? %>

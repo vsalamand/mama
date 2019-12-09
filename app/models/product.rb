@@ -26,4 +26,17 @@ class Product < ApplicationRecord
     self.is_reported = true
     self.save
   end
+
+  def get_related_products
+    related_products = self.food.products - Array(self)
+    return related_products
+  end
+
+  def get_cheapest_store_item
+    return StoreItem.find(self.store_items.pluck(:price_per_unit, :id, :store_id).min.second)
+  end
+
+  def get_related_recipes
+    return self.food.recipes.reverse[0..9]
+  end
 end

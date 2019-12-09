@@ -4,9 +4,9 @@ require 'hangry'
 # REFACTO TO DO...
 
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
+  before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
   skip_before_action :authenticate_user!, only: [ :show, :card, :cart ]
-  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :search]
+  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :search, :god_show ]
 
   def show
     respond_to do |format|
@@ -27,6 +27,9 @@ class RecipesController < ApplicationController
                }
       end
     end
+  end
+
+  def god_show
   end
 
   def card

@@ -1,4 +1,9 @@
 class ProductsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :show ]
+
+  def show
+    @product = Product.find(params[:id])
+  end
 
   def report
     product = StoreItem.find(params[:format]).product

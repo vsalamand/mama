@@ -16,7 +16,7 @@
 <div class="container mt-3">
   <div class="d-flex align-items-center justify-content-between p-2">
     <h5 class="mb-0 font-weight-light">Sélection 1er prix</h5>
-    <h3><strong><%= @store.get_recipe_price(@recipe) %>€</strong></h3>
+    <h3><strong><%= @store.get_recipe_price(@recipe.foods) %>€</strong></h3>
   </div>
 </div>
 
@@ -25,7 +25,7 @@
     <div class="list-group list-group-flush mb-2">
       <% @recipe.items.each do |item| %>
         <% if StoreItem.get_cheapest_store_item(item.food, @store) %>
-          <%= render 'products/available_products', store_item: StoreItem.get_cheapest_store_item(item.food, @store), item: item %>
+          <%= render 'store_items/available_store_items', store_item: StoreItem.get_cheapest_store_item(item.food, @store), item: item %>
         <% end %>
       <% end %>
     </div>

@@ -74,6 +74,7 @@ Rails.application.routes.draw do
       get :set_published_status
       get :set_dismissed_status
       get :cart
+      get :god_show
     end
     resources :items
 
@@ -104,7 +105,10 @@ Rails.application.routes.draw do
 
   resources :recipe_lists
   resources :items
-
+  resources :products
+  resources :stores do
+    get :catalog
+  end
 
   resources :food_lists do
     member do

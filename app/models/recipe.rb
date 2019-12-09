@@ -69,16 +69,13 @@ class Recipe < ApplicationRecord
     self.save
   end
 
-  # def generate_items
-  #   recipe_ingredients = self.ingredients.split("\r\n")
-  #   recipe_ingredients.each do |element|
-  #     element = element.strip
-  #     food = Food.search(element.tr("0-9", "").tr("'", " "), fields: [{name: :exact}], misspellings: {edit_distance: 1})
-  #     food = Food.search(element.tr("0-9", "").tr("'", " ")) if food.first.nil?
-  #     food = Food.search(element.tr("0-9", "").tr("'", " "), operator: "or") if food.first.nil?
-  #     Item.find_or_create_by(food: food.first, recipe: self, recipe_ingredient: element)
-  #   end
-  # end
+  def get_best_store
+    store_prices = []
+    Store.all.each do |store|
+      store_prices << [store.get_recipe_price(self.foods), store]
+    end
+    return store_prices.min
+  end
 
   def add_to_pool
     tags = self.tag_list
