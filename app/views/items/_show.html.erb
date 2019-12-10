@@ -1,16 +1,28 @@
-  <li class="list-group-item d-flex align-items-center justify-content-between">
-    <h4 class="text-muted">
-      <%= item.name.capitalize %>
-    </h4>
+<li class="list-group-item d-flex align-items-center justify-content-between">
+  <h4 class="text-muted">
+    <%= item.name.capitalize %>
+  </h4>
+  <div class="d-flex align-items-center">
+      <button type="button" class="btn-sm btn-outline-primary" data-toggle="modal" data-target="#addItem<%=item.id%>ToListModal">
+        <strong>Ajouter</strong>
+      </button>
+  </div>
+</li>
 
-<% if false %>
-     <div class="d-flex align-items-center">
-      <%= simple_form_for([ @list, @list_item ], remote: true) do |form| %>
-        <%= form.input :name, as: :string, label: false, :as => :hidden, :input_html => { :value => item.food.name }, :wrapper_html => { class: "m-0" } %>
-        <%= form.submit "copier" , data: { disable_with: "copie en cours..." }, class:"btn btn-outline-primary btn-sm copy-item-btn" %>
-      <% end %>
+<!-- Add to List Modal -->
+<div class="modal fade" id="addItem<%=item.id%>ToListModal" tabindex="-1" role="dialog" aria-labelledby="addItem<%=item.id%>ToListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addItem<%=item.id%>ToListModalLabel">Choisir une liste de courses</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <%= render 'lists/item_select_list', item: item %>
+      </div>
     </div>
-<% end %>
-
-  </li>
+  </div>
+</div>
 

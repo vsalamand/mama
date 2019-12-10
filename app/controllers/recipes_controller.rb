@@ -9,6 +9,8 @@ class RecipesController < ApplicationController
   before_action :authenticate_admin!, only: [:new, :import, :create, :import, :search, :god_show ]
 
   def show
+    @list_item = ListItem.new
+
     respond_to do |format|
       format.html
       format.pdf do
@@ -120,6 +122,21 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @store = Store.find(params[:store_id])
   end
+
+  def add_to_list
+    @recipe = Recipe.find(params[:id])
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user) if @list.nil?
+
+    @recipe.items.each do |item|
+      ListItem.add_to_list(item.name, @list)
+    end
+
+    flash[:notice] = "La liste a été ajoutée !"
+    redirect_to recipe_path(@recipe)
+    # render 'add_to_list.js.erb'
+  end
+
+
 
   private
   def set_recipe

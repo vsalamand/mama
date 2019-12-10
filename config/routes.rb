@@ -75,9 +75,11 @@ Rails.application.routes.draw do
       get :set_dismissed_status
       get :cart
       get :god_show
+      get :add_to_list
     end
-    resources :items
-
+    resources :items do
+      get :add_to_list
+    end
   end
 
   resources :lists do

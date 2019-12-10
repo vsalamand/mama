@@ -3,6 +3,9 @@ class ListItemsController < ApplicationController
   before_action :set_list, only: [ :show, :create, :edit, :update ]
   skip_before_action :authenticate_user!, only: [:show]
 
+  def new
+    @list_item = ListItem.new
+  end
 
   def create
     @list = List.find(params[:list_id])
@@ -24,10 +27,10 @@ class ListItemsController < ApplicationController
           # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
           Item.create(food: valid_item.food, list_item: @list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
         else
-          Item.create_list_item(@list_item)
-          mail = ReportMailer.report_item(@item)
+          new_item = Item.create_list_item(@list_item)
+          mail = ReportMailer.report_item(new_item)
           mail.deliver_now
-       end
+        end
       end
     else
       respond_to do |format|
@@ -59,7 +62,6 @@ class ListItemsController < ApplicationController
     @list_item.delete
     render "delete.js.erb"
   end
-
 
   private
 

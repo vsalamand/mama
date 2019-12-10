@@ -4,16 +4,15 @@
   <h1>Listes de courses</h1>
 
   <div class="list-group shadow">
-    <%= link_to new_list_path, class:"list-group-item list-group-item-action active" do %>
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">➕ Créer une nouvelle liste</h5>
-      </div>
-    <% end %>
+    <!-- Button trigger Create List modal -->
+    <button type="button" class="list-group-item list-group-item-action text-white" style="background-color: #FF3463;" data-toggle="modal" data-target="#createListModal">
+      <strong>➕ Créer une nouvelle liste</strong>
+    </button>
 
     <% @user.lists.each do |list| %>
       <%= link_to list_path(list), class:"list-group-item list-group-item-action" do %>
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1"><%= list.name.capitalize %></h5>
+          <h5 class="mb-1 text-primary"><%= list.name.capitalize %></h5>
           <small class="text-muted"></small>
         </div>
         <p class="mb-1"><%= list.list_items.not_deleted.reverse.map{ |item| item.name.capitalize}.join(', ') %></p>
@@ -25,6 +24,22 @@
 
 </div>
 
+<!-- Create List Modal -->
+<div class="modal fade" id="createListModal" tabindex="-1" role="dialog" aria-labelledby="createListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createListModalLabel">Nouvelle liste de courses</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'lists/form' %>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
