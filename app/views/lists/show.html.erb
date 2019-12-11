@@ -58,20 +58,18 @@
 </div>
 
 
-<div class="container pl-3 p-1 mb-2">
-  <div class="d-flex align-items-center justify-content-center">
-    <button class="btn btn-sm btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement..." }>
-      Afficher les recettes du moment
-    </button>
+
+<% if false %>
+  <div class="container pl-3 p-1 mb-2">
+    <div class="d-flex align-items-center justify-content-center">
+      <button class="btn btn-sm btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement..." }>
+        Afficher les recettes du moment
+      </button>
+    </div>
   </div>
-</div>
+  <div data="<%= params[:id] %>" id="fetch_recipes" class="mb-4">
+  </div>
 
-
-
-<div data="<%= params[:id] %>" id="fetch_recipes" class="mb-4">
-
-</div>
-
-
-<%= javascript_pack_tag 'load_recipes' %>
+  <%= javascript_pack_tag 'load_recipes' %>
+<% end %>
 
