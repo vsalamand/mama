@@ -1,6 +1,6 @@
 <div class="list-group">
   <% current_user.lists.each do |list| %>
-    <%= link_to list.name.capitalize, recipe_item_add_to_list_path(@recipe, item, :list_id => list.id), class:"list-group-item list-group-item-action" %>
+    <%= link_to list.name.capitalize, recipe_item_add_to_list_path(@recipe, item, :list_id => list.id), remote: true, class:"list-group-item list-group-item-action" %>
   <% end %>
-  <%= link_to "Nouvelle liste", recipe_item_add_to_list_path(@recipe, item), class:"list-group-item list-group-item-action active" %>
+  <%= link_to "Nouvelle liste", recipe_item_add_to_list_path(@recipe, item), remote: true, class:"list-group-item list-group-item-action active" %>
 </div>

@@ -2,6 +2,15 @@
   <%= link_to "god view", god_show_recipe_path(@recipe) %>
 <% end %>
 
+
+<div id="flash">
+  <% if notice.present? %>
+    <%= render "shared/flashes" %>
+  <% end %>
+</div>
+
+
+
 <div class="container my-4">
   <h1 class="mb-0"><%= @recipe.title.capitalize %></h1>
   <p class="ml-1 text-muted">de <%= @recipe.origin %></p>
@@ -21,22 +30,7 @@
   </div>
 </div>
 
-<!-- Add to List Modal -->
-<div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addToListModalLabel">Choisir une liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/recipe_select_list' %>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <div class="container mb-3">
   <div class="shadow p-0 bg-white rounded">
@@ -67,7 +61,25 @@
 <div class="container mb-5">
   <h5 class="p-3 mb-0 font-weight-light">Sélections 1er prix</h5>
 
-  <%= render 'store-benchmark' %>
+  <%= render 'recipes/store-benchmark' %>
 
+</div>
+
+
+<!-- Add to List Modal -->
+<div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addToListModalLabel">Choisir une liste de courses</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <%= render 'lists/recipe_select_list' %>
+      </div>
+    </div>
+  </div>
 </div>
 

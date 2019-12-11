@@ -15,7 +15,7 @@
           <h5 class="mb-1 text-primary"><%= list.name.capitalize %></h5>
           <small class="text-muted"></small>
         </div>
-        <p class="mb-1"><%= list.list_items.not_deleted.reverse.map{ |item| item.name.capitalize}.join(', ') %></p>
+        <p class="mb-1"><%= list.list_items.not_deleted.reverse[0..10].map{ |item| item.name.capitalize}.join(', ') %><%= "..." if list.list_items.not_deleted.size > 10 %> </p>
         <small class="text-muted"></small>
       <% end %>
     <% end %>

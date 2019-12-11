@@ -131,9 +131,9 @@ class RecipesController < ApplicationController
       ListItem.add_to_list(item.name, @list)
     end
 
-    flash[:notice] = "La liste a été ajoutée !"
-    redirect_to recipe_path(@recipe)
-    # render 'add_to_list.js.erb'
+    respond_to do |format|
+      format.js { flash.now[:notice] = "La liste a été ajoutée !" }
+    end
   end
 
 

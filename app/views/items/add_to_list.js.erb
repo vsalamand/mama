@@ -1,2 +1,8 @@
+$('.modal').modal('hide');
+$(document.body).removeClass('modal-open');
+$('.modal-backdrop').remove();
+
 const page = document.querySelector("#content-wrap");
-page.innerHTML = ("<%= j render 'show', recipe: @recipe %>");
+page.innerHTML = ("<%= j render 'recipes/show', recipe: @recipe %>");
+
+$("#flash").html('<%= j render "shared/flashes" %>');

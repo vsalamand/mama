@@ -55,8 +55,9 @@ class ItemsController < ApplicationController
 
     ListItem.add_to_list(@item.name, @list)
 
-    flash[:notice] = "Ajouté à la liste !"
-    redirect_to recipe_path(@recipe)
+    respond_to do |format|
+      format.js { flash.now[:notice] = "Ajouté à la liste !" }
+    end
   end
 
 
