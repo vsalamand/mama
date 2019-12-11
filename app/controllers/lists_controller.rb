@@ -1,7 +1,21 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
   skip_before_action :authenticate_user!, only: [:show, :get_cart]
-  before_action :authenticate_admin!, only: [:index, :new, :create]
+  before_action :authenticate_admin!, only: [:index]
+
+  def new
+    @list = List.new
+  end
+
+  def create
+    @list = List.new(list_params)
+    @list.user_id = current_user.id
+    if @list.save
+      redirect_to list_path(@list)
+    else
+      redirect_to new_list_path
+    end
+  end
 
   def show
     @list = List.find(params[:id])
@@ -19,16 +33,9 @@ class ListsController < ApplicationController
 
   def get_cart
     @list = List.find(params[:list_id])
-    # # get array of hash with list item + item + store item (cheap)
-    # products_data = @list.get_products
-    # # fill cart with new items
-    # @cart = @list.user.cart
-    # @cart.update_cart(products_data)
     user = current_user
     Cart.get_carts(@list, user)
     redirect_to carts_path
-    # get list of cheapest store items from grocery list
-    # cheap_products = StoreItem.get_cheap_store_items(@list.list_items.not_deleted)
   end
 
   def share
@@ -39,7 +46,9 @@ class ListsController < ApplicationController
     redirect_to list_path(list)
   end
 
+
   private
+
   def list_params
     params.require(:list).permit(:id, :name, :user_id)
   end

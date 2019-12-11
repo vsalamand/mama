@@ -1,19 +1,20 @@
-<div class="container">
-  <div class="shadow p-3 mb-3 bg-white rounded d-flex align-items-center justify-content-between">
+<div class="container my-4">
+  <h1 class="mb-0"><%= @list.name.capitalize %></h1>
+  <p class="ml-1 text-muted">de <%= @list.user.email %></p>
+</div>
+
+<div class="container mt-4">
+  <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
     <div>
-      <h4 class="pl-0 pr-0 mb-2" id="title">Paniers disponibles</h4>
+      <h2 class="pl-0 pr-0 mb-0" id="title">Paniers de courses</h2>
     </div>
   </div>
 </div>
 
 
 <div class="container">
-    <h5 class="p-3 mt-3 mb-0 font-weight-light">Sélections 1er prix</h5>
-  <div class="shadow p-0 mb-4 bg-white rounded">
-    <ul class="list-group list-group-flush">
-      <%= render 'merchants-list', user: current_user %>
-    </ul>
-  </div>
+  <h5 class="p-3 mb-0 font-weight-light">Sélections 1er prix</h5>
+  <%= render 'merchants-list', user: current_user %>
 </div>
 
 <div class="container pl-3 p-1 mb-2">

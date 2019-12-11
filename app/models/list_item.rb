@@ -26,4 +26,21 @@ class ListItem < ApplicationRecord
   def undelete
     update(deleted: false)
   end
+
+  def self.add_to_list(input, list)
+    list_item = ListItem.new(name: input, list: list)
+    valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
+    list_item.save
+    # create new item or copy item if from recipe
+    Thread.new do
+      if valid_item.present?
+        # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
+        Item.create(food: valid_item.food, list_item: list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
+      else
+        new_item = Item.create_list_item(list_item)
+        mail = ReportMailer.report_item(new_item)
+        mail.deliver_now
+      end
+    end
+  end
 end

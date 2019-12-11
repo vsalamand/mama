@@ -48,6 +48,19 @@ class ItemsController < ApplicationController
     redirect_to list_path(@list)
   end
 
+  def add_to_list
+    @recipe = Recipe.find(params[:recipe_id])
+    @item = Item.find(params[:item_id])
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user) if @list.nil?
+
+    ListItem.add_to_list(@item.name, @list)
+
+    respond_to do |format|
+      format.js { flash.now[:notice] = "Ajouté à la liste !" }
+    end
+  end
+
+
   private
   def set_recipe
     @recipe = Recipe.find(params[:recipe_id]) if params[:recipe_id].present?

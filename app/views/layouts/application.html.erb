@@ -12,10 +12,10 @@
 
     <title>ClubMama | Mangez bien et pas cher !</title>
     <!-- Google result description-->
-    <meta name="description" content="Optimisez vos listes de courses avec ClubMama pour faire vos achats l'esprit tranquille chez vos marchands préférés !">
+    <meta name="description" content="Organisez vos courses avec ClubMama pour faire vos achats l'esprit tranquille !">
     <!-- Facebook post-->
     <meta property="og:title" content="ClubMama | Mangez bien et pas cher !">
-    <meta property="og:description" content="Optimisez vos listes de courses avec ClubMama pour faire vos achats l'esprit tranquille !">
+    <meta property="og:description" content="Organisez vos courses avec ClubMama pour faire vos achats l'esprit tranquille !">
     <meta property="og:site_name" content="ClubMama"/>
 
     <%= csrf_meta_tags %>
@@ -42,7 +42,11 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+
     <%= render 'shared/navbar' unless action_name.eql? "card" %>
+
+    <%= render 'shared/flashes' %>
+
      <div id="page-container">
        <div id="content-wrap">
          <!-- all other page content -->
@@ -50,7 +54,7 @@
        </div>
      </div>
 
-      <%= render 'shared/footer' unless action_name.eql? "card" %>
+    <%= render 'shared/footer' unless action_name.eql? "card" %>
 
 
 

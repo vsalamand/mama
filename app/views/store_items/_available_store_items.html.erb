@@ -1,0 +1,52 @@
+
+  <div class="cartgrocerylist-product-card-id<%= store_item.id %>">
+    <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+
+      <small class="ml-1 font-weight-light"><%= item.name unless item.nil? %></small>
+
+      <div class="d-flex align-items-center justify-content-between">
+
+        <div class="product-info d-flex align-items-center justify-content-start">
+          <img src="<%= store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+          <div class="product-description">
+
+            <div class="d-flex w-90 justify-content-between flex-column">
+              <h7 class="mb-0"><%= store_item.name %></h7>
+            </div>
+            <% if store_item.is_promo == true %>
+              <div class="d-flex w-90 justify-content-start">
+                  <span class="badge badge-warning mr-1 font-weight-light">promo</span>
+                  <small class="mr-1 font-weight-light"><%= sprintf("%.2f", store_item.promo_price_per_unit) %>€ <%= store_item.unit.nil? ? '' : "/ #{store_item.unit.name}"  %></small>
+                  <small class="mr-1 font-weight-light"> au lieu de </small>
+                  <small class="font-weight-light">
+                      <%= sprintf("%.2f",store_item.price_per_unit) %>€ <%= store_item.unit.nil? ? '' : "/ #{store_item.unit.name}"  %>
+                  </small>
+              </div>
+            <% else %>
+              <div class="d-flex w-90 justify-content-start">
+                  <small class="font-weight-light">
+                      <%= sprintf("%.2f",store_item.price_per_unit) %>€ <%= store_item.unit.nil? ? '' : "/ #{store_item.unit.name}"  %>
+                  </small>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="product-options d-flex flex-column align-items-center">
+          <h5 class="mb-1">
+            <strong><%= store_item.get_best_price %>€</strong>
+          </h5>
+        </div>
+
+      </div>
+
+      <div class="mt-1">
+        <%= link_to "Fiche produit", product_path(store_item.product), class:"btn btn-sm btn-secondary px-1 py-0" %>
+
+        <% unless params[:controller] == "stores" %>
+          <%= link_to "Autres produits en rayon", store_catalog_path(store_item.store, :food_id => store_item.food.id ), class:"btn btn-sm btn-primary  px-1 py-0" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+

@@ -1,0 +1,34 @@
+
+  <div class="cartgrocerylist-product-card-id<%= product.id %>">
+    <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+
+
+      <div class="d-flex align-items-center justify-content-between">
+
+        <div class="product-info d-flex align-items-center justify-content-start">
+          <img src="<%= product.store_items.last.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+          <div class="product-description">
+
+            <div class="d-flex w-90 justify-content-between flex-column">
+              <h7 class="mb-0"><%= product.name %></h7>
+
+            </div>
+          </div>
+        </div>
+        <div class="product-options d-flex flex-column align-items-center">
+          <small>à partir de</small>
+          <h5 class="mb-1">
+            <strong><%= sprintf("%.2f", product.get_cheapest_store_item.price) %>€</strong>
+          </h5>
+          <small>chez <%= product.get_cheapest_store_item.store.name.capitalize %></small>
+        </div>
+
+      </div>
+
+      <div class="mt-1">
+        <%= link_to "Fiche produit", product_path(product), class:"btn btn-sm btn-secondary px-1 py-0" %>
+      </div>
+
+    </div>
+  </div>
+

@@ -1,16 +1,11 @@
+<div class="card-group">
   <% user.carts.where.not(merchant: nil).each do |cart| %>
-
-    <li class="pl-3 pr-3 list-group-item d-flex flex-column justify-content-start">
-      <div class="d-flex align-items-center justify-content-between">
-        <div>
-          <h4> <%=  link_to cart.merchant.name.capitalize, cart_path(cart) %> </h4>
-
-        </div>
-        <div>
-          <h4> <%= cart.get_total_price %>€</h4>
-        </div>
-
+    <div class="card">
+      <div class="card-body d-flex flex-column align-items-center">
+        <h5 class="card-title"><%=  cart.merchant.name.capitalize %></h5>
+        <h3 class="card-title"><%= cart.get_total_price %>€</h3>
+        <p class="card-text"><%= link_to "Voir le panier", cart_path(cart), class:"btn btn-sm btn-flat" %></p>
       </div>
-    </li>
-
+    </div>
   <% end %>
+</div>

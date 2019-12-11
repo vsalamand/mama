@@ -4,11 +4,13 @@ require 'hangry'
 # REFACTO TO DO...
 
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status ]
-  skip_before_action :authenticate_user!, only: [ :show, :card ]
-  before_action :authenticate_admin!, only: [:new, :show, :import, :create, :import, :search]
+  before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
+  skip_before_action :authenticate_user!, only: [ :show, :card, :cart ]
+  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :search, :god_show ]
 
   def show
+    @list_item = ListItem.new
+
     respond_to do |format|
       format.html
       format.pdf do
@@ -27,6 +29,9 @@ class RecipesController < ApplicationController
                }
       end
     end
+  end
+
+  def god_show
   end
 
   def card
@@ -112,6 +117,26 @@ class RecipesController < ApplicationController
     @recipe.items.each{ |item| item.unvalidate }
     redirect_to recipe_path(@recipe)
   end
+
+  def cart
+    @recipe = Recipe.find(params[:id])
+    @store = Store.find(params[:store_id])
+  end
+
+  def add_to_list
+    @recipe = Recipe.find(params[:id])
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user) if @list.nil?
+
+    @recipe.items.each do |item|
+      ListItem.add_to_list(item.name, @list)
+    end
+
+    respond_to do |format|
+      format.js { flash.now[:notice] = "La liste a été ajoutée !" }
+    end
+  end
+
+
 
   private
   def set_recipe

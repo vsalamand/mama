@@ -61,21 +61,6 @@ Rails.application.routes.draw do
   get 'products_search', to: 'pages#products_search'
   get 'thank_you', to: "pages#thank_you"
 
-
-  get 'assistant', to: 'meta_recipe_lists#new'
-  get 'seasonal', to: 'pages#seasonal'
-  get 'uncategorized', to: 'pages#uncategorized'
-  get 'veggie', to: 'pages#veggie'
-  get 'salad', to: 'pages#salad'
-  get 'pasta', to: 'pages#pasta'
-  get 'potato', to: 'pages#potato'
-  get 'meat', to: 'pages#meat'
-  get 'fish', to: 'pages#fish'
-  get 'egg', to: 'pages#egg'
-  get 'snack', to: 'pages#snack'
-  get 'burger', to: 'pages#burger'
-  get 'pizza', to: 'pages#pizza'
-
   get 'profile', to: 'pages#profile'
 
 
@@ -88,12 +73,16 @@ Rails.application.routes.draw do
       get 'card', to: "recipes#card"
       get :set_published_status
       get :set_dismissed_status
+      get :cart
+      get :god_show
+      get :add_to_list
     end
-    resources :items
-
+    resources :items do
+      get :add_to_list
+    end
   end
 
-  resources :lists, only: [ :show, :destroy ] do
+  resources :lists do
     get 'fetch_recipes', to: "lists#fetch_recipes"
     get 'get_cart', to: "lists#get_cart"
     post 'share', to: "lists#share"
@@ -118,7 +107,10 @@ Rails.application.routes.draw do
 
   resources :recipe_lists
   resources :items
-
+  resources :products
+  resources :stores do
+    get :catalog
+  end
 
   resources :food_lists do
     member do

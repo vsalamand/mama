@@ -9,10 +9,6 @@
       <button type="button" class="btn btn-sm btn-outline-secondary m-1" data-toggle="modal" data-target="#shareModal">
         Envoyer
       </button>
-    </div>
-  </div>
-</div>
-
       <!-- Modal -->
         <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -35,12 +31,21 @@
             </div>
           </div>
         </div>
+    </div>
+  </div>
+</div>
+
 
 
 
 
 <div class="container">
   <div class="shadow p-0 mb-4 bg-white rounded">
+    <div>
+      <% if @list.user == current_user%>
+        <%= render 'list_items/form', list: @list, list_item: @list_item %>
+      <% end %>
+    </div>
     <div class="list-group list-group-flush" id="list_items">
       <% if @list_items.any? %>
         <% @list_items.order(:id).each do |list_item| %>
@@ -49,29 +54,22 @@
       <% end %>
     </div>
 
-    <div>
-      <% if @list.user == current_user%>
-        <%= render 'list_items/form', list: @list, list_item: @list_item %>
-      <% end %>
+  </div>
+</div>
+
+
+
+<% if false %>
+  <div class="container pl-3 p-1 mb-2">
+    <div class="d-flex align-items-center justify-content-center">
+      <button class="btn btn-sm btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement..." }>
+        Afficher les recettes du moment
+      </button>
     </div>
   </div>
-</div>
-
-
-<div class="container pl-3 p-1 mb-2">
-  <div class="d-flex align-items-center justify-content-center">
-    <button class="btn btn-sm btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement..." }>
-      Afficher les recettes du moment
-    </button>
+  <div data="<%= params[:id] %>" id="fetch_recipes" class="mb-4">
   </div>
-</div>
 
-
-
-<div data="<%= params[:id] %>" id="fetch_recipes" class="mb-4">
-
-</div>
-
-
-<%= javascript_pack_tag 'load_recipes' %>
+  <%= javascript_pack_tag 'load_recipes' %>
+<% end %>
 
