@@ -1,40 +1,40 @@
-<div class="container ">
-  <div class="shadow p-3 mb-1 bg-white rounded d-flex align-items-center justify-content-between">
-    <div>
-      <h4 class="pl-0 pr-0 mb-0" id="title"><%= @list.name.capitalize  %> </h4>
-      <small class="grocerylist-count"><%= @list_items.size %></small><small></%> <%= @list.list_items.size < 2 ?  " élément" : " éléments" %></small>
-    </div>
-    <div>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-sm btn-outline-secondary m-1" data-toggle="modal" data-target="#shareModal">
-        Envoyer
-      </button>
-      <!-- Modal -->
-        <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="shareModalLabel">Envoyer par email</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <%= form_tag(list_share_path(@list), class: 'form-group') do |f| %>
-                <div class="modal-body">
-                  <%= text_field_tag 'email', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control" %>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
-                  <%= submit_tag "submit",:value => "Envoyer", class:"btn btn-primary"%>
-                </div>
-              <% end %>
-            </div>
+
+<div class="container my-5">
+  <h1 class="display-4 font-weight-bold">
+    <%= @list.name.capitalize %>
+    <small> <span class="badge badge-pill badge-primary grocerylist-count"><%= @list_items.size %></span></small>
+  </h1>
+
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#shareModal">
+    Envoyer par email
+  </button>
+  <!-- Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="shareModalLabel">Envoyer par email</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <%= form_tag(list_share_path(@list), class: 'form-group') do |f| %>
+            <div class="modal-body">
+              <%= text_field_tag 'email', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control" %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+              <%= submit_tag "submit",:value => "Envoyer", class:"btn btn-primary"%>
+            </div>
+          <% end %>
         </div>
+      </div>
     </div>
-  </div>
 </div>
 
+<hr class="my-5">
 
 
 
@@ -53,23 +53,9 @@
         <% end %>
       <% end %>
     </div>
-
+  </div>
+  <div class="d-flex justify-content-end mb-5">
+    <%= link_to "Afficher les paniers de courses", list_get_cart_path(@list), class:"btn btn-flat2 py-2 font-weight-bold shadow-lg" %>
   </div>
 </div>
-
-
-
-<% if false %>
-  <div class="container pl-3 p-1 mb-2">
-    <div class="d-flex align-items-center justify-content-center">
-      <button class="btn btn-sm btn-link fetch-recipes" type="button" id="btn_fetch_recipes" data={ disable_with: "chargement..." }>
-        Afficher les recettes du moment
-      </button>
-    </div>
-  </div>
-  <div data="<%= params[:id] %>" id="fetch_recipes" class="mb-4">
-  </div>
-
-  <%= javascript_pack_tag 'load_recipes' %>
-<% end %>
 

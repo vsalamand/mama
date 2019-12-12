@@ -17,6 +17,10 @@ class ListsController < ApplicationController
     end
   end
 
+  def index
+    @lists = current_user.lists
+  end
+
   def show
     @list = List.find(params[:id])
     @list_item = ListItem.new

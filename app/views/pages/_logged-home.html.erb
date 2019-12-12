@@ -1,24 +1,13 @@
-
-
-<div class="container mt-3 mb-5">
-  <h1>Listes de courses</h1>
+<div class="container my-5">
+  <h1 class="display-4 my-4 font-weight-bold">Listes de courses</h1>
 
   <div class="list-group shadow">
     <!-- Button trigger Create List modal -->
-    <button type="button" class="list-group-item list-group-item-action text-white" style="background-color: #FF3463;" data-toggle="modal" data-target="#createListModal">
-      <strong>➕ Créer une nouvelle liste</strong>
+    <button type="button" class="sgadow-lg list-group-item list-group-item-action text-white btn btn-flat2 btn-lg" data-toggle="modal" data-target="#createListModal">
+      <strong>Créer une nouvelle liste</strong>
     </button>
 
-    <% @user.lists.each do |list| %>
-      <%= link_to list_path(list), class:"list-group-item list-group-item-action" do %>
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1 text-primary"><%= list.name.capitalize %></h5>
-          <small class="text-muted"></small>
-        </div>
-        <p class="mb-1"><%= list.list_items.not_deleted.reverse[0..10].map{ |item| item.name.capitalize}.join(', ') %><%= "..." if list.list_items.not_deleted.size > 10 %> </p>
-        <small class="text-muted"></small>
-      <% end %>
-    <% end %>
+    <%= render 'lists/index', lists: @user.lists %>
 
   </div>
 
@@ -45,8 +34,8 @@
 
 
 <div class="container my-5">
-  <h1 class="mb-0">Idées repas</h1>
-  <p><small>Inspirez-vous pour compléter vos listes de courses</small></p>
+  <h1 class="display-4 font-weight-bold">Idées repas</h1>
+  <p><small class="p-1">Inspirez-vous pour compléter vos listes de courses</small></p>
 
   <div class="list-group shadow">
 

@@ -11,28 +11,33 @@
 
 
 
+<div class="container my-5">
+  <h1 class="display-4 font-weight-bold"><%= @recipe.title.capitalize %></h1>
+  <%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, class:"btn btn-sm btn-outline-secondary", target: "_blank" %>
+</div>
+
+
+<hr class="my-4">
+
+
 <div class="container my-4">
-  <h1 class="mb-0"><%= @recipe.title.capitalize %></h1>
-  <p class="ml-1 text-muted">de <%= @recipe.origin %></p>
-</div>
-
-
-<div class="container mt-3">
-  <div class="shadow p-3 mb-1 text-white rounded" style="background-color: #FF3463;">
-    <div class="mb-2">
-      <h3 class="pl-0 pr-0 mb-0" id="title">Liste de courses pour <%= @recipe.servings %></h3>
-      <small class="grocerylist-count"><%= @recipe.items.size %></small><small></%> <%= @recipe.items.size < 2 ?  " élément" : " éléments" %></small>
+  <div class="mb-1 d-flex flex-column  justify-content-start">
+    <div>
+      <h2 class="pl-0 pr-0 mb-0 font-weight-bold" id="title">Liste de courses pour <%= @recipe.servings %></h2>
+      <div class="d-flex">
+        <h5 class="font-weight-light grocerylist-count mr-1"><%= @recipe.items.size %></h5> <h5 class="font-weight-light"></%> <%= @recipe.items.size < 2 ?  " élément" : " éléments" %></h5>
+      </div>
     </div>
-    <!-- Button trigger Add to List modal -->
-    <button type="button" class="btn-sm text-white" style="background-color: #FF3463;" data-toggle="modal" data-target="#addToListModal">
-      <strong>➕ Tout ajouter à ma liste</strong>
-    </button>
   </div>
+    <!-- Button trigger Add to List modal -->
+  <button type="button" class="shadow-lg btn-sm btn-primary" data-toggle="modal" data-target="#addToListModal">
+    <strong>Tout ajouter à ma liste de courses</strong>
+  </button>
 </div>
 
 
 
-<div class="container mb-3">
+<div class="container mb-5">
   <div class="shadow p-0 bg-white rounded">
     <div class="list-group list-group-flush" id="list_items">
       <% if @recipe.items.any? %>
@@ -44,26 +49,23 @@
   </div>
 </div>
 
-<div class="container d-flex justify-content-end">
-
-    <%= link_to "Voir la recette", @recipe.link, class:"ml-1 btn btn-sm btn-flat", style:"color:#FF3463;", target: "_blank" %>
-</div>
 
 
-<div class="container mt-3">
-  <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
+<div class="container mt-5">
+  <div class="mb-1 d-flex flex-column align-items-left justify-content-start">
     <div>
-      <h3 class="pl-0 pr-0 mb-0" id="title">Paniers de courses</h3>
+      <h2 class="pl-0 pr-0 mb-0 font-weight-bold" id="title">Paniers de courses</h2>
     </div>
   </div>
 </div>
 
 <div class="container mb-5">
-  <h5 class="p-3 mb-0 font-weight-light">Sélections 1er prix</h5>
+  <h5 class="font-weight-light">Sélections 1er prix</h5>
 
   <%= render 'recipes/store-benchmark' %>
 
 </div>
+
 
 
 <!-- Add to List Modal -->

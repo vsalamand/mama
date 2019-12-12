@@ -10,3 +10,20 @@
   background: #1BCB7F;
   color: white !important;
 }
+
+.btn-flat2 {
+  color: white !important;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #1BCB7F;
+  transition: background 0.3s ease;
+}
+
+.btn-flat2:hover {
+  background: #FF3463;
+  color: white !important;
+}
+
+.link:hover {
+  text-decoration: none !important;
+}

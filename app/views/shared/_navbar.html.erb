@@ -1,28 +1,50 @@
-<% unless params[:controller] == "pages" && params[:action] == "home" && !current_user %>
+<% if false %>
+  <% unless params[:controller] == "pages" && params[:action] == "home" && !current_user %>
 
-  <nav class="navbar sticky-top navbar-expand-md d-flex shadow-sm pt-0 pb-0" style="background-color: #1BCB7F;">
-    <div class="d-flex flex-row align-items-center">
-      <a class="navbar-brand text-dark mr-1" href="/"><%= cl_image_tag("logo_qj08zi", width: 20, height: 20) %></a>
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link text-white pb-0 pt-0" href="/">Club<strong>Mama</strong></a>
-          </li>
-            <li class="nav-item">
-              <% if user_signed_in? %>
-                <%= link_to current_user.email, profile_path, class:"nav-link text-white pb-0 pt-0" %>
-              <% end %>
+    <nav class="navbar shadow snavbar-expand-md d-flex shadow-sm pt-0 pb-0" style="background-color: #1BCB7F;">
+      <div class="d-flex flex-row align-items-center">
+        <a class="navbar-brand text-dark mr-1" href="/"><%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %></a>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-white pb-0 pt-0" href="/">Club<strong>Mama</strong></a>
             </li>
-        </ul>
-    </div>
+              <li class="nav-item">
+                <% if user_signed_in? %>
+                  <%= link_to current_user.email, profile_path, class:"nav-link text-white pb-0 pt-0" %>
+                <% end %>
+              </li>
+          </ul>
+      </div>
 
-    <% if params[:controller] == "lists" && params[:action] == "show" %>
-      <%= link_to list_get_cart_path(@list), class: 'ml-auto p-2' do %>
-        <button type="button" class="btn btn-sm btn-primary ml-auto p-2">
-          Continuer vers le panier
-        </button>
-      <% end  %>
-    <% end %>
+    </nav>
 
-  </nav>
-
+  <% end %>
 <% end %>
+
+<div class="container">
+  <nav class="px-0 navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
+      <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> ClubMama
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <%= link_to "Listes de courses", lists_path, class:"nav-link"  %>
+        </li>
+        <li class="nav-item active">
+          <%= link_to "Idées repas", recipes_path, class:"nav-link"  %>
+        </li>
+        <li class="nav-item active">
+          <%= link_to "Magasins", stores_path, class:"nav-link"  %>
+        </li>
+        <li class="nav-item active">
+          <%= link_to "Compte", profile_path, class:"nav-link"  %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

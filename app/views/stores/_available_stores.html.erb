@@ -1,16 +1,18 @@
-<%= link_to product_path(product), class:"link" do %>
-  <div class="cartgrocerylist-product-card-id<%= product.id %>">
+<%= link_to store_path(store), class:"link" do %>
+  <div class="cartgrocerylist-product-card-id<%= store.id %>">
     <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
       <div class="d-flex align-items-center justify-content-between">
 
         <div class="product-info d-flex align-items-center justify-content-start">
-          <img src="<%= product.store_items.last.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+          <% if false %>
+            <img src="<%= store.merchant.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+          <% end %>
           <div class="product-description">
 
             <div class="d-flex w-90 justify-content-between flex-column">
-              <h7 class="mb-1 text-primary"><%= product.name.capitalize %></h7>
-              <small>à partir de <%= sprintf("%.2f", product.get_cheapest_store_item.price) %> € chez <%= product.get_cheapest_store_item.store.name.capitalize %></small>
+              <h7 class="mb-1 text-primary"><%= store.name.capitalize %></h7>
+              <small>Catalogue du magasin <%= store.store_type %></small>
             </div>
           </div>
         </div>
