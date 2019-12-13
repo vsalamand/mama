@@ -8,7 +8,7 @@
           <% else %>
             <h5 class="card-title">produit non disponible</h5>
           <% end %>
-          <p class="card-text"><%= link_to "Voir le rayon", store_catalog_path(store, :food_id => @product.food.id), class:"shadow-lg btn btn-sm btn-primary" %></p>
+          <p class="card-text"><%= link_to "Voir le rayon", store_catalog_path(store, :food_id => @product.food.id), class:"shadow-lg btn btn-sm btn-primary" unless @product.food.nil? %></p>
         </div>
       </div>
   <% end %>

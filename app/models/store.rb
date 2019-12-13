@@ -20,4 +20,12 @@ class Store < ApplicationRecord
     self.store_items.pluck(:shelters).uniq.map{ |array| array.first}.uniq
   end
 
+  def get_sub_shelves(store_shelf)
+    self.store_items.pluck(:shelters).uniq.select{ |shelves| shelves.include?(store_shelf)}.map{ |element| element[1..] }.uniq.split.flatten.uniq - Array(store_shelf)
+  end
+
+  def get_main_store_shelves(store_shelf)
+    self.store_items.pluck(:shelters).uniq.select{ |shelves| shelves.include?(store_shelf)}.map{ |element| element.first}.uniq
+  end
+
 end

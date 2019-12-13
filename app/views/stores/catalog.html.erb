@@ -5,5 +5,11 @@
 
 <hr class="my-4">
 
-<%= render 'stores/food_catalog', food: @food %>
+<% if @food %>
+  <%= render 'stores/food_catalog', food: @food %>
+<% elsif @store_shelf  %>
+  <%= render 'stores/product_shelf', store_shelf: @store_shelf %>
+<% elsif @store_item  %>
+  <%= render 'stores/store_item', store_item: @store_item %>
+<% end %>
 

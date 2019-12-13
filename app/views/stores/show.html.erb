@@ -6,16 +6,10 @@
 <hr class="my-5">
 
 
-<div class="container">
-
-  <div class="card-group">
-    <% @shelters.each do |shelter| %>
-      <div class="card">
-        <div class="card-body d-flex flex-column align-items-center">
-          <h5 class="card-title"><%=  shelter.capitalize %></h5>
-        </div>
-      </div>
+<div class="container my-5">
+  <div class="list-group shadow">
+    <% @shelves.each do |store_shelve| %>
+      <%= render 'stores/store_shelves', store_shelve: store_shelve %>
     <% end %>
   </div>
-
 </div>

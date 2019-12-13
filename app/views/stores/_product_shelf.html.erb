@@ -1,0 +1,27 @@
+<div class="container my-3">
+  <%  @main_store_shelves.each do |main_store_shelve| %>
+    <% if main_store_shelve != store_shelf  %>
+      <small><%= link_to "Rayon #{main_store_shelve.capitalize}", store_catalog_path(@store, :store_shelf => main_store_shelve) %></small>
+    <% else %>
+      <small><%= link_to "Accueil magasin", store_path(@store) %></small>
+    <% end %>
+  <% end %>
+  <h2 class="pl-0 pr-2 mb-1 font-weight-bold" id="title"><%= store_shelf.capitalize %></h2>
+  <div class="d-flex flex-wrap">
+    <% @shelves.each do |shelve| %>
+      <%= link_to shelve.capitalize, store_catalog_path(@store, :store_shelf => shelve), class:'btn btn-outline-primary btn-sm m-1' %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<div class="container my-3">
+  <div class="shadow bg-white">
+    <div class="list-group list-group-flush mb-2">
+      <% StoreItem.get_shelf_store_items(@store, store_shelf).each do |store_item| %>
+        <%= render 'store_items/available_store_items', store_item: StoreItem.find(store_item.first), item: nil %>
+      <% end %>
+    </div>
+  </div>
+</div>
