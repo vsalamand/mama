@@ -1,15 +1,16 @@
-<div class="container my-4">
-  <h1 class="mb-0"><%= @recipe.title.capitalize %></h1>
-  <p class="ml-1 text-muted">de <%= @recipe.origin %></p>
+
+<div class="container my-5">
+  <h1 class="display-4 font-weight-bold"><%= link_to @recipe.title.capitalize, recipe_path(@recipe) %></h1>
+  <%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, class:"btn btn-sm btn-outline-secondary", target: "_blank" %>
 </div>
+
+<hr class="my-4">
 
 
 <div class="container mt-3">
-  <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
-    <div>
-      <h2 class="mb-0"><strong><%= @store.name.capitalize %></strong></h2>
-      <h4 class="pl-0 pr-0 mb-0" id="title">Panier de courses</h4>
-    </div>
+  <div class="mb-1 rounded d-flex align-items-center justify-content-start">
+    <h2 class="pl-0 pr-2 mb-0 font-weight-bold" id="title">Panier de courses</h2>
+    <small class="p-2 rounded text-white lead" style="background-color: #1BCB7F;"><strong><%= @store.name.capitalize %></strong></small>
   </div>
 </div>
 

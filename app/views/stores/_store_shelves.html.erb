@@ -1,0 +1,12 @@
+<%= link_to store_catalog_path(@store, :store_shelf => store_shelve), class:"list-group-item list-group-item-action" do %>
+  <div class="d-flex align-items-center justify-content-between">
+    <div id="recipe-description">
+      <div class="d-flex w-100 flex-column mb-1">
+        <h5 class="mb-0 text-primary"><%= store_shelve.capitalize %></h5>
+      </div>
+    </div>
+    <div class="product-options d-flex flex-column align-items-center">
+      <i class="fas fa-lg fa-angle-right p-1"></i>
+    </div>
+  </div>
+<% end %>

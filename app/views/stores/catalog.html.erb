@@ -1,23 +1,15 @@
-<div class="container my-4">
-  <h1 class="mb-0"><%= @store.name.capitalize %></h1>
+<div class="container my-5">
+  <h1 class="display-4 font-weight-bold mb-0"><%= @store.name %></h1>
   <p class="ml-1 text-muted">Catalogue du magasin <%= @store.store_type %></p>
 </div>
 
-<div class="container my-3">
-  <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
-    <div>
-      <h3 class="pl-0 pr-0 mb-0" id="title"><%= @food.name.capitalize %></h3>
-      <small>Produits disponibles</small>
-    </div>
-  </div>
-</div>
+<hr class="my-4">
 
-<div class="container mb-5">
-  <div class="shadow bg-white">
-    <div class="list-group list-group-flush mb-2">
-      <% @store_items.each do |item| %>
-        <%= render 'store_items/available_store_items', store_item: item, item: nil %>
-      <% end %>
-    </div>
-  </div>
-</div>
+<% if @food %>
+  <%= render 'stores/food_catalog', food: @food %>
+<% elsif @store_shelf  %>
+  <%= render 'stores/product_shelf', store_shelf: @store_shelf %>
+<% elsif @store_item  %>
+  <%= render 'stores/store_item', store_item: @store_item %>
+<% end %>
+

@@ -1,0 +1,45 @@
+<div class="container my-3">
+  <h2 class="pl-0 pr-2 mb-0 font-weight-bold" id="title"><%= store_item.food.name.capitalize %></h2>
+  <div class="d-flex p-1">
+    <h5 class="font-weight-light grocerylist-count mr-1"><%= store_item.food.store_items.where(store: @store).size %></h5> <h5 class="font-weight-light"></%> <%= store_item.food.store_items.where(store: @store).size < 2 ?  " produit" : " produits" %> en rayon</h5>
+  </div>
+</div>
+
+
+
+<% unless store_item.food.nil? || store_item.food.store_items.where(store: @store).nil? %>
+
+  <div class="container my-3">
+    <div class="shadow bg-white">
+      <div class="list-group list-group-flush mb-2">
+        <% store_item.food.store_items.where(store: @store).sort_by{ |item| item.price }.each do |store_item| %>
+          <%= render 'store_items/available_store_items', store_item: store_item, item: nil %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+
+
+<% if store_item.product.get_related_recipes.size > 0 %>
+  <div class="container mt-5">
+    <div class="mb-1 d-flex flex-column align-items-left justify-content-start">
+      <div>
+        <h2 class="pl-0 pr-0 mb-0 font-weight-bold" id="title">Idées repas</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mb-5 mt-3">
+    <div class="list-group shadow">
+
+      <% store_item.product.get_related_recipes.each do |recipe| %>
+        <%= render 'recipes/recipe-list-group-item', recipe: recipe %>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>
+

@@ -1,0 +1,15 @@
+
+<div class="container my-5">
+  <h1 class="display-4 font-weight-bold">Idées repas</h1>
+</div>
+
+<hr class="my-5">
+
+
+<div class="container my-5">
+  <div class="list-group shadow">
+    <% @recipes.each do |recipe| %>
+      <%= render 'recipes/recipe-list-group-item', recipe: recipe %>
+    <% end %>
+  </div>
+</div>

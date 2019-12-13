@@ -110,6 +110,7 @@ Rails.application.routes.draw do
   resources :products
   resources :stores do
     get :catalog
+    get :cart
   end
 
   resources :food_lists do

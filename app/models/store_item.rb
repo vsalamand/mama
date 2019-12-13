@@ -15,6 +15,10 @@ class StoreItem < ApplicationRecord
     return sprintf("%.2f", best_price)
   end
 
+  def self.get_shelf_store_items(store, shelf)
+    StoreItem.where(store: store).pluck(:id, :shelters).select{ |store_item| store_item.second.include?(shelf)}[0..99]
+  end
+
   def self.get_cheap_store_items(list, merchant)
     merchant_products = []
     list.list_items.not_deleted.each do |list_item|

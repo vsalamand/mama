@@ -54,6 +54,10 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def index
+    @recipes = Recipe.where(status: "published")[0..30]
+  end
+
   def import
     @recipe = Recipe.new
   end

@@ -1,0 +1,19 @@
+<% lists.each do |list| %>
+
+  <%= link_to list_path(list), class:"list-group-item list-group-item-action" do %>
+    <div class="d-flex align-items-center justify-content-between">
+      <div id="list-description">
+        <div class="d-flex w-100 flex-column mb-1">
+          <h5 class="mb-0 text-primary"><%= list.name.capitalize %></h5>
+          <small class="text-muted"></small>
+        </div>
+        <p class="mb-1"><%= list.list_items.not_deleted.reverse[0..5].map{ |item| item.name.capitalize}.join(', ') %><%= "..." if list.list_items.not_deleted.size > 10 %> </p>
+        <small class="text-muted"></small>
+      </div>
+      <div class="product-options d-flex flex-column align-items-center">
+        <i class="fas fa-lg fa-angle-right p-1"></i>
+      </div>
+    </div>
+  <% end %>
+
+<% end %>
