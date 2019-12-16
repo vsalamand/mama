@@ -10,11 +10,12 @@
   </div>
 
 
+<div class="mb-5" id="complete_list_items">
   <% if list_items.completed.any? %>
-    <hr class="my-2">
-    <div class="mb-5">
-      <div class="list-group list-group-flush" id="complete_list_items">
+    <div>
+      <div class="list-group list-group-flush mb-5">
         <%= render 'complete_todo_list', list: list, list_items: list_items %>
       </div>
     </div>
   <% end %>
+</div>
