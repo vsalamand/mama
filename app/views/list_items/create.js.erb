@@ -6,7 +6,7 @@ function refreshForm(innerHTML) {
 }
 
 function addListItem(reviewHTML) {
-  const listItems = document.getElementById('list_items');
+  const listItems = document.getElementById('uncomplete_list_items');
   listItems.insertAdjacentHTML('beforeend', reviewHTML);
   event.preventDefault();
 }
@@ -14,7 +14,7 @@ function addListItem(reviewHTML) {
 <% if @list_item.errors.any? %>
   refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
 <% else %>
-  addListItem('<%= j render "list_items/show", list_item: @list_item %>');
+  addListItem('<%= j render "list_items/show", list_item: @list_item, list: @list %>');
   refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
 <% end %>
 

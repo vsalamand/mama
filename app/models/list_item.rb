@@ -13,6 +13,9 @@ class ListItem < ApplicationRecord
   # scope to get list items in the lsit with no associated items
   scope :no_items, -> { includes(:items).where( deleted: false, :items => { :id => nil } ) }
   scope :to_validate, -> { includes(:items).where( :items => { :is_validated => false } ) }
+  #add a model scope to fetch completed and uncompleted records
+  scope :not_completed, -> { where(is_completed: false) }
+  scope :completed, -> { where(is_completed: true) }
 
 
 
@@ -25,6 +28,16 @@ class ListItem < ApplicationRecord
   # make an undelete method
   def undelete
     update(deleted: false)
+  end
+
+  # make a complete method
+  def complete
+    update(is_completed: true)
+  end
+
+  # make an uncomplete method
+  def uncomplete
+    update(is_completed: false)
   end
 
   def self.add_to_list(input, list)

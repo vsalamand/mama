@@ -87,6 +87,8 @@ Rails.application.routes.draw do
     get 'get_cart', to: "lists#get_cart"
     post 'share', to: "lists#share"
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
+      get :complete
+      get :uncomplete
       resources :items do
         get 'validate', to: "items#validate"
         get 'unvalidate', to: "items#unvalidate"
