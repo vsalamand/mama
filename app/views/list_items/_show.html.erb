@@ -1,10 +1,11 @@
 <% if list.user == current_user  %>
   <% if list_item.is_completed == false %>
 
-    <li class="list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>">
+    <li class="pl-3 list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>" id="<%= dom_id(list_item) %>" >
 
         <div class="d-flex align-items-center">
-          <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true do %>
+          <span class="btn m-0 pl-0 pr-1"><i class="fas fa-bars text-muted"></i></span>
+          <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
             <i class="far fa-lg fa-square p-1"></i>
           <% end %>
           <h4 class="m-0 p-1 pb-2"><%= list_item.name %></h4>

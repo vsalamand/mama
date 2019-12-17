@@ -75,6 +75,14 @@ class ListItemsController < ApplicationController
     render "uncomplete.js.erb"
   end
 
+  def sort
+    params[:list_item].each_with_index do |id, index|
+      ListItem.where(id: id).update_all(position: index + 1)
+    end
+
+    head :ok
+  end
+
   private
 
   def list_item_params

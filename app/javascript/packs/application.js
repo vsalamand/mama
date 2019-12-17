@@ -8,6 +8,7 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'bootstrap';
+
 import '../components/selectize';
 import '../components/selectize1';
 
@@ -25,3 +26,4 @@ import '../components/selectize1';
 
 import { hideViewMoreBtn } from '../components/view_more';
 hideViewMoreBtn();
+
