@@ -7,6 +7,7 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+
 import 'bootstrap';
 
 import '../components/selectize';
@@ -24,6 +25,8 @@ import '../components/selectize1';
 //   location.reload();
 // });
 
-import { hideViewMoreBtn } from '../components/view_more';
-hideViewMoreBtn();
+// import { hideViewMoreBtn } from '../components/view_more';
+// hideViewMoreBtn();
+
+
 

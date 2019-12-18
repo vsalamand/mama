@@ -7,8 +7,7 @@
           <h5 class="mb-0 text-primary"><%= list.name.capitalize %></h5>
           <small class="text-muted"></small>
         </div>
-        <p class="mb-1"><%= list.list_items.not_deleted.reverse[0..5].map{ |item| item.name.capitalize}.join(', ') %><%= "..." if list.list_items.not_deleted.size > 10 %> </p>
-        <small class="text-muted"></small>
+        <small class="text-muted"><%= list.list_items.not_deleted.size %> <%= list.list_items.not_deleted.size > 1 ? "éléments" : "élément" %></small>
       </div>
       <div class="product-options d-flex flex-column align-items-center">
         <i class="fas fa-lg fa-angle-right p-1"></i>
