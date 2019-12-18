@@ -1,0 +1,3 @@
+<% list_items.completed.order(:id).each do |item| %>
+  <%= render 'list_items/show', list: list, list_item: item %>
+<% end %>

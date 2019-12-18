@@ -55,7 +55,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.where(status: "published")[0..30]
+    @recipes = Recipe.where.not(origin: "mama").where(status: "published").reverse[0..30]
   end
 
   def import

@@ -17,8 +17,18 @@ class ListsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    @list = List.find(params[:id])
+    @list.update(list_params)
+    redirect_to list_path(@list)
+  end
+
   def index
     @lists = current_user.lists
+    @list = List.new
   end
 
   def show
@@ -48,6 +58,12 @@ class ListsController < ApplicationController
     mail = ListMailer.share(list, email)
     mail.deliver_now
     redirect_to list_path(list)
+  end
+
+  def destroy
+    @list = List.find(params[:id])
+    @list.destroy
+    redirect_to root_path
   end
 
 

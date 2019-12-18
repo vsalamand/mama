@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
     @item = Item.new(items_params)
     @item.recipe = @recipe
     if @item.save
-      redirect_to recipe_path(@recipe)
+      redirect_to god_show_recipe_path(@recipe) if params[:recipe_id].present?
     else
       render 'new'
     end
@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
 
   def update
     @item.update(items_params)
-    redirect_to recipe_path(@recipe) if params[:recipe_id].present?
+    redirect_to god_show_recipe_path(@recipe) if params[:recipe_id].present?
     redirect_to list_path(@list_item.list) if params[:list_item_id].present?
   end
 
