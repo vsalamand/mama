@@ -63,10 +63,30 @@ class ListItemsController < ApplicationController
     render "delete.js.erb"
   end
 
+  def complete
+    @list_item = ListItem.find(params[:list_item_id])
+    @list_item.complete
+    render "complete.js.erb"
+  end
+
+  def uncomplete
+    @list_item = ListItem.find(params[:list_item_id])
+    @list_item.uncomplete
+    render "uncomplete.js.erb"
+  end
+
+  def sort
+    params[:list_item].each_with_index do |id, index|
+      ListItem.where(id: id).update_all(position: index + 1)
+    end
+
+    head :ok
+  end
+
   private
 
   def list_item_params
-    params.require(:list_item).permit(:name, :list_id, :deleted, items_attributes:[:id, :name, :quantity, :food_id, :unit_id, :list_item_id, :is_validated, :recipe_id])
+    params.require(:list_item).permit(:name, :list_id, :deleted, :is_completed, items_attributes:[:id, :name, :quantity, :food_id, :unit_id, :list_item_id, :is_validated, :recipe_id])
   end
 
   def set_list_item

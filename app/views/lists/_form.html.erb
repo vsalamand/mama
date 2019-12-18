@@ -1,5 +1,13 @@
 <%= simple_form_for @list do |f| %>
-  <%= f.input :name, label: false, placeholder: "Comment s'appelle votre liste ?" %>
-  <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-  <%= f.submit "Continuer", class: "btn btn-flat btn-sm" %>
+    <div class="shadow p-3 bg-white">
+
+      <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0 autofocus" } %>
+
+       <div class="d-flex align-items-center justify-content-end">
+
+          <%= f.submit 'Continuer', class:"shadow btn btn-block btn-flat2" %>
+
+        </div>
+
+    </div>
 <% end %>

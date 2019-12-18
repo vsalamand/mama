@@ -1,0 +1,5 @@
+<% if list_items.not_completed.any? %>
+  <% list_items.not_completed.order(:position).each do |item| %>
+    <%= render 'list_items/show', list: list, list_item: item %>
+  <% end %>
+<% end %>

@@ -1,16 +1,35 @@
 
+
 <div class="container my-5">
-  <h1 class="display-4 font-weight-bold">
-    <%= @list.name.capitalize %>
-    <small> <span class="badge badge-pill badge-primary grocerylist-count"><%= @list_items.size %></span></small>
-  </h1>
+  <div class="d-flex align-items-center justify-content-between">
+    <h1 class="display-4 font-weight-bold">
+      <%= @list.name.capitalize %>
+      <small> <span class="badge badge-pill badge-primary grocerylist-count"><%= @list_items.size %></span></small>
+    </h1>
+  </div>
+  <div class="d-flex flex-wrap mb-5">
+    <%= link_to "Afficher les paniers de courses", list_get_cart_path(@list), class:"btn btn-sm m-1 btn-flat2 py-2 font-weight-bold shadow-lg" %>
+    <!-- dropdown button -->
+    <div class="btn-group">
+      <button type="button" class="m-1 btn btn-sm btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-ellipsis-h p-2"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
+        <% if @list.user == current_user %>
+          <!-- Button trigger Create List modal -->
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier</a>
+          <div class="dropdown-divider"></div>
+            <%= link_to "Supprimer la liste", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
+        <% end %>
+       </div>
+    </div>
+
+  </div>
+</div>
 
 
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#shareModal">
-    Envoyer par email
-  </button>
-  <!-- Modal -->
+  <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -20,42 +39,47 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <%= form_tag(list_share_path(@list), class: 'form-group') do |f| %>
-            <div class="modal-body">
-              <%= text_field_tag 'email', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control" %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
-              <%= submit_tag "submit",:value => "Envoyer", class:"btn btn-primary"%>
-            </div>
-          <% end %>
+          <div class="modal-body p-0 m-0">
+            <%= form_tag(list_share_path(@list), class: 'form-group mb-0') do |f| %>
+              <div class="shadow p-3 bg-white">
+                <%= text_field_tag 'email', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
+                <div class="d-flex align-items-center justify-content-end">
+                  <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Edit List Modal -->
+    <div class="modal fade" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="editListModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editListModalLabel">Modifier la liste de courses</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body m-0 p-0">
+            <%= render 'lists/form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<hr class="my-3">
+
+
+
+
+<div class="container" id="todo_list">
+
+  <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
+
 </div>
 
-<hr class="my-5">
 
-
-
-
-<div class="container">
-  <div class="shadow p-0 mb-4 bg-white rounded">
-    <div>
-      <% if @list.user == current_user%>
-        <%= render 'list_items/form', list: @list, list_item: @list_item %>
-      <% end %>
-    </div>
-    <div class="list-group list-group-flush" id="list_items">
-      <% if @list_items.any? %>
-        <% @list_items.order(:id).each do |list_item| %>
-          <%= render 'list_items/show', list_item: list_item %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-  <div class="d-flex justify-content-end mb-5">
-    <%= link_to "Afficher les paniers de courses", list_get_cart_path(@list), class:"btn btn-flat2 py-2 font-weight-bold shadow-lg" %>
-  </div>
-</div>
-
+<%= javascript_pack_tag 'list' %>
