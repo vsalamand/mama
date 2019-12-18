@@ -28,3 +28,4 @@ public/assets
 node_modules
 dist
 #db/product_catalogs
+.env*
