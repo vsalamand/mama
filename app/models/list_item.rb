@@ -1,7 +1,7 @@
 class ListItem < ApplicationRecord
   belongs_to :list
   validates :name, presence: true
-  has_many :items
+  has_many :items, dependent: :destroy
   has_many :cart_items, through: :items
   has_many :food, through: :items
 
