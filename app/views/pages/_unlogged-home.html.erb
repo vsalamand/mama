@@ -4,6 +4,7 @@
   <div class="container d-flex flex-column">
 
     <div>
+      <h1 class='center-banner'><span id="banner-typed-text-1" ></span> </h1>
       <h1 class="display-4 mb-4">Mangez bien et pas cher</h1>
       <p class="pr-4 lead mb-4">Organisez vos courses avec Club<strong>Mama</strong> pour faire vos achats l'esprit tranquille !</p>
     </div>
@@ -160,3 +161,15 @@
 
   </div>
 </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+  <script>
+    if (document.getElementById('banner-typed-text-1')) {
+      new Typed('#banner-typed-text-1', {
+        strings: ["Bienvenue chez ClubMama"],
+        typeSpeed: 30,
+        loop: false
+      });
+    }
+  </script>

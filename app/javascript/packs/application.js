@@ -10,7 +10,7 @@
 import 'bootstrap';
 import '../components/selectize';
 import '../components/selectize1';
-
+import '../components/_unlogged-home.js';
 // import Rails from 'rails-ujs';
 // import Turbolinks from 'turbolinks';
 

@@ -23,3 +23,13 @@
   color: white;
   opacity: 5; /* Firefox */
 }
+
+.center-banner {
+  height: 90%;
+  width:100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 120px!important;
+  font-size: 4em;
+}
