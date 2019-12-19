@@ -57,7 +57,7 @@ class FoodList < ApplicationRecord
   end
 
   # get list of most popular food in recipes
-  def get_top_foods
+  def self.get_top_foods
     top_foods = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(30)
     clean_top_foods = top_foods - FoodList.get_seasonings
     return clean_top_foods
