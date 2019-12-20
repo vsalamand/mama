@@ -2,7 +2,14 @@
   <div class="container">
     <nav class="px-0 navbar navbar-expand-lg navbar-light" style="background-color: white;">
       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
-        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> ClubMama
+
+        <% # checking if the coudinary url is working or putting an image from elsewhere
+        img_url = 'https://res.cloudinary.com/dovu27lye/image/upload/logo_qj08zi'
+        res = Net::HTTP.get_response(URI.parse(img_url))
+        img_url = 'https://image.flaticon.com/icons/png/512/187/187160.png' unless res.code.to_i >= 200 && res.code.to_i < 400
+        %>
+
+        <%=image_tag(img_url, width: 30, height: 30)%> ClubMama
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
