@@ -4,7 +4,7 @@
       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
 
         <% # checking if the coudinary url is working or putting an image from elsewhere
-        img_url = 'https://res.cloudinary.com/dovu27lye/image/upload/logo_qj08zi'
+        img_url = 'https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574093230/logo_qj08zi.png'
         res = Net::HTTP.get_response(URI.parse(img_url))
         img_url = 'https://image.flaticon.com/icons/png/512/187/187160.png' unless res.code.to_i >= 200 && res.code.to_i < 400
         %>
