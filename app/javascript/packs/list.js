@@ -37,14 +37,15 @@ $('#addListItemModal').submit(function() {
 
 
 // when click on food reco, add in input field as value
-$('#addListItemModal').on('shown.bs.modal', function (e) {
+//$('#addListItemModal').on('shown.bs.modal', function (e) {
+document.addEventListener("turbolinks:load", function (e) {
   // select word that is clicked
   $('.recommendations').on('click', function(event) {
     const item = event.target.innerText;
     const inputField = document.getElementById('newListItem');
     const submitButton = document.getElementById('addListItemBtn');
     const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
-  // add the word to the input field
+    // add the word to the input field
     inputField.value = item;
     // activate the submit button and deactivate suggestions
     success(inputField, submitButton, suggestedItems);
@@ -54,7 +55,8 @@ $('#addListItemModal').on('shown.bs.modal', function (e) {
 })
 
 // When list item input field is empty, then disable submit button and show item suggestion lists
-$('#addListItemModal').on('shown.bs.modal', function (e) {
+//$('#addListItemModal').on('shown.bs.modal', function (e) {
+document.addEventListener("turbolinks:load", function (e) {
   const submitButton = document.getElementById('addListItemBtn');
   const inputField = document.getElementById('newListItem');
   const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
@@ -63,9 +65,7 @@ $('#addListItemModal').on('shown.bs.modal', function (e) {
   // change state based on keyup event
   inputField.addEventListener("keyup", (event) => {
     success(inputField, submitButton, suggestedItems);
-
   });
-
 })
 
 function success(inputField, submitButton, suggestedItems) {
@@ -77,8 +77,6 @@ function success(inputField, submitButton, suggestedItems) {
             disableElements(suggestedItems);
         }
     }
-
-
 
 function disableElements(list) {
   list.forEach((element) => {
