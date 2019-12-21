@@ -86,7 +86,7 @@ class ListItemsController < ApplicationController
   private
 
   def list_item_params
-    params.require(:list_item).permit(:name, :list_id, :deleted, :is_completed, items_attributes:[:id, :name, :quantity, :food_id, :unit_id, :list_item_id, :is_validated, :recipe_id])
+    params.require(:list_item).permit(:name, :list_id, :deleted, :is_completed, :position, items_attributes:[:id, :name, :quantity, :food_id, :unit_id, :list_item_id, :is_validated, :recipe_id])
   end
 
   def set_list_item

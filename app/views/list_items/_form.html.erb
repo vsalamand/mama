@@ -4,18 +4,22 @@
 
       <%= form.input :name, as: :string, :autofocus => true, label: false, placeholder: "De quoi avez-vous besoin ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" }  %>
 
-      <ul class="list-inline" id="itemsRecommendations">
+      <ul class="list-inline mb-2" id="itemsRecommendations">
         <div class="row">
           <div class="col giveMeEllipsis">
-            <% FoodList.get_top_foods.each_with_index do |food, index| %>
+            <% FoodList.get_top_foods[0..16].each_with_index do |food, index| %>
               <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.name.capitalize %></li>
             <% end %>
           </div>
         </div>
-        <li class="list-inline-item btn btn-link p-0 m-0 font-weight-bold">Voir plus</li>
+        <!--
+        <li class="list-inline-item btn btn-sm btn-outline-primary py-0 mt-1 font-weight-bold">Voir plus</li>
+         -->
       </ul>
 
-      <div class="d-flex align-items-center justify-content-end">
+      <div class="d-flex align-items-center justify-content-between">
+        <!-- Button trigger View More modal -->
+        <a class="list-inline-item btn btn-sm btn-outline-primary py-0 text-primary font-weight-bold align-self-start" data-toggle="modal" data-target="#viewMoreModal">Voir plus</a>
 
         <%= form.submit 'Ajouter', class:"shadow btn btn-flat2", id:"addListItemBtn" %>
 
@@ -24,5 +28,22 @@
     </div>
 
 
-
 <% end %>
+
+
+    <!-- View More Modal -->
+    <div class="modal fade" id="viewMoreModal" tabindex="-1" role="dialog" aria-labelledby="viewMoreModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewMoreModalLabel">Suggestions pour votre liste de courses</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body m-0 p-0">
+            <%= render 'list_items/suggested_items' %>
+          </div>
+        </div>
+      </div>
+    </div>

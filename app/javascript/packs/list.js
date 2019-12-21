@@ -38,19 +38,29 @@ $('#addListItemModal').submit(function() {
 
 // when click on food reco, add in input field as value
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
+const form = document.getElementById('new_list_item');
+
 document.addEventListener("turbolinks:load", function (e) {
   // select word that is clicked
-  $('.recommendations').on('click', function(event) {
+  // $('.recommendations').on('click', function(event) {
+  $(document).on("click" , ".recommendations", function(event) {
+    event.preventDefault();
     const item = event.target.innerText;
     const inputField = document.getElementById('newListItem');
-    const submitButton = document.getElementById('addListItemBtn');
-    const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
+    // const submitButton = document.getElementById('addListItemBtn');
+    // const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
     // add the word to the input field
     inputField.value = item;
-    // activate the submit button and deactivate suggestions
-    success(inputField, submitButton, suggestedItems);
-    // put focus on input field
-    $('#newListItem').focus();
+    // submit form
+    Rails.fire(form, 'submit');
+    // close modal is opened
+    $('.modal').modal('hide');
+    $(document.body).removeClass('modal-open');
+    $('.modal-backdrop').remove();
+    // // activate the submit button and deactivate suggestions
+    // success(inputField, submitButton, suggestedItems);
+    // // put focus on input field
+    // $('#newListItem').focus();
   })
 })
 
