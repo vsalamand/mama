@@ -74,11 +74,12 @@
 
 
 
-<div class="container" id="todo_list">
+<div class="container" id="todo_list" data="<%= @list.id %>">
 
   <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
 
 </div>
+
 
 
 <%= javascript_pack_tag 'list' %>

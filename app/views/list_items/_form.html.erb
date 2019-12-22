@@ -4,17 +4,9 @@
 
       <%= form.input :name, as: :string, :autofocus => true, label: false, placeholder: "De quoi avez-vous besoin ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" }  %>
 
+
       <ul class="list-inline mb-2" id="itemsRecommendations">
-        <div class="row">
-          <div class="col giveMeEllipsis">
-            <% FoodList.get_top_foods[0..16].each_with_index do |food, index| %>
-              <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.name.capitalize %></li>
-            <% end %>
-          </div>
-        </div>
-        <!--
-        <li class="list-inline-item btn btn-sm btn-outline-primary py-0 mt-1 font-weight-bold">Voir plus</li>
-         -->
+
       </ul>
 
       <div class="d-flex align-items-center justify-content-between">
@@ -42,7 +34,7 @@
             </button>
           </div>
           <div class="modal-body m-0 p-0">
-            <%= render 'list_items/suggested_items' %>
+            <%= render 'list_items/explore_suggested_items' %>
           </div>
         </div>
       </div>

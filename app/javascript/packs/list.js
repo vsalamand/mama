@@ -39,6 +39,7 @@ $('#addListItemModal').submit(function() {
 // when click on food reco, add in input field as value
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
 const form = document.getElementById('new_list_item');
+const id = document.querySelector("#todo_list").getAttribute('data');
 
 document.addEventListener("turbolinks:load", function (e) {
   // select word that is clicked
@@ -49,10 +50,23 @@ document.addEventListener("turbolinks:load", function (e) {
     const inputField = document.getElementById('newListItem');
     // const submitButton = document.getElementById('addListItemBtn');
     // const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
-    // add the word to the input field
-    inputField.value = item;
-    // submit form
-    Rails.fire(form, 'submit');
+    // // add the word to the input field
+    // inputField.value = item;
+    // // submit form
+    // Rails.fire(form, 'submit');
+    // create new list item
+    $.ajax({
+      url: "/lists/" + id +"/list_items",
+      cache: false,
+      type: "POST",
+      dataType: 'script',
+      data: {
+        list_item: {
+          name: item}
+        },
+      success: function(data){
+      }
+    });
     // close modal is opened
     $('.modal').modal('hide');
     $(document.body).removeClass('modal-open');
@@ -100,5 +114,30 @@ function enableElements(list) {
   });
 }
 
+
+// On form submit, fetch updated suggested items inside the form
+const itemsRecommendations = document.getElementById('itemsRecommendations');
+
+// $("body").on('DOMSubtreeModified', "#uncomplete_list_items", function() {
+document.addEventListener("turbolinks:load", function (e) {
+  loadSuggestions();
+})
+
+$("#uncomplete_list_items").on('DOMSubtreeModified', function() {
+  loadSuggestions();
+})
+
+function loadSuggestions() {
+  // `show spinner while calling data`
+  $(itemsRecommendations).html(
+    "<i class=\"fas fa-circle-notch fa-spin text-primary\"></i>"
+  );
+  $.ajax({
+      url: "/lists/" + id +"/fetch_suggested_items",
+      cache: false,
+      success: function(){
+      }
+  });
+}
 
 

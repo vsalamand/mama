@@ -1,0 +1,64 @@
+
+
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Fruits & légumes de saison
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <ul class="list-inline mb-2" id="itemsRecommendations">
+          <% FoodList.get_seasonal_produce.sort_by!{ |m| m.name.downcase }.each_with_index do |food, index| %>
+            <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.name.capitalize %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Les essentiels
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        <ul class="list-inline mb-2" id="itemsRecommendations">
+          <% FoodList.get_top_foods.each_with_index do |food, index| %>
+            <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.name.capitalize %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Idées repas
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+
+        <ul class="list-group d-flex flex-column align-items-start giveMeEllipsis">
+          <% RecipeList.where(recipe_list_type: "curated").last.recipes[0..5].each do |recipe| %>
+            <li class="btn btn-link p-0 m-0"><%= link_to recipe.title.capitalize, recipe_path(recipe) %></li>
+          <% end %>
+          <li class="btn btn-link p-0 m-0 font-weight-bold"><%= link_to "Voir plus", recipes_path %></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>

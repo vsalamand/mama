@@ -38,6 +38,11 @@ class ListsController < ApplicationController
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
   end
 
+  def fetch_suggested_items
+    @list = List.find(params[:list_id])
+    render 'fetch_suggested_items.js.erb'
+  end
+
   # def fetch_recipes
   #   @list = List.find(params[:list_id])
   #   @list_item = ListItem.new
