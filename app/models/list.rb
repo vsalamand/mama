@@ -28,14 +28,15 @@ class List < ApplicationRecord
         url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/predict?#{items.join("&")}"))
         data = JSON.parse(open(url).read)
         result = data.map {|x| x.values[0]}
+        return result
 
-        suggested_foods = []
-        # result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
-        result.each { |food| suggested_foods << Food.find_by(name: food) }
+        # suggested_foods = []
+        # # result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
+        # result.each { |food| suggested_foods << Food.find_by(name: food) }
 
-        # filter out seasonings and foods in shoppinglist
-        # suggested_foods = suggested_foods - List.get_seasonings
-        return suggested_foods
+        # # filter out seasonings and foods in shoppinglist
+        # # suggested_foods = suggested_foods - List.get_seasonings
+        # return suggested_foods
       rescue
         return nil
       end
