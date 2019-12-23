@@ -115,8 +115,10 @@ function enableElements(list) {
 }
 
 
+
 // On form submit, fetch updated suggested items inside the form
 const itemsRecommendations = document.getElementById('itemsRecommendations');
+const spinner = document.getElementById('spinner')
 
 // $("body").on('DOMSubtreeModified', "#uncomplete_list_items", function() {
 document.addEventListener("turbolinks:load", function (e) {
@@ -128,15 +130,14 @@ $("#uncomplete_list_items").on('DOMSubtreeModified', function() {
 })
 
 function loadSuggestions() {
-  // `show spinner while calling data`
-  $(itemsRecommendations).html(
-    "<i class=\"fas fa-circle-notch fa-spin text-primary\"></i>"
-  );
+  // Show spinner while doing ajax call
+  $(spinner).show();
+  // query suggested items
   $.ajax({
-      url: "/lists/" + id +"/fetch_suggested_items",
-      cache: false,
-      success: function(){
-      }
+    url: "/lists/" + id +"/fetch_suggested_items",
+    cache: false,
+    success: function(){
+    }
   });
 }
 
