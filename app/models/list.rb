@@ -60,7 +60,7 @@ class List < ApplicationRecord
 
   # get list of most popular food in recipes
   def get_top_foods
-    result = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(30).pluck(:name)
+    result = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(15).pluck(:name)
     # clean_top_foods = top_foods - List.get_seasonings
     top_foods = result - List.get_seasonings.pluck(:name).map{|x| x.downcase} - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
     return top_foods

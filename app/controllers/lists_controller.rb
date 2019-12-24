@@ -35,6 +35,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
+    @curator_lists = User.find_by_email("mama@clubmama.co").lists
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
   end
 

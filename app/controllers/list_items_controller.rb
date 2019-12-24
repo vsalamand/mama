@@ -11,6 +11,7 @@ class ListItemsController < ApplicationController
     @list = List.find(params[:list_id])
     @list_item = ListItem.new(list_item_params)
     @list_item.list = @list
+    @curator_lists = User.find_by_email("mama@clubmama.co").lists
     # verify if validated item with same input already exists
     # valid_item = Item.find_by(name: @list_item.name, is_validated: true)
     valid_item = Item.where("lower(name) = ?", @list_item.name.downcase).where(is_validated: true).first

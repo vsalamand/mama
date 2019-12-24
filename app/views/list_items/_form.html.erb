@@ -5,6 +5,7 @@
       <%= form.input :name, as: :string, :autofocus => true, label: false, placeholder: "De quoi avez-vous besoin ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" }  %>
 
       <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
+
       <ul class="list-inline mb-2 mx-2" id="itemsRecommendations">
 
       </ul>
@@ -34,7 +35,7 @@
             </button>
           </div>
           <div class="modal-body m-0 p-0">
-            <%= render 'list_items/explore_suggested_items' %>
+            <%= render 'list_items/explore_suggested_items', curator_lists: @curator_lists %>
           </div>
         </div>
       </div>
