@@ -6,7 +6,7 @@
       <% end %>
     <% else %>
       <% list.get_top_foods[0..15].each_with_index do |food, index| %>
-        <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.name.capitalize %></li>
+        <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.capitalize %></li>
       <% end %>
     <% end %>
   </div>

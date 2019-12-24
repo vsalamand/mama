@@ -27,16 +27,15 @@ class List < ApplicationRecord
         items << "item=#{last_food}"
         url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/predict?#{items.join("&")}"))
         data = JSON.parse(open(url).read)
-        result = data.map {|x| x.values[0]}
-        return result
+        result = data.map {|x| x.values[0].downcase}
 
         # suggested_foods = []
         # # result.each { |food| suggested_foods << Food.search(food, fields: [{name: :exact}], misspellings: {edit_distance: 1}).first}
         # result.each { |food| suggested_foods << Food.find_by(name: food) }
 
         # # filter out seasonings and foods in shoppinglist
-        # # suggested_foods = suggested_foods - List.get_seasonings
-        # return suggested_foods
+        suggested_foods = result - List.get_seasonings.pluck(:name).map{|x| x.downcase} - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
+        return suggested_foods
       rescue
         return nil
       end
@@ -61,10 +60,9 @@ class List < ApplicationRecord
 
   # get list of most popular food in recipes
   def get_top_foods
-    top_foods = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(30)
+    result = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(30).pluck(:name)
     # clean_top_foods = top_foods - List.get_seasonings
-    #  remove list of food in current list (take too long)
-    # self.list_items.not_deleted.map{ |list_item| list_item.food }
+    top_foods = result - List.get_seasonings.pluck(:name).map{|x| x.downcase} - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
     return top_foods
   end
 end

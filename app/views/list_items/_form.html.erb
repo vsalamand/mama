@@ -4,14 +4,14 @@
 
       <%= form.input :name, as: :string, :autofocus => true, label: false, placeholder: "De quoi avez-vous besoin ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" }  %>
 
-      <i id="spinner" class="fas fa-circle-notch fa-spin text-primary"></i>
-      <ul class="list-inline mb-2" id="itemsRecommendations">
+      <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
+      <ul class="list-inline mb-2 mx-2" id="itemsRecommendations">
 
       </ul>
 
       <div class="d-flex align-items-center justify-content-between">
         <!-- Button trigger View More modal -->
-        <a class="list-inline-item btn btn-sm btn-outline-primary py-0 text-primary font-weight-bold align-self-start" data-toggle="modal" data-target="#viewMoreModal">Voir plus</a>
+        <a class="list-inline-item btn btn-sm btn-link text-primary py-0 font-weight-bold align-self-start" data-toggle="modal" data-target="#viewMoreModal">Voir plus</a>
 
         <%= form.submit 'Ajouter', class:"shadow btn btn-flat2", id:"addListItemBtn" %>
 

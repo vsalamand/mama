@@ -14,8 +14,8 @@ class ListItem < ApplicationRecord
   scope :no_items, -> { includes(:items).where( deleted: false, :items => { :id => nil } ) }
   scope :to_validate, -> { includes(:items).where( :items => { :is_validated => false } ) }
   #add a model scope to fetch completed and uncompleted records
-  scope :not_completed, -> { where(is_completed: false) }
-  scope :completed, -> { where(is_completed: true) }
+  scope :not_completed, -> { where(is_completed: false, deleted: false) }
+  scope :completed, -> { where(is_completed: true, deleted: false) }
 
 
 
