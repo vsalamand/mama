@@ -16,9 +16,14 @@ function addListItem(reviewHTML) {
 <% else %>
   addListItem('<%= j render "list_items/show", list_item: @list_item, list: @list %>');
   refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
+  // focus on form input field
+  $('#newListItem').focus();
 <% end %>
 
+
+
+
 // Increment counters
-let counter = document.querySelector(".grocerylist-count");
-let count = parseInt(document.querySelector(".grocerylist-count").innerHTML);
-counter.innerHTML = count + 1;
+// let counter = document.querySelector(".grocerylist-count");
+// let count = parseInt(document.querySelector(".grocerylist-count").innerHTML);
+// counter.innerHTML = count + 1;

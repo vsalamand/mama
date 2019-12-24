@@ -1,0 +1,50 @@
+
+
+<div class="accordion" id="accordionExample">
+
+  <div class="card">
+    <div class="card-header" id="headingRecipe">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseRecipe" aria-expanded="false" aria-controls="collapseRecipe">
+          Idées repas
+        </button>
+      </h2>
+    </div>
+    <div id="collapseRecipe" class="collapse" aria-labelledby="headingRecipe" data-parent="#accordionExample">
+      <div class="card-body">
+
+        <ul class="list-group d-flex flex-column align-items-start giveMeEllipsis">
+          <% RecipeList.where(recipe_list_type: "curated").last.recipes[0..5].each do |recipe| %>
+            <li class="btn btn-link p-0 m-0"><%= link_to recipe.title.capitalize, recipe_path(recipe) %></li>
+          <% end %>
+          <li class="btn btn-link p-0 m-0 font-weight-bold"><%= link_to "Voir plus", recipes_path %></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <% curator_lists.each_with_index do |curator_list, index| %>
+    <div class="card">
+      <div class="card-header" id="heading<%= index %>">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+            <%= curator_list.name %>
+          </button>
+        </h2>
+      </div>
+
+      <div id="collapse<%= index %>" class="collapse" aria-labelledby="heading<%= index %>" data-parent="#accordionExample">
+        <div class="card-body">
+          <ul class="list-inline mb-2" id="itemsRecommendations">
+            <% curator_list.list_items.not_completed.pluck(:name).sort.each_with_index do |item, index| %>
+              <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= item.capitalize %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
+</div>

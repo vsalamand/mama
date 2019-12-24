@@ -5,31 +5,7 @@
   </div>
 
   <% if list.user == current_user%>
-
-    <div>
-      <!-- Button trigger Create List modal -->
-      <div class="d-flex bg-white text-muted btn py-4" id="addListModalBtn" data-target="#addListItemModal">
-        Que voulez-vous ajouter à la liste ?
-      </div>
-    </div>
-
-    <!-- Add List Item Modal -->
-    <div class="modal fade" id="addListItemModal" tabindex="-1" role="dialog" aria-labelledby="addListItemModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addToListModalLabel">Ajouter un élément</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body m-0 p-0">
-           <%= render "list_items/form", list: list, list_item: list_item %>
-          </div>
-        </div>
-      </div>
-    </div>
-
+     <%= render "list_items/form", list: list, list_item: list_item %>
   <% end %>
 
 </div>

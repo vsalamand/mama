@@ -35,15 +35,21 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
-    @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
+    @curator_lists = User.find_by_email("mama@clubmama.co").lists
+    # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
   end
 
-  def fetch_recipes
+  def fetch_suggested_items
     @list = List.find(params[:list_id])
-    @list_item = ListItem.new
-    @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
-    render 'fetch_recipes.js.erb'
+    render 'fetch_suggested_items.js.erb'
   end
+
+  # def fetch_recipes
+  #   @list = List.find(params[:list_id])
+  #   @list_item = ListItem.new
+  #   @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes
+  #   render 'fetch_recipes.js.erb'
+  # end
 
   def get_cart
     @list = List.find(params[:list_id])
