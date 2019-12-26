@@ -6,7 +6,15 @@ require("jquery-ui/ui/widget")
 require("jquery-ui/ui/widgets/sortable")
 
 // drag and drop list items to sort them out
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener("turbolinks:load", function(e) {
+  sort();
+  // setInputForm();
+  fetechSuggestedItems();
+  loadSuggestions();
+  e.preventDefault();
+});
+
+function sort() {
   $("#uncomplete_list_items").sortable({
     update: function(e, ui) {
       Rails.ajax({
@@ -16,7 +24,7 @@ document.addEventListener("turbolinks:load", function() {
       });
     }
   });
-});
+}
 
 
 // open modal when click on button
@@ -41,11 +49,10 @@ $('#addListItemModal').submit(function() {
 const form = document.getElementById('new_list_item');
 const id = document.querySelector("#todo_list").getAttribute('data');
 
-document.addEventListener("turbolinks:load", function (e) {
+function fetechSuggestedItems() {
   // select word that is clicked
   // $('.recommendations').on('click', function(event) {
   $(document).on("click" , ".recommendations", function(event) {
-    event.preventDefault();
     const item = event.target.innerText;
     const inputField = document.getElementById('newListItem');
     // const submitButton = document.getElementById('addListItemBtn');
@@ -75,12 +82,13 @@ document.addEventListener("turbolinks:load", function (e) {
     // success(inputField, submitButton, suggestedItems);
     // // put focus on input field
     // $('#newListItem').focus();
+    event.preventDefault();
   })
-})
+}
 
 // When list item input field is empty, then disable submit button and show item suggestion lists
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
-document.addEventListener("turbolinks:load", function (e) {
+function setInputForm() {
   const submitButton = document.getElementById('addListItemBtn');
   const inputField = document.getElementById('newListItem');
   const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
@@ -90,7 +98,7 @@ document.addEventListener("turbolinks:load", function (e) {
   inputField.addEventListener("keyup", (event) => {
     success(inputField, submitButton, suggestedItems);
   });
-})
+}
 
 function success(inputField, submitButton, suggestedItems) {
    if(inputField.value==="") {
@@ -120,10 +128,6 @@ function enableElements(list) {
 const itemsRecommendations = document.getElementById('itemsRecommendations');
 const spinner = document.getElementById('spinner')
 
-// $("body").on('DOMSubtreeModified', "#uncomplete_list_items", function() {
-document.addEventListener("turbolinks:load", function (e) {
-  loadSuggestions();
-})
 
 $("#uncomplete_list_items").on('DOMSubtreeModified', function() {
   loadSuggestions();
