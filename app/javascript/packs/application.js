@@ -8,24 +8,34 @@
 // layout file, like app/views/layouts/application.html.erb
 
 
+// import Rails from 'jquery_ujs'
 import 'bootstrap';
 
 import '../components/selectize';
 import '../components/selectize1';
 
-// import Rails from 'rails-ujs';
-// import Turbolinks from 'turbolinks';
+import 'packs/list';
 
 
-// Rails.start();
-// Turbolinks.start();
+//// Handle Turbolinks side-issues
+// clear the cache often
+$(document).on('ajax:before', '[data-remote]', () => {
+  Turbolinks.clearCache();
+});
 
-// tryuing to close modal after submit to new tab...
-// $('.modal').on('hidden.bs.modal', function () {
-//   location.reload();
-// });
+// manage bootstrap modals
+document.addEventListener('turbolinks:before-cache', () => {
+  // Manually tear down bootstrap modals before caching. If turbolinks
+  // caches the modal then tries to restore it, it breaks bootstrap's JS.
+  // We can't just use bootstrap's `modal('close')` method because it is async.
+  // Turbolinks will cache the page before it finishes running.
+  if (document.body.classList.contains('modal-open')) {
+    $('.modal')
+      .hide();
+    $('.modal-backdrop').remove();
+    $(document.body).removeClass('modal-open');
+  }
+});
 
-// import { hideViewMoreBtn } from '../components/view_more';
-// hideViewMoreBtn();
 
 

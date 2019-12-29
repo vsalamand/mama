@@ -6,13 +6,16 @@ require("jquery-ui/ui/widget")
 require("jquery-ui/ui/widgets/sortable")
 
 // drag and drop list items to sort them out
-document.addEventListener("turbolinks:load", function(e) {
-  sort();
-  // setInputForm();
-  fetechSuggestedItems();
-  loadSuggestions();
-  e.preventDefault();
-});
+// $(document).on("turbolinks:load", function(e) {
+sort();
+setInputForm();
+fetechSuggestedItems();
+loadSuggestions();
+// });
+
+// document.addEventListener("turbolinks:before-cache", function() {
+//   // ...
+// })
 
 function sort() {
   $("#uncomplete_list_items").sortable({
@@ -47,7 +50,7 @@ $('#addListItemModal').submit(function() {
 // when click on food reco, add in input field as value
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
 const form = document.getElementById('new_list_item');
-const id = document.querySelector("#todo_list").getAttribute('data');
+// const id = document.querySelector("#todo_list").getAttribute('data');
 
 function fetechSuggestedItems() {
   // select word that is clicked
@@ -55,6 +58,7 @@ function fetechSuggestedItems() {
   $(document).on("click" , ".recommendations", function(event) {
     const item = event.target.innerText;
     const inputField = document.getElementById('newListItem');
+    const id = document.querySelector("#todo_list").getAttribute('data');
     // const submitButton = document.getElementById('addListItemBtn');
     // const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
     // // add the word to the input field
@@ -78,11 +82,6 @@ function fetechSuggestedItems() {
     $('.modal').modal('hide');
     $(document.body).removeClass('modal-open');
     $('.modal-backdrop').remove();
-    // // activate the submit button and deactivate suggestions
-    // success(inputField, submitButton, suggestedItems);
-    // // put focus on input field
-    // $('#newListItem').focus();
-    event.preventDefault();
   })
 }
 
@@ -93,19 +92,21 @@ function setInputForm() {
   const inputField = document.getElementById('newListItem');
   const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
   // disable button by default
-  submitButton.disabled = true;
+  $(submitButton).prop('disabled', true);
   // change state based on keyup event
-  inputField.addEventListener("keyup", (event) => {
-    success(inputField, submitButton, suggestedItems);
-  });
+  if(inputField){
+    inputField.addEventListener("keyup", (event) => {
+      success(inputField, submitButton, suggestedItems);
+    });
+  }
 }
 
 function success(inputField, submitButton, suggestedItems) {
    if(inputField.value==="") {
-            submitButton.disabled = true;
+            $(submitButton).prop('disabled', true);
             enableElements(suggestedItems);
         } else {
-            submitButton.disabled = false;
+            $(submitButton).prop('disabled', false);
             disableElements(suggestedItems);
         }
     }
@@ -129,18 +130,24 @@ const itemsRecommendations = document.getElementById('itemsRecommendations');
 const spinner = document.getElementById('spinner')
 
 
-$("#uncomplete_list_items").on('DOMSubtreeModified', function() {
+$(document).on("change", "#uncomplete_list_items", function(event) {
+  console.log("allo?")
   loadSuggestions();
 })
 
 function loadSuggestions() {
-  // Show spinner while doing ajax call
-  $(spinner).show();
-  // query suggested items
-  $.ajax({
-    url: "/lists/" + id +"/fetch_suggested_items",
-    cache: false,
-    success: function(){
+  $(document).on("turbolinks:load", function(e) {
+    if(document.querySelector("#todo_list")){
+      const id = document.querySelector("#todo_list").getAttribute('data');
+      // Show spinner while doing ajax call
+      $(spinner).show();
+      // query suggested items
+      $.ajax({
+        url: "/lists/" + id +"/fetch_suggested_items",
+        cache: false,
+        success: function(){
+        }
+      });
     }
   });
 }
