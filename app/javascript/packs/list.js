@@ -130,26 +130,27 @@ const itemsRecommendations = document.getElementById('itemsRecommendations');
 const spinner = document.getElementById('spinner')
 
 
-$(document).on("change", "#uncomplete_list_items", function(event) {
-  console.log("allo?")
+$(document).on("turbolinks:load", function(event) {
+  loadSuggestions();
+})
+
+$(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   loadSuggestions();
 })
 
 function loadSuggestions() {
-  $(document).on("turbolinks:load", function(e) {
-    if(document.querySelector("#todo_list")){
-      const id = document.querySelector("#todo_list").getAttribute('data');
-      // Show spinner while doing ajax call
-      $(spinner).show();
-      // query suggested items
-      $.ajax({
-        url: "/lists/" + id +"/fetch_suggested_items",
-        cache: false,
-        success: function(){
-        }
-      });
-    }
-  });
+  if(document.querySelector("#todo_list")){
+    const id = document.querySelector("#todo_list").getAttribute('data');
+    // Show spinner while doing ajax call
+    $(spinner).show();
+    // query suggested items
+    $.ajax({
+      url: "/lists/" + id +"/fetch_suggested_items",
+      cache: false,
+      success: function(){
+      }
+    });
+  }
 }
 
 
