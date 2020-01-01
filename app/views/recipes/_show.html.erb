@@ -12,8 +12,8 @@
 
 
 <div class="container my-5">
-  <h1 class="display-4 font-weight-bold"><%= @recipe.title.capitalize %></h1>
-  <%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, class:"btn btn-sm btn-outline-secondary", target: "_blank" %>
+  <h1 class="font-weight-bold"><%= @recipe.title.capitalize %></h1>
+  <%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, class:"btn btn-sm btn-outline-flat", target: "_blank" %>
 </div>
 
 

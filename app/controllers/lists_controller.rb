@@ -1,7 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:show, :get_cart]
-  before_action :authenticate_admin!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:show, :get_cart, :index]
 
   def new
     @list = List.new
