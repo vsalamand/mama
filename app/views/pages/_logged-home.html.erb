@@ -1,16 +1,19 @@
 <div class="container my-5">
-  <h1 class="display-4 my-4 font-weight-bold">Listes de courses</h1>
+  <h1 class="display-4 font-weight-bold">Listes de courses</h1>
+</div>
+
+<hr class="my-4">
+
+
+<div class="container">
+  <!-- Button trigger Create List modal -->
+  <button type="button" class="shadow text-white btn btn-flat2 btn-lg my-3" data-toggle="modal" data-target="#createListModal">
+    <strong>Créer une nouvelle liste</strong>
+  </button>
 
   <div class="list-group shadow">
-    <!-- Button trigger Create List modal -->
-    <button type="button" class="sgadow-lg list-group-item list-group-item-action text-white btn btn-flat2 btn-lg" data-toggle="modal" data-target="#createListModal">
-      <strong>Créer une nouvelle liste</strong>
-    </button>
-
     <%= render 'lists/index', lists: @user.lists %>
-
   </div>
-
 </div>
 
 <!-- Create List Modal -->

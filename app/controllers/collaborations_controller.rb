@@ -15,4 +15,11 @@ class CollaborationsController < ApplicationController
     # end
     redirect_to @list
   end
+
+  def destroy
+    @list = List.find(params[:list_id])
+    @collaboration = Collaboration.find_by(user: params[:id], list: @list)
+    @collaboration.destroy
+    redirect_to list_path(@list)
+  end
 end

@@ -1,6 +1,6 @@
 <%= simple_form_for [list, collaboration] do |form| %>
-  <div class="shadow p-3 bg-white">
-    <%= form.input :user, as: :string, label: false, placeholder: "Email de la personne à inviter", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", autofocus: true } %>
+  <div class="shadow p-3 pt-0">
+    <%= form.input :user, as: :string, label: false, placeholder: "Email de la personne à inviter", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0 autofocus" } %>
     <div class="d-flex align-items-center justify-content-end">
       <%= form.submit "Envoyer une invitation", class:"shadow btn btn-sm btn-flat2" %>
     </div>

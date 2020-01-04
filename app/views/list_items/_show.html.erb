@@ -1,4 +1,4 @@
-<% if list.user == current_user  %>
+<% if list.user == current_user || list.users.include?(current_user) %>
   <% if list_item.is_completed == false %>
 
     <li class="pl-3 list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>" id="<%= dom_id(list_item) %>" >
