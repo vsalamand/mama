@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       get 'report', to: "products#report"
       get 'search', to: "products#search"
     end
+    resources :collaborations, only: [:create, :destroy]
   end
 
   resources :carts do

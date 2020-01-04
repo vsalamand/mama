@@ -3,6 +3,8 @@ class List < ApplicationRecord
   has_many :list_items, dependent: :destroy
   has_many :items, through: :list_items
   has_many :foods, through: :items
+  has_many :collaborations
+  has_many :users, through: :collaborations
   validates :name, presence: true
 
   def get_products

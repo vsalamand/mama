@@ -30,20 +30,20 @@ function sort() {
 }
 
 
-// open modal when click on button
-$('#addListModalBtn').on('click', function() {
-  $('#addListItemModal').modal('show');
-})
+// // open modal when click on button
+// $('#addListModalBtn').on('click', function() {
+//   $('#addListItemModal').modal('show');
+// })
 
-// on modal show, focus on input field
-$('#addListItemModal').on('shown.bs.modal', function (e) {
-  $('#newListItem').focus();
-})
+// // on modal show, focus on input field
+// $('#addListItemModal').on('shown.bs.modal', function (e) {
+//   $('#newListItem').focus();
+// })
 
-// close modal when list item is submitted
-$('#addListItemModal').submit(function() {
-  $('#addListItemModal').modal('hide');
-});
+// // close modal when list item is submitted
+// $('#addListItemModal').submit(function() {
+//   $('#addListItemModal').modal('hide');
+// });
 
 
 

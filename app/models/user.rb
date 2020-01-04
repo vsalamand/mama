@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :recipes, through: :orders
   has_many :food_lists, dependent: :destroy
   has_many :lists, dependent: :destroy
+  has_many :collaborations
+  has_many :shared_lists, through: :collaborations, source: :list
 
   has_many :visits, class_name: "Ahoy::Visit", dependent: :destroy
   has_many :events, class_name: "Ahoy::Event", dependent: :destroy
