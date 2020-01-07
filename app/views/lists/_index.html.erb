@@ -5,7 +5,11 @@
       <div id="list-description">
         <div class="d-flex w-100 flex-column mb-1">
           <h5 class="mb-0 text-primary"><%= list.name.capitalize %></h5>
-          <small class="text-muted"></small>
+          <% if list.users.any? %>
+            <small class="text-muted mb-0">
+              Liste gérée à plusieurs
+            </small>
+          <% end %>
         </div>
         <small class="text-muted"><%= list.list_items.not_deleted.size %> <%= list.list_items.not_deleted.size > 1 ? "éléments" : "élément" %></small>
       </div>

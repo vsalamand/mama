@@ -1,0 +1,10 @@
+
+<%= form_tag(list_send_invite_path(@list), class: 'form-group mb-0') do |f| %>
+  <div class="shadow p-3 bg-white">
+    <%= text_field_tag 'email', '', placeholder: "Email de la personne à inviter", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
+    <div class="d-flex align-items-center justify-content-end">
+      <%= submit_tag "submit",:value => "Envoyer une invitation", class:"shadow btn btn-sm btn-flat2" %>
+    </div>
+  </div>
+<% end %>
+

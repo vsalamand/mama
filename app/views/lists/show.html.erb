@@ -1,17 +1,21 @@
-<div class="container my-5">
+<div class="container mt-5">
   <div class="d-flex align-items-center justify-content-between">
     <div>
       <h1 class="font-weight-bold m-0">
         <%= @list.name.capitalize %>
       </h1>
       <div class="description d-flex flex-column mb-3">
-        <p class="text-muted">Liste gérée par <%= @list.user == current_user ? "vous" : @list.user.email %></p>
-        <small  class="text-muted p-0">Instructions: <br>1. Remplissez la liste et aidez-vous des suggestions. <br>2. Cochez/décochez les éléments pour mettre à jour la liste. <br>3. Choisissez un panier de courses chez votre marchand préféré.
+        <% if @list.users.any? %>
+          <p class="text-muted">
+            Liste gérée à plusieurs
+          </p>
+        <% end %>
+        <small  class="text-muted p-0 pt-1 pl-1">Instructions: <br>1. Remplissez la liste et aidez-vous des suggestions. <br>2. Cochez/décochez les éléments pour mettre à jour la liste. <br>3. Choisissez un panier de courses chez votre marchand préféré.
         </small>
       </div>
     </div>
   </div>
-  <div class="d-flex flex-wrap mb-5">
+  <div class="d-flex flex-wrap">
     <%= link_to "Paniers de courses", list_get_cart_path(@list), class:"btn btn-sm m-1 btn-flat2 py-2 font-weight-bold shadow-lg" %>
     <!-- dropdown button -->
     <div class="btn-group">
@@ -23,8 +27,15 @@
         <% if @list.user == current_user %>
           <!-- Button trigger Create List modal -->
           <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier</a>
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
           <div class="dropdown-divider"></div>
             <%= link_to "Supprimer la liste", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
+        <% elsif @list.users.include?(current_user) %>
+          <!-- Button trigger Create List modal -->
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier</a>
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
+          <div class="dropdown-divider"></div>
+            <%= link_to "Supprimer de mes listes", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"dropdown-item text-danger" %>
         <% end %>
        </div>
     </div>
@@ -74,7 +85,27 @@
       </div>
     </div>
 
-<hr class="my-3">
+    <!-- Collaborators List Modal -->
+    <div class="modal fade" id="collabListModal" tabindex="-1" role="dialog" aria-labelledby="collabListModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="collabListModalLabel">Gérer à plusieurs</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body m-0 p-0">
+            <%= render 'collaborations/index' %>
+          </div>
+          <div class="modal-body m-0 p-0">
+            <%= render 'collaborations/form', list: @list %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<hr class="my-4">
 
 
 

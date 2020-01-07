@@ -1,0 +1,14 @@
+<p>Bonjour,</p>
+<p>Vous avez reçu.e une invitation de la part de <%= @list.user.email %> pour gérer une liste de courses ensemble.</p>
+
+<p>Pour accepter l'invitation et retrouver la liste, cliquez sur le lien ci-dessous: <br>
+<%= link_to "J'accepte l'invitation", list_accept_invite_url(@list, :user_email => @email), class:"btn btn-sm btn-flat" %>
+</p>
+
+<p>Vous devrez créer un compte avec l'adresse utilisée pour cette invitation si vous n'en avez pas.</p>
+
+
+<p>Mama
+  <br>
+<%= link_to "clubmama.co", root_url  %>
+</p>

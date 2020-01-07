@@ -10,13 +10,13 @@
     })(window,document,'script','dataLayer','GTM-KBZQ9D3');</script>
     <!-- End Google Tag Manager -->
 
-    <title>ClubMama | Listes de courses pour manger bien et pas cher !</title>
+    <title>Mama | Listes de courses pour manger bien et moins cher !</title>
     <!-- Google result description-->
-    <meta name="description" content="Faites vos courses l'esprit tranquille grâce aux recommandations ClubMama !">
+    <meta name="description" content="Faites vos courses facilement grâce aux recommandations Mama !">
     <!-- Facebook post-->
-    <meta property="og:title" content="ClubMama | Mangez bien et pas cher !">
-    <meta property="og:description" content="Faites vos courses l'esprit tranquille grâce aux recommandations ClubMama !">
-    <meta property="og:site_name" content="ClubMama"/>
+    <meta property="og:title" content="Mama | Mangez bien et moins cher !">
+    <meta property="og:description" content="Faites vos courses facilement grâce aux recommandations Mama !">
+    <meta property="og:site_name" content="Mama"/>
 
     <%= csrf_meta_tags %>
     <%= favicon_link_tag asset_path('logo.png'), :rel => 'icon', :type =>  'image/png' %>
@@ -46,7 +46,9 @@
 
     <%= render 'shared/navbar' unless action_name.eql? "card" %>
 
-    <%= render 'shared/flashes' %>
+    <div class="container">
+      <%= render 'shared/flashes' %>
+    </div>
 
      <div id="page-container">
        <div id="content-wrap">

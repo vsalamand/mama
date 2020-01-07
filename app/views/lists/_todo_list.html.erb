@@ -4,7 +4,7 @@
     <%= render 'uncomplete_todo_list', list: list, list_items: list_items %>
   </div>
 
-  <% if list.user == current_user%>
+  <% if list.user == current_user || list.users.include?(current_user)%>
      <%= render "list_items/form", list: list, list_item: list_item %>
   <% end %>
 

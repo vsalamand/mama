@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:show, :get_cart, :index]
+  skip_before_action :authenticate_user!, only: [:show, :get_cart, :index, :accept_invite]
 
   def new
     @list = List.new
@@ -27,6 +27,7 @@ class ListsController < ApplicationController
 
   def index
     @lists = current_user.lists
+    @shared_lists = current_user.shared_lists
     @list = List.new
   end
 
@@ -35,6 +36,7 @@ class ListsController < ApplicationController
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
     @curator_lists = User.find_by_email("mama@clubmama.co").lists
+    @collaboration = Collaboration.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
   end
 
@@ -63,6 +65,25 @@ class ListsController < ApplicationController
     mail = ListMailer.share(list, email)
     mail.deliver_now
     redirect_to list_path(list)
+  end
+
+  def send_invite
+    list = List.find(params[:list_id])
+    email = params[:email]
+    mail = ListMailer.send_invite(list, email)
+    mail.deliver_now
+    redirect_to list_path(list)
+  end
+
+  def accept_invite
+    list = List.find(params[:list_id])
+    user = User.find_by(email: params[:user_email])
+    if user
+      Collaboration.create(list: list, user: user)
+      redirect_to list_path(list)
+    else
+      redirect_to new_user_registration_path(:shared_list => list.id, :user_email => params[:user_email])
+    end
   end
 
   def destroy
