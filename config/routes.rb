@@ -86,6 +86,8 @@ Rails.application.routes.draw do
     get 'fetch_suggested_items', to: "lists#fetch_suggested_items"
     get 'get_cart', to: "lists#get_cart"
     post 'share', to: "lists#share"
+    post 'send_invite', to: "lists#send_invite"
+    get 'accept_invite', to: "lists#accept_invite"
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort

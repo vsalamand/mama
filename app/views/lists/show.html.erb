@@ -7,7 +7,7 @@
       <div class="description d-flex flex-column mb-3">
         <% if @list.users.any? %>
           <p class="text-muted">
-            Liste collaborative
+            Liste gérée à plusieurs
           </p>
         <% end %>
         <small  class="text-muted p-0 pt-1 pl-1">Instructions: <br>1. Remplissez la liste et aidez-vous des suggestions. <br>2. Cochez/décochez les éléments pour mettre à jour la liste. <br>3. Choisissez un panier de courses chez votre marchand préféré.
@@ -35,7 +35,7 @@
           <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier</a>
           <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
           <div class="dropdown-divider"></div>
-            <%= link_to list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"dropdown-item text-danger" %>
+            <%= link_to "Supprimer de mes listes", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"dropdown-item text-danger" %>
         <% end %>
        </div>
     </div>
@@ -99,7 +99,7 @@
             <%= render 'collaborations/index' %>
           </div>
           <div class="modal-body m-0 p-0">
-            <%= render 'collaborations/form', list: @list, collaboration: @collaboration %>
+            <%= render 'collaborations/form', list: @list %>
           </div>
         </div>
       </div>

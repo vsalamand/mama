@@ -8,10 +8,11 @@
           <%= f.input :email,
                       label: false,
                       placeholder: "Adresse email",
-                      input_html: { autocomplete: "email" }%>
+                      input_html: { autocomplete: "email", value: params[:user_email] }%>
           <%= f.input :password,
                       label: false,
                       placeholder: "Mot de passe" %>
+          <%= hidden_field 'shared_list', params[:shared_list] %>
         </div>
 
         <div class="form-actions">

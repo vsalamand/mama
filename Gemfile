@@ -54,8 +54,6 @@ gem 'pry'
 gem 'figaro'
 # setup user model authentication
 gem 'devise'
-# An invitation strategy for devise
-gem 'devise_invitable', '~> 2.0.0'
 
 # setup Elastic search gem
 gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
