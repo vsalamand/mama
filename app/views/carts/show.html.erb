@@ -1,75 +1,31 @@
-
-
-
-
-<div class="container">
-  <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
-    <div class="d-flex align-items-center">
-      <h4 class="pl-0 pr-0 mb-0" id="title">Panier</h4>
-      <h4 class="ml-1 badge badge-primary"><%= @cart.merchant.name.upcase %></h4>
-    </div>
-    <div>
-      <h2 class="pl-0 pr-0 mb-0"><%= @cart.get_total_price %>€</h2>
+<div class="container mt-5">
+  <div class="d-flex flex-column mb-3">
+    <h1 class="font-weight-bold mb-0">Panier de courses chez <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong> </h1>
+    <small class="text-muted p-0 pt-1">Cliquez sur un produit pour le changer.</small>
+  </div>
+  <div class="d-flex flex-wrap">
+    <!-- Button trigger Order modal -->
+    <a class="btn btn-sm m-1 btn-flat2 py-2 font-weight-bold shadow-lg" data-toggle="modal" data-target="#selectStoreModal">Valider le panier | <%= @cart.get_total_price %>€ </a>
+    <!-- dropdown button -->
+    <div class="btn-group">
+      <button type="button" class="m-1 btn btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
+        <% if current_user.present? && current_user.admin == true %>
+          <a class="dropdown-item btn" data-toggle="modal" data-target="#adminShareModal">Magic share</a>
+        <% end %>
+        <% if @cart.user == current_user %>
+          <!-- Button trigger Create List modal -->
+          <div class="dropdown-divider"></div>
+            <%= link_to "Supprimer", cart_path(@cart), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
+        <% end %>
+       </div>
     </div>
   </div>
+
 </div>
 
-
-<div class="container">
-  <% if @cart.cart_items.any? %>
-    <div class="shadow p-0 mb-2 bg-white rounded">
-      <div class="list-group list-group-flush mb-2">
-        <% @cart.cart_items.where.not(productable_id: nil).order(:item_id).each do |cart_item| %>
-          <%= render 'product-card', product_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item, item: cart_item.item %>
-        <% end %>
-      </div>
-    </div>
-    <div class="shadow p-0 mb-2 bg-white rounded">
-      <div class="list-group list-group-flush">
-        <% @cart.cart_items.where(productable_id: [nil, ""]).order(:item_id).each do |cart_item| %>
-          <%= render 'no-product-card', cart_item: cart_item, item: cart_item.item %>
-        <% end %>
-      </div>
-    </div>
-  <% else %>
-    <div class="shadow p-0 mb-2 bg-white rounded">
-      <a class="list-group-item list-group-item-action">
-        <p class="mb-1">Le panier est vide.</p>
-      </a>
-    </div>
-  <% end %>
-</div>
-
-<% if @unavailable.any? %>
-  <div class="container">
-    <div class="shadow p-3 mb-5 bg-white rounded">
-      <small class="mb-0 font-weight-light">Pas de résultat pour:</small>
-      <div>
-        <% @unavailable.each do |toto| %>
-          <p class="mb-0 font-weight-light"><%= toto.name  %></p>
-        <% end %>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-<div class="container pl-3 p-1 mb-2">
-  <div class="d-flex  align-items-center justify-content-between">
-    <%= link_to "Retour", carts_path, class: "btn btn-outline-secondary"  %>
-    <div class="d-flex align-items-center justify-content-end">
-    <!-- Button trigger modal -->
-      <button type="button" class="btn btn-sm btn-outline-success p-2 m-1" data-toggle="modal" data-target="#shareModal">
-        Envoyer
-      </button>
-      <% if current_user.present? && current_user.admin == true %>
-        <button type="button" class="btn btn-sm btn-outline-warning p-2 m-1" data-toggle="modal" data-target="#adminShareModal">
-          Magic share
-        </button>
-      <% end %>
-    </div>
-  </div>
-
-  <!-- Modal -->
+  <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,4 +70,9 @@
         </div>
       </div>
     </div>
+
+<hr class="my-4">
+
+<div class="container" id="cart-content" data="<%= @cart.id %>">
+  <%= render 'cart_content', cart: @cart %>
 </div>

@@ -26,7 +26,12 @@ class StoresController < ApplicationController
 
   def cart
     @store = Store.find(params[:store_id])
-    @recipe = Recipe.find(params[:recipe_id])
+    @recipe = Recipe.find(params[:recipe_id]) if params[:recipe_id]
+    if params[:list_id]
+      @list = List.find(params[:list_id])
+      @items = @list.list_items.not_deleted.map{ |list_item| list_item.items.first }
+      @list_foods = @list.list_items.not_deleted.map{ |item| item.food }.flatten
+    end
   end
 
   private

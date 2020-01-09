@@ -12,7 +12,10 @@
   </button>
 
   <div class="list-group shadow">
-    <%= render 'lists/index', lists: @user.lists %>
+    <%= render 'lists/index', lists: @lists %>
+  </div>
+  <div class="list-group shadow">
+    <%= render 'lists/index', lists: @shared_lists %>
   </div>
 </div>
 

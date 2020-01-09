@@ -2,18 +2,6 @@ class CartItemsController < ApplicationController
   before_action :set_cart, only: [:create, :destroy]
   before_action :set_cart_item, only: [:destroy]
 
-  def self.create(product)
-    if product[:cart_id].present?
-      @cart = Cart.find(product[:cart_id])
-      @cart.add_product(product)
-      @cart.save
-    elsif product[:order_id].present?
-      @order = Order.find(product[:order_id])
-      @order.add_product(product)
-      @order.save
-    end
-  end
-
   def show
     @cart_item = CartItem.find_by(id: params[:id])
     @cart = Cart.find(params[:cart_id])

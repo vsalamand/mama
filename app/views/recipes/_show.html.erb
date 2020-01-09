@@ -13,26 +13,28 @@
 
 <div class="container my-5">
   <h1 class="font-weight-bold"><%= @recipe.title.capitalize %></h1>
-  <%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, class:"btn btn-sm btn-outline-flat", target: "_blank" %>
+  <%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, target: "_blank" %>
 </div>
 
 
 <hr class="my-4">
 
 
-<div class="container my-4">
-  <div class="mb-1 d-flex flex-column  justify-content-start">
+<div class="container d-flex justify-content-between">
+  <div class="mb-1 p-1 d-flex flex-column justify-content-start">
     <div>
-      <h2 class="pl-0 pr-0 mb-0 font-weight-bold" id="title">Liste de courses pour <%= @recipe.servings %></h2>
+      <h2 class="pl-0 pr-0 font-weight-bold" id="title">Liste de courses pour <%= @recipe.servings %></h2>
       <div class="d-flex">
         <h5 class="font-weight-light grocerylist-count mr-1"><%= @recipe.items.size %></h5> <h5 class="font-weight-light"></%> <%= @recipe.items.size < 2 ?  " élément" : " éléments" %></h5>
       </div>
     </div>
   </div>
     <!-- Button trigger Add to List modal -->
-  <button type="button" class="shadow btn btn-sm btn-flat2" data-toggle="modal" data-target="#addToListModal">
-    <strong>Tout ajouter à ma liste de courses</strong>
-  </button>
+  <div class="p-1 align-self-center">
+    <button type="button" class="shadow btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addToListModal">
+      <strong>Ajouter tout</strong>
+    </button>
+  </div>
 </div>
 
 
@@ -51,18 +53,13 @@
 
 
 
-<div class="container mt-5">
-  <div class="mb-1 d-flex flex-column align-items-left justify-content-start">
-    <div>
-      <h2 class="pl-0 pr-0 mb-0 font-weight-bold" id="title">Paniers de courses</h2>
-    </div>
+<div class="container my-5">
+  <h2 class="p-1 mb-0 font-weight-bold" id="title">Courses</h2>
+  <h5 class="font-weight-light p-1">Sélections 1er prix</h5>
+
+  <div class="list-group shadow">
+    <%= render 'recipes/select_store', recipe: @recipe %>
   </div>
-</div>
-
-<div class="container mb-5">
-  <h5 class="font-weight-light">Sélections 1er prix</h5>
-
-  <%= render 'recipes/store-benchmark' %>
 
 </div>
 

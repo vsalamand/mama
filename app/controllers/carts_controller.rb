@@ -1,18 +1,34 @@
 class CartsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
 
+  def new
+    @cart = Cart.new
+  end
+
+  def create
+    @cart = Cart.new(cart_params)
+    @cart.user_id = current_user.id
+    if @cart.save
+      redirect_to cart_path(@cart)
+    else
+      redirect_to new_cart_path
+    end
+  end
+
   def index
-    @carts = current_user.carts
-    @list = current_user.lists.first
+    @carts = current_user.carts.where.not(merchant: nil)
+    @cart = Cart.new
   end
 
   def show
-    # trick to set cart object in order to get cart items because otherwise @cart is considered empty...
-    # @cart = Cart.find_by(user_id: user)
     @cart = Cart.find(params[:id])
-    # @list = List.find_by(user_id: current_user)
-    @list = @cart.user.lists.first
-    @unavailable = @list.list_items.no_items
+  end
+
+  def search
+    @cart = Cart.find(params[:id])
+    @store = @cart.merchant.stores.first
+    @search = Product.search(params[:query], fields: [:name, :brand], where:  {stores: @cart.merchant.name} )[0..99] if params[:query]
+    render 'search.js.erb'
   end
 
   def share
@@ -31,8 +47,21 @@ class CartsController < ApplicationController
     redirect_to cart_path(cart)
   end
 
+  def destroy
+    @cart = Cart.find(params[:id])
+    @cart.destroy
+    redirect_to carts_path
+  end
+
+  def add_to_cart
+    @store_item = StoreItem.find(params[:store_item_id])
+    @cart = Cart.find(params[:id])
+    @cart_item = @cart.add_product(@store_item)
+    render "add_to_cart.js.erb"
+  end
+
   private
-  def carts_params
-    params.require(:cart).permit(:cart_id, :user_id)
+  def cart_params
+    params.require(:cart).permit(:cart_id, :user_id, :merchant_id)
   end
 end

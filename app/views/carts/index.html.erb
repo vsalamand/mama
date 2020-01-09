@@ -1,24 +1,35 @@
-<div class="container my-4">
-  <h1 class="mb-0"><%= @list.name.capitalize %></h1>
-  <p class="ml-1 text-muted">de <%= @list.user.email %></p>
+
+<div class="container my-5">
+  <h1 class="display-4 font-weight-bold">Courses</h1>
 </div>
 
-<div class="container mt-4">
-  <div class="shadow p-3 mb-1 text-white rounded d-flex align-items-center justify-content-between" style="background-color: #1BCB7F;">
-    <div>
-      <h2 class="pl-0 pr-0 mb-0" id="title">Paniers de courses</h2>
-    </div>
+<hr class="my-4">
+
+<div class="container">
+  <!-- Button trigger Create Cart modal -->
+  <button type="button" class="shadow text-white btn btn-flat2 btn-lg my-3" data-toggle="modal" data-target="#createCartModal">
+    <strong>Créer un nouveau panier</strong>
+  </button>
+
+  <div class="list-group shadow">
+    <%= render 'carts/index', carts: @carts.order(:created_at).reverse %>
   </div>
 </div>
 
 
-<div class="container">
-  <h5 class="p-3 mb-0 font-weight-light">Sélections 1er prix</h5>
-  <%= render 'merchants-list', user: current_user %>
-</div>
-
-<div class="container pl-3 p-1 mb-2">
-  <div class="d-flex  align-items-center justify-content-between">
-    <%= link_to "Retour", list_path(@list), class: "btn btn-outline-secondary"  %>
+<!-- Create Cart Modal -->
+<div class="modal fade" id="createCartModal" tabindex="-1" role="dialog" aria-labelledby="createCartModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createCartModalLabel">Nouveau panier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <%= render 'carts/form' %>
+      </div>
+    </div>
   </div>
 </div>

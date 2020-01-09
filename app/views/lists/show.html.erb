@@ -10,18 +10,17 @@
             Liste gérée à plusieurs
           </p>
         <% end %>
-        <small  class="text-muted p-0 pt-1 pl-1">Instructions: <br>1. Remplissez la liste et aidez-vous des suggestions. <br>2. Cochez/décochez les éléments pour mettre à jour la liste. <br>3. Choisissez un panier de courses chez votre marchand préféré.
+        <small  class="text-muted p-0 pt-1 pl-1">1. Remplissez la liste (aidez-vous des suggestions !) <br>2. Cochez/décochez les éléments pour mettre à jour la liste <br>3. Choisissez un panier de courses chez votre marchand préféré
         </small>
       </div>
     </div>
   </div>
   <div class="d-flex flex-wrap">
-    <%= link_to "Paniers de courses", list_get_cart_path(@list), class:"btn btn-sm m-1 btn-flat2 py-2 font-weight-bold shadow-lg" %>
+    <!-- Button trigger Select Store modal -->
+    <a class="btn btn-sm m-1 btn-flat2 py-2 font-weight-bold shadow-lg" data-toggle="modal" data-target="#selectStoreModal">Faire les courses</a>
     <!-- dropdown button -->
     <div class="btn-group">
-      <button type="button" class="m-1 btn btn-sm btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-ellipsis-h p-2"></i>
-      </button>
+      <button type="button" class="m-1 btn btn-sm btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
         <% if @list.user == current_user %>
@@ -42,6 +41,23 @@
 
   </div>
 </div>
+
+    <!-- Select Store Modal -->
+    <div class="modal fade" id="selectStoreModal" tabindex="-1" role="dialog" aria-labelledby="selectStoreModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="selectStoreModalLabel">Choisissez un magasin</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body m-0 p-0">
+            <%= render 'lists/select_store', list: @list %>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
   <!-- Share Modal -->

@@ -1,0 +1,7 @@
+function addCartItem(reviewHTML) {
+  const cartItems = document.getElementById('cart_items');
+  cartItems.insertAdjacentHTML('beforeend', reviewHTML);
+  event.preventDefault();
+}
+
+addCartItem('<%= j render "carts/product-card", product_item: StoreItem.find(@cart_item.productable_id), cart_item: @cart_item %>');

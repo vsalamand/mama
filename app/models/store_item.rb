@@ -2,13 +2,13 @@ class StoreItem < ApplicationRecord
   require 'csv'
   require 'rake'
 
-
   belongs_to :product
   belongs_to :store
   has_many :store_item_histories, dependent: :destroy
   has_one :food, through: :product
   has_many :cart_items, :as => :productable
   has_one :unit, through: :product
+
 
   def get_best_price
     best_price = self.is_promo ? self.price * (self.promo_price_per_unit / self.price_per_unit) : self.price
