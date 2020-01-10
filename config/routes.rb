@@ -121,9 +121,14 @@ Rails.application.routes.draw do
   resources :items
   resources :products
   resources :stores do
+    resources :store_carts do
+      member do
+        get :add_to_cart
+      end
+      resources :store_cart_items
+    end
     get :catalog
     get :cart
-    get :add_to_cart
   end
 
   resources :food_lists do

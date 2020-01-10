@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200104103238) do
+ActiveRecord::Schema.define(version: 20200110153123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -403,6 +403,28 @@ ActiveRecord::Schema.define(version: 20200104103238) do
     t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
   end
 
+  create_table "store_cart_items", force: :cascade do |t|
+    t.integer  "store_cart_id"
+    t.integer  "store_item_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["store_cart_id"], name: "index_store_cart_items_on_store_cart_id", using: :btree
+    t.index ["store_item_id"], name: "index_store_cart_items_on_store_item_id", using: :btree
+  end
+
+  create_table "store_carts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "store_id"
+    t.integer  "list_id"
+    t.integer  "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_store_carts_on_list_id", using: :btree
+    t.index ["recipe_id"], name: "index_store_carts_on_recipe_id", using: :btree
+    t.index ["store_id"], name: "index_store_carts_on_store_id", using: :btree
+    t.index ["user_id"], name: "index_store_carts_on_user_id", using: :btree
+  end
+
   create_table "store_item_histories", force: :cascade do |t|
     t.integer  "store_item_id"
     t.float    "price_per_unit"
@@ -538,6 +560,12 @@ ActiveRecord::Schema.define(version: 20200104103238) do
   add_foreign_key "recommendation_items", "recipe_lists"
   add_foreign_key "recommendation_items", "recommendations"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "store_cart_items", "store_carts"
+  add_foreign_key "store_cart_items", "store_items"
+  add_foreign_key "store_carts", "lists"
+  add_foreign_key "store_carts", "recipes"
+  add_foreign_key "store_carts", "stores"
+  add_foreign_key "store_carts", "users"
   add_foreign_key "store_item_histories", "store_items"
   add_foreign_key "store_items", "products"
   add_foreign_key "store_items", "stores"
