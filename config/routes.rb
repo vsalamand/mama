@@ -123,6 +123,7 @@ Rails.application.routes.draw do
   resources :stores do
     get :catalog
     get :cart
+    get :add_to_cart
   end
 
   resources :food_lists do

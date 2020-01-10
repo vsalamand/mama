@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <div id="cart-description">
         <div class="d-flex w-100 flex-column mb-1">
-          <h5 class="mb-0 text-primary">Le panier chez <%= store.name.capitalize %></h5>
+          <h5 class="mb-0 text-primary"><%= store.name.capitalize %></h5>
           <small class="text-muted"><%= list.list_items.not_deleted.size %> <%= list.list_items.not_deleted.size > 1 ? "articles" : "article" %></small>
         </div>
         <h6 class="mb-0">

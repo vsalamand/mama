@@ -5,6 +5,8 @@ class PagesController < ApplicationController
   def home
     @list = List.new
     @recipes = RecipeList.last.recipes
+    @lists = current_user.lists
+    @shared_lists = current_user.shared_lists
 
     # if user is logged in and a beta user, display the user grocery list
     if user_signed_in? && current_user.beta == true

@@ -57,7 +57,7 @@
        </div>
      </div>
 
-    <%= render 'shared/footer' unless action_name.eql? "card" %>
+    <%= render 'shared/footer' if params[:controller] == "pages" && params[:action] == "home" %>
 
 
 

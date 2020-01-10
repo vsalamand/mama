@@ -32,6 +32,15 @@ class StoresController < ApplicationController
       @items = @list.list_items.not_deleted.map{ |list_item| list_item.items.first }
       @list_foods = @list.list_items.not_deleted.map{ |item| item.food }.flatten
     end
+    @carts = current_user.carts.where(merchant: @store.merchant).order(:created_at).reverse
+    @cart = Cart.new
+  end
+
+  def add_to_cart
+    @store_item = StoreItem.find(params[:store_item_id])
+    @cart = Cart.find(params[:cart])
+    @cart_item = @cart.add_product(@store_item)
+    render 'add_to_cart.js.erb'
   end
 
   private

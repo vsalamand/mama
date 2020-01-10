@@ -1,6 +1,5 @@
 class CartItemsController < ApplicationController
-  before_action :set_cart, only: [:create, :destroy]
-  before_action :set_cart_item, only: [:destroy]
+  before_action :set_cart, only: [:create]
 
   def show
     @cart_item = CartItem.find_by(id: params[:id])
@@ -19,7 +18,9 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
+    @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
+    render "delete.js.erb"
   end
 
   private

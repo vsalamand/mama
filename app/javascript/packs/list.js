@@ -5,17 +5,10 @@ import 'bootstrap';
 require("jquery-ui/ui/widget")
 require("jquery-ui/ui/widgets/sortable")
 
-// drag and drop list items to sort them out
-// $(document).on("turbolinks:load", function(e) {
 sort();
-setInputForm();
 fetechSuggestedItems();
 loadSuggestions();
-// });
 
-// document.addEventListener("turbolinks:before-cache", function() {
-//   // ...
-// })
 
 function sort() {
   $("#uncomplete_list_items").sortable({
@@ -88,14 +81,14 @@ function fetechSuggestedItems() {
 // When list item input field is empty, then disable submit button and show item suggestion lists
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
 function setInputForm() {
-  const submitButton = document.getElementById('addListItemBtn');
-  const inputField = document.getElementById('newListItem');
-  const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
+  let submitButton = document.getElementById('addListItemBtn');
+  let inputField = document.getElementById('newListItem');
+  let suggestedItems = document.querySelectorAll('#itemsRecommendations li');
   // disable button by default
   $(submitButton).prop('disabled', true);
   // change state based on keyup event
   if(inputField){
-    inputField.addEventListener("keyup", (event) => {
+    $(document).on("keyup" , inputField, function(event) {
       success(inputField, submitButton, suggestedItems);
     });
   }
@@ -132,6 +125,7 @@ const spinner = document.getElementById('spinner')
 
 $(document).on("turbolinks:load", function(event) {
   loadSuggestions();
+  setInputForm();
 })
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {

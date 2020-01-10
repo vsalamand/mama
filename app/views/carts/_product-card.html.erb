@@ -1,45 +1,44 @@
 
-  <div class="cartgrocerylist-product-card-id<%= product_item.id %>">
+  <div class="cart-item-id<%= cart_item.id %>">
     <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
-      <div class="d-flex align-items-center justify-content-between">
 
 
-        <%= link_to cart_cart_item_path(@cart, cart_item) do %>
-          <div class="product-info d-flex align-items-center justify-content-start">
-            <img src="<%= product_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
-            <div class="product-description">
-              <div class="d-flex w-90 justify-content-between flex-column">
-                <h7 class="mb-0"><%= product_item.name %></h7>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="product-info d-flex align-items-center justify-content-start">
+              <img src="<%= product_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+              <div class="product-description text-dark">
+                <div class="d-flex w-90 justify-content-between flex-column">
+                  <h7 class="mb-0 text-primary"><%= product_item.name %></h7>
+                  <h7 class="mb-0 font-weight-bold"><%= product_item.get_best_price %>€</h7>
+                </div>
+              <% if product_item.is_promo == true %>
+                <div class="d-flex w-90 justify-content-start">
+                    <small class="mr-1 font-weight-light"><%= sprintf("%.2f", product_item.promo_price_per_unit) %>€ / <%= product_item.unit.name %> au lieu de %= sprintf("%.2f",product_item.price_per_unit) %>€ / <%= product_item.unit.name %></small>
+                </div>
+              <% else %>
+                <div class="d-flex w-90 justify-content-start">
+                    <small class="font-weight-light">
+                        <%= sprintf("%.2f",product_item.price_per_unit) %>€ / <%= product_item.unit.name %>
+                    </small>
+                </div>
+              <% end %>
               </div>
-            <% if product_item.is_promo == true %>
-              <div class="d-flex w-90 justify-content-start">
-                  <small class="mr-1 font-weight-light"><%= sprintf("%.2f", product_item.promo_price_per_unit) %>€ / <%= product_item.unit.name %> au lieu de %= sprintf("%.2f",product_item.price_per_unit) %>€ / <%= product_item.unit.name %></small>
-              </div>
-            <% else %>
-              <div class="d-flex w-90 justify-content-start">
-                  <small class="font-weight-light">
-                      <%= sprintf("%.2f",product_item.price_per_unit) %>€ / <%= product_item.unit.name %>
-                  </small>
-              </div>
-            <% end %>
             </div>
+
+
+            <%= link_to cart_cart_item_path(cart_item.cart, cart_item), method: :delete, remote: true do %>
+              <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <% end %>
+    <!--
+            <%= simple_form_for [@cart, cart_item], remote: true, class: "dropdown" do |f| %>
+              <%= f.select :quantity, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], selected: cart_item.quantity %>
+            <% end %>
+     -->
           </div>
-        <% end %>
 
 
-        <div class="product-options d-flex flex-column">
-          <h5 class="mb-1">
-            <strong><%= product_item.get_best_price %>€</strong>
-          </h5>
-  <!--
-          <%= simple_form_for [@cart, cart_item], remote: true, class: "dropdown" do |f| %>
-            <%= f.select :quantity, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], selected: cart_item.quantity %>
-          <% end %>
-   -->
-
-        </div>
-
-      </div>
     </div>
   </div>
 

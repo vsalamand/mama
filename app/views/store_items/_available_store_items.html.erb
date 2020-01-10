@@ -2,18 +2,16 @@
   <div class="cartgrocerylist-product-card-id<%= store_item.id %>">
     <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
-      <small class="ml-1 font-weight-light"><%= item.name unless item.nil? %></small>
-
       <div class="d-flex align-items-center justify-content-between">
 
         <div class="product-info d-flex align-items-center justify-content-start">
           <img src="<%= store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
-          <div class="product-description">
+          <div class="product-description text-dark">
 
             <div class="d-flex w-90 justify-content-between flex-column">
               <h7 class="mb-1 text-primary"><%= store_item.name %></h7>
-              <h7 class="mb-0"><%= store_item.get_best_price %> €</h7>
-              <small class="font-weight-light mb-0">(<%= sprintf("%.2f",store_item.price_per_unit) %> €<%= store_item.unit.nil? ? '' : "/#{store_item.unit.name}"  %>)</small>
+              <h7 class="mb-0 font-weight-bold"><%= store_item.get_best_price %> €</h7>
+              <small class="font-weight-light mb-0"><%= sprintf("%.2f",store_item.price_per_unit) %> €<%= store_item.unit.nil? ? '' : "/#{store_item.unit.name}"  %></small>
             </div>
             <% if store_item.is_promo == true %>
               <div class="d-flex w-90 justify-content-start">
@@ -28,14 +26,34 @@
           </div>
         </div>
         <div class="product-options d-flex flex-column align-items-center">
-          <i class="fas fa-lg fa-angle-right p-1"></i>
           <% if false %>
             <%= link_to "Autres produits en rayon", store_catalog_path(store_item.store, :food_id => store_item.food.id ), class:"btn btn-sm btn-primary  px-1 py-0" %>
           <% end %>
         </div>
+
+        <!-- Button trigger Select Cart modal -->
+        <a class="btn btn-sm btn-primary text-white px-1 py-0" data-toggle="modal" data-target="#selectStoreModal">Acheter</a>
 
       </div>
 
     </div>
   </div>
 <% end %>
+
+
+    <!-- Select Cart Modal -->
+    <div class="modal fade" id="selectStoreModal" tabindex="-1" role="dialog" aria-labelledby="selectStoreModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="selectStoreModalLabel">Choisissez un panier de courses</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body m-0 p-0">
+            <%= render 'stores/add_to_cart', carts: @carts, cart: @cart, store_item: store_item %>
+          </div>
+        </div>
+      </div>
+    </div>
