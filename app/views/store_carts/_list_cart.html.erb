@@ -14,7 +14,6 @@
       <h5 class="mb-0 font-weight-light">Sélection 1er prix</h5>
       <small class="text-muted p-0 pt-1">Cliquez sur un produit pour le changer.</small>
     </div>
-    <h3><strong><%= @store.get_cheapest_price(@list_foods) %>€</strong></h3>
   </div>
 </div>
 
@@ -28,9 +27,10 @@
   </div>
 </div>
 
+<div style="padding: 50px;"></div>
 
 <!-- Button trigger Select Cart modal -->
-<a class="btn btn-block mt-5 btn-flat2 py-3 font-weight-bold" data-toggle="modal" data-target="#selectCartModal">Continer les courses</a>
+<a class="btn fixed-bottom mt-5 btn-flat2 py-3 font-weight-bold" data-toggle="modal" data-target="#selectCartModal">Continer les courses | <%= StoreCart.get_store_cart_price(@store_cart_items) %>€</a>
 
 <!-- Select Cart Modal -->
 <div class="modal fade" id="selectCartModal" tabindex="-1" role="dialog" aria-labelledby="selectCartModalLabel" aria-hidden="true">

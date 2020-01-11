@@ -35,7 +35,8 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
-    @list_foods = @list_items.map{ |item| item.food }.flatten
+    @uncomplete_list_items = @list.list_items.not_completed
+    @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
     @curator_lists = User.find_by_email("mama@clubmama.co").lists
     @collaboration = Collaboration.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]

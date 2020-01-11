@@ -7,13 +7,42 @@ class Store < ApplicationRecord
   STORE_TYPE = ["online", "physical"]
 
 
-  def get_cheapest_price(foods)
-    cheapest_prices = []
-    foods.each do |food|
-      store_item = StoreItem.get_cheapest_store_item(food, self)
-      cheapest_prices << store_item.price if store_item
+  # def get_cheapest_cart_price(foods)
+  #   cheapest_cart_price = []
+  #   foods.each do |food|
+  #     store_item = StoreItem.get_cheapest_store_item(food, self)
+  #     cheapest_cart_price << store_item.price if store_item
+  #   end
+  #   return [sprintf("%.2f", cheapest_cart_price.inject(0){|sum,x| sum + x }), cheapest_cart_price.size]
+  # end
+
+  def get_cheapest_cart_price(items)
+    cheapest_cart_price = []
+    items.each do |item|
+      if item.food
+        store_item_match = StoreItem.get_cheapest_store_item(item.food.first, self)
+        if store_item_match.nil?
+                  store_item_match = Product.search(item.name,
+          fields: [:name, :brand],
+          where:  {stores: self.merchant.name})[0].store_items.where(store_id: self.id).first
+        end
+      else
+        store_item_match = Product.search(item.name,
+          fields: [:name, :brand],
+          where:  {stores: self.merchant.name})[0].store_items.where(store_id: self.id).first
+      end
+      cheapest_cart_price << store_item_match.price if store_item_match.present?
     end
-    return sprintf("%.2f", cheapest_prices.inject(0){|sum,x| sum + x })
+    return [sprintf("%.2f", cheapest_cart_price.inject(0){|sum,x| sum + x }), cheapest_cart_price.size]
+  end
+
+  def self.get_cheapest_store_price(items)
+    cheapest_store = []
+    Store.all.each do |store|
+      cheapest_store << [store.get_cheapest_cart_price(items)[0], store.name]
+    end
+    # retain only the cheapest store's product slection price
+    return cheapest_store.map{ |x| x.first.to_f }.min
   end
 
   def get_main_shelter_list

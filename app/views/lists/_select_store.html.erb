@@ -5,10 +5,10 @@
       <div id="cart-description">
         <div class="d-flex w-100 flex-column mb-1">
           <h5 class="mb-0 text-primary"><%= store.name.capitalize %></h5>
-          <small class="text-muted"><%= list.list_items.not_deleted.size %> <%= list.list_items.not_deleted.size > 1 ? "articles" : "article" %></small>
+          <small class="text-muted"><%= store.get_cheapest_cart_price(@uncomplete_list_items)[1] %> <%= store.get_cheapest_cart_price(@uncomplete_list_items)[1] > 1 ? "articles" : "article" %></small>
         </div>
         <h6 class="mb-0">
-          à partir de <strong><%= store.get_cheapest_price(@list_foods) %>€</strong>
+          à partir de <strong><%= store.get_cheapest_cart_price(@uncomplete_list_items)[0] %>€</strong>
         </h6>
       </div>
       <div class="product-options d-flex flex-column align-items-center">

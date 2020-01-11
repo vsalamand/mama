@@ -5,9 +5,9 @@ class StoreCartsController < ApplicationController
     @recipe = Recipe.find(params[:recipe_id]) if params[:recipe_id]
     if params[:list_id]
       @list = List.find(params[:list_id])
-      @items = @list.list_items.not_deleted.map{ |list_item| list_item.items.first }
-      @list_foods = @list.list_items.not_deleted.map{ |item| item.food }.flatten
-      @store_cart_items = @store_cart.update_store_cart_items(@items)
+      @items = @list.list_items.not_completed.map{ |list_item| list_item.items.first }
+      @list_foods = @list.list_items.not_completed.map{ |item| item.food }.flatten
+      @store_cart_items = @store_cart.update_store_cart_items(@items).reverse
     end
     @carts = current_user.carts.where(merchant: @store.merchant).order(:created_at).reverse
     @cart = Cart.new
