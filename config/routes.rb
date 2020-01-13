@@ -125,7 +125,9 @@ Rails.application.routes.draw do
       member do
         get :add_to_cart
       end
-      resources :store_cart_items
+      resources :store_cart_items do
+        get :search
+      end
     end
     get :catalog
     get :cart

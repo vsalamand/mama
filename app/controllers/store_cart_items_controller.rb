@@ -12,6 +12,15 @@ class StoreCartItemsController < ApplicationController
     render 'update.js.erb'
   end
 
+  def search
+    @store_cart_item = StoreCartItem.find(params[:store_cart_item_id])
+    @store_cart = StoreCart.find(params[:store_cart_id])
+    @store = Store.find(params[:store_id])
+    @list = List.find(params[:list_id].keys.first)
+    @search = Product.search(params[:query], fields: [:name, :brand], where:  {stores: @store.name} )[0..49] if params[:query]
+    render 'search.js.erb'
+  end
+
   private
 
   def store_cart_item_params

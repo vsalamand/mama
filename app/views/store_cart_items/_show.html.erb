@@ -49,16 +49,15 @@
       </div>
       <div class="modal-body m-0 p-0">
 
+        <%= form_tag(store_store_cart_store_cart_item_search_path(store_item.store, store_cart_item.store_cart, store_cart_item), :method => "get", remote: true, authenticity_token: true, id: "search_product", class:"form-inline p-2") do %>
+          <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
+          <%= hidden_field :list_id, list.id %>
 
+          <i class="far fa-lg fa-times-circle text-primary"></i>
+        <% end %>
 
-        <div id="products_list">
-
-          <ul class="list-group list-group-flush" id="search-results">
-            <% store_item.food.store_items.where(store: store_item.store).sort_by{ |item| item.price }.each do |store_item| %>
-              <%= render 'store_cart_items/store_cart_item_card', store_item: store_item, product: store_item, store_cart_item: store_cart_item, list: list %>
-            <% end %>
-          </ul>
-
+        <div id="storeCartItemsList<%= store_cart_item.id %>">
+          <%= render 'store_cart_items/index', store_item: store_item, store_cart_item: store_cart_item, list: list %>
         </div>
 
       </div>
