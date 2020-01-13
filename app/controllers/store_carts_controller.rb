@@ -16,7 +16,9 @@ class StoreCartsController < ApplicationController
 
   def add_to_cart
     @store_cart = StoreCart.find(params[:id])
-    @cart = Cart.find(params[:cart])
+
+    params[:cart] ? @cart = Cart.find(params[:cart]) : @cart = Cart.create(user: current_user, merchant: @store_cart.store.merchant)
+
     @store_cart.add_to_cart(@cart)
     redirect_to cart_path(@cart)
   end

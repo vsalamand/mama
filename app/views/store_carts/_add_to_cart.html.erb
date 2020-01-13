@@ -1,3 +1,5 @@
+<%= link_to "Nouveau panier", add_to_cart_store_store_cart_path(store_cart.store, store_cart), class:"list-group-item list-group-item-action active rounded-0" %>
+
 <% carts.each do |cart| %>
 
   <%= link_to add_to_cart_store_store_cart_path(store_cart.store, store_cart, :cart => cart), class:"list-group-item list-group-item-action" do %>

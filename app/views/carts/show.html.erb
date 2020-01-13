@@ -1,7 +1,6 @@
 <div class="container mt-5">
   <div class="d-flex flex-column mb-3">
     <h1 class="font-weight-bold mb-0">Panier de courses chez <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong> </h1>
-    <small class="text-muted p-0 pt-1">Cliquez sur un produit pour le changer.</small>
   </div>
   <div class="d-flex flex-wrap">
     <!-- dropdown button -->
@@ -72,6 +71,8 @@
 <hr class="my-4">
 
 <div class="container" id="cart-content" data="<%= @cart.id %>">
+  <small class="text-muted p-2">Cliquez sur un produit pour le changer</small>
+
   <%= render 'cart_content', cart: @cart %>
 </div>
 
