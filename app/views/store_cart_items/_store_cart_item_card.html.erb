@@ -1,0 +1,30 @@
+<div class="store_item-card-id<%= store_item.id %>">
+  <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+
+    <div class="d-flex align-items-center justify-content-between">
+
+      <div class="product-info d-flex align-items-center justify-content-start">
+        <img src="<%= store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+        <div class="product-description">
+
+          <div class="d-flex w-90 justify-content-between flex-column">
+            <h7 class="mb-1 text-primary"><%= store_item.name %></h7>
+            <h7 class="mb-0"><%= sprintf("%.2f",store_item.price) %> €</h7>
+            <small class="font-weight-light mb-0"><%= sprintf("%.2f",store_item.price_per_unit) %> €<%= store_item.unit.nil? ? '' : "/#{store_item.unit.name}"  %></small>
+          </div>
+
+        </div>
+      </div>
+      <div class="product-options d-flex flex-column align-items-center">
+        <%= simple_form_for [@store_cart.store, @store_cart, store_cart_item], remote: true do |f| %>
+          <%= f.input :store_item_id, input_html: {value: store_item.id}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+          <%= f.input :store_cart_id, input_html: {value: @store_cart.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+          <%= f.input :list_id, input_html: {value: list.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+          <%= f.submit "Choisir", class: "btn btn-outline-primary btn-sm " %>
+        <% end %>
+      </div>
+
+    </div>
+
+  </div>
+</div>

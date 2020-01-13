@@ -1,4 +1,5 @@
-  <div class="store-cart-item-card-id<%= store_cart_item.id %>">
+<!-- Button trigger update Product Modal -->
+<a id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= store_item.id %>">
     <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
       <div class="d-flex align-items-center justify-content-between">
@@ -33,4 +34,34 @@
       </div>
 
     </div>
+</a>
+
+
+<!-- update products Modal -->
+<div class="modal fade" id="updateProductModal<%= store_item.id %>" tabindex="-1" role="dialog" aria-labelledby="updateProductModal<%= store_item.id %>Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProductModal<%= store_item.id %>Label">Catalogue <%= store_item.store.name.capitalize %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+
+
+
+        <div id="products_list">
+
+          <ul class="list-group list-group-flush" id="search-results">
+            <% store_item.food.store_items.where(store: store_item.store).sort_by{ |item| item.price }.each do |store_item| %>
+              <%= render 'store_cart_items/store_cart_item_card', store_item: store_item, product: store_item, store_cart_item: store_cart_item, list: list %>
+            <% end %>
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
   </div>
+</div>

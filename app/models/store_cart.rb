@@ -41,6 +41,6 @@ class StoreCart < ApplicationRecord
   # end
 
   def self.get_store_cart_price(store_cart_items)
-    store_cart_items.map{ |store_cart_item| store_cart_item.store_item.price}.inject(:+)
+    store_cart_items.map{ |store_cart_item| store_cart_item.store_item.price}.inject(:+).round(2)
   end
 end

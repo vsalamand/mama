@@ -21,7 +21,7 @@
   <div class="shadow bg-white">
     <div class="list-group list-group-flush mb-2">
       <% @store_cart_items.each do |store_cart_item| %>
-        <%= render 'store_cart_items/show', store_cart_item: store_cart_item, store_item: store_cart_item.store_item %>
+        <%= render 'store_cart_items/show', store_cart_item: store_cart_item, store_item: store_cart_item.store_item, list: @list %>
       <% end %>
     </div>
   </div>
