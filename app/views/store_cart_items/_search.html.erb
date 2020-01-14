@@ -1,10 +1,8 @@
-<div id="storeCartItemsList<%= store_cart_item.id %>">
   <% if search_results %>
       <ul class="list-group list-group-flush">
         <small class="pl-3 text-muted">Résultats:</small>
         <% search_results.each do |store_item| %>
-          <%= render 'store_cart_items/store_cart_item_card', store_item: store_item.store_items.where(store_id: @store.id).first, product: store_item, store_cart_item: store_cart_item, list: list %>
+          <%= render 'store_cart_items/store_cart_item_card', store_item: store_item.store_items.where(store_id: @store.id).first, product: store_item, store_cart_item: store_cart_item, store_cart: store_cart_item.store_cart %>
         <% end %>
       </ul>
   <% end %>
-</div>

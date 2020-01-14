@@ -1,7 +1,9 @@
-<div id="storeCartShow" data="<%= @store_cart.id %>">
-  <% if params[:recipe_id] %>
-    <%= render 'store_carts/recipe_cart', recipe: @recipe, store_cart: @store_cart %>
-  <% elsif params[:list_id] %>
-    <%= render 'store_carts/list_cart', list: @list, store: @store, store_cart: @store_cart %>
-  <% end %>
+<div id="storeId" data="<%= @store.id %>">
+  <div id="storeCartShow" data="<%= @store_cart.id %>">
+    <% if params[:recipe_id] %>
+      <%= render 'store_carts/recipe_cart', recipe: @recipe, store_cart: @store_cart %>
+    <% elsif params[:list_id] %>
+      <%= render 'store_carts/list_cart', list: @list, store: @store, store_cart: @store_cart %>
+    <% end %>
+  </div>
 </div>

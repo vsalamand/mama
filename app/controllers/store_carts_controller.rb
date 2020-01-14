@@ -31,7 +31,7 @@ class StoreCartsController < ApplicationController
   def fetch_price
     @store_cart = StoreCart.find(params[:store_cart_id])
     @store_cart_items = @store_cart.store_cart_items
-    @price = StoreCart.get_store_cart_price(@store_cart_items)
+    @price = sprintf("%.2f", StoreCart.get_store_cart_price(@store_cart_items))
     @carts = current_user.carts.where(merchant: @store_cart.store.merchant).order(:created_at).reverse
     render 'fetch_price.js.erb'
   end

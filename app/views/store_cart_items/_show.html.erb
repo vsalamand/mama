@@ -1,5 +1,5 @@
 <!-- Button trigger update Product Modal -->
-<a id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= store_item.id %>">
+<a id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= store_item.id %>" class="StoreCartItemShow" data="<%= store_cart_item.id %>" data2="<%= store_item.id %>">
     <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
       <div class="d-flex align-items-center justify-content-between">
@@ -51,19 +51,13 @@
         <%= form_tag(store_store_cart_store_cart_item_search_path(store_item.store, store_cart_item.store_cart, store_cart_item), :method => "get", remote: true, authenticity_token: true, id: "search_product#{store_cart_item.id}", class:"form-inline p-2") do %>
           <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords#{store_cart_item.id}", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
 
-          <%= hidden_field :list_id, list.id, id: "hidden-field-list-id#{store_cart_item.id}" if params[:list_id].present? %>
-          <%= hidden_field :recipe_id, recipe.id, id: "hidden-field-list-id#{store_cart_item.id}" if params[:recipe_id].present? %>
-
           <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
               <i class="fas fa-search text-primary"></i>
           <% end %>
+
         <% end %>
 
         <div id="storeCartItemsList<%= store_cart_item.id %>">
-
-          <%= render 'store_cart_items/index', store_item: store_item, store_cart_item: store_cart_item, list: @list %>
-          <%= render 'store_cart_items/index', store_item: store_item, store_cart_item: store_cart_item, recipe: @recipe  if params[:recipe_id].present? %>
-
         </div>
 
       </div>

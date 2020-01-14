@@ -129,6 +129,7 @@ Rails.application.routes.draw do
       end
       resources :store_cart_items do
         get :search
+        get :fetch_index
       end
     end
     get :catalog

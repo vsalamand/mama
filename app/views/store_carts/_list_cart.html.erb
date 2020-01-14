@@ -1,9 +1,11 @@
-<div class="container mt-5" id="storeCartType" data="list">
-  <div class="d-flex flex-column-reverse">
-    <h1 class="font-weight-bold mb-0"><%= @list.name.capitalize %>  </h1>
-    <p class="ml-1 text-muted mb-0">Sélection de produits chez <strong class="btn-outline-primary"><%= @store.name %></strong> pour:</p>
-  </div>
+<div id="listStoreCart" data="<%= @list.id %>">
+  <div class="container mt-5" id="storeCartType" data="list">
+    <div class="d-flex flex-column-reverse">
+      <h1 class="font-weight-bold mb-0"><%= @list.name.capitalize %>  </h1>
+      <p class="ml-1 text-muted mb-0">Sélection de produits chez <strong class="btn-outline-primary"><%= @store.name %></strong> pour:</p>
+    </div>
 
+  </div>
 </div>
 
 <hr class="my-4">
