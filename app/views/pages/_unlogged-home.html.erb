@@ -1,18 +1,25 @@
 
-<div class="banner d-flex align-items-center" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574159533/daniel-von-appen-_6uPgukLUV8-unsplash-min_he8rot.jpg);">
+<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574159533/daniel-von-appen-_6uPgukLUV8-unsplash-min_he8rot.jpg);">
 
-  <div class="container d-flex flex-column">
+  <div class="container">
+    <nav class="px-0 navbar navbar-expand-lg" style="background-color: transparent;">
+       <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
+        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
+      </a>
+    </nav>
+  </div>
+
+  <div class="container my-auto">
 
     <div>
-      <h1 class="display-4 mb-4">Mangez bien et moins cher</h1>
-      <p class="pr-4 lead mb-4">Faites vos courses facilement grâce aux recommandations Mama !</p>
+      <h1 class="display-4 mb-4">Faites vos courses sans même y penser</h1>
     </div>
 
     <div>
       <%= form_for(:user, :url => registration_path(:user), class:"form-inline") do |f| %>
         <div class="p-3 form-group row flex-wrap mb-0">
           <%= f.text_field :email, placeholder: "Votre Adresse Email", class:"mb-2 mr-4 form-control-lg col-md-4 bg-transparent text-white  border" %>
-          <%= f.submit "Ça m'intéresse !", class:"mb-2 btn btn-flat btn-lg col-xs-2" %>
+          <%= f.submit "Demander l'accès", class:"mb-2 btn btn-flat btn-lg col-xs-2" %>
         </div>
       <% end %>
     </div>
@@ -20,6 +27,7 @@
     <small> <%= link_to "Déjà un compte ?", new_user_session_path, class:"text-light font-weight-light font-italic" %></small>
 
   </div>
+
 </div>
 
 
@@ -30,7 +38,7 @@
 
 
     <div class="mb-2 rounded">
-      <h2 class="p-2 display-4" style="color:#FF3463;"><strong>Faites vos courses sans même y penser</strong></h2>
+      <h2 class="p-2 display-4" style="color:#FF3463;"><strong>Le moyen le plus simple de gérer vos courses</strong></h2>
     </div>
 
     <div class=" card-deck p-3 mb-5">
@@ -146,14 +154,14 @@
   <div class="container d-flex flex-column">
 
     <div>
-      <h1 class="display-4 mb-4">Mangez bien et moins cher !</h1>
+      <h1 class="display-4 mb-4">Faites vos courses sans même y penser</h1>
     </div>
 
     <div>
       <%= form_for(:user, :url => registration_path(:user), class:"form-inline") do |f| %>
         <div class="p-3 form-group row flex-wrap">
           <%= f.text_field :email, placeholder: "Votre Adresse Email", class:"mb-2 mr-4 form-control-lg col-md-4 bg-transparent text-white  border" %>
-          <%= f.submit "Ça m'intéresse !", class:"mb-2 btn btn-flat btn-lg col-xs-2" %>
+          <%= f.submit "Demander l'accès", class:"mb-2 btn btn-flat btn-lg col-xs-2" %>
         </div>
       <% end %>
     </div>

@@ -47,6 +47,13 @@ class ListsController < ApplicationController
     render 'fetch_suggested_items.js.erb'
   end
 
+  def fetch_price
+    @list = List.find(params[:list_id])
+    @uncomplete_list_items = @list.list_items.not_completed.map{ |list_item| list_item.items.first}
+    @price = Store.get_cheapest_store_price(@uncomplete_list_items)
+    render 'fetch_price.js.erb'
+  end
+
   # def fetch_recipes
   #   @list = List.find(params[:list_id])
   #   @list_item = ListItem.new

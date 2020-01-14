@@ -126,10 +126,12 @@ const spinner = document.getElementById('spinner')
 $(document).on("turbolinks:load", function(event) {
   loadSuggestions();
   setInputForm();
+  getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   loadSuggestions();
+  getCartsPrice();
 })
 
 function loadSuggestions() {
@@ -147,4 +149,17 @@ function loadSuggestions() {
   }
 }
 
+function getCartsPrice() {
+  if(document.querySelector("#todo_list")){
+    const id = document.querySelector("#todo_list").getAttribute('data');
+
+    $.ajax({
+      url: "/lists/" + id +"/fetch_price",
+      cache: false,
+      success: function(){
+      }
+    });
+
+  }
+}
 
