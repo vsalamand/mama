@@ -1,4 +1,4 @@
-<div class="store_item-card-id<%= store_item.id %>">
+<div class="cart-item-card-id<%= store_item.id %>">
   <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
     <div class="d-flex align-items-center justify-content-between">
@@ -15,12 +15,11 @@
 
         </div>
       </div>
-      <div class="product-options d-flex flex-column align-items-center">
-        <%= simple_form_for [@store_cart.store, @store_cart, store_cart_item], remote: true, html: {id: "store_item#{store_item.id}"} do |f| %>
-          <%= f.input :store_item_id, input_html: {value: store_item.id, id: "store-item-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
-          <%= f.input :store_cart_id, input_html: {value: @store_cart.id, id: "store-cart-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-          <%= f.input :list_id, input_html: {value: list.id, id: "list-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-          <%= f.submit "Choisir", class: "btn btn-primary btn-sm " %>
+      <div class="product-options d-flex flex-column align-items-center buyBtn">
+        <%= simple_form_for [@cart, cart_item], remote: true, html: {id: "store_item#{store_item.id}"} do |f| %>
+          <%= f.input :productable_id, input_html: {value: store_item.id, id: "productable-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+          <%= f.input :name, input_html: {value: store_item.name, id: "name-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+          <%= f.submit "Choisir", class: "btn btn-primary btn-sm" %>
         <% end %>
       </div>
 

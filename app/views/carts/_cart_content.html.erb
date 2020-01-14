@@ -2,7 +2,7 @@
 
   <div class="list-group list-group-flush" id="cart_items">
     <% @cart.cart_items.where.not(productable_id: nil).order(:item_id).each do |cart_item| %>
-      <%= render 'product-card', product_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item %>
+      <%= render 'cart_items/show', store_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item %>
     <% end %>
   </div>
 

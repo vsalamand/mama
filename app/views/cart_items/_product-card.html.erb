@@ -1,6 +1,6 @@
 
   <div class="cartgrocerylist-product-card-id<%= store_item.id %>">
-    <div class="pl-1 pr-2 list-group-item list-group-item-action border-top border-bottom d-flex align-items-center justify-content-between">
+    <div class="pl-1 pr-2 list-group-item list-group-item-action border-top border-0 d-flex align-items-center justify-content-between">
 
       <div class="product-info d-flex align-items-center justify-content-start">
         <img src="<%= store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
@@ -28,7 +28,7 @@
 
           <% if store_item.product.is_reported == false %>
             <p class="m-0"><small>
-              <%= link_to 'Signaler une erreur', cart_cart_item_report_path(@cart, @cart_item, store_item), remote:true, class:"p-0 m-0 btn btn-sm btn-outline font-weight-light" %>
+              <%= link_to 'Signaler une erreur', cart_cart_item_report_path(@cart, cart_item, store_item), remote:true, class:"p-0 m-0 btn btn-sm btn-outline font-weight-light" %>
             </small></p>
           <% else %>
             <p class="m-0"><small class="font-weight-light">En cours de vérification</small></p>
@@ -41,7 +41,7 @@
         <h7 class="mb-1">
           <strong><%= store_item.get_best_price %>€</strong>
         </h7>
-        <%= simple_form_for [@cart, @cart_item], remote: true do |f| %>
+        <%= simple_form_for [@cart, cart_item], remote: true do |f| %>
           <%= f.input :productable_id, input_html: {value: store_item.id}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
           <%= f.input :name, input_html: {value: store_item.name}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
           <%= f.submit "Choisir", class: "btn btn-outline-primary btn-sm " %>

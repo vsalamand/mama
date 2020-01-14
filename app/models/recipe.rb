@@ -72,7 +72,7 @@ class Recipe < ApplicationRecord
   def get_best_store
     store_prices = []
     Store.all.each do |store|
-      store_prices << [store.get_cheapest_price(self.foods), store]
+      store_prices << [store.get_cart_price(self.foods), store]
     end
     return store_prices.min
   end

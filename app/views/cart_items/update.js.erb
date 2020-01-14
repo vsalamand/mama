@@ -1,0 +1,8 @@
+const cartItem = document.querySelector("#updateProduct<%= @cart_item.id %>");
+// item.innerHTML = "";
+$(cartItem).replaceWith("<%= j render 'cart_items/show', cart_item: @cart_item, store_item: StoreItem.find(@cart_item.productable_id) %>");
+
+// // close modal is opened
+// $('.modal').modal('hide');
+// $(document.body).removeClass('modal-open');
+// $('.modal-backdrop').remove();

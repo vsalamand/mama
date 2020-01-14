@@ -12,9 +12,10 @@ class CartItemsController < ApplicationController
 
   def update
     @cart_item = CartItem.find(params[:id])
-    @cart_item.update(cart_item_params)
     @cart = Cart.find(params[:cart_id])
-    redirect_to cart_path(@cart)
+
+    @cart_item.update(cart_item_params)
+    render 'update.js.erb'
   end
 
   def destroy

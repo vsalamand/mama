@@ -1,14 +1,13 @@
-<div class="shadow p-3 bg-white d-flex flex-column">
+<div class="shadow p-3 bg-white d-flex flex-column" id="addProducts">
 
   <!-- Button trigger Add Products Modal -->
-  <a class="text-muted" data-toggle="modal" data-target="#addProductsModal">
-    <div class="btn btn-block text-left py-3 border border-primary rounded-0 border-top-0 border-left-0 border-right-0 ">
+    <div class="btn btn-block text-left py-3 border border-primary rounded-0 border-top-0 border-left-0 border-right-0 text-muted">
       Que souhaitez-vous acheter ?
     </div>
-  </a>
 
   <div class="p-2 pt-3 d-flex align-items-center">
-    <i id="spinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+<!--     <i id="spinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+ -->
     <ul class="list-inline" id="itemsRecommendations"></ul>
   </div>
 
@@ -30,7 +29,9 @@
 
         <%= form_tag(search_cart_path(cart), :method => "get", remote: true, authenticity_token: true, id: "search_product", class:"form-inline p-2") do %>
           <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
-          <i class="far fa-lg fa-times-circle text-primary"></i>
+          <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
+            <i class="fas fa-search text-primary"></i>
+          <% end %>
         <% end %>
 
         <div id="products_list">

@@ -27,7 +27,7 @@ class CartsController < ApplicationController
   def search
     @cart = Cart.find(params[:id])
     @store = @cart.merchant.stores.first
-    @search = Product.search(params[:query], fields: [:name, :brand], where:  {stores: @cart.merchant.name} )[0..99] if params[:query]
+    @search = Product.search(params[:query], fields: [:name, :brand], where:  {stores: @cart.merchant.name} )[0..49] if params[:query]
     render 'search.js.erb'
   end
 
