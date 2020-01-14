@@ -9,6 +9,11 @@ class StoreCartsController < ApplicationController
       @list_foods = @list.list_items.not_completed.map{ |item| item.food }.flatten
       @store_cart_items = @store_cart.update_store_cart_items(@items).reverse
     end
+    if params[:recipe_id]
+      @recipe = Recipe.find(params[:recipe_id])
+      @items = @recipe.items
+      @store_cart_items = @store_cart.update_store_cart_items(@items).reverse
+    end
     @carts = current_user.carts.where(merchant: @store.merchant).order(:created_at).reverse
     @cart = Cart.new
     # create new list of store cart items

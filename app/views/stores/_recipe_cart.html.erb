@@ -1,3 +1,6 @@
+<!-- to delete -->
+
+
 <div class="container mt-5">
   <div class="d-flex flex-column-reverse">
     <h1 class="font-weight-bold mb-0"><%= @recipe.title.capitalize %>  </h1>
@@ -14,7 +17,7 @@
       <h5 class="mb-0 font-weight-light">Sélection 1er prix</h5>
       <small class="text-muted p-0 pt-1">Cliquez sur un produit pour le changer.</small>
     </div>
-    <h3><strong><%= @store.get_cheapest_price(recipe.foods) %>€</strong></h3>
+    <h3><strong><%= @store.get_cheapest_cart_price(recipe.items) %>€</strong></h3>
   </div>
 </div>
 

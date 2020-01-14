@@ -2,7 +2,10 @@
   <ul class="list-group list-group-flush">
     <small class="pl-3 text-muted">Produits similaires:</small>
     <% store_item.food.store_items.where(store: store_item.store).sort_by{ |item| item.price }.each do |store_item| %>
-      <%= render 'store_cart_items/store_cart_item_card', store_item: store_item, product: store_item, store_cart_item: store_cart_item, list: list %>
+
+      <%= render 'store_cart_items/store_cart_item_card', store_item: store_item, product: store_item, store_cart_item: store_cart_item, list: list if params[:list_id].present? %>
+      <%= render 'store_cart_items/store_cart_item_card', store_item: store_item, product: store_item, store_cart_item: store_cart_item, recipe: recipe if params[:recipe_id].present? %>
+
     <% end %>
   </ul>
 </div>

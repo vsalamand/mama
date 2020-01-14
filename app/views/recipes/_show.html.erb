@@ -3,7 +3,7 @@
 <% end %>
 
 
-<div id="flash">
+<div class="container" id="flash">
   <% if notice.present? %>
     <%= render "shared/flashes" %>
   <% end %>
@@ -13,7 +13,7 @@
 
 <div class="container my-5">
   <h1 class="font-weight-bold"><%= @recipe.title.capitalize %></h1>
-  <%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, target: "_blank" %>
+  <strong><%= link_to "Voir la recette sur le site de #{@recipe.origin}", @recipe.link, target: "_blank" %></strong>
 </div>
 
 
@@ -31,36 +31,10 @@
   </div>
     <!-- Button trigger Add to List modal -->
   <div class="p-1 align-self-center">
-    <button type="button" class="shadow btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addToListModal">
-      <strong>Ajouter tout</strong>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addToListModal">
+      <strong>Tout ajouter <br>à ma liste</strong>
     </button>
   </div>
-</div>
-
-
-
-<div class="container mb-5">
-  <div class="shadow p-0 bg-white rounded">
-    <div class="list-group list-group-flush" id="list_items">
-      <% if @recipe.items.any? %>
-        <% @recipe.items.order(:id).each do |item| %>
-          <%= render 'items/show', item: item %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="container my-5">
-  <h2 class="p-1 mb-0 font-weight-bold" id="title">Courses</h2>
-  <h5 class="font-weight-light p-1">Sélections 1er prix</h5>
-
-  <div class="list-group shadow">
-    <%= render 'recipes/select_store', recipe: @recipe %>
-  </div>
-
 </div>
 
 
@@ -81,4 +55,40 @@
     </div>
   </div>
 </div>
+
+
+<div class="container mb-3">
+  <div class="shadow p-0 bg-white rounded">
+    <div class="list-group list-group-flush" id="list_items">
+      <% if @recipe.items.any? %>
+        <% @recipe.items.order(:id).each do |item| %>
+          <%= render 'items/show', item: item %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mb-5">
+  <!-- Button trigger Select Store modal -->
+  <a class="btn btn-block btn-flat2 py-3 font-weight-bold" data-toggle="modal" data-target="#selectStoreModal">Courses à partir de <%= Store.get_cheapest_store_price(@recipe.items) %>€</a>
+</div>
+
+  <!-- Select Store Modal -->
+  <div class="modal fade" id="selectStoreModal" tabindex="-1" role="dialog" aria-labelledby="selectStoreModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="selectStoreModalLabel">Choisissez un magasin</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+          <%= render 'recipes/select_store', recipe: @recipe %>
+        </div>
+      </div>
+    </div>
+  </div>
 

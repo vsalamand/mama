@@ -1,6 +1,12 @@
 const item = document.querySelector("#store-cart-item-card-id<%= @store_cart_item.id %>");
 // item.innerHTML = "";
-$(item).replaceWith("<%= j render 'store_cart_items/show', store_cart_item: @store_cart_item, store_item: @store_cart_item.store_item, list: @list %>");
+const storeCartType = document.getElementById("storeCartType").getAttribute('data');
+
+if ($(storeCartType) == "list") {
+  $(item).replaceWith("<%= j render 'store_cart_items/show', store_cart_item: @store_cart_item, store_item: @store_cart_item.store_item, list: @list %>");
+} else {
+  $(item).replaceWith("<%= j render 'store_cart_items/show', store_cart_item: @store_cart_item, store_item: @store_cart_item.store_item, recipe: @recipe %>");
+}
 
 // close modal is opened
 $('.modal').modal('hide');

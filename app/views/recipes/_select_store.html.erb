@@ -8,7 +8,7 @@
           <small class="text-muted"><%= recipe.foods.size %> <%= recipe.foods.size > 1 ? "articles" : "article" %></small>
         </div>
         <h6 class="mb-0">
-          à partir de <strong><%= store.get_cheapest_price(recipe.foods) %>€</strong>
+          à partir de <strong><%= store.get_cheapest_cart_price(recipe.items)[0] %>€</strong>
         </h6>
       </div>
       <div class="product-options d-flex flex-column align-items-center">

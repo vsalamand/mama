@@ -20,16 +20,18 @@ class Store < ApplicationRecord
     cheapest_cart_price = []
     items.each do |item|
       if item.food
-        store_item_match = StoreItem.get_cheapest_store_item(item.food.first, self)
+        store_item_match = StoreItem.get_cheapest_store_item(item.food, self)
         if store_item_match.nil?
-                  store_item_match = Product.search(item.name,
-          fields: [:name, :brand],
-          where:  {stores: self.merchant.name})[0].store_items.where(store_id: self.id).first
+              store_item_match = Product.search(item.name,
+                                  fields: [:name, :brand],
+                                  where:  {stores: self.merchant.name}).first
+              store_item_match = store_item_match.store_items.where(store_id: self.id).first unless store_item_match.nil?
         end
       else
         store_item_match = Product.search(item.name,
-          fields: [:name, :brand],
-          where:  {stores: self.merchant.name})[0].store_items.where(store_id: self.id).first
+                            fields: [:name, :brand],
+                            where:  {stores: self.merchant.name}).first
+        store_item_match = store_item_match.store_items.where(store_id: self.id).first unless store_item_match.nil?
       end
       cheapest_cart_price << store_item_match.price if store_item_match.present?
     end

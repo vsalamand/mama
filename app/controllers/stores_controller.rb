@@ -32,14 +32,19 @@ class StoresController < ApplicationController
       @store_cart = StoreCart.find_or_create_by(user: current_user, store: @store, list: @list)
       redirect_to store_store_cart_path(@store, @store_cart, :list_id => @list.id)
     end
+    if params[:recipe_id]
+      @recipe = Recipe.find(params[:recipe_id])
+      @store_cart = StoreCart.find_or_create_by(user: current_user, store: @store, recipe: @recipe)
+      redirect_to store_store_cart_path(@store, @store_cart, :recipe_id => @recipe.id)
+    end
   end
 
-  def add_to_cart
-    @store_item = StoreItem.find(params[:store_item_id])
-    @cart = Cart.find(params[:cart])
-    @cart_item = @cart.add_product(@store_item)
-    render 'add_to_cart.js.erb'
-  end
+  # def add_to_cart
+  #   @store_item = StoreItem.find(params[:store_item_id])
+  #   @cart = Cart.find(params[:cart])
+  #   @cart_item = @cart.add_product(@store_item)
+  #   render 'add_to_cart.js.erb'
+  # end
 
   private
   def stores_params

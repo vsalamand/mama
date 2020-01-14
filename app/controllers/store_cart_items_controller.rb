@@ -4,7 +4,10 @@ class StoreCartItemsController < ApplicationController
 
   def update
     @store_cart_item = StoreCartItem.find(params[:id])
-    @list = List.find(params[:store_cart_item][:list_id])
+
+    @list = List.find(params[:store_cart_item][:list_id]) if params[:store_cart_item][:list_id].present?
+    @recipe = Recipe.find(params[:store_cart_item][:recipe_id]) if params[:store_cart_item][:recipe_id].present?
+
     @store_item = StoreItem.find(params[:store_cart_item][:store_item_id])
     @store_cart = StoreCart.find(params[:store_cart_id])
 

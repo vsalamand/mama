@@ -9,7 +9,7 @@
 <div class="container my-5">
   <div class="list-group shadow">
     <% @recipes.each do |recipe| %>
-      <%= render 'recipes/recipe-list-group-item', recipe: recipe %>
+      <%= render 'recipes/index', recipe: recipe %>
     <% end %>
   </div>
 </div>

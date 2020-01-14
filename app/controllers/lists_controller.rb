@@ -35,7 +35,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
-    @uncomplete_list_items = @list.list_items.not_completed
+    @uncomplete_list_items = @list.list_items.not_completed.map{ |list_item| list_item.items.first}
     @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
     @curator_lists = User.find_by_email("mama@clubmama.co").lists
     @collaboration = Collaboration.new

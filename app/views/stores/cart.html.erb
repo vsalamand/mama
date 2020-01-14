@@ -1,5 +1,8 @@
+<!-- to delete -->
+
+
 <% if params[:recipe_id] %>
-  <%= render 'stores/recipe_cart', recipe: @recipe %>
+  <%= render 'store_cart/recipe_cart', recipe: @recipe %>
 <% elsif params[:list_id] %>
   <%= render 'store_cart/list_cart', list: @list %>
 <% end %>

@@ -19,7 +19,10 @@
         <%= simple_form_for [@store_cart.store, @store_cart, store_cart_item], remote: true, html: {id: "store_item#{store_item.id}"} do |f| %>
           <%= f.input :store_item_id, input_html: {value: store_item.id, id: "store-item-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
           <%= f.input :store_cart_id, input_html: {value: @store_cart.id, id: "store-cart-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-          <%= f.input :list_id, input_html: {value: list.id, id: "list-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+
+          <%= f.input :list_id, input_html: {value: list.id, id: "list-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } if params[:list_id].present?  %>
+          <%= f.input :recipe_id, input_html: {value: recipe.id, id: "recipe-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } if params[:recipe_id].present?  %>
+
           <%= f.submit "Choisir", class: "btn btn-primary btn-sm " %>
         <% end %>
       </div>
