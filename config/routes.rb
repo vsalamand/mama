@@ -123,6 +123,7 @@ Rails.application.routes.draw do
   resources :products
   resources :stores do
     resources :store_carts do
+      get 'fetch_price', to: "store_carts#fetch_price"
       member do
         get :add_to_cart
       end
