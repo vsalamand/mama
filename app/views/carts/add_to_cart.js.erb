@@ -1,0 +1,12 @@
+function addCartItem(reviewHTML) {
+  const cartItems = document.getElementById('cart_items');
+  cartItems.insertAdjacentHTML('beforeend', reviewHTML);
+  event.preventDefault();
+}
+
+addCartItem('<%= j render "cart_items/show", store_item: StoreItem.find(@cart_item.productable_id), cart_item: @cart_item %>');
+
+// close modal is opened
+$('.modal').modal('hide');
+$(document.body).removeClass('modal-open');
+$('.modal-backdrop').remove();

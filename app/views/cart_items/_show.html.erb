@@ -1,0 +1,70 @@
+<!-- Button trigger update Product Modal -->
+<div id="updateProduct<%= cart_item.id %>" class="cartItemShow" style="cursor: pointer; width: 100%;"  data="<%= cart_item.id %>">
+    <div class="pl-2 pr-2 list-group-item list-group-item-action border-0 d-flex flex-column justify-content-start">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="product-info d-flex align-items-center justify-content-start">
+          <img src="<%= store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+          <div class="product-description text-dark">
+            <div class="d-flex w-90 justify-content-between flex-column">
+              <h7 class="mb-0 text-primary"><%= store_item.name %></h7>
+              <h7 class="mb-0 font-weight-bold"><%= store_item.get_best_price %>€</h7>
+            </div>
+          <% if store_item.is_promo == true %>
+            <div class="d-flex w-90 justify-content-start">
+                <small class="mr-1 font-weight-light"><%= sprintf("%.2f", store_item.promo_price_per_unit) %>€ / <%= store_item.unit.name %> au lieu de %= sprintf("%.2f",store_item.price_per_unit) %>€ / <%= store_item.unit.name %></small>
+            </div>
+          <% else %>
+            <div class="d-flex w-90 justify-content-start">
+                <small class="font-weight-light">
+                    <%= sprintf("%.2f",store_item.price_per_unit) %>€ / <%= store_item.unit.name %>
+                </small>
+            </div>
+          <% end %>
+          </div>
+        </div>
+
+
+          <%= link_to cart_cart_item_path(cart_item.cart, cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
+            <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
+              <span aria-hidden="true" >&times;</span>
+            </button>
+          <% end %>
+<!--
+        <%= simple_form_for [@cart, cart_item], remote: true, class: "dropdown" do |f| %>
+          <%= f.select :quantity, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], selected: cart_item.quantity %>
+        <% end %>
+ -->
+      </div>
+    </div>
+</div>
+
+
+
+
+<!-- update products Modal -->
+<div class="modal fade" id="updateProductModal<%= cart_item.id %>" tabindex="-1" role="dialog" aria-labelledby="updateProductModal<%= cart_item.id %>Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProductModal<%= cart_item.id %>Label"><%= store_item.food.name.capitalize %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+
+        <%= form_tag(cart_cart_item_search_path(cart_item.cart, cart_item), :method => "get", remote: true, authenticity_token: true, id: "search_product#{cart_item.id}", class:"form-inline p-2") do %>
+          <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords#{cart_item.id}", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
+          <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
+              <i class="fas fa-search text-primary"></i>
+          <% end %>
+        <% end %>
+
+        <div id="cartItemsList<%= cart_item.id %>">
+          <%= render 'cart_items/index', store_item: store_item, cart_item: cart_item %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

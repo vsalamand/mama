@@ -1,7 +1,7 @@
 <% if list.user == current_user || list.users.include?(current_user) %>
   <% if list_item.is_completed == false %>
 
-    <li class="pl-3 list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>" id="<%= dom_id(list_item) %>" >
+    <li class="border-0 pl-3 list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>" id="<%= dom_id(list_item) %>" >
 
         <div class="d-flex align-items-center">
           <!--
@@ -10,7 +10,7 @@
           <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
             <i class="far fa-lg fa-square p-1"></i>
           <% end %>
-          <h4 class="m-0 p-1 pb-2"><%= list_item.name %></h4>
+          <h5 class="m-0 p-1 pb-2"><%= list_item.name %></h5>
         </div>
 
         <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
@@ -30,7 +30,7 @@
           <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
             <i class="fas fa-lg fa-check-square"></i>
           <% end %>
-          <h4 class="m-0 p-1 pb-2 text-muted"><del><%= list_item.name %></del></h4>
+          <h5 class="m-0 p-1 pb-2 text-muted"><del><%= list_item.name %></del></h5>
         </div>
 
         <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>

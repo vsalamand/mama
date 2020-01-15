@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:show, :get_cart, :index, :accept_invite]
+  skip_before_action :authenticate_user!, only: [:accept_invite]
 
   def new
     @list = List.new
@@ -35,6 +35,8 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
+    @uncomplete_list_items = @list.list_items.not_completed.map{ |list_item| list_item.items.first}
+    @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
     @curator_lists = User.find_by_email("mama@clubmama.co").lists
     @collaboration = Collaboration.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
@@ -43,6 +45,13 @@ class ListsController < ApplicationController
   def fetch_suggested_items
     @list = List.find(params[:list_id])
     render 'fetch_suggested_items.js.erb'
+  end
+
+  def fetch_price
+    @list = List.find(params[:list_id])
+    @uncomplete_list_items = @list.list_items.not_completed.map{ |list_item| list_item.items.first}
+    @price = Store.get_cheapest_store_price(@uncomplete_list_items)
+    render 'fetch_price.js.erb'
   end
 
   # def fetch_recipes
@@ -61,7 +70,7 @@ class ListsController < ApplicationController
 
   def share
     list = List.find(params[:list_id])
-    email = params[:email]
+    email = params[:emailShare]
     mail = ListMailer.share(list, email)
     mail.deliver_now
     redirect_to list_path(list)
@@ -79,8 +88,12 @@ class ListsController < ApplicationController
     list = List.find(params[:list_id])
     user = User.find_by(email: params[:user_email])
     if user
-      Collaboration.create(list: list, user: user)
-      redirect_to list_path(list)
+      collab = Collaboration.new(list: list, user: user)
+      if collab.save
+        redirect_to list_path(list)
+      else
+        redirect_to list_path(list)
+      end
     else
       redirect_to new_user_registration_path(:shared_list => list.id, :user_email => params[:user_email])
     end
@@ -89,7 +102,7 @@ class ListsController < ApplicationController
   def destroy
     @list = List.find(params[:id])
     @list.destroy
-    redirect_to root_path
+    redirect_to lists_path
   end
 
 

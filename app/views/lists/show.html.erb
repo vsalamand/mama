@@ -10,18 +10,15 @@
             Liste gérée à plusieurs
           </p>
         <% end %>
-        <small  class="text-muted p-0 pt-1 pl-1">Instructions: <br>1. Remplissez la liste et aidez-vous des suggestions. <br>2. Cochez/décochez les éléments pour mettre à jour la liste. <br>3. Choisissez un panier de courses chez votre marchand préféré.
+        <small  class="text-muted p-0 pt-1 pl-1">1. Remplissez la liste (aidez-vous des suggestions !) <br>2. Cochez/décochez les éléments pour mettre à jour la liste <br>3. Choisissez un panier de courses chez votre marchand préféré
         </small>
       </div>
     </div>
   </div>
   <div class="d-flex flex-wrap">
-    <%= link_to "Paniers de courses", list_get_cart_path(@list), class:"btn btn-sm m-1 btn-flat2 py-2 font-weight-bold shadow-lg" %>
     <!-- dropdown button -->
     <div class="btn-group">
-      <button type="button" class="m-1 btn btn-sm btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-ellipsis-h p-2"></i>
-      </button>
+      <button type="button" class="m-1 btn btn-sm btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
         <% if @list.user == current_user %>
@@ -44,6 +41,7 @@
 </div>
 
 
+
   <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -57,7 +55,7 @@
           <div class="modal-body p-0 m-0">
             <%= form_tag(list_share_path(@list), class: 'form-group mb-0') do |f| %>
               <div class="shadow p-3 bg-white">
-                <%= text_field_tag 'email', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
+                <%= text_field_tag 'emailShare', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
                 <div class="d-flex align-items-center justify-content-end">
                   <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2" %>
                 </div>
@@ -115,3 +113,8 @@
   <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
 
 </div>
+
+
+<div style="padding: 50px;"></div>
+
+

@@ -15,6 +15,8 @@ import '../components/selectize';
 import '../components/selectize1';
 
 import 'packs/list';
+import 'packs/cart';
+import 'packs/store_cart';
 
 
 //// Handle Turbolinks side-issues

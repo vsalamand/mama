@@ -18,7 +18,7 @@ class Recipe < ApplicationRecord
   acts_as_ordered_taggable
   acts_as_taggable_on :categories
 
-  searchkick
+  searchkick language: "french"
 
   # before_save do
   #   # update to cloudinary
@@ -72,7 +72,7 @@ class Recipe < ApplicationRecord
   def get_best_store
     store_prices = []
     Store.all.each do |store|
-      store_prices << [store.get_recipe_price(self.foods), store]
+      store_prices << [store.get_cheapest_cart_price(self.items)[0], store]
     end
     return store_prices.min
   end

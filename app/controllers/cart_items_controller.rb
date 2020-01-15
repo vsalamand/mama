@@ -1,18 +1,5 @@
 class CartItemsController < ApplicationController
-  before_action :set_cart, only: [:create, :destroy]
-  before_action :set_cart_item, only: [:destroy]
-
-  def self.create(product)
-    if product[:cart_id].present?
-      @cart = Cart.find(product[:cart_id])
-      @cart.add_product(product)
-      @cart.save
-    elsif product[:order_id].present?
-      @order = Order.find(product[:order_id])
-      @order.add_product(product)
-      @order.save
-    end
-  end
+  before_action :set_cart, only: [:create]
 
   def show
     @cart_item = CartItem.find_by(id: params[:id])
@@ -25,13 +12,24 @@ class CartItemsController < ApplicationController
 
   def update
     @cart_item = CartItem.find(params[:id])
-    @cart_item.update(cart_item_params)
     @cart = Cart.find(params[:cart_id])
-    redirect_to cart_path(@cart)
+
+    @cart_item.update(cart_item_params)
+    render 'update.js.erb'
   end
 
   def destroy
+    @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
+    render "delete.js.erb"
+  end
+
+  def search
+    @cart_item = CartItem.find(params[:cart_item_id])
+    @cart = Cart.find(params[:cart_id])
+    @store_item = StoreItem.find(@cart_item.productable_id)
+    @search = Product.search(params[:query], fields: [:name, :brand], where:  {stores: @cart.merchant.name} )[0..49] if params[:query]
+    render 'search.js.erb'
   end
 
   private

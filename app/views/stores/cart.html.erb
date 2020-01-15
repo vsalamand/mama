@@ -1,8 +1,8 @@
-<div class="container my-5">
-  <h1 class="display-4 font-weight-bold mb-0"><%= @store.name %></h1>
-  <p class="ml-1 text-muted">Catalogue du magasin <%= @store.store_type %></p>
-</div>
+<!-- to delete -->
 
-<hr class="my-4">
 
-<%= render 'stores/recipe_cart', recipe: @recipe %>
+<% if params[:recipe_id] %>
+  <%= render 'store_cart/recipe_cart', recipe: @recipe %>
+<% elsif params[:list_id] %>
+  <%= render 'store_cart/list_cart', list: @list %>
+<% end %>

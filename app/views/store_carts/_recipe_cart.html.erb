@@ -1,0 +1,34 @@
+<div class="container mt-5" id="storeCartType" data="recipe">
+  <div class="d-flex flex-column-reverse">
+    <h1 class="font-weight-bold mb-0"><%= @recipe.title.capitalize %>  </h1>
+    <p class="ml-1 text-muted mb-0">Sélection de produits chez <strong class="btn-outline-primary"><%= @store.name %></strong> pour:</p>
+  </div>
+
+</div>
+
+<hr class="my-4">
+
+<div class="container mt-3 mb-2">
+  <div class="d-flex align-items-center justify-content-between p-1">
+    <div>
+      <h5 class="mb-0 font-weight-light">Sélection 1er prix</h5>
+      <small class="text-muted p-0 pt-1">Cliquez sur un produit pour le changer.</small>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <div class="shadow bg-white">
+    <div class="list-group list-group-flush mb-2" id="storeCartItemsList">
+      <% @store_cart_items.each do |store_cart_item| %>
+        <%= render 'store_cart_items/show', store_cart_item: store_cart_item, store_item: store_cart_item.store_item, recipe: @recipe %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div style="padding: 50px;"></div>
+
+
+<div id="storeCartPrice" data="<%= store_cart.id %>">
+</div>

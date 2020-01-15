@@ -24,7 +24,7 @@ class Food < ApplicationRecord
   acts_as_taggable_on :shelves
 
   has_ancestry
-  searchkick
+  searchkick language: "french"
 
 
   after_create do

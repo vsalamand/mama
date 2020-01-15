@@ -1,0 +1,20 @@
+<% Store.all.each do |store| %>
+
+  <%= link_to store_cart_path(store, :recipe_id => recipe.id), class:"list-group-item list-group-item-action" do %>
+    <div class="d-flex align-items-center justify-content-between">
+      <div id="cart-description">
+        <div class="d-flex w-100 flex-column mb-1">
+          <h5 class="mb-0 text-primary"><%= store.name.capitalize %></h5>
+          <small class="text-muted"><%= recipe.foods.size %> <%= recipe.foods.size > 1 ? "articles" : "article" %></small>
+        </div>
+        <h6 class="mb-0">
+          à partir de <strong><%= store.get_cheapest_cart_price(recipe.items)[0] %>€</strong>
+        </h6>
+      </div>
+      <div class="product-options d-flex flex-column align-items-center">
+        <i class="fas fa-lg fa-angle-right p-1"></i>
+      </div>
+    </div>
+  <% end %>
+
+<% end %>

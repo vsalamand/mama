@@ -1,6 +1,6 @@
 <% unless params[:controller] == "pages" && params[:action] == "home" && !current_user %>
   <div class="container">
-    <nav class="px-0 navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <nav class="px-0 navbar navbar-expand-lg" style="background-color: transparent;">
        <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
       </a>
@@ -12,18 +12,21 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <%= link_to "Listes de courses", lists_path, class:"nav-link"  %>
+              <%= link_to "Listes de courses", lists_path, class:"nav-link text-dark"  %>
             </li>
             <li class="nav-item active">
-              <%= link_to "Idées repas", recipes_path, class:"nav-link"  %>
+              <%= link_to "Idées repas", recipes_path, class:"nav-link text-dark"  %>
             </li>
             <!--
             <li class="nav-item active">
-              <%= link_to "Magasins", stores_path, class:"nav-link"  %>
+              <%= link_to "Magasins", stores_path, class:"nav-link text-dark"  %>
             </li>
              -->
             <li class="nav-item active">
-              <%= link_to "Compte", profile_path, class:"nav-link"  %>
+              <%= link_to "Courses", carts_path, class:"nav-link text-dark"  %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "Compte", profile_path, class:"nav-link text-dark"  %>
             </li>
           </ul>
         </div>

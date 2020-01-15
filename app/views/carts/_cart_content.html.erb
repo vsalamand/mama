@@ -1,0 +1,15 @@
+<div class="shadow p-0 my-3 bg-white rounded">
+
+  <div class="list-group list-group-flush" id="cart_items">
+    <% @cart.cart_items.where.not(productable_id: nil).order(:item_id).each do |cart_item| %>
+      <%= render 'cart_items/show', store_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item %>
+    <% end %>
+  </div>
+
+  <% if cart.user == current_user %>
+     <%= render "cart_items/form", cart: cart %>
+  <% end %>
+
+</div>
+
+

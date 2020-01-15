@@ -1,0 +1,3 @@
+const productContent = document.querySelector("#products_list");
+productContent.innerHTML = "";
+productContent.innerHTML = ("<%= j render 'search', search_results: @search, cart: @cart %>");

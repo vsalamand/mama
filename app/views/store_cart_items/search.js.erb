@@ -1,0 +1,4 @@
+var searchList = document.getElementById("storeCartItemsList<%= @store_cart_item.id %>");
+// storeCartItemList.innerHTML = "";
+$(searchList).replaceWith("<%= j render 'store_cart_items/search', search_results: @search, store_cart_item: @store_cart_item %>");
+

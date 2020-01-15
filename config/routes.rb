@@ -84,6 +84,7 @@ Rails.application.routes.draw do
 
   resources :lists do
     get 'fetch_suggested_items', to: "lists#fetch_suggested_items"
+    get 'fetch_price', to: "lists#fetch_price"
     get 'get_cart', to: "lists#get_cart"
     post 'share', to: "lists#share"
     post 'send_invite', to: "lists#send_invite"
@@ -107,9 +108,14 @@ Rails.application.routes.draw do
   resources :carts do
     post 'share', to: "carts#share"
     post 'special_share', to: "carts#special_share"
+    get :fetch_price
+    member do
+      get 'search', to: "carts#search"
+      get :add_to_cart
+    end
     resources :cart_items, only: [:show, :destroy, :edit, :update] do
       get 'report', to: "products#report"
-      get 'search', to: "products#search"
+      get :search
     end
   end
 
@@ -117,6 +123,16 @@ Rails.application.routes.draw do
   resources :items
   resources :products
   resources :stores do
+    resources :store_carts do
+      get 'fetch_price', to: "store_carts#fetch_price"
+      member do
+        get :add_to_cart
+      end
+      resources :store_cart_items do
+        get :search
+        get :fetch_index
+      end
+    end
     get :catalog
     get :cart
   end

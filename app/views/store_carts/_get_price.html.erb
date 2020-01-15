@@ -1,0 +1,19 @@
+<!-- Button trigger Select Cart modal -->
+<a class="btn fixed-bottom mt-5 btn-flat2 py-3 font-weight-bold" data-toggle="modal" data-target="#selectCartModal">Continer les courses <span id="storeCartCostCounter"><%= price %></span>€</a>
+
+<!-- Select Cart Modal -->
+<div class="modal fade" id="selectCartModal" tabindex="-1" role="dialog" aria-labelledby="selectCartModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="selectCartModalLabel">Panier de courses <strong class="btn-outline-primary"><%= store_cart.store.name.capitalize %></strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0 d-flex flex-column">
+        <%= render 'store_carts/add_to_cart', carts: carts, store_cart: store_cart %>
+      </div>
+    </div>
+  </div>
+</div>
