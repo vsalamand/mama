@@ -6,12 +6,20 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-white">
       <div class="modal-header">
-        <h5 class="modal-title" id="orderModalLabel">Faites vos achats</h5>
+        <h5 class="modal-title" id="orderModalLabel">🎉 Valider le panier</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body m-0 p-0">
+        <div class="list-group list-group-flush">
+          <a class="list-group-item list-group-item-action text-primary text-white" id="shareCart" style="cursor: pointer;" data-toggle="modal" data-target="#shareModal">📝 Recevoir par email</a>
+
+          <a class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">🛍️ Drive piéton <br><small>pas disponible</small></a>
+          <a class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">🚗 Drive <br><small>pas disponible</small></a>
+          <a class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">🚚 Livraison <br><small>pas disponible</small></a>
+
+        </div>
       </div>
     </div>
   </div>

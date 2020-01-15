@@ -1,0 +1,8 @@
+  <% if search_results %>
+      <ul class="list-group list-group-flush">
+        <small class="pl-3 text-muted">Résultats:</small>
+        <% search_results.each do |product| %>
+        <%= render 'cart_items/cart_item_card', store_item: product.store_items.where(store_id: cart.merchant.id).first, cart_item: cart_item, cart: cart %>
+        <% end %>
+      </ul>
+  <% end %>

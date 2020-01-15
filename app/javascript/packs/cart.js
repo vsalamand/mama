@@ -1,19 +1,6 @@
 import Rails from 'rails-ujs'
 import 'bootstrap';
 
-// document.addEventListener('click', function(event) {
-//   event.stopImmediatePropagation();
-//   console.log('hey')
-
-//   const cartId = document.querySelector(".cartItemShow").getAttribute('data');
-//   const id = event.currentTarget.id;
-
-//   $.ajax({
-//     url: "/carts/" + cartId + "/cart_items/" + id,
-//     type: "DELETE"
-//   });
-// })
-
 
 // open Add product modal when click on button
 $(document).on('click', '#addProducts', function() {
@@ -42,6 +29,11 @@ $(document).on('click', '.cartItemShow', function() {
 $(document).on('click', '.buyBtn',function() {
   $('.modal').modal('hide');
 });
+
+// hide order modal after click on option
+$(document).on('click', '#shareCart', function() {
+  $('#orderModal').modal('hide');
+})
 
 
 

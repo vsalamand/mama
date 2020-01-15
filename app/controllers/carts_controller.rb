@@ -36,6 +36,7 @@ class CartsController < ApplicationController
     email = params[:email]
     mail = CartMailer.share(cart, email)
     mail.deliver_now
+    flash[:notice] = 'Le panier a été envoyé par email !'
     redirect_to cart_path(cart)
   end
 

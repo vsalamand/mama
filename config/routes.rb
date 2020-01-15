@@ -115,7 +115,7 @@ Rails.application.routes.draw do
     end
     resources :cart_items, only: [:show, :destroy, :edit, :update] do
       get 'report', to: "products#report"
-      get 'search', to: "products#search"
+      get :search
     end
   end
 

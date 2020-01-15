@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="product-options d-flex flex-column align-items-center buyBtn">
-        <%= simple_form_for [@cart, cart_item], remote: true, html: {id: "store_item#{store_item.id}"} do |f| %>
+        <%= simple_form_for [cart_item.cart, cart_item], remote: true, html: {id: "store_item#{store_item.id}"} do |f| %>
           <%= f.input :productable_id, input_html: {value: store_item.id, id: "productable-id-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
           <%= f.input :name, input_html: {value: store_item.name, id: "name-field-store_item#{store_item.id}"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
           <%= f.submit "Choisir", class: "btn btn-primary btn-sm" %>
@@ -27,3 +27,4 @@
 
   </div>
 </div>
+
