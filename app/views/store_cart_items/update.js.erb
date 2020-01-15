@@ -8,9 +8,3 @@ if ($(storeCartType) == "list") {
   $(item).replaceWith("<%= j render 'store_cart_items/show', store_cart_item: @store_cart_item, store_item: @store_cart_item.store_item, recipe: @recipe %>");
 }
 
-getStoreCartPrice();
-
-// close modal is opened
-$('.modal').modal('hide');
-$(document.body).removeClass('modal-open');
-$('.modal-backdrop').remove();

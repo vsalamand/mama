@@ -25,10 +25,10 @@ function getStoreCartPrice() {
 
 // close update product modal when list item is submitted
 $(document).on('click', '.selectBtn',function() {
-  getStoreCartPrice();
   $('.modal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
+  setTimeout(getStoreCartPrice,500);
 });
 
 
