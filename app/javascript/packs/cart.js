@@ -42,3 +42,37 @@ $(document).on('click', '.cartItemShow', function() {
 $(document).on('click', '.buyBtn',function() {
   $('.modal').modal('hide');
 });
+
+
+
+$(document).on("turbolinks:load", function(event) {
+  getCartPrice();
+})
+
+function getCartPrice() {
+  if(document.querySelector("#cartPrice")){
+    const cartId = document.querySelector("#cartId").getAttribute('data');
+
+    $.ajax({
+      url: "/carts/" + cartId + "/fetch_price",
+      cache: false,
+      success: function(){
+      }
+    });
+
+  }
+}
+
+$(document).on('click', '.deleteBtn',function() {
+  $('.modal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+  setTimeout(getCartPrice,500);
+});
+
+$(document).on('click', '.buyBtn',function() {
+  $('.modal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+  setTimeout(getCartPrice,500);
+});

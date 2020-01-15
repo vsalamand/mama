@@ -108,6 +108,7 @@ Rails.application.routes.draw do
   resources :carts do
     post 'share', to: "carts#share"
     post 'special_share', to: "carts#special_share"
+    get :fetch_price
     member do
       get 'search', to: "carts#search"
       get :add_to_cart

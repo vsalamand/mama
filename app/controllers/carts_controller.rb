@@ -60,6 +60,12 @@ class CartsController < ApplicationController
     render "add_to_cart.js.erb"
   end
 
+  def fetch_price
+    @cart = Cart.find(params[:cart_id])
+    @price = @cart.get_total_price
+    render 'fetch_price.js.erb'
+  end
+
   private
   def cart_params
     params.require(:cart).permit(:cart_id, :user_id, :merchant_id)
