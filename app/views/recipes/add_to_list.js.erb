@@ -3,6 +3,6 @@ $(document.body).removeClass('modal-open');
 $('.modal-backdrop').remove();
 
 const page = document.querySelector("#content-wrap");
-page.innerHTML = ("<%= j render 'show' %>");
+page.innerHTML = ("<%= j render 'show', recipe: @recipe %>");
 
 $("#flash").html('<%= j render "shared/flashes" %>');
