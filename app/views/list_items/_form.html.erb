@@ -1,8 +1,16 @@
 <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
 
-    <div class="shadow p-3 mb-3 bg-white">
+    <div class="p-2 mb-3">
 
-      <%= form.input :name, as: :string, label: false, placeholder: "Que souhaitez-vous ajouter ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" }  %>
+      <div class="search-form-control">
+        <%= form.input :name, as: :string, label: false, placeholder: "Que souhaitez-vous ajouter ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" } %>
+
+        <%= button_tag(type: "submit", class: "btn btn-sm btn-flat2 ", id:"addListItemBtn") do %>
+          Ajouter
+        <% end %>
+
+      </div>
+
 
       <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
 
@@ -14,7 +22,6 @@
         <!-- Button trigger View More modal -->
         <a class="list-inline-item btn btn-sm btn-link text-primary py-0 font-weight-bold align-self-center" data-toggle="modal" data-target="#viewMoreModal">Voir plus de suggestions</a>
 
-        <%= form.submit 'Ajouter', class:"shadow btn btn-sm btn-flat2", id:"addListItemBtn" %>
 
       </div>
 

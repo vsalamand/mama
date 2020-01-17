@@ -1,0 +1,8 @@
+<div class="list-group">
+  <% current_user.lists.each do |list| %>
+    <%= link_to list.name.capitalize, list_path(list), class:"list-group-item list-group-item-action" %>
+  <% end %>
+  <% current_user.shared_lists.each do |list| %>
+    <%= link_to list.name.capitalize, list_path(list), class:"list-group-item list-group-item-action" %>
+  <% end %>
+</div>

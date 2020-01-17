@@ -1,5 +1,5 @@
 
-<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574159533/daniel-von-appen-_6uPgukLUV8-unsplash-min_he8rot.jpg);">
+<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{rand(1..53)}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
   <div class="container">
     <nav class="px-0 navbar navbar-expand-lg" style="background-color: transparent;">

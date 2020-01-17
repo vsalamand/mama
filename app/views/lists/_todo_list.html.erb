@@ -1,14 +1,17 @@
-<div class="shadow p-0 bg-white rounded">
 
+
+
+<div class="shadow p-0 mb-2 bg-white rounded">
   <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
     <%= render 'uncomplete_todo_list', list: list, list_items: list_items %>
   </div>
-
-  <% if list.user == current_user || list.users.include?(current_user)%>
-     <%= render "list_items/form", list: list, list_item: list_item %>
-  <% end %>
-
 </div>
+
+<% if list.user == current_user || list.users.include?(current_user)%>
+   <%= render "list_items/form", list: list, list_item: list_item %>
+<% end %>
+
+
 
 <div id="listCartPrice">
 </div>
