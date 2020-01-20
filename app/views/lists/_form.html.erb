@@ -3,9 +3,11 @@
 
       <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0 autofocus" } %>
 
+      <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+
        <div class="d-flex align-items-center justify-content-end">
 
-          <%= f.submit 'Continuer', class:"shadow btn btn-block btn-flat2" %>
+          <%= f.submit 'Confirmer', class:"shadow btn btn-flat2" %>
 
         </div>
 

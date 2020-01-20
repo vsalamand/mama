@@ -1,11 +1,8 @@
-<div class="container mt-5" id="cartId", data="<%= @cart.id %>">
-  <div class="d-flex flex-column mb-3">
-    <h1 class="font-weight-bold mb-0">Panier de courses chez <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong> </h1>
-  </div>
-  <div class="d-flex flex-wrap">
+<div class="container d-flex justify-content-between mt-2 mb-4 pl-0" id="cartId", data="<%= @cart.id %>">
+
     <!-- dropdown button -->
     <div class="btn-group">
-      <button type="button" class="m-1 btn btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
+      <button type="button" class="m-2 btn btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
         <% if current_user.present? && current_user.admin == true %>
@@ -18,9 +15,11 @@
         <% end %>
        </div>
     </div>
-  </div>
 
+
+   <%= link_to 'Fermer', carts_path, class:"btn close m-2 px-0" %>
 </div>
+
 
   <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
@@ -67,11 +66,20 @@
       </div>
     </div>
 
-<hr class="my-4">
+
+
+<div class="container">
+  <%= render 'shared/flashes' %>
+</div>
+
+
+<div class="container mt-5" id="cartId", data="<%= @cart.id %>">
+  <div class="d-flex flex-column mb-3">
+    <h1 class="font-weight-bold mb-0 ">Panier de courses <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong> </h1>
+  </div>
+</div>
 
 <div class="container" id="cart-content" data="<%= @cart.id %>">
-  <small class="text-muted p-2">Cliquez sur un produit pour le changer</small>
-
   <%= render 'cart_content', cart: @cart %>
 </div>
 

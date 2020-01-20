@@ -5,7 +5,59 @@ class List < ApplicationRecord
   has_many :foods, through: :items
   has_many :collaborations
   has_many :users, through: :collaborations
+  has_many :store_carts, dependent: :destroy
   validates :name, presence: true
+
+  STATUS = ["archived", "opened", "saved"]
+
+  scope :saved, -> { where(status: "saved") }
+  scope :opened, -> { where(status: "opened") }
+  scope :archived, -> { where(status: "archived") }
+
+
+  def save_as_plugin
+    self.status = "saved"
+    self.save
+  end
+
+  def archive
+    self.status = "archived"
+    self.save
+  end
+
+  def open
+    self.status = "opened"
+    self.save
+  end
+
+  def duplicate_list
+    new_list = List.new
+    new_list.name = self.name + " du #{Date.today.strftime("%d/%m/%Y")}"
+    new_list.user_id = user.id
+    new_list.status = "opened"
+    new_list.save
+    return new_list
+  end
+
+  def duplicate_list_items(list)
+    list.list_items.not_deleted.each do |list_item|
+      new_list_item = ListItem.create(name: list_item.name,
+        list_id: self.id,
+        deleted: list_item.deleted,
+        is_completed: list_item.is_completed,
+        position: list_item.position)
+
+      valid_item = Item.where("lower(name) = ?", new_list_item.name.downcase).where(is_validated: true).first
+      Thread.new do
+        if valid_item.present?
+          # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
+          Item.create(food: valid_item.food, list_item: new_list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
+        else
+          Item.create_list_item(new_list_item)
+        end
+      end
+    end
+  end
 
   def get_products
     list_products = []

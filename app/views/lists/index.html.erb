@@ -1,17 +1,28 @@
+<div class="midbanner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{rand(1..53)}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
-<div class="container my-5">
-  <h1 class="display-4 font-weight-bold">Listes de courses</h1>
+  <%= render 'shared/navbar_white' %>
+
+  <div class="container mt-5">
+    <h1 class="display-4 font-weight-bold">Listes de courses</h1>
+  </div>
+  <div class="container my-auto d-flex justify-content-start">
+    <!-- Button trigger Start Groceries modal -->
+    <button class="shadow-lg btn btn-lg btn-outline-flat2 font-weight-bold px-5 py-3" data-toggle="modal" data-target="#startGroceriesModal">Faire ma liste de courses</button>
+  </div>
+
 </div>
 
-<hr class="my-4">
 
 
-<div class="container">
-  <!-- Button trigger Create List modal -->
-  <button type="button" class="shadow text-white btn btn-flat2 btn-lg my-3" data-toggle="modal" data-target="#createListModal">
-    <strong>Créer une nouvelle liste</strong>
-  </button>
+<%= render "lists/new_list_modal", list: @list %>
 
+
+
+<div class="container mt-4">
+  <small class="text-muted p-1">Retrouvez ici l'historique de vos listes de courses</small>
+</div>
+
+<div class="container my-3">
   <div class="list-group shadow">
     <%= render 'lists/index', lists: @lists %>
   </div>
@@ -21,19 +32,4 @@
 </div>
 
 
-<!-- Create List Modal -->
-<div class="modal fade" id="createListModal" tabindex="-1" role="dialog" aria-labelledby="createListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="createListModalLabel">📝 Nouvelle liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/form' %>
-      </div>
-    </div>
-  </div>
-</div>
+

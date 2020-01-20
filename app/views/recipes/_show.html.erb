@@ -1,3 +1,8 @@
+<div class="container d-flex justify-content-start mt-2 mb-4 pl-0" id="recipeId", data="<%= recipe.id %>">
+   <%= link_to 'Retour', :back, class:"btn close m-2 px-0" %>
+</div>
+
+
 <% if current_user && current_user.admin == true %>
   <%= link_to "god view", god_show_recipe_path(recipe) %>
 <% end %>

@@ -23,3 +23,25 @@
   color: white;
   opacity: 5; /* Firefox */
 }
+
+.midbanner {
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  // padding: 50px 0;
+}
+
+.midbanner h1 {
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  // font-size: 32px;
+  font-weight: bold;
+}
+
+.midbanner p {
+  font-size: 20px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+

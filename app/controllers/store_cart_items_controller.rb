@@ -15,6 +15,12 @@ class StoreCartItemsController < ApplicationController
     render 'update.js.erb'
   end
 
+  def destroy
+    @store_cart_item = StoreCartItem.find(params[:id])
+    @store_cart_item.destroy
+    render "delete.js.erb"
+  end
+
   def search
     @store_cart_item = StoreCartItem.find(params[:store_cart_item_id])
     @store_cart = StoreCart.find(params[:store_cart_id])

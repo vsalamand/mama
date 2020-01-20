@@ -58,4 +58,10 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+// close  modal after click
+$(document).on('click', '#startGroceriesModal',function() {
+  $('.modal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+});
 

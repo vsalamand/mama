@@ -28,9 +28,7 @@ class ListItemsController < ApplicationController
           # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
           Item.create(food: valid_item.food, list_item: @list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
         else
-          new_item = Item.create_list_item(@list_item)
-          mail = ReportMailer.report_item(new_item)
-          mail.deliver_now
+          Item.create_list_item(@list_item)
         end
       end
     else

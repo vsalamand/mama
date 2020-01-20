@@ -2,6 +2,10 @@
 
   <%= render 'shared/navbar_white' %>
 
+  <div class="container">
+    <%= render 'shared/flashes' %>
+  </div>
+
   <div class="container my-auto d-flex justify-content-center">
     <!-- Button trigger Start Groceries modal -->
     <button class="shadow-lg btn btn-lg btn-outline-flat2 font-weight-bold px-5 py-3" data-toggle="modal" data-target="#startGroceriesModal">Faire ma liste de courses</button>
@@ -10,60 +14,4 @@
 </div>
 
 
-<!-- Select Start Groceries Modal -->
-<div class="modal fade" id="startGroceriesModal" tabindex="-1" role="dialog" aria-labelledby="startGroceriesModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content bg-white">
-      <div class="modal-header">
-        <h5 class="modal-title" id="startGroceriesModalLabel">🔥 Faire ma liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <div class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#createListModal" style="cursor: pointer;">✏️ à partir d'une nouvelle liste</a>
-          <a class="list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#selectListModal" style="cursor: pointer;" tabindex="-1" aria-disabled="true">📝 à partir d'une liste enregistrée</a>
-<!--           <a class="list-group-item list-group-item-action text-primary" style="cursor: pointer;" tabindex="-1" aria-disabled="true">🍝 à partir de suggestions de repas</a> -->
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Create List Modal -->
-<div class="modal fade" id="createListModal" tabindex="-1" role="dialog" aria-labelledby="createListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="createListModalLabel">📝 Nouvelle liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/form' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Select List Modal -->
-<div class="modal fade" id="selectListModal" tabindex="-1" role="dialog" aria-labelledby="selectListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="selectListModalLabel">📝 Choisir une liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/select_list' %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render "lists/new_list_modal", list: @list %>

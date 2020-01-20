@@ -1,3 +1,8 @@
+<% if cart.user == current_user %>
+   <%= render "cart_items/form", cart: cart %>
+<% end %>
+
+<small class="text-muted p-2">Cliquez sur un produit pour le changer</small>
 <div class="shadow p-0 my-3 bg-white rounded">
 
   <div class="list-group list-group-flush" id="cart_items">
@@ -5,10 +10,6 @@
       <%= render 'cart_items/show', store_item: StoreItem.find(cart_item.productable_id), cart_item: cart_item %>
     <% end %>
   </div>
-
-  <% if cart.user == current_user %>
-     <%= render "cart_items/form", cart: cart %>
-  <% end %>
 
 </div>
 
