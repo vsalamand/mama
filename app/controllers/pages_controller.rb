@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def home
     @list = List.new
+    @recipes = RecipeList.last.recipes
 
     # if user is logged in ANS a beta user AND has opened list, display the opened list
     if user_signed_in? && current_user.beta == true && current_user.lists.opened.any?
