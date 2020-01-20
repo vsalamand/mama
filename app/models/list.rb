@@ -5,6 +5,7 @@ class List < ApplicationRecord
   has_many :foods, through: :items
   has_many :collaborations
   has_many :users, through: :collaborations
+  has_many :store_carts, dependent: :destroy
   validates :name, presence: true
 
   STATUS = ["archived", "opened", "saved"]

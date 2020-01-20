@@ -9,6 +9,8 @@
           <!-- Option modal for owner -->
           <% if @list.status == "saved" %>
             <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier</a>
+          <% else %>
+            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Enregistrer</a>
           <% end %>
           <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
           <div class="dropdown-divider"></div>
