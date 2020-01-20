@@ -89,6 +89,8 @@ Rails.application.routes.draw do
     post 'share', to: "lists#share"
     post 'send_invite', to: "lists#send_invite"
     get 'accept_invite', to: "lists#accept_invite"
+    get :archive
+    get :copy
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort

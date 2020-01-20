@@ -1,15 +1,15 @@
 
 
+<% if list.user == current_user || list.users.include?(current_user)%>
+ <%= render "list_items/form", list: list, list_item: list_item %>
+<% end %>
 
-<div class="shadow p-0 mb-2 bg-white rounded">
+<div class="shadow p-0 my-2 bg-white rounded">
   <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
     <%= render 'uncomplete_todo_list', list: list, list_items: list_items %>
   </div>
 </div>
 
-<% if list.user == current_user || list.users.include?(current_user)%>
-   <%= render "list_items/form", list: list, list_item: list_item %>
-<% end %>
 
 
 
@@ -17,13 +17,12 @@
 </div>
 
 
-<hr class="my-3">
 
 
 <div id="complete_list_items">
   <% if list_items.completed.any? %>
     <div>
-      <div class="list-group list-group-flush mb-5">
+      <div class="list-group list-group-flush my-4">
         <%= render 'complete_todo_list', list: list, list_items: list_items %>
       </div>
     </div>

@@ -4,14 +4,11 @@ class PagesController < ApplicationController
 
   def home
     @list = List.new
-    @recipes = RecipeList.last.recipes
 
-    # if user is logged in and a beta user, display the user grocery list
-    if user_signed_in? && current_user.beta == true
-      @user = current_user
-      @lists = @user.lists
-      @shared_lists = @user.shared_lists
-      @stores = Store.all
+    # if user is logged in ANS a beta user AND has opened list, display the opened list
+    if user_signed_in? && current_user.beta == true && current_user.lists.opened.any?
+      list = current_user.lists.opened.last
+      redirect_to list_path(list)
       # if current_user.lists.any?
       #   list = current_user.lists.first
       # else

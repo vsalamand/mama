@@ -1,9 +1,17 @@
+<div class="midbanner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{rand(1..53)}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
-<div class="container my-5">
-  <h1 class="display-4 font-weight-bold">Listes de courses</h1>
+  <%= render 'shared/navbar_white' %>
+
+  <div class="container mt-5">
+    <h1 class="display-4 font-weight-bold">Listes de courses</h1>
+  </div>
+  <div class="container my-auto d-flex justify-content-start">
+    <!-- Button trigger Start Groceries modal -->
+    <button class="shadow-lg btn btn-lg btn-outline-flat2 font-weight-bold px-5 py-3" data-toggle="modal" data-target="#startGroceriesModal">Faire ma liste de courses</button>
+  </div>
+
 </div>
 
-<hr class="my-4">
 
 
 <div class="container">

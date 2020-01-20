@@ -2,6 +2,10 @@
 
   <%= render 'shared/navbar_white' %>
 
+  <div class="container">
+    <%= render 'shared/flashes' %>
+  </div>
+
   <div class="container my-auto d-flex justify-content-center">
     <!-- Button trigger Start Groceries modal -->
     <button class="shadow-lg btn btn-lg btn-outline-flat2 font-weight-bold px-5 py-3" data-toggle="modal" data-target="#startGroceriesModal">Faire ma liste de courses</button>
@@ -22,7 +26,16 @@
       </div>
       <div class="modal-body m-0 p-0">
         <div class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#createListModal" style="cursor: pointer;">✏️ à partir d'une nouvelle liste</a>
+          <!-- Create new list -->
+          <%= simple_form_for @list do |f| %>
+            <%= f.input :name, input_html: {value: "Liste de courses du #{Date.today.strftime("%d/%m/%Y")}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+            <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.submit "✏️ à partir d'une nouvelle liste", class: "btn list-group-item list-group-item-action text-primary" %>
+          <% end %>
+
+
+          <!-- Create new list using saved list model -->
           <a class="list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#selectListModal" style="cursor: pointer;" tabindex="-1" aria-disabled="true">📝 à partir d'une liste enregistrée</a>
 <!--           <a class="list-group-item list-group-item-action text-primary" style="cursor: pointer;" tabindex="-1" aria-disabled="true">🍝 à partir de suggestions de repas</a> -->
 
@@ -56,13 +69,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="selectListModalLabel">📝 Choisir une liste de courses</h5>
+        <h5 class="modal-title" id="selectListModalLabel">📝 Choisissez une liste enregistrée</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body m-0 p-0">
-        <%= render 'lists/select_list' %>
+        <%= render 'lists/copy_list', lists: current_user.lists.saved %>
       </div>
     </div>
   </div>

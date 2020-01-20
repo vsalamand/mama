@@ -8,12 +8,20 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    @list.user_id = current_user.id
+    # @list.user_id = current_user.id
+    # @list.status = "opened"
     if @list.save
       redirect_to list_path(@list)
     else
       redirect_to new_list_path
     end
+  end
+
+  def copy
+    @list = List.find(params[:list_id])
+    @new_list = @list.duplicate_list
+    @new_list.duplicate_list_items(@list)
+    redirect_to list_path(@new_list)
   end
 
   def edit
@@ -22,7 +30,8 @@ class ListsController < ApplicationController
   def update
     @list = List.find(params[:id])
     @list.update(list_params)
-    redirect_to list_path(@list)
+    flash[:notice] = 'La liste est enregistrée !'
+    redirect_to root_path
   end
 
   def index
@@ -99,17 +108,23 @@ class ListsController < ApplicationController
     end
   end
 
+  def archive
+    list = List.find(params[:list_id])
+    list.archive
+    redirect_to root_path
+  end
+
   def destroy
     @list = List.find(params[:id])
     @list.destroy
-    redirect_to lists_path
+    redirect_to root_path
   end
 
 
   private
 
   def list_params
-    params.require(:list).permit(:id, :name, :user_id)
+    params.require(:list).permit(:id, :name, :user_id, :status)
   end
 
   def set_list
