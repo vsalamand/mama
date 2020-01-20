@@ -22,6 +22,7 @@ class CartsController < ApplicationController
 
   def show
     @cart = Cart.find(params[:id])
+    @cart_item = CartItem.new
   end
 
   def search

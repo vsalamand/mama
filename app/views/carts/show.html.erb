@@ -17,7 +17,7 @@
     </div>
 
 
-   <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+   <%= link_to 'Fermer', carts_path, class:"btn close m-2 px-0" %>
 </div>
 
 
@@ -67,6 +67,12 @@
     </div>
 
 
+
+<div class="container">
+  <%= render 'shared/flashes' %>
+</div>
+
+
 <div class="container mt-5" id="cartId", data="<%= @cart.id %>">
   <div class="d-flex flex-column mb-3">
     <h1 class="font-weight-bold mb-0 ">Panier de courses <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong> </h1>
@@ -74,8 +80,6 @@
 </div>
 
 <div class="container" id="cart-content" data="<%= @cart.id %>">
-  <small class="text-muted p-2">Cliquez sur un produit pour le changer</small>
-
   <%= render 'cart_content', cart: @cart %>
 </div>
 

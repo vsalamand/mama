@@ -1,5 +1,11 @@
-<div class="list-group">
-  <% lists.each do |list| %>
-    <%= link_to list.name.capitalize, list_copy_path(list), class:"list-group-item list-group-item-action" %>
-  <% end %>
-</div>
+<% if lists.any? %>
+  <div class="list-group">
+    <% lists.each do |list| %>
+      <%= link_to list.name.capitalize, list_copy_path(list), class:"list-group-item list-group-item-action text-primary" %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="list-group">
+    <div class="list-group-item list-group-item">Vous n'avez pas encore enregistré de liste.</div>
+  </div>
+<% end %>

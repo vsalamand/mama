@@ -14,12 +14,15 @@
 
 
 
-<div class="container">
-  <!-- Button trigger Create List modal -->
-  <button type="button" class="shadow text-white btn btn-flat2 btn-lg my-3" data-toggle="modal" data-target="#createListModal">
-    <strong>Créer une nouvelle liste</strong>
-  </button>
+<%= render "lists/new_list_modal", list: @list %>
 
+
+
+<div class="container mt-4">
+  <small class="text-muted p-1">Retrouvez ici l'historique de vos listes de courses</small>
+</div>
+
+<div class="container my-3">
   <div class="list-group shadow">
     <%= render 'lists/index', lists: @lists %>
   </div>
@@ -29,19 +32,4 @@
 </div>
 
 
-<!-- Create List Modal -->
-<div class="modal fade" id="createListModal" tabindex="-1" role="dialog" aria-labelledby="createListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="createListModalLabel">📝 Nouvelle liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/form' %>
-      </div>
-    </div>
-  </div>
-</div>
+

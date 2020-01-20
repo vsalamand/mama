@@ -1,5 +1,5 @@
 <!-- Button trigger update Product Modal -->
-<a id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= store_item.id %>" class="StoreCartItemShow" data="<%= store_cart_item.id %>" data2="<%= store_item.id %>">
+<div id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= store_item.id %>" class="StoreCartItemShow" data="<%= store_cart_item.id %>" data2="<%= store_item.id %>">
     <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
       <div class="d-flex align-items-center justify-content-between">
@@ -25,16 +25,17 @@
             <% end %>
           </div>
         </div>
-        <div class="product-options d-flex flex-column align-items-center">
-          <% if false %>
-            <%= link_to "Changer", store_catalog_path(store_item.store, :food_id => store_item.food.id ), class:"btn btn-sm btn-primary  px-1 py-0" %>
-          <% end %>
-        </div>
+
+        <%= link_to store_store_cart_store_cart_item_path(store_cart_item.store_cart.store, store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
+          <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
+            <span aria-hidden="true" >&times;</span>
+          </button>
+        <% end %>
 
       </div>
 
     </div>
-</a>
+</div>
 
 <!-- update products Modal -->
 <div class="modal fade" id="updateProductModal<%= store_item.id %>" tabindex="-1" role="dialog" aria-labelledby="updateProductModal<%= store_item.id %>Label" aria-hidden="true">
