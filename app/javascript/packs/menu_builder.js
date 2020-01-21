@@ -69,4 +69,18 @@ function loadRecipeMenu(recipeId) {
 
 
 
+//  Add recipe to menu in modal
+$(document).on("click" , "#addToMenuBtn", function(event) {
+  const recipeId = document.getElementById("recipeCardId").getAttribute('data');
+  addToMenu(recipeId);
+});
 
+function addToMenu(recipeId) {
+  // query suggested items
+  $.ajax({
+    url: "/recipes/" + recipeId + "/add_to_menu",
+    cache: false,
+    success: function(){
+    }
+  });
+}

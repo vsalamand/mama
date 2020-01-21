@@ -7,7 +7,9 @@ class RecipeListItem < ApplicationRecord
 
   # add name from recipe title
   after_create do
-    self.get_name
+    if self.name.blank?
+      self.get_name
+    end
   end
 
   def get_name

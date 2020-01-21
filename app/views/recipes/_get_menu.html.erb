@@ -7,7 +7,38 @@
 
 <div class="modal-body m-0 p-0" id="menuBuilderContent" style="height: 80vh;">
 
-le menu est vide
+  <div class="list-group">
+    <% if recipes.any? %>
+      <% recipes.each do |recipe| %>
+
+        <div class="list-group-item list-group-item-action border-0 recipeIndex" data="<%= recipe.id %>" style="cursor: pointer;">
+          <div class="d-flex align-items-center justify-content-between">
+            <div id="description">
+              <div class="d-flex w-100 flex-column mb-0">
+                <h5 class="mb-0 text-primary"><%= recipe.title.capitalize %></h5>
+              </div>
+              <small class="text-muted"><%= recipe.origin %></small>
+            </div>
+            <div class="product-options d-flex flex-column align-items-center">
+              <i class="fas fa-lg fa-angle-right p-1"></i>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+
+    <% else %>
+      <div class="list-group-item border-0">
+        <div class="d-flex align-items-center justify-content-between">
+          <div id="description">
+            <div class="d-flex w-100 flex-column mb-0">
+              <h5 class="mb-0 text-muted">Le menu est vide</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
 </div>
 

@@ -44,6 +44,17 @@ class User < ApplicationRecord
     return profile
   end
 
+  def get_menu
+    menu = self.recipe_lists.where(status: "opened").last
+    if menu.nil?
+      menu = RecipeList.create(name: "Menu du #{Date.today.strftime("%d/%m/%Y")}",
+                                user_id: self.id,
+                                recipe_list_type: "personal",
+                                status: "opened")
+    end
+    return menu
+  end
+
 
   private
 

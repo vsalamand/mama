@@ -46,6 +46,12 @@ class Recipe < ApplicationRecord
     end
   end
 
+  def add_to_recipe_list(recipe_list)
+    RecipeListItem.create(recipe_id: self.id,
+                          recipe_list_id: recipe_list.id,
+                          name: self.title)
+  end
+
 
   def rate
     # get ratings for each food in recipe

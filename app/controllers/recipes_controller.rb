@@ -141,7 +141,7 @@ class RecipesController < ApplicationController
   end
 
   def fetch_suggested_recipes
-    @recipes = RecipeList.last.recipes[0..6]
+    @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..6]
     render 'fetch_suggested_recipes.js.erb'
   end
 
@@ -151,9 +151,20 @@ class RecipesController < ApplicationController
   end
 
   def fetch_menu
-    @recipes = Recipe.last
+    menu = current_user.get_menu
+    @recipes = menu.recipes
     render 'fetch_menu.js.erb'
   end
+
+  def add_to_menu
+    recipe = Recipe.find(params[:id])
+    menu = current_user.get_menu
+    recipe.add_to_recipe_list(menu)
+
+    @recipes = menu.recipes
+    render 'fetch_menu.js.erb'
+  end
+
 
   private
 

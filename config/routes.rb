@@ -79,6 +79,7 @@ Rails.application.routes.draw do
       get :god_show
       get :add_to_list
       get :fetch_recipe_card
+      get :add_to_menu
     end
     resources :items do
       get :add_to_list
