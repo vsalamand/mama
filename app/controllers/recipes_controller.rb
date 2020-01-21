@@ -140,9 +140,23 @@ class RecipesController < ApplicationController
     end
   end
 
+  def fetch_suggested_recipes
+    @recipes = RecipeList.last.recipes[0..6]
+    render 'fetch_suggested_recipes.js.erb'
+  end
 
+  def fetch_recipe_card
+    @recipe = Recipe.find(params[:id])
+    render 'fetch_recipe_card.js.erb'
+  end
+
+  def fetch_menu
+    @recipes = Recipe.last
+    render 'fetch_menu.js.erb'
+  end
 
   private
+
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end

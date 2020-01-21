@@ -14,7 +14,8 @@ class RecipeList < ApplicationRecord
 
   acts_as_ordered_taggable
 
-  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool",]
+  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool"]
+  STATUS = ["rchived", "opened"]
 
   # after_create_commit :get_name
   after_update_commit :get_name

@@ -68,6 +68,8 @@ Rails.application.routes.draw do
     collection do
       get 'import', to: 'recipes#import'
       get 'search', to: 'recipes#search'
+      get :fetch_suggested_recipes
+      get :fetch_menu
     end
     member do
       get 'card', to: "recipes#card"
@@ -76,6 +78,7 @@ Rails.application.routes.draw do
       get :cart
       get :god_show
       get :add_to_list
+      get :fetch_recipe_card
     end
     resources :items do
       get :add_to_list

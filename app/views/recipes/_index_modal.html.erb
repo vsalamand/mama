@@ -1,14 +1,21 @@
+<div class="container d-flex justify-content-between mt-3 mb-5 bg-white">
+  <button class="close px-0" id="closeMenuBuilderBtn">Fermer</button>
+  <button class="close px-0" id="showMenuBtn">Voir le menu</button>
+</div>
+
+
+
+<div class="modal-body m-0 p-0" id="menuBuilderContent">
 
   <div class="list-group shadow">
     <% recipes.each do |recipe| %>
 
-      <div class="list-group-item list-group-item-action recipeIndex" data="<%= recipe.id %>" style="cursor: pointer;">
+      <div class="list-group-item list-group-item-action border-0 recipeIndex" data="<%= recipe.id %>" style="cursor: pointer;">
         <div class="d-flex align-items-center justify-content-between">
           <div id="description">
-            <div class="d-flex w-100 flex-column mb-1">
+            <div class="d-flex w-100 flex-column mb-0">
               <h5 class="mb-0 text-primary"><%= recipe.title.capitalize %></h5>
             </div>
-            <p class="mb-1"><%= recipe.foods.map{ |item| item.name.capitalize}.join(', ') %></p>
             <small class="text-muted"><%= recipe.origin %></small>
           </div>
           <div class="product-options d-flex flex-column align-items-center">
@@ -19,3 +26,6 @@
 
     <% end %>
   </div>
+
+</div>
+

@@ -17,6 +17,8 @@ import '../components/selectize1';
 import 'packs/list';
 import 'packs/cart';
 import 'packs/store_cart';
+import 'packs/menu_builder';
+
 
 
 //// Handle Turbolinks side-issues

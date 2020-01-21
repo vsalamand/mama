@@ -14,9 +14,5 @@
 
 
 <div class="container my-3">
-  <div class="list-group shadow">
-    <% @recipes.each do |recipe| %>
-      <%= render 'recipes/index', recipe: recipe %>
-    <% end %>
-  </div>
+  <%= render 'recipes/index', recipes: @recipes %>
 </div>
