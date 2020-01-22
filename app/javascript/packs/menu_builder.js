@@ -107,8 +107,12 @@ function removeFromMenu(recipeListItemId) {
 
 //  Add menu items to list
 $(document).on("click" , "#validateMenuBtn", function(event) {
-  const listId = document.getElementById("todo_list").getAttribute('data');
-  addMenuItemsToList(listId);
+  const listId = document.getElementById("todo_list");
+  if(listId) {
+    addMenuItemsToList(listId.getAttribute('data'));
+  } else {
+    addMenuItemsToList();
+  }
 });
 
 function addMenuItemsToList(listId) {

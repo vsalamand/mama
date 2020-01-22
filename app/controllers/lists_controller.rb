@@ -111,13 +111,13 @@ class ListsController < ApplicationController
   def archive
     list = List.find(params[:list_id])
     list.archive
-    redirect_back(fallback_location: root_path)
+    redirect_to root_path
   end
 
   def destroy
     @list = List.find(params[:id])
     @list.destroy
-    redirect_to lists_path
+    redirect_to root_path
   end
 
 
