@@ -55,7 +55,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.where.not(origin: "mama").where(status: "published").reverse[0..30]
+    @recipes = current_user.recipes.uniq
   end
 
   def import

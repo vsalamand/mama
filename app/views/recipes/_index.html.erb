@@ -5,11 +5,11 @@
       <div class="list-group-item list-group-item-action recipeIndex" data="<%= recipe.id %>" style="cursor: pointer;">
         <div class="d-flex align-items-center justify-content-between">
           <div id="description">
-            <div class="d-flex w-100 flex-column mb-1">
+            <div class="d-flex w-100 flex-column mb-0">
               <h5 class="mb-0 text-primary"><%= recipe.title.capitalize %></h5>
             </div>
-            <p class="mb-1"><%= recipe.foods.map{ |item| item.name.capitalize}.join(', ') %></p>
-            <small class="text-muted"><%= recipe.origin %></small>
+<!--             <p class="mb-1"><%= recipe.foods.map{ |item| item.name.capitalize}.join(', ') %></p>
+ -->            <small class="text-muted"><%= recipe.origin %></small>
           </div>
           <div class="product-options d-flex flex-column align-items-center">
             <i class="fas fa-lg fa-angle-right p-1"></i>

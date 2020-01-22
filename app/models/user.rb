@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :recipe_lists, dependent: :destroy
   has_many :foods, through: :orders
-  has_many :recipes, through: :orders
+  has_many :recipes, through: :recipe_lists
   has_many :food_lists, dependent: :destroy
   has_many :lists, dependent: :destroy
   has_many :collaborations
