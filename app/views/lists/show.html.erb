@@ -29,11 +29,11 @@
 
 
     <% if @list.user == current_user && @list.status == "opened" %>
-      <a class="btn close m-2 px-0" data-toggle="modal" data-target="#closeListModal">Fermer</a>
+      <a class="btn close m-2 px-0" data-toggle="modal" data-target="#closeListModal">Terminer</a>
     <% elsif @list.user == current_user && @list.status != "opened" %>
-      <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+      <%= link_to 'Terminer', root_path, class:"btn close m-2 px-0" %>
     <% else %>
-      <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+      <%= link_to 'Terminer', root_path, class:"btn close m-2 px-0" %>
     <% end %>
 
 

@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :recipe_lists, dependent: :destroy
   has_many :foods, through: :orders
-  has_many :recipes, through: :orders
+  has_many :recipes, through: :recipe_lists
   has_many :food_lists, dependent: :destroy
   has_many :lists, dependent: :destroy
   has_many :collaborations
@@ -42,6 +42,17 @@ class User < ApplicationRecord
       profile.save
     end
     return profile
+  end
+
+  def get_menu
+    menu = self.recipe_lists.where(status: "opened").last
+    if menu.nil?
+      menu = RecipeList.create(name: "Menu du #{Date.today.strftime("%d/%m/%Y")}",
+                                user_id: self.id,
+                                recipe_list_type: "personal",
+                                status: "opened")
+    end
+    return menu
   end
 
 

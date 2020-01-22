@@ -26,7 +26,9 @@
           <%= link_to "⏮️ reprendre la dernière liste", list_path(current_user.lists.last), class:"list-group-item list-group-item-action text-primary" %>
 
 
-<!--           <a class="list-group-item list-group-item-action text-primary" style="cursor: pointer;" tabindex="-1" aria-disabled="true">🍝 à partir de suggestions de repas</a> -->
+          <!-- open Menu builder modal -->
+          <a class="list-group-item list-group-item-action text-primary" style="cursor: pointer;" tabindex="-1" aria-disabled="true" data-toggle="modal" data-target="#menuBuilderModal" id="findRecipes">🍝 à partir de suggestions de repas</a>
+
 
         </div>
       </div>
@@ -69,3 +71,17 @@
     </div>
   </div>
 </div>
+
+
+  <!-- Menu Builder Modal -->
+  <div class="modal fade" id="menuBuilderModal" tabindex="-1" role="dialog" aria-labelledby="menuBuilderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-white" id="menuBuilderPage">
+
+        <div style="height: 80vh;" class="d-flex align-items-center justify-content-center">
+          <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>

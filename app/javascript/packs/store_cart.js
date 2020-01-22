@@ -46,6 +46,5 @@ $(document).on('click', '.StoreCartItemShow', function(e) {
     success: function(){
     }
   });
-
-})
+});
 

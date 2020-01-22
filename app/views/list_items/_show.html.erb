@@ -10,7 +10,7 @@
           <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
             <i class="far fa-lg fa-square p-1"></i>
           <% end %>
-          <h5 class="m-0 p-1 pb-2"><%= list_item.name %></h5>
+          <p class="m-0 p-1 pb-2"><%= list_item.name %></p>
         </div>
 
         <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
@@ -30,7 +30,7 @@
           <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
             <i class="fas fa-lg fa-check-square"></i>
           <% end %>
-          <h5 class="m-0 p-1 pb-2 text-muted"><del><%= list_item.name %></del></h5>
+          <p class="m-0 p-1 pb-2 text-muted"><del><%= list_item.name %></del></p>
         </div>
 
         <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
@@ -47,7 +47,7 @@
 <% else %>
 
   <li class="list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>">
-    <h4><%= list_item.name %></h4>
+    <p><%= list_item.name %></p>
   </li>
 
 <% end %>

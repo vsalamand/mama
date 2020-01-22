@@ -1,0 +1,37 @@
+<div class="container d-flex justify-content-between mt-3 mb-4 bg-white">
+  <button class="close px-0" id="recipeBackBtn">Continuer</button>
+  <button class="close px-0" id="validateMenuBtn">Terminer</button>
+</div>
+
+
+
+<div class="modal-body m-0 p-0" id="menuBuilderContent" style="min-height: 80vh;">
+
+  <div class="list-group" id="recipeListId" data="<%= recipe_list.id %>">
+
+    <% if recipe_list.recipe_list_items.any? %>
+      <div class="container d-flex align-items-center">
+
+        <small class="text-muted text-center font-weight-light">Terminer pour mettre à jour votre liste de courses.</small>
+      </div>
+      <% recipe_list.recipe_list_items.each do |recipe_list_item| %>
+
+        <%= render 'recipe_list_items/recipe_list_item_card', recipe_list_item: recipe_list_item, recipe: recipe_list_item.recipe %>
+
+      <% end %>
+
+    <% else %>
+      <div class="list-group-item border-0">
+        <div class="d-flex align-items-center justify-content-between">
+          <div id="description">
+            <div class="d-flex w-100 flex-column mb-0">
+              <h5 class="mb-0 text-muted">Le menu est vide</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+

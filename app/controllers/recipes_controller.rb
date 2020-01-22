@@ -55,7 +55,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.where.not(origin: "mama").where(status: "published").reverse[0..30]
+    @recipes = current_user.recipes.uniq
   end
 
   def import
@@ -140,9 +140,46 @@ class RecipesController < ApplicationController
     end
   end
 
+  def fetch_suggested_recipes
+    @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..16]
+    render 'fetch_suggested_recipes.js.erb'
+  end
+
+  def fetch_recipe_card
+    @recipe = Recipe.find(params[:id])
+    render 'fetch_recipe_card.js.erb'
+  end
+
+  def fetch_menu
+    @menu = current_user.get_menu
+    # @recipes = menu.recipes
+    render 'fetch_menu.js.erb'
+  end
+
+  def add_to_menu
+    recipe = Recipe.find(params[:id])
+    @menu = current_user.get_menu
+    recipe.add_to_recipe_list(@menu)
+
+    render 'fetch_menu.js.erb'
+  end
+
+  def add_menu_to_list
+    @menu = current_user.get_menu
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Menu  du #{Date.today.strftime("%d/%m/%Y")}", user: current_user, status: "opened") if @list.nil?
+
+    @menu.items.each do |item|
+      ListItem.add_to_list(item.name, @list)
+    end
+
+    @menu.archive
+
+    render "add_menu_to_list.js.erb"
+  end
 
 
   private
+
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end
