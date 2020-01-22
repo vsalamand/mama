@@ -18,6 +18,7 @@ import 'packs/list';
 import 'packs/cart';
 import 'packs/store_cart';
 import 'packs/menu_builder';
+import 'packs/recipes';
 
 
 
