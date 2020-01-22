@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       get 'search', to: 'recipes#search'
       get :fetch_suggested_recipes
       get :fetch_menu
+      get :add_menu_to_list
     end
     member do
       get 'card', to: "recipes#card"

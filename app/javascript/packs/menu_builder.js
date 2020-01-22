@@ -103,3 +103,23 @@ function removeFromMenu(recipeListItemId) {
     }
   });
 }
+
+
+//  Add menu items to list
+$(document).on("click" , "#validateMenuBtn", function(event) {
+  const listId = document.getElementById("todo_list").getAttribute('data');
+  addMenuItemsToList(listId);
+});
+
+function addMenuItemsToList(listId) {
+  // query suggested items
+  $.ajax({
+    url: "/recipes/add_menu_to_list",
+    cache: false,
+    data: {
+        list_id: listId
+        },
+    success: function(){
+    }
+  });
+}

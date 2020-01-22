@@ -3,6 +3,7 @@ class RecipeList < ApplicationRecord
 
   # validates :name, :recipe_list_type, presence: :true
   has_many :recipes, through: :recipe_list_items
+  has_many :items, through: :recipes
   has_many :recipe_list_items, dependent: :destroy, inverse_of: :recipe_list
   has_many :foods, through: :recipes
   has_many :recommendation_items, dependent: :destroy, inverse_of: :recipe_list
@@ -15,7 +16,7 @@ class RecipeList < ApplicationRecord
   acts_as_ordered_taggable
 
   RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool"]
-  STATUS = ["rchived", "opened"]
+  STATUS = ["archived", "opened"]
 
   # after_create_commit :get_name
   after_update_commit :get_name
@@ -26,6 +27,11 @@ class RecipeList < ApplicationRecord
       self.name = self.get_top_foods[0..6].join(", ")
       self.save
     end
+  end
+
+  def archive
+    self.status = "archived"
+    self.save
   end
 
   def get_top_foods

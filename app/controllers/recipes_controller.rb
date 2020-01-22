@@ -141,7 +141,7 @@ class RecipesController < ApplicationController
   end
 
   def fetch_suggested_recipes
-    @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..6]
+    @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..16]
     render 'fetch_suggested_recipes.js.erb'
   end
 
@@ -162,6 +162,19 @@ class RecipesController < ApplicationController
     recipe.add_to_recipe_list(@menu)
 
     render 'fetch_menu.js.erb'
+  end
+
+  def add_menu_to_list
+    @menu = current_user.get_menu
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user, status: "opened") if @list.nil?
+
+    @menu.items.each do |item|
+      ListItem.add_to_list(item.name, @list)
+    end
+
+    @menu.archive
+
+    render "add_menu_to_list.js.erb"
   end
 
 
