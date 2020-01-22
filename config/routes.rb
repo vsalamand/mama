@@ -125,7 +125,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :recipe_lists
+  resources :recipe_lists do
+    resources :recipe_list_items, only: [:show, :destroy, :edit, :update]
+  end
   resources :items
   resources :products
   resources :stores do

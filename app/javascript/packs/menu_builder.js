@@ -84,3 +84,22 @@ function addToMenu(recipeId) {
     }
   });
 }
+
+//  Remove recipe from menu in modal
+$(document).on("click" , "#removeFromMenuBtn", function(event) {
+  const recipeListId = document.getElementById("recipeListId").getAttribute('data');
+  const recipeListItemId = document.getElementById("recipeListItemCardId").getAttribute('data');
+  removeFromMenu(recipeListItemId);
+  loadRecipeMenu();
+});
+
+function removeFromMenu(recipeListItemId) {
+  // query suggested items
+  $.ajax({
+    url: "/recipe_lists/" + recipeListId + "/recipe_list_items/" + recipeListItemId,
+    cache: false,
+    type: 'DELETE',
+    success: function(){
+    }
+  });
+}

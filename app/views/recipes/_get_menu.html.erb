@@ -7,23 +7,12 @@
 
 <div class="modal-body m-0 p-0" id="menuBuilderContent" style="height: 80vh;">
 
-  <div class="list-group">
-    <% if recipes.any? %>
-      <% recipes.each do |recipe| %>
+  <div class="list-group" id="recipeListId" data="<%= recipe_list.id %>">
 
-        <div class="list-group-item list-group-item-action border-0 recipeIndex" data="<%= recipe.id %>" style="cursor: pointer;">
-          <div class="d-flex align-items-center justify-content-between">
-            <div id="description">
-              <div class="d-flex w-100 flex-column mb-0">
-                <h5 class="mb-0 text-primary"><%= recipe.title.capitalize %></h5>
-              </div>
-              <small class="text-muted"><%= recipe.origin %></small>
-            </div>
-            <div class="product-options d-flex flex-column align-items-center">
-              <i class="fas fa-lg fa-angle-right p-1"></i>
-            </div>
-          </div>
-        </div>
+    <% if recipe_list.recipe_list_items.any? %>
+      <% recipe_list.recipe_list_items.each do |recipe_list_item| %>
+
+        <%= render 'recipe_list_items/recipe_list_item_card', recipe_list_item: recipe_list_item, recipe: recipe_list_item.recipe %>
 
       <% end %>
 
