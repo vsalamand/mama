@@ -45,7 +45,7 @@ $(document).on("click" , "#recipeBackBtn", function(event) {
 
 
 // close modal when user hits Close btn
-$(document).on('click', '#closeMenuBuilderBtn',function() {
+$(document).on('click', '#closeMenuBuilderBtn', function(event) {
   $('#menuBuilderModal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
