@@ -53,8 +53,17 @@
           <div class="modal-body p-0 m-0">
 
             <div class="list-group list-group-flush">
+
+              <% if @list.user == current_user %>
+                 <%= link_to "❌ Supprimer la liste", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr.e ?' }, class:"btn list-group-item list-group-item-action text-danger" %>
+              <% elsif @list.users.include?(current_user) %>
+                <%= link_to "❌ Supprimer de mes listes", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"btn list-group-item list-group-item-action text-primary text-danger" %>
+              <% end %>
+
               <%= link_to '📥 Archiver', list_archive_path(@list), class: "btn list-group-item list-group-item-action text-primary" %>
+
               <a class="btn list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#editListModal">🔖 Enregistrer le modèle</a>
+
             </div>
 
           </div>
