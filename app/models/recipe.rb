@@ -19,6 +19,7 @@ class Recipe < ApplicationRecord
   acts_as_taggable_on :categories
 
   searchkick language: "french"
+  scope :search_import, -> { where(status: "published") }
 
   # before_save do
   #   # update to cloudinary
@@ -30,8 +31,7 @@ class Recipe < ApplicationRecord
       title: title,
       ingredients: ingredients,
       tags: tag_list,
-      categories: category_list,
-      status: status
+      categories: category_list
     }
   end
 

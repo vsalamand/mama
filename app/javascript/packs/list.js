@@ -28,10 +28,12 @@ function sort() {
 //   $('#addListItemModal').modal('show');
 // })
 
-// // on modal show, focus on input field
-// $('#addListItemModal').on('shown.bs.modal', function (e) {
-//   $('#newListItem').focus();
-// })
+// on modal show, focus on input field
+$('#selectListModal').on('hide.bs.modal', function (e) {
+  $('.modal').modal('hide');
+  $(document).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+})
 
 // // close modal when list item is submitted
 // $('#addListItemModal').submit(function() {

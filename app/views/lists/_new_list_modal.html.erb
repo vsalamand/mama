@@ -23,7 +23,9 @@
           <a class="list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#selectListModal" style="cursor: pointer;" tabindex="-1" aria-disabled="true">📝 à partir d'une liste enregistrée</a>
 
           <!-- Go back to latest list -->
-          <%= link_to "⏮️ reprendre la dernière liste", list_path(current_user.lists.last), class:"list-group-item list-group-item-action text-primary" %>
+          <% if current_user.lists.any? %>
+            <%= link_to "⏮️ reprendre la dernière liste", list_path(current_user.lists.last), class:"list-group-item list-group-item-action text-primary" %>
+          <% end %>
 
 
           <!-- open Menu builder modal -->
@@ -61,7 +63,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="selectListModalLabel">📝 Choisissez une liste enregistrée</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" id="closeSelectListModal" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

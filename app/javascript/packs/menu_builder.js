@@ -21,31 +21,58 @@ function loadRecipeSuggestions() {
 
 
 
-//  Show recipe in modal
+// //  Show recipe in modal
+// $(document).on("click" , ".recipeIndex", function(event) {
+//   const recipeId = this.getAttribute('data');
+//   loadRecipeCard(recipeId);
+// });
+
+//  Show recipe in modal with click referrer in modal
 $(document).on("click" , ".recipeIndex", function(event) {
-  const recipeId = this.getAttribute('data');
-  loadRecipeCard(recipeId);
+  let context = document.getElementById("menuBuilderContent").getAttribute('context');
+  if(context == 'search') {
+    let context = document.getElementById("menuBuilderContent").getAttribute('data');
+    const recipeId = this.getAttribute('data');
+    loadRecipeCard(recipeId, context);
+  } else {
+    let context = "recommended";
+    const recipeId = this.getAttribute('data');
+    loadRecipeCard(recipeId, context);
+  }
 });
 
-function loadRecipeCard(recipeId) {
+function loadRecipeCard(recipeId, context) {
   // query suggested items
   $.ajax({
     url: "/recipes/" + recipeId + "/fetch_recipe_card",
     cache: false,
+    data: {
+        referrer: context
+        },
     success: function(){
     }
   });
 }
 
 
+
 // show recipes suggestions in modal after user hit back button in recipe card view
 $(document).on("click" , "#recipeBackBtn", function(event) {
-  loadRecipeSuggestions();
+  if (document.getElementById('menu')) {
+    loadRecipeSuggestions();
+  } else {
+    const context = document.getElementById('recipeCardId').getAttribute('context');
+    if(context == "recommended") {
+      loadRecipeSuggestions();
+    } else {
+      loadRecipeSearch(context);
+    }
+  }
 });
 
 
 // close modal when user hits Close btn
-$(document).on('click', '#closeMenuBuilderBtn',function() {
+$(document).on('click', '#closeMenuBuilderBtn', function(event) {
   $('#menuBuilderModal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
@@ -122,6 +149,31 @@ function addMenuItemsToList(listId) {
     cache: false,
     data: {
         list_id: listId
+        },
+    success: function(){
+    }
+  });
+}
+
+
+//  Load search recipe view in modal
+$(document).on("click" , "#searchRecipesTab", function(event) {
+  loadRecipeSearch();
+});
+// load suggested recipes in modal
+$(document).on("click" , "#suggestedRecipesTab", function(event) {
+  loadRecipeSuggestions();
+});
+
+
+function loadRecipeSearch(context) {
+  // query suggested items
+  $.ajax({
+    url: "/recipes/search",
+    dataType: 'script',
+    cache: false,
+    data: {
+        query: context
         },
     success: function(){
     }

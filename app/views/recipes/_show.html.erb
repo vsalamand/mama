@@ -18,7 +18,9 @@
 
 <div class="container my-5">
   <h1 class="font-weight-bold"><%= recipe.title.capitalize %></h1>
-  <strong><%= link_to "Voir la recette sur le site de #{recipe.origin}", recipe.link, target: "_blank" %></strong>
+  <% if recipe.link.present? %>
+    <strong><%= link_to "Voir la recette sur le site de #{recipe.origin}", recipe.link, target: "_blank" %></strong>
+  <% end %>
 </div>
 
 

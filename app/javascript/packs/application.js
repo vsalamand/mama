@@ -64,7 +64,13 @@ document.addEventListener('turbolinks:load', function() {
 // close  modal after click
 $(document).on('click', '#startGroceriesModal',function() {
   $('.modal').modal('hide');
+});
+
+// // close all modal after click on cross
+$(document).on('click', '#closeSelectListModal',function() {
+  $('.modal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
 });
+
 

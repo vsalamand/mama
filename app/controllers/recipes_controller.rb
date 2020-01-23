@@ -64,10 +64,13 @@ class RecipesController < ApplicationController
 
   def search
     # @recipes = Recipe.where(status: "published")
-    query = params[:query].present? ? params[:query] : nil
+    @query = params[:query].present? ? params[:query] : nil
 
-    @results = if query
-      Recipe.search(query, fields: [:title, :ingredients, :tags, :categories])[0..99]
+    @results = Recipe.search(@query, where: { status: "published"}, fields: [:title, :ingredients, :tags, :categories])[0..19] if @query
+
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 
@@ -149,6 +152,7 @@ class RecipesController < ApplicationController
 
   def fetch_recipe_card
     @recipe = Recipe.find(params[:id])
+    @context = params[:referrer]
     render 'fetch_recipe_card.js.erb'
   end
 
@@ -170,11 +174,15 @@ class RecipesController < ApplicationController
     @menu = current_user.get_menu
     params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Menu  du #{Date.today.strftime("%d/%m/%Y")}", user: current_user, status: "opened") if @list.nil?
 
-    @menu.items.each do |item|
+    @menu.items.reverse.each do |item|
       ListItem.add_to_list(item.name, @list)
     end
 
     @menu.archive
+
+    email = current_user.email
+    mail = RecipeMailer.send_menu(@menu, email)
+    mail.deliver_now
 
     render "add_menu_to_list.js.erb"
   end

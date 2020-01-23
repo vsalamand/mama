@@ -1,0 +1,13 @@
+<p style="margin:0;">Votre menu:</p>
+<ul style="list-style-type:none; padding:0; margin:0;">
+  <% @recipe_list.recipes.reverse.each do |recipe| %>
+    <% if recipe.link.present? %>
+      <li>- <%= link_to recipe.title.capitalize, recipe.link, target: "_blank" %></li>
+    <% else %>
+      <li>- <%= recipe.title.capitalize %></li>
+    <% end %>
+  <% end %>
+</ul>
+<br>
+<br>
+<p style="margin:0;"><%= link_to "clubmama.co", root_url, target: "_blank"  %></p>

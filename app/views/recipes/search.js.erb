@@ -1,0 +1,3 @@
+var content = document.getElementById("menuBuilderPage");
+content.innerHTML = "";
+content.innerHTML = ("<%= j render 'search_modal', recipes: @results, query: @query %>");
