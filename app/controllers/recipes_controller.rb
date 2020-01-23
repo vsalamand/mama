@@ -64,11 +64,9 @@ class RecipesController < ApplicationController
 
   def search
     # @recipes = Recipe.where(status: "published")
-    query = params[:query].present? ? params[:query] : nil
+    @query = params[:query].present? ? params[:query] : nil
 
-    @results = if query
-      Recipe.search(query, where: { status: "published"}, fields: [:title, :ingredients, :tags, :categories])[0..19]
-    end
+    @results = Recipe.search(@query, where: { status: "published"}, fields: [:title, :ingredients, :tags, :categories])[0..19] if @query
 
     respond_to do |format|
       format.html
@@ -154,6 +152,7 @@ class RecipesController < ApplicationController
 
   def fetch_recipe_card
     @recipe = Recipe.find(params[:id])
+    @context = params[:referrer]
     render 'fetch_recipe_card.js.erb'
   end
 

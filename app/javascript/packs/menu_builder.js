@@ -21,26 +21,53 @@ function loadRecipeSuggestions() {
 
 
 
-//  Show recipe in modal
+// //  Show recipe in modal
+// $(document).on("click" , ".recipeIndex", function(event) {
+//   const recipeId = this.getAttribute('data');
+//   loadRecipeCard(recipeId);
+// });
+
+//  Show recipe in modal with click referrer in modal
 $(document).on("click" , ".recipeIndex", function(event) {
-  const recipeId = this.getAttribute('data');
-  loadRecipeCard(recipeId);
+  let context = document.getElementById("menuBuilderContent").getAttribute('context');
+  if(context == 'search') {
+    let context = document.getElementById("menuBuilderContent").getAttribute('data');
+    const recipeId = this.getAttribute('data');
+    loadRecipeCard(recipeId, context);
+  } else {
+    let context = "recommended";
+    const recipeId = this.getAttribute('data');
+    loadRecipeCard(recipeId, context);
+  }
 });
 
-function loadRecipeCard(recipeId) {
+function loadRecipeCard(recipeId, context) {
   // query suggested items
   $.ajax({
     url: "/recipes/" + recipeId + "/fetch_recipe_card",
     cache: false,
+    data: {
+        referrer: context
+        },
     success: function(){
     }
   });
 }
 
 
+
 // show recipes suggestions in modal after user hit back button in recipe card view
 $(document).on("click" , "#recipeBackBtn", function(event) {
-  loadRecipeSuggestions();
+  if (document.getElementById('menu')) {
+    loadRecipeSuggestions();
+  } else {
+    const context = document.getElementById('recipeCardId').getAttribute('context');
+    if(context == "recommended") {
+      loadRecipeSuggestions();
+    } else {
+      loadRecipeSearch(context);
+    }
+  }
 });
 
 
@@ -139,12 +166,15 @@ $(document).on("click" , "#suggestedRecipesTab", function(event) {
 });
 
 
-function loadRecipeSearch() {
+function loadRecipeSearch(context) {
   // query suggested items
   $.ajax({
     url: "/recipes/search",
     dataType: 'script',
     cache: false,
+    data: {
+        query: context
+        },
     success: function(){
     }
   });
