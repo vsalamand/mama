@@ -1,0 +1,32 @@
+<div class="container d-flex justify-content-between mt-3 mb-4 bg-white">
+  <button class="close px-0" id="closeMenuBuilderBtn">Fermer</button>
+  <button class="close px-0" id="showMenuBtn">Voir le menu</button>
+</div>
+
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link text-primary" style="cursor: pointer;" id="suggestedRecipesTab">Suggestions</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active text-primary" style="cursor: pointer;">Recherche</a>
+  </li>
+</ul>
+
+
+<div class="modal-body m-0 p-0" id="menuBuilderContent">
+
+  <%= form_tag(search_recipes_path, :method => "get", remote: true, authenticity_token: true, id: "search_recipes", class:"form-inline p-2") do %>
+    <%= text_field_tag :query, params[:query], placeholder: "tomate, avocat, salade, pizza...", id: "keywords", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
+    <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
+        <i class="fas fa-search text-primary"></i>
+    <% end %>
+  <% end %>
+
+
+  <div id="recipes_list" style="min-height: 80vh;">
+    <%= render "recipes/recipes_modal_results", recipes: recipes %>
+  </div>
+
+
+</div>
+

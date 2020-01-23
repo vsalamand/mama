@@ -127,3 +127,25 @@ function addMenuItemsToList(listId) {
     }
   });
 }
+
+
+//  Load search recipe view in modal
+$(document).on("click" , "#searchRecipesTab", function(event) {
+  loadRecipeSearch();
+});
+// load suggested recipes in modal
+$(document).on("click" , "#suggestedRecipesTab", function(event) {
+  loadRecipeSuggestions();
+});
+
+
+function loadRecipeSearch() {
+  // query suggested items
+  $.ajax({
+    url: "/recipes/search",
+    dataType: 'script',
+    cache: false,
+    success: function(){
+    }
+  });
+}

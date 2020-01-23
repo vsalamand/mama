@@ -67,7 +67,12 @@ class RecipesController < ApplicationController
     query = params[:query].present? ? params[:query] : nil
 
     @results = if query
-      Recipe.search(query, fields: [:title, :ingredients, :tags, :categories])[0..99]
+      Recipe.search(query, where: { status: "published"}, fields: [:title, :ingredients, :tags, :categories])[0..19]
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 
