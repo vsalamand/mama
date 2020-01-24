@@ -16,7 +16,7 @@
 <div class="modal-body m-0 p-0" id="menuBuilderContent" context="search" data="<%= query %>">
 
   <%= form_tag(search_recipes_path, :method => "get", remote: true, authenticity_token: true, id: "search_recipes", class:"form-inline p-2") do %>
-    <%= text_field_tag :query, params[:query], placeholder: "tomate, avocat, salade, pizza...", id: "keywords", input_html: {value: "#{query}"}, class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
+    <%= text_field_tag :query, params[:query], placeholder: "salade, pizza, carotte...", id: "keywords", input_html: {value: "#{query}"}, class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
     <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
         <i class="fas fa-search text-primary"></i>
     <% end %>
