@@ -165,3 +165,12 @@ function getCartsPrice() {
   }
 }
 
+
+
+// close select store modal when user selects share list
+$(document).on('click', '#shareList',function() {
+  $('#selectStoreModal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+  $('#shareModal').modal('show');
+});

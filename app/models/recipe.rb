@@ -54,6 +54,12 @@ class Recipe < ApplicationRecord
     end
   end
 
+  def dismiss
+    self.status = "dismissed"
+    self.save
+  end
+
+
 
   def rate
     # get ratings for each food in recipe

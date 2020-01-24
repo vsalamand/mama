@@ -145,7 +145,7 @@ class RecipesController < ApplicationController
 
   def fetch_suggested_recipes
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..20]
-    @recipes = Recipe.all.reverse[0..20]
+    @recipes = RecipeList.get_curated_recipes
 
     render 'fetch_suggested_recipes.js.erb'
   end

@@ -1,3 +1,15 @@
+  <div class="list-group-item list-group-item-action" style="cursor: pointer;" id="shareList">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <div id="cart-description">
+        <h5 class=" text-primary">Recevoir la liste par email</h5>
+      </div>
+      <div class="product-options d-flex flex-column align-items-center">
+        <i class="fas fa-lg fa-angle-right p-1"></i>
+      </div>
+    </div>
+  </div>
+
 <% Store.all.each do |store| %>
 
   <%= link_to store_cart_path(store, :list_id => list.id), class:"list-group-item list-group-item-action" do %>
