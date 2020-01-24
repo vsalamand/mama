@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'httparty'
+
 class List < ApplicationRecord
   belongs_to :user
   has_many :list_items, dependent: :destroy
@@ -80,7 +83,7 @@ class List < ApplicationRecord
         last_food = self.list_items.not_deleted.last.food.first.name
         items << "item=#{last_food}"
         url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/predict?#{items.join("&")}"))
-        data = JSON.parse(open(url).read)
+        data = HTTParty.get(url)
         result = data.map {|x| x.values[0].downcase}
 
         # suggested_foods = []
