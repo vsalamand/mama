@@ -174,15 +174,15 @@ class RecipesController < ApplicationController
     @menu = current_user.get_menu
     params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Menu  du #{Date.today.strftime("%d/%m/%Y")}", user: current_user, status: "opened") if @list.nil?
 
-    @menu.items.reverse.each do |item|
-      ListItem.add_to_list(item.name, @list)
-    end
+    ListItem.add_menu_to_list(@menu.items, @list)
 
     @menu.archive
 
-    email = current_user.email
-    mail = RecipeMailer.send_menu(@menu, email)
-    mail.deliver_now
+    if @menu.recipes.any?
+      email = current_user.email
+      mail = RecipeMailer.send_menu(@menu, email)
+      mail.deliver_now
+    end
 
     render "add_menu_to_list.js.erb"
   end

@@ -40,6 +40,12 @@ class ListItem < ApplicationRecord
     update(is_completed: false)
   end
 
+  def self.add_menu_to_list(items, list)
+    items.reverse.each do |item|
+      ListItem.add_to_list(item.name, list)
+    end
+  end
+
   def self.add_to_list(input, list)
     list_item = ListItem.new(name: input, list: list)
     valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
