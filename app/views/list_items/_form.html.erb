@@ -1,6 +1,6 @@
 <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
 
-    <div class="p-2 mb-3">
+    <div class="p-1 mb-3">
 
       <div class="search-form-control">
         <%= form.input :name, as: :string, label: false, placeholder: "Que souhaitez-vous ajouter ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" } %>
@@ -15,14 +15,10 @@
       <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
 
       <ul class="list-inline mb-2 mx-2" id="itemsRecommendations">
-
       </ul>
 
-      <div class="d-flex align-items-center justify-content-between">
-        <!-- Button trigger View More modal -->
-        <a class="list-inline-item btn btn-sm btn-link text-primary py-0 font-weight-bold align-self-center" data-toggle="modal" data-target="#viewMoreModal">Voir plus de suggestions</a>
-
-
+      <div class="d-flex align-items-center justify-content-start flex-wrap p-0 m-0">
+        <%= render 'list_items/explore_suggested_items', curator_lists: @curator_lists %>
       </div>
 
     </div>
@@ -30,20 +26,3 @@
 
 <% end %>
 
-
-    <!-- View More Modal -->
-    <div class="modal fade" id="viewMoreModal" tabindex="-1" role="dialog" aria-labelledby="viewMoreModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="viewMoreModalLabel">Suggestions pour votre liste de courses</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body m-0 p-0">
-            <%= render 'list_items/explore_suggested_items', curator_lists: @curator_lists %>
-          </div>
-        </div>
-      </div>
-    </div>

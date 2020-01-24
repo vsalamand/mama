@@ -4,10 +4,6 @@
       <% list.get_similar_food.each_with_index do |food, index| %>
         <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.capitalize %></li>
       <% end %>
-    <% else %>
-      <% list.get_top_foods[0..9].each_with_index do |food, index| %>
-        <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.capitalize %></li>
-      <% end %>
     <% end %>
   </div>
 </div>

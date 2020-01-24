@@ -1,28 +1,33 @@
+<% curator_lists.each_with_index do |curator_list, index| %>
 
+  <!-- Button trigger View More modal -->
+  <a class="list-inline-item btn btn-sm btn-link text-primary py-0 m-0 font-weight-bold align-self-center" data-toggle="modal" data-target="#viewMoreModal<%= index %>"><%= curator_list.name %></a>
 
-<div class="accordion" id="accordionExample">
-
-  <% curator_lists.each_with_index do |curator_list, index| %>
-    <div class="card">
-      <div class="card-header" id="heading<%= index %>">
-        <h2 class="mb-0">
-          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
-            <%= curator_list.name %>
+  <!-- View More Modal -->
+  <div class="modal fade" id="viewMoreModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="viewMoreModal<%= index %>Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewMoreModal<%= index %>Label"><%= curator_list.name.capitalize %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
-        </h2>
-      </div>
+        </div>
+        <div class="modal-body m-0 p-2">
 
-      <div id="collapse<%= index %>" class="collapse" aria-labelledby="heading<%= index %>" data-parent="#accordionExample">
-        <div class="card-body">
-          <ul class="list-inline mb-2" id="itemsRecommendations">
+          <ul class="list-group mb-2" id="itemsRecommendations">
             <% curator_list.list_items.not_completed.pluck(:name).sort.each_with_index do |item, index| %>
-              <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= item.capitalize %></li>
+              <li class="btn btn-link p-0 ml-2 recommendations list-group-item border-0 text-left" id="<%= index %>"><%= item.capitalize %></li>
             <% end %>
           </ul>
+
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
+
+<% end %>
 
 
-</div>
+
+

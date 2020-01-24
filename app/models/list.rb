@@ -92,7 +92,7 @@ class List < ApplicationRecord
 
         # # filter out seasonings and foods in shoppinglist
         suggested_foods = result - List.get_seasonings.pluck(:name).map{|x| x.downcase} - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
-        return suggested_foods[0..9]
+        return suggested_foods[0..2]
       rescue
         return nil
       end
