@@ -48,7 +48,7 @@ class RecipeList < ApplicationRecord
 
   def self.get_curated_recipes
     latest_curated_recipes = []
-    RecipeList.where(recipe_list_type: "curated").last(3).reverse.each{ |recipe_list| latest_curated_recipes << recipe_list.recipes.reverse }
+    RecipeList.where(recipe_list_type: "curated").last(3).reverse.each{ |recipe_list| latest_curated_recipes << recipe_list.recipes }
     return latest_curated_recipes.flatten.uniq
   end
 
