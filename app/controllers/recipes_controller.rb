@@ -6,7 +6,7 @@ require 'hangry'
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
   skip_before_action :authenticate_user!, only: [ :show, :card, :cart ]
-  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :search, :god_show ]
+  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show ]
 
   def show
     @list_item = ListItem.new
@@ -66,7 +66,7 @@ class RecipesController < ApplicationController
     # @recipes = Recipe.where(status: "published")
     @query = params[:query].present? ? params[:query] : nil
 
-    @results = Recipe.search(@query, where: { status: "published"}, fields: [:title, :ingredients, :tags, :categories])[0..19] if @query
+    @results = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
 
     respond_to do |format|
       format.html
