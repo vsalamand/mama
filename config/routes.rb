@@ -49,6 +49,8 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
+  get '*unmatched_route', to: 'application#raise_not_found'
+
   get 'confirmation', to: 'pages#confirmation'
   get 'dashboard', to: 'pages#dashboard'
   get 'pending', to: 'pages#pending'
