@@ -17,9 +17,35 @@
     </div>
 
 
-   <%= link_to 'Fermer', carts_path, class:"btn close m-2 px-0" %>
+    <a class="btn close m-2 px-0" data-toggle="modal" data-target="#closeCartModal">Terminer</a>
 </div>
 
+  <!-- Close Cart Modal -->
+    <div class="modal fade" id="closeCartModal" tabindex="-1" role="dialog" aria-labelledby="closeCartModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="closeCartModalLabel">Que voulez-faire avec ce panier de courses ?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-0 m-0">
+
+            <div class="list-group list-group-flush">
+
+              <%= link_to "❌ Supprimer", cart_path(@cart), method: :delete,  data: { confirm: 'Êtes-vous sûr.e ?' }, class:"btn list-group-item list-group-item-action text-danger" %>
+
+
+              <%= link_to "📥 Archiver", root_path(@cart), class:"btn list-group-item list-group-item-action text-primary" %>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
   <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
@@ -73,9 +99,12 @@
 </div>
 
 
-<div class="container mt-5" id="cartId", data="<%= @cart.id %>">
-  <div class="d-flex flex-column mb-3">
-    <h1 class="font-weight-bold mb-0 ">Panier de courses <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong> </h1>
+<div class="container mt-3 mb-2" id="cartId", data="<%= @cart.id %>">
+  <div class="d-flex align-items-center justify-content-between p-1">
+    <div>
+      <h5 class="font-weight-bold mb-0">Complétez vos courses chez <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong> </h5>
+      <small class="text-muted p-0 pt-1">Cliquez sur un produit pour le changer.</small>
+    </div>
   </div>
 </div>
 

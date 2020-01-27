@@ -3,7 +3,8 @@
   <%= render 'shared/navbar_white' %>
 
   <div class="container m-auto d-flex flex-column justify-content-start">
-    <h1 class="font-weight-bold mb-3 ml-3">Listes de courses</h1>
+    <h1 class="font-weight-bold">Listes de courses</h1>
+    <small class="text-white">Retrouvez ici l'historique de vos listes de courses</small>
   </div>
 
 </div>
@@ -13,10 +14,6 @@
 <%= render "lists/new_list_modal", list: @list %>
 
 
-
-<div class="container mt-4">
-  <small class="text-muted p-1">Retrouvez ici l'historique de vos listes de courses</small>
-</div>
 
 <div class="container my-3">
   <div class="list-group shadow">

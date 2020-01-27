@@ -1,6 +1,8 @@
-<%= link_to "Créer un nouveau panier", add_to_cart_store_store_cart_path(store_cart.store, store_cart), class:"btn btn-outline-primary text-center m-3" %>
+<%= link_to "Continuer", add_to_cart_store_store_cart_path(store_cart.store, store_cart), class:"btn btn-primary text-center m-3" %>
 
-<% if carts.any?  %>
+
+<!-- do not use cart select for now -->
+<% if false  %>
   <small class="text-muted px-3 ">ou sélectionner un panier déjà créé:</small>
   <% carts.each do |cart| %>
 
