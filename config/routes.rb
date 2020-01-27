@@ -49,8 +49,6 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  get '*unmatched_route', to: 'application#raise_not_found'
-
   get 'confirmation', to: 'pages#confirmation'
   get 'dashboard', to: 'pages#dashboard'
   get 'pending', to: 'pages#pending'
@@ -193,5 +191,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  # redirect to root if no rooting match
+  get '*path' => redirect('/')
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
