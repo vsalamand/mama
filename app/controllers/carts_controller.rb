@@ -68,6 +68,12 @@ class CartsController < ApplicationController
     render 'fetch_price.js.erb'
   end
 
+  def destroy
+    @cart = Cart.find(params[:id])
+    @cart.destroy
+    redirect_to root_path
+  end
+
   private
   def cart_params
     params.require(:cart).permit(:cart_id, :user_id, :merchant_id)

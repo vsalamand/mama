@@ -8,9 +8,9 @@
         <% if @list.user == current_user %>
           <!-- Option modal for owner -->
           <% if @list.status == "saved" %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier</a>
+            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
           <% else %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Enregistrer</a>
+            <a class="btn dropdown-item" data-toggle="modal" data-target="#saveListModal">Enregistrer</a>
           <% end %>
           <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
           <div class="dropdown-divider"></div>
@@ -60,9 +60,9 @@
                 <%= link_to "❌ Supprimer de mes listes", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"btn list-group-item list-group-item-action text-primary text-danger" %>
               <% end %>
 
-              <%= link_to '📥 Archiver', list_archive_path(@list), class: "btn list-group-item list-group-item-action text-primary" %>
+             <a class="btn list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#archiveListModal">📥 Archiver</a>
 
-              <a class="btn list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#editListModal">🔖 Enregistrer le modèle</a>
+              <a class="btn list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#saveListModal">🔖 Enregistrer comme modèle</a>
 
             </div>
 
@@ -95,18 +95,36 @@
       </div>
     </div>
 
-    <!-- Edit List Modal -->
-    <div class="modal fade" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="editListModalLabel" aria-hidden="true">
+    <!-- Archive List Modal -->
+    <div class="modal fade" id="archiveListModal" tabindex="-1" role="dialog" aria-labelledby="archiveListModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editListModalLabel">🔖 Enregistrer cette liste de courses</h5>
+            <h5 class="modal-title" id="archiveListModalLabel">📥 Archiver </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body m-0 p-0">
-            <%= render 'lists/form' %>
+            <%= render 'lists/archive_form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Save List Modal -->
+    <div class="modal fade" id="saveListModal" tabindex="-1" role="dialog" aria-labelledby="saveListModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="saveListModalLabel">🔖 Enregistrer cette liste de courses</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body m-0 p-0">
+            <%= render 'lists/save_form' %>
           </div>
         </div>
       </div>
