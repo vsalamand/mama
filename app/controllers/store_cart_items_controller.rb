@@ -1,6 +1,4 @@
 class StoreCartItemsController < ApplicationController
-  belongs_to :store_cart
-  belongs_to :store_item
 
   def edit
   end
