@@ -22,9 +22,15 @@ namespace :import do
     catalog.each do |row|
 
       item = row.to_h
+      product_name = item["description"]
       product = Product.find_by(ean: item["ean"])
-      store_item = StoreItem.find_by(product: product, store: store)
       shelters = item["shelter"][1..-2].split("'").reject {|x| x.size < 3}
+
+      store_item = StoreItem.find_by(store: store, name: product_name)
+      if store_item.nil?
+        store_item = StoreItem.find_by(product: product, store: store)
+      end
+
 
       if item["ean"].to_i == 0
         store_item.update(is_available: false) if store_item.present?
@@ -59,4 +65,13 @@ end
     #   product.update(food: food)
     #   puts "#{item["description"]}"
     # end
+
+
+## hotfix script to delete duplicates in DB
+# duplicate_values = Product.group(:ean).having(Product.arel_table[:ean].count.gt(1)).count.keys
+# duplicate_values.each{ |product_ean| Product.where(ean: product_ean).last.destroy }
+
+# duplicate_values = StoreItem.where(store:2).group(:name).having(StoreItem.arel_table[:name].count.gt(1)).count.keys
+# duplicate_values.each{ |name| StoreItem.where(store: 2, name: name).last.destroy }
+
 
