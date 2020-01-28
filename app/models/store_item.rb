@@ -9,6 +9,8 @@ class StoreItem < ApplicationRecord
   has_one :food, through: :product
   has_many :cart_items, :as => :productable
   has_one :unit, through: :product
+  # to avoid duplicate carrefour products...
+  validates :url, uniqueness: true
 
 
   def get_best_price
@@ -87,10 +89,10 @@ class StoreItem < ApplicationRecord
       elsif product.nil?
         food = Food.match_food(item["description1"].downcase) if item['description1'].present?
         unit = Unit.search(item['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if item['unit_match'].present?
-        product = Product.create(food: food, ean: item["ean"], name: item["description"], quantity: item["quantity_match"], unit: unit, brand: item["brand"], origin: item["origin"], is_frozen: item["is_frozen"].downcase)
-        store_item = StoreItem.create(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
+        product = Product.find_or_create_by(food: food, ean: item["ean"], name: item["description"], quantity: item["quantity_match"], unit: unit, brand: item["brand"], origin: item["origin"], is_frozen: item["is_frozen"].downcase)
+        store_item = StoreItem.find_or_create_by(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
       elsif store_item.nil?
-        store_item = StoreItem.create(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
+        store_item = StoreItem.find_or_create_by(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
       else
         store_item.update(name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
       end
