@@ -5,6 +5,7 @@ class StoreItem < ApplicationRecord
   belongs_to :product
   belongs_to :store
   has_many :store_item_histories, dependent: :destroy
+  has_many :store_cart_items, dependent: :destroy
   has_one :food, through: :product
   has_many :cart_items, :as => :productable
   has_one :unit, through: :product

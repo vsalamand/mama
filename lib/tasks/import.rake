@@ -60,3 +60,12 @@ end
     #   puts "#{item["description"]}"
     # end
 
+
+## hotfix script to delete duplicates in DB
+# duplicate_values = Product.group(:ean).having(Product.arel_table[:ean].count.gt(1)).count.keys
+# duplicate_values.each{ |product_ean| Product.where(ean: product_ean).last.destroy }
+
+# duplicate_values = StoreItem.where(store:2).group(:name).having(StoreItem.arel_table[:name].count.gt(1)).count.keys
+# duplicate_values.each{ |name| StoreItem.where(store: 2, name: name).last.destroy }
+
+
