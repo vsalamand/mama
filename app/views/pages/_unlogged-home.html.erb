@@ -12,14 +12,15 @@
   <div class="container my-auto">
 
     <div>
-      <h1 class="mb-4">Faites vos courses sans même y penser</h1>
+      <h1 >Faites vos courses sans même y penser</h1>
+      <p class="font-weight-light">Mama vous permet de créer et optimiser vos listes de courses pour manger bien et moins cher !</p>
     </div>
 
     <div>
       <%= form_for(:user, :url => registration_path(:user), class:"form-inline") do |f| %>
         <div class="p-3 form-group row flex-wrap mb-0">
           <%= f.text_field :email, placeholder: "Votre Adresse Email", class:"mb-2 mr-4 form-control-lg col-md-4 bg-transparent text-white  border" %>
-          <%= f.submit "Demander l'accès", class:"mb-2 btn btn-flat btn-lg col-xs-2" %>
+          <%= f.submit "Demander l'accès", class:"btn btn-flat btn-lg col-xs-2" %>
         </div>
       <% end %>
     </div>
