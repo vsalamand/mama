@@ -1,3 +1,7 @@
 const product = document.querySelector("#product-id<%= @product.id %>");
 // item.innerHTML = "";
-$(product).replaceWith("<%= j render 'products/show', product: @product %>");
+$(product).replaceWith("<%= j render 'products/show', product: @product, product_score: 100 %>");
+
+$('.modal').modal('hide');
+$(document).removeClass('modal-open');
+$('.modal-backdrop').remove();

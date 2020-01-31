@@ -12,7 +12,8 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     @product.update(products_params)
-    redirect_back(fallback_location:"/")
+    # redirect_back(fallback_location:"/")
+    render 'update.js.erb'
   end
 
   def report
