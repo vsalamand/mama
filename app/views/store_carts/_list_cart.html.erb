@@ -1,4 +1,12 @@
-<div class="container d-flex justify-content-between mt-2 mb-4 pl-0" id="listStoreCart" data="<%= @list.id %>">
+ <div class="d-flex justify-content-center p-1 mb-0">
+  <% if @list.status == "opened" %>
+    <p class="m-0 font-weight-light text-muted">Nouvelle liste de courses</p>
+  <% else %>
+    <p class="m-0 font-weight-light text-muted"><%= @list.name %></p>
+  <% end %>
+ </div>
+
+<div class="container d-flex justify-content-between mb-4 pl-0" id="listStoreCart" data="<%= @list.id %>">
    <%= link_to 'Retour', list_path(@list), class:"btn close m-2" %>
 </div>
 

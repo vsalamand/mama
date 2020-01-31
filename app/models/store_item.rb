@@ -64,54 +64,66 @@ class StoreItem < ApplicationRecord
 
   def self.update_catalog(catalog)
 
-    #1 create or update store items based on new catalog
-    catalog.each do |row|
+    Thread.new do
+      #1 create or update store items based on new catalog
+      catalog.each do |row|
 
-      item = row.to_h
-      store = Store.find_by(name: item["store"])
-      product = Product.find_by(ean: item["ean"])
-      store_item = StoreItem.find_by(product: product, store: store)
-      shelters = item["shelter"][1..-2].split("'").reject {|x| x.size < 3}
-      # update leclerc product info with carrefour
-      if store.name == "Carrefour" && product.present? && product.stores.exclude?(store)
-        product.update(name: item["description"], quantity: item["quantity_match"])
-        product.brand = item["brand"] if product.brand.nil?
-        product.origin = item["origin"] if product.origin.nil?
+        item = row.to_h
+        store = Store.find_by(name: item["store"])
+        product = Product.find_by(ean: item["ean"])
+        store_item = StoreItem.find_by(product: product, store: store)
+        shelters = item["shelter"][1..-2].split("'").reject {|x| x.size < 3}
+
+        # # update leclerc product info with carrefour
+        # if store.name == "Carrefour" && product.present? && product.stores.exclude?(store)
+        #   product.update(name: item["description"], quantity: item["quantity_match"])
+        #   product.brand = item["brand"] if product.brand.nil?
+        #   product.origin = item["origin"] if product.origin.nil?
+        # end
+
+        if item["ean"] == "0"
+          store_item.update(is_available: false) if store_item.present?
+
+        elsif product.nil?
+          food = Food.match_food(item["description1"]) if item['description1'].present?
+          unit = Unit.search(item['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if item['unit_match'].present?
+          product = Product.find_or_create_by(food: food, ean: item["ean"], name: item["description"], quantity: item["quantity_match"], unit: unit, brand: item["brand"], origin: item["origin"], is_frozen: item["is_frozen"].downcase)
+          store_item = StoreItem.create(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true) if store_item.nil?
+
+        elsif product.food.nil?
+          food = Food.match_food(item["description1"]) if item['description1'].present?
+          product.update(food: food)
+
+        elsif store_item.nil?
+          store_item = StoreItem.create(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
+
+        else
+          store_item.update(name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
+        end
+
+
+        StoreItemHistory.find_or_create_by(store_item: store_item, price_per_unit: store_item.price_per_unit, is_promo: store_item.is_promo, is_available: store_item.is_available, date: Date.today) if store_item.present?
+
+        puts "#{item["description"]}"
+
       end
 
-      if item["ean"] == "0"
-        store_item.update(is_available: false) if store_item.present?
-      elsif product.nil?
-        food = Food.match_food(item["description1"].downcase) if item['description1'].present?
-        unit = Unit.search(item['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if item['unit_match'].present?
-        product = Product.find_or_create_by(food: food, ean: item["ean"], name: item["description"], quantity: item["quantity_match"], unit: unit, brand: item["brand"], origin: item["origin"], is_frozen: item["is_frozen"].downcase)
-        store_item = StoreItem.create(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true) if store_item.nil?
-      elsif store_item.nil?
-        store_item = StoreItem.create(product: product, store: store, store_product_id: item["product_id"], name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
-      else
-        store_item.update(name: item["description"], price: item["price_match"], price_per_unit: item["price_per_unit_match"], is_promo: false, shelters: shelters, url: item["url"], image_url: item["image_url"], is_available: true)
-      end
+      #2 get list of store items that are not in the new catalog in order to make them unavailable
+      store = Store.find_by(name: catalog.first["store"])
+      store_items = StoreItem.where(store_id: store.id)
 
-
-      StoreItemHistory.find_or_create_by(store_item: store_item, price_per_unit: store_item.price_per_unit, is_promo: store_item.is_promo, is_available: store_item.is_available, date: Date.today) if store_item.present?
-
-      puts "#{item["description"]}"
-    end
-
-    #2 get list of store items that are not in the new catalog in order to make them unavailable
-    Store.all.each do |store|
       catalog_eans = []
       catalog.each {|row| catalog_eans << row["ean"] if row["store"] == store.name}
-      store_items = StoreItem.where(store_id: store.id)
+
       unavailable_items = store_items - store_items.joins(:product).where(products: {ean: catalog_eans})
 
       unavailable_items.each do |store_item|
         store_item.update(is_promo: false, is_available: false)
         StoreItemHistory.find_or_create_by(store_item: store_item, price_per_unit: store_item.price_per_unit, is_promo: store_item.is_promo, is_available: store_item.is_available, date: Date.today)
-        puts "Now unavailable: #{store_item["description"]}"
       end
-    end
 
+      puts "finished !"
+    end
   end
 
 end

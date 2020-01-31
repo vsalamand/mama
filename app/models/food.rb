@@ -66,10 +66,20 @@ class Food < ApplicationRecord
     foods = []
 
     elements = text.split
-    while elements.any?
+    while elements.any? && foods.empty?
       foods << Food.find_by(name: elements.join(' '))
       foods << Food.search(elements.join(' '), misspellings: {edit_distance: 1}, body_options: {min_score: 65}).first
+      foods << Food.search(elements.join(' '), body_options: {min_score: 65}).first
       elements.pop
+      foods.compact!
+    end
+    if foods.empty?
+      elements = text.split
+      while elements.any?
+        foods << Food.search(text, operator: "or", body_options: {min_score: 90}).first
+        elements.pop
+        foods.compact!
+      end
     end
     foods.compact!
     return foods.first

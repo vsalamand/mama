@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-white">
       <div class="modal-header">
-        <h5 class="modal-title" id="startGroceriesModalLabel">🔥 Faire ma liste de courses</h5>
+        <h5 class="modal-title" id="startGroceriesModalLabel">🔥 Nouvelle liste de courses</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,7 +15,7 @@
             <%= f.input :name, input_html: {value: "Liste de courses du #{Date.today.strftime("%d/%m/%Y")}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
             <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
             <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-            <%= f.submit "✏️ à partir d'une nouvelle liste", class: "btn list-group-item list-group-item-action text-primary" %>
+            <%= f.submit "✏️ à partir d'une liste vide", class: "btn list-group-item list-group-item-action text-primary" %>
           <% end %>
 
 
