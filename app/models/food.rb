@@ -73,6 +73,7 @@ class Food < ApplicationRecord
       elements.pop
       foods.compact!
     end
+
     if foods.empty?
       elements = text.split
       while elements.any?
@@ -81,6 +82,7 @@ class Food < ApplicationRecord
         foods.compact!
       end
     end
+
     foods.compact!
     return foods.first
   end

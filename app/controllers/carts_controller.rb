@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show]
+  skip_before_action :authenticate_user!, only: [:show, :index]
 
   def new
     @cart = Cart.new

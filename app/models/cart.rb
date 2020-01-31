@@ -33,7 +33,7 @@ class Cart < ApplicationRecord
   def get_total_price
     prices_list = []
     self.cart_items.each do |cart_item|
-      if cart_item.productable_id.present?
+      if cart_item.productable_id.present? && StoreItem.where(id: cart_item.productable_id).any?
         price = cart_item.quantity * StoreItem.find(cart_item.productable_id).price
         prices_list << price
       end
