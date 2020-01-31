@@ -76,7 +76,8 @@ class PagesController < ApplicationController
 
   def products_search
     query = params[:query].present? ? params[:query] : nil
-    @results = Product.search(query) if query
+    search = Product.search(query) if query
+    @results = search.zip(search.hits.map{ |hit| hit["_score"] }) if search
   end
 
 end
