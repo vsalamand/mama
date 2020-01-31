@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # rescue_from StandardError do |exception|
-  #   # render what you want here
-  #   redirect_to root_path
-  # end
+  rescue_from StandardError do |exception|
+    # render what you want here
+    redirect_to root_path
+  end
 
 
   protected
