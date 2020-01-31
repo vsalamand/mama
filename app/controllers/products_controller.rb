@@ -5,6 +5,16 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    @product.update(products_params)
+    redirect_back(fallback_location:"/")
+  end
+
   def report
     product = StoreItem.find(params[:format]).product
     product.report

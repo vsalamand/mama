@@ -1,17 +1,51 @@
-<div class="container">
-  <div class="shadow p-3 mb-2 bg-white rounded d-flex align-items-center justify-content-between">
-    <div>
-      <div class="d-flex align-items-center justify-content-start">
-        <h4 class="pl-0 pr-0 mb-0" id="title"><%= item.food.name.capitalize %> </h4>
-        <h7 class="ml-1 font-weight-light"> <%= item.quantity if item.quantity %> <%= item.unit.name if item.unit %></h7>
+<!-- Button trigger update Product Modal -->
+<div id="product-id<%= product.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= product.id %>" class="productShow" data="<%= product.id %>" data2="<%= product.id %>">
+    <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+
+      <div class="d-flex align-items-center justify-content-between">
+
+        <div class="product-info d-flex align-items-center justify-content-start">
+          <% if product.store_items.any?  %>
+            <img src="<%= product.store_items.first.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+          <% end %>
+          <div class="product-description text-dark">
+
+            <div class="d-flex w-90 justify-content-between flex-column">
+              <h7 class="mb-1 text-primary"><%= product.name %></h7>
+              <h7 class="font-weight-bold"><%= product_score %></h7>
+              <p><%= product.stores.pluck(:name).join(', ') %></p>
+            </div>
+          </div>
+        </div>
+
+       <div class="product-options d-flex flex-column   align-items-center selectBtn">
+              <%= product.food.present? ? product.food.name : "no match" %>
+          </div>
+
       </div>
-       <%= link_to list_list_item_item_unvalidate_path(@list_item.list, @list_item, item), remote: true do %>
-          <button type="button" class="p-0 btn btn-link btn-sm unvalidate-item">Pas la bonne recherche ?</button>
-       <% end %>
+
     </div>
-  </div>
 </div>
 
-<div id="products-block">
-  <%= render 'products/products-block', food: item.food %>
+<!-- update products Modal -->
+<div class="modal fade" id="updateProductModal<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="updateProductModal<%= product.id %>Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProductModal<%= product.id %>Label"><%= product.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+
+          <%= simple_form_for product, remote: true, html: {id: "product#{product.id}"} do |f| %>
+            <%= f.collection_select( :food_id, Food.all.order(:name), :id, :name, { include_blank: true }, { class: "btn btn-outline-primary dropdown-toggle" }) %>
+            <%= f.submit "Modifier", class: "btn btn-primary btn-sm" %>
+          <% end %>
+
+
+      </div>
+    </div>
+  </div>
 </div>

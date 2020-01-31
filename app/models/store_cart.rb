@@ -20,7 +20,8 @@ class StoreCart < ApplicationRecord
       else
         store_item_match = Product.search(item.name,
                                 fields: [:name, :brand],
-                                where:  {stores: self.store.merchant.name}).first
+                                where:  {stores: self.store.merchant.name},
+                                body_options: {min_score: 80}).first
         store_item_match = store_item_match.store_items.where(store_id: self.store.id).first unless store_item_match.nil?
       end
       results << StoreCartItem.create(store_cart_id: self.id,
