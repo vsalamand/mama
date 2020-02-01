@@ -4,7 +4,7 @@
       <div class="list-group-item list-group-item-action text-primary d-flex flex-column border-0">
         <p class="mb-0">📝 <%= list.name.capitalize %></p>
         <% if list.users.any? %>
-          <small class="text-muted"><%= list.users.size + 1 + "participants" %></small>
+          <small class="text-muted pl-4"><%= list.users.size + 1  %> participants</small>
         <% else %>
           <small class="text-muted pl-4"><%= "1 participant" %></small>
         <% end %>
