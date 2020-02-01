@@ -22,7 +22,7 @@
           <a class="list-group-item list-group-item-action text-primary border-0" style="cursor: pointer;" tabindex="-1" aria-disabled="true" data-toggle="modal" data-target="#menuBuilderModal" id="findRecipes">🍔 à partir de suggestions de repas</a>
 
           <!-- Saved lists -->
-          <%= render 'lists/saved_list', lists: current_user.lists.saved %>
+          <%= render 'lists/saved_list', lists: (current_user.lists.saved + current_user.shared_lists) %>
 
 
 
