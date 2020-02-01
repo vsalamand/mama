@@ -1,0 +1,21 @@
+<% if lists.any? %>
+  <div class="list-group">
+    <% lists.each do |list| %>
+      <%= link_to list_path(list), class:"link" do %>
+        <div class="list-group-item list-group-item-action text-primary d-flex flex-column">
+          <p class="mb-0"><%= list.name.capitalize %></p>
+          <% if list.users.any? %>
+            <small class="text-muted"><%= list.users.size + 1 + "participants" %></small>
+          <% else %>
+            <small class="text-muted"><%= "1 participant" %></small>
+          <% end %>
+        </div>
+
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="list-group">
+    <div class="list-group-item list-group-item">Vous n'avez pas encore enregistré de liste.</div>
+  </div>
+<% end %>
