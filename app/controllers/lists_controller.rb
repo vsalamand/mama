@@ -35,7 +35,7 @@ class ListsController < ApplicationController
   end
 
   def index
-    @lists = current_user.lists
+    @lists = current_user.lists.saved
     @shared_lists = current_user.shared_lists
     @list = List.new
   end
