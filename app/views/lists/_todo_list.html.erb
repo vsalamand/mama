@@ -9,12 +9,12 @@
 
   <div class="my-3"></div>
 
-<div>
+<div class="px-1">
   <small class="text-muted d-flex justify-content-center p-2">Complétez votre liste ici</small>
   <% if list.user == current_user || list.users.include?(current_user)%>
    <%= render "list_items/form", list: list, list_item: list_item %>
   <% end %>
-
+</div>
 
 <div id="listCartPrice">
 </div>

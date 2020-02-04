@@ -179,9 +179,7 @@ class RecipesController < ApplicationController
     @menu.archive
 
     if @menu.recipes.any?
-      email = current_user.email
-      mail = RecipeMailer.send_menu(@menu, email)
-      mail.deliver_now
+      flash[:notice] = 'Les recettes sont disponibles dans la rubrique "Vos menus" !'
     end
 
     render "add_menu_to_list.js.erb"

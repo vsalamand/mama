@@ -25,7 +25,7 @@ class StoreCart < ApplicationRecord
         store_item_match = store_item_match.store_items.where(store_id: self.store.id).first unless store_item_match.nil?
       end
       results << StoreCartItem.create(store_cart_id: self.id,
-                       store_item_id: store_item_match.id) unless store_item_match.nil?
+                       store_item_id: store_item_match.id) unless store_item_match.nil? || results.pluck(:store_item_id).include?(store_item_match.id)
     end
     self.save
     return results

@@ -1,12 +1,12 @@
  <div class="d-flex justify-content-center p-1 mb-1">
   <% if @list.status == "opened" %>
-    <p class="m-0 lead font-weight-light text-muted">Nouvelle liste de courses</p>
+    <p class="m-0 lead">Nouvelle liste de courses</p>
   <% else %>
-    <p class="m-0 lead font-weight-light text-muted"><%= @list.name %></p>
+    <p class="m-0 lead"><%= @list.name %></p>
   <% end %>
  </div>
 
-  <div class="container d-flex justify-content-between mb-4">
+  <div class="container d-flex justify-content-between mb-2">
 
     <!-- dropdown button -->
     <div class="btn-group">
@@ -160,9 +160,13 @@
 
 
 
+<div class="container">
+  <%= render 'shared/flashes' %>
+</div>
 
 
-<div class="container" id="todo_list" data="<%= @list.id %>">
+
+<div class="container px-0" id="todo_list" data="<%= @list.id %>">
 
   <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
 
