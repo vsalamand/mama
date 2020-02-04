@@ -1,16 +1,20 @@
 
 
-<% if list.user == current_user || list.users.include?(current_user)%>
- <%= render "list_items/form", list: list, list_item: list_item %>
-<% end %>
 
-<div class="shadow p-0 my-2 bg-white rounded">
+<div class="shadow bg-white rounded">
   <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
     <%= render 'uncomplete_todo_list', list: list, list_items: list_items %>
   </div>
 </div>
 
-<%= render "recipes/get_menu_builder" %>
+  <div class="my-3"></div>
+
+<div class="px-1">
+  <small class="text-muted d-flex justify-content-center p-2">Complétez votre liste ici</small>
+  <% if list.user == current_user || list.users.include?(current_user)%>
+   <%= render "list_items/form", list: list, list_item: list_item %>
+  <% end %>
+</div>
 
 <div id="listCartPrice">
 </div>

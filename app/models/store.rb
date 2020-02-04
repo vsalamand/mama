@@ -33,9 +33,9 @@ class Store < ApplicationRecord
                             where:  {stores: self.merchant.name}).first
         store_item_match = store_item_match.store_items.where(store_id: self.id).first unless store_item_match.nil?
       end
-      cheapest_cart_price << store_item_match.price if store_item_match.present?
+      cheapest_cart_price << store_item_match unless store_item_match.nil? || cheapest_cart_price.include?(store_item_match)
     end
-    return [sprintf("%.2f", cheapest_cart_price.inject(0){|sum,x| sum + x }), cheapest_cart_price.size]
+    return [sprintf("%.2f", cheapest_cart_price.pluck(:price).inject(0){|sum,x| sum + x }), cheapest_cart_price.size]
   end
 
   def self.get_cheapest_store_price(items)

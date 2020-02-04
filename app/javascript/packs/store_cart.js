@@ -31,6 +31,10 @@ $(document).on('click', '.selectBtn',function() {
   setTimeout(getStoreCartPrice,500);
 });
 
+// close update product modal when list item is submitted
+$(document).on('click', '.deleteBtn',function() {
+  setTimeout(getStoreCartPrice,500);
+});
 
 
 $(document).on('click', '.StoreCartItemShow', function(e) {

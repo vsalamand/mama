@@ -1,6 +1,8 @@
-<% if cart.user == current_user %>
-   <%= render "cart_items/form", cart: cart %>
-<% end %>
+<div class="px-1">
+  <% if cart.user == current_user %>
+     <%= render "cart_items/form", cart: cart %>
+  <% end %>
+</div>
 
 <div class="shadow p-0 my-3 bg-white rounded">
 

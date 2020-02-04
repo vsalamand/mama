@@ -20,6 +20,7 @@ class CollaborationsController < ApplicationController
     @list = List.find(params[:list_id])
     @collaboration = Collaboration.find_by(user: params[:id], list: @list)
     @collaboration.destroy
-    redirect_to list_path(@list)
+    flash[:notice] = "Vous ne participez plus à cette liste."
+    redirect_to root_path
   end
 end

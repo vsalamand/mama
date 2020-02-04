@@ -1,7 +1,7 @@
 <% curator_lists.each_with_index do |curator_list, index| %>
 
   <!-- Button trigger View More modal -->
-  <a class="list-inline-item btn btn-sm btn-link text-primary py-0 m-0 font-weight-bold align-self-center" data-toggle="modal" data-target="#viewMoreModal<%= index %>"><%= curator_list.name %></a>
+  <a class="list-inline-item btn btn-sm btn-outline-primary m-1 py-0 m-0 font-weight-bold align-self-center" data-toggle="modal" data-target="#viewMoreModal<%= index %>"><%= curator_list.name %></a>
 
   <!-- View More Modal -->
   <div class="modal fade" id="viewMoreModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="viewMoreModal<%= index %>Label" aria-hidden="true">

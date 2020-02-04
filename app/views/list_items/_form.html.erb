@@ -1,6 +1,6 @@
 <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
 
-    <div class="p-1 mb-3">
+    <div class="mb-3">
 
       <div class="search-form-control">
         <%= form.input :name, as: :string, label: false, placeholder: "Que souhaitez-vous ajouter ?", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0", id:"newListItem" } %>
@@ -17,9 +17,12 @@
       <ul class="list-inline mb-2 mx-2" id="itemsRecommendations">
       </ul>
 
-      <div class="d-flex align-items-center justify-content-start flex-wrap p-0 m-0">
-        <%= render 'list_items/explore_suggested_items', curator_lists: @curator_lists %>
-      </div>
+        <!-- NOT USED FOR NOW -->
+          <% if false %>
+            <div class="d-flex align-items-center justify-content-start flex-wrap p-0 m-0">
+              <%= render 'list_items/explore_suggested_items', curator_lists: @curator_lists %>
+            </div>
+          <% end %>
 
     </div>
 

@@ -117,6 +117,7 @@ class ListsController < ApplicationController
   def destroy
     @list = List.find(params[:id])
     @list.destroy
+    flash[:notice] = 'La liste a été supprimée.'
     redirect_to root_path
   end
 

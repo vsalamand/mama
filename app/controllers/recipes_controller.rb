@@ -172,16 +172,14 @@ class RecipesController < ApplicationController
 
   def add_menu_to_list
     @menu = current_user.get_menu
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Menu  du #{Date.today.strftime("%d/%m/%Y")}", user: current_user, status: "opened") if @list.nil?
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses #{current_user.lists.size + 1}", user: current_user, status: "opened") if @list.nil?
 
     ListItem.add_menu_to_list(@menu.items, @list)
 
     @menu.archive
 
     if @menu.recipes.any?
-      email = current_user.email
-      mail = RecipeMailer.send_menu(@menu, email)
-      mail.deliver_now
+      flash[:notice] = 'Les recettes sont disponibles dans la rubrique "Vos menus"'
     end
 
     render "add_menu_to_list.js.erb"
