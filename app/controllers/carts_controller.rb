@@ -49,12 +49,6 @@ class CartsController < ApplicationController
     redirect_to cart_path(cart)
   end
 
-  def destroy
-    @cart = Cart.find(params[:id])
-    @cart.destroy
-    redirect_to carts_path
-  end
-
   def add_to_cart
     @store_item = StoreItem.find(params[:store_item_id])
     @cart = Cart.find(params[:id])
@@ -71,7 +65,8 @@ class CartsController < ApplicationController
   def destroy
     @cart = Cart.find(params[:id])
     @cart.destroy
-    redirect_to root_path
+    flash[:notice] = 'Le panier a été supprimé.'
+    redirect_to carts_path
   end
 
   private

@@ -1,4 +1,5 @@
 var modalPage = document.getElementById("menuBuilderPage");
 modalPage.innerHTML = ("<%= j render 'shared/modal_spinner' %>");
 
-setTimeout(location.reload(true), 6000);
+setTimeout(window.location.replace("<%= list_path(@list) %>"), 6000);
+

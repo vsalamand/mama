@@ -6,19 +6,8 @@ class PagesController < ApplicationController
     @list = List.new
     @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..5]
 
-    # if user is logged in ANS a beta user AND has opened list, display the opened list
-    if user_signed_in? && current_user.beta == true && current_user.lists.opened.any?
-      list = current_user.lists.opened.last
-      redirect_to list_path(list)
-      # if current_user.lists.any?
-      #   list = current_user.lists.first
-      # else
-      #   List.create(name: "Liste de courses", user_id: current_user.id)
-      # end
-      # redirect_to list_path(list)
-
-    # else, get user to the thank you page
-    elsif user_signed_in? && current_user.beta == false
+    # get user to the thank you page if not in beta
+    if user_signed_in? && current_user.beta == false
       redirect_to thank_you_path
     end
   end
