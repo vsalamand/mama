@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col giveMeEllipsis">
-    <% if list.get_similar_food.present? %>
-      <% list.get_similar_food.each_with_index do |food, index| %>
-        <li class="btn btn-link p-0 m-0 recommendations" id="<%= index %>"><%= food.capitalize %></li>
+
+      <% list.get_curated_food.each_with_index do |food, index| %>
+        <li class="btn btn-link p-0 recommendations" id="<%= index %>"><%= food.capitalize %></li>
       <% end %>
-    <% end %>
+
   </div>
 </div>

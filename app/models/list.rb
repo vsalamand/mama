@@ -76,6 +76,7 @@ class List < ApplicationRecord
 
   # get list of similar foods from smartmama
   def get_similar_food
+    curated_foods = self.get_curated_food
     if self.foods.any?
       begin
         items = []
@@ -92,13 +93,23 @@ class List < ApplicationRecord
 
         # # filter out seasonings and foods in shoppinglist
         suggested_foods = result - List.get_seasonings.pluck(:name).map{|x| x.downcase} - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
-        return suggested_foods[0..2]
+        return suggested_foods[0..2] + curated_foods[0..9]
       rescue
-        return nil
+        return curated_foods
       end
     else
-      return nil
+      return curated_foods
     end
+  end
+
+  def get_curated_food
+    results = []
+    User.find_by_email("mama@clubmama.co").lists.each do |list|
+      results << list.foods.shuffle[0..3].pluck(:name).map{|x| x.downcase}
+    end
+
+    curated_foods = results.flatten - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
+    return curated_foods
   end
 
   # get list of seasonings

@@ -1,8 +1,8 @@
- <div class="d-flex justify-content-center p-1 mb-0">
+ <div class="d-flex justify-content-center p-1 mb-1">
   <% if @list.status == "opened" %>
-    <p class="m-0 font-weight-light text-muted">Nouvelle liste de courses</p>
+    <p class="m-0 lead font-weight-light text-muted">Nouvelle liste de courses</p>
   <% else %>
-    <p class="m-0 font-weight-light text-muted"><%= @list.name %></p>
+    <p class="m-0 lead font-weight-light text-muted"><%= @list.name %></p>
   <% end %>
  </div>
 

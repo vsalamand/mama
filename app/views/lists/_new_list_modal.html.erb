@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-white">
       <div class="modal-header">
-        <h5 class="modal-title" id="startGroceriesModalLabel">Faire ma liste de courses</h5>
+        <h5 class="modal-title" id="startGroceriesModalLabel">Vos listes de courses</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,11 +15,11 @@
             <%= f.input :name, input_html: {value: "Liste de courses du #{Date.today.strftime("%d/%m/%Y")}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
             <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
             <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-            <%= f.submit "✏️ à partir d'une liste vide", class: "list-group-item list-group-item-action text-primary border-0" %>
+            <%= f.submit "✏️ créer une nouvelle liste", class: "list-group-item list-group-item-action text-primary border-0" %>
           <% end %>
 
           <!-- open Menu builder modal -->
-          <a class="list-group-item list-group-item-action text-primary border-0" style="cursor: pointer;" tabindex="-1" aria-disabled="true" data-toggle="modal" data-target="#menuBuilderModal" id="findRecipes">🍔 à partir de suggestions de repas</a>
+          <a class="list-group-item list-group-item-action text-primary border-0" style="cursor: pointer;" tabindex="-1" aria-disabled="true" data-toggle="modal" data-target="#menuBuilderModal" id="findRecipes">🍔 choisir un menu pour créer une liste</a>
 
           <!-- Saved lists -->
           <%= render 'lists/saved_list', lists: (current_user.lists.saved + current_user.shared_lists) %>
