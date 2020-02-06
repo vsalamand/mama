@@ -1,5 +1,5 @@
   <!-- Button trigger Select Store modal -->
-  <a class="btn fixed-bottom btn-block btn-flat2 py-3 font-weight-bold" data-toggle="modal" data-target="#selectStoreModal">Faire les courses</a>
+  <a class="btn fixed-bottom btn-block btn-flat2 py-3 font-weight-bold" id="selectStoreBtn" data-toggle="modal" data-target="#selectStoreModal">Faire les courses</a>
 
   <!-- Select Store Modal -->
   <div class="modal fade" id="selectStoreModal" tabindex="-1" role="dialog" aria-labelledby="selectStoreModalLabel" aria-hidden="true">
@@ -11,8 +11,10 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body m-0 p-0">
-          <%= render 'lists/select_store', list: list, uncomplete_list_items: uncomplete_list_items %>
+        <div class="modal-body m-0 p-0" id="listCartPrice">
+          <div style="height: 70vh;" class="d-flex align-items-center justify-content-center">
+            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+          </div>
         </div>
       </div>
     </div>

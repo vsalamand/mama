@@ -2,29 +2,38 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <div id="cart-description">
-        <h5 class=" text-primary">Recevoir la liste par email</h5>
+        <h5 class=" text-secondary">Recevoir la liste par email</h5>
       </div>
       <div class="product-options d-flex flex-column align-items-center">
-        <i class="fas fa-lg fa-angle-right p-1"></i>
+        <h3 class="m-0"> 💌</h3>
       </div>
     </div>
   </div>
 
-<% Store.all.each do |store| %>
+<% carts_price.each do |cart_price| %>
 
-  <%= link_to store_cart_path(store, :list_id => list.id), class:"list-group-item list-group-item-action" do %>
+  <%= link_to store_cart_path(cart_price.last, :list_id => list.id), class:"list-group-item list-group-item-action py-1 pr-0" do %>
     <div class="d-flex align-items-center justify-content-between">
       <div id="cart-description">
-        <div class="d-flex w-100 flex-column mb-1">
-          <h5 class="mb-0 text-primary"><%= store.name.capitalize %></h5>
-          <small class="text-muted"><%= store.get_cheapest_cart_price(@uncomplete_list_items)[1] %> <%= store.get_cheapest_cart_price(@uncomplete_list_items)[1] > 1 ? "articles" : "article" %></small>
+        <div class="d-flex w-100 flex-column mb-0">
+          <h5 class="mb-0 text-primary"><%= cart_price.last.name.capitalize %></h5>
+          <div class="d-flex">
+            <small class="text-muted m-0 pr-2">
+              <% if (list.list_items.not_completed.size - cart_price.second) == 0 %>
+                <span class="text-success font-weight-bold"><%= cart_price.second %> <%= cart_price.second > 1 ? "articles sur #{list.list_items.not_completed.size} !" : "article" %></span>
+              <% elsif cart_price.second == 0 %>
+                <span class="text-danger">auncun résultat</span>
+              <% else %>
+                <span><%= cart_price.second %> <%= cart_price.second > 1 ? "articles sur #{list.list_items.not_completed.size}" : "article" %></span>
+              <% end %>
+            </small>
+          </div>
         </div>
-        <h6 class="mb-0">
-          à partir de <strong><%= store.get_cheapest_cart_price(@uncomplete_list_items)[0] %>€</strong>
-        </h6>
       </div>
-      <div class="product-options d-flex flex-column align-items-center">
-        <i class="fas fa-lg fa-angle-right p-1"></i>
+      <div class="product-options d-flex flex-column align-items-center pr-1">
+        <button class="btn-primary rounded">
+          <small> à partir de</small> <br><strong><%= cart_price.first %>€</strong>
+        </button>
       </div>
     </div>
   <% end %>

@@ -21,7 +21,7 @@ class StoreItem < ApplicationRecord
   def get_quantity
     product = self.product
     quantity = (product.quantity.to_i == product.quantity) ? product.quantity.to_i : product.quantity
-    return "#{quantity} #{product.unit.name if product.unit.present?}"
+    return "#{'x' unless product.unit.present?}#{quantity} #{product.unit.name if product.unit.present?}"
   end
 
   def self.get_shelf_store_items(store, shelf)
