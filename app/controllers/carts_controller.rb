@@ -66,7 +66,7 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
     @cart.destroy
     flash[:notice] = 'Le panier a été supprimé.'
-    redirect_to carts_path
+    redirect_to root_path
   end
 
   private

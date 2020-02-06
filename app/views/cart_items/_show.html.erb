@@ -13,7 +13,7 @@
             <div class="d-flex w-90 justify-content-start">
                 <small class="mr-1 font-weight-light"><%= sprintf("%.2f", store_item.promo_price_per_unit) %>€ / <%= store_item.unit.name %> au lieu de %= sprintf("%.2f",store_item.price_per_unit) %>€ / <%= store_item.unit.name %></small>
             </div>
-          <% else %>
+          <% elsif store_item.unit.present? %>
             <div class="d-flex w-90 justify-content-start">
                 <small class="font-weight-light">
                     <%= sprintf("%.2f",store_item.price_per_unit) %>€ / <%= store_item.unit.name %>
