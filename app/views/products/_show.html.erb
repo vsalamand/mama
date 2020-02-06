@@ -12,7 +12,8 @@
 
             <div class="d-flex w-90 justify-content-between flex-column">
               <h7 class="mb-1 text-primary"><%= product.name %></h7>
-              <h7 class="font-weight-bold"><%= product_score %></h7>
+
+
               <p><%= product.stores.pluck(:name).join(', ') %></p>
             </div>
           </div>
