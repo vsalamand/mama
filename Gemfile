@@ -60,6 +60,9 @@ gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
 # elasticsearch searchbox addon for heroku
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+# Pagination library
+gem 'will_paginate', '~> 3.1.0'
+
 # scraper
 # gem 'nokogiri'
 #recipe microformat parser for ruby

@@ -14,16 +14,17 @@
   <div>
     <h2><%= @results.size if @results %> results:</h2>
     <% if @results %>
+
       <% @results.each do |result| %>
 
 
-        <%= render 'products/show', product: result.first, product_score: result.second %>
+        <%= render 'products/show', product: result %>
 
 
       <% end %>
+      <%= will_paginate @results %>
     <% end %>
+
   </div>
 
 </div>
-
-

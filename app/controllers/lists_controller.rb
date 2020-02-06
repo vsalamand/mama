@@ -59,7 +59,7 @@ class ListsController < ApplicationController
   def fetch_price
     @list = List.find(params[:list_id])
     @uncomplete_list_items = @list.list_items.not_completed.map{ |list_item| list_item.items.first}
-    @price = Store.get_cheapest_store_price(@uncomplete_list_items)
+    @carts_price = Store.get_cheapest_store_price(@uncomplete_list_items)
     render 'fetch_price.js.erb'
   end
 

@@ -41,10 +41,11 @@ class Store < ApplicationRecord
   def self.get_cheapest_store_price(items)
     cheapest_store = []
     Store.all.each do |store|
-      cheapest_store << [store.get_cheapest_cart_price(items)[0], store.name]
+      cheapest_store << [store.get_cheapest_cart_price(items).first, store.get_cheapest_cart_price(items).second, store]
     end
-    # retain only the cheapest store's product slection price
-    return cheapest_store.map{ |x| x.first.to_f }.min
+
+    # sort by cart price
+    return cheapest_store.sort_by{|store| store.first.to_f}
   end
 
   def get_main_shelter_list

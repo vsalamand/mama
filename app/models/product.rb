@@ -10,6 +10,8 @@ class Product < ApplicationRecord
   searchkick language: "french"
   scope :search_import, -> { includes(:stores) }
 
+  self.per_page = 50
+
   def search_data
     {
       name: name,

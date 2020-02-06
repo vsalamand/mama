@@ -10,7 +10,7 @@
           <div class="d-flex w-90 justify-content-between flex-column">
             <h7 class="mb-1 text-primary"><%= store_item.name %></h7>
             <h7 class="mb-0"><%= sprintf("%.2f",store_item.price) %> €</h7>
-            <small class="font-weight-light mb-0"><%= sprintf("%.2f",store_item.price_per_unit) %> €<%= store_item.unit.nil? ? '' : "/#{store_item.unit.name}"  %></small>
+             <small class="font-weight-light mb-0"><%= store_item.get_quantity  %></small>
           </div>
 
         </div>

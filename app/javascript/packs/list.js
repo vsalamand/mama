@@ -128,12 +128,12 @@ const spinner = document.getElementById('spinner')
 $(document).on("turbolinks:load", function(event) {
   loadSuggestions();
   setInputForm();
-  getCartsPrice();
+  // getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   loadSuggestions();
-  getCartsPrice();
+  // getCartsPrice();
 })
 
 function loadSuggestions() {
@@ -150,6 +150,12 @@ function loadSuggestions() {
     });
   }
 }
+
+
+// on Get Price modal show, get store prices
+$(document).on('click', '#selectStoreBtn',function() {
+  getCartsPrice();
+})
 
 function getCartsPrice() {
   if(document.querySelector("#todo_list")){
