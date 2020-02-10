@@ -62,6 +62,35 @@ class StoreItem < ApplicationRecord
   end
 
 
+
+  def self.get_results_sorted_by_price(item, store)
+    # return list of store items sorted by price
+    data = []
+    if item.food.present?
+      # search products with item.food and merchant
+      results = Product.search(item.name,
+                                fields: [:name, :brand],
+                                where:  {stores: store.name,
+                                        food_id: item.food.id})
+    else
+      results = Product.search(item.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name})
+    end
+
+    # if results, sort results by price and get cheapest one
+    if results.any?
+      best_results = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false } }
+      best_results.each{ |result| data << StoreItem.find(result.first.second)}
+    end
+
+    return data.sort_by{ |r| r.price}
+
+  end
+
+
+
+
   # Import CSV and update product / items catalog
   def self.import(file)
     catalog = CSV.read(file.path, headers: true)

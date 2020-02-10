@@ -13,24 +13,41 @@ class StoreCart < ApplicationRecord
 
   def update_store_cart_items(items)
     self.clean_store_cart
-    results = []
+
+    data = []
 
     items.each do |item|
-      if item.food.present? && StoreItem.get_cheapest_store_item(item.food, self.store).present?
-        store_item_match = StoreItem.get_cheapest_store_item(item.food, self.store)
+      if item.food.present?
+        # search products with item.food and merchant
+        results = Product.search(item.name,
+                                  fields: [:name, :brand],
+                                  where:  {stores: self.store.name,
+                                          food_id: item.food.id})
+
+        # if results, sort results by price and get cheapest one
+        if results.any?
+          best_result = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false } }.min
+          store_item_match = StoreItem.find(best_result.first.second)
+
+        # if no results, just get store items for given food and return cheapest one
+        elsif StoreItem.get_cheapest_store_item(item.food, self.store).present?
+          store_item_match = StoreItem.get_cheapest_store_item(item.food, self.store)
+        end
+
       else
         store_item_match = Product.search(item.name,
                                 fields: [:name, :brand],
                                 where:  {stores: self.store.merchant.name}).first
         store_item_match = store_item_match.store_items.where(store_id: self.store.id).first unless store_item_match.nil?
+
       end
 
-      results << StoreCartItem.create(store_cart_id: self.id,
-                       store_item_id: store_item_match.id) unless store_item_match.nil? || results.pluck(:store_item_id).include?(store_item_match.id)
+      data << StoreCartItem.create(store_cart_id: self.id,
+                       store_item_id: store_item_match.id, item_id: item.id) unless store_item_match.nil?
     end
 
     self.save
-    return results
+    return data
   end
 
   def add_to_cart(cart)

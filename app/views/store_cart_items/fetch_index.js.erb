@@ -1,3 +1,3 @@
 var indexList = document.getElementById("storeCartItemsList<%= @store_cart_item.id %>");
 // storeCartItemList.innerHTML = "";
-indexList.innerHTML = ("<%= j render 'store_cart_items/index', store_cart_item: @store_cart_item, store_item: @store_cart_item.store_item %>");
+indexList.innerHTML = ("<%= j render 'store_cart_items/index', store_cart_item: @store_cart_item, results: @store_items %>");
