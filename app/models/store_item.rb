@@ -81,7 +81,7 @@ class StoreItem < ApplicationRecord
     # if results, sort results by price and get cheapest one
     if results.any?
       best_results = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false } }
-      best_results.each{ |result| data << StoreItem.find(result.first.second)}
+      best_results.each{ |result| data << StoreItem.find(result.first.second) if result.any? }
     end
 
     return data.sort_by{ |r| r.price}

@@ -3,6 +3,7 @@
   <div>
     <%= form_tag(products_search_path, :method => "get") do %>
       <%= text_field_tag :query, params[:query], placeholder: "Search products", required: true %>
+      <%= collection_select :store, :id, Store.all, :id, :name, {include_blank: 'Stores'} %>
       <%= submit_tag "Search" %>
     <% end %>
   </div>
@@ -12,7 +13,7 @@
 <div class="container mb-5">
 
   <div>
-    <h2><%= @results.size if @results %> results:</h2>
+    <h2><%= @results.total_count if @results %> results:</h2>
     <% if @results %>
 
       <% @results.each do |result| %>

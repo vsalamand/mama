@@ -65,7 +65,13 @@ class PagesController < ApplicationController
 
   def products_search
     query = params[:query].present? ? params[:query] : nil
-    @results = Product.search(query, page: params[:page], per_page: 50) if query
+    store_id = params[:store].present? ? params[:store]['id'] : nil
+
+    if query && store_id.present?
+      @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores], where: {stores: Store.find(store_id).name})
+    else
+      @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores]) if query
+    end
     # @results = search.zip(search.hits.map{ |hit| hit["_score"] }) if search
   end
 
