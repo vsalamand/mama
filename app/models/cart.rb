@@ -6,14 +6,18 @@ class Cart < ApplicationRecord
   has_many :recipes, :through => :cart_items, :source => :productable, :source_type => 'Recipe'
   has_many :foods, :through => :recipes
 
-  def add_product(store_item)
+  def add_product(store_item, item)
     current_item = self.cart_items.find_by(name: store_item.name)
 
     if current_item
       # current_item.quantity += 1
       current_item.save
     else
-      CartItem.create(name: store_item.name, productable_id: store_item.id, productable_type: store_item.class.name, quantity: 1, cart: self)
+      unless item.nil?
+        CartItem.create(name: store_item.name, productable_id: store_item.id, productable_type: store_item.class.name, quantity: 1, cart: self, item_id: item.id)
+      else
+        CartItem.create(name: store_item.name, productable_id: store_item.id, productable_type: store_item.class.name, quantity: 1, cart: self)
+      end
     end
   end
 

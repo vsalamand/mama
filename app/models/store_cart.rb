@@ -51,8 +51,8 @@ class StoreCart < ApplicationRecord
   end
 
   def add_to_cart(cart)
-    self.store_cart_items.reverse.each do |store_cart_item|
-      cart.add_product(store_cart_item.store_item)
+    self.store_cart_items.each do |store_cart_item|
+      cart.add_product(store_cart_item.store_item, store_cart_item.item)
     end
   end
 

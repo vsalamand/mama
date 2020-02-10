@@ -40,7 +40,7 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateProductModal<%= cart_item.id %>Label"><%= store_item.food.present? ? store_item.food.name.capitalize : "Chercher un produit" %></h5>
+        <h5 class="modal-title" id="updateProductModal<%= cart_item.id %>Label"><%= cart_item.item.present? ? cart_item.item.name : "Chercher un produit" %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -55,7 +55,7 @@
         <% end %>
 
         <div id="cartItemsList<%= cart_item.id %>">
-          <%= render 'cart_items/index', store_item: store_item, cart_item: cart_item %>
+          <%= render 'cart_items/index', cart_item: cart_item, store: store_item.store %>
         </div>
 
       </div>

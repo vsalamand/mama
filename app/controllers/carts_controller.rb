@@ -52,7 +52,8 @@ class CartsController < ApplicationController
   def add_to_cart
     @store_item = StoreItem.find(params[:store_item_id])
     @cart = Cart.find(params[:id])
-    @cart_item = @cart.add_product(@store_item)
+    item = nil
+    @cart_item = @cart.add_product(@store_item, item)
     render "add_to_cart.js.erb"
   end
 
