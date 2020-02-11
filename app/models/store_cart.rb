@@ -38,10 +38,6 @@ class StoreCart < ApplicationRecord
     end
   end
 
-  # def get_store_cart_price
-  #   # not WORKING because @store_cart return empty list of store_cart_items...
-  #   self.store_cart_items.map{ |store_cart_item| store_cart_item.store_item.price}.inject(:+)
-  # end
 
   def self.get_store_cart_price(store_cart_items)
     store_cart_items.reject{ |sci| sci.store_item.nil?}.map{ |store_cart_item| store_cart_item.store_item.price }.inject(:+).round(2)

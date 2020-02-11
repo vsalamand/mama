@@ -72,20 +72,31 @@ class StoreItem < ApplicationRecord
                               fields: [:name, :brand],
                               where:  {stores: store.name,
                                       food_id: item.food.id})
+
       if results.empty?
       # elsif item has food but no results, search products based on name only
       results = Product.search(item.name,
                               fields: [:name, :brand],
                               where:  {stores: store.name})
       end
+
+      if results.empty?
+      # else search using the matched food name
+      results = Product.search(item.food.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name})
+      end
+
+      # # else search using the food id
+      # if results.empty?
+      #  results = Product.search(item.food.name,
+      #                           where:  {stores: store.name,
+      #                                   food_id: item.food.id})
+      # end
+
     # else if no food, search products based on name only
     elsif defined?(results).nil?
       results = Product.search(item.name,
-                              fields: [:name, :brand],
-                              where:  {stores: store.name})
-    # else search using the matched food name
-    elsif defined?(results).nil? && item.food.present?
-      results = Product.search(item.food.name,
                               fields: [:name, :brand],
                               where:  {stores: store.name})
     end
@@ -97,7 +108,7 @@ class StoreItem < ApplicationRecord
       best_results.each{ |result| data << StoreItem.find(result.first.second) if result.any? }
     end
 
-    return data.sort_by{ |r| r.price}
+    return data.sort_by{ |r| r.price}[0..30]
 
   end
 
