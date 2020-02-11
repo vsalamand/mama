@@ -10,11 +10,7 @@ class Product < ApplicationRecord
   searchkick language: "french"
   scope :search_import, -> { includes(:stores, :food) }
 
-  after_commit :reindex_product
 
-  def reindex_product
-    self.reindex
-  end
 
   def search_data
     {

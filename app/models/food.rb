@@ -26,9 +26,14 @@ class Food < ApplicationRecord
   has_ancestry
   searchkick language: "french"
 
-
   after_create do
     self.add_to_shelf
+  end
+
+  after_commit :reindex_product
+
+  def reindex_product
+    product.reindex
   end
 
   def search_data

@@ -73,16 +73,14 @@ class StoreItem < ApplicationRecord
                               where:  {stores: store.name,
                                       food_id: item.food.id})
 
-      if results.empty?
-      # elsif item has food but no results, search products based on name only
-      results = Product.search(item.name,
-                              fields: [:name, :brand],
-                              where:  {stores: store.name})
+      if results.empty? && Food.search(item.name).any?
+      # else search food name and get related products
+      results = Food.search(item.name).first.products
       end
 
       if results.empty?
-      # else search using the matched food name
-      results = Product.search(item.food.name,
+      # elsif item has food but no results, search products based on name only
+      results = Product.search(item.name,
                               fields: [:name, :brand],
                               where:  {stores: store.name})
       end
