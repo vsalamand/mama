@@ -2,14 +2,14 @@ class Food < ApplicationRecord
   validates :name, uniqueness: true, presence: :true
   has_many :items
   has_many :recipes, through: :items
-  has_many :meta_recipe_items
+  has_many :meta_recipe_items, dependent: :destroy
   has_many :meta_recipes, through: :meta_recipe_items
   has_many :cart_items, :as => :productable
   belongs_to :category
   belongs_to :unit, optional: true
   has_many :banned_foods
   has_many :diets, through: :banned_foods
-  has_many :food_list_items
+  has_many :food_list_items, dependent: :destroy
   has_many :food_lists, through: :food_list_items
   has_many :units, through: :items
   has_many :products

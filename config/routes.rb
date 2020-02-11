@@ -58,9 +58,7 @@ Rails.application.routes.draw do
   get 'verify_listitems', to: 'pages#verify_listitems'
   get 'verify_products', to: 'pages#verify_products'
   post 'import', to: 'pages#import'
-  get 'products_search', to: 'pages#products_search'
   get 'thank_you', to: "pages#thank_you"
-
   get 'profile', to: 'pages#profile'
 
 
@@ -129,8 +127,27 @@ Rails.application.routes.draw do
   resources :recipe_lists do
     resources :recipe_list_items, only: [:show, :destroy, :edit, :update]
   end
-  resources :items
-  resources :products
+
+
+  resources :items do
+    collection do
+      get :edit_multiple
+      put :update_multiple
+    end
+  end
+
+
+
+  resources :products do
+    collection do
+      get :advanced_search
+      get :edit_multiple
+      put :update_multiple
+    end
+  end
+
+
+
   resources :stores do
     resources :store_carts do
       get 'fetch_price', to: "store_carts#fetch_price"

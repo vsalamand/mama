@@ -1,21 +1,21 @@
 <ul class="nav nav-tabs nav-fill">
   <li class="nav-item">
-    <%= link_to "Dasboard", dashboard_path, class: "nav-link" %>
-  </li>
-  <li class="nav-item">
     <%= link_to "Liste d'attente", pending_path, class: "nav-link" %>
   </li>
   <li class="nav-item">
     <%= link_to "Créer une recette", new_recipe_path, class: "nav-link" %>
   </li>
   <li class="nav-item">
-    <%= link_to "Rails Admin", rails_admin.dashboard_path, class: "nav-link" %>
-  </li>
-  <li class="nav-item">
     <%= link_to "Search recipes", search_recipes_path, class: "nav-link" %>
   </li>
   <li class="nav-item">
-    <%= link_to "Search products", products_search_path, class: "nav-link" %>
+    <%= link_to "Search products", advanced_search_products_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Products", products_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Items", items_path, class: "nav-link" %>
   </li>
   <li class="nav-item">
     <%= link_to "Recipe lists", recipe_lists_path, class: "nav-link" %>

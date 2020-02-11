@@ -20,8 +20,12 @@ class StoreCart < ApplicationRecord
 
       store_item_match = StoreItem.get_results_sorted_by_price(item, self.store).first
 
-      data << StoreCartItem.create(store_cart_id: self.id,
-                       store_item_id: store_item_match.id, item_id: item.id) unless store_item_match.nil?
+      if store_item_match.nil?
+        data << StoreCartItem.create(store_cart_id: self.id, item_id: item.id)
+      else
+        data << StoreCartItem.create(store_cart_id: self.id,
+                         store_item_id: store_item_match.id, item_id: item.id)
+      end
     end
 
     self.save
@@ -40,6 +44,6 @@ class StoreCart < ApplicationRecord
   # end
 
   def self.get_store_cart_price(store_cart_items)
-    store_cart_items.map{ |store_cart_item| store_cart_item.store_item.price}.inject(:+).round(2)
+    store_cart_items.reject{ |sci| sci.store_item.nil?}.map{ |store_cart_item| store_cart_item.store_item.price }.inject(:+).round(2)
   end
 end

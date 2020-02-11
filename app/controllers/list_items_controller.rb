@@ -26,7 +26,7 @@ class ListItemsController < ApplicationController
       Thread.new do
         if valid_item.present?
           # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
-          Item.create(food: valid_item.food, list_item: @list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
+          Item.create(food: valid_item.food, list_item: @list_item, name: @list_item.name, is_validated: valid_item.is_validated)
         else
           Item.create_list_item(@list_item)
         end

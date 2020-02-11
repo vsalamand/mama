@@ -60,6 +60,26 @@ class ItemsController < ApplicationController
     end
   end
 
+  def index
+    food_id = params[:food].present? ? params[:food]['id'] : nil
+
+    if food_id.present?
+      @food = Food.find(food_id)
+      @results = Item.where(food_id: @food.id)
+    end
+
+  end
+
+  def edit_multiple
+    @items = Item.find(params[:item_ids])
+  end
+
+  def update_multiple
+    @items = Item.find(params[:item_ids])
+    @items.each{ |product| product.update(items_params)}
+    redirect_to items_path
+  end
+
 
   private
   def set_recipe

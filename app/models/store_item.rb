@@ -67,20 +67,33 @@ class StoreItem < ApplicationRecord
     # return list of store items sorted by price
     data = []
     if item.food.present?
-      # search products with item.food and merchant
+    # search products with item.food and merchant
       results = Product.search(item.name,
-                                fields: [:name, :brand],
-                                where:  {stores: store.name,
-                                        food_id: item.food.id})
-    else
+                              fields: [:name, :brand],
+                              where:  {stores: store.name,
+                                      food_id: item.food.id})
+      if results.empty?
+      # elsif item has food but no results, search products based on name only
       results = Product.search(item.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name})
+      end
+    # else if no food, search products based on name only
+    elsif defined?(results).nil?
+      results = Product.search(item.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name})
+    # else search using the matched food name
+    elsif defined?(results).nil? && item.food.present?
+      results = Product.search(item.food.name,
                               fields: [:name, :brand],
                               where:  {stores: store.name})
     end
 
     # if results, sort results by price and get cheapest one
-    if results.any?
-      best_results = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 || x[2] == false } }
+    if results.present?
+      # stop using is_available info for now
+      best_results = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 } }
       best_results.each{ |result| data << StoreItem.find(result.first.second) if result.any? }
     end
 

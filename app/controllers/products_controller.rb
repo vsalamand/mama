@@ -49,6 +49,60 @@ class ProductsController < ApplicationController
     end
   end
 
+  def advanced_search
+    query = params[:query].present? ? params[:query] : nil
+    store_id = params[:store].present? ? params[:store]['id'] : nil
+    food_id = params[:food].present? ? params[:food]['id'] : nil
+
+    if store_id.present? && food_id.present?
+      @food = Food.find(food_id)
+      @results = Product.search("*", page: params[:page], per_page: 50, aggs: [:stores], where: {stores: Store.find(store_id).name, food_id: @food.id})
+
+    elsif query && store_id.present?
+      @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores], where: {stores: Store.find(store_id).name})
+
+    elsif food_id.present?
+      @food = Food.find(food_id)
+      @results = Product.search("*", page: params[:page], per_page: 50, aggs: [:stores], where: {food_id: @food.id})
+
+    else
+      @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores]) if query
+    end
+    # @results = search.zip(search.hits.map{ |hit| hit["_score"] }) if search
+  end
+
+  def index
+    query = params[:query].present? ? params[:query] : nil
+    store_id = params[:store].present? ? params[:store]['id'] : nil
+    food_id = params[:food].present? ? params[:food]['id'] : nil
+
+    if store_id.present? && food_id.present?
+      @food = Food.find(food_id)
+      @results = Product.search("*", page: params[:page], per_page: 50, aggs: [:stores], where: {stores: Store.find(store_id).name, food_id: @food.id})
+
+    elsif query && store_id.present?
+      @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores], where: {stores: Store.find(store_id).name})
+
+    elsif food_id.present?
+      @food = Food.find(food_id)
+      @results = Product.search("*", page: params[:page], per_page: 50, aggs: [:stores], where: {food_id: @food.id})
+
+    else
+      @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores]) if query
+    end
+
+  end
+
+  def edit_multiple
+    @products = Product.find(params[:product_ids])
+  end
+
+  def update_multiple
+    @products = Product.find(params[:product_ids])
+    @products.each{ |product| product.update(products_params)}
+    redirect_to products_path
+  end
+
   private
   def products_params
     params.require(:product).permit(:id, :food_id, :ean, :name, :quantity, :unit_id, :brand, :origin, :is_frozen, :is_reported)

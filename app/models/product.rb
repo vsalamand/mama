@@ -13,7 +13,7 @@ class Product < ApplicationRecord
   after_commit :reindex_product
 
   def reindex_product
-    product.reindex
+    self.reindex
   end
 
   def search_data
@@ -45,5 +45,10 @@ class Product < ApplicationRecord
 
   def get_related_recipes
     return self.food.recipes.reverse[0..9]
+  end
+
+  def update_food(food)
+    self.food = food
+    self.save
   end
 end
