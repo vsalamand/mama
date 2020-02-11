@@ -62,6 +62,59 @@ class StoreItem < ApplicationRecord
   end
 
 
+
+  def self.get_results_sorted_by_price(item, store)
+    # return list of store items sorted by price
+    data = []
+    if item.food.present?
+    # search products with item.food and merchant
+      results = Product.search(item.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name,
+                                      food_id: item.food.id})
+
+      if results.empty?
+      # elsif item has food but no results, search products based on name only
+      results = Product.search(item.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name})
+      end
+
+      if results.empty?
+      # else search using the matched food name
+      results = Product.search(item.food.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name})
+      end
+
+      # # else search using the food id
+      # if results.empty?
+      #  results = Product.search(item.food.name,
+      #                           where:  {stores: store.name,
+      #                                   food_id: item.food.id})
+      # end
+
+    # else if no food, search products based on name only
+    elsif defined?(results).nil?
+      results = Product.search(item.name,
+                              fields: [:name, :brand],
+                              where:  {stores: store.name})
+    end
+
+    # if results, sort results by price and get cheapest one
+    if results.present?
+      # stop using is_available info for now
+      best_results = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 } }
+      best_results.each{ |result| data << StoreItem.find(result.first.second) if result.any? }
+    end
+
+    return data.sort_by{ |r| r.price}[0..30]
+
+  end
+
+
+
+
   # Import CSV and update product / items catalog
   def self.import(file)
     catalog = CSV.read(file.path, headers: true)

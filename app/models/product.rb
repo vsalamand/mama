@@ -8,15 +8,20 @@ class Product < ApplicationRecord
   has_many :cart_items, :as => :productable
 
   searchkick language: "french"
-  scope :search_import, -> { includes(:stores) }
+  scope :search_import, -> { includes(:stores, :food) }
 
-  self.per_page = 50
+  after_commit :reindex_product
+
+  def reindex_product
+    self.reindex
+  end
 
   def search_data
     {
       name: name,
       brand: brand,
-      stores: stores.pluck(:name)
+      stores: stores.pluck(:name),
+      food_id: food_id
     }
   end
 
@@ -40,5 +45,10 @@ class Product < ApplicationRecord
 
   def get_related_recipes
     return self.food.recipes.reverse[0..9]
+  end
+
+  def update_food(food)
+    self.food = food
+    self.save
   end
 end

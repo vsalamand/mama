@@ -1,0 +1,59 @@
+<%= render 'shared/admin-navbar' %>
+
+<h1>Select products</h1>
+
+
+<div class="container m-3">
+
+  <div>
+    <%= form_tag(products_path, :method => "get") do %>
+      <%= collection_select :store, :id, Store.all.order(:name), :id, :name, {include_blank: 'Stores'} %>
+      <%= collection_select :food, :id, Food.all.order(:name), :id, :name, {include_blank: 'Food'} %>
+
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="container mb-5">
+  <div>
+    <h2><%= @results.total_count if @results %> results:</h2>
+
+    <% if @results %>
+        <%= will_paginate @results %>
+
+
+      <%= form_tag(edit_multiple_products_path, :method => "get") do %>
+        <%= submit_tag "Update all"%>
+        <% @results.each do |product| %>
+
+           <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+             <%= hidden_field_tag "product_ids[]", product.id  %>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="product-info d-flex align-items-center justify-content-start">
+                  <% if product.store_items.any?  %>
+                    <img src="<%= product.store_items.first.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+                  <% end %>
+                  <div class="product-description text-dark">
+                    <div class="d-flex w-90 justify-content-between flex-column">
+                      <h7 class="mb-1 text-primary"><%= product.name %></h7>
+                      <p><%= product.stores.pluck(:name).join(', ') %></p>
+                    </div>
+                  </div>
+                </div>
+               <div class="product-options d-flex flex-column  align-items-center">
+                  <%= product.food.present? ? product.food.name : "no match" %>
+             </div>
+            </div>
+          </div>
+
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+  </div>
+</div>
+
+

@@ -2,7 +2,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <div id="cart-description">
-        <h5 class=" text-secondary">Recevoir la liste par email</h5>
+        <h5 class="text-primary">Recevoir la liste par email</h5>
       </div>
       <div class="product-options d-flex flex-column align-items-center">
         <h3 class="m-0"> 💌</h3>
@@ -16,7 +16,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <div id="cart-description">
         <div class="d-flex w-100 flex-column mb-0">
-          <h5 class="mb-0 text-primary"><%= cart_price.last.name.capitalize %></h5>
+          <h5 class="mb-0 text-primary"><%= cart_price.last.name %></h5>
           <div class="d-flex">
             <small class="text-muted m-0 pr-2">
               <% if (list.list_items.not_completed.size - cart_price.second) == 0 %>

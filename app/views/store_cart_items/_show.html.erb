@@ -1,59 +1,89 @@
-<!-- Button trigger update Product Modal -->
-<div id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= store_item.id %>" class="StoreCartItemShow" data="<%= store_cart_item.id %>" data2="<%= store_item.id %>">
-    <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+<% if store_cart_item.store_item.nil?  %>
+  <div id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" class="StoreCartItemShow" data="<%= store_cart_item.id %>" >
+      <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
 
-      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between">
 
-        <div class="product-info d-flex align-items-center justify-content-start">
-          <img src="<%= store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
-          <div class="product-description text-dark">
+          <div class="product-info d-flex align-items-center justify-content-start">
+            <div class="product-description text-dark">
 
-            <div class="d-flex w-90 justify-content-between flex-column">
-              <h7 class="mb-1 text-primary"><%= store_item.name %></h7>
-              <h7 class="mb-0 font-weight-bold"><%= store_item.get_best_price %> €</h7>
-              <small class="mr-1 font-weight-light my-0"><%= store_item.get_quantity %></small>
+              <div class="d-flex w-90 justify-content-between flex-column">
+                <h7 class="mb-1 text-primary"><%= store_cart_item.item.name.capitalize %></h7>
+                <h7 class="mb-0 font-weight-light text-muted">Nous n'avons pas trouvé de produit correspondant</h7>
+              </div>
 
             </div>
-
           </div>
-        </div>
 
-        <%= link_to store_store_cart_store_cart_item_path(store_cart_item.store_cart.store, store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
-          <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
-            <span aria-hidden="true" >&times;</span>
-          </button>
-        <% end %>
-
-      </div>
-
-    </div>
-</div>
-
-<!-- update products Modal -->
-<div class="modal fade" id="updateProductModal<%= store_item.id %>" tabindex="-1" role="dialog" aria-labelledby="updateProductModal<%= store_item.id %>Label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateProductModal<%= store_item.id %>Label"><%= store_item.food.present? ? store_item.food.name.capitalize : "Chercher un produit" %></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-
-        <%= form_tag(store_store_cart_store_cart_item_search_path(store_item.store, store_cart_item.store_cart, store_cart_item), :method => "get", remote: true, authenticity_token: true, id: "search_product#{store_cart_item.id}", class:"form-inline p-2") do %>
-          <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords#{store_cart_item.id}", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
-
-          <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
-              <i class="fas fa-search text-primary"></i>
+          <%= link_to store_store_cart_store_cart_item_path(store_cart_item.store_cart.store, store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
+            <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
+              <span aria-hidden="true" >&times;</span>
+            </button>
           <% end %>
 
-        <% end %>
-
-        <div id="storeCartItemsList<%= store_cart_item.id %>">
         </div>
 
+      </div>
+  </div>
+
+<% else %>
+  <!-- Button trigger update Product Modal -->
+  <div id="store-cart-item-card-id<%= store_cart_item.id %>" style="cursor: pointer;" data-toggle="modal" data-target="#updateProductModal<%= store_cart_item.store_item.id %>" class="StoreCartItemShow" data="<%= store_cart_item.id %>" data2="<%= store_cart_item.store_item.id %>">
+      <div class="pl-2 pr-2 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+
+        <div class="d-flex align-items-center justify-content-between">
+
+          <div class="product-info d-flex align-items-center justify-content-start">
+            <img src="<%= store_cart_item.store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
+            <div class="product-description text-dark">
+
+              <div class="d-flex w-90 justify-content-between flex-column">
+                <h7 class="mb-1 text-primary"><%= store_cart_item.store_item.name %></h7>
+                <h7 class="mb-0 font-weight-bold"><%= store_cart_item.store_item.get_best_price %> €</h7>
+                <small class="mr-1 font-weight-light my-0"><%= store_cart_item.store_item.get_quantity %></small>
+              </div>
+
+            </div>
+          </div>
+
+          <%= link_to store_store_cart_store_cart_item_path(store_cart_item.store_cart.store, store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
+            <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
+              <span aria-hidden="true" >&times;</span>
+            </button>
+          <% end %>
+
+        </div>
+
+      </div>
+  </div>
+
+  <!-- update products Modal -->
+  <div class="modal fade" id="updateProductModal<%= store_cart_item.store_item.id %>" tabindex="-1" role="dialog" aria-labelledby="updateProductModal<%= store_cart_item.store_item.id %>Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateProductModal<%= store_cart_item.store_item.id %>Label"><%= store_cart_item.present? ? store_cart_item.item.name.capitalize : "Chercher un produit" %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+
+          <%= form_tag(store_store_cart_store_cart_item_search_path(store_cart_item.store_item.store, store_cart_item.store_cart, store_cart_item), :method => "get", remote: true, authenticity_token: true, id: "search_product#{store_cart_item.id}", class:"form-inline p-2") do %>
+            <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords#{store_cart_item.id}", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
+
+            <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
+                <i class="fas fa-search text-primary"></i>
+            <% end %>
+
+          <% end %>
+
+          <div id="storeCartItemsList<%= store_cart_item.id %>">
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+<% end %>

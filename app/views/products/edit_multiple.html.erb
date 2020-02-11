@@ -1,0 +1,22 @@
+<%= render 'shared/admin-navbar' %>
+
+<h1>edit checked products</h1>
+
+ <%= form_tag update_multiple_products_path, method: :put do %>
+    <ul>
+      <% @products.each do |product| %>
+        <li>
+          <%= hidden_field_tag "product_ids[]", product.id %>
+          <%= product.name %>
+        </li>
+      <% end %>
+    </ul>
+    <%= fields_for :product do |f| %>
+      <% f.collection_select :food_id, Food.order(:name), :id, :name %>
+    <% end %>
+
+    <div class="my-4">
+      <%= submit_tag "Update all" %>
+    </div>
+
+ <% end %>

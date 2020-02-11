@@ -13,38 +13,33 @@ class StoreCart < ApplicationRecord
 
   def update_store_cart_items(items)
     self.clean_store_cart
-    results = []
+
+    data = []
 
     items.each do |item|
-      if item.food.present? && StoreItem.get_cheapest_store_item(item.food, self.store).present?
-        store_item_match = StoreItem.get_cheapest_store_item(item.food, self.store)
-      else
-        store_item_match = Product.search(item.name,
-                                fields: [:name, :brand],
-                                where:  {stores: self.store.merchant.name}).first
-        store_item_match = store_item_match.store_items.where(store_id: self.store.id).first unless store_item_match.nil?
-      end
 
-      results << StoreCartItem.create(store_cart_id: self.id,
-                       store_item_id: store_item_match.id) unless store_item_match.nil? || results.pluck(:store_item_id).include?(store_item_match.id)
+      store_item_match = StoreItem.get_results_sorted_by_price(item, self.store).first
+
+      if store_item_match.nil?
+        data << StoreCartItem.create(store_cart_id: self.id, item_id: item.id)
+      else
+        data << StoreCartItem.create(store_cart_id: self.id,
+                         store_item_id: store_item_match.id, item_id: item.id)
+      end
     end
 
     self.save
-    return results
+    return data
   end
 
   def add_to_cart(cart)
-    self.store_cart_items.reverse.each do |store_cart_item|
-      cart.add_product(store_cart_item.store_item)
+    self.store_cart_items.each do |store_cart_item|
+      cart.add_product(store_cart_item.store_item, store_cart_item.item)
     end
   end
 
-  # def get_store_cart_price
-  #   # not WORKING because @store_cart return empty list of store_cart_items...
-  #   self.store_cart_items.map{ |store_cart_item| store_cart_item.store_item.price}.inject(:+)
-  # end
 
   def self.get_store_cart_price(store_cart_items)
-    store_cart_items.map{ |store_cart_item| store_cart_item.store_item.price}.inject(:+).round(2)
+    store_cart_items.reject{ |sci| sci.store_item.nil?}.map{ |store_cart_item| store_cart_item.store_item.price }.inject(:+).round(2)
   end
 end

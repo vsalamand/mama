@@ -33,12 +33,13 @@ class StoreCartItemsController < ApplicationController
 
   def fetch_index
     @store_cart_item = StoreCartItem.find(params[:store_cart_item_id])
+    @store_items = StoreItem.get_results_sorted_by_price(@store_cart_item.item, @store_cart_item.store_cart.store)
     render 'fetch_index.js.erb'
   end
 
   private
 
   def store_cart_item_params
-    params.require(:store_cart_item).permit(:store_item_id, :store_cart_id, :list_id )
+    params.require(:store_cart_item).permit(:store_item_id, :store_cart_id, :list_id, :item_id )
   end
 end

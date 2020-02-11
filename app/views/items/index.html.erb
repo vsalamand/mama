@@ -1,0 +1,52 @@
+<%= render 'shared/admin-navbar' %>
+
+<h1>Select items</h1>
+
+
+<div class="container m-3">
+
+  <div>
+    <%= form_tag(items_path, :method => "get") do %>
+      <%= collection_select :food, :id, Food.all.order(:name), :id, :name %>
+
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="container mb-5">
+  <div>
+    <h2><%= @results.size if @results %> results:</h2>
+
+    <% if @results %>
+
+      <%= form_tag(edit_multiple_items_path, :method => "get") do %>
+        <%= submit_tag "Update all"%>
+        <% @results.each do |item| %>
+
+           <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+             <%= hidden_field_tag "item_ids[]", item.id  %>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="product-info d-flex align-items-center justify-content-start">
+                  <div class="product-description text-dark">
+                    <div class="d-flex w-90 justify-content-between flex-column">
+                      <h7 class="mb-1 text-primary"><%= item.name %></h7>
+                    </div>
+                  </div>
+                </div>
+               <div class="product-options d-flex flex-column  align-items-center">
+                  <%= item.food.present? ? item.food.name : "no match" %>
+             </div>
+            </div>
+          </div>
+
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+  </div>
+</div>
+
+

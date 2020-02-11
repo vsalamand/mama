@@ -10,6 +10,7 @@ class Item < ApplicationRecord
   belongs_to :unit, optional: true
   # validates :food_id, presence: true
   has_many :cart_items, dependent: :destroy
+  has_many :store_cart_items, dependent: :destroy
 
   scope :to_validate, -> { where(is_validated: false) }
 

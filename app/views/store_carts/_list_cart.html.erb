@@ -18,8 +18,8 @@
 <div class="container mb-5 px-0">
   <div class="shadow bg-white">
     <div class="list-group list-group-flush mb-2" id="storeCartItemsList">
-      <% @store_cart_items.each do |store_cart_item| %>
-        <%= render 'store_cart_items/show', store_cart_item: store_cart_item, store_item: store_cart_item.store_item, list: @list %>
+      <% @store_cart_items.sort_by(&:item_id).each do |store_cart_item| %>
+        <%= render 'store_cart_items/show', store_cart_item: store_cart_item, list: @list %>
       <% end %>
     </div>
   </div>

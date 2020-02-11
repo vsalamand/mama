@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200130095749) do
+ActiveRecord::Schema.define(version: 20200210132247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -410,6 +410,8 @@ ActiveRecord::Schema.define(version: 20200130095749) do
     t.integer  "store_item_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "item_id"
+    t.index ["item_id"], name: "index_store_cart_items_on_item_id", using: :btree
     t.index ["store_cart_id"], name: "index_store_cart_items_on_store_cart_id", using: :btree
     t.index ["store_item_id"], name: "index_store_cart_items_on_store_item_id", using: :btree
   end
@@ -562,6 +564,7 @@ ActiveRecord::Schema.define(version: 20200130095749) do
   add_foreign_key "recommendation_items", "recipe_lists"
   add_foreign_key "recommendation_items", "recommendations"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "store_cart_items", "items"
   add_foreign_key "store_cart_items", "store_carts"
   add_foreign_key "store_cart_items", "store_items"
   add_foreign_key "store_carts", "lists"

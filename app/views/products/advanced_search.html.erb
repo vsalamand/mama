@@ -1,7 +1,12 @@
+<%= render 'shared/admin-navbar' %>
+
+<h1>Search products</h1>
+
+
 <div class="container m-3">
 
   <div>
-    <%= form_tag(products_search_path, :method => "get") do %>
+    <%= form_tag(advanced_search_products_path, :method => "get") do %>
       <%= text_field_tag :query, params[:query], placeholder: "Search products" %>
       <%= collection_select :store, :id, Store.all.order(:name), :id, :name, {include_blank: 'Stores'} %>
       <%= collection_select :food, :id, Food.all.order(:name), :id, :name, {include_blank: 'Food'} %>
@@ -13,25 +18,20 @@
 
 
 <div class="container mb-5">
-
   <div>
     <h2><%= @results.total_count if @results %> results:</h2>
 
     <% if @results %>
-
-      <%= form_tag update_product_food_products_path :method => :put do %>
-
         <%= will_paginate @results %>
+
         <% @results.each do |result| %>
+            <%= hidden_field_tag "product_ids[]", result.id  %>
             <%= render 'products/show', product: result %>
         <% end %>
-
-        <%= submit_tag "Update food for all results" %>
-      <% end %>
 
     <% end %>
 
   </div>
-
 </div>
+
 
