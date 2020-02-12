@@ -27,7 +27,7 @@ class Store < ApplicationRecord
     end
 
     # remove nil elements
-    return cheapest_cart_price.compact!
+    return cheapest_cart_price.compact
   end
 
 
