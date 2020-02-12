@@ -12,10 +12,11 @@ class StoreCart < ApplicationRecord
   end
 
   def update_store_cart_items(items)
+    # delete all items in store cart
     self.clean_store_cart
 
     data = []
-
+    # for each item in list, get related products per store, sort by price, return cheapest product and create a new item in store cart
     items.each do |item|
 
       store_item_match = StoreItem.get_results_sorted_by_price(item, self.store).first

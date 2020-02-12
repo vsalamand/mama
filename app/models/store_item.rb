@@ -66,47 +66,37 @@ class StoreItem < ApplicationRecord
   def self.get_results_sorted_by_price(item, store)
     # return list of store items sorted by price
     data = []
-    if item.food.present?
+
+    search_queries = []
     # search products with item.food and merchant
-      results = Product.search(item.name,
-                              fields: [:name, :brand],
-                              where:  {stores: store.name,
-                                      food_id: item.food.id})
+    search_queries << Product.search(item.name,
+                            fields: [:name, :brand],
+                            where:  {stores: store.name,
+                                    food_id: item.food.id}, execute: false) if item.food.present?
 
-      if results.empty? && Food.search(item.name).any?
-      # else search food name and get related products
-      results = Food.search(item.name).first.products
-      end
+    # else search food name and get related products
+    search_queries << Food.search(item.name, execute: false) if item.food.present?
 
-      if results.empty?
-      # elsif item has food but no results, search products based on name only
-      results = Product.search(item.name,
-                              fields: [:name, :brand],
-                              where:  {stores: store.name})
-      end
+    # elsif item has food but no results, search products based on name only
+    search_queries << Product.search(item.name,
+                            fields: [:name, :brand],
+                            where:  {stores: store.name}, execute: false)
 
-      # # else search using the food id
-      # if results.empty?
-      #  results = Product.search(item.food.name,
-      #                           where:  {stores: store.name,
-      #                                   food_id: item.food.id})
-      # end
+    Searchkick.multi_search(search_queries)
 
-    # else if no food, search products based on name only
-    elsif defined?(results).nil?
-      results = Product.search(item.name,
-                              fields: [:name, :brand],
-                              where:  {stores: store.name})
-    end
+    results = search_queries.map{ |search| search.results}.compact.first
+
+    results = results.products if results.present? && results.class.name == "Food"
 
     # if results, sort results by price and get cheapest one
     if results.present?
       # stop using is_available info for now
-      best_results = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 } }
-      best_results.each{ |result| data << StoreItem.find(result.first.second) if result.any? }
+      results = results.map{ |result| result.store_items.where(store: store).pluck(:price, :id, :is_available).reject {|x| x.first < 0.02 } }
+      results.each{ |result| data << StoreItem.find(result.first.second) if result.any? }
     end
 
-    return data.sort_by{ |r| r.price}[0..30]
+
+    return data.sort_by{ |r| r.price}
 
   end
 
