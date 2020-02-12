@@ -60,6 +60,12 @@ gem 'searchkick', :git => 'https://github.com/ankane/searchkick'
 # elasticsearch searchbox addon for heroku
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+# Optimized JSON
+gem 'oj'
+# Typhoeus wraps libcurl in order to make fast and reliable requests.
+gem "typhoeus"
+
+
 # Pagination library
 gem 'will_paginate', '~> 3.1.0'
 

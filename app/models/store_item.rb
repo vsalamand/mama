@@ -82,10 +82,9 @@ class StoreItem < ApplicationRecord
                             fields: [:name, :brand],
                             where:  {stores: store.name}, execute: false)
 
+    # process search
     Searchkick.multi_search(search_queries)
-
     results = search_queries.map{ |search| search.results}.compact.first
-
     results = results.products if results.present? && results.class.name == "Food"
 
     # if results, sort results by price and get cheapest one

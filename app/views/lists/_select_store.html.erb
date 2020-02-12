@@ -1,19 +1,8 @@
-  <div class="list-group-item list-group-item-action" style="cursor: pointer;" id="shareList">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <div id="cart-description">
-        <h5 class="text-primary">Recevoir la liste par email</h5>
-      </div>
-      <div class="product-options d-flex flex-column align-items-center">
-        <h3 class="m-0"> 💌</h3>
-      </div>
-    </div>
-  </div>
 
 <% carts_price.each do |cart_price| %>
 
   <%= link_to store_cart_path(cart_price.last, :list_id => list.id), class:"list-group-item list-group-item-action py-1 pr-0" do %>
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between rounded-0">
       <div id="cart-description">
         <div class="d-flex w-100 flex-column mb-0">
           <h5 class="mb-0 text-primary"><%= cart_price.last.name %></h5>
@@ -22,7 +11,7 @@
               <% if (list.list_items.not_completed.size - cart_price.second) == 0 %>
                 <span class="text-success font-weight-bold"><%= cart_price.second %> <%= cart_price.second > 1 ? "articles sur #{list.list_items.not_completed.size} !" : "article" %></span>
               <% elsif cart_price.second == 0 %>
-                <span class="text-danger">auncun résultat</span>
+                <span class="text-danger">aucun résultat</span>
               <% else %>
                 <span><%= cart_price.second %> <%= cart_price.second > 1 ? "articles sur #{list.list_items.not_completed.size}" : "article" %></span>
               <% end %>

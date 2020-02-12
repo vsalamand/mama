@@ -6,7 +6,7 @@ require("jquery-ui/ui/widget")
 require("jquery-ui/ui/widgets/sortable")
 
 sort();
-fetechSuggestedItems();
+fetchSuggestedItems();
 loadSuggestions();
 
 
@@ -47,20 +47,14 @@ $('#selectListModal').on('hide.bs.modal', function (e) {
 const form = document.getElementById('new_list_item');
 // const id = document.querySelector("#todo_list").getAttribute('data');
 
-function fetechSuggestedItems() {
+function fetchSuggestedItems() {
   // select word that is clicked
   // $('.recommendations').on('click', function(event) {
   $(document).on("click" , ".recommendations", function(event) {
     const item = event.target.innerText;
     const inputField = document.getElementById('newListItem');
     const id = document.querySelector("#todo_list").getAttribute('data');
-    // const submitButton = document.getElementById('addListItemBtn');
-    // const suggestedItems = document.querySelectorAll('#itemsRecommendations li');
-    // // add the word to the input field
-    // inputField.value = item;
-    // // submit form
-    // Rails.fire(form, 'submit');
-    // create new list item
+
     $.ajax({
       url: "/lists/" + id +"/list_items",
       cache: false,
@@ -73,6 +67,7 @@ function fetechSuggestedItems() {
       success: function(data){
       }
     });
+
     // close modal is opened
     $('.modal').modal('hide');
     $(document.body).removeClass('modal-open');
@@ -122,7 +117,7 @@ function enableElements(list) {
 
 // On form submit, fetch updated suggested items inside the form
 const itemsRecommendations = document.getElementById('itemsRecommendations');
-const spinner = document.getElementById('spinner')
+const spinner = document.getElementById('spinner');
 
 
 $(document).on("turbolinks:load", function(event) {
@@ -157,14 +152,22 @@ $(document).on('click', '#selectStoreBtn',function() {
   getCartsPrice();
 })
 
+
 function getCartsPrice() {
   if(document.querySelector("#todo_list")){
     const id = document.querySelector("#todo_list").getAttribute('data');
+    var cartsPrice = document.getElementById('listCartPrice');
+    var modalSpinner = document.querySelectorAll('#modalSpinner');
+
+    $(cartsPrice).hide();
+    $(modalSpinner).show();
 
     $.ajax({
       url: "/lists/" + id +"/fetch_price",
       cache: false,
       success: function(){
+        $(cartsPrice).show();
+        $(modalSpinner).hide();
       }
     });
 
