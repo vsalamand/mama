@@ -34,7 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Webpack to manage app-like JavaScript modules in Rails
 gem 'webpacker', '~> 3.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # front-end setup
@@ -73,8 +73,6 @@ gem 'will_paginate', '~> 3.1.0'
 # gem 'nokogiri'
 #recipe microformat parser for ruby
 gem 'hangry'
-#Bayesian Classifier
-gem 'classifier-reborn'
 # organize model in tree structure for categories, subscategories, etc...
 gem 'ancestry'
 # Background processing
@@ -113,9 +111,6 @@ gem 'rails_admin', '~> 1.3'
 # Tags management
 gem 'acts-as-taggable-on', '~> 6.0'
 # gem 'acts-as-taggable-on', :git => 'https://github.com/mbleigh/acts-as-taggable-on'
-
-# OpenFoodFacts database API
-gem 'openfoodfacts'
 
 # Image storage and management
 gem 'cloudinary'
