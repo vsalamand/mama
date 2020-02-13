@@ -9,7 +9,7 @@ class StoreItem < ApplicationRecord
   has_one :food, through: :product
   has_many :cart_items, :as => :productable
   has_one :unit, through: :product
-  # to avoid duplicate carrefour products...
+  # this validation is to avoid duplicate products...
   validates :url, uniqueness: true
 
 
