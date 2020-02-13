@@ -13,42 +13,42 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf do
-        render pdf: "recipe_card",
-               # orientation: 'Landscape',
-               # dpi: 300,
-               page_size: 'A4',
-               # zoom:  0.9,
-               background: true,
-               show_as_html: params.key?('debug'),
-               margin:  {
-                    top:               5,                     # default 10 (mm)
-                    bottom:            0,
-                    left:              5,
-                    right:             5
-               }
-      end
+      # format.pdf do
+      #   render pdf: "recipe_card",
+      #          # orientation: 'Landscape',
+      #          # dpi: 300,
+      #          page_size: 'A4',
+      #          # zoom:  0.9,
+      #          background: true,
+      #          show_as_html: params.key?('debug'),
+      #          margin:  {
+      #               top:               5,                     # default 10 (mm)
+      #               bottom:            0,
+      #               left:              5,
+      #               right:             5
+      #          }
+      # end
     end
   end
 
   def god_show
   end
 
-  def card
-    # Analytics
-    profile = User.find_or_create_by(sender_id: params[:user])
-    product = Recipe.find(params[:id])
-    position = params[:position]
-    context = params[:context]
-    if params[:user].present?
-      recipe_view = Hash.new
-      recipe_view["context"] = context
-      recipe_view["position"] = position
-      recipe_view["recipe_id"] = product.id
-      recipe_view["sender_id"] = params[:user].to_i
-      ahoy.track "recipe_view", recipe_view
-    end
-  end
+  # def card
+  #   # Analytics
+  #   profile = User.find_or_create_by(sender_id: params[:user])
+  #   product = Recipe.find(params[:id])
+  #   position = params[:position]
+  #   context = params[:context]
+  #   if params[:user].present?
+  #     recipe_view = Hash.new
+  #     recipe_view["context"] = context
+  #     recipe_view["position"] = position
+  #     recipe_view["recipe_id"] = product.id
+  #     recipe_view["sender_id"] = params[:user].to_i
+  #     ahoy.track "recipe_view", recipe_view
+  #   end
+  # end
 
   def new
     @recipe = Recipe.new

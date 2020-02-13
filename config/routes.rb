@@ -71,7 +71,7 @@ Rails.application.routes.draw do
       get :add_menu_to_list
     end
     member do
-      get 'card', to: "recipes#card"
+      # get 'card', to: "recipes#card"
       get :set_published_status
       get :set_dismissed_status
       get :cart

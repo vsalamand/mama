@@ -34,7 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Webpack to manage app-like JavaScript modules in Rails
 gem 'webpacker', '~> 3.5'
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 3.0'
+gem 'redis'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # front-end setup
@@ -79,8 +79,6 @@ gem 'ancestry'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 # PDF generator
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
 
 # Makes http fun again
 gem 'httparty'
