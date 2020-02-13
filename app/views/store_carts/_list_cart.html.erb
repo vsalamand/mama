@@ -27,5 +27,6 @@
 
 <div style="padding: 50px;"></div>
 
-<div id="storeCartPrice" data="<%= store_cart.id %>">
-</div>
+<!-- <div id="storeCartPrice" data="<%= store_cart.id %>">
+</div> -->
+<%= render 'store_carts/get_price', store_cart: @store_cart, carts: @carts %>

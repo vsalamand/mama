@@ -2,24 +2,24 @@ import Rails from 'rails-ujs'
 import 'bootstrap';
 
 
-$(document).on("turbolinks:load", function(event) {
-  getStoreCartPrice();
-})
+// $(document).on("turbolinks:load", function(event) {
+//   getStoreCartPrice();
+// })
 
-function getStoreCartPrice() {
-  if(document.querySelector("#storeCartPrice")){
-    const storeId = document.querySelector("#storeId").getAttribute('data');
-    const storeCartId = document.querySelector("#storeCartShow").getAttribute('data');
+// function getStoreCartPrice() {
+//   if(document.querySelector("#storeCartPrice")){
+//     const storeId = document.querySelector("#storeId").getAttribute('data');
+//     const storeCartId = document.querySelector("#storeCartShow").getAttribute('data');
 
-    $.ajax({
-      url: "/stores/" + storeId + "/store_carts/" + storeCartId +"/fetch_price",
-      cache: false,
-      success: function(){
-      }
-    });
+//     $.ajax({
+//       url: "/stores/" + storeId + "/store_carts/" + storeCartId +"/fetch_price",
+//       cache: false,
+//       success: function(){
+//       }
+//     });
 
-  }
-}
+//   }
+// }
 
 
 

@@ -15,10 +15,15 @@
 
 
 <div class="container my-3">
-
-  <div class="list-group shadow">
-    <%= render 'carts/index', carts: @carts.order(:created_at).reverse %>
-  </div>
+  <% if @carts.any?  %>
+    <div class="list-group shadow">
+      <%= render 'carts/index', carts: @carts.order(:created_at).reverse %>
+    </div>
+  <% else %>
+    <div class="my-5 d-flex align-items-center justify-content-between">
+      <p class="lead text-muted">Les paniers de courses que vous enregistrez seront visibles ici.</p>
+    </div>
+  <% end %>
 </div>
 
 

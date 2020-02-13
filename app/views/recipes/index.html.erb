@@ -11,5 +11,11 @@
 
 
 <div class="container my-3">
-  <%= render 'recipes/index', recipes: @recipes %>
+  <% if @recipes.any? %>
+    <%= render 'recipes/index', recipes: @recipes %>
+  <% else %>
+    <div class="my-5 d-flex align-items-center justify-content-between">
+      <p class="lead text-muted">Les recettes que vous ajoutez dans vos menus seront visibles ici.</p>
+    </div>
+  <% end %>
 </div>

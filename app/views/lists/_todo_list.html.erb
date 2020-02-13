@@ -1,9 +1,9 @@
 
-
-
 <div class="shadow bg-white rounded">
-  <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
-    <%= render 'uncomplete_todo_list', list: list, list_items: list_items %>
+  <div class="list-group list-group-flush" id="list_items" data-url="<%= sort_list_list_items_path(list) %>">
+    <% list_items.not_deleted.order(:id).each do |item| %>
+      <%= render 'list_items/show', list: list, list_item: item %>
+    <% end %>
   </div>
 </div>
 
@@ -11,6 +11,7 @@
 
 <div class="px-1">
   <small class="text-muted d-flex justify-content-center p-2">Complétez votre liste ici</small>
+
   <% if list.user == current_user || list.users.include?(current_user)%>
    <%= render "list_items/form", list: list, list_item: list_item %>
   <% end %>
@@ -20,13 +21,3 @@
 
 
 
-
-<div id="complete_list_items">
-  <% if list_items.completed.any? %>
-    <div>
-      <div class="list-group list-group-flush my-4">
-        <%= render 'complete_todo_list', list: list, list_items: list_items %>
-      </div>
-    </div>
-  <% end %>
-</div>

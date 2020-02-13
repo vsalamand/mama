@@ -1,37 +1,22 @@
 <% if list.user == current_user || list.users.include?(current_user) %>
-  <% if list_item.is_completed == false %>
+  <div id="grocerylist-item-id<%= list_item.id %>">
+    <li class="border-0 pl-3 list-group-item d-flex align-items-center justify-content-between" id="<%= dom_id(list_item) %>" >
 
-    <li class="border-0 pl-3 list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>" id="<%= dom_id(list_item) %>" >
-
+      <% if list_item.is_completed == false %>
         <div class="d-flex align-items-center">
-          <!--
-          <span class="btn m-0 pl-0 pr-1"><i class="fas fa-bars text-muted"></i></span>
-           -->
           <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
-            <i class="far fa-lg fa-square p-1"></i>
+            <i class="far fa-lg fa-square"></i>
           <% end %>
           <p class="m-0 p-1 pb-2"><%= list_item.name %></p>
         </div>
-
-        <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
-          <button type="button" class="close ml-2 mr-0 remove-item" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        <% end %>
-
-    </li>
-
-  <% else %>
-
-    <li class="border-0 list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>">
-
-
+      <% else %>
         <div class="d-flex align-items-center">
           <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
             <i class="fas fa-lg fa-check-square"></i>
           <% end %>
           <p class="m-0 p-1 pb-2 text-muted"><del><%= list_item.name %></del></p>
         </div>
+      <% end %>
 
         <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
           <button type="button" class="close ml-2 mr-0 remove-item" aria-label="Close">
@@ -40,14 +25,5 @@
         <% end %>
 
     </li>
-
-  <% end %>
-
-
-<% else %>
-
-  <li class="list-group-item d-flex align-items-center justify-content-between grocerylist-item-id<%= list_item.id %>">
-    <p><%= list_item.name %></p>
-  </li>
-
+  </div>
 <% end %>

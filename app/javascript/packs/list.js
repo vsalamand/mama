@@ -5,22 +5,22 @@ import 'bootstrap';
 require("jquery-ui/ui/widget")
 require("jquery-ui/ui/widgets/sortable")
 
-sort();
+// sort();
 fetchSuggestedItems();
 loadSuggestions();
 
 
-function sort() {
-  $("#uncomplete_list_items").sortable({
-    update: function(e, ui) {
-      Rails.ajax({
-        url: $(this).data("url"),
-        type: "PATCH",
-        data: $(this).sortable('serialize'),
-      });
-    }
-  });
-}
+// function sort() {
+//   $("#uncomplete_list_items").sortable({
+//     update: function(e, ui) {
+//       Rails.ajax({
+//         url: $(this).data("url"),
+//         type: "PATCH",
+//         data: $(this).sortable('serialize'),
+//       });
+//     }
+//   });
+// }
 
 
 // // open modal when click on button
@@ -126,7 +126,7 @@ $(document).on("turbolinks:load", function(event) {
   // getCartsPrice();
 })
 
-$(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
+$(document).on("DOMSubtreeModified", "#list_items", function(event) {
   loadSuggestions();
   // getCartsPrice();
 })
