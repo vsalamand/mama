@@ -1,9 +1,10 @@
 
 <div class="shadow bg-white rounded">
-  <div class="list-group list-group-flush" id="list_items" data-url="<%= sort_list_list_items_path(list) %>">
-    <% list_items.not_deleted.order(:id).each do |item| %>
-      <%= render 'list_items/show', list: list, list_item: item %>
-    <% end %>
+  <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
+    <%= render 'lists/uncomplete_todo_list', list: list, list_items: list_items %>
+  </div>
+  <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
+    <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
   </div>
 </div>
 

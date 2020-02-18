@@ -1,10 +1,10 @@
 
-// // remove card from grocerylist
-// const listCard = document.querySelector(".grocerylist-item-id<%= @list_item.id %>");
-// listCard.remove();
+// remove card from grocerylist
+const listCard = document.querySelector("#grocerylist-item-id<%= @list_item.id %>");
+listCard.remove();
 
 
-// refresh list item card
-const listItemCard = document.querySelector("#grocerylist-item-id<%= @list_item.id %>");
-listItemCard.innerHTML = "";
-listItemCard.innerHTML = ("<%= j render 'list_items/show', list: @list_item.list, list_item: @list_item %>");
+// reload content complte todo list
+const completeListItems = document.getElementById('complete_list_items');
+completeListItems.innerHTML = "";
+completeListItems.innerHTML = ("<%= j render 'lists/complete_todo_list', list: @list_item.list, list_items: @list_item.list.list_items.not_deleted %>");

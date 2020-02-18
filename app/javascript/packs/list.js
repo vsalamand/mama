@@ -126,7 +126,7 @@ $(document).on("turbolinks:load", function(event) {
   // getCartsPrice();
 })
 
-$(document).on("DOMSubtreeModified", "#list_items", function(event) {
+$(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   loadSuggestions();
   // getCartsPrice();
 })
