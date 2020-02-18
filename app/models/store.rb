@@ -7,7 +7,9 @@ class Store < ApplicationRecord
   STORE_TYPE = ["online", "physical"]
 
 
-  def self.get_cheapest_store_price(items)
+  def self.get_cheapest_store_price(list)
+    # !! sometimes the last items is not taken into account because the thread to create it is not finished when method is called
+    items = list.get_uncomplete_list_items_items
     cheapest_store = []
     Store.all.each do |store|
       data = store.get_cheapest_cart_price(items)

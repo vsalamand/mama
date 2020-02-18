@@ -74,6 +74,10 @@ class List < ApplicationRecord
     return list_products
   end
 
+  def get_uncomplete_list_items_items
+    return self.list_items.not_completed.map{ |list_item| list_item.items.first}.compact
+  end
+
   # get list of similar foods from smartmama
   def get_similar_food
     curated_foods = self.get_curated_food
