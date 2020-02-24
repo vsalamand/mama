@@ -1,72 +1,36 @@
-.card {
-  height: 50vh;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-  background-size: cover !important;
-  background-position: center;
-  background-color: dodgerblue;
-  color: white;
-  // position: relative;
-  border-radius: 10px;
+.card-product {
+  overflow: hidden;
+  height: 120px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-.card:hover {
-  opacity:0.7;
-  cursor: pointer;
-  // display: inline-block;
-}
-@media only screen and (max-width: 768px) {
-  .card{
-    height: 25vh;
-    margin-bottom: 10px;
-  }
-}
-a:link{
-  text-decoration: none!important;
 }
 
-.card-description {
-  // position: absolute;
-  // bottom: 10px;
-  // left: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.card-product img {
+  height: 100%;
+  width: 120px;
+  object-fit: cover;
 }
 
-.card-description h3 {
-  font-size: 3vmax;
-}
-.card-description p {
-  font-size: 1.8vmax;
-  opacity: 0.7;
-  font-weight: lighter;
+.card-product h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
 }
 
-// .card-link {
-//   // position: absolute;
-//   // top: 0;
-//   // bottom: 0;
-//   // right: 0;
-//   // width: 100%;
-//   // z-index: 2;
-//   background: black;
-//   opacity: 0;
-// }
-// // .card-link:hover {
-// //   opacity: 0.1;
-// //   cursor: pointer;
-// // }
-
-#assistant {
-  background-color: #6AD58B;
-}
-#assistant:hover {
-  background-color: #3ac162;
+.card-product p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
 }
 
-.card-intro {
-  font-size: 3vmax;
+.card-product .card-product-infos {
+  padding: 16px;
+}
+
+.card-product p:hover {
+  text-decoration: none !important;
 }

@@ -126,6 +126,10 @@ Rails.application.routes.draw do
 
   resources :recipe_lists do
     resources :recipe_list_items, only: [:show, :destroy, :edit, :update]
+    member do
+      get :explore
+      get :add_recipe
+    end
   end
 
 

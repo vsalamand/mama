@@ -2,13 +2,14 @@ class RecipeListsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @recipe_lists = RecipeList.where(recipe_list_type: "curated")
+    # @recipe_lists = RecipeList.where(recipe_list_type: "curated")
+    @recipe_lists = current_user.recipe_lists
   end
 
   def show
     @recipe_list = RecipeList.find(params[:id])
-    @recipe_list.recipe_list_items.build
-    @checklist = Checklist.get_checklist(@recipe_list.foods)
+    # @recipe_list.recipe_list_items.build
+    # @checklist = Checklist.get_checklist(@recipe_list.foods)
   end
 
   def new
@@ -35,6 +36,17 @@ class RecipeListsController < ApplicationController
     @recipe_list.update(recipe_list_params)
     @recipe_list.get_description
     redirect_to recipe_list_path(@recipe_list)
+  end
+
+  def explore
+    @recipe_list = RecipeList.find(params[:id])
+    @recipes = Recipe.where(status:'published').shuffle[0..9]
+  end
+
+  def add_recipe
+    @recipe_list = RecipeList.find(params[:id])
+    recipe = Recipe.find(params[:id])
+
   end
 
   private

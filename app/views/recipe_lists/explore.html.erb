@@ -1,0 +1,21 @@
+
+<div class="d-flex flex-column align-items-center justify-content-center p-1 my-4">
+  <p class="m-0 lead"><strong class="btn-outline-primary"><%= @recipe_list.name %></strong></p>
+  <h5 class="mb-0 text-muted font-weight-bold d-flex text-center">Ajoutez des recettes à votre menu</h5>
+</div>
+
+
+<div class="container px-0">
+  <div class="list-group my-3">
+    <% @recipes.each do |recipe| %>
+      <%= render 'recipes/recipe_card', recipe: recipe, recipe_list: @recipe_list %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<div style="padding: 50px;"></div>
+
+<div id="explore" data="<%= @recipe_list.id %>">
+</div>

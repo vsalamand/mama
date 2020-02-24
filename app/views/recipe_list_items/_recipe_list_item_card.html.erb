@@ -1,14 +1,14 @@
-       <div class="list-group-item list-group-item-action border-0 recipe_list_itemIndex" id="recipeListItemCardId" data="<%= recipe_list_item.id %>">
-          <div class="d-flex align-items-center justify-content-between">
-            <div id="description">
-              <div class="d-flex w-100 flex-column mb-0">
-                <h5 class="mb-0 text-primary"><%= recipe_list_item.recipe.title.capitalize %></h5>
-              </div>
-            </div>
-
-            <button type="button" class="close ml-2 mr-2" id=removeFromMenuBtn>
-              <span aria-hidden="true" >&times;</span>
-            </button>
-
-          </div>
-        </div>
+<div class="mb-4">
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+    <div class="card-product">
+      <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+      <div class="card-product-infos">
+        <h2><%= recipe.title.capitalize %></h2>
+        <p class="text-dark giveMeEllipsis"><%= recipe.foods.map{|f| f.name.capitalize}.join(", ") %></p>
+      </div>
+    </div>
+  <% end %>
+  <div class="border bg-white">
+    <button type="button" class="btn btn-link btn-block text-danger" id=removeFromMenuBtn>Supprimer</button>
+  </div>
+</div>
