@@ -1,18 +1,19 @@
-<div class="card mb-3 mx-2" style="max-width: 540px;">
-  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+<div class="card mb-3 mx-2" style="max-width: 540px;" id="recipeCard<%= recipe.id %>">
 
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
     <img src="<%= recipe.image_url %>" class="card-img-top" alt="<%= recipe.title %>">
     <div class="card-body">
       <h5 class="card-title"><%= recipe.title %></h5>
       <p class="card-text text-dark giveMeEllipsis"><%= recipe.foods.map{|f| f.name.capitalize}.join(", ") %></p>
     </div>
+  <% end %>
+
     <div class="p-3 d-flex justify-content-center">
       <% unless recipe_list.recipes.include?(recipe) %>
-      <button type="button" class="btn btn-link" id=addToMenuBtn>Ajouter au menu</button>
+      <button type="button" class="btn btn-link" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
       <% else %>
-      <button type="button" class="btn btn-outline-secondary disabled">Ajouté</button>
+      <button type="button" class="btn btn-link text-success disabled">Ajouté</button>
       <% end %>
     </div>
 
-  <% end %>
 </div>

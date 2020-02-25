@@ -136,11 +136,12 @@ class RecipesController < ApplicationController
   end
 
   def add_to_menu
-    recipe = Recipe.find(params[:id])
-    @menu = current_user.get_menu
-    recipe.add_to_recipe_list(@menu)
+    @recipe = Recipe.find(params[:id])
+    @recipe_list = RecipeList.find(params[:recipe_list_id])
 
-    render 'fetch_menu.js.erb'
+    @recipe.add_to_recipe_list(@recipe_list)
+
+    render 'add_to_menu.js.erb'
   end
 
   def add_menu_to_list

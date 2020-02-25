@@ -1,14 +1,13 @@
-<div class="card mb-3 mx-2" style="max-width: 540px;">
+<div class="card mb-3 mx-2" style="max-width: 540px;" id="recipeListItemCard<%= recipe_list_item.id %>">
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-
     <img src="<%= recipe.image_url %>" class="card-img-top" alt="<%= recipe.title %>">
     <div class="card-body">
       <h5 class="card-title"><%= recipe.title %></h5>
       <p class="card-text text-dark giveMeEllipsis"><%= recipe.foods.map{|f| f.name.capitalize}.join(", ") %></p>
     </div>
-    <div class="p-3 d-flex justify-content-center">
-      <button type="button" class="btn btn-link btn-block text-danger" id=removeFromMenuBtn>Supprimer</button>
-    </div>
-
   <% end %>
+  <div class="p-3 d-flex justify-content-center">
+    <button type="button" class="btn btn-link btn-block text-danger" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer</button>
+  </div>
+
 </div>

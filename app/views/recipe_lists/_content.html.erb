@@ -10,7 +10,7 @@
 
   <% if recipe_list.recipe_list_items.any? %>
     <% recipe_list.recipe_list_items.each do |recipe_list_item| %>
-      <%= render 'recipe_list_items/recipe_list_item_card', recipe_list_item: recipe_list_item, recipe: recipe_list_item.recipe %>
+      <%= render 'recipe_list_items/recipe_list_item_card', recipe_list: recipe_list, recipe_list_item: recipe_list_item, recipe: recipe_list_item.recipe %>
     <% end %>
 
   <% else %>

@@ -40,7 +40,7 @@ class RecipeListsController < ApplicationController
 
   def explore
     @recipe_list = RecipeList.find(params[:id])
-    @recipes = Recipe.where(status:'published').last(45)
+    @recipes = Recipe.where(status:'published').last(45).shuffle
   end
 
   def add_recipe

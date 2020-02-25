@@ -2,9 +2,11 @@ class RecipeListItemsController < ApplicationController
 
   def destroy
     @recipe_list_item = RecipeListItem.find(params[:id])
-    @menu = @recipe_list_item.recipe_list
+    @recipe_list = @recipe_list_item.recipe_list
+
     @recipe_list_item.destroy
-    render 'recipes/fetch_menu.js.erb'
+
+    render 'delete.js.erb'
   end
 
   private
