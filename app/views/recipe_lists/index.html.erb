@@ -9,26 +9,29 @@
 
 </div>
 
+<div class="container">
+  <%= render 'shared/flashes' %>
+</div>
 
 <div class="container my-3">
   <% if @recipe_lists.any? %>
 
-    <div class="list-group shadow">
+    <div class="row">
       <% @recipe_lists.order(:id).reverse.each do |recipe_list| %>
-        <%= link_to recipe_list_path(recipe_list) do %>
-          <div class="list-group-item list-group-item-action">
-            <div class="d-flex align-items-center justify-content-between">
-              <div id="description">
-                <div class="d-flex w-100 flex-column mb-0">
-                  <h5 class="mb-0 text-primary"><%= recipe_list.name %></h5>
+        <div class="col-sm-6">
+          <%= link_to recipe_list_path(recipe_list) do %>
+            <div class="card bg-white shadow border-0">
+              <div class="card-body">
+                <h5 class="card-title"><%= recipe_list.name %></h5>
+                <div class="d-flex">
+                  <% recipe_list.recipes.each do |recipe|  %>
+                    <%= image_tag "#{recipe.image_url}", class: "avatar-square m-1", alt: "#{recipe.title}" %>
+                  <% end %>
                 </div>
               </div>
-              <div class="product-options d-flex flex-column align-items-center">
-                <i class="fas fa-lg fa-angle-right p-1"></i>
-              </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
 
@@ -39,4 +42,6 @@
     </div>
   <% end %>
 </div>
+
+
 

@@ -1,8 +1,10 @@
-<div class="my-3"></div>
 
-
-<div class="px-1 d-flex justify-content-center">
-  <%= link_to 'Ajouter des recettes', explore_recipe_list_path, class:"btn btn-flat" %>
+<div class="p-1 my-1" id="addRecipes">
+  <%= link_to explore_recipe_list_path do %>
+          <div class="search-form-control form-group">
+            <input class="form-control font-weight-light font-italic" type="text" style="cursor: pointer; border: 1px solid #1EDD88;" placeholder="Ajouter des recettes ?" />
+          </div>
+  <% end %>
 </div>
 
 

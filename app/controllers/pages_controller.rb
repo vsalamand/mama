@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def home
     @list = List.new
+    @recipe_list = RecipeList.new
     @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..5]
 
     # get user to the thank you page if not in beta

@@ -3,7 +3,7 @@ class RecipeListsController < ApplicationController
 
   def index
     # @recipe_lists = RecipeList.where(recipe_list_type: "curated")
-    @recipe_lists = current_user.recipe_lists
+    @recipe_lists = current_user.recipe_lists.where(status: "opened")
   end
 
   def show
@@ -18,10 +18,8 @@ class RecipeListsController < ApplicationController
 
   def create
     @recipe_list = RecipeList.new(recipe_list_params)
-    @recipe_list.recipe_list_type = "curated"
     if @recipe_list.save
-      @recipe_list.get_description
-      redirect_to recipe_list_path(@recipe_list)
+      redirect_to explore_recipe_list_path(@recipe_list)
     else
       redirect_to new_recipe_list_path
     end
@@ -46,7 +44,13 @@ class RecipeListsController < ApplicationController
   def add_recipe
     @recipe_list = RecipeList.find(params[:id])
     recipe = Recipe.find(params[:id])
+  end
 
+  def destroy
+    @recipe_list = RecipeList.find(params[:id])
+    @recipe_list.destroy
+    flash[:notice] = 'Le menu a été supprimé.'
+    redirect_to recipe_lists_path
   end
 
   private
