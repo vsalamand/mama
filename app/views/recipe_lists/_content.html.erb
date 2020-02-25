@@ -1,7 +1,12 @@
 <div class="my-3"></div>
 
 
-<div class="list-group my-3" id="recipeListId" data="<%= recipe_list.id %>">
+<div class="px-1 d-flex justify-content-center">
+  <%= link_to 'Ajouter des recettes', explore_recipe_list_path, class:"btn btn-flat" %>
+</div>
+
+
+<div class="card-columns" id="recipeListId" data="<%= recipe_list.id %>">
 
   <% if recipe_list.recipe_list_items.any? %>
     <% recipe_list.recipe_list_items.each do |recipe_list_item| %>
@@ -21,8 +26,4 @@
   <% end %>
 </div>
 
-
-<div class="px-1 d-flex justify-content-center">
-  <%= link_to 'Ajouter des recettes', explore_recipe_list_path, class:"btn btn-flat" %>
-</div>
 

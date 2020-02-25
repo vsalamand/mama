@@ -58,7 +58,6 @@ Rails.application.routes.draw do
   get 'verify_listitems', to: 'pages#verify_listitems'
   get 'verify_products', to: 'pages#verify_products'
   post 'import', to: 'pages#import'
-  post 'import_recipes', to: 'pages#import_recipes'
   get 'thank_you', to: "pages#thank_you"
   get 'profile', to: 'pages#profile'
 
@@ -66,6 +65,7 @@ Rails.application.routes.draw do
   resources :recipes do
     collection do
       get 'import', to: 'recipes#import'
+      post :import_recipes
       get 'search', to: 'recipes#search'
       get :fetch_suggested_recipes
       get :fetch_menu

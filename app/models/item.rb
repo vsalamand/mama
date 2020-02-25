@@ -16,7 +16,8 @@ class Item < ApplicationRecord
 
 
   def self.create_list_item(list_item)
-    url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
+    # url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
+    url = URI.parse("http://127.0.0.1:5000/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
     parser = JSON.parse(open(url).read).first
 
     quantity = parser['quantity_match'] if parser['quantity_match'].present?
@@ -28,7 +29,9 @@ class Item < ApplicationRecord
 
 
   def self.add_recipe_items(recipe)
-    url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")
+    # url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")
+    url = URI.parse("http://127.0.0.1:5000/api/v1/parse/recipe?id=#{recipe.id}")
+
     parser = JSON.parse(open(url).read)
 
     parser.each do |element|

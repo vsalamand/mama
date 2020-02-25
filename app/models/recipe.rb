@@ -1,8 +1,9 @@
 require 'open-uri'
 
 class Recipe < ApplicationRecord
-  validates :title, :servings, :ingredients, :instructions, :status, :origin, presence: :true
-  validates :title, uniqueness: :true
+  validates :title, :ingredients, :status, :origin, :link, :image_url, presence: :true
+  validates :link, uniqueness: :true
+
   has_many :items, dependent: :destroy
   has_many :foods, through: :items
   has_many :cart_items, :as => :productable
@@ -86,31 +87,47 @@ class Recipe < ApplicationRecord
     unvalid_recipes = []
 
     Thread.new do
-      csv[0..5].each do |row|
+      csv[843..1001].each do |row|
         data = row.to_h
 
         Recipe.find_by(link: data["url"]).nil? ? recipe = Recipe.new : recipe = Recipe.find_by(link: data["url"])
 
-        recipe.title = data["name"]
-        recipe.link = data["url"]
-        recipe.ingredients = data["recipeIngredient"].join("\r\n")
-        recipe.instructions = data["recipeInstructions"].join("\r\n")
-        recipe.servings = data["recipeYield"]
-        recipe.image_url = data["image"].first
-        recipe.origin =  data["author"]
+        recipe.title = data["name"].chars.select(&:valid_encoding?).join if data["name"]
+        recipe.link = data["url"] if data["url"]
+
+        # rescue when single quotes in array that cant be eval
+        begin
+          recipe.ingredients = eval(data["recipeIngredient"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeIngredient"]
+        rescue SyntaxError
+          recipe.ingredients = data["recipeIngredient"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeIngredient"]
+        end
+
+        begin
+          recipe.instructions = eval(data["recipeInstructions"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+        rescue SyntaxError
+          recipe.instructions = data["recipeInstructions"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+        end
+
+        recipe.servings = data["recipeYield"] if data["recipeYield"]
+        recipe.image_url = eval(data["image"]).first if data["image"]
+        recipe.origin =  data["author"] if data["author"]
         recipe.status = "published"
 
-        if recipe.save
-          Item.add_recipe_items(recipe)
-          puts "#{recipe.name}"
-        else
-          unvalid_recipes << recipe.title
+        begin
+          if recipe.save
+            Item.add_recipe_items(recipe)
+            puts "#{recipe.title}"
+          else
+            unvalid_recipes << data
+          end
+        rescue ActiveRecord::StatementInvalid
+          unvalid_recipes << data
         end
       end
 
       if unvalid_recipes.any?
         puts "#{unvalid_recipes.size}"
-        puts "#{unvalid_recipes.map(&:name).join(", ")}"
+        puts "#{unvalid_recipes}"
       end
 
     end
@@ -119,7 +136,7 @@ class Recipe < ApplicationRecord
   # Import CSV
   def self.import(file)
     csv = CSV.read(file.path, headers: true)
-    ImportCatalogJob.perform_now(catalog)
+    RecipeJob.perform_now(csv)
   end
 
 

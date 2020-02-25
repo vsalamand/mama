@@ -31,6 +31,11 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
   end
 
+  def import_recipes
+   Recipe.import(params[:file])
+   redirect_back(fallback_location:"/")
+  end
+
   def search
     # @recipes = Recipe.where(status: "published")
     @query = params[:query].present? ? params[:query] : nil

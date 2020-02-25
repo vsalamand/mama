@@ -63,10 +63,6 @@ class PagesController < ApplicationController
    redirect_back(fallback_location:"/")
   end
 
-  def import_recipes
-   Recipe.import(params[:file])
-   redirect_back(fallback_location:"/")
-  end
 
   def products_search
     query = params[:query].present? ? params[:query] : nil

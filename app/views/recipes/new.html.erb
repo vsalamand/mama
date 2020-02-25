@@ -15,8 +15,22 @@
             <%= f.submit "Envoyer", class: "btn btn-primary" %>
           <% end %>
         </div>
-        <h5><%= link_to 'Importer une recette existante', import_recipes_path %></h5>
-        <h5><%= link_to 'Construire une nouvelle recette', new_meta_recipe_list_path %></h5>
 
+  </div>
+</div>
+
+<div class="container">
+  <h5><%= link_to 'Importer une recette existante', import_recipes_path %></h5>
+</div>
+
+<div class="container">
+  <div class="my-4">
+    <h4>Importer des recettes</h4>
+    <div>
+      <%= form_tag import_recipes_recipes_path, multipart: true do%>
+       <%= file_field_tag :file %>
+       <%= submit_tag "Import CSV recipes"%>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -1,18 +1,18 @@
-<div class="mb-4">
+<div class="card mb-3 mx-2" style="max-width: 540px;">
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-    <div class="card-product">
-      <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
-      <div class="card-product-infos">
-        <h2><%= recipe.title.capitalize %></h2>
-        <p class="text-dark giveMeEllipsis"><%= recipe.foods.map{|f| f.name.capitalize}.join(", ") %></p>
-      </div>
+
+    <img src="<%= recipe.image_url %>" class="card-img-top" alt="<%= recipe.title %>">
+    <div class="card-body">
+      <h5 class="card-title"><%= recipe.title %></h5>
+      <p class="card-text text-dark giveMeEllipsis"><%= recipe.foods.map{|f| f.name.capitalize}.join(", ") %></p>
     </div>
+    <div class="p-3 d-flex justify-content-center">
+      <% unless recipe_list.recipes.include?(recipe) %>
+      <button type="button" class="btn btn-link" id=addToMenuBtn>Ajouter au menu</button>
+      <% else %>
+      <button type="button" class="btn btn-outline-secondary disabled">Ajouté</button>
+      <% end %>
+    </div>
+
   <% end %>
-  <div class="border bg-white">
-    <% unless recipe_list.recipes.include?(recipe) %>
-    <button type="button" class="btn btn-link btn-block" id=addToMenuBtn>Ajouter</button>
-    <% else %>
-    <button type="button" class="btn btn-link btn-block disabled">Ajouté</button>
-    <% end %>
-  </div>
 </div>

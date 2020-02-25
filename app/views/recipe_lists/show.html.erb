@@ -19,7 +19,7 @@
   <% end %>
 
 
-  <%= link_to 'Terminer', recipe_lists_path, class:"btn close m-2 px-0" %>
+  <%= link_to 'Fermer', recipe_lists_path, class:"btn close m-2 px-0" %>
 </div>
 
 
@@ -29,10 +29,9 @@
 
 
 <div class="container px-0" id="recipe_list" data="<%= @recipe_list.id %>">
-
   <%= render "content", recipe_list: @recipe_list %>
-
 </div>
+
 
 
 <div style="padding: 50px;"></div>

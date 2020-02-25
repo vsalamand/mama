@@ -1,12 +1,12 @@
 
 <div class="d-flex flex-column align-items-center justify-content-center p-1 my-4">
   <p class="m-0 lead"><strong class="btn-outline-primary"><%= @recipe_list.name %></strong></p>
-  <h5 class="mb-0 text-muted font-weight-bold d-flex text-center">Ajoutez des recettes à votre menu</h5>
+  <h3 class="mb-0 text-muted font-weight-bold d-flex text-center">Ajoutez des recettes</h3>
 </div>
 
 
 <div class="container px-0">
-  <div class="list-group my-3">
+  <div class="card-columns">
     <% @recipes.each do |recipe| %>
       <%= render 'recipes/recipe_card', recipe: recipe, recipe_list: @recipe_list %>
     <% end %>
@@ -19,3 +19,5 @@
 
 <div id="explore" data="<%= @recipe_list.id %>">
 </div>
+
+<%= link_to "Continuer vers le menu", recipe_list_path(@recipe_list), class:"btn fixed-bottom btn-block btn-flat2 py-3 font-weight-bold" %>
