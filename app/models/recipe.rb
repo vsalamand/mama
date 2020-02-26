@@ -97,9 +97,18 @@ class Recipe < ApplicationRecord
 
         # rescue when single quotes in array that cant be eval
         begin
-          recipe.ingredients = eval(data["recipeIngredient"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeIngredient"]
+          # proceed with ingredients only if there is a value
+          unless data["recipeIngredient"].empty?
+            recipe.ingredients = eval(data["recipeIngredient"]).join("\r\n").chars.select(&:valid_encoding?).join
+            # if recipe had items, destroy so we do not generate duplicated items after save
+            recipe.items.destroy_all if recipe.items.any?
+          end
         rescue SyntaxError
-          recipe.ingredients = data["recipeIngredient"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeIngredient"]
+          unless data["recipeIngredient"].empty
+            recipe.ingredients = data["recipeIngredient"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join
+            # if recipe had items, destroy so we do not generate duplicated items after save
+            recipe.items.destroy_all if recipe.items.any?
+          end
         end
 
         begin
