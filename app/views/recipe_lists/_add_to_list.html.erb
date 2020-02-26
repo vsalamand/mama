@@ -3,38 +3,32 @@
     <a class="btn fixed-bottom btn-flat m-2 py-3" id="addToListBtn" data-toggle="modal" data-target="#addToListModal">Créer la liste de courses</a>
   </div>
 
-  <!-- Select Store Modal -->
-  <div class="modal fade" id="selectStoreModal" tabindex="-1" role="dialog" aria-labelledby="selectStoreModalLabel" aria-hidden="true">
+  <!-- Add to list Modal -->
+  <div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content bg-white">
         <div class="modal-header">
-          <h5 class="modal-title" id="selectStoreModalLabel">🛒 Faire les courses</h5>
+          <h5 class="modal-title" id="addToListModalLabel">🛒 Créer la liste de courses</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body m-0 p-0" style="height: 70vh;">
-
-          <div class="list-group-item list-group-item-action rounded-0 bg-light" style="cursor: pointer;" id="shareList">
-            <div class="d-flex align-items-center justify-content-between">
-              <div id="cart-description">
-                <h5 class="text-primary">Recevoir la liste par email</h5>
+        <div class="modal-body m-0 p-0">
+          <% recipe_list.recipes.each do |recipe| %>
+            <div class="card rounded-0">
+              <div class="card-header text-primary font-weight-bold">
+                <%= recipe.title %>
               </div>
-              <div class="product-options d-flex flex-column align-items-center">
-                <h3 class="m-0"> 💌</h3>
-              </div>
+              <ul class="list-group list-group-flush">
+                <% recipe.items.each do |item| %>
+                <li class="list-group-item"><%= item.name %></li>
+                <% end %>
+              </ul>
             </div>
-          </div>
-
-          <div id="listCartPrice">
-          </div>
-
-          <div class="d-flex flex-column align-items-center justify-content-center mt-5">
-            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary mb-1"></i>
-            <small id="modalSpinner" class="text-muted">Calcul des prix en cours...</small>
-          </div>
-
-
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-flat btn-block py-3" id="addMenuToListBtn" data="<%= recipe_list.id %>">Continuer vers la liste de courses</button>
         </div>
       </div>
     </div>

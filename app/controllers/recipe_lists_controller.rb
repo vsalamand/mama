@@ -43,7 +43,7 @@ class RecipeListsController < ApplicationController
 
   def explore
     @recipe_list = RecipeList.find(params[:id])
-    @recipes = Recipe.where(status:'published').last(45).shuffle
+    @recipes = Recipe.where(status:'published').last(1000).shuffle[0..19]
   end
 
   def add_recipe
@@ -56,6 +56,17 @@ class RecipeListsController < ApplicationController
     @recipe_list.destroy
     flash[:notice] = 'Le menu a été supprimé.'
     redirect_to recipe_lists_path
+  end
+
+  def add_to_list
+    @recipe_list = RecipeList.find(params[:id])
+
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses - #{@recipe_list.name}", user: current_user, status: "opened") if @list.nil?
+    items = params[:items]
+
+    ListItem.add_menu_to_list(items, @list)
+
+    render 'add_to_list.js.erb'
   end
 
   private

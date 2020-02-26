@@ -40,3 +40,38 @@ function removeFromMenu(recipeListId, recipeListItemId) {
     }
   });
 }
+
+
+//  Add menu items to list
+$(document).on("click" , "#addMenuToListBtn", function(event) {
+
+   // disable button
+  $(this).prop("disabled", true);
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
+
+  // get items in list
+  const items = []
+  $(document.querySelectorAll(".list-group-item")).map(function() {
+                   items.push($(this).text());
+                })
+
+  const recipeListId = this.getAttribute('data');
+
+  addToList(items, recipeListId);
+});
+
+function addToList(items, recipeListId) {
+  // query suggested items
+  $.ajax({
+    url: "/recipe_lists/" + recipeListId + "/add_to_list",
+    cache: false,
+    data: {
+        items: items
+        },
+    success: function(){
+    }
+  });
+}

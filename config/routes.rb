@@ -130,6 +130,7 @@ Rails.application.routes.draw do
     member do
       get :explore
       get :add_recipe
+      get :add_to_list
     end
   end
 

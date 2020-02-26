@@ -40,26 +40,40 @@ class ListItem < ApplicationRecord
     update(is_completed: false)
   end
 
-  def self.add_menu_to_list(items, list)
-    items.reverse.each do |item|
-      ListItem.add_to_list(item.name, list)
+  def self.add_menu_to_list(inputs_list, list)
+    new_list_items = []
+    new_validated_items = []
+    new_items = []
+
+    inputs_list.each do |input|
+      # process new list item
+      list_item = ListItem.new(name: input, list: list)
+      new_list_items << list_item
+
+      # process new item
+      valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
+      if valid_item.present?
+        new_validated_items << Item.new(food: valid_item.food, list_item: list_item, name: list_item.name, is_validated: valid_item.is_validated)
+      else
+        new_items << list_item
+      end
     end
+
+    ListItem.import new_list_items
+    Item.import new_validated_items
+    Item.add_list_items(new_items)
   end
 
   def self.add_to_list(input, list)
     list_item = ListItem.new(name: input, list: list)
-    valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
     list_item.save
-    # create new item or copy item if from recipe
     Thread.new do
-      if valid_item.present?
-        # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
-        Item.create(food: valid_item.food, list_item: list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
-      else
-        Item.create_list_item(list_item)
-        # mail = ReportMailer.report_item(new_item)
-        # mail.deliver_now
-      end
+      list_item.create_or_copy_item
     end
+  end
+
+  def create_or_copy_item
+    valid_item = Item.where("lower(name) = ?", self.name.downcase).where(is_validated: true).first
+    valid_item.present? ? Item.create(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated) : Item.add_list_items(Array(self))
   end
 end
