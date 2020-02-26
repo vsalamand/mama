@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 
   def home
     @list = List.new
+    @recipe_list = RecipeList.new
     @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..5]
 
     # get user to the thank you page if not in beta
@@ -24,7 +25,7 @@ class PagesController < ApplicationController
 
   def dashboard
     @items_validation_size = ListItem.all.to_validate.size
-    @list_items_verification_size = ListItem.all.no_items.size
+    # @list_items_verification_size = ListItem.all.no_items.size
     @reported_products = Product.where(is_reported: true).size
 
     @products = Product.all
@@ -51,7 +52,7 @@ class PagesController < ApplicationController
   end
 
   def verify_listitems
-    @list_items = ListItem.all.no_items
+    @list_items = ListItem.all.select{ |it| it.items.compact.empty?}
   end
 
   def verify_products
@@ -62,6 +63,7 @@ class PagesController < ApplicationController
    StoreItem.import(params[:file])
    redirect_back(fallback_location:"/")
   end
+
 
   def products_search
     query = params[:query].present? ? params[:query] : nil

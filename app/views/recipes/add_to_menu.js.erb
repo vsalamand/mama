@@ -1,0 +1,2 @@
+var card = document.getElementById("recipeCard<%= @recipe.id %>");
+$(card).replaceWith("<%= j render 'recipes/recipe_card', recipe: @recipe, recipe_list: @recipe_list %>");

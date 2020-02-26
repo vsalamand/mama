@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   resources :recipes do
     collection do
       get 'import', to: 'recipes#import'
+      post :import_recipes
       get 'search', to: 'recipes#search'
       get :fetch_suggested_recipes
       get :fetch_menu
@@ -126,6 +127,11 @@ Rails.application.routes.draw do
 
   resources :recipe_lists do
     resources :recipe_list_items, only: [:show, :destroy, :edit, :update]
+    member do
+      get :explore
+      get :add_recipe
+      get :add_to_list
+    end
   end
 
 

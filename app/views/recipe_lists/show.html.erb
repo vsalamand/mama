@@ -1,51 +1,36 @@
-<%= render 'shared/admin-navbar' %>
+
+<div class="container d-flex justify-content-between my-2">
+  <% if @recipe_list.user == current_user %>
+    <!-- dropdown button -->
+    <div class="btn-group">
+      <button type="button" class="m-2 btn btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <!-- Option modal for owner -->
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
+
+          <div class="dropdown-divider"></div>
+            <%= link_to "Supprimer", recipe_list_path(@recipe_list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
+       </div>
+    </div>
+  <% end %>
 
 
-<div class="container">
-  <h1><strong><%= @recipe_list.name %></strong></h1>
-  <h5><%= @recipe_list.description %></h5>
-  <h4>#<%= @recipe_list.tag_list %></h4>
-  <% unless @recipe_list.user.nil? %>
-    <h3>by <%= @recipe_list.user.username %></h3>
-  <% end  %>
-  <h5><%= link_to 'Modifier la liste', edit_recipe_list_path(@recipe_list), class:"btn btn-outline-primary" %></h5>
+  <%= link_to 'Fermer', recipe_lists_path, class:"btn close m-2 px-0" %>
 </div>
 
 
-<div class="container">
-  <h3>Checklist:</h3>
-  <ul>
-    <%= @checklist["seasonal vegetables"] ? "✅ légumes de saison" : "❌ légumes de saison" %>
-    <%= @checklist["cruciferous vegetables"] ? "✅ légumes crucifères" : "❌ légumes crucifères" %>
-    <%= @checklist["leafy vegetables"] ? "✅ légumes feuilles" : "❌ légumes feuilles" %>
-    <%= @checklist["legumes"] ? "✅ légumes secs" : "❌ légumes secs" %>
-    <%= @checklist["cereals"] ? "✅ céréales" : "❌ céréales" %>
-    <%= @checklist["oleaginous"] ? "✅ oléagineux" : "❌ oléagineux" %>
-  </ul>
-</div>
 
-<div class="container">
-  <h3>Recipes:</h3>
-  <ol>
-    <% @recipe_list.recipe_list_items.order(:id).each do |rli| %>
-      <li>
-        (<%= rli.id %>)
-        <%= link_to rli.recipe.title, recipe_path(rli.recipe) %>
-      </li>
-    <% end %>
-  </ol>
-</div>
-
-<div class="container">
-  <h3>Recommendations:</h3>
-  <ul>
-    <% @recipe_list.recommendations.order(:id).each do |reco| %>
-      <li>
-        (<%= reco.id %>)
-        <%= link_to reco.name, recommendation_path(reco) %>
-      </li>
-    <% end %>
-  </ul>
+<div class="d-flex flex-column align-items-center justify-content-center p-1 mb-0">
+  <p class="m-0 lead"><strong class="btn-outline-primary"><%= @recipe_list.name %></strong></p>
 </div>
 
 
+<div class="container px-0" id="recipe_list" data="<%= @recipe_list.id %>">
+  <%= render "content", recipe_list: @recipe_list %>
+</div>
+
+
+
+<div style="padding: 50px;"></div>
+
+<%= render 'recipe_lists/add_to_list', recipe_list: @recipe_list %>

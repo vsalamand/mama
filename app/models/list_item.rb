@@ -11,7 +11,7 @@ class ListItem < ApplicationRecord
   scope :not_deleted, -> { where(deleted: false) }
   scope :deleted, -> { where(deleted: true) }
   # scope to get list items in the lsit with no associated items
-  scope :no_items, -> { includes(:items).where( deleted: false, :items => { :id => nil } ) }
+  scope :no_items, -> { includes(:items).where( deleted: false).where(:items => { :id => nil } ) }
   scope :to_validate, -> { includes(:items).where( :items => { :is_validated => false } ) }
   #add a model scope to fetch completed and uncompleted records
   scope :not_completed, -> { where(is_completed: false, deleted: false) }
@@ -40,26 +40,40 @@ class ListItem < ApplicationRecord
     update(is_completed: false)
   end
 
-  def self.add_menu_to_list(items, list)
-    items.reverse.each do |item|
-      ListItem.add_to_list(item.name, list)
+  def self.add_menu_to_list(inputs_list, list)
+    new_list_items = []
+    new_validated_items = []
+
+    inputs_list.each do |input|
+      # process new list item
+      list_item = ListItem.new(name: input, list: list)
+      new_list_items << list_item
+
+      # process new item
+      valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
+      if valid_item.present?
+        new_validated_items << Item.new(food: valid_item.food, list_item: list_item, name: list_item.name, is_validated: valid_item.is_validated)
+      end
     end
+
+    # create all list items
+    list_items = ListItem.import new_list_items
+    # create all validated items
+    Item.import new_validated_items
+    # create all unvalidated items
+    Item.add_list_items(ListItem.find(list_items["ids"]))
   end
 
   def self.add_to_list(input, list)
     list_item = ListItem.new(name: input, list: list)
-    valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
     list_item.save
-    # create new item or copy item if from recipe
     Thread.new do
-      if valid_item.present?
-        # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
-        Item.create(food: valid_item.food, list_item: list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
-      else
-        Item.create_list_item(list_item)
-        # mail = ReportMailer.report_item(new_item)
-        # mail.deliver_now
-      end
+      list_item.create_or_copy_item
     end
+  end
+
+  def create_or_copy_item
+    valid_item = Item.where("lower(name) = ?", self.name.downcase).where(is_validated: true).first
+    valid_item.present? ? Item.create(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated) : Item.add_list_items(Array(self))
   end
 end

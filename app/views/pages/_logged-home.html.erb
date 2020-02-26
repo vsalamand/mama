@@ -8,16 +8,16 @@
 
   <div class="container my-auto d-flex justify-content-center">
     <!-- Button trigger Start Groceries modal -->
-    <button class="shadow-lg btn btn-lg btn-outline-flat2 font-weight-bold px-5 py-3" data-toggle="modal" data-target="#startGroceriesModal">Vos listes de courses</button>
+    <button class="shadow-lg btn btn-lg btn-flat px-5 py-3" data-toggle="modal" data-target="#startGroceriesModal">Commencez vos courses ici</button>
   </div>
 
   <div class="d-flex flex-column align-items-center mb-3">
 <!--     <%= link_to "Listes de courses", lists_path, class:"text-white p-1"  %> -->
-    <%= link_to "Vos menus", recipes_path, class:"text-white p-1"  %>
-    <%= link_to "Vos courses", carts_path, class:"text-white p-1"  %>
+    <%= link_to "Vos menus", recipe_lists_path, class:"text-white p-1"  %>
+    <%= link_to "Historique d'achats", carts_path, class:"text-white p-1"  %>
   </div>
 
 </div>
 
 
-<%= render "lists/new_list_modal", list: @list %>
+<%= render "lists/new_list_modal", list: @list, recipe_list: @recipe_list %>

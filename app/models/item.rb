@@ -15,28 +15,44 @@ class Item < ApplicationRecord
   scope :to_validate, -> { where(is_validated: false) }
 
 
-  def self.create_list_item(list_item)
-    url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
-    parser = JSON.parse(open(url).read).first
+  def self.add_list_items(list_items_array)
+    new_items = []
+    # get parsing for each list item that does not have an item yet
+    queries = list_items_array.map{|list_item| "query=#{list_item.name}" if list_item.items.empty? }
 
-    quantity = parser['quantity_match'] if parser['quantity_match'].present?
-    food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
-    unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
+    unless queries.compact.empty?
+      url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}")
+      # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
+      parser = JSON.parse(open(url).read)
 
-    Item.create(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item["name"], is_validated: false)
+      parser.each_with_index do |element, index|
+        quantity = element['quantity_match'] if element['quantity_match'].present?
+        food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+
+        new_items << Item.new(quantity: quantity, unit: unit, food: food, list_item: list_items_array[index], name: list_items_array[index].name, is_validated: false)
+      end
+
+      Item.import new_items
+    end
   end
 
 
   def self.add_recipe_items(recipe)
+    new_items = []
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")
+    # url = URI.parse("http://127.0.0.1:5000/api/v1/parse/recipe?id=#{recipe.id}")
+
     parser = JSON.parse(open(url).read)
 
     parser.each do |element|
       quantity = element['quantity_match'] if element['quantity_match'].present?
       food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
       unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-      Item.create(quantity: quantity, unit: unit, food: food, recipe: recipe, name: element['ingredients'])
+      new_items << Item.new(quantity: quantity, unit: unit, food: food, recipe: recipe, name: element['ingredients'])
     end
+
+    Item.import new_items
   end
 
   def self.update_recipe_items(recipe)

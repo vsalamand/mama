@@ -1,22 +1,46 @@
-<%= render 'shared/admin-navbar' %>
+<div class="midbanner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{rand(1..53)}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
-<div class="container">
+  <%= render 'shared/navbar_white' %>
 
+  <div class="container my1">
+    <%= render 'shared/flashes' %>
+  </div>
 
-    <h3>Recipe lists:</h3>
-    <h5><%= link_to 'Nouvelle liste', new_recipe_list_path, class:"btn btn-outline-primary" %></h5>
-
-    <% unless @recipe_lists.nil? %>
-        <ol>
-          <% @recipe_lists.order(:id).reverse.each do |list| %>
-            <li>
-              (<%= list.id %>)
-              #<%= list.tag_list %>
-              <%= link_to list.name, recipe_list_path(list) %>
-            </li>
-          <% end %>
-        </ol>
-    <% end %>
-
+  <div class="container m-auto d-flex flex-column justify-content-start">
+    <h1 class="font-weight-bold ">Vos menus</h1>
+    <small class="text-white">Retrouvez ici les recettes de vos menus.</small>
+  </div>
 
 </div>
+
+
+<div class="container my-3">
+  <% if @recipe_lists.any? %>
+
+    <div class="row">
+      <% @recipe_lists.order(:id).each do |recipe_list| %>
+        <div class="col-sm-6 p-1">
+          <%= link_to recipe_list_path(recipe_list), style:"text-decoration: none;" do %>
+            <div class="card bg-white shadow border-0" style="height: 120px;">
+              <div class="card-body">
+                <h5 class="card-title"><%= recipe_list.name %></h5>
+                <div class="text-muted giveMeEllipsis">
+                  <span><%= recipe_list.recipes.first(8).map(&:title).join(", ") %></span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+  <% else %>
+
+    <div class="my-5 d-flex align-items-center justify-content-between">
+      <p class="lead text-muted">Les menus que vous créez seront visibles ici.</p>
+    </div>
+  <% end %>
+</div>
+
+
+

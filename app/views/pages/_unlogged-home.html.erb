@@ -116,38 +116,6 @@
 </div>
 
 
-<div class="wrapper" style="background-color: #1BCB7F;">
-  <div class="container d-flex flex-column">
-
-    <div class="mb-2 mt-5 rounded">
-      <h2 class="p-2 display-4 text-white"><strong>Les meilleures idées repas</strong></h2>
-    </div>
-
-    <div class="row mb-5">
-      <% @recipes.reverse[0..1].each do |recipe| %>
-        <div class="col-sm-6 p-3">
-          <div class="card">
-            <div class="card-header">
-              <h5 ><%= recipe.title %></h5>
-            </div>
-            <div class="card-body">
-              <% recipe.ingredients.split("\r\n").each do |line| %>
-                <p><%= line %></p>
-              <% end %>
-            </div>
-            <div class="card-body">
-              <%= link_to "Voir la recette", recipe.link, target: "_blank", class:"btn btn-flat"%>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-
-  </div>
-</div>
-
-
 
 
 <div class="banner d-flex align-items-center" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dnrmmg7rh/image/upload/v1574159533/daniel-von-appen-_6uPgukLUV8-unsplash-min_he8rot.jpg);">

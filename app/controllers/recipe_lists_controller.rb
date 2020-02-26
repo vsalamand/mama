@@ -2,13 +2,19 @@ class RecipeListsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @recipe_lists = RecipeList.where(recipe_list_type: "curated")
+    # @recipe_lists = RecipeList.where(recipe_list_type: "curated")
+    @recipe_lists = current_user.recipe_lists.where(status: "opened")
   end
 
   def show
     @recipe_list = RecipeList.find(params[:id])
-    @recipe_list.recipe_list_items.build
-    @checklist = Checklist.get_checklist(@recipe_list.foods)
+
+    # if @recipe_list.recipe_list_items.empty?
+    #   @recipe_list.destroy
+    #   redirect_to root_path
+    # end
+    # @recipe_list.recipe_list_items.build
+    # @checklist = Checklist.get_checklist(@recipe_list.foods)
   end
 
   def new
@@ -17,10 +23,8 @@ class RecipeListsController < ApplicationController
 
   def create
     @recipe_list = RecipeList.new(recipe_list_params)
-    @recipe_list.recipe_list_type = "curated"
     if @recipe_list.save
-      @recipe_list.get_description
-      redirect_to recipe_list_path(@recipe_list)
+      redirect_to explore_recipe_list_path(@recipe_list)
     else
       redirect_to new_recipe_list_path
     end
@@ -35,6 +39,34 @@ class RecipeListsController < ApplicationController
     @recipe_list.update(recipe_list_params)
     @recipe_list.get_description
     redirect_to recipe_list_path(@recipe_list)
+  end
+
+  def explore
+    @recipe_list = RecipeList.find(params[:id])
+    @recipes = Recipe.where(status:'published').last(100).shuffle[0..19]
+  end
+
+  def add_recipe
+    @recipe_list = RecipeList.find(params[:id])
+    recipe = Recipe.find(params[:id])
+  end
+
+  def destroy
+    @recipe_list = RecipeList.find(params[:id])
+    @recipe_list.destroy
+    flash[:notice] = 'Le menu a été supprimé.'
+    redirect_to recipe_lists_path
+  end
+
+  def add_to_list
+    @recipe_list = RecipeList.find(params[:id])
+
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses - #{@recipe_list.name}", user: current_user, status: "opened") if @list.nil?
+    items = params[:items]
+
+    ListItem.add_menu_to_list(items, @list)
+
+    render 'add_to_list.js.erb'
   end
 
   private

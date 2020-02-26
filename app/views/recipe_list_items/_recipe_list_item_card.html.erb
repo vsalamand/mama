@@ -1,14 +1,13 @@
-       <div class="list-group-item list-group-item-action border-0 recipe_list_itemIndex" id="recipeListItemCardId" data="<%= recipe_list_item.id %>">
-          <div class="d-flex align-items-center justify-content-between">
-            <div id="description">
-              <div class="d-flex w-100 flex-column mb-0">
-                <h5 class="mb-0 text-primary"><%= recipe_list_item.recipe.title.capitalize %></h5>
-              </div>
-            </div>
+<div class="card mb-3 mx-2" style="max-width: 540px;" id="recipeListItemCard<%= recipe_list_item.id %>">
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+    <img src="<%= recipe.image_url %>" class="card-img-top" alt="<%= recipe.title %>">
+    <div class="card-body">
+      <h5 class="card-title"><%= recipe.title %></h5>
+      <p class="card-text text-dark giveMeEllipsis"><%= recipe.items.map{|f| f.name.capitalize}.join(", ") %></p>
+    </div>
+  <% end %>
+  <div class="p-3 d-flex justify-content-center">
+    <button type="button" class="btn btn-link btn-block text-danger" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer du menu</button>
+  </div>
 
-            <button type="button" class="close ml-2 mr-2" id=removeFromMenuBtn>
-              <span aria-hidden="true" >&times;</span>
-            </button>
-
-          </div>
-        </div>
+</div>
