@@ -87,7 +87,7 @@ class Recipe < ApplicationRecord
     unvalid_recipes = []
 
     Thread.new do
-      csv[1500..1650].each do |row|
+      csv.each do |row|
         data = row.to_h
 
         Recipe.find_by(link: data["url"]).nil? ? recipe = Recipe.new : recipe = Recipe.find_by(link: data["url"])
