@@ -2,6 +2,10 @@
 
   <%= render 'shared/navbar_white' %>
 
+  <div class="container my1">
+    <%= render 'shared/flashes' %>
+  </div>
+
   <div class="container m-auto d-flex flex-column justify-content-start">
     <h1 class="font-weight-bold ">Vos menus</h1>
     <small class="text-white">Retrouvez ici les recettes de vos menus.</small>
@@ -9,22 +13,19 @@
 
 </div>
 
-<div class="container">
-  <%= render 'shared/flashes' %>
-</div>
 
 <div class="container my-3">
   <% if @recipe_lists.any? %>
 
     <div class="row">
       <% @recipe_lists.order(:id).reverse.each do |recipe_list| %>
-        <div class="col-sm-6">
+        <div class="col-sm-6 p-1">
           <%= link_to recipe_list_path(recipe_list) do %>
             <div class="card bg-white shadow border-0">
               <div class="card-body">
                 <h5 class="card-title"><%= recipe_list.name %></h5>
                 <div class="d-flex">
-                  <% recipe_list.recipes.each do |recipe|  %>
+                  <% recipe_list.recipes.last(8).each do |recipe|  %>
                     <%= image_tag "#{recipe.image_url}", class: "avatar-square m-1", alt: "#{recipe.title}" %>
                   <% end %>
                 </div>

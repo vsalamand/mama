@@ -1,21 +1,22 @@
 
 <div class="p-1 my-1" id="addRecipes">
   <%= link_to explore_recipe_list_path do %>
-          <div class="search-form-control form-group">
-            <input class="form-control font-weight-light font-italic" type="text" style="cursor: pointer; border: 1px solid #1EDD88;" placeholder="Ajouter des recettes ?" />
+          <div class="search-form-control form-group mx-3">
+            <input class="form-control font-weight-light shadow-lg" type="text" style="cursor: pointer;" placeholder="Ajouter des recettes ?" />
           </div>
   <% end %>
 </div>
 
 
-<div class="card-columns" id="recipeListId" data="<%= recipe_list.id %>">
 
-  <% if recipe_list.recipe_list_items.any? %>
+<% if recipe_list.recipe_list_items.any? %>
+  <div class="card-columns" id="recipeListId" data="<%= recipe_list.id %>">
     <% recipe_list.recipe_list_items.each do |recipe_list_item| %>
       <%= render 'recipe_list_items/recipe_list_item_card', recipe_list: recipe_list, recipe_list_item: recipe_list_item, recipe: recipe_list_item.recipe %>
     <% end %>
+  </div>
 
-  <% else %>
+<% else %>
     <div class="list-group-item border-0">
       <div class="d-flex align-items-center justify-content-center">
         <div id="description">
@@ -25,7 +26,6 @@
         </div>
       </div>
     </div>
-  <% end %>
-</div>
+<% end %>
 
 

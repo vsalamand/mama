@@ -8,6 +8,11 @@ class RecipeListsController < ApplicationController
 
   def show
     @recipe_list = RecipeList.find(params[:id])
+
+    # if @recipe_list.recipe_list_items.empty?
+    #   @recipe_list.destroy
+    #   redirect_to root_path
+    # end
     # @recipe_list.recipe_list_items.build
     # @checklist = Checklist.get_checklist(@recipe_list.foods)
   end
