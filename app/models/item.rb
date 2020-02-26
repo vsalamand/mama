@@ -21,7 +21,7 @@ class Item < ApplicationRecord
     queries = list_items_array.map{|list_item| "query=#{list_item.name}" if list_item.items.empty? }
 
     unless queries.compact.empty?
-      url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}")
+      url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
       # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
       parser = JSON.parse(open(url).read)
 
