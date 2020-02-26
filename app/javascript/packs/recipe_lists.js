@@ -54,7 +54,7 @@ $(document).on("click" , "#addMenuToListBtn", function(event) {
 
   // get items in list
   const items = []
-  $(document.querySelectorAll(".list-group-item")).map(function() {
+  $(document.querySelectorAll(".menuItem")).map(function() {
                    items.push($(this).text());
                 })
 
@@ -75,3 +75,15 @@ function addToList(items, recipeListId) {
     }
   });
 }
+
+
+
+//  Remove item from menu list
+$(document).on("click" , ".removeItemBtn", function(event) {
+  const itemId = "#item" + this.getAttribute('data');
+  var item = document.querySelector(itemId);
+  item.remove();
+});
+
+
+

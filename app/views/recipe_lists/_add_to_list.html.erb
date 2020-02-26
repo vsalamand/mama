@@ -1,6 +1,7 @@
-  <div class="container">
+  <div class="container fixed-bottom d-flex justify-content-around">
+    <%= link_to "Ajouter des repas", explore_recipe_list_path, class:"btn btn-block btn-primary m-2 py-3" %>
     <!-- Button trigger Add to List modal -->
-    <a class="btn fixed-bottom btn-flat m-2 py-3" id="addToListBtn" data-toggle="modal" data-target="#addToListModal">Créer la liste de courses</a>
+    <a class="btn btn-flat btn-block m-2 py-3" id="addToListBtn" data-toggle="modal" data-target="#addToListModal">Liste de courses</a>
   </div>
 
   <!-- Add to list Modal -->
@@ -9,9 +10,6 @@
       <div class="modal-content bg-white">
         <div class="modal-header">
           <h5 class="modal-title" id="addToListModalLabel">🛒 Créer la liste de courses</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         <div class="modal-body m-0 p-0">
           <% recipe_list.recipes.each do |recipe| %>
@@ -20,15 +18,21 @@
                 <%= recipe.title %>
               </div>
               <ul class="list-group list-group-flush">
-                <% recipe.items.each do |item| %>
-                <li class="list-group-item"><%= item.name %></li>
+                <% recipe.items.order(:id).each do |item| %>
+                  <li id="item<%= item.id %>" class="list-group-item">
+                    <span class="menuItem"><%= item.name %></span>
+                    <button type="button" class="close removeItemBtn" data="<%= item.id %>">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </li>
                 <% end %>
               </ul>
             </div>
           <% end %>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-flat btn-block py-3" id="addMenuToListBtn" data="<%= recipe_list.id %>">Continuer vers la liste de courses</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button class="btn btn-flat" id="addMenuToListBtn" data="<%= recipe_list.id %>">Continuer</button>
         </div>
       </div>
     </div>

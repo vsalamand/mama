@@ -18,16 +18,14 @@
   <% if @recipe_lists.any? %>
 
     <div class="row">
-      <% @recipe_lists.order(:id).reverse.each do |recipe_list| %>
+      <% @recipe_lists.order(:id).each do |recipe_list| %>
         <div class="col-sm-6 p-1">
-          <%= link_to recipe_list_path(recipe_list) do %>
+          <%= link_to recipe_list_path(recipe_list), style:"text-decoration: none;" do %>
             <div class="card bg-white shadow border-0" style="height: 120px;">
               <div class="card-body">
                 <h5 class="card-title"><%= recipe_list.name %></h5>
-                <div class="d-flex">
-                  <% recipe_list.recipes.last(8).each do |recipe|  %>
-                    <%= image_tag "#{recipe.image_url}", class: "avatar-square m-1", alt: "#{recipe.title}" %>
-                  <% end %>
+                <div class="text-muted giveMeEllipsis">
+                  <span><%= recipe_list.recipes.first(8).map(&:title).join(", ") %></span>
                 </div>
               </div>
             </div>

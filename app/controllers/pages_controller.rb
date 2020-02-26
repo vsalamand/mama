@@ -25,7 +25,7 @@ class PagesController < ApplicationController
 
   def dashboard
     @items_validation_size = ListItem.all.to_validate.size
-    @list_items_verification_size = ListItem.all.no_items.size
+    # @list_items_verification_size = ListItem.all.no_items.size
     @reported_products = Product.where(is_reported: true).size
 
     @products = Product.all
@@ -52,7 +52,7 @@ class PagesController < ApplicationController
   end
 
   def verify_listitems
-    @list_items = ListItem.all.no_items
+    @list_items = ListItem.all.select{ |it| it.items.compact.empty?}
   end
 
   def verify_products

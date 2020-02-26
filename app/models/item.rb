@@ -17,21 +17,24 @@ class Item < ApplicationRecord
 
   def self.add_list_items(list_items_array)
     new_items = []
+    # get parsing for each list item that does not have an item yet
+    queries = list_items_array.map{|list_item| "query=#{list_item.name}" if list_item.items.empty? }
 
-    queries = list_items_array.map{|list_item| "query=#{list_item.name}"}
-    # url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
-    url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
-    parser = JSON.parse(open(url).read)
+    unless queries.compact.empty?
+      # url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/item?query=#{URI.encode(list_item["name"])}")
+      url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
+      parser = JSON.parse(open(url).read)
 
-    parser.each_with_index do |element, index|
-      quantity = element['quantity_match'] if element['quantity_match'].present?
-      food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-      unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+      parser.each_with_index do |element, index|
+        quantity = element['quantity_match'] if element['quantity_match'].present?
+        food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
 
-      new_items << Item.new(quantity: quantity, unit: unit, food: food, list_item: list_items_array[index], name: list_items_array[index].name, is_validated: false)
+        new_items << Item.new(quantity: quantity, unit: unit, food: food, list_item: list_items_array[index], name: list_items_array[index].name, is_validated: false)
+      end
+
+      Item.import new_items
     end
-
-    Item.import new_items
   end
 
 
