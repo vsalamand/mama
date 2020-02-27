@@ -1,13 +1,12 @@
-<div class="mb-5">
   <li class="media p-3" id="recipeCard<%= recipe.id %>">
     <div class="media-body">
       <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
         <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
         <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
       <% end %>
-      <div class="d-flex mb-3" style="max-height: 120px;">
+      <div class="d-flex mb-3">
         <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-          <img src="<%= recipe.image_url %>" loading="lazy" style="width: 120px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+          <%= cl_image_tag("#{recipe.id}", :width=>120, :fetch_format=>:auto, :quality=>"auto:low") %>
         <% end %>
 
         <div class=" py-1">
@@ -22,5 +21,4 @@
     </div>
   </li>
 
-</div>
 
