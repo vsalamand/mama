@@ -40,10 +40,10 @@ class RecipeListsController < ApplicationController
   def explore
     @recipe_list = RecipeList.find(params[:id])
     @recipes = Recipe.where(status:'published')
-                      # .where(id: [1406..1577])
                       .order(created_at: :desc)
                       .limit(100)
                       .shuffle[0..9]
+                      # .where(id: [1406..1577])
                       # .paginate(:page => params[:page], :per_page => 10)
   end
 
@@ -73,10 +73,10 @@ class RecipeListsController < ApplicationController
   def fetch_recipes
     @recipe_list = RecipeList.find(params[:id])
     @recipes = Recipe.where(status:'published')
-                      # .where(id: [1406..1577])
                       .order(created_at: :desc)
                       .limit(100)
                       .shuffle[0..9]
+                      # .where(id: [1406..1577])
     render 'fetch_recipes.js.erb'
   end
 
