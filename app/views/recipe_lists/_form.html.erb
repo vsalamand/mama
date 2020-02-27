@@ -1,16 +1,13 @@
 
-  <%= simple_form_for @recipe_list do |f| %>
-
-    <%= f.input :tag_list, input_html: {value: f.object.tag_list.to_s} %>
-
-    <%= f.input :name, placeholder: "Leave empty to generate automatically", class: 'form-control' %>
-    <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username, class: 'form-control' %>
-    <%= f.input :description, type: "Add a description", as: :text, class: 'form-control' %>
-
-
-    <h3>Recipes:</h3>
-
-    <%= f.collection_select :recipe_ids, Recipe.where(status: "published").order(:created_at).reverse, :id, :title, {}, multiple: true, placeholder: "Select recipe", class: 'form-control select'%>
-
-    <%= f.submit "Validate", class: "form-control btn-primary" %>
-  <% end %>
+<!-- Create new recipe list / menu -->
+<%= simple_form_for @recipe_list do |f| %>
+  <div class="shadow p-3 bg-white">
+    <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0 autofocus" } %>
+    <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+    <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+    <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+    <div class="d-flex align-items-center justify-content-end">
+      <%= f.submit "Confirmer", class:"shadow btn btn-flat" %>
+    </div>
+  </div>
+<% end %>

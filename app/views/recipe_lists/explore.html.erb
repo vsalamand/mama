@@ -11,9 +11,10 @@
 
 <div class="container px-0">
   <div class="card-columns">
-    <% @recipes.each do |recipe| %>
-      <%= render 'recipes/recipe_card', recipe: recipe, recipe_list: @recipe_list %>
-    <% end %>
+      <%= render 'recipe_lists/cards_grid', recipes: @recipes %>
+  </div>
+  <div class="d-flex justify-content-center my-3">
+    <button class="btn btn-large btn-outline-secondary" id="loadMoreRecipes" data="<%= @recipe_list.id %>">Afficher plus de résultats</button>
   </div>
 </div>
 

@@ -12,12 +12,52 @@
   </div>
 
   <div class="d-flex flex-column align-items-center mb-3">
-<!--     <%= link_to "Listes de courses", lists_path, class:"text-white p-1"  %> -->
-    <%= link_to "Vos menus", recipe_lists_path, class:"text-white p-1"  %>
-    <%= link_to "Historique d'achats", carts_path, class:"text-white p-1"  %>
+    <a class="btn btn-link text-white p-1" data-toggle="modal" data-target="#recipeListsModal">Vos menus</a>
+    <a class="btn btn-link text-white p-1" data-toggle="modal" data-target="#cartsModal">Historique d'achats</a>
   </div>
 
 </div>
 
 
 <%= render "lists/new_list_modal", list: @list, recipe_list: @recipe_list %>
+
+
+  <!-- Recipe Lists Modal -->
+  <div class="modal fade" id="recipeListsModal" tabindex="-1" role="dialog" aria-labelledby="recipeListsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content bg-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recipeListsModalLabel">🍔 Vos menus</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
+          <%= render 'recipe_lists/index', recipe_lists: @recipe_lists %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carts Modal -->
+  <div class="modal fade" id="cartsModal" tabindex="-1" role="dialog" aria-labelledby="cartsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content bg-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cartsModalLabel">🛒 Historique d'achats</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
+          <%= render 'carts/index', carts: @carts %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -44,7 +44,11 @@ class RecipeListsController < ApplicationController
 
   def explore
     @recipe_list = RecipeList.find(params[:id])
-    @recipes = Recipe.where(status:'published').last(100).shuffle[0..19]
+    @recipes = Recipe.where(status:'published')
+                      .order(created_at: :desc)
+                      .limit(100)
+                      .shuffle[0..9]
+                      # .paginate(:page => params[:page], :per_page => 10)
   end
 
   def add_recipe
@@ -68,6 +72,15 @@ class RecipeListsController < ApplicationController
     ListItem.add_menu_to_list(items, @list)
 
     render 'add_to_list.js.erb'
+  end
+
+  def fetch_recipes
+    @recipe_list = RecipeList.find(params[:id])
+    @recipes = Recipe.where(status:'published')
+                      .order(created_at: :desc)
+                      .limit(100)
+                      .shuffle[0..9]
+    render 'fetch_recipes.js.erb'
   end
 
   private
