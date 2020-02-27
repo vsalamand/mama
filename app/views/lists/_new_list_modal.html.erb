@@ -16,37 +16,18 @@
 
           <div class="row">
             <div class="col-sm-6 m-0">
-              <div class="card rounded-0 border-0">
+              <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal">
                 <div class="card-body">
                   <h5 class="card-title text-primary">✏️ Faire une liste</h5>
                   <p class="card-text">Remplissez votre liste de courses et aidez-vous des suggestions.</p>
-
-                  <!-- Create new list -->
-                  <%= simple_form_for list do |f| %>
-                    <%= f.input :name, input_html: {value: "Liste de courses #{current_user.lists.size + 1}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
-                    <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-                    <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-                    <%= f.submit "Je crée une liste", class: "btn btn-flat" %>
-                  <% end %>
-
                 </div>
               </div>
             </div>
             <div class="col-sm-6 m-0">
-              <div class="card rounded-0 border-0">
+              <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal">
                 <div class="card-body">
                   <h5 class="card-title text-primary">🍔 Choisir un menu</h5>
                   <p class="card-text">Ajoutez les plats qui vous font envie pour préparer vos courses.</p>
-
-                  <!-- Create new recipe list / menu -->
-                  <%= simple_form_for recipe_list do |f| %>
-                    <%= f.input :name, input_html: {value: "Menu semaine #{Date.today.strftime("%U").to_i}"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
-                    <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-                    <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-                    <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-                    <%= f.submit "Je crée un menu", class: "btn btn-flat" %>
-                  <% end %>
-
                 </div>
               </div>
             </div>
@@ -55,11 +36,9 @@
           <% if current_user.lists.saved.any? || current_user.lists.saved.any? %>
             <small class="text-muted font-text-light p-3 d-flex justify-content-center">ou choisissez une liste enregistrée</small>
             <div class="list-group">
-              <!-- Opened lists -->
-              <%= render 'lists/saved_list', lists: current_user.lists.opened.reverse %>
 
               <!-- Saved lists -->
-              <%= render 'lists/saved_list', lists: (current_user.lists.saved.reverse + current_user.shared_lists.reverse) %>
+              <%= render 'lists/saved_list', lists: (current_user.lists.saved + current_user.shared_lists) %>
             </div>
           <% end %>
 
@@ -83,6 +62,23 @@
       </div>
       <div class="modal-body m-0 p-0">
         <%= render 'lists/form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Recipe List Modal -->
+<div class="modal fade" id="createRecipeListModal" tabindex="-1" role="dialog" aria-labelledby="createRecipeListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createRecipeListModalLabel">🍔 Nouveau menu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <%= render 'recipe_lists/form' %>
       </div>
     </div>
   </div>
