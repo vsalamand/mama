@@ -4,11 +4,11 @@
       <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
       <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
     <% end %>
-    <div class="d-flex mb-0" style="max-height: 100px;">
+    <div class="d-flex mb-0" style="max-height: 120px;">
       <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-        <img src="<%= recipe.image_url %>" loading="lazy" style="width: 100px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+        <img src="<%= recipe.image_url %>" loading="lazy" style="width: 120px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
       <% end %>
-      <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.reverse.map{|f| f.name.capitalize}.join(", ") %></p>
+      <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ") %></p>
     </div>
     <div class="d-flex justify-content-center py-1">
       <% unless recipe_list.recipes.include?(recipe) %>
