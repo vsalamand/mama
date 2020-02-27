@@ -1,14 +1,17 @@
-<div class="card mb-3 mx-2" style="max-width: 540px;" id="recipeListItemCard<%= recipe_list_item.id %>">
-  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-    <img src="<%= recipe.image_url %>" class="card-img-top" alt="<%= recipe.title %>">
-    <div class="card-body">
-      <small class="text-muted mb-1"><%= URI("#{recipe.link }").host %></small>
-      <h5 class="card-title mb-1"><%= recipe.title %></h5>
-      <p class="card-text text-dark giveMeEllipsis"><%= recipe.items.map{|f| f.name.capitalize}.join(", ") %></p>
+<li class="media my-3 p-2" id="recipeListItemCard<%= recipe_list_item.id %>">
+  <div class="media-body">
+    <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+      <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
+      <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
+    <% end %>
+    <div class="d-flex giveMeEllipsis3 mb-0" style="max-height: 100px;">
+      <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+        <img src="<%= recipe.image_url %>" loading="lazy" style="width: 100px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+      <% end %>
+      <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.reverse.map{|f| f.name.capitalize}.join(", ")[0..300] %></p>
     </div>
-  <% end %>
-  <div class="p-3 d-flex justify-content-center">
-    <button type="button" class="btn btn-link btn-block text-danger" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer du menu</button>
+    <div class="d-flex justify-content-center py-1">
+      <button type="button" class="btn btn-link text-danger" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer du menu</button>
+    </div>
   </div>
-
-</div>
+</li>
