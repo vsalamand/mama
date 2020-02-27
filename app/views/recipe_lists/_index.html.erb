@@ -1,0 +1,21 @@
+  <% if recipe_lists.any? %>
+
+    <div class="list-group">
+      <% recipe_lists.order(:id).reverse.each do |recipe_list| %>
+        <%= link_to recipe_list_path(recipe_list), class:"link" do %>
+          <div class="list-group-item list-group-item-action text-primary d-flex flex-column border-0">
+            <h5 class="mb-0 card-title">📖 <%= recipe_list.name %></h5>
+            <p class="text-muted giveMeEllipsis"><%= recipe_list.recipes.first(8).map(&:title).join(", ") %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+
+  <% else %>
+
+    <div class="m-5 d-flex align-items-center justify-content-between">
+      <p class="lead text-muted">Les menus que vous créez sont visibles ici.</p>
+    </div>
+  <% end %>
+

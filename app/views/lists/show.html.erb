@@ -152,7 +152,7 @@
     </div>
 
 
-<% if @list.status == "saved" %>
+<% if @list.name.present? %>
   <div class="container d-flex justify-content-center p-1 my-0">
     <p class="m-0 lead"><strong class="btn-outline-primary"><%= @list.name %></strong></p>
   </div>

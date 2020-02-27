@@ -1,6 +1,6 @@
 <!-- Select Start Groceries Modal -->
 <div class="modal fade" id="startGroceriesModal" tabindex="-1" role="dialog" aria-labelledby="startGroceriesModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
 
 
       <!-- enable users to create new list or select saved lst -->
@@ -11,7 +11,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body m-0 p-0">
+        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
 
 
           <div class="row">
@@ -42,6 +42,9 @@
             </div>
           <% end %>
 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
         </div>
       </div>
 
