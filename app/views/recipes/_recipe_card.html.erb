@@ -1,22 +1,26 @@
-<li class="media my-3 p-3 rounded border-secondary" id="recipeCard<%= recipe.id %>">
-  <div class="media-body">
-    <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-      <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
-      <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
-    <% end %>
-    <div class="d-flex mb-0" style="max-height: 120px;">
+<div class="mb-5">
+  <li class="media p-3" id="recipeCard<%= recipe.id %>">
+    <div class="media-body">
       <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-        <img src="<%= recipe.image_url %>" loading="lazy" style="width: 120px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+        <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
+        <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
       <% end %>
-      <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ") %></p>
+      <div class="d-flex mb-3" style="max-height: 120px;">
+        <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+          <img src="<%= recipe.image_url %>" loading="lazy" style="width: 120px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+        <% end %>
+
+        <div class=" py-1">
+          <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ") %></p>
+          <% unless recipe_list.recipes.include?(recipe) %>
+            <button type="button" class="btn btn-link font-weight-bold text-secondary" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
+            <% else %>
+            <button type="button" class="btn btn-link text-primary disabled">Ajouté !</button>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div class="d-flex justify-content-center py-1">
-      <% unless recipe_list.recipes.include?(recipe) %>
-      <button type="button" class="btn btn-link font-weight-bold text-secondary" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
-      <% else %>
-      <button type="button" class="btn btn-link text-primary disabled">Ajouté !</button>
-      <% end %>
-    </div>
-  </div>
-</li>
+  </li>
+
+</div>
 

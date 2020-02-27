@@ -1,17 +1,19 @@
-<li class="media my-3 p-2" id="recipeListItemCard<%= recipe_list_item.id %>">
-  <div class="media-body">
-    <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-      <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
-      <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
-    <% end %>
-    <div class="d-flex giveMeEllipsis3 mb-0" style="max-height: 120px;">
+<div class="mb-5">
+  <li class="media my-3 p-2" id="recipeListItemCard<%= recipe_list_item.id %>">
+    <div class="media-body">
       <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-        <img src="<%= recipe.image_url %>" loading="lazy" style="width: 120px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+        <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
+        <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
       <% end %>
-      <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ")[0..300] %></p>
+      <div class="d-flex giveMeEllipsis3 mb-0" style="max-height: 120px;">
+        <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+          <img src="<%= recipe.image_url %>" loading="lazy" style="width: 120px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+        <% end %>
+        <div class="py-1">
+            <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ")[0..300] %></p>
+          <button type="button" class="btn btn-link text-danger" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer du menu</button>
+        </div>
+      </div>
     </div>
-    <div class="d-flex justify-content-center py-1">
-      <button type="button" class="btn btn-link text-danger" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer du menu</button>
-    </div>
-  </div>
-</li>
+  </li>
+</div>
