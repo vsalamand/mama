@@ -1,13 +1,12 @@
-<div class="mb-5">
   <li class="media my-3 p-2" id="recipeListItemCard<%= recipe_list_item.id %>">
     <div class="media-body">
       <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
         <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
         <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
       <% end %>
-      <div class="d-flex giveMeEllipsis3 mb-0" style="max-height: 120px;">
+      <div class="d-flex giveMeEllipsis3 mb-0">
         <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-          <img src="<%= recipe.image_url %>" loading="lazy" style="width: 120px; object-fit: cover;" class="card-img-top" alt="<%= recipe.title %>">
+          <%= cl_image_tag("#{recipe.id}", :width=>120, :fetch_format=>:auto, :quality=>"auto:low") %>
         <% end %>
         <div class="py-1">
             <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ")[0..300] %></p>
@@ -16,4 +15,3 @@
       </div>
     </div>
   </li>
-</div>
