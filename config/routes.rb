@@ -131,6 +131,7 @@ Rails.application.routes.draw do
       get :explore
       get :add_recipe
       get :add_to_list
+      get :fetch_recipes
     end
   end
 

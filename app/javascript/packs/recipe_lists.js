@@ -87,3 +87,14 @@ $(document).on("click" , ".removeItemBtn", function(event) {
 
 
 
+//  Load more recipes in explore
+$(document).on("click" , "#loadMoreRecipes", function(event) {
+  const recipeListId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/recipe_lists/" + recipeListId + "/fetch_recipes",
+    cache: false,
+    success: function(){
+    }
+  });
+});
