@@ -1,24 +1,25 @@
 
-  <% if carts.any? %>
+<% if carts.any? %>
 
-    <div class="list-group">
-      <% carts.order(:created_at).reverse.each do |cart| %>
-        <%= link_to cart_path(cart), class:"link" do %>
-          <div class="list-group-item list-group-item-action text-primary d-flex flex-column border-0">
-            <h5 class="mb-0 card-title">🛍️ <%= cart.merchant.name.capitalize %> <small>panier du <%= cart.created_at.strftime("%d/%m/%Y") %></h5>
-            <p class="text-muted"><%= cart.cart_items.size %> <%= cart.cart_items.size > 1 ? "articles" : "article" %></p>
+  <div class="list-group">
+    <% carts.order(:created_at).reverse.each do |cart| %>
+      <%= link_to cart_path(cart), class:"link" do %>
+        <div class="list-group-item list-group-item-action text-primary d-flex flex-column border-0">
+          <h5 class="mb-0 card-title"><%= cart.merchant.name.capitalize %></h5>
+          <small>🛍️ panier du <%= cart.created_at.strftime("%d/%m/%Y") %></small>
+          <p class="text-muted"><%= cart.cart_items.size %> <%= cart.cart_items.size > 1 ? "articles" : "article" %></p>
 
-          </div>
-        <% end %>
+        </div>
       <% end %>
-    </div>
+    <% end %>
+  </div>
 
 
-  <% else %>
+<% else %>
 
-    <div class="m-5 d-flex align-items-center justify-content-between">
-      <p class="lead text-muted">Les menus que vous créez seront visibles ici.</p>
-    </div>
-  <% end %>
+  <div class="m-5 d-flex align-items-center justify-content-between">
+    <p class="lead text-muted">Les menus que vous créez seront visibles ici.</p>
+  </div>
+<% end %>
 
 

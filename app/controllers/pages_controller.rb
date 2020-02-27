@@ -6,8 +6,10 @@ class PagesController < ApplicationController
     @list = List.new
     @recipe_list = RecipeList.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..5]
-    @recipe_lists = current_user.recipe_lists.where(status: "opened")
-    @carts = current_user.carts.where.not(merchant: nil)
+    if user_signed_in?
+      @recipe_lists = current_user.recipe_lists.where(status: "opened")
+      @carts = current_user.carts.where.not(merchant: nil)
+    end
 
     # get user to the thank you page if not in beta
     if user_signed_in? && current_user.beta == false
