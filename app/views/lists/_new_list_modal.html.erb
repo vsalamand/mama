@@ -11,27 +11,29 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
+        <div class="modal-body m-0 p-0" style="height: 75vh; overflow-y: auto;">
 
-
-          <div class="row">
-            <div class="col-sm-6 m-0">
-              <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal">
-                <div class="card-body">
-                  <h5 class="card-title text-primary">✏️ Faire une liste</h5>
-                  <p class="card-text">Remplissez votre liste de courses et aidez-vous des suggestions.</p>
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-6 m-0">
+                <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary">✏️ Faire une liste</h5>
+                    <p class="card-text">Remplissez votre liste de courses et aidez-vous des suggestions.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 m-0">
+                <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary">🍔 Choisir un menu</h5>
+                    <p class="card-text">Ajoutez les plats qui vous font envie pour préparer vos courses.</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 m-0">
-              <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal">
-                <div class="card-body">
-                  <h5 class="card-title text-primary">🍔 Choisir un menu</h5>
-                  <p class="card-text">Ajoutez les plats qui vous font envie pour préparer vos courses.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+
+        </div>
 
           <% if current_user.lists.saved.any? || current_user.lists.saved.any? %>
             <small class="text-muted font-text-light p-3 d-flex justify-content-center">ou choisissez une liste enregistrée</small>

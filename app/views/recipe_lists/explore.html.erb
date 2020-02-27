@@ -10,10 +10,11 @@
 
 
 <div class="container px-0">
-  <div class="card-columns recipesGrid">
+<!--   <div class="card-columns recipesGrid">
+  </div> -->
+  <ul class="list-unstyled recipesGrid">
       <%= render 'recipe_lists/cards_grid', recipes: @recipes %>
-  </div>
-
+  </ul>
   <div class="d-flex justify-content-center my-3">
     <button class="btn btn-large btn-outline-secondary" id="loadMoreRecipes" data="<%= @recipe_list.id %>">Afficher plus de résultats</button>
   </div>
