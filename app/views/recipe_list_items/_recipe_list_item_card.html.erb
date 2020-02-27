@@ -2,7 +2,8 @@
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
     <img src="<%= recipe.image_url %>" class="card-img-top" alt="<%= recipe.title %>">
     <div class="card-body">
-      <h5 class="card-title"><%= recipe.title %></h5>
+      <small class="text-muted mb-1"><%= URI("#{recipe.link }").host %></small>
+      <h5 class="card-title mb-1"><%= recipe.title %></h5>
       <p class="card-text text-dark giveMeEllipsis"><%= recipe.items.map{|f| f.name.capitalize}.join(", ") %></p>
     </div>
   <% end %>

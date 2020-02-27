@@ -2,15 +2,16 @@
 
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
     <img src="<%= recipe.image_url %>" loading="lazy" class="card-img-top" alt="<%= recipe.title %>">
-    <div class="card-body">
-      <h5 class="card-title"><%= recipe.title %></h5>
+    <div class="card-body d-flex flex-column">
+      <small class="text-muted mb-1"><%= URI("#{recipe.link }").host %></small>
+      <h5 class="card-title mb-1"><%= recipe.title %></h5>
       <p class="card-text text-dark giveMeEllipsis"><%= recipe.items.map{|f| f.name.capitalize}.join(", ") %></p>
     </div>
   <% end %>
 
     <div class="p-3 d-flex justify-content-center">
       <% unless recipe_list.recipes.include?(recipe) %>
-      <button type="button" class="btn btn-link" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
+      <button type="button" class="btn btn-outline-primary" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
       <% else %>
       <button type="button" class="btn btn-link text-success disabled">Ajouté</button>
       <% end %>

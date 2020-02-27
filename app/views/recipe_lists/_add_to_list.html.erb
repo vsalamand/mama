@@ -14,8 +14,9 @@
         <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
           <% recipe_list.recipes.each do |recipe| %>
             <div class="card rounded-0">
-              <div class="card-header text-primary font-weight-bold">
-                <%= recipe.title %>
+              <div class="card-header text-primary font-weight-bold d-flex flex-column">
+                <span><%= recipe.title %></span>
+                <small class="text-success">Quantités pour <%= recipe.servings %></small>
               </div>
               <ul class="list-group list-group-flush">
                 <% recipe.items.order(:id).each do |item| %>
