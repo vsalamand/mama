@@ -9,11 +9,6 @@ class RecipeListsController < ApplicationController
 
   def show
     @recipe_list = RecipeList.find(params[:id])
-
-    # if @recipe_list.recipe_list_items.empty?
-    #   @recipe_list.destroy
-    #   redirect_to root_path
-    # end
     # @recipe_list.recipe_list_items.build
     # @checklist = Checklist.get_checklist(@recipe_list.foods)
   end
@@ -45,6 +40,7 @@ class RecipeListsController < ApplicationController
   def explore
     @recipe_list = RecipeList.find(params[:id])
     @recipes = Recipe.where(status:'published')
+                      # .where(id: [1406..1577])
                       .order(created_at: :desc)
                       .limit(100)
                       .shuffle[0..9]
@@ -60,7 +56,7 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
     @recipe_list.destroy
     flash[:notice] = 'Le menu a été supprimé.'
-    redirect_to recipe_lists_path
+    redirect_to root_path
   end
 
   def add_to_list
@@ -77,6 +73,7 @@ class RecipeListsController < ApplicationController
   def fetch_recipes
     @recipe_list = RecipeList.find(params[:id])
     @recipes = Recipe.where(status:'published')
+                      # .where(id: [1406..1577])
                       .order(created_at: :desc)
                       .limit(100)
                       .shuffle[0..9]

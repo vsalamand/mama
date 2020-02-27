@@ -77,10 +77,16 @@ class StoreItem < ApplicationRecord
     # else search food name and get related products
     search_queries << Food.search(item.name, execute: false) if item.food.present?
 
-    # elsif item has food but no results, search products based on name only
+    # else item has food but no results, search products based on name only
     search_queries << Product.search(item.name,
                             fields: [:name, :brand],
                             where:  {stores: store.name}, execute: false)
+
+    # else search products based on item.food.name
+    search_queries << Product.search(item.food.name,
+                            fields: [:name, :brand],
+                            where:  {stores: store.name,
+                                    food_id: item.food.id}, execute: false) if item.food.present?
 
     # process search
     Searchkick.multi_search(search_queries)

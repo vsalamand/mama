@@ -24,6 +24,7 @@ class Store < ApplicationRecord
 
   def get_cheapest_cart_price(items)
     cheapest_cart_price = []
+
     items.each do |item|
       # for each item, get related products per store, sort by price, and return cheapest product
       cheapest_cart_price << StoreItem.get_results_sorted_by_price(item, self).first

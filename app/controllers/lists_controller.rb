@@ -59,6 +59,7 @@ class ListsController < ApplicationController
   def fetch_price
     @list = List.find(params[:list_id])
     @carts_price = Store.get_cheapest_store_price(@list)
+
     render 'fetch_price.js.erb'
   end
 
