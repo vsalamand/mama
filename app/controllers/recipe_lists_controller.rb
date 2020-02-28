@@ -41,7 +41,7 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
     @recipes = Recipe.where(status:'published')
                       .order(created_at: :desc)
-                      .limit(100)
+                      .limit(780)
                       .shuffle[0..9]
                       # .where(id: [1406..1577])
                       # .paginate(:page => params[:page], :per_page => 10)
@@ -74,7 +74,7 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
     @recipes = Recipe.where(status:'published')
                       .order(created_at: :desc)
-                      .limit(100)
+                      .limit(780)
                       .shuffle[0..9]
                       # .where(id: [1406..1577])
     render 'fetch_recipes.js.erb'
