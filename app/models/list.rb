@@ -11,12 +11,23 @@ class List < ApplicationRecord
   has_many :store_carts, dependent: :destroy
   validates :name, presence: true
 
-  STATUS = ["archived", "opened", "saved"]
+  STATUS = ["archived", "opened", "saved", "deleted"]
 
-  scope :saved, -> { where(status: "saved") }
-  scope :opened, -> { where(status: "opened") }
-  scope :archived, -> { where(status: "archived") }
+  scope :saved, -> { where(status: "saved").where( is_deleted: false) }
+  scope :opened, -> { where(status: "opened").where( is_deleted: false) }
+  scope :archived, -> { where(status: "archived").where( is_deleted: false) }
 
+
+  #create the soft delete method
+  def delete
+    update(is_deleted: true, status: "deleted")
+    self.list_items.map{|list_item| list_item.delete }
+  end
+
+  # make an undelete method
+  def undelete
+    update(is_deleted: false, status: "opened")
+  end
 
   def save_as_plugin
     self.status = "saved"

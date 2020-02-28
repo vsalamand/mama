@@ -30,11 +30,6 @@ class Food < ApplicationRecord
     self.add_to_shelf
   end
 
-  after_commit :reindex_product
-
-  def reindex_product
-    product.reindex
-  end
 
   def search_data
     {
