@@ -30,6 +30,7 @@ class ItemsController < ApplicationController
     @item.update(items_params)
     redirect_to god_show_recipe_path(@recipe) if params[:recipe_id].present?
     redirect_to list_path(@list_item.list) if params[:list_item_id].present?
+    redirect_to edit_item_path(@item)
   end
 
   def validate
