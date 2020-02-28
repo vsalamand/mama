@@ -10,7 +10,7 @@
           <% @list_items.reverse.each do |item| %>
             <li>
               <%= item.id %> |
-              <%= link_to item.name, edit_item_path(item), target: '_blank' %>
+              <%= link_to item.name, edit_item_path(item) %>
             </li>
           <% end %>
         </div>
@@ -23,7 +23,7 @@
           <% @recipe_items.each do |item| %>
             <li>
               <%= item.id %> |
-              <%= link_to item.name, edit_item_path(item), target: '_blank' %>
+              <%= link_to item.name, edit_item_path(item) %>
             </li>
           <% end %>
         </div>

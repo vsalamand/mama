@@ -52,7 +52,7 @@ class ListItem < ApplicationRecord
       new_list_items << list_item
 
       # process new item
-      valid_item = Item.where("lower(name) = ?", list_item.name.downcase.strip).where(is_validated: true).first
+      valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
       if valid_item.present?
         new_validated_items << Item.new(food: valid_item.food, list_item: list_item, name: list_item.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit)
       end
@@ -75,7 +75,7 @@ class ListItem < ApplicationRecord
   end
 
   def create_or_copy_item
-    valid_item = Item.where("lower(name) = ?", self.name.downcase.strip).where(is_validated: true).first
+    valid_item = Item.where("lower(name) = ?", self.name.downcase).where(is_validated: true).first
     valid_item.present? ? Item.create(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit) : Item.add_list_items(Array(self))
   end
 end
