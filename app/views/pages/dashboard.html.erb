@@ -17,6 +17,10 @@
             <td><%= link_to "➡️ Verify list items", verify_listitems_path %></td>
           </tr>
           <tr>
+            <td><%= @duplicated_list_items_size %></td>
+            <td><%= link_to "➡️ Verify duplictaed list items", duplicated_list_items_path %></td>
+          </tr>
+          <tr>
             <td><%= @reported_products %></td>
             <td><%= link_to "➡️ Verify reported products", verify_products_path %></td>
           </tr>

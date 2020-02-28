@@ -2,10 +2,10 @@
 
 <div class="container">
   <div>
-    <h1>Verify Items </h1>
+    <h1>Duplictaed List Items </h1>
   </div>
   <div>
-    <% @list_items.reverse.each do |list_item| %>
+    <% @list_items.reverse.each do |list_item, size| %>
       <li>
         <%= list_item.id %> |
         <%= link_to list_item.name, rails_admin.show_path(model_name: 'list_item', id: list_item.id), target: '_blank' %>

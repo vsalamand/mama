@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get 'unmatch_products', to: 'pages#unmatch_products'
   get 'verify_items', to: 'pages#verify_items'
   get 'verify_listitems', to: 'pages#verify_listitems'
+  get 'duplicated_list_items', to: 'pages#duplicated_list_items'
   get 'verify_products', to: 'pages#verify_products'
   post 'import', to: 'pages#import'
   get 'thank_you', to: "pages#thank_you"

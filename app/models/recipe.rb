@@ -2,7 +2,7 @@ require 'open-uri'
 require 'uri'
 
 class Recipe < ApplicationRecord
-  validates :title, :ingredients, :status, :origin, :link, :image_url, presence: :true
+  validates :title, :ingredients, :status, :link, :image_url, presence: :true
   validates :link, uniqueness: :true
 
   has_many :items, dependent: :destroy
@@ -89,7 +89,7 @@ class Recipe < ApplicationRecord
     unvalid_recipes = []
 
     Thread.new do
-      csv.each do |row|
+      csv[1955..2000].each do |row|
         data = row.to_h
 
         Recipe.find_by(link: data["url"]).nil? ? recipe = Recipe.new : recipe = Recipe.find_by(link: data["url"])
@@ -109,10 +109,12 @@ class Recipe < ApplicationRecord
           recipe.items.destroy_all if recipe.items.any?
         end
 
-        begin
-          recipe.instructions = eval(data["recipeInstructions"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
-        rescue SyntaxError
-          recipe.instructions = data["recipeInstructions"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+        unless data["recipeInstructions"].empty? || data["recipeInstructions"] == "[nan]"
+          begin
+            recipe.instructions = eval(data["recipeInstructions"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+          rescue SyntaxError
+            recipe.instructions = data["recipeInstructions"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+          end
         end
 
         recipe.servings = data["recipeYield"] if data["recipeYield"]

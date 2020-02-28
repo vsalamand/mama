@@ -47,10 +47,17 @@ class Item < ApplicationRecord
     parser = JSON.parse(open(url).read)
 
     parser.each do |element|
-      quantity = element['quantity_match'] if element['quantity_match'].present?
-      food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-      unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-      new_items << Item.new(quantity: quantity, unit: unit, food: food, recipe: recipe, name: element['ingredients'])
+      valid_item = Item.where("lower(name) = ?", element['ingredients'].downcase).where(is_validated: true).first
+
+      if valid_item.present?
+        new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated)
+
+      else
+        quantity = element['quantity_match'] if element['quantity_match'].present?
+        food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+        new_items << Item.new(quantity: quantity, unit: unit, food: food, recipe: recipe, name: element['ingredients'], is_validated: false)
+      end
     end
 
     Item.import new_items
