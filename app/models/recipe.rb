@@ -90,7 +90,7 @@ class Recipe < ApplicationRecord
     unvalid_recipes = []
 
     Thread.new do
-      csv[0..2].each do |row|
+      csv.each do |row|
 
         data = row.to_h
 
