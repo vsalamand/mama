@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'uri'
+require 'csv'
 
 class Recipe < ApplicationRecord
   validates :title, :ingredients, :status, :link, :image_url, presence: :true
@@ -89,7 +90,8 @@ class Recipe < ApplicationRecord
     unvalid_recipes = []
 
     Thread.new do
-      csv[1955..2000].each do |row|
+      csv[0..2].each do |row|
+
         data = row.to_h
 
         Recipe.find_by(link: data["url"]).nil? ? recipe = Recipe.new : recipe = Recipe.find_by(link: data["url"])
