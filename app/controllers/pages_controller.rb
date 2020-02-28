@@ -38,6 +38,8 @@ class PagesController < ApplicationController
 
     @foods = Food.all
     @foods_without_products = Food.get_foods_without_product
+
+    @labeling = Item.all.recipe_items_to_validate.first
   end
 
   def pending
@@ -63,6 +65,7 @@ class PagesController < ApplicationController
 
   def verify_listitems
     @list_items = ListItem.all.select{ |it| it.items.compact.empty?}
+    @item = Item.new
   end
 
   def verify_products
