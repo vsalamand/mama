@@ -13,7 +13,8 @@ class Item < ApplicationRecord
   has_many :store_cart_items, dependent: :destroy
 
   scope :to_validate, -> { where(is_validated: false) }
-
+  scope :list_items_to_validate, -> { where(is_validated: false).where.not(:list_item_id => nil ) }
+  scope :recipe_items_to_validate, -> { includes(:recipe).where(is_validated: false).where.not(:recipe_id => nil ).where(:recipes => { :status => "published" } ) }
 
   def self.add_list_items(list_items_array)
     new_items = []

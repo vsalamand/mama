@@ -1,17 +1,34 @@
 <%= render 'shared/admin-navbar' %>
 
 <div class="container">
-  <div>
-    <h1>Verify Items </h1>
-  </div>
-  <div>
-    <% @list_items.reverse.each do |list_item| %>
-      <li>
-        <%= list_item.id %> |
-        <%= link_to list_item.name, edit_item_path(list_item.items.last), target: '_blank' %>
-      </li>
-    <% end %>
-  </div>
+  <div class="row">
+    <div class="col-6">
+        <div>
+          <h1>Verify Items from lists</h1>
+        </div>
+        <div>
+          <% @list_items.reverse.each do |item| %>
+            <li>
+              <%= item.id %> |
+              <%= link_to item.name, edit_item_path(item), target: '_blank' %>
+            </li>
+          <% end %>
+        </div>
+    </div>
+    <div class="col-6">
+        <div>
+          <h1>Verify Items from recipes</h1>
+        </div>
+        <div>
+          <% @recipe_items.each do |item| %>
+            <li>
+              <%= item.id %> |
+              <%= link_to item.name, edit_item_path(item), target: '_blank' %>
+            </li>
+          <% end %>
+        </div>
+    </div>
 
-</div>
+    </div>
+  </div>
 

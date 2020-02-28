@@ -22,6 +22,7 @@ class Recipe < ApplicationRecord
 
   searchkick language: "french"
   scope :search_import, -> { where(status: "published") }
+  scope :to_validate, -> { includes(:items).where(status: "published").where( :items => { :is_validated => false } ) }
 
   # before_save do
   #   # update to cloudinary
