@@ -87,6 +87,13 @@ class Item < ApplicationRecord
   def validate
     self.is_validated = true if self.food.present?
     self.save
+    # validate any items with same name and not yet validated
+    Item.where("lower(name) = ?", self.name.downcase)
+        .where(is_validated: false)
+        .update(quantity: self.quantity,
+                 unit: self.unit,
+                 food: self.food,
+                 is_validated: self.is_validated)
   end
 
   def unvalidate
