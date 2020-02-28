@@ -102,10 +102,10 @@ Rails.application.routes.draw do
       end
       get :complete
       get :uncomplete
-      resources :items do
-        get 'validate', to: "items#validate"
-        get 'unvalidate', to: "items#unvalidate"
-      end
+      # resources :items do
+      #   get 'validate', to: "items#validate"
+      #   get 'unvalidate', to: "items#unvalidate"
+      # end
       get 'report', to: "products#report"
       get 'search', to: "products#search"
     end
@@ -138,6 +138,7 @@ Rails.application.routes.draw do
 
 
   resources :items do
+    get :validate
     collection do
       get :edit_multiple
       put :update_multiple

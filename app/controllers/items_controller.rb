@@ -27,9 +27,9 @@ class ItemsController < ApplicationController
   end
 
   def validate
-    item = @list_item.items.last
-    item.validate
-    render "validate.js.erb"
+    @item = Item.find(params[:item_id])
+    @item.validate
+    redirect_to verify_items_path
   end
 
   def unvalidate

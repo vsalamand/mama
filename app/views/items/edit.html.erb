@@ -42,9 +42,12 @@
               <%= f.collection_select :unit_id, Unit.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
               <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
               <%= f.input :is_validated, class: 'form-control' %>
-              <%= f.submit "Valider", class: "form-control btn-primary" %>
+              <%= f.submit "Mettre à jour", class: "form-control btn-primary" %>
             <% end %>
 
+          </div>
+          <div class="mt-3">
+            <%= link_to "Valider l'annotation", item_validate_path(@item), class:"btn btn-flat" %>
           </div>
           <div class="mt-3">
             <%= link_to "Admin", rails_admin.show_path(model_name: 'item', id: @item.id), class:"btn btn-secondary" %>

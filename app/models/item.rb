@@ -47,7 +47,7 @@ class Item < ApplicationRecord
     parser = JSON.parse(open(url).read)
 
     parser.each do |element|
-      valid_item = Item.where("lower(name) = ?", element['ingredients'].downcase).where(is_validated: true).first
+      valid_item = Item.where("lower(name) = ?", element['ingredients'].downcase.strip).where(is_validated: true).first
 
       if valid_item.present?
         new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated)
@@ -87,12 +87,13 @@ class Item < ApplicationRecord
   def validate
     self.is_validated = true if self.food.present?
     self.save
+
     # validate any items with same name and not yet validated
-    Item.where("lower(name) = ?", self.name.downcase)
+    Item.where("lower(trim(name)) = ?", self.name.downcase.strip)
         .where(is_validated: false)
-        .update(quantity: self.quantity,
-                 unit: self.unit,
-                 food: self.food,
+        .update_all(quantity: self.quantity,
+                 unit_id: self.unit_id,
+                 food_id: self.food_id,
                  is_validated: self.is_validated)
   end
 
