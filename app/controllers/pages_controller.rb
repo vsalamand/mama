@@ -29,14 +29,17 @@ class PagesController < ApplicationController
 
   def dashboard
     @items_validation_size = (Item.all.list_items_to_validate.size + Item.all.recipe_items_to_validate.size)
-    # @list_items_verification_size = ListItem.all.no_items.size
+    @list_items_verification_size = ListItem.all.no_items.size
     @reported_products = Product.where(is_reported: true).size
+    @duplicated_list_items_size = ListItem.has_many_items.length
 
     @products = Product.all
     @no_food_products = Product.get_products_without_foods
 
     @foods = Food.all
     @foods_without_products = Food.get_foods_without_product
+
+    @labeling = Item.all.recipe_items_to_validate.first
   end
 
   def pending
@@ -56,8 +59,13 @@ class PagesController < ApplicationController
     @recipe_items = Item.all.recipe_items_to_validate
   end
 
+  def duplicated_list_items
+    @list_items = ListItem.has_many_items
+  end
+
   def verify_listitems
     @list_items = ListItem.all.select{ |it| it.items.compact.empty?}
+    @item = Item.new
   end
 
   def verify_products

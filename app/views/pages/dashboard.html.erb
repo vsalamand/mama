@@ -1,5 +1,8 @@
 <%= render 'shared/admin-navbar' %>
 
+<div class="container m-3 d-flex justify-content-center">
+  <%= link_to "Annoter", edit_item_path(@labeling), class:"btn btn-lg btn-primary" %>
+</div>
 
 <div class="container mt-3" style="display: flex; justify-content: space-evenly;">
   <div>
@@ -15,6 +18,10 @@
           <tr>
             <td><%= @list_items_verification_size %></td>
             <td><%= link_to "➡️ Verify list items", verify_listitems_path %></td>
+          </tr>
+          <tr>
+            <td><%= @duplicated_list_items_size %></td>
+            <td><%= link_to "➡️ Verify duplictaed list items", duplicated_list_items_path %></td>
           </tr>
           <tr>
             <td><%= @reported_products %></td>

@@ -11,13 +11,19 @@ class ItemsController < ApplicationController
     @item = Item.new(items_params)
     @item.recipe = @recipe
     if @item.save
-      redirect_to god_show_recipe_path(@recipe) if params[:recipe_id].present?
+      if params[:recipe_id].present?
+        redirect_to god_show_recipe_path(@recipe)
+      else
+        redirect_to verify_listitems_path
+      end
     else
       render 'new'
     end
   end
 
   def edit
+    @next_item = Item.where(is_validated: false).where("id > ?", @item.id).first
+    @next_item = Item.all.recipe_items_to_validate.first if @next_item.nil?
   end
 
   def update
@@ -27,9 +33,12 @@ class ItemsController < ApplicationController
   end
 
   def validate
-    item = @list_item.items.last
-    item.validate
-    render "validate.js.erb"
+    @item = Item.find(params[:item_id])
+    @item.validate
+    next_item = Item.where(is_validated: false).where("id > ?", @item.id).first
+    next_item = Item.all.recipe_items_to_validate.first if next_item.nil?
+
+    redirect_to edit_item_path(next_item)
   end
 
   def unvalidate

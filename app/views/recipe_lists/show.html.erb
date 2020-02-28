@@ -26,7 +26,11 @@
 
 
 <div class="container px-0" id="recipe_list" data="<%= @recipe_list.id %>">
-  <%= render "content", recipe_list: @recipe_list %>
+  <div class="row">
+    <div class="col-md-8">
+      <%= render "content", recipe_list: @recipe_list %>
+    </div>
+  </div>
 </div>
 
 
