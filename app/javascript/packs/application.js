@@ -67,7 +67,7 @@ $(document).on('click', '#startGroceriesModal',function() {
 });
 
 // // close all modal after click on cross
-$(document).on('click', '#closeSelectListModal',function() {
+$(document).on('click', '.closeModal',function() {
   $('.modal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();

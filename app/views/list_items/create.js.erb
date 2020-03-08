@@ -8,6 +8,9 @@ function refreshForm(innerHTML) {
 function addListItem(reviewHTML) {
   const listItems = document.getElementById('uncomplete_list_items');
   listItems.insertAdjacentHTML('beforeend', reviewHTML);
+  listItems.scrollIntoView();
+  var lastItem = document.getElementById("grocerylist-item-id<%= @list_item.id %>");
+  lastItem.scrollIntoView();
   event.preventDefault();
 }
 
