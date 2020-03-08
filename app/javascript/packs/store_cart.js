@@ -28,13 +28,13 @@ $(document).on('click', '.selectBtn',function() {
   $('.modal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
-  setTimeout(getStoreCartPrice,500);
+  // setTimeout(getStoreCartPrice,500);
 });
 
-// close update product modal when list item is submitted
-$(document).on('click', '.deleteBtn',function() {
-  setTimeout(getStoreCartPrice,500);
-});
+// // close update product modal when list item is submitted
+// $(document).on('click', '.deleteBtn',function() {
+//   setTimeout(getStoreCartPrice,500);
+// });
 
 
 $(document).on('click', '.StoreCartItemShow', function(e) {

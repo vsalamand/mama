@@ -1,6 +1,10 @@
 function addCartItem(reviewHTML) {
   const cartItems = document.getElementById('cart_items');
   cartItems.insertAdjacentHTML('beforeend', reviewHTML);
+  cartItems.scrollIntoView(true);
+  var lastItem = document.getElementById("updateProduct<%= @cart_item.id %>");
+  lastItem.scrollIntoView();
+  window.scrollBy(0, -40);
   event.preventDefault();
 }
 

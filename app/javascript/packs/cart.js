@@ -7,10 +7,6 @@ $(document).on('click', '#addProducts', function() {
   $('#addProductsModal').modal('show');
 })
 
-// close modal when list item is submitted
-$(document).on('click', '.buyBtn',function() {
-  $('#addProductsModal').modal('hide');
-});
 
 
 // prevent click to open Update Product modal
@@ -59,12 +55,12 @@ $(document).on('click', '.deleteBtn',function() {
   $('.modal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
-  setTimeout(getCartPrice,500);
+  setTimeout(getCartPrice,200);
 });
 
 $(document).on('click', '.buyBtn',function() {
   $('.modal').modal('hide');
   $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
-  setTimeout(getCartPrice,500);
+  setTimeout(getCartPrice,200);
 });

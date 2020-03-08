@@ -7,7 +7,7 @@
       <% end %>
     </ul>
 
-  <% elsif cart_item.id.present? %>
+  <% elsif cart_item.id.present? && StoreItem.find(cart_item.productable_id).food.present? %>
     <ul class="list-group list-group-flush">
       <small class="pl-3 text-muted">Produits similaires:</small>
       <% StoreItem.find(cart_item.productable_id).food.store_items.each do |store_item| %>
