@@ -8,6 +8,8 @@
     <h3 class="mb-0 text-muted font-weight-bold d-flex text-center">Sélectionnez un produit pour le changer</h3>
  </div>
 
+<%= render 'store_carts/get_price', store_cart: @store_cart, carts: @carts %>
+
 <div class="container my-2">
   <div class="d-flex align-items-center justify-content-between p-1" id="storeCartType" data="list">
     <div>
@@ -15,7 +17,7 @@
   </div>
 </div>
 
-<div class="container mb-5 px-0">
+<div class="container mb-3 px-0">
   <div class="shadow bg-white">
     <div class="list-group list-group-flush mb-2" id="storeCartItemsList">
       <% @store_cart_items.sort_by(&:item_id).each do |store_cart_item| %>
@@ -25,8 +27,8 @@
   </div>
 </div>
 
+<%= render 'store_carts/get_price', store_cart: @store_cart, carts: @carts %>
 <div style="padding: 50px;"></div>
 
 <!-- <div id="storeCartPrice" data="<%= store_cart.id %>">
 </div> -->
-<%= render 'store_carts/get_price', store_cart: @store_cart, carts: @carts %>

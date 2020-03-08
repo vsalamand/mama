@@ -123,11 +123,13 @@ const spinner = document.getElementById('spinner');
 $(document).on("turbolinks:load", function(event) {
   loadSuggestions();
   setInputForm();
+  getPriceBtn();
   // getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   loadSuggestions();
+  getPriceBtn();
   // getCartsPrice();
 })
 
@@ -143,6 +145,17 @@ function loadSuggestions() {
       success: function(){
       }
     });
+  }
+}
+
+function getPriceBtn() {
+  var count = $("#uncomplete_list_items li").length;
+  const btn = document.getElementById('selectStoreBtn')
+
+  if(count > 0){
+    $(btn).show();
+  } else {
+    $(btn).hide();
   }
 }
 

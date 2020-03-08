@@ -1,13 +1,14 @@
 
 <!-- Create new recipe list / menu -->
 <%= simple_form_for @recipe_list do |f| %>
-  <div class="shadow p-3 bg-white">
-    <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"py-4 rounded-0 border-top-0 border-left-0 border-right-0 autofocus" } %>
+  <div class="p-3 bg-white">
+    <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"rounded-0 autofocus", value: "Menu du #{Date.today.strftime("%d/%m/%y")}" } %>
     <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
     <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
     <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-    <div class="d-flex align-items-center justify-content-end">
-      <%= f.submit "Confirmer", class:"shadow btn btn-flat" %>
-    </div>
+  </div>
+  <div class="modal-footer bg-white">
+    <button type="button" class="btn btn-secondary py-2 closeModal" data-dismiss="modal">Annuler</button>
+    <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
   </div>
 <% end %>

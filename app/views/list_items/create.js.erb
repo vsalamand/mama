@@ -8,6 +8,10 @@ function refreshForm(innerHTML) {
 function addListItem(reviewHTML) {
   const listItems = document.getElementById('uncomplete_list_items');
   listItems.insertAdjacentHTML('beforeend', reviewHTML);
+  listItems.scrollIntoView(true);
+  var lastItem = document.getElementById("grocerylist-item-id<%= @list_item.id %>");
+  lastItem.scrollIntoView();
+  window.scrollBy(0, -40);
   event.preventDefault();
 }
 

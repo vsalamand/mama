@@ -1,22 +1,25 @@
-<% lists.order(:created_at).reverse.each do |list| %>
+  <% if lists.any? %>
 
-  <%= link_to list_path(list), class:"list-group-item list-group-item-action" do %>
-    <div class="d-flex align-items-center justify-content-between">
-      <div id="list-description">
-        <div class="d-flex w-100 flex-column mb-1">
-          <h5 class="mb-0 text-primary"><%= list.name.capitalize %></h5>
-          <% if list.users.any? %>
-            <small class="text-muted mb-0">
-              Liste gérée à plusieurs
-            </small>
-          <% end %>
-        </div>
-        <small class="text-muted"><%= list.list_items.not_deleted.size %> <%= list.list_items.not_deleted.size > 1 ? "éléments" : "élément" %></small>
-      </div>
-      <div class="product-options d-flex flex-column align-items-center">
-        <i class="fas fa-lg fa-angle-right p-1"></i>
-      </div>
+    <div class="list-group">
+      <% lists.sort_by { |l| l.id }.reverse.each do |list| %>
+        <%= link_to list_path(list), class:"link" do %>
+          <div class="list-group-item list-group-item-action text-primary d-flex flex-column border-0">
+            <h5 class="mb-0 card-title"><%= list.name %></h5>
+            <% if list.users.any? %>
+              <small class="text-muted"><%= list.users.size + 1  %> participants</small>
+            <% else %>
+              <small class="text-muted"><%= "1 participant" %></small>
+            <% end %>
+            <p class="text-muted giveMeEllipsis mb-0"><%= list.list_items.not_completed.first(8).map(&:name).join(", ") %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+
+  <% else %>
+
+    <div class="m-5 d-flex align-items-center justify-content-between">
+      <p class="lead text-muted">Les listes que vous créez sont visibles ici.</p>
     </div>
   <% end %>
-
-<% end %>
