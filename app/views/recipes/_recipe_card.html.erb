@@ -1,4 +1,4 @@
-  <li class="media p-3" id="recipeCard<%= recipe.id %>">
+  <li class="media p-2" id="recipeCard<%= recipe.id %>">
     <div class="media-body">
       <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
         <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
@@ -12,9 +12,9 @@
         <div class=" py-1">
           <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ") %></p>
           <% unless recipe_list.recipes.include?(recipe) %>
-            <button type="button" class="btn btn-link font-weight-bold text-secondary border" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
+            <button type="button" class="btn btn-link font-weight-bold text-secondary border mx-1" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
             <% else %>
-            <button type="button" class="btn btn-link text-success border disabled">Ajouté !</button>
+            <button type="button" class="btn btn-link text-success border disabled mx-1">Ajouté !</button>
           <% end %>
         </div>
       </div>
