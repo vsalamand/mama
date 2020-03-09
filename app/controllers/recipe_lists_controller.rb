@@ -49,6 +49,19 @@ class RecipeListsController < ApplicationController
                       # .paginate(:page => params[:page], :per_page => 10)
   end
 
+  def search
+    @recipe_list = RecipeList.find(params[:id])
+    @query = params[:query].present? ? params[:query] : nil
+
+    @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
+  end
+
   def add_recipe
     @recipe_list = RecipeList.find(params[:id])
     recipe = Recipe.find(params[:id])

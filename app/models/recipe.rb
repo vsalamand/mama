@@ -22,7 +22,7 @@ class Recipe < ApplicationRecord
   acts_as_taggable_on :categories
 
   searchkick language: "french"
-  scope :search_import, -> { where(status: "published") }
+  scope :search_import, -> { where(status: "published").where.not(origin: "mama") }
   scope :to_validate, -> { includes(:items).where(status: "published").where( :items => { :is_validated => false } ) }
 
   # before_save do

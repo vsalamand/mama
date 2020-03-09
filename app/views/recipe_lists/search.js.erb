@@ -1,0 +1,3 @@
+var cardGrid = document.querySelector('.recipesGrid');
+
+cardGrid.innerHTML = ("<%= j render 'recipe_lists/cards_grid', recipes: @recipes %>");

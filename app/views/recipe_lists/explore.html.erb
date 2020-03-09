@@ -10,12 +10,14 @@
 </div>
 
 <div class="container bg-white" id="searchRecipes" >
+  <%= link_to search_recipe_list_path do %>
   <!-- Link to search recipes view-->
     <div class="text-left text-muted" >
       <div class="search-form-control form-group">
         <input class="form-control shadow-lg border-0" style="cursor: pointer;" type="text" placeholder="🔎 Chercher" />
       </div>
     </div>
+  <% end %>
 
 </div>
 
