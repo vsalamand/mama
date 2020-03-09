@@ -12,18 +12,31 @@
           </button>
         </div>
         <div class="modal-body m-0 p-0" style="overflow-y: auto;">
-          <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal">
+          <div class="card rounded-0 border-0">
             <div class="row no-gutters">
               <div class="card-body">
-                <h5 class="card-title text-primary">✏️ Remplir une liste de courses</h5>
+                <h5 class="btn btn-lg btn-primary rounded p-3" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal">✏️ Remplir une liste de courses</h5>
                 <p class="card-text text-muted">Faites votre liste de courses et aidez-vous des suggestions.</p>
               </div>
             </div>
           </div>
-          <div class="card rounded-0 border-0" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal">
+          <div class="card rounded-0 border-0" >
             <div class="row no-gutters">
               <div class="card-body">
-                <h5 class="card-title text-primary">🍔 Choisir un menu</h5>
+                <% if current_user.recipe_lists.last.status == "opened" %>
+                  <!-- Continue last menu -->
+                  <h5>
+                  <%= link_to "🍔 Choisir un menu", recipe_list_path(current_user.recipe_lists.last), class:"btn btn-lg btn-flat rounded p-3" %>
+                  </h5>
+                <% else  %>
+                  <!-- Create new recipe list / menu -->
+                  <%= simple_form_for @recipe_list do |f| %>
+                      <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden %>
+                      <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden  %>
+                      <%= f.input :status, input_html: {value: "opened"}, :as => :hidden %>
+                      <%= f.submit "🍔 Choisir un menu", class:"btn-lg card-title btn-flat rounded p-3" %>
+                  <% end %>
+                <% end %>
                 <p class="card-text text-muted">Trouvez les recettes qui vous font envie pour préparer vos courses.</p>
               </div>
             </div>
