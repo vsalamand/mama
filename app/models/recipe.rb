@@ -3,7 +3,7 @@ require 'uri'
 require 'csv'
 
 class Recipe < ApplicationRecord
-  validates :title, :ingredients, :status, :link, :image_url, presence: :true
+  validates :title, :ingredients, :status, :link, presence: :true
   validates :link, uniqueness: :true
 
   has_many :items, dependent: :destroy
@@ -60,6 +60,11 @@ class Recipe < ApplicationRecord
 
   def dismiss
     self.status = "dismissed"
+    self.save
+  end
+
+  def publish
+    self.status = "published"
     self.save
   end
 
