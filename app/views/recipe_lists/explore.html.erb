@@ -1,11 +1,22 @@
 <div class="container d-flex justify-content-end">
-  <%= link_to 'Fermer', recipe_list_path(@recipe_list), class:"btn close m-2 px-0" %>
+  <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
 </div>
 
 
-<div class="d-flex flex-column align-items-center justify-content-center p-1 mb-4">
+<div class="d-flex flex-column align-items-center justify-content-center p-1">
   <p class="m-0 lead"><strong class="btn-outline-primary"><%= @recipe_list.name %></strong></p>
-  <h3 class="mb-0 text-muted font-weight-bold d-flex text-center">Ajoutez des repas à votre menu</h3>
+<!--   <h3 class="mb-0 text-muted font-weight-bold d-flex text-center">Parcourir les recettes</h3>
+ -->
+</div>
+
+<div class="container bg-white" id="searchRecipes" >
+  <!-- Link to search recipes view-->
+    <div class="text-left text-muted" >
+      <div class="search-form-control form-group">
+        <input class="form-control shadow-lg border-0" style="cursor: pointer;" type="text" placeholder="🔎 Chercher" />
+      </div>
+    </div>
+
 </div>
 
 
@@ -28,6 +39,6 @@
 <div id="explore" data="<%= @recipe_list.id %>">
 </div>
 
-<div class="container">
+<div class="container" id="goToMenuBtn">
   <%= link_to "Continuer vers le menu", recipe_list_path(@recipe_list), class:"btn fixed-bottom btn-large btn-flat m-2 py-3 mx-5 font-weight-bold" %>
 </div>

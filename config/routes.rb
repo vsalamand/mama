@@ -133,6 +133,7 @@ Rails.application.routes.draw do
       get :add_recipe
       get :add_to_list
       get :fetch_recipes
+      get :get_size
     end
   end
 
