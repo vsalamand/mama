@@ -10,7 +10,7 @@
         <% end %>
         <div class="py-1">
             <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ")[0..300] %></p>
-          <button type="button" class="btn btn-link text-danger border mx-1" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer du menu</button>
+          <button type="button" class="btn btn-link text-danger border ml-3" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>">Supprimer du menu</button>
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@ import 'bootstrap';
 
 //  Add recipe to menu
 $(document).on("click" , "#addToMenuBtn", function(event) {
-
   const recipeId = this.getAttribute('data');
   const recipeListId = this.getAttribute('data-destination');
   addToMenu(recipeId, recipeListId);
@@ -18,8 +17,12 @@ function addToMenu(recipeId, recipeListId) {
         recipe_list_id: recipeListId
         },
     success: function(){
+      // update CTA
+      getGoToMenuBtn();
     }
   });
+
+
 }
 
 
@@ -61,6 +64,7 @@ $(document).on("click" , "#addMenuToListBtn", function(event) {
   const recipeListId = this.getAttribute('data');
 
   addToList(items, recipeListId);
+
 });
 
 function addToList(items, recipeListId) {
@@ -98,3 +102,30 @@ $(document).on("click" , "#loadMoreRecipes", function(event) {
     }
   });
 });
+
+
+
+$(document).on("turbolinks:load", function(event) {
+  getGoToMenuBtn();
+})
+
+function getGoToMenuBtn() {
+  if(document.getElementById('explore')){
+    const recipeListId = document.getElementById('explore').getAttribute('data');
+    const btn = document.getElementById('goToMenuBtn')
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      dataType: 'json',
+      url: "/recipe_lists/" + recipeListId + "/get_size",
+      cache: false,
+      success: function(menu_size){
+        if(menu_size > 0){
+          $(btn).show();
+        } else {
+          $(btn).hide();
+        }
+      }
+    });
+  }
+}

@@ -1,0 +1,39 @@
+<div class="container d-flex justify-content-between">
+  <%= link_to 'Retour', explore_recipe_list_path, class:"btn close m-2 px-0" %>
+  <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+</div>
+
+<div class="container bg-white">
+  <!-- Link to search recipes view-->
+    <div class="text-left text-muted" >
+      <div class="search-form-control form-group my-2 shadow-lg">
+          <%= form_tag(search_recipe_list_path, :method => "get", remote: true, authenticity_token: true) do %>
+            <%= text_field_tag :query, params[:query], placeholder: "🔎 pizza, carotte, pâtes...", required: true, class:"form-control" %>
+
+            <%= button_tag(class: "btn btn-sm btn-primary", id:"searchRecipesBtn") do %>
+              Chercher
+            <% end %>
+          <% end %>
+      </div>
+    </div>
+
+</div>
+
+<div class="container my-4 px-0" id="searchRecipes" data="<%= @recipe_list.id %>">
+  <div class="">
+    <div class="col-md-8">
+      <ul class="list-unstyled recipesGrid">
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="padding: 50px;"></div>
+
+<div id="explore" data="<%= @recipe_list.id %>">
+</div>
+
+<div class="container" id="goToMenuBtn">
+  <%= link_to "Continuer vers le menu", recipe_list_path(@recipe_list), class:"btn fixed-bottom btn-large btn-flat m-2 py-3 mx-5 font-weight-bold" %>
+</div>

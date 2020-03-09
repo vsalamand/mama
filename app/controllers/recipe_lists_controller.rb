@@ -9,6 +9,8 @@ class RecipeListsController < ApplicationController
 
   def show
     @recipe_list = RecipeList.find(params[:id])
+    redirect_to explore_recipe_list_path(@recipe_list) if @recipe_list.recipes.empty?
+
     # @recipe_list.recipe_list_items.build
     # @checklist = Checklist.get_checklist(@recipe_list.foods)
   end
@@ -47,6 +49,19 @@ class RecipeListsController < ApplicationController
                       # .paginate(:page => params[:page], :per_page => 10)
   end
 
+  def search
+    @recipe_list = RecipeList.find(params[:id])
+    @query = params[:query].present? ? params[:query] : nil
+
+    @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
+  end
+
   def add_recipe
     @recipe_list = RecipeList.find(params[:id])
     recipe = Recipe.find(params[:id])
@@ -79,6 +94,13 @@ class RecipeListsController < ApplicationController
                       .shuffle[0..9]
                       # .where(id: [1406..1577])
     render 'fetch_recipes.js.erb'
+  end
+
+  def get_size
+    @recipe_list = RecipeList.find(params[:id])
+    @size = @recipe_list.recipes.size
+
+    render json: @size
   end
 
   private
