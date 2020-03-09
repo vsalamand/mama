@@ -2,7 +2,7 @@
 <!-- Create new recipe list / menu -->
 <%= simple_form_for @recipe_list do |f| %>
   <div class="p-3 bg-white">
-    <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"rounded-0 autofocus", value: "Menu du #{Date.today.strftime("%d/%m/%y")}" } %>
+    <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"rounded-0 autofocus" } %>
     <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
     <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
     <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>

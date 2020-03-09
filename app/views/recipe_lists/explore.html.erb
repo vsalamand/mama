@@ -10,7 +10,7 @@
 
 
 <div class="container px-0">
-  <div class="row">
+  <div class="">
     <div class="col-md-8">
       <ul class="list-unstyled recipesGrid">
           <%= render 'recipe_lists/cards_grid', recipes: @recipes %>
@@ -30,5 +30,5 @@
 </div>
 
 <div class="container">
-  <%= link_to "Continuer vers le menu", recipe_list_path(@recipe_list), class:"btn fixed-bottom btn-large btn-flat m-2 py-3 mx-5" %>
+  <%= link_to "Continuer vers le menu", recipe_list_path(@recipe_list), class:"btn fixed-bottom btn-large btn-flat m-2 py-3 mx-5 font-weight-bold" %>
 </div>

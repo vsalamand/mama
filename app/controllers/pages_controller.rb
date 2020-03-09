@@ -7,7 +7,7 @@ class PagesController < ApplicationController
     @recipe_list = RecipeList.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..5]
     if user_signed_in?
-      @recipe_lists = current_user.recipe_lists.where(status: "opened")
+      @recipe_lists = current_user.recipe_lists.where(status: "saved")
       @lists = current_user.lists.saved + current_user.shared_lists
       @carts = current_user.carts.where.not(merchant: nil)
     end

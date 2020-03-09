@@ -12,9 +12,9 @@
         <div class=" py-1">
           <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ") %></p>
           <% unless recipe_list.recipes.include?(recipe) %>
-            <button type="button" class="btn btn-link font-weight-bold text-secondary" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
+            <button type="button" class="btn btn-link font-weight-bold text-secondary border" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
             <% else %>
-            <button type="button" class="btn btn-link text-primary disabled">Ajouté !</button>
+            <button type="button" class="btn btn-link text-success border disabled">Ajouté !</button>
           <% end %>
         </div>
       </div>

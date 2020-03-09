@@ -4,7 +4,7 @@ class RecipeListsController < ApplicationController
 
   def index
     # @recipe_lists = RecipeList.where(recipe_list_type: "curated")
-    @recipe_lists = current_user.recipe_lists.where(status: "opened")
+    @recipe_lists = current_user.recipe_lists.where(status: "saved")
   end
 
   def show
@@ -61,6 +61,7 @@ class RecipeListsController < ApplicationController
 
   def add_to_list
     @recipe_list = RecipeList.find(params[:id])
+    @recipe_list.is_saved
 
     params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses - #{@recipe_list.name}", user: current_user, status: "opened") if @list.nil?
     items = params[:items]

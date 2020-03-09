@@ -16,7 +16,7 @@ class RecipeList < ApplicationRecord
   acts_as_ordered_taggable
 
   RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool"]
-  STATUS = ["archived", "opened"]
+  STATUS = ["archived", "saved", "opened"]
 
   # after_create_commit :get_name
   after_update_commit :get_name
@@ -31,6 +31,12 @@ class RecipeList < ApplicationRecord
 
   def archive
     self.status = "archived"
+    self.save
+  end
+
+  def is_saved
+    self.name = "Menu du #{Date.today.strftime("%d/%m/%y")}" if self.name.blank?
+    self.status = "saved"
     self.save
   end
 
@@ -51,5 +57,6 @@ class RecipeList < ApplicationRecord
     RecipeList.where(recipe_list_type: "curated").last(3).each{ |recipe_list| latest_curated_recipes << recipe_list.recipes }
     return latest_curated_recipes.flatten.uniq.reverse
   end
+
 
 end
