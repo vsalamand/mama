@@ -3,7 +3,7 @@ require 'uri'
 require 'csv'
 
 class Recipe < ApplicationRecord
-  validates :title, :ingredients, :status, :link, presence: :true
+  validates :title, :ingredients, :status, :link, :image_url, presence: :true
   validates :link, uniqueness: :true
 
   has_many :items, dependent: :destroy
