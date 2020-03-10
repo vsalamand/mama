@@ -62,7 +62,7 @@ class RecipeListsController < ApplicationController
   def category
     @recipe_list = RecipeList.find(params[:id])
     @category = RecommendationItem.find(params[:recommendation_item_id])
-    @recipes = @category.recipe_list.recipes
+    @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
   end
 
   def add_recipe

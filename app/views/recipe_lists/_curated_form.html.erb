@@ -11,3 +11,9 @@
             <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
           </div>
         <% end %>
+
+        <ol>
+           <% recipe_list.recipe_list_items.map do |rli| %>
+            <li><%= rli.recipe.title %></li>
+           <% end %>
+        </ol>
