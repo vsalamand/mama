@@ -1,6 +1,5 @@
-<div class="container d-flex justify-content-between">
+<div class="container d-flex justify-content-start">
   <%= link_to 'Retour', explore_recipe_list_path, class:"btn close m-2 px-0" %>
-  <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
 </div>
 
 <div class="container bg-white">
@@ -8,7 +7,7 @@
     <div class="text-left text-muted" >
       <div class="search-form-control form-group my-2 shadow-lg">
           <%= form_tag(search_recipe_list_path, :method => "get", remote: true, authenticity_token: true) do %>
-            <%= text_field_tag :query, params[:query], placeholder: "🔎 pizza, carotte, pâtes...", required: true, class:"form-control" %>
+            <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
 
             <%= button_tag(class: "btn btn-sm btn-primary", id:"searchRecipesBtn") do %>
               Chercher

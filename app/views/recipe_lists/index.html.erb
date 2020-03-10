@@ -1,21 +1,44 @@
-<div class="midbanner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{rand(1..53)}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
-  <%= render 'shared/navbar_white' %>
+  <%= render 'shared/admin-navbar' %>
 
-  <div class="container my1">
-    <%= render 'shared/flashes' %>
-  </div>
 
-  <div class="container m-auto d-flex flex-column justify-content-start">
-    <h1 class="font-weight-bold ">Vos menus</h1>
-    <small class="text-white">Retrouvez ici les recettes de vos menus.</small>
-  </div>
-
+<div class="container my-auto d-flex flex-column justify-content-start align-items-start">
+  <!-- Button trigger New curated recipe list modal -->
+  <button class="h1 font-weight-bold btn btn-primary m-3" style="cursor: pointer;" data-toggle="modal" data-target="#createCuratedRecipeListModal">Nouvelle catégorie</button>
 </div>
 
+<!-- Create Recipe List Modal -->
+<div class="modal fade" id="createCuratedRecipeListModal" tabindex="-1" role="dialog" aria-labelledby="createCuratedRecipeListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createCuratedRecipeListModalLabel">🍔 Nouvelle catégorie</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+
+        <%= simple_form_for @recipe_list do |f| %>
+          <div class="p-3 bg-white">
+            <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"rounded-0 autofocus" } %>
+            <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :recipe_list_type, input_html: {value: "curated"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.collection_select :recipe_ids, Recipe.where(status: "published").order(:created_at).reverse, :id, :title, {}, multiple: true, placeholder: "Select recipe", class: 'form-control select'%>
+          </div>
+          <div class="modal-footer bg-white">
+            <button type="button" class="btn btn-secondary py-2 closeModal" data-dismiss="modal">Annuler</button>
+            <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container my-3">
-  <% if @recipe_lists.any? %>
 
     <div class="row">
       <% @recipe_lists.order(:id).each do |recipe_list| %>
@@ -24,9 +47,9 @@
             <div class="card bg-white shadow border-0" style="height: 120px;">
               <div class="card-body">
                 <h5 class="card-title"><%= recipe_list.name %></h5>
-                <div class="text-muted giveMeEllipsis">
+      <!--           <div class="text-muted giveMeEllipsis">
                   <span><%= recipe_list.recipes.first(8).map(&:title).join(", ") %></span>
-                </div>
+                </div> -->
               </div>
             </div>
           <% end %>
@@ -34,12 +57,6 @@
       <% end %>
     </div>
 
-  <% else %>
-
-    <div class="my-5 d-flex align-items-center justify-content-between">
-      <p class="lead text-muted">Les menus que vous créez seront visibles ici.</p>
-    </div>
-  <% end %>
 </div>
 
 

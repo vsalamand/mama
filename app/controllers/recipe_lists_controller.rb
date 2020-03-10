@@ -1,10 +1,11 @@
 class RecipeListsController < ApplicationController
-  # before_action :authenticate_admin!
   skip_before_action :authenticate_user!
+  before_action :authenticate_admin!, only: [:index ]
 
   def index
-    # @recipe_lists = RecipeList.where(recipe_list_type: "curated")
-    @recipe_lists = current_user.recipe_lists.where(status: "saved")
+    @recipe_lists = RecipeList.where(recipe_list_type: "curated")
+    @recipe_list = RecipeList.new
+    # @recipe_lists = current_user.recipe_lists.where(status: "saved")
   end
 
   def show
@@ -22,7 +23,8 @@ class RecipeListsController < ApplicationController
   def create
     @recipe_list = RecipeList.new(recipe_list_params)
     if @recipe_list.save
-      redirect_to explore_recipe_list_path(@recipe_list)
+      redirect_to recipe_lists_path if @recipe_list.recipe_list_type == "curated"
+      redirect_to explore_recipe_list_path(@recipe_list) if @recipe_list.recipe_list_type == "personal"
     else
       redirect_to new_recipe_list_path
     end
@@ -41,12 +43,7 @@ class RecipeListsController < ApplicationController
 
   def explore
     @recipe_list = RecipeList.find(params[:id])
-    @recipes = Recipe.where(status:'published')
-                      .order(created_at: :desc)
-                      .limit(780)
-                      .shuffle[0..9]
-                      # .where(id: [1406..1577])
-                      # .paginate(:page => params[:page], :per_page => 10)
+    @categories = Recommendation.where(is_active: true).last
   end
 
   def search
@@ -59,7 +56,12 @@ class RecipeListsController < ApplicationController
       format.html
       format.js
     end
+  end
 
+  def category
+    @recipe_list = RecipeList.find(params[:id])
+    @category = RecommendationItem.find(params[:recommendation_item_id])
+    @recipes = @category.recipe_list.recipes
   end
 
   def add_recipe
@@ -71,7 +73,8 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
     @recipe_list.destroy
     flash[:notice] = 'Le menu a été supprimé.'
-    redirect_to root_path
+    redirect_to root_path if @recipe_list.recipe_list_type == "personal"
+    redirect_to recipe_lists_path if @recipe_list.recipe_list_type == "curated"
   end
 
   def add_to_list
