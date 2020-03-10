@@ -135,6 +135,7 @@ Rails.application.routes.draw do
       get :fetch_recipes
       get :get_size
       get :search
+      get :category
     end
   end
 

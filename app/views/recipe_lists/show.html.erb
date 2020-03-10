@@ -1,6 +1,6 @@
 
 <div class="container d-flex justify-content-between my-2">
-  <% if @recipe_list.user == current_user %>
+  <% if @recipe_list.user == current_user || @recipe_list.recipe_list_type == "curated"%>
     <!-- dropdown button -->
     <div class="btn-group">
       <button type="button" class="m-2 btn btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
@@ -16,8 +16,11 @@
     </div>
   <% end %>
 
-
-  <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+  <% if @recipe_list.recipe_list_type == "personal" %>
+    <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+  <% elsif @recipe_list.recipe_list_type == "curated" %>
+    <%= link_to 'Fermer', recipe_lists_path, class:"btn close m-2 px-0" %>
+  <% end %>
 </div>
 
           <!-- Edit Recipe List Modal -->

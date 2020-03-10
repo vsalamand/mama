@@ -4,4 +4,15 @@ class RecommendationItem < ApplicationRecord
 
   accepts_nested_attributes_for :recipe_list
 
+  # add name from recipe list
+  after_create do
+    if self.name.blank?
+      self.get_name
+    end
+  end
+
+  def get_name
+    self.name = self.recipe_list.name
+    self.save
+  end
 end

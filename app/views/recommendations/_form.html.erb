@@ -1,11 +1,14 @@
 
   <%= simple_form_for @recommendation do |f| %>
+    <div class="p-3 bg-white">
+
     <%= f.input :name, placeholder: "Write a catchy title !" %>
     <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username %>
     <%= f.input :date, as: :datetime %>
     <%= f.input :description, type: "What's interesting in here ?", as: :text %>
     <%= f.input :image_url, placeholder: "Insert an image url" %>
     <%= f.input :link, placeholder: "Insert link url" %>
+    </div>
 
     <h3>Recipe lists:</h3>
 
@@ -14,5 +17,3 @@
 
     <%= f.submit "Validate", class: "form-control btn-primary" %>
   <% end %>
-
-
