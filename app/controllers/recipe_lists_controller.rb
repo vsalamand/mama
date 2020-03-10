@@ -37,8 +37,9 @@ class RecipeListsController < ApplicationController
   def update
     @recipe_list = RecipeList.find(params[:id])
     @recipe_list.update(recipe_list_params)
-    @recipe_list.get_description
-    redirect_to recipe_list_path(@recipe_list)
+    # @recipe_list.get_description
+    redirect_to recipe_list_path(@recipe_list) if @recipe_list.recipe_list_type == "personal"
+    redirect_to recipe_lists_path if @recipe_list.recipe_list_type == "curated"
   end
 
   def explore
@@ -61,7 +62,7 @@ class RecipeListsController < ApplicationController
   def category
     @recipe_list = RecipeList.find(params[:id])
     @category = RecommendationItem.find(params[:recommendation_item_id])
-    @recipes = @category.recipe_list.recipes
+    @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
   end
 
   def add_recipe

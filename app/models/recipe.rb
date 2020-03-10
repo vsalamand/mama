@@ -131,9 +131,14 @@ class Recipe < ApplicationRecord
 
         begin
           if recipe.save
-            recipe.upload_to_cloudinary
-            Item.add_recipe_items(recipe)
-            puts "#{recipe.title}"
+            begin
+              recipe.upload_to_cloudinary
+              Item.add_recipe_items(recipe)
+              puts "#{recipe.title}"
+            rescue
+              unvalid_recipes << data
+              recipe.destroy
+            end
           else
             unvalid_recipes << data
           end
