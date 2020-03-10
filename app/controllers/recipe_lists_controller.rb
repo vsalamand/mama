@@ -37,8 +37,9 @@ class RecipeListsController < ApplicationController
   def update
     @recipe_list = RecipeList.find(params[:id])
     @recipe_list.update(recipe_list_params)
-    @recipe_list.get_description
-    redirect_to recipe_list_path(@recipe_list)
+    # @recipe_list.get_description
+    redirect_to recipe_list_path(@recipe_list) if @recipe_list.recipe_list_type == "personal"
+    redirect_to recipe_lists_path if @recipe_list.recipe_list_type == "curated"
   end
 
   def explore

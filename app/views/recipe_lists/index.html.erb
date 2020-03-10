@@ -19,19 +19,7 @@
       </div>
       <div class="modal-body m-0 p-0">
 
-        <%= simple_form_for @recipe_list do |f| %>
-          <div class="p-3 bg-white">
-            <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"rounded-0 autofocus" } %>
-            <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username, :wrapper_html=> { class: "m-0" }  %>
-            <%= f.input :recipe_list_type, input_html: {value: "curated"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-            <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-            <%= f.collection_select :recipe_ids, Recipe.where(status: "published").order(:created_at).reverse, :id, :title, {}, multiple: true, placeholder: "Select recipe", class: 'form-control select'%>
-          </div>
-          <div class="modal-footer bg-white">
-            <button type="button" class="btn btn-secondary py-2 closeModal" data-dismiss="modal">Annuler</button>
-            <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
-          </div>
-        <% end %>
+        <%= render 'curated_form', recipe_list: @recipe_list %>
 
       </div>
     </div>
@@ -43,21 +31,40 @@
     <div class="row">
       <% @recipe_lists.order(:id).each do |recipe_list| %>
         <div class="col-sm-6 p-1">
-          <%= link_to recipe_list_path(recipe_list), style:"text-decoration: none;" do %>
             <div class="card bg-white shadow border-0" style="height: 120px;">
               <div class="card-body">
                 <h5 class="card-title"><%= recipe_list.name %></h5>
-      <!--           <div class="text-muted giveMeEllipsis">
-                  <span><%= recipe_list.recipes.first(8).map(&:title).join(", ") %></span>
-                </div> -->
+                <button class="font-weight-bold btn btn-outline-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editCuratedRecipeList<%= recipe_list.id %>Modal">modifier</button>
+                <%= link_to 'Voir', recipe_list_path(recipe_list), class:"btn btn-info", target: "_blank" %>
+
               </div>
             </div>
-          <% end %>
         </div>
+
+        <!-- Edit Recipe List Modal -->
+        <div class="modal fade" id="editCuratedRecipeList<%= recipe_list.id %>Modal" tabindex="-1" role="dialog" aria-labelledby="editCuratedRecipeListModal<%= recipe_list.id %>Label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editCuratedRecipeListModal<%= recipe_list.id %>Label">🍔 Modifier catégorie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body m-0 p-0">
+
+                <%= render 'curated_form', recipe_list: recipe_list %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
       <% end %>
     </div>
 
 </div>
-
 
 

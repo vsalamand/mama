@@ -1,0 +1,13 @@
+        <%= simple_form_for recipe_list do |f| %>
+          <div class="p-3 bg-white">
+            <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre menu", input_html: { class:"rounded-0 autofocus" } %>
+            <%= f.collection_select :user_id, User.where(:username => "Mama"), :id, :username, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :recipe_list_type, input_html: {value: "curated"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.collection_select :recipe_ids, Recipe.where(status: "published").order(:title), :id, :title, {}, multiple: true, placeholder: "Select recipe", class: 'form-control select'%>
+          </div>
+          <div class="modal-footer bg-white">
+            <button type="button" class="btn btn-secondary py-2 closeModal" data-dismiss="modal">Annuler</button>
+            <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
+          </div>
+        <% end %>
