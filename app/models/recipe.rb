@@ -116,11 +116,13 @@ class Recipe < ApplicationRecord
           recipe.items.destroy_all if recipe.items.any?
         end
 
-        unless data["recipeInstructions"].empty? || data["recipeInstructions"] == "[nan]"
-          begin
-            recipe.instructions = eval(data["recipeInstructions"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
-          rescue SyntaxError
-            recipe.instructions = data["recipeInstructions"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+        if data["recipeInstructions"]
+          unless data["recipeInstructions"].empty? || data["recipeInstructions"] == "[nan]"
+            begin
+              recipe.instructions = eval(data["recipeInstructions"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+            rescue SyntaxError
+              recipe.instructions = data["recipeInstructions"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+            end
           end
         end
 
@@ -137,7 +139,7 @@ class Recipe < ApplicationRecord
               puts "#{recipe.title}"
             rescue
               unvalid_recipes << data
-              recipe.destroy
+              recipe.dismiss
             end
           else
             unvalid_recipes << data
