@@ -1,10 +1,16 @@
 <% if recipes.size > 0 %>
-  <% recipes.each do |recipe| %>
-    <%= render 'recipes/recipe_card', recipe: recipe, recipe_list: @recipe_list %>
-  <% end %>
+
+  <div class="container py-3 bg-faded">
+    <div class="card-columns">
+      <% recipes.each do |recipe| %>
+        <%= render 'recipes/recipe_card', recipe: recipe, recipe_list: @recipe_list %>
+      <% end %>
+    </div>
+  </div>
+
 <% else %>
   <div class="list-group-item border-0">
-    <div class="d-flex align-items-center justify-content-start">
+    <div class="d-flex align-items-center justify-content-center">
       <div id="description">
         <div class="d-flex w-100 flex-column mb-0">
           <h5 class="mb-0 text-muted">Aucun résultat...</h5>

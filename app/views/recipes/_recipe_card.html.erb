@@ -1,24 +1,19 @@
-  <li class="media p-2" id="recipeCard<%= recipe.id %>">
-    <div class="media-body">
-      <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-        <p class="card-text mb-0"><small class="text-muted"><%= URI("#{recipe.link }").host %></small></p>
-        <h5 class="card-title text-primary mb-2"><%= recipe.title %></h5>
-      <% end %>
-      <div class="d-flex mb-3">
-        <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-          <%= cl_image_tag("#{recipe.id}", :width=>120, :fetch_format=>:auto, :quality=>"auto:low") %>
-        <% end %>
-
-        <div class=" py-1">
-          <p class="text-body px-3 giveMeEllipsis4"><%= recipe.items.order(:id).map{|f| f.name.capitalize}.join(", ") %></p>
-          <% unless recipe_list.recipes.include?(recipe) %>
-            <button type="button" class="btn btn-link font-weight-bold text-secondary border ml-3" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>">Ajouter au menu</button>
-            <% else %>
-            <button type="button" class="btn btn-link text-success border disabled ml-3">Ajouté !</button>
-          <% end %>
-        </div>
-      </div>
+<div class="card border-0 shadow-sm" id="recipeCard<%= recipe.id %>" style="break-inside: avoid;">
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+    <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>300, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid") %>
+    <div class="card-body p-2" style="height:6rem;">
+      <h5 class="card-title text-primary mb-0" style="font-size: 0.9rem;"><%= recipe.title %></h5>
+      <p class="card-text"><small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link }").host %></small></p>
     </div>
-  </li>
+  <% end %>
+  <div class="card-body text-center py-3 px-0">
+    <% unless recipe_list.recipes.include?(recipe) %>
+    <a href="#" class="card-link font-weight-bold border p-2 rounded" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>" style="font-size: 0.8rem;">Ajouter</a>
+    <% else %>
+    <a class="text-muted disabled card-link font-weight-bold p-2 rounded" style="font-size: 0.8rem;">Ajouté !</a>
+    <% end %>
+  </div>
+</div>
+
 
 

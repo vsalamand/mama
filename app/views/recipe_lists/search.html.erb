@@ -19,12 +19,8 @@
 </div>
 
 <div class="container my-4 px-0" id="searchRecipes" data="<%= @recipe_list.id %>">
-  <div class="">
-    <div class="col-md-8">
-      <ul class="list-unstyled recipesGrid">
-        <%= render 'recipe_lists/cards_grid', recipes: @recipes %>
-      </ul>
-    </div>
+  <div class="recipesGrid">
+    <%= render 'recipe_lists/cards_grid', recipes: @recipes %>
   </div>
 </div>
 

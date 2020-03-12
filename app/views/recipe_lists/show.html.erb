@@ -45,11 +45,10 @@
 </div>
 
 
+
 <div class="container px-0" id="recipe_list" data="<%= @recipe_list.id %>">
-  <div class="">
-    <div class="col-md-8">
-      <%= render "content", recipe_list: @recipe_list %>
-    </div>
+  <div class="recipesGrid">
+    <%= render 'content', recipe_list: @recipe_list %>
   </div>
 </div>
 
