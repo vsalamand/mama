@@ -1,4 +1,4 @@
-<div class="card border-0 shadow-sm" id="recipeCard<%= recipe.id %>" style="break-inside: avoid;">
+<div class="card" id="recipeCard<%= recipe.id %>" style="break-inside: avoid;">
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
     <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>300, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid") %>
     <div class="card-body p-2" style="height:6rem;">
@@ -8,7 +8,7 @@
   <% end %>
   <div class="card-body text-center py-3 px-0">
     <% unless recipe_list.recipes.include?(recipe) %>
-    <a href="#" class="card-link font-weight-bold border p-2 rounded" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>" style="font-size: 0.8rem;">Ajouter</a>
+    <a class="card-link font-weight-bold border p-2 rounded text-primary" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>" style="font-size: 0.8rem; cursor: pointer;">Ajouter</a>
     <% else %>
     <a class="text-muted disabled card-link font-weight-bold p-2 rounded" style="font-size: 0.8rem;">Ajouté !</a>
     <% end %>

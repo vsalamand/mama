@@ -1,5 +1,5 @@
 
-<div class="card border-0 shadow-sm" id="recipeListItemCard<%= recipe_list_item.id %>" style="break-inside: avoid;">
+<div class="card" id="recipeListItemCard<%= recipe_list_item.id %>" style="break-inside: avoid;">
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
     <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>300, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid") %>
     <div class="card-body p-2" style="height:6rem;">
@@ -8,7 +8,7 @@
     </div>
   <% end %>
   <div class="card-body text-center py-3 px-0">
-    <a href="#" class="text-danger disabled card-link font-weight-bold p-2 border rounded" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>" style="font-size: 0.8rem;">Supprimer</a>
+    <a class="text-danger disabled card-link font-weight-bold p-2 border rounded" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>" style="font-size: 0.8rem; cursor: pointer;">Supprimer</a>
   </div>
 </div>
 

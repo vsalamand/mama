@@ -2,7 +2,7 @@
 <% if recipe_list.recipe_list_items.any? %>
 
   <div class="container py-3 bg-faded" id="recipeListId" data="<%= recipe_list.id %>">
-    <div class="card-columns">
+    <div class="card-columns ">
       <% recipe_list.recipe_list_items.order(:id).each do |recipe_list_item| %>
       <%= render 'recipe_list_items/recipe_list_item_card', recipe_list: recipe_list, recipe_list_item: recipe_list_item, recipe: recipe_list_item.recipe %>
 
