@@ -1,6 +1,6 @@
 <div class="card" id="recipeCard<%= recipe.id %>" style="break-inside: avoid;">
+    <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid") %>
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
-    <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>300, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid") %>
     <div class="card-body p-2" style="height:6rem;">
       <h5 class="card-title text-primary mb-0" style="font-size: 0.9rem;"><%= recipe.title %></h5>
       <p class="card-text"><small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link }").host %></small></p>
