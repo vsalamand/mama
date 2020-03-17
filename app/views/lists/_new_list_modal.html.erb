@@ -23,7 +23,7 @@
           <div class="card rounded-0 border-0" >
             <div class="row no-gutters">
               <div class="card-body">
-                <% if current_user.recipe_lists.last.status == "opened" %>
+                <% if current_user.recipe_lists.any? && current_user.recipe_lists.last.status == "opened" %>
                   <!-- Continue last menu -->
                   <h5>
                   <%= link_to "🍔 Choisir un menu", recipe_list_path(current_user.recipe_lists.last), class:"btn btn-lg btn-flat rounded p-3" %>

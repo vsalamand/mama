@@ -9,7 +9,7 @@
 
   <div class="container my-auto d-flex flex-column justify-content-start align-items-start">
 
-    <% if current_user.recipe_lists.last.status == "opened" %>
+    <% if current_user.recipe_lists.any? && current_user.recipe_lists.last.status == "opened" %>
       <!-- Continue last menu -->
       <h2>
       <%= link_to "Idées recettes", explore_recipe_list_path(current_user.recipe_lists.where(status: "opened").last), class:"h2 font-weight-bold text-white" %>
