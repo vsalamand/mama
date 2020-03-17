@@ -1,4 +1,4 @@
-<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{rand(1..53)}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
+<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{Date.today.strftime("%d").to_i}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
   <%= render 'shared/navbar_white' %>
 
