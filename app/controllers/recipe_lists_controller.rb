@@ -24,7 +24,8 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.new(recipe_list_params)
     if @recipe_list.save
       redirect_to recipe_lists_path if @recipe_list.recipe_list_type == "curated"
-      redirect_to explore_recipe_list_path(@recipe_list) if @recipe_list.recipe_list_type == "personal"
+      redirect_to explore_recipe_list_path(@recipe_list) if @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "opened"
+      redirect_to recipe_list_path(@recipe_list) if @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "saved"
     else
       redirect_to new_recipe_list_path
     end

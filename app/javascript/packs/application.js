@@ -66,6 +66,16 @@ $(document).on('click', '#startGroceriesModal',function() {
   $('.modal').modal('hide');
 });
 
+// close  modal after click
+$(document).on('click', '#createRecipeListModal',function() {
+  $('.modal').modal('hide');
+});
+
+// close  modal after click
+$(document).on('click', '#createListModal',function() {
+  $('.modal').modal('hide');
+});
+
 // // close all modal after click on cross
 $(document).on('click', '.closeModal',function() {
   $('.modal').modal('hide');
