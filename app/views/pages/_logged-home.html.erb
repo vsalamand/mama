@@ -12,7 +12,7 @@
     <% if current_user.recipe_lists.last.status == "opened" %>
       <!-- Continue last menu -->
       <h2>
-      <%= link_to "Idées recettes", recipe_list_path(current_user.recipe_lists.last), class:"h2 font-weight-bold text-white" %>
+      <%= link_to "Idées recettes", explore_recipe_list_path(current_user.recipe_lists.where(status: "opened").last), class:"h2 font-weight-bold text-white" %>
       </h2>
     <% else  %>
       <!-- Create new recipe list / menu -->
