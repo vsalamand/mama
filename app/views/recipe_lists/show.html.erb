@@ -9,11 +9,11 @@
         <% if @recipe_list.status == "saved" %>
           <a class="btn dropdown-item" data-toggle="modal" data-target="#editRecipeListModal">Modifier le titre</a>
         <% elsif @recipe_list.status == "opened" %>
-          <a class="btn dropdown-item" data-toggle="modal" data-target="#editRecipeListModal">Enregistrer</a>
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#editRecipeListModal">Enregistrer ce menu</a>
         <% end %>
 
-          <div class="dropdown-divider"></div>
-            <%= link_to "Supprimer", recipe_list_path(@recipe_list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
+        <div class="dropdown-divider"></div>
+          <%= link_to "Supprimer", recipe_list_path(@recipe_list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
        </div>
     </div>
   <% end %>
