@@ -6,9 +6,11 @@
       <button type="button" class="m-2 btn btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
       <div class="dropdown-menu dropdown-menu-right">
         <!-- Option modal for owner -->
+        <% if @recipe_list.status == "saved" %>
           <a class="btn dropdown-item" data-toggle="modal" data-target="#editRecipeListModal">Modifier le titre</a>
-
-
+        <% elsif @recipe_list.status == "opened" %>
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#editRecipeListModal">Enregistrer</a>
+        <% end %>
 
           <div class="dropdown-divider"></div>
             <%= link_to "Supprimer", recipe_list_path(@recipe_list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
@@ -16,29 +18,51 @@
     </div>
   <% end %>
 
-  <% if @recipe_list.recipe_list_type == "personal" %>
+  <% if @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "opened" %>
+    <a class="btn close m-2 px-0" data-toggle="modal" data-target="#closeRecipeListModal">Fermer</a>
+  <% elsif @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "saved" %>
     <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
   <% elsif @recipe_list.recipe_list_type == "curated" %>
     <%= link_to 'Fermer', recipe_lists_path, class:"btn close m-2 px-0" %>
   <% end %>
 </div>
 
-          <!-- Edit Recipe List Modal -->
-          <div class="modal fade" id="editRecipeListModal" tabindex="-1" role="dialog" aria-labelledby="editRecipeListModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="editListModalLabel">Modifier le titre</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body m-0 p-0">
-                  <%= render 'recipe_lists/form' %>
-                </div>
-              </div>
+  <!-- Close Recipe List Modal -->
+    <div class="modal fade" id="closeRecipeListModal" tabindex="-1" role="dialog" aria-labelledby="closeRecipeListModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="closeRecipeListModalLabel">Souhaitez-vous enregistrer ce menu ?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-0 m-0">
+            <div class="list-group list-group-flush">
+              <%= link_to "Non", root_path, class:"btn list-group-item list-group-item-action" %>
+              <a class="btn list-group-item list-group-item-action text-primary" data-toggle="modal" data-target="#editRecipeListModal">Oui</a>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Edit Recipe List Modal -->
+  <div class="modal fade" id="editRecipeListModal" tabindex="-1" role="dialog" aria-labelledby="editRecipeListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editListModalLabel">Enregistrer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+          <%= render 'recipe_lists/form' %>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <div class="container text-center p-1 mb-4">
   <p class="m-0 lead"><strong class="btn-outline-primary"><%= @recipe_list.name %></strong></p>

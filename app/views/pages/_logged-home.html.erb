@@ -8,10 +8,26 @@
 
 
   <div class="container my-auto d-flex flex-column justify-content-start align-items-start">
-    <!-- Button trigger Start Groceries modal -->
-    <a class="h1 font-weight-bold text-white" style="cursor: pointer;" data-toggle="modal" data-target="#startGroceriesModal">Nouvelles courses</a>
-    <a class="h1 font-weight-bold text-white p-1" style="cursor: pointer;" data-toggle="modal" data-target="#listsModal">Listes</a>
-    <a class="h1 font-weight-bold text-white p-1" style="cursor: pointer;" data-toggle="modal" data-target="#recipeListsModal">Menus</a>
+
+    <% if current_user.recipe_lists.last.status == "opened" %>
+      <!-- Continue last menu -->
+      <h2>
+      <%= link_to "Idées recettes", recipe_list_path(current_user.recipe_lists.last), class:"h2 font-weight-bold text-white" %>
+      </h2>
+    <% else  %>
+      <!-- Create new recipe list / menu -->
+      <%= simple_form_for @recipe_list do |f| %>
+          <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden %>
+          <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden  %>
+          <%= f.input :status, input_html: {value: "opened"}, :as => :hidden %>
+          <%= f.submit "Idées recettes", class:"h2 font-weight-bold text-white p-0 border-0",  style:"background-color: transparent; cursor: pointer;" %>
+      <% end %>
+    <% end %>
+
+
+
+    <a class="h2 font-weight-bold text-white" style="cursor: pointer;" data-toggle="modal" data-target="#recipeListsModal">Menus</a>
+    <a class="h2 font-weight-bold text-white" style="cursor: pointer;" data-toggle="modal" data-target="#listsModal">Listes de courses</a>
   </div>
 
 
@@ -25,12 +41,15 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content bg-white">
         <div class="modal-header">
-          <h5 class="modal-title" id="listsModalLabel">📝 Vos listes enregistrées</h5>
+          <h5 class="modal-title" id="listsModalLabel">📝 Listes de courses</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
+        <div class="card-body">
+          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal" id="openCreateModal">✏️ Nouvelle liste</h5>
+        </div>
+        <div class="modal-body m-0 p-0" style="height: 60vh; overflow-y: auto;">
           <%= render 'lists/index', lists: @lists %>
         </div>
         <div class="modal-footer">
@@ -45,12 +64,15 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content bg-white">
         <div class="modal-header">
-          <h5 class="modal-title" id="recipeListsModalLabel">🍔 Vos menus enregistrés</h5>
+          <h5 class="modal-title" id="recipeListsModalLabel">🍔 Menus enregistrés</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
+        <div class="card-body">
+          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal" id="openCreateModal">✏️ Nouveau menu</h5>
+        </div>
+        <div class="modal-body m-0 p-0" style="height: 60vh; overflow-y: auto;">
           <%= render 'recipe_lists/index', recipe_lists: @recipe_lists %>
         </div>
         <div class="modal-footer">
@@ -59,6 +81,8 @@
       </div>
     </div>
   </div>
+
+
 
   <!-- Carts Modal -->
   <div class="modal fade" id="cartsModal" tabindex="-1" role="dialog" aria-labelledby="cartsModalLabel" aria-hidden="true">
