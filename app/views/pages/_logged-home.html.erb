@@ -20,7 +20,7 @@
           <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden %>
           <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden  %>
           <%= f.input :status, input_html: {value: "opened"}, :as => :hidden %>
-          <%= f.submit "Idées recettes", class:"h2 font-weight-bold text-white" %>
+          <%= f.submit "Idées recettes", class:"h2 font-weight-bold text-white p-0 border-0",  style:"background-color: transparent; cursor: pointer;" %>
       <% end %>
     <% end %>
 
@@ -47,7 +47,7 @@
           </button>
         </div>
         <div class="card-body">
-          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal" id="createListModal">✏️ Nouvelle liste</h5>
+          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal" id="openCreateModal">✏️ Nouvelle liste</h5>
         </div>
         <div class="modal-body m-0 p-0" style="height: 60vh; overflow-y: auto;">
           <%= render 'lists/index', lists: @lists %>
@@ -70,7 +70,7 @@
           </button>
         </div>
         <div class="card-body">
-          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal" id="createRecipeListModal">✏️ Nouveau menu</h5>
+          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal" id="openCreateModal">✏️ Nouveau menu</h5>
         </div>
         <div class="modal-body m-0 p-0" style="height: 60vh; overflow-y: auto;">
           <%= render 'recipe_lists/index', recipe_lists: @recipe_lists %>

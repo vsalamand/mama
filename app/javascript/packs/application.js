@@ -67,12 +67,12 @@ $(document).on('click', '#startGroceriesModal',function() {
 });
 
 // close  modal after click
-$(document).on('click', '#createRecipeListModal',function() {
+$(document).on('click', '#openCreateModal',function() {
   $('.modal').modal('hide');
 });
 
 // close  modal after click
-$(document).on('click', '#createListModal',function() {
+$(document).on('click', '#openCreateModal',function() {
   $('.modal').modal('hide');
 });
 
