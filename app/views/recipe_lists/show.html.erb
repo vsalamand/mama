@@ -39,7 +39,7 @@
           </div>
           <div class="modal-body p-0 m-0">
             <div class="list-group list-group-flush">
-              <%= link_to "Non", root_path, class:"btn list-group-item list-group-item-action" %>
+              <%= link_to "Non", clean_recipe_list_path(@recipe_list), class:"btn list-group-item list-group-item-action text-danger" %>
               <a class="btn list-group-item list-group-item-action text-primary font-weight-bold" data-toggle="modal" data-target="#editRecipeListModal">Oui</a>
             </div>
           </div>

@@ -11,7 +11,10 @@
         <div class="modal-header">
           <h5 class="modal-title" id="addToListModalLabel">🛒 Créer la liste de courses</h5>
         </div>
-        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
+        <div class="modal-body py-2">
+          <p class="lead m-0 p-1">pour <%= recipe_list.recipes.size %> <%= recipe_list.recipes.size > 1 ? "recettes" : "recette" %></p>
+        </div>
+        <div class="modal-body m-0 p-0" style="height: 65vh;overflow-y: auto;">
           <% recipe_list.recipes.each do |recipe| %>
             <div class="card rounded-0">
               <div class="card-header text-primary font-weight-bold d-flex flex-column">
@@ -33,7 +36,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary py-2" data-dismiss="modal">Annuler</button>
-          <button class="btn btn-flat px-5" id="addMenuToListBtn" data="<%= recipe_list.id %>">Continuer</button>
+          <button class="btn btn-flat px-5" id="addMenuToListBtn" data="<%= recipe_list.id %>">Valider</button>
         </div>
       </div>
     </div>
