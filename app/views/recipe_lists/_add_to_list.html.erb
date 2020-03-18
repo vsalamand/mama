@@ -1,8 +1,8 @@
-  <div class="container fixed-bottom d-flex justify-content-between px-1">
-    <%= link_to "Parcourir les recettes", explore_recipe_list_path, class:"btn btn-primary btn-sm btn-block m-1 py-3 font-weight-bold", style:"font-size: 0.8rem;" %>
+<div class="container fixed-bottom d-flex justify-content-between p-1">
+    <%= link_to "Parcourir les recettes", explore_recipe_list_path, class:"btn btn-primary btn-block m-1 py-3 px-5 font-weight-bold", style:"font-size: 0.8rem; white-space: normal;" %>
     <!-- Button trigger Add to List modal -->
-    <a class="btn btn-sm btn-block btn-flat m-1 py-3 font-weight-bold" id="addToListBtn" data-toggle="modal" data-target="#addToListModal" style="font-size:0.8rem;">Liste de courses</a>
-  </div>
+    <a class="btn btn-flat my-1 mx-0 py-3 px-0 text-wrap font-weight-bold" id="addToListBtn" data-toggle="modal" data-target="#addToListModal" style="font-size:0.8rem; min-width: 30%; white-space: normal;">Créer la liste de courses</a>
+</div>
 
   <!-- Add to list Modal -->
   <div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">
@@ -12,7 +12,7 @@
           <h5 class="modal-title" id="addToListModalLabel">🛒 Créer la liste de courses</h5>
         </div>
         <div class="modal-body py-2">
-          <p class="lead m-0 p-1">pour <%= recipe_list.recipes.size %> <%= recipe_list.recipes.size > 1 ? "recettes" : "recette" %></p>
+          <p class="m-0 p-1 text-muted"><u>pour <%= recipe_list.recipes.size %> <%= recipe_list.recipes.size > 1 ? "recettes:" : "recette:" %></u></p>
         </div>
         <div class="modal-body m-0 p-0" style="height: 65vh;overflow-y: auto;">
           <% recipe_list.recipes.each do |recipe| %>
@@ -36,7 +36,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary py-2" data-dismiss="modal">Annuler</button>
-          <button class="btn btn-flat px-5" id="addMenuToListBtn" data="<%= recipe_list.id %>">Valider</button>
+          <button class="btn btn-flat px-4" id="addMenuToListBtn" data="<%= recipe_list.id %>">Valider et créer</button>
         </div>
       </div>
     </div>

@@ -81,7 +81,7 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
     @recipe_list.is_saved
 
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses - #{@recipe_list.name}", user: current_user, status: "opened") if @list.nil?
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "#{@recipe_list.name}", user: current_user, status: "opened") if @list.nil?
     items = params[:items]
 
     ListItem.add_menu_to_list(items, @list)

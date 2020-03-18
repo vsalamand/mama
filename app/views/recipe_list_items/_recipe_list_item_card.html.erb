@@ -7,10 +7,41 @@
       <p class="card-text"><small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link }").host %></small></p>
     </div>
   <% end %>
-  <div class="card-body text-center py-3 px-0">
-    <a class="text-danger disabled card-link font-weight-bold p-2 border rounded" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>" style="font-size: 0.8rem; cursor: pointer;">Retirer</a>
+  <div class="card-body text-center p-0 d-flex flex-column">
+    <a class="text-danger disabled card-link font-weight-bold p-2 border rounded-0" id="removeFromMenuBtn" data="<%= recipe_list_item.id %>" data-container="<%= recipe_list.id %>" style="font-size: 0.8rem; cursor: pointer;">Retirer</a>
+    <a class="card-link font-weight-bold border p-2 text-primary m-0 rounded-0" data-toggle="modal" data-target="#getListModal<%= recipe.id %>" style="font-size:0.8rem; cursor: pointer;">Liste de courses</a>
   </div>
 </div>
 
-
-
+  <!-- Add to list Modal -->
+  <div class="modal fade" id="getListModal<%= recipe.id %>" tabindex="-1" role="dialog" aria-labelledby="getListModal<%= recipe.id %>Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content bg-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="getListModal<%= recipe.id %>Label">🛒 Créer la liste de courses</h5>
+        </div>
+        <div class="modal-body m-0 p-0" style="height: 65vh;overflow-y: auto;">
+            <div class="card rounded-0">
+              <div class="card-header text-primary font-weight-bold d-flex flex-column">
+                <span><%= recipe.title %></span>
+                <small class="text-success">Quantités pour <%= recipe.servings %></small>
+              </div>
+              <ul class="list-group list-group-flush">
+                <% recipe.items.order(:id).each do |item| %>
+                  <li id="item<%= item.id %>" class="list-group-item">
+                    <span class="recipeItem<%= recipe.id %>"><%= item.name %></span>
+                    <button type="button" class="close removeItemBtn" data="<%= item.id %>">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary py-2" data-dismiss="modal">Annuler</button>
+          <button class="btn btn-flat px-4" id="addRecipeToListBtn" data="<%= recipe.id %>">Valider et créer</button>
+        </div>
+      </div>
+    </div>
+  </div>

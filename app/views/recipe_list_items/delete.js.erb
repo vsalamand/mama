@@ -1,1 +1,8 @@
-document.querySelector("#recipeListItemCard<%= @recipe_list_item.id %>").remove();
+if(document.getElementById("recipeCard<%= @recipe.id %>")){
+        // update card in explore or search
+          var card = document.getElementById("recipeCard<%= @recipe.id %>");
+          $(card).replaceWith("<%= j render 'recipes/recipe_card', recipe: @recipe, recipe_list: @recipe_list %>");
+        } else {
+        // remove card in menu
+          document.querySelector("#recipeListItemCard<%= @recipe_list_item.id %>").remove();
+        }

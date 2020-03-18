@@ -63,4 +63,8 @@ class RecipeList < ApplicationRecord
       self.recipe_list_items.destroy_all
     end
   end
+
+  def get_recipe_list_item_id(recipe_id)
+    return RecipeListItem.find_by(recipe_id: recipe_id, recipe_list_id: self.id).id
+  end
 end

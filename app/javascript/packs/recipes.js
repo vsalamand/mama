@@ -8,3 +8,38 @@ import 'bootstrap';
 //   const modal = "#addToListModal" + recipeId
 //   $(modal).modal('show');
 // });
+//  Add recipe items to list
+$(document).on("click" , "#addRecipeToListBtn", function(event) {
+
+   // disable button
+  $(this).prop("disabled", true);
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
+
+  // get items in list
+  const recipeId = this.getAttribute('data');
+  const recipeClass = ".recipeItem" + recipeId
+
+  const items = []
+  $(document.querySelectorAll(recipeClass)).map(function() {
+                   items.push($(this).text());
+                })
+
+  addRecipeToList(items, recipeId);
+
+});
+
+function addRecipeToList(items, recipeId) {
+  // query suggested items
+  $.ajax({
+    url: "/recipes/" + recipeId + "/add_to_list",
+    cache: false,
+    data: {
+        items: items
+        },
+    success: function(){
+    }
+  });
+}

@@ -40,6 +40,8 @@ function removeFromMenu(recipeListId, recipeListItemId) {
     cache: false,
     type: 'DELETE',
     success: function(){
+      // update CTA
+      getGoToMenuBtn();
     }
   });
 }
@@ -63,11 +65,11 @@ $(document).on("click" , "#addMenuToListBtn", function(event) {
 
   const recipeListId = this.getAttribute('data');
 
-  addToList(items, recipeListId);
+  addMenuToList(items, recipeListId);
 
 });
 
-function addToList(items, recipeListId) {
+function addMenuToList(items, recipeListId) {
   // query suggested items
   $.ajax({
     url: "/recipe_lists/" + recipeListId + "/add_to_list",
@@ -79,6 +81,8 @@ function addToList(items, recipeListId) {
     }
   });
 }
+
+
 
 
 
