@@ -57,7 +57,7 @@ class PagesController < ApplicationController
 
   def verify_items
     @list_items = Item.all.list_items_to_validate
-    @recipe_items = Item.all.recipe_items_to_validate
+    @recipe_items = Item.all.recipe_items_to_validate[0..500]
   end
 
   def duplicated_list_items
