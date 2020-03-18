@@ -1,7 +1,6 @@
 require 'open-uri'
 require 'hangry'
 
-# REFACTO TO DO...
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
@@ -105,15 +104,13 @@ class RecipesController < ApplicationController
 
   def add_to_list
     @recipe = Recipe.find(params[:id])
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user) if @list.nil?
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user, status: "opened") if @list.nil?
 
-    @recipe.items.each do |item|
-      ListItem.add_to_list(item.name, @list)
-    end
+    items = params[:items]
 
-    respond_to do |format|
-      format.js { flash.now[:notice] = "La liste a été ajoutée !" }
-    end
+    ListItem.add_menu_to_list(items, @list)
+
+    render 'add_to_list.js.erb'
   end
 
   def fetch_suggested_recipes
