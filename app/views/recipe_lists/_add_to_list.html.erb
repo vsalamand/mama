@@ -1,8 +1,8 @@
-  <div class="container fixed-bottom d-flex justify-content-between px-1">
-    <%= link_to "Parcourir les recettes", explore_recipe_list_path, class:"btn btn-primary btn-sm btn-block m-1 py-3 font-weight-bold", style:"font-size: 0.8rem;" %>
+<div class="container fixed-bottom d-flex justify-content-between p-1">
+    <%= link_to "Parcourir les recettes", explore_recipe_list_path, class:"btn btn-primary btn-block m-1 py-3 px-5 font-weight-bold", style:"font-size: 0.8rem; white-space: normal;" %>
     <!-- Button trigger Add to List modal -->
-    <a class="btn btn-sm btn-block btn-flat m-1 py-3 font-weight-bold" id="addToListBtn" data-toggle="modal" data-target="#addToListModal" style="font-size:0.8rem;">Liste de courses</a>
-  </div>
+    <a class="btn btn-flat my-1 mx-0 py-3 px-0 text-wrap font-weight-bold" id="addToListBtn" data-toggle="modal" data-target="#addToListModal" style="font-size:0.8rem; min-width: 30%; white-space: normal;">Créer la liste de courses</a>
+</div>
 
   <!-- Add to list Modal -->
   <div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">

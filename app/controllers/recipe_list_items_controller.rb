@@ -3,6 +3,7 @@ class RecipeListItemsController < ApplicationController
   def destroy
     @recipe_list_item = RecipeListItem.find(params[:id])
     @recipe_list = @recipe_list_item.recipe_list
+    @recipe = @recipe_list_item.recipe
 
     @recipe_list_item.destroy
 

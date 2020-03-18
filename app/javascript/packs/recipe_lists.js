@@ -40,6 +40,8 @@ function removeFromMenu(recipeListId, recipeListItemId) {
     cache: false,
     type: 'DELETE',
     success: function(){
+      // update CTA
+      getGoToMenuBtn();
     }
   });
 }
