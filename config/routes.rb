@@ -136,6 +136,7 @@ Rails.application.routes.draw do
       get :get_size
       get :search
       get :category
+      get :clean
     end
   end
 

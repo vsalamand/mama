@@ -1,5 +1,9 @@
 <div class="container d-flex justify-content-end">
-  <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+  <% if @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "opened" %>
+  <%= link_to 'Fermer', clean_recipe_list_path(@recipe_list), class:"btn close m-2 px-0" %>
+  <% elsif @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "saved" %>
+    <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
+  <% end %>
 </div>
 
 

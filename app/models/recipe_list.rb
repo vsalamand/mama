@@ -58,5 +58,9 @@ class RecipeList < ApplicationRecord
     return latest_curated_recipes.flatten.uniq.reverse
   end
 
-
+  def clean
+    if self.recipe_list_items.any? && self.status == "opened"
+      self.recipe_list_items.destroy_all
+    end
+  end
 end

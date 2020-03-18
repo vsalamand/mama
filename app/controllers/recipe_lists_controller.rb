@@ -106,6 +106,13 @@ class RecipeListsController < ApplicationController
     render json: @size
   end
 
+  def clean
+    @recipe_list = RecipeList.find(params[:id])
+    @recipe_list.clean
+
+    redirect_to root_path
+  end
+
   private
   def recipe_list_params
     params.require(:recipe_list).permit(:id, :name, :user_id, :diet_id, :description, :status, :tag_list, :recipe_list_type, recipe_ids: [])
