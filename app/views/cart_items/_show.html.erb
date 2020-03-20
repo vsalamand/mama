@@ -6,7 +6,7 @@
           <img src="<%= store_item.image_url %>" height="50" width="50" class="ml-1 mr-1" />
           <div class="product-description text-dark">
             <div class="d-flex w-90 justify-content-between flex-column">
-              <h7 class="mb-0 text-primary"><%= store_item.name %></h7>
+              <h7 class="mb-0 text-primary font-weight-bold"><%= store_item.name %></h7>
               <h7 class="mb-0 font-weight-bold"><%= store_item.get_best_price %>€</h7>
             </div>
 
@@ -17,12 +17,13 @@
           </div>
         </div>
 
+        <button class="btn-primary btn-sm">Changer</button>
 
-          <%= link_to cart_cart_item_path(cart_item.cart, cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
+<!--           <%= link_to cart_cart_item_path(cart_item.cart, cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
             <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
               <span aria-hidden="true" >&times;</span>
             </button>
-          <% end %>
+          <% end %> -->
 <!--
         <%= simple_form_for [@cart, cart_item], remote: true, class: "dropdown" do |f| %>
           <%= f.select :quantity, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], selected: cart_item.quantity %>
@@ -40,24 +41,20 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateProductModal<%= cart_item.id %>Label"><%= cart_item.item.present? ? cart_item.item.name : "Chercher un produit" %></h5>
+        <h5 class="modal-title" id="updateProductModal<%= cart_item.id %>Label"><%= cart_item.item.present? ? cart_item.item.name : cart_item.name %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body m-0 p-0">
-
-        <%= form_tag(cart_cart_item_search_path(cart_item.cart, cart_item), :method => "get", remote: true, authenticity_token: true, id: "search_product#{cart_item.id}", class:"form-inline p-2") do %>
-          <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords#{cart_item.id}", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
-          <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
-              <i class="fas fa-search text-primary"></i>
-          <% end %>
-        <% end %>
+      <div class="modal-body m-0 p-0" style="height: 65vh; overflow-y: auto;">
 
         <div id="cartItemsList<%= cart_item.id %>">
           <%= render 'cart_items/index', cart_item: cart_item, store: store_item.store %>
         </div>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

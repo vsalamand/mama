@@ -42,6 +42,10 @@ class ListItem < ApplicationRecord
     update(is_completed: false)
   end
 
+  def get_item
+    self.items.first
+  end
+
   def self.add_menu_to_list(inputs_list, list)
     new_list_items = []
     new_validated_items = []

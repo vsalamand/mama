@@ -96,6 +96,7 @@ Rails.application.routes.draw do
     get 'accept_invite', to: "lists#accept_invite"
     get :archive
     get :copy
+    get :get_store_carts
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort
@@ -116,6 +117,7 @@ Rails.application.routes.draw do
     post 'share', to: "carts#share"
     post 'special_share', to: "carts#special_share"
     get :fetch_price
+    get :order
     member do
       get 'search', to: "carts#search"
       get :add_to_cart
@@ -159,22 +161,36 @@ Rails.application.routes.draw do
     end
   end
 
-
-
-  resources :stores do
-    resources :store_carts do
-      get 'fetch_price', to: "store_carts#fetch_price"
-      member do
-        get :add_to_cart
-      end
-      resources :store_cart_items do
-        get :search
-        get :fetch_index
-      end
+  resources :store_carts do
+    collection do
+      get :fetch_price
     end
-    get :catalog
-    get :cart
+    member do
+      get :add_to_cart
+      get :search
+    end
+    resources :store_cart_items do
+      get :search
+      get :fetch_index
+    end
   end
+
+  resources :orders
+
+  # resources :stores do
+  #   resources :store_carts do
+  #     get 'fetch_price', to: "store_carts#fetch_price"
+  #     member do
+  #       get :add_to_cart
+  #     end
+  #     resources :store_cart_items do
+  #       get :search
+  #       get :fetch_index
+  #     end
+  #   end
+  #   get :catalog
+  #   get :cart
+  # end
 
   resources :food_lists do
     member do

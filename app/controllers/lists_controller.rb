@@ -44,7 +44,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
-    @uncomplete_list_items = @list.list_items.not_completed.map{ |list_item| list_item.items.first}
+    @uncomplete_list_items = @list.get_items_to_buy
     @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
     @curator_lists = User.find_by_email("mama@clubmama.co").lists
     @collaboration = Collaboration.new
@@ -63,6 +63,12 @@ class ListsController < ApplicationController
     render 'fetch_price.js.erb'
   end
 
+  def get_store_carts
+    @list = List.find(params[:list_id])
+    @list.get_store_carts
+    redirect_to store_carts_path(:list_id => @list.id)
+  end
+
   # def fetch_recipes
   #   @list = List.find(params[:list_id])
   #   @list_item = ListItem.new
@@ -70,12 +76,12 @@ class ListsController < ApplicationController
   #   render 'fetch_recipes.js.erb'
   # end
 
-  def get_cart
-    @list = List.find(params[:list_id])
-    user = current_user
-    Cart.get_carts(@list, user)
-    redirect_to carts_path
-  end
+  # def get_cart
+  #   @list = List.find(params[:list_id])
+  #   user = current_user
+  #   Cart.get_carts(@list, user)
+  #   redirect_to carts_path
+  # end
 
   def share
     list = List.find(params[:list_id])

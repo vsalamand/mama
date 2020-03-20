@@ -1,7 +1,10 @@
-<div class="container d-flex justify-content-center">
+<%= link_to cart_order_path(@cart) do %>
   <!-- Button trigger Select Order modal -->
-  <a class="btn btn-flat m-2" data-toggle="modal" data-target="#orderModal">Valider le panier à <span id="cartCostCounter" class="font-weight-bold"><%= price %></span>€</a>
-</div>
+  <div class="d-flex justify-content-end align-items-center btn fixed-bottom btn-large btn-flat m-2 font-weight-bold">
+    <div id="cartCostCounter" class="h3 m-0 px-5"><%= price %>€</div>
+    <div class="border font-weight-bold btn-outline-flat m-0 px-3">Valider le panier</div>
+  </div>
+<% end %>
 
 <!-- Select Order Modal -->
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">

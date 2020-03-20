@@ -1,1 +1,1 @@
-document.getElementById('storeCartPrice').innerHTML = ("<%= j render 'store_carts/get_price', store_cart: @store_cart, price: @price, store_cart_items: @store_cart_items, carts: @carts %>");
+document.getElementById('storeCarts').innerHTML = ("<%= j render 'store_carts/available_stores', store_carts: @store_carts, list: @list %>");

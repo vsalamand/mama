@@ -1,9 +1,10 @@
 class StoreCart < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :store
-  belongs_to :list, optional: true
+  belongs_to :list
   belongs_to :recipe, optional: true
   has_many :store_cart_items, dependent: :destroy
+
 
   def clean_store_cart
     if self.store_cart_items.any?
@@ -16,6 +17,7 @@ class StoreCart < ApplicationRecord
     self.clean_store_cart
 
     data = []
+
     # for each item in list, get related products per store, sort by price, return cheapest product and create a new item in store cart
     items.each do |item|
       unless item.nil?
@@ -35,6 +37,7 @@ class StoreCart < ApplicationRecord
   end
 
   def add_to_cart(cart)
+    cart.clean_cart
     self.store_cart_items.each do |store_cart_item|
       cart.add_product(store_cart_item.store_item, store_cart_item.item)
     end
@@ -43,5 +46,10 @@ class StoreCart < ApplicationRecord
 
   def self.get_store_cart_price(store_cart_items)
     store_cart_items.reject{ |sci| sci.store_item.nil?}.map{ |store_cart_item| store_cart_item.store_item.price }.inject(:+).round(2)
+  end
+
+  def get_price
+    price = self.store_cart_items.reject{ |sci| sci.store_item.nil?}.map{ |store_cart_item| store_cart_item.store_item.price }.inject(:+)
+    return price ? price.round(2) : 0
   end
 end

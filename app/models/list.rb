@@ -148,4 +148,17 @@ class List < ApplicationRecord
     top_foods = result - List.get_seasonings.pluck(:name).map{|x| x.downcase} - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
     return top_foods
   end
+
+  def get_items_to_buy
+    self.list_items.not_completed.map{ |list_item| list_item.get_item }
+  end
+
+  def get_store_carts
+    items = self.get_items_to_buy
+    Store.all.each do |store|
+      store_cart = StoreCart.find_or_create_by(store_id: store.id, list_id: self.id)
+      store_cart.update_store_cart_items(items) if store_cart.store_cart_items.map{ |sci| sci.item} != items
+    end
+    return self.store_carts
+  end
 end

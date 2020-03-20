@@ -1,0 +1,19 @@
+
+<div class="container d-flex justify-content-between pl-0" id="indexStoreCart" data="<%= @list.id %>">
+   <%= link_to 'Retour', list_path(@list), class:"btn close m-2" %>
+</div>
+
+ <div class="d-flex flex-column align-items-center justify-content-center p-1">
+    <p class="m-1 lead text-primary font-weight-bold"><%= @list.name %></p>
+    <h3 class="text-muted font-weight-bold d-flex text-center mb-0">Paniers de courses</h3>
+    <small class="text-muted font-italic d-flex justify-content-center text-center px-4 ">Prix indicatifs calculés à partir des données du site de l'enseigne.</small>
+ </div>
+
+<div id="storeCarts">
+</div>
+
+<div class="d-flex flex-column align-items-center justify-content-center mt-5">
+  <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary mb-1"></i>
+  <small id="modalSpinner" class="text-muted">Calcul des prix en cours...</small>
+</div>
+
