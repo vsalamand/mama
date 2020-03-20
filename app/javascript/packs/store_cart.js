@@ -40,15 +40,44 @@ $(document).on('click', '.selectBtn',function() {
 $(document).on('click', '.StoreCartItemShow', function(e) {
   const storeItemId = this.getAttribute('data2');
   const updateModal = "#updateProductModal" + storeItemId
-  const storeId = document.querySelector("#storeId").getAttribute('data');
   const storeCartId = document.querySelector("#storeCartShow").getAttribute('data');
   const storeCartItemId = this.getAttribute('data');
 
+  var modalSpinner = document.querySelectorAll('#modalSpinner');
+  $(modalSpinner).show();
+
   $.ajax({
-    url: "/stores/" + storeId + "/store_carts/" + storeCartId + "/store_cart_items/" + storeCartItemId + "/fetch_index",
+    url: "/store_carts/" + storeCartId + "/store_cart_items/" + storeCartItemId + "/fetch_index",
     cache: false,
     success: function(){
+      $(modalSpinner).hide();
     }
   });
 });
 
+
+$(document).on("turbolinks:load", function(event) {
+  getCartsPrice();
+})
+
+
+function getCartsPrice() {
+  if(document.querySelector("#indexStoreCart")){
+    const id = document.querySelector("#indexStoreCart").getAttribute('data');
+    var storeCarts = document.getElementById('storeCarts');
+    var modalSpinner = document.querySelectorAll('#modalSpinner');
+
+    $(storeCarts).hide();
+    $(modalSpinner).show();
+
+    $.ajax({
+      url: "/store_carts/fetch_price?list_id=" + id,
+      cache: false,
+      success: function(){
+        $(storeCarts).show();
+        $(modalSpinner).hide();
+      }
+    });
+
+  }
+}

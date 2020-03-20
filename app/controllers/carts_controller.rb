@@ -70,6 +70,12 @@ class CartsController < ApplicationController
     redirect_to root_path
   end
 
+  def order
+    @cart = Cart.find(params[:cart_id])
+    @order = Order.find_or_create_by(user_id: current_user.id, cart_id: @cart.id)
+    redirect_to order_path(@order)
+  end
+
   private
   def cart_params
     params.require(:cart).permit(:cart_id, :user_id, :merchant_id)

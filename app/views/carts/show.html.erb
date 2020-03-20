@@ -17,35 +17,9 @@
     </div>
 
 
-    <a class="btn close m-2 px-0" data-toggle="modal" data-target="#closeCartModal">Fermer</a>
+    <%= link_to "Fermer", root_path, data: { confirm: 'Le contenu du panier sera perdu si vous continuez.' }, class:"btn close m-2 px-0" %>
 </div>
 
-  <!-- Close Cart Modal -->
-    <div class="modal fade" id="closeCartModal" tabindex="-1" role="dialog" aria-labelledby="closeCartModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="closeCartModalLabel">Que voulez-faire de ce panier de courses ?</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body p-0 m-0">
-
-            <div class="list-group list-group-flush">
-
-              <%= link_to "❌ Supprimer", cart_path(@cart), method: :delete,  data: { confirm: 'Êtes-vous sûr.e ?' }, class:"btn list-group-item list-group-item-action text-danger" %>
-
-
-              <%= link_to "📥 Enregistrer", root_path, class:"btn list-group-item list-group-item-action text-primary" %>
-
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
 
   <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
@@ -101,8 +75,7 @@
 
 
 <div class="d-flex flex-column align-items-center justify-content-center p-1 mb-0">
-  <p class="m-0 lead">Complétez vos courses chez <strong class="btn-outline-primary"><%= @cart.merchant.name %></strong></p>
-  <h3 class="mb-0 text-muted font-weight-bold d-flex text-center">Sélectionnez un produit pour le changer</h3>
+  <p class="m-0 lead">Votre panier <strong class="btn-outline-primary font-weight-bold"><%= @cart.merchant.name %></strong></p>
 </div>
 
 
@@ -111,10 +84,12 @@
 </div>
 
 
-<div id="cartPrice" data="<%= @cart.id %>">
-</div>
 
 <div style="padding: 50px;"></div>
+
+
+<div class="container" id="cartPrice" data="<%= @cart.id %>">
+</div>
 
 
 

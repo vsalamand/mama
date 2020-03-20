@@ -1,4 +1,8 @@
 
+<% if cart.user == current_user %>
+   <%= render "cart_items/form", cart: cart %>
+<% end %>
+
 <div class="shadow p-0 my-3 bg-white rounded">
 
   <div class="list-group list-group-flush" id="cart_items">
@@ -11,7 +15,4 @@
 
 </div>
 
-<% if cart.user == current_user %>
-   <%= render "cart_items/form", cart: cart %>
-<% end %>
 

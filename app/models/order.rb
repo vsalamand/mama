@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :cart, optional: true
-  validates :order_type, :user, presence: :true
+  validates :user, presence: :true
   has_many :cart_items, dependent: :destroy
   has_many :recipes, :through => :cart_items, :source => :productable, :source_type => 'Recipe'
   has_many :foods, :through => :recipes

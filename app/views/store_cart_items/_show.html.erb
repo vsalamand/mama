@@ -15,7 +15,7 @@
             </div>
           </div>
 
-          <%= link_to store_store_cart_store_cart_item_path(store_cart_item.store_cart.store, store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
+          <%= link_to store_cart_store_cart_item_path(store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
             <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
               <span aria-hidden="true" >&times;</span>
             </button>
@@ -46,11 +46,13 @@
             </div>
           </div>
 
-          <%= link_to store_store_cart_store_cart_item_path(store_cart_item.store_cart.store, store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
+        <button class="btn-primary btn-sm">Changer</button>
+<!--
+          <%= link_to store_cart_store_cart_item_path(store_cart_item.store_cart, store_cart_item), method: :delete, remote: true, class:"deleteBtn" do %>
             <button type="button" class="close ml-2 mr-2 remove-item" aria-label="Close">
               <span aria-hidden="true" >&times;</span>
             </button>
-          <% end %>
+          <% end %> -->
 
         </div>
 
@@ -62,25 +64,24 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateProductModal<%= store_cart_item.store_item.id %>Label"><%= store_cart_item.present? ? store_cart_item.item.name.capitalize : "Chercher un produit" %></h5>
+          <h5 class="modal-title text-dark" id="updateProductModal<%= store_cart_item.store_item.id %>Label"><%= store_cart_item.item.present? ? store_cart_item.item.name.capitalize : "Chercher un produit" %></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body m-0 p-0">
-
-          <%= form_tag(store_store_cart_store_cart_item_search_path(store_cart_item.store_item.store, store_cart_item.store_cart, store_cart_item), :method => "get", remote: true, authenticity_token: true, id: "search_product#{store_cart_item.id}", class:"form-inline p-2") do %>
-            <%= text_field_tag :query, params[:query], placeholder: "Chercher un produit", id: "keywords#{store_cart_item.id}", class: "form-control string required border border-primary rounded-0 border-top-0 border-left-0 border-right-0 my-2 mr-2", style:"width: 90%; height: 3.5rem;" %>
-
-            <%= button_tag(type: "submit", class: "p-0 btn btn-default") do %>
-                <i class="fas fa-search text-primary"></i>
-            <% end %>
-
-          <% end %>
+        <div class="modal-body m-0 p-0" style="height: 65vh; overflow-y: auto;">
 
           <div id="storeCartItemsList<%= store_cart_item.id %>">
           </div>
 
+           <div class="d-flex flex-column align-items-center justify-content-center mt-5">
+            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary mb-1"></i>
+            <small id="modalSpinner" class="text-muted">Calcul des prix en cours...</small>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
         </div>
       </div>
     </div>

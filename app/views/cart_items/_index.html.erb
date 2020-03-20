@@ -1,7 +1,6 @@
 <div id="cartItemsList<%= cart_item.id %>">
   <% if cart_item.item.present?  %>
     <ul class="list-group list-group-flush">
-      <small class="pl-3 text-muted">Produits similaires:</small>
       <% StoreItem.get_results_sorted_by_price(cart_item.item, store).each do |store_item| %>
         <%= render 'cart_items/cart_item_card', store_item: store_item, product: store_item, cart_item: cart_item %>
       <% end %>
@@ -9,7 +8,6 @@
 
   <% elsif cart_item.id.present? && StoreItem.find(cart_item.productable_id).food.present? %>
     <ul class="list-group list-group-flush">
-      <small class="pl-3 text-muted">Produits similaires:</small>
       <% StoreItem.find(cart_item.productable_id).food.store_items.each do |store_item| %>
         <%= render 'cart_items/cart_item_card', store_item: store_item, product: store_item, cart_item: cart_item %>
       <% end %>
