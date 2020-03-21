@@ -167,6 +167,7 @@ Rails.application.routes.draw do
     end
     member do
       get :add_to_cart
+      get :fetch_items
       get :search
     end
     resources :store_cart_items do

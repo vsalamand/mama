@@ -24,9 +24,9 @@ loadSuggestions();
 
 
 // // open modal when click on button
-$(document).on('click', '#loadStoreCartsBtn', function() {
-  $('#loadStoreCartModal').modal('show');
-})
+// $(document).on('click', '#loadStoreCartsBtn', function() {
+//   $('#loadStoreCartModal').modal('show');
+// })
 
 // on modal show, focus on input field
 $('#selectListModal').on('hide.bs.modal', function (e) {

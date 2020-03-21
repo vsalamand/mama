@@ -1,8 +1,10 @@
 class StoreCartsController < ApplicationController
   def show
     @store_cart = StoreCart.find(params[:id])
-    @store_cart_items = @store_cart.store_cart_items
     @list = @store_cart.list
+
+    @store_cart.update_store_cart_items(@list.get_items_to_buy)
+    # @store_cart_items = @store_cart.store_cart_items
   end
 
   def add_to_cart
@@ -28,6 +30,12 @@ class StoreCartsController < ApplicationController
     render 'fetch_price.js.erb'
   end
 
+  def fetch_items
+    @store_cart = StoreCart.find(params[:id])
+    @list = @store_cart.list
+
+    render 'fetch_items.js.erb'
+  end
 
 
   private
