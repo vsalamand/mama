@@ -58,6 +58,7 @@ $(document).on('click', '.StoreCartItemShow', function(e) {
 
 $(document).on("turbolinks:load", function(event) {
   getCartsPrice();
+  getStoreCartItems();
 })
 
 
@@ -81,3 +82,35 @@ function getCartsPrice() {
 
   }
 }
+
+function getStoreCartItems() {
+  if(document.querySelector("#storeCartShow")){
+    const id = document.querySelector("#storeCartShow").getAttribute('data');
+    var content = document.getElementById('storeCartContent');
+    var modalSpinner = document.querySelectorAll('#modalSpinner');
+
+    $(content).hide();
+    $(modalSpinner).show();
+
+    $.ajax({
+      url: "/store_carts/" + id + "/fetch_items",
+      cache: false,
+      success: function(){
+        $(content).show();
+        $(modalSpinner).hide();
+      }
+    });
+
+  }
+}
+
+// // open modal when loading new store cart
+$(document).on('click', '#loadStoreCartBtn', function() {
+  $('#loadStoreCartModal').modal('show');
+  $(modalSpinner).show();
+})
+
+$(document).on('click', '#loadCartBtn', function() {
+  $('#loadCartModal').modal('show');
+  $(modalSpinner).show();
+})

@@ -13,27 +13,31 @@ class StoreCart < ApplicationRecord
   end
 
   def update_store_cart_items(items)
-    # delete all items in store cart
-    self.clean_store_cart
+    if self.store_cart_items.empty?
 
-    data = []
+      # delete all items in store cart
+      self.clean_store_cart
 
-    # for each item in list, get related products per store, sort by price, return cheapest product and create a new item in store cart
-    items.each do |item|
-      unless item.nil?
-        store_item_match = StoreItem.get_results_sorted_by_price(item, self.store).first
+      data = []
 
-        if store_item_match.nil?
-          data << StoreCartItem.create(store_cart_id: self.id, item_id: item.id)
-        else
-          data << StoreCartItem.create(store_cart_id: self.id,
-                           store_item_id: store_item_match.id, item_id: item.id)
+      # for each item in list, get related products per store, sort by price, return cheapest product and create a new item in store cart
+      items.each do |item|
+        unless item.nil?
+          store_item_match = StoreItem.get_results_sorted_by_price(item, self.store).first
+
+          if store_item_match.nil?
+            data << StoreCartItem.create(store_cart_id: self.id, item_id: item.id)
+          else
+            data << StoreCartItem.create(store_cart_id: self.id,
+                             store_item_id: store_item_match.id, item_id: item.id)
+          end
         end
       end
-    end
 
-    self.save
-    return data
+      self.save
+      return data
+
+    end
   end
 
   def add_to_cart(cart)

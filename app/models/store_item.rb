@@ -20,7 +20,13 @@ class StoreItem < ApplicationRecord
 
   def get_quantity
     product = self.product
-    quantity = (product.quantity.to_f == product.quantity) ? product.quantity.to_f.round(3) : product.quantity.round(3)
+
+    if product.quantity
+      quantity = (product.quantity.to_f == product.quantity) ? product.quantity.to_f.round(3) : product.quantity.round(3)
+    else
+      quantity = 1
+    end
+
     return "#{'x' unless product.unit.present?}#{quantity} #{product.unit.name if product.unit.present?}"
   end
 

@@ -4,8 +4,8 @@
 
   <div class="shadow bg-white rounded">
     <div class="list-group list-group-flush mb-2">
-      <% store_carts.sort_by{|store_cart| store_cart.get_price }.each do |store_cart| %>
-        <%= link_to store_cart_path(store_cart), class:"p-1 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start" do %>
+      <% store_carts.sort_by{|store_cart| store_cart.get_price }.reverse.each do |store_cart| %>
+        <%= link_to store_cart_path(store_cart), class:"p-1 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start", id:"loadStoreCartBtn" do %>
 
               <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center justify-content-start">
@@ -15,9 +15,15 @@
                 </div>
                 <div class="d-flex flex-column align-items-center pr-1">
 
-                <button class="btn-primary rounded" style="width: 90px; cursor: pointer;">
-                  <small>Panier à</small> <br><strong><%= sprintf("%.2f",store_cart.get_price) %>€</strong>
-                </button>
+                <% if store_cart.store_cart_items.empty? %>
+                  <button class="btn-primary rounded" style="width: 90px; cursor: pointer;">
+                    <small>Sélection</small><br>1er prix
+                  </button>
+                <% else %>
+                  <button class="btn-outline-primary rounded" style="width: 90px; cursor: pointer;">
+                    <small>Panier à</small> <br><strong><%= sprintf("%.2f",store_cart.get_price) %>€</strong>
+                  </button>
+                <% end %>
 
                 </div>
               </div>

@@ -157,7 +157,7 @@ class List < ApplicationRecord
     items = self.get_items_to_buy
     Store.all.each do |store|
       store_cart = StoreCart.find_or_create_by(store_id: store.id, list_id: self.id)
-      store_cart.update_store_cart_items(items) if store_cart.store_cart_items.map{ |sci| sci.item} != items
+      store_cart.clean_store_cart
     end
     return self.store_carts
   end
