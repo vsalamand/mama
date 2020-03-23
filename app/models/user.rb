@@ -29,31 +29,6 @@ class User < ApplicationRecord
   after_create :send_welcome_email_to_waiting_list_users
 
 
-  def self.get_sender_ids
-    sender_ids = []
-    User.all.order(:id).each { |user| sender_ids << user.sender_id if user.sender_id.present? && user.sender_id.scan(/\D/).empty? }
-    return sender_ids
-  end
-
-  def self.check_or_create_user(sender_id, username)
-    profile = User.find_by(sender_id: sender_id)
-    if profile.nil?
-      profile = User.create(sender_id: sender_id, username: username, email: "#{sender_id}@foodmama.fr")
-      profile.save
-    end
-    return profile
-  end
-
-  def get_menu
-    menu = self.recipe_lists.where(status: "opened").last
-    if menu.nil?
-      menu = RecipeList.create(name: "Menu du #{Date.today.strftime("%d/%m/%Y")}",
-                                user_id: self.id,
-                                recipe_list_type: "personal",
-                                status: "opened")
-    end
-    return menu
-  end
 
 
   private
@@ -63,7 +38,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email_to_waiting_list_users
-    mail = UserMailer.waiting_list(self)
+    mail = UserMailer.welcome(self)
     mail.deliver_now
   end
 

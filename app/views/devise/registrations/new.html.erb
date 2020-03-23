@@ -1,3 +1,6 @@
+  <%= render 'shared/navbar' %>
+
+
 <div class="container">
   <div class="shadow p-2 mt-5 mb-5 bg-white rounded">
       <h2 class="mb-3">Créer un compte</h2>
@@ -16,11 +19,11 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Inscription", class: "btn btn-lg btn-flat mb-3" %>
+          <%= f.button :submit, "S'inscrire", class: "btn btn-flat mb-3" %>
         </div>
       <% end %>
 
-      <%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
 
   </div>
 </div>

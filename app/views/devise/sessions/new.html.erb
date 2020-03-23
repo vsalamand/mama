@@ -1,7 +1,10 @@
+ <%= render 'shared/navbar' %>
+
+
 <div class="container">
   <div class="shadow p-3 mt-5 mb-5 bg-white rounded">
 
-      <h2 class="mb-3">Se connecter</h2>
+      <h2 class="mb-3">Se connecter à Mama</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-inputs">
@@ -17,16 +20,11 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Connexion", class: "btn btn-flat btn-lg mb-3" %>
+          <%= f.button :submit, "Se connecter", class: "btn btn-flat mb-3" %>
         </div>
       <% end %>
 
-      <%= link_to "Mot de passe oublié?", new_password_path(resource_name) %><br />
+    <%= render "devise/shared/links" %>
 
   </div>
 </div>
-
-  <div class="container p-3">
-    <%= link_to "Retour vers la page d'accueil", root_path, class:"btn btn-secondary mt-4" %>
-  </div>
-

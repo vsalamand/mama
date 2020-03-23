@@ -12,10 +12,10 @@ class PagesController < ApplicationController
       @carts = current_user.carts.where.not(merchant: nil)
     end
 
-    # get user to the thank you page if not in beta
-    if user_signed_in? && current_user.beta == false
-      redirect_to thank_you_path
-    end
+    # # get user to the thank you page if not in beta
+    # if user_signed_in? && current_user.beta == false
+    #   redirect_to thank_you_path
+    # end
   end
 
   def thank_you
