@@ -26,8 +26,11 @@ class User < ApplicationRecord
 
 
   after_create :subscribe_to_waiting_list
-  after_create :send_welcome_email_to_waiting_list_users
+  after_create :send_welcome_email
 
+  after_save do
+    send_welcome_email_to_beta_user if self.beta_changed? && self.beta == true
+  end
 
 
 
@@ -37,8 +40,13 @@ class User < ApplicationRecord
     SubscribeToWaitingList.new(self).call
   end
 
-  def send_welcome_email_to_waiting_list_users
+  def send_welcome_email
     mail = UserMailer.welcome(self)
+    mail.deliver_now
+  end
+
+  def send_welcome_email_to_beta_user
+    mail = UserMailer.welcome_beta(self)
     mail.deliver_now
   end
 

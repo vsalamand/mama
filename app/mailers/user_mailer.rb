@@ -11,6 +11,12 @@ class UserMailer < ApplicationMailer
     # This will render a view in `app/views/user_mailer`!
   end
 
+  def welcome_beta(user)
+    @user = user # Instance variable => available in view
+    mail(to: @user.email, subject: 'Bienvenue sur Mama !')
+    # This will render a view in `app/views/user_mailer`!
+  end
+
   def waiting_list(user)
     @user = user # Instance variable => available in view
     mail(to: @user.email, subject: "Merci pour votre inscription !")
