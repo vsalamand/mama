@@ -1,3 +1,18 @@
 // then when click is detected do the following:
 // remove card from grocerylist
 document.querySelector("#updateProduct<%= @cart_item.id %>").remove();
+
+function toggleDropdown(element) {
+  var dropdown = new Dropdown(element);
+  dropdown.toggle();
+}
+
+var dropdown_buttons = document.querySelectorAll('[data-toggle="dropdown"]');
+
+dropdown_buttons.forEach(function(element) {
+  element.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    toggleDropdown(this);
+  });
+});

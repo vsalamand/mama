@@ -121,14 +121,14 @@ const spinner = document.getElementById('spinner');
 
 
 $(document).on("turbolinks:load", function(event) {
-  loadSuggestions();
+  // loadSuggestions();
   setInputForm();
   getPriceBtn();
   // getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
-  loadSuggestions();
+  // loadSuggestions();
   getPriceBtn();
   // getCartsPrice();
 })

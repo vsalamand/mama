@@ -14,3 +14,18 @@ addCartItem('<%= j render "cart_items/show", store_item: StoreItem.find(@cart_it
 $('.modal').modal('hide');
 $(document.body).removeClass('modal-open');
 $('.modal-backdrop').remove();
+
+function toggleDropdown(element) {
+  var dropdown = new Dropdown(element);
+  dropdown.toggle();
+}
+
+var dropdown_buttons = document.querySelectorAll('[data-toggle="dropdown"]');
+
+dropdown_buttons.forEach(function(element) {
+  element.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    toggleDropdown(this);
+  });
+});

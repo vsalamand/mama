@@ -1,7 +1,7 @@
 <div id="storeCartShow" data="<%= @store_cart.id %>">
 
   <div class="container d-flex justify-content-between mb-4 px-0" id="listStoreCart" data="<%= @list.id %>">
-     <%= link_to 'Comparer', store_carts_path(:list_id => @list.id), class:"btn close m-2" %>
+     <%= link_to 'Retour', store_carts_path(:list_id => @list.id), class:"btn close m-2" %>
      <%= link_to 'Quitter', root_path, class:"btn close m-2" %>
   </div>
 
@@ -23,8 +23,10 @@
   <div style="padding: 50px;"></div>
 
 
-  <div class="container">
-     <%= link_to "Continuer vos achats", add_to_cart_store_cart_path( @store_cart), class:"btn fixed-bottom btn-large btn-flat m-2 py-3 mx-5 font-weight-bold", id:"loadCartBtn" %>
+  <div class="container fixed-bottom d-flex justify-content-between p-1">
+     <%= link_to "Comparer le panier", store_carts_path(:list_id => @list.id), class:"btn btn-large btn-block btn-primary m-2 py-3", style:"font-size: 0.8rem; white-space: normal;" %>
+
+     <%= link_to "Continuer", add_to_cart_store_cart_path( @store_cart), class:"btn btn-flat m-2 py-3 ", id:"loadCartBtn", style:"font-size: 0.8rem; white-space: normal;" %>
   </div>
 
 

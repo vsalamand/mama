@@ -51,10 +51,11 @@ function getCartPrice() {
   }
 }
 
+$(document).on('click', '.sizeBtn',function() {
+  setTimeout(getCartPrice,200);
+});
+
 $(document).on('click', '.deleteBtn',function() {
-  $('.modal').modal('hide');
-  $(document.body).removeClass('modal-open');
-  $('.modal-backdrop').remove();
   setTimeout(getCartPrice,200);
 });
 
@@ -64,3 +65,6 @@ $(document).on('click', '.buyBtn',function() {
   $('.modal-backdrop').remove();
   setTimeout(getCartPrice,200);
 });
+
+
+
