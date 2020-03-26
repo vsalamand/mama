@@ -9,6 +9,16 @@ class ApplicationController < ActionController::Base
   #   redirect_to root_path
   # end
 
+  def after_sign_in_path_for(resource)
+    @lists = current_user.lists.saved + current_user.shared_lists
+
+    if @lists.any?
+      return list_path(@lists.first)
+    else
+      return root_path
+    end
+  end
+
 
   protected
 
@@ -39,3 +49,4 @@ class ApplicationController < ActionController::Base
   end
 
 end
+

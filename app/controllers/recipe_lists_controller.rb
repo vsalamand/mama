@@ -10,6 +10,7 @@ class RecipeListsController < ApplicationController
 
   def show
     @recipe_list = RecipeList.find(params[:id])
+    @lists = current_user.lists.saved + current_user.shared_lists
     # @recipe_list.recipe_list_items.build
     # @checklist = Checklist.get_checklist(@recipe_list.foods)
   end
@@ -42,12 +43,15 @@ class RecipeListsController < ApplicationController
   end
 
   def explore
+    @list = List.new
     @recipe_list = RecipeList.find(params[:id])
     @categories = Recommendation.where(is_active: true).last
+    @lists = current_user.lists.saved + current_user.shared_lists
   end
 
   def search
     @recipe_list = RecipeList.find(params[:id])
+    @lists = current_user.lists.saved + current_user.shared_lists
     @query = params[:query].present? ? params[:query] : nil
 
     @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
@@ -61,7 +65,9 @@ class RecipeListsController < ApplicationController
   def category
     @recipe_list = RecipeList.find(params[:id])
     @category = RecommendationItem.find(params[:recommendation_item_id])
+    @categories = Recommendation.where(is_active: true).last
     @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
+    @lists = current_user.lists.saved + current_user.shared_lists
   end
 
   def add_recipe
@@ -81,7 +87,7 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
     @recipe_list.is_saved
 
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "#{@recipe_list.name}", user: current_user, status: "opened") if @list.nil?
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "#{@recipe_list.name}", user: current_user, status: "saved") if @list.nil?
     items = params[:items]
 
     ListItem.add_menu_to_list(items, @list)
