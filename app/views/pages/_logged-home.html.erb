@@ -9,6 +9,8 @@
 
   <div class="container my-auto d-flex flex-column justify-content-start align-items-start">
 
+    <a class="h2 font-weight-bold text-white" style="cursor: pointer;" data-toggle="modal" data-target="#listsModal">Listes de courses</a>
+
     <% if current_user.recipe_lists.any? && current_user.recipe_lists.last.status == "opened" %>
       <!-- Continue last menu -->
       <h2>
@@ -27,7 +29,6 @@
 
 
     <a class="h2 font-weight-bold text-white" style="cursor: pointer;" data-toggle="modal" data-target="#recipeListsModal">Menus</a>
-    <a class="h2 font-weight-bold text-white" style="cursor: pointer;" data-toggle="modal" data-target="#listsModal">Listes de courses</a>
   </div>
 
 
