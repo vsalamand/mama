@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     @lists = current_user.lists.saved + current_user.shared_lists
 
     if @lists.any?
-      return list_path(@lists.first)
+      return list_path(@lists.last)
     else
       return root_path
     end

@@ -1,31 +1,23 @@
 <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
+  <div class="mb-3">
+    <div class="search-form-control">
+      <%= form.input :name, as: :string, label: false, placeholder: "Ajouter quelque chose...", input_html: { class:"py-4 rounded  font-weight-light shadow-lg", id:"newListItem" } %>
 
-    <div class="mb-3">
-
-      <div class="search-form-control">
-        <%= form.input :name, as: :string, label: false, placeholder: "Ajouter quelque chose...", input_html: { class:"py-4 rounded  font-weight-light shadow-lg", id:"newListItem" } %>
-
-        <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
-          Ajouter
-        <% end %>
-
-      </div>
-
-
-      <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
-
-      <ul class="list-inline mb-2 mx-2" id="itemsRecommendations">
-      </ul>
+      <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
+        Ajouter
+      <% end %>
+    </div>
 
         <!-- NOT USED FOR NOW -->
           <% if false %>
+            <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
+            <ul class="list-inline mb-2 mx-2" id="itemsRecommendations">
+            </ul>
+
             <div class="d-flex align-items-center justify-content-start flex-wrap p-0 m-0">
               <%= render 'list_items/explore_suggested_items', curator_lists: @curator_lists %>
             </div>
           <% end %>
-
     </div>
-
-
 <% end %>
 

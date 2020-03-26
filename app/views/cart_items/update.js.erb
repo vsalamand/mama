@@ -6,3 +6,18 @@ $(cartItem).replaceWith("<%= j render 'cart_items/show', cart_item: @cart_item, 
 // $('.modal').modal('hide');
 // $(document.body).removeClass('modal-open');
 // $('.modal-backdrop').remove();
+
+function toggleDropdown(element) {
+  var dropdown = new Dropdown(element);
+  dropdown.toggle();
+}
+
+var dropdown_buttons = document.querySelectorAll('[data-toggle="dropdown"]');
+
+dropdown_buttons.forEach(function(element) {
+  element.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    toggleDropdown(this);
+  });
+});

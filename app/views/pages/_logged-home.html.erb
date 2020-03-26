@@ -10,13 +10,13 @@
   <div class="container my-auto d-flex flex-column justify-content-start align-items-center">
 
     <% if @lists.any? %>
-      <%= link_to 'Mes courses', list_path(@lists.first), class:"btn btn-lg bg-transparent text-white border px-5 py-3 font-weight-bold" %>
+      <%= link_to 'Mes courses', list_path(@lists.last), class:"btn btn-lg bg-transparent text-white border px-5 py-3 font-weight-bold col-md-6", style:"font-size: 2rem;" %>
     <% else %>
       <%= simple_form_for @list do |f| %>
         <%= f.input :name, :autofocus => true, label: false, :as => :hidden, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses" } %>
         <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
         <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-        <%= f.submit "Commencer les courses", class:"btn btn-lg bg-transparent text-white border px-5 py-3 font-weight-bold" %>
+        <%= f.submit "Commencer les courses", class:"btn btn-lg bg-transparent text-white border px-5 py-3 font-weight-bold col-md-6", style:"font-size: 2rem;" %>
       <% end %>
     <% end %>
 

@@ -11,7 +11,7 @@ class Cart < ApplicationRecord
       current_item = self.cart_items.find_by(name: store_item.name)
 
       if current_item
-        # current_item.quantity += 1
+        #current_item.quantity += 1
         current_item.save
       else
         unless item.nil?
