@@ -1,23 +1,22 @@
   <div class="container">
-    <nav class="px-0 navbar navbar-expand-lg" style="background-color: transparent;">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
        <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama <span class="badge badge-pill badge-outline-secondary"><small>BETA</small></span>
       </a>
-     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <% if user_signed_in? %>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <%= link_to "Accueil", root_path, class:"nav-link text-white"  %>
-            </li>
-            <li class="nav-item active">
-              <%= link_to "Compte", profile_path, class:"nav-link text-white"  %>
-            </li>
-          </ul>
-        </div>
+      <% if current_user.recipe_lists.any? && current_user.recipe_lists.last.status == "opened" %>
+        <!-- Continue last menu -->
+        <%= link_to "Idées recettes", explore_recipe_list_path(current_user.recipe_lists.where(status: "opened").last), class:"btn btn-sm btn-flat" %>
+      <% else  %>
+        <!-- Create new recipe list / menu -->
+        <%= simple_form_for @recipe_list do |f| %>
+            <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden %>
+            <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden  %>
+            <%= f.input :status, input_html: {value: "opened"}, :as => :hidden %>
+            <%= f.submit "Idées recettes", class:"btn btn-sm btn-flat" %>
+        <% end %>
       <% end %>
+
+
     </nav>
   </div>

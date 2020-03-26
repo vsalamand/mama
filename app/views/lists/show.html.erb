@@ -1,34 +1,7 @@
-
-  <div class="container d-flex justify-content-between my-2">
-
-    <!-- dropdown button -->
-    <div class="btn-group">
-      <button type="button" class="m-2 btn btn-outline-secondary rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
-        <% if @list.user == current_user %>
-          <!-- Option modal for owner -->
-          <% if @list.status == "saved" %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
-          <% else %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#saveListModal">Enregistrer</a>
-          <% end %>
-          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-          <div class="dropdown-divider"></div>
-            <%= link_to "Supprimer la liste", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
-        <% elsif @list.users.include?(current_user) %>
-          <!-- Option modal  for collaborators-->
-          <% if @list.status == "saved" %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
-          <% end %>
-          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-          <div class="dropdown-divider"></div>
-            <%= link_to "Supprimer de mes listes", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"dropdown-item text-danger" %>
-        <% end %>
-       </div>
-    </div>
+  <%= render 'shared/navbar' %>
 
 
+<% if false %>
     <% if @list.user == current_user && @list.status == "opened" %>
       <a class="btn close m-2 px-0" data-toggle="modal" data-target="#closeListModal">Fermer</a>
     <% elsif @list.user == current_user && @list.status != "opened" %>
@@ -36,9 +9,8 @@
     <% else %>
       <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
     <% end %>
+<% end %>
 
-
-  </div>
 
 
   <!-- Close List Modal -->
@@ -69,6 +41,23 @@
         </div>
       </div>
     </div>
+
+<!-- Create List Modal -->
+<div class="modal fade" id="createListModal" tabindex="-1" role="dialog" aria-labelledby="createListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createListModalLabel">📝 Nouvelle liste de courses</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <%= render 'lists/form' %>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
@@ -151,9 +140,50 @@
 
 
 <% if @list.name.present? %>
-  <div class="container d-flex justify-content-center p-1 my-0">
-    <p class="m-1 lead font-weight-bold text-primary"><%= @list.name %></p>
+  <div class="container d-flex justify-content-center p-1 my-2">
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= @list.name %>
+      </button>
+      <div class="dropdown-menu">
+        <% @lists.each do |list|  %>
+          <%= link_to "#{list.name}", list_path(list), class:"dropdown-item" %>
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <%= link_to "Créer une nouvelle liste", new_list_path, class:"dropdown-item text-primary" %>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-lg btn-outline-secondary border-0 rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
+        <% if @list.user == current_user %>
+          <!-- Option modal for owner -->
+          <% if @list.status == "saved" %>
+            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
+          <% else %>
+            <a class="btn dropdown-item" data-toggle="modal" data-target="#saveListModal">Enregistrer</a>
+          <% end %>
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
+          <div class="dropdown-divider"></div>
+            <%= link_to "Supprimer la liste", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
+        <% elsif @list.users.include?(current_user) %>
+          <!-- Option modal  for collaborators-->
+          <% if @list.status == "saved" %>
+            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
+          <% end %>
+          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
+          <div class="dropdown-divider"></div>
+            <%= link_to "Supprimer de mes listes", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"dropdown-item text-danger" %>
+        <% end %>
+       </div>
+    </div>
+
   </div>
+
+
 <% end %>
 
 

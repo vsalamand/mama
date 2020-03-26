@@ -42,12 +42,14 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
+    @lists = current_user.lists.saved + current_user.shared_lists - Array(@list)
     @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
     @uncomplete_list_items = @list.get_items_to_buy
     @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
     @curator_lists = User.find_by_email("mama@clubmama.co").lists
     @collaboration = Collaboration.new
+    @recipe_list = RecipeList.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
   end
 

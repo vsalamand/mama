@@ -8,7 +8,7 @@
   <% end %>
   <div class="card-body text-center p-0 d-flex flex-column">
     <% unless recipe_list.recipes.include?(recipe) %>
-    <a class="card-link font-weight-bold border p-2 rounded-0 text-primary" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>" style="font-size: 0.8rem; cursor: pointer;">Ajouter</a>
+    <a class="card-link font-weight-bold border p-2 rounded-0 text-primary" id="addToMenuBtn" data="<%= recipe.id %>" data-destination="<%= recipe_list.id %>" style="font-size: 0.8rem; cursor: pointer;">Sélectionner</a>
     <% else %>
     <a class="text-danger disabled card-link font-weight-bold p-2 border rounded-0" id="removeFromMenuBtn" data="<%= recipe_list.get_recipe_list_item_id(recipe.id) %>" data-container="<%= recipe_list.id %>" style="font-size: 0.8rem; cursor: pointer;">Retirer</a>
     <% end %>

@@ -150,7 +150,7 @@ function loadSuggestions() {
 
 function getPriceBtn() {
   var count = $("#uncomplete_list_items li").length;
-  const btn = document.getElementById('selectStoreBtn')
+  const btn = document.getElementById('loadStoreCartsBtn')
 
   if(count > 0){
     $(btn).show();

@@ -1,17 +1,6 @@
-<div class="container d-flex justify-content-end">
-  <% if @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "opened" %>
-  <%= link_to 'Fermer', clean_recipe_list_path(@recipe_list), class:"btn close m-2 px-0" %>
-  <% elsif @recipe_list.recipe_list_type == "personal" && @recipe_list.status == "saved" %>
-    <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
-  <% end %>
-</div>
+  <%= render 'shared/navbar' %>
 
 
-<div class="d-flex flex-column align-items-center justify-content-center p-1 mb-4">
-  <p class="m-0 lead"><strong class="btn-outline-primary"><%= @recipe_list.name %></strong></p>
-<!--   <h3 class="mb-0 text-muted font-weight-bold d-flex text-center">Parcourir les recettes</h3>
- -->
-</div>
 
 <div class="container bg-white my-2" id="searchRecipes" >
   <!-- Link to search recipes view-->
@@ -53,6 +42,6 @@
 <div id="explore" data="<%= @recipe_list.id %>">
 </div>
 
-<div class="container" id="goToMenuBtn">
-  <%= link_to "Continuer vers le menu", recipe_list_path(@recipe_list), class:"btn fixed-bottom btn-large btn-flat m-2 py-3 mx-5 font-weight-bold" %>
+<div class="container fixed-bottom p-1" id="goToMenuBtn">
+  <%= link_to "Voir la sélection", recipe_list_path(@recipe_list), class:"btn btn-block btn-flat py-3" %>
 </div>

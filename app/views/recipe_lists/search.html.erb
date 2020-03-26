@@ -1,3 +1,5 @@
+
+
 <div class="container d-flex justify-content-start">
   <%= link_to 'Retour', explore_recipe_list_path, class:"btn close m-2 px-0" %>
 </div>
@@ -29,6 +31,6 @@
 <div id="explore" data="<%= @recipe_list.id %>">
 </div>
 
-<div class="container" id="goToMenuBtn">
-  <%= link_to "Continuer vers le menu", recipe_list_path(@recipe_list), class:"btn fixed-bottom btn-large btn-flat m-2 py-3 mx-5 font-weight-bold" %>
+<div class="container fixed-bottom p-2" id="goToMenuBtn">
+  <%= link_to "Voir la sélection", recipe_list_path(@recipe_list), class:"btn btn-block btn-flat py-3" %>
 </div>
