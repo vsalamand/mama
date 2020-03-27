@@ -3,19 +3,19 @@
     <li class="border-0 pl-3 list-group-item d-flex align-items-center justify-content-between" id="<%= dom_id(list_item) %>" >
 
       <% if list_item.is_completed == false %>
-        <div class="d-flex align-items-center">
-          <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
+        <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
+          <div class="d-flex align-items-center">
             <i class="far fa-lg fa-check-square"></i>
-          <% end %>
-          <p class="m-0 p-1 pb-2"><%= list_item.name %></p>
-        </div>
+            <p class="m-0 pl-2 p-1"><%= list_item.name %></p>
+          </div>
+        <% end %>
       <% else %>
-        <div class="d-flex align-items-center">
-          <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
+        <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
+          <div class="d-flex align-items-center">
             <i class="fas fa-lg fa-square"></i>
-          <% end %>
-          <p class="m-0 p-1 pb-2 text-muted"><del><%= list_item.name %></del></p>
-        </div>
+            <p class="m-0 pl-2 p-1 text-muted"><del><%= list_item.name %></del></p>
+          </div>
+        <% end %>
       <% end %>
 
         <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
