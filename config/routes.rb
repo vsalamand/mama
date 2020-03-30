@@ -145,6 +145,8 @@ Rails.application.routes.draw do
 
   resources :items do
     get :validate
+    get :select
+    get :unselect
     collection do
       get :edit_multiple
       put :update_multiple

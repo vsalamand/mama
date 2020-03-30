@@ -90,6 +90,16 @@ class ItemsController < ApplicationController
     redirect_to items_path
   end
 
+  def select
+    @item = Item.find(params[:item_id])
+    render "select.js.erb"
+  end
+
+  def unselect
+    @item = Item.find(params[:item_id])
+    render "unselect.js.erb"
+  end
+
 
   private
   def set_recipe
