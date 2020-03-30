@@ -124,13 +124,20 @@ $(document).on("turbolinks:load", function(event) {
   // loadSuggestions();
   setInputForm();
   getPriceBtn();
+  getListPlaceholder();
+  openSuggestedItemsModal();
   // getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   // loadSuggestions();
   getPriceBtn();
+  getListPlaceholder();
   // getCartsPrice();
+})
+
+$(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
+  getListPlaceholder();
 })
 
 function loadSuggestions() {
@@ -156,6 +163,27 @@ function getPriceBtn() {
     $(btn).show();
   } else {
     $(btn).hide();
+  }
+}
+
+
+function getListPlaceholder() {
+  var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+  const placeholder = document.getElementById('listPlaceholder');
+
+  if(totalCount == 0){
+    $(placeholder).show();
+  } else {
+    $(placeholder).hide();
+  }
+}
+
+function openSuggestedItemsModal() {
+  var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+  const selectSuggestedItemsModal = document.getElementById('selectItemsModal');
+
+  if(totalCount == 0){
+    $(selectSuggestedItemsModal).modal('show');
   }
 }
 

@@ -97,6 +97,7 @@ Rails.application.routes.draw do
     get :archive
     get :copy
     get :get_store_carts
+    get :add
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort
@@ -145,6 +146,8 @@ Rails.application.routes.draw do
 
   resources :items do
     get :validate
+    get :select
+    get :unselect
     collection do
       get :edit_multiple
       put :update_multiple

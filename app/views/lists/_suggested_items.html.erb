@@ -1,0 +1,41 @@
+<div class="container mt-5" id="listPlaceholder">
+  <div class="d-flex flex-column align-items-center">
+    <p class="text-muted text-center font-weight-light font-italic p-4 lead">Commencer la liste de courses ci-dessous</p>
+  </div>
+</div>
+
+  <!-- View Select Items Modal -->
+  <div class="modal fade" id="selectItemsModal" tabindex="-1" role="dialog" aria-labelledby="selectItemsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="selectItemsModalLabel">🔮 Suggestions d'achats</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0"  style="height: 75vh; overflow-y: auto;">
+
+          <% @curator_lists.each do |list| %>
+            <div class="card rounded-0">
+              <div class="card-header text-primary font-weight-bold d-flex flex-column">
+                <span><%= list.name %></span>
+              </div>
+              <ul class="list-group list-group-flush p-1">
+                <% list.get_items_to_buy.sort_by(&:name).each do |item| %>
+                  <%= render 'items/unselected_item', item: item %>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button class="btn btn-flat px-4" id="addSuggestedItemsToListBtn" data="<%= @list.id %>">Valider la sélection</button>
+        </div>
+      </div>
+    </div>
+  </div>

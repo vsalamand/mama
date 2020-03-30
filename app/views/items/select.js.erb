@@ -1,0 +1,3 @@
+var item = document.querySelector("#item-id<%= @item.id %>");
+item.innerHTML = "";
+item.innerHTML = ("<%= j render 'items/selected_item', item: @item %>");

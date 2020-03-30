@@ -1,3 +1,5 @@
+<%= render "lists/suggested_items" %>
+
 
 <div class="shadow rounded">
   <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
@@ -16,12 +18,16 @@
 <div style="padding: 50px;"></div>
 
 
-<div class="container px-1 bg-white fixed-bottom">
-  <small class="text-muted d-flex justify-content-center p-2">Complétez votre liste ici</small>
-
-  <% if list.user == current_user || list.users.include?(current_user)%>
-   <%= render "list_items/form", list: list, list_item: list_item %>
-  <% end %>
+<div class="wrapper bg-white fixed-bottom shadow">
+  <div class="container px-1">
+    <small class="text-muted d-flex justify-content-center p-2">Compléter votre liste ici</small>
+    <% if list.user == current_user || list.users.include?(current_user)%>
+     <%= render "list_items/form", list: list, list_item: list_item %>
+    <% end %>
+    <div class="d-flex justify-content-center">
+      <button class="btn-sm btn-outline-flat my-1 py-1" data-toggle="modal" data-target="#selectItemsModal">🔮 Suggestions d'achats</button>
+    </div>
+  </div>
 </div>
 
 
