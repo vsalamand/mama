@@ -16,7 +16,7 @@
         <%= f.input :name, :autofocus => true, label: false, :as => :hidden, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses" } %>
         <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
         <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-        <%= f.submit "Créer une première liste en quelques clics", class:"btn btn-lg bg-transparent text-white border p-3 font-weight-bold", style:"font-size: 2rem; margin-bottom:4px;white-space: normal;" %>
+        <%= f.submit "Créer ma première liste", class:"btn btn-lg bg-transparent text-white border p-3 font-weight-bold", style:"font-size: 2rem; margin-bottom:4px;white-space: normal;" %>
       <% end %>
     <% end %>
 

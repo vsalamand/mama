@@ -24,6 +24,15 @@ class ListsController < ApplicationController
     redirect_to list_path(@new_list)
   end
 
+  def add
+    @list = List.find(params[:list_id])
+    @items = params[:items]
+
+    ListItem.add_menu_to_list(@items, @list)
+
+    render 'add.js.erb'
+  end
+
   def edit
   end
 

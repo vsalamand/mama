@@ -1,8 +1,7 @@
-
-<div class="d-flex flex-column justify-content-between">
-  <a class="btn btn-lg btn-outline-flat p-5" style="font-size: 2rem; margin-bottom:4px;white-space: normal;"  data-toggle="modal" data-target="#selectItemsModal">Choisir un modèle</a>
-
-  <p class="text-muted text-center font-weight-light font-italic p-4">ou <br><br>Commencer votre liste de courses ci-dessous.</p>
+<div class="container mt-5" id="listPlaceholder">
+  <div class="d-flex flex-column align-items-center">
+    <p class="text-muted text-center font-weight-light font-italic p-4 lead">Commencer la liste de courses ci-dessous</p>
+  </div>
 </div>
 
   <!-- View Select Items Modal -->
@@ -34,7 +33,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
           <button class="btn btn-flat px-4" id="addSuggestedItemsToListBtn" data="<%= @list.id %>">Valider la sélection</button>
         </div>
       </div>
