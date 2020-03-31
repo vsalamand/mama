@@ -98,6 +98,7 @@ Rails.application.routes.draw do
     get :copy
     get :get_store_carts
     get :add
+    get :get_suggested_items
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort

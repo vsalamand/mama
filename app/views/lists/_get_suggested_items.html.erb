@@ -1,0 +1,14 @@
+<% if lists.any? %>
+  <% lists.sort_by(&:id).each do |list| %>
+    <div class="card rounded-0">
+      <div class="card-header text-primary font-weight-bold d-flex flex-column">
+        <span><%= list.name %></span>
+      </div>
+      <ul class="list-group list-group-flush p-1">
+        <% list.get_items_to_buy.compact.sort_by(&:name).each do |item| %>
+          <%= render 'items/unselected_item', item: item %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

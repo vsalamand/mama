@@ -60,7 +60,6 @@ class ListsController < ApplicationController
     @list_items = @list.list_items.not_deleted
     @uncomplete_list_items = @list.get_items_to_buy
     @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
-    @checklists = Checklist.first.get_curated_lists
     @collaboration = Collaboration.new
     @recipe_list = RecipeList.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
@@ -69,6 +68,13 @@ class ListsController < ApplicationController
   def fetch_suggested_items
     @list = List.find(params[:list_id])
     render 'fetch_suggested_items.js.erb'
+  end
+
+  def get_suggested_items
+    @list = List.find(params[:list_id])
+    @checklists = Checklist.first.get_curated_lists
+
+    render 'get_suggested_items.js.erb'
   end
 
   def fetch_price

@@ -224,3 +224,18 @@ $(document).on('click', '#shareList',function() {
   $('.modal-backdrop').remove();
   $('#shareModal').modal('show');
 });
+
+
+
+//  Load suggested items in modal
+$(document).on("click" , "#openSuggestedItemsBtn", function(event) {
+  const listId = document.getElementById('getSuggestedItems').getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/get_suggested_items",
+    cache: false,
+    success: function(){
+    }
+  });
+});
+
