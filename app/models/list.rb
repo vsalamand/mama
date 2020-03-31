@@ -10,8 +10,14 @@ class List < ApplicationRecord
   has_many :users, through: :collaborations
   has_many :store_carts, dependent: :destroy
   validates :name, presence: true
+  has_many :checklist_items, dependent: :destroy, inverse_of: :list
+  has_many :checklists, through: :checklist_items
+
+  accepts_nested_attributes_for :list_items, allow_destroy: true
+  accepts_nested_attributes_for :checklist_items
 
   STATUS = ["archived", "opened", "saved", "deleted"]
+  LIST_TYPE = ["personal", "curated"]
 
   scope :saved, -> { where(status: "saved").where( is_deleted: false) }
   scope :opened, -> { where(status: "opened").where( is_deleted: false) }

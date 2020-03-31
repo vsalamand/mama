@@ -1,0 +1,6 @@
+<%= simple_form_for [@checklist, @checklist_item] do |f| %>
+  <%= f.input :name, class: 'form-control' %>
+  <%= f.collection_select :list_id, List.where(list_type: "curated", status: "saved").order(:id).reverse, :id, :name, {}, class: 'form-control select'%>
+  <%= f.submit "Valider", class: "form-control btn-primary" %>
+<% end %>
+

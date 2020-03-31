@@ -11,7 +11,8 @@ class ListsController < ApplicationController
     # @list.user_id = current_user.id
     # @list.status = "opened"
     if @list.save
-      redirect_to list_path(@list)
+      redirect_to lists_path if @list.list_type == "curated"
+      redirect_to list_path(@list) if @list.list_type == "personal"
     else
       redirect_to new_list_path
     end
@@ -39,13 +40,16 @@ class ListsController < ApplicationController
   def update
     @list = List.find(params[:id])
     @list.update(list_params)
+    @all_list_items = []
     flash[:notice] = 'La liste est enregistrée !'
-    redirect_to root_path
+    redirect_to lists_path if @list.list_type == "curated"
+    redirect_to list_path(@list) if @list.list_type == "personal"
   end
 
   def index
-    @lists = current_user.lists.saved
-    @shared_lists = current_user.shared_lists
+    # @lists = current_user.lists.saved
+    # @shared_lists = current_user.shared_lists
+    @lists = List.where(list_type: "curated", status: "saved")
     @list = List.new
   end
 
@@ -56,7 +60,7 @@ class ListsController < ApplicationController
     @list_items = @list.list_items.not_deleted
     @uncomplete_list_items = @list.get_items_to_buy
     @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
-    @curator_lists = User.find_by_email("mama@clubmama.co").lists
+    @checklists = Checklist.first.get_curated_lists
     @collaboration = Collaboration.new
     @recipe_list = RecipeList.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
@@ -135,14 +139,15 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list.delete
     flash[:notice] = 'La liste a été supprimée.'
-    redirect_to root_path
+    redirect_to lists_path if @list.list_type == "curated"
+    redirect_to root_path if @list.list_type == "personal"
   end
 
 
   private
 
   def list_params
-    params.require(:list).permit(:id, :name, :user_id, :status)
+    params.require(:list).permit(:id, :name, :user_id, :status, :list_type)
   end
 
   def set_list

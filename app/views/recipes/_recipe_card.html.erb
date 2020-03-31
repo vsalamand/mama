@@ -23,21 +23,18 @@
         <div class="modal-header">
           <h5 class="modal-title" id="getListModal<%= recipe.id %>Label">🛒 Créer la liste de courses</h5>
         </div>
-        <div class="modal-body m-0 p-0" style="height: 65vh;overflow-y: auto;">
+        <div class="modal-body m-0 p-0" style="height: 65vh; overflow-y: auto;">
             <div class="card rounded-0">
               <div class="card-header text-primary font-weight-bold d-flex flex-column">
                 <span><%= recipe.title %></span>
                 <small class="text-success">Quantités pour <%= recipe.servings %></small>
               </div>
               <ul class="list-group list-group-flush">
-                <% recipe.items.order(:id).each do |item| %>
-                  <li id="item<%= item.id %>" class="list-group-item">
-                    <span class="recipeItem<%= recipe.id %>"><%= item.name %></span>
-                    <button type="button" class="close removeItemBtn" data="<%= item.id %>">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </li>
-                <% end %>
+                <div class="recipeItem<%= recipe.id %>">
+                  <% recipe.items.order(:id).each do |item| %>
+                    <%= render 'items/selected_item', item: item %>
+                  <% end %>
+                </div>
               </ul>
             </div>
         </div>

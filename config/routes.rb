@@ -220,6 +220,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :checklists do
+    resources :checklist_items
+  end
+
   resources :meta_recipes do
     resources :meta_recipe_items
   end

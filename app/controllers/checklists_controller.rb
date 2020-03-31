@@ -1,24 +1,41 @@
 class ChecklistsController < ApplicationController
+  before_action :authenticate_admin!
 
-  def self.create(diet, schedule)
-    # vérifier si l'objet Checklist existe déjà (au cas où l'on relance le process)
-    checklist = Checklist.find_by(diet_id: diet.id, schedule: schedule)
-    # s'il n'existe pas, alors créer un nouvel objet
-    if checklist.nil?
-      checklist = Checklist.new
-      checklist.schedule = schedule
-      checklist.diet_id = diet.id
-      checklist.name = "Week #{schedule} | #{diet.name}"
-      checklist.save
-    else
-      # s'il existe, alors détruire tous les items avant d'en remettre
-      checklist.food_list_items.destroy_all
-    end
-    Checklist.pick_foods(diet)
+  def index
+    @checklists = Checklist.all
   end
+
+  def show
+    @checklist = Checklist.find(params[:id])
+    @checklist.checklist_items.build
+  end
+
+  def new
+    @checklist = Checklist.new
+  end
+
+  def create
+    @checklist = Checklist.new(checklist_params)
+    if @checklist.save
+      redirect_to checklist_path(@checklist)
+    else
+      redirect_to new_checklist_path
+    end
+  end
+
+  def edit
+    @checklist = Checklist.find(params[:id])
+  end
+
+  def update
+    @checklist = Checklist.find(params[:id])
+    @checklist.update(checklist_params)
+    redirect_to checklist_path(@checklist)
+  end
+
 
   private
   def checklist_params
-    params.require(:checklist).permit(:name, :schedule, :diet_id)
+    params.require(:checklist).permit(:name, :schedule, :diet_id, list_ids: [])
   end
 end

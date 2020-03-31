@@ -13,7 +13,7 @@
         <div class="modal-body py-2">
           <p class="m-0 p-1 text-muted"><u>pour <%= recipe_list.recipes.size %> <%= recipe_list.recipes.size > 1 ? "recettes:" : "recette:" %></u></p>
         </div>
-        <div class="modal-body m-0 p-0" style="height: 65vh;overflow-y: auto;">
+        <div class="modal-body m-0 p-0 recipeListItems<%= recipe_list.id %>" style="height: 65vh;overflow-y: auto;">
           <% recipe_list.recipes.each do |recipe| %>
             <div class="card rounded-0">
               <div class="card-header text-primary font-weight-bold d-flex flex-column">
@@ -22,12 +22,7 @@
               </div>
               <ul class="list-group list-group-flush">
                 <% recipe.items.order(:id).each do |item| %>
-                  <li id="item<%= item.id %>" class="list-group-item">
-                    <span class="menuItem"><%= item.name %></span>
-                    <button type="button" class="close removeItemBtn" data="<%= item.id %>">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </li>
+                  <%= render 'items/selected_item', item: item %>
                 <% end %>
               </ul>
             </div>
@@ -40,3 +35,4 @@
       </div>
     </div>
   </div>
+

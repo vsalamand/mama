@@ -20,11 +20,14 @@ $(document).on("click" , "#addRecipeToListBtn", function(event) {
 
   // get items in list
   const recipeId = this.getAttribute('data');
-  const recipeClass = ".recipeItem" + recipeId
+  const recipeClass = ".recipeItem" + recipeId;
+  const recipeSelector = document.querySelector(recipeClass);
+
+  const selectedItems = recipeSelector.querySelectorAll(`.selectedItem`);
 
   const items = []
-  $(document.querySelectorAll(recipeClass)).map(function() {
-                   items.push($(this).text());
+  $(selectedItems).map(function() {
+                   items.push($(this).text().trim());
                 })
 
   addRecipeToList(items, recipeId);

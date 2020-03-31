@@ -15,18 +15,19 @@
           </button>
         </div>
         <div class="modal-body m-0 p-0"  style="height: 75vh; overflow-y: auto;">
-
-          <% @curator_lists.each do |list| %>
-            <div class="card rounded-0">
-              <div class="card-header text-primary font-weight-bold d-flex flex-column">
-                <span><%= list.name %></span>
+          <% if @checklists.any? %>
+            <% @checklists.sort_by(&:id).each do |list| %>
+              <div class="card rounded-0">
+                <div class="card-header text-primary font-weight-bold d-flex flex-column">
+                  <span><%= list.name %></span>
+                </div>
+                <ul class="list-group list-group-flush p-1">
+                  <% list.get_items_to_buy.compact.sort_by(&:name).each do |item| %>
+                    <%= render 'items/unselected_item', item: item %>
+                  <% end %>
+                </ul>
               </div>
-              <ul class="list-group list-group-flush p-1">
-                <% list.get_items_to_buy.sort_by(&:name).each do |item| %>
-                  <%= render 'items/unselected_item', item: item %>
-                <% end %>
-              </ul>
-            </div>
+            <% end %>
           <% end %>
 
 

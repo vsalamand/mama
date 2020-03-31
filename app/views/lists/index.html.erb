@@ -1,27 +1,72 @@
-<div class="midbanner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{rand(1..53)}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
-  <%= render 'shared/navbar_white' %>
 
-  <div class="container m-auto d-flex flex-column justify-content-start">
-    <h1 class="font-weight-bold">Listes de courses</h1>
-    <small class="text-white">Retrouvez ici l'historique de vos listes de courses</small>
-  </div>
+  <%= render 'shared/admin-navbar' %>
 
+
+<div class="container my-auto d-flex flex-column justify-content-start align-items-start">
+  <!-- Button trigger New curated recipe list modal -->
+  <button class="h1 font-weight-bold btn btn-primary m-3" style="cursor: pointer;" data-toggle="modal" data-target="#createCuratedListModal">Nouvelle liste</button>
 </div>
 
+<!-- Create Recipe List Modal -->
+<div class="modal fade" id="createCuratedListModal" tabindex="-1" role="dialog" aria-labelledby="createCuratedListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createCuratedListModalLabel">🍔 Nouvelle liste</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
 
+        <%= render 'curated_form', list: @list %>
 
-<%= render "lists/new_list_modal", list: @list %>
-
-
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container my-3">
-  <div class="list-group shadow">
-    <%= render 'lists/index', lists: @lists %>
-  </div>
-  <div class="list-group shadow">
-    <%= render 'lists/index', lists: @shared_lists %>
-  </div>
+
+    <div class="row">
+      <% @lists.order(:id).each do |list| %>
+        <div class="col-sm-6 p-1">
+            <div class="card bg-white shadow border-0" style="height: 120px;">
+              <div class="card-body">
+                <h5 class="card-title"><%= list.name %></h5>
+                <button class="font-weight-bold btn btn-outline-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editCuratedList<%= list.id %>Modal">modifier</button>
+                <%= link_to 'Voir', list_path(list), class:"btn btn-info", target: "_blank" %>
+                <%= link_to "Supprimer la liste", list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"btn text-danger" %>
+
+              </div>
+            </div>
+        </div>
+
+        <!-- Edit  List Modal -->
+        <div class="modal fade" id="editCuratedList<%= list.id %>Modal" tabindex="-1" role="dialog" aria-labelledby="editCuratedListModal<%= list.id %>Label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editCuratedListModal<%= list.id %>Label">🍔 Modifier liste</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body m-0 p-0">
+
+                <%= render 'curated_form', list: list %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      <% end %>
+    </div>
+
 </div>
 
 

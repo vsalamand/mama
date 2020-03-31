@@ -1,0 +1,21 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+
+
+    <h3>Checklists:</h3>
+    <h5><%= link_to 'Nouveau', new_checklist_path, class:"btn btn-outline-primary" %></h5>
+
+    <% unless @checklists.nil? %>
+        <ol>
+          <% @checklists.order(:id).reverse.each do |checklist| %>
+            <li>
+              (<%= checklist.id %>)
+              <%= link_to checklist.name, checklist_path(checklist) %>
+            </li>
+          <% end %>
+        </ol>
+    <% end %>
+
+
+</div>

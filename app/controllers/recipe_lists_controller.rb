@@ -85,9 +85,9 @@ class RecipeListsController < ApplicationController
 
   def add_to_list
     @recipe_list = RecipeList.find(params[:id])
-    @recipe_list.is_saved
+    # @recipe_list.is_saved
 
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "#{@recipe_list.name}", user: current_user, status: "saved") if @list.nil?
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Menu du #{Date.today.strftime("%d/%m/%y")}", user: current_user, status: "saved") if @list.nil?
     items = params[:items]
 
     ListItem.add_menu_to_list(items, @list)
