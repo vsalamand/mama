@@ -173,6 +173,7 @@ function getListPlaceholder() {
 
   if(totalCount == 0){
     $(placeholder).show();
+    loadSuggestedItems();
   } else {
     $(placeholder).hide();
   }
@@ -228,7 +229,11 @@ $(document).on('click', '#shareList',function() {
 
 
 //  Load suggested items in modal
-$(document).on("click" , "#openSuggestedItemsBtn", function(event) {
+$(document).on("click", "#openSuggestedItemsBtn", function(event) {
+  loadSuggestedItems();
+});
+
+function loadSuggestedItems() {
   const listId = document.getElementById('getSuggestedItems').getAttribute('data');
 
   $.ajax({
@@ -237,5 +242,6 @@ $(document).on("click" , "#openSuggestedItemsBtn", function(event) {
     success: function(){
     }
   });
-});
+}
+
 
