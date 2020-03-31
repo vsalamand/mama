@@ -1,0 +1,20 @@
+  <%= simple_form_for list do |f| %>
+    <div class="p-3 bg-white">
+      <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus" } %>
+      <%= f.collection_select :user_id, User.where(:email => "mama@clubmama.co"), :id, :username, :wrapper_html=> { class: "m-0" }  %>
+      <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+      <%= f.input :list_type, input_html: {value: "curated"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+
+
+    </div>
+    <div class="modal-footer bg-white">
+      <button type="button" class="btn btn-secondary py-2 closeModal" data-dismiss="modal">Annuler</button>
+      <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
+    </div>
+  <% end %>
+
+  <ol>
+     <% list.get_items_to_buy.map do |li| %>
+      <li><%= li.name %></li>
+     <% end %>
+  </ol>

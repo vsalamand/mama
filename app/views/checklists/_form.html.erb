@@ -1,0 +1,14 @@
+
+  <%= simple_form_for @checklist do |f| %>
+    <div class="p-3 bg-white">
+
+    <%= f.input :name, placeholder: "Write a catchy title !" %>
+    </div>
+
+    <h3>lists:</h3>
+
+    <%= f.collection_select :list_ids, List.where(list_type: "curated" ).order(:id).reverse, :id, :name, {}, multiple: true, class: 'select'%>
+
+
+    <%= f.submit "Validate", class: "form-control btn-primary" %>
+  <% end %>

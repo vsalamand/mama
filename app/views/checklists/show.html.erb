@@ -1,0 +1,24 @@
+<%= render 'shared/admin-navbar' %>
+
+
+<div class="container">
+    <h1><strong><%= @checklist.name %></strong></h1>
+    <h5><%= link_to 'EDIT', edit_checklist_path(@checklist) %></h5>
+</div>
+
+
+
+  <div class="container">
+    <h3>Lists:</h3>
+    <h5><%= link_to 'ADD NEW', new_checklist_checklist_item_path(@checklist) %></h5>
+    <ol>
+      <% @checklist.checklist_items.order(:id).each do |item| %>
+        <li>
+          (<%= item.id %>)
+          <%= link_to item.name, edit_checklist_checklist_item_path(@checklist, item) %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+
+</div>
