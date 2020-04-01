@@ -5,7 +5,7 @@
       <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
     </div>
     <div class="modal-footer bg-white">
-      <button type="button" class="btn btn-secondary py-2 closeModal" data-dismiss="modal">Annuler</button>
+      <%= link_to "Annuler", root_path, class:"btn btn-secondary py-2 closeModal" %>
       <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
     </div>
 <% end %>

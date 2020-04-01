@@ -1,5 +1,5 @@
 <% if lists.any? %>
-  <% lists.sort_by(&:id).each do |list| %>
+  <% lists.each do |list| %>
     <div class="card rounded-0">
       <div class="card-header text-primary font-weight-bold d-flex flex-column">
         <span><%= list.name %></span>

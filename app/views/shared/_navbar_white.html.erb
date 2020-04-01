@@ -6,7 +6,7 @@
 
       <% if current_user.recipe_lists.any? && current_user.recipe_lists.last.status == "opened" %>
         <!-- Continue last menu -->
-        <%= link_to "Idées recettes", explore_recipe_list_path(current_user.recipe_lists.where(status: "opened").last), class:"btn btn-sm btn-flat" %>
+        <%= link_to "Idées repas", explore_recipe_list_path(current_user.recipe_lists.where(status: "opened").last), class:"btn btn-sm btn-flat" %>
       <% else  %>
         <!-- Create new recipe list / menu -->
         <%= simple_form_for @recipe_list do |f| %>
