@@ -8,6 +8,6 @@ class Checklist < ApplicationRecord
   accepts_nested_attributes_for :checklist_items, allow_destroy: true
 
   def get_curated_lists
-    self.checklist_items.map{ |checklist_item| checklist_item.list if checklist_item.list.status == "saved" }.compact
+    self.checklist_items.sort_by(&:id).map{ |checklist_item| checklist_item.list if checklist_item.list.status == "saved" }.compact
   end
 end

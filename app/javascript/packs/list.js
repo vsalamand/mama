@@ -117,7 +117,7 @@ function enableElements(list) {
 
 // On form submit, fetch updated suggested items inside the form
 const itemsRecommendations = document.getElementById('itemsRecommendations');
-const spinner = document.getElementById('spinner');
+// const spinner = document.getElementById('spinner');
 
 
 $(document).on("turbolinks:load", function(event) {
@@ -230,11 +230,13 @@ $(document).on('click', '#shareList',function() {
 
 //  Load suggested items in modal
 $(document).on("click", "#openSuggestedItemsBtn", function(event) {
+
   loadSuggestedItems();
 });
 
 function loadSuggestedItems() {
   const listId = document.getElementById('getSuggestedItems').getAttribute('data');
+
 
   $.ajax({
     url: "/lists/" + listId + "/get_suggested_items",
