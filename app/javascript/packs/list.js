@@ -168,14 +168,16 @@ function getPriceBtn() {
 
 
 function getListPlaceholder() {
-  var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
-  const placeholder = document.getElementById('listPlaceholder');
+  if(document.getElementById("todo_list")) {
+    var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+    const placeholder = document.getElementById('listPlaceholder');
 
-  if(totalCount == 0){
-    $(placeholder).show();
-    loadSuggestedItems();
-  } else {
-    $(placeholder).hide();
+    if(totalCount == 0){
+      $(placeholder).show();
+      loadSuggestedItems();
+    } else {
+      $(placeholder).hide();
+    }
   }
 }
 
@@ -236,7 +238,6 @@ $(document).on("click", "#openSuggestedItemsBtn", function(event) {
 
 function loadSuggestedItems() {
   const listId = document.getElementById('getSuggestedItems').getAttribute('data');
-
 
   $.ajax({
     url: "/lists/" + listId + "/get_suggested_items",
