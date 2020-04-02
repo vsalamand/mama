@@ -16,11 +16,16 @@ class Item < ApplicationRecord
   scope :list_items_to_validate, -> { where(is_validated: false).where.not(:list_item_id => nil ) }
   scope :recipe_items_to_validate, -> { includes(:recipe).where(is_validated: false).where.not(:recipe_id => nil ).where(:recipes => { :status => "published" } ) }
 
+  # update item validations if new item is validated
+  after_save do
+    self.validate if self.is_validated == true
+  end
+
+
   def self.add_list_items(list_items_array)
     new_items = []
     # get parsing for each list item that does not have an item yet
-    queries = list_items_array.map{|list_item| "query=#{list_item.name}" if list_item.items.empty? }
-
+    queries = list_items_array.map{|list_item| "query=#{list_item.name}" if list_item.item.nil? }.compact
     unless queries.compact.empty?
       url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
       # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
@@ -85,20 +90,28 @@ class Item < ApplicationRecord
   end
 
   def validate
-    self.is_validated = true if self.food.present?
-    self.save
+    self.update_column(:is_validated, true) if self.food.present?
 
-    # validate any items with same name and not yet validated
-    Item.where("lower(name) = ?", self.name.downcase)
-        .where(is_validated: false)
-        .update_all(quantity: self.quantity,
-                 unit_id: self.unit_id,
-                 food_id: self.food_id,
-                 is_validated: self.is_validated)
+    if self.is_validated == true
+      # validate any items with same name and not yet validated
+      Item.where("lower(name) = ?", self.name.downcase)
+          .update_all(quantity: self.quantity,
+                   unit_id: self.unit_id,
+                   food_id: self.food_id,
+                   is_validated: self.is_validated)
+    end
+
+    # method to create items for list items that have no associated item
+    missing_list_items_items = ListItem.left_outer_joins(:item).where(items: {id: nil})
+    matching_list_items = missing_list_items_items.select{ |el| el.name.downcase == self.name.downcase}
+    new_validated_items = []
+    matching_list_items.each do |list_item|
+      new_validated_items << Item.new(food: self.food, list_item: list_item, name: list_item.name, is_validated: self.is_validated, quantity: self.quantity, unit: self.unit)
+    end
+    Item.import new_validated_items
   end
 
   def unvalidate
-    self.is_validated = false
-    self.save
+    self.update_column(:is_validated, false)
   end
 end

@@ -1,23 +1,21 @@
 class ListItem < ApplicationRecord
   belongs_to :list
   validates :name, presence: true
-  has_many :items, dependent: :destroy
-  has_many :cart_items, through: :items
-  has_many :food, through: :items
+  has_one :item, dependent: :destroy
+  has_many :cart_items, through: :item
+  has_one :food, through: :item
 
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :item
 
   #add a model scope to fetch only non-deleted records
   scope :not_deleted, -> { where(deleted: false) }
   scope :deleted, -> { where(deleted: true) }
   # scope to get list items in the lsit with no associated items
-  scope :no_items, -> { includes(:items).where( deleted: false).where(:items => { :id => nil } ) }
-  scope :to_validate, -> { includes(:items).where( :items => { :is_validated => false } ) }
+  scope :no_items, -> { includes(:item).where( deleted: false).where(:items => { :id => nil } ) }
+  scope :to_validate, -> { includes(:items).where( :item => { :is_validated => false } ) }
   #add a model scope to fetch completed and uncompleted records
   scope :not_completed, -> { where(is_completed: false, deleted: false) }
   scope :completed, -> { where(is_completed: true, deleted: false) }
-
-  scope :has_many_items, -> { joins(:items).group('list_items.id').having('count(items) > 1') }
 
 
 
@@ -43,7 +41,7 @@ class ListItem < ApplicationRecord
   end
 
   def get_item
-    self.items.first
+    self.item
   end
 
   def self.add_menu_to_list(inputs_list, list)
@@ -61,7 +59,6 @@ class ListItem < ApplicationRecord
         new_validated_items << Item.new(food: valid_item.food, list_item: list_item, name: list_item.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit)
       end
     end
-
     # create all list items
     list_items = ListItem.import new_list_items
     # create all validated items

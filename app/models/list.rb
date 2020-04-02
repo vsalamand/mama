@@ -85,14 +85,14 @@ class List < ApplicationRecord
       dic = Hash.new
       dic["list_item"] = list_item.id
       dic["item"] = list_item.items.last.id if list_item.items.any?
-      dic["store_item"] = list_item.items.last.food.get_cheapest_store_item_id if list_item.items.any? && list_item.items.last.food.present?
+      dic["store_item"] = list_item.item.food.get_cheapest_store_item_id if list_item.item.present? && list_item.item.food.present?
       list_products << dic
     end
     return list_products
   end
 
   def get_uncomplete_list_items_items
-    return self.list_items.not_completed.map{ |list_item| list_item.items.first}.compact
+    return self.list_items.not_completed.map{ |list_item| list_item.item }.compact
   end
 
   # get list of similar foods from smartmama
@@ -156,7 +156,7 @@ class List < ApplicationRecord
   end
 
   def get_items_to_buy
-    self.list_items.not_completed.map{ |list_item| list_item.get_item }
+    self.list_items.not_completed.map{ |list_item| list_item.item }
   end
 
   def get_store_carts

@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  after_action :remove_notice, only: [:destroy, :create]
 
   protected
 
@@ -9,5 +10,11 @@ class RegistrationsController < Devise::RegistrationsController
       Collaboration.create(list: list, user: current_user)
     end
     root_path
+  end
+
+  private
+
+  def remove_notice
+    flash.discard(:notice)
   end
 end
