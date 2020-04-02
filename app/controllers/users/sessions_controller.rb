@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  after_action :remove_notice, only: [:destroy, :create]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
   def new
     super
-    flash.delete(:notice)
   end
 
   # POST /resource/sign_in
@@ -25,4 +25,9 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  private
+
+  def remove_notice
+    flash.discard(:notice)
+  end
 end
