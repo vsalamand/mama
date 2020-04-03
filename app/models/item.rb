@@ -104,11 +104,13 @@ class Item < ApplicationRecord
     # method to create items for list items that have no associated item
     missing_list_items_items = ListItem.left_outer_joins(:item).where(items: {id: nil})
     matching_list_items = missing_list_items_items.select{ |el| el.name.downcase == self.name.downcase}
-    new_validated_items = []
-    matching_list_items.each do |list_item|
-      new_validated_items << Item.new(food: self.food, list_item: list_item, name: list_item.name, is_validated: self.is_validated, quantity: self.quantity, unit: self.unit)
+    if matching_list_items.any?
+      new_validated_items = []
+      matching_list_items.each do |list_item|
+        new_validated_items << Item.new(food: self.food, list_item: list_item, name: list_item.name, is_validated: self.is_validated, quantity: self.quantity, unit: self.unit)
+      end
+      Item.import new_validated_items
     end
-    Item.import new_validated_items
   end
 
   def unvalidate

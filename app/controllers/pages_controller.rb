@@ -39,7 +39,7 @@ class PagesController < ApplicationController
     @foods = Food.all
     @foods_without_products = Food.get_foods_without_product
 
-    @labeling = Item.all.recipe_items_to_validate.first
+    @labeling = Item.where(is_validated: false).last
   end
 
   def pending
@@ -55,8 +55,8 @@ class PagesController < ApplicationController
   end
 
   def verify_items
-    @list_items = Item.all.list_items_to_validate
-    @recipe_items = Item.all.recipe_items_to_validate[0..500]
+    @list_items = Item.all.list_items_to_validate.reverse[0..50]
+    @recipe_items = Item.all.recipe_items_to_validate.reverse[0..50]
   end
 
   def verify_listitems

@@ -22,8 +22,8 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @next_item = Item.where(is_validated: false).where("id > ?", @item.id).first
-    @next_item = Item.all.recipe_items_to_validate.first if @next_item.nil?
+    @next_item = Item.where(is_validated: false).last
+    # @next_item = Item.recipe_items_to_validate.last if @next_item.nil?
   end
 
   def update
@@ -36,10 +36,10 @@ class ItemsController < ApplicationController
   def validate
     @item = Item.find(params[:item_id])
     @item.validate
-    next_item = Item.where(is_validated: false).where("id > ?", @item.id).first
-    next_item = Item.all.recipe_items_to_validate.first if next_item.nil?
+    @next_item = Item.where(is_validated: false).last
+    # @next_item = Item.recipe_items_to_validate.last if @next_item.nil?
 
-    redirect_to edit_item_path(next_item)
+    redirect_to edit_item_path(@next_item)
   end
 
   def unvalidate
