@@ -93,12 +93,14 @@ class Item < ApplicationRecord
     self.update_column(:is_validated, true) if self.food.present?
 
     if self.is_validated == true
-      # validate any items with same name and not yet validated
-      Item.where("lower(name) = ?", self.name.downcase)
-          .update_all(quantity: self.quantity,
-                   unit_id: self.unit_id,
-                   food_id: self.food_id,
-                   is_validated: self.is_validated)
+      Thread.new do
+        # validate any items with same name and not yet validated
+        Item.where("lower(name) = ?", self.name.downcase)
+            .update_all(quantity: self.quantity,
+                     unit_id: self.unit_id,
+                     food_id: self.food_id,
+                     is_validated: self.is_validated)
+      end
     end
 
     # method to create items for list items that have no associated item

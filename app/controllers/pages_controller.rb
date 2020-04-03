@@ -55,8 +55,7 @@ class PagesController < ApplicationController
   end
 
   def verify_items
-    @list_items = Item.all.list_items_to_validate.reverse[0..50]
-    @recipe_items = Item.all.recipe_items_to_validate.reverse[0..50]
+    @items = Item.where(is_validated: false).last(50)
   end
 
   def verify_listitems
