@@ -12,7 +12,7 @@
       <% end %>
     </ul>
     <%= fields_for :item do |f| %>
-      <% f.collection_select :food_id, Food.order(:name), :id, :name %>
+      <%= f.collection_select :food_id, Food.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
     <% end %>
 
     <div class="my-4">
