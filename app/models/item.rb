@@ -24,8 +24,12 @@ class Item < ApplicationRecord
 
   def self.add_list_items(list_items_array)
     new_items = []
+
     # get parsing for each list item that does not have an item yet
-    queries = list_items_array.map{|list_item| "query=#{list_item.name}" if list_item.item.nil? }.compact
+    cleaned_list_items = list_items_array.select{|list_item| list_item.item.nil? }
+
+    queries = cleaned_list_items.map{|list_item| "query=#{list_item.name}" }.compact
+
     unless queries.compact.empty?
       url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
       # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
@@ -35,8 +39,8 @@ class Item < ApplicationRecord
         quantity = element['quantity_match'] if element['quantity_match'].present?
         food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
         unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-
-        new_items << Item.new(quantity: quantity, unit: unit, food: food, list_item: list_items_array[index], name: list_items_array[index].name, is_validated: false)
+        # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
+        new_items << Item.new(quantity: quantity, unit: unit, food: food, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false)
       end
 
       Item.import new_items

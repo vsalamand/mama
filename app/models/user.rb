@@ -32,6 +32,9 @@ class User < ApplicationRecord
     send_welcome_email_to_beta_user if self.beta_changed? && self.beta == true
   end
 
+  def get_latest_list
+    self.lists.where(status: "saved").last if self.lists.any?
+  end
 
 
   private

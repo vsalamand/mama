@@ -7,7 +7,7 @@
       <% if params[:controller] == "recipe_lists" %>
 
         <% if @lists.any? %>
-          <%= link_to 'Mes courses', list_path(@lists.last), class:"btn btn-sm p-0 close" %>
+          <%= link_to 'Mes courses', list_path(current_user.get_latest_list), class:"btn btn-sm p-0 close" %>
         <% else %>
           <%= simple_form_for @list do |f| %>
             <%= f.input :name, :autofocus => true, label: false, :as => :hidden, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses" } %>
