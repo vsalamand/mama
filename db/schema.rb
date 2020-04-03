@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200331104308) do
+ActiveRecord::Schema.define(version: 20200403100516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,6 +252,7 @@ ActiveRecord::Schema.define(version: 20200331104308) do
     t.string   "name"
     t.integer  "list_item_id"
     t.boolean  "is_validated", default: false
+    t.boolean  "is_non_food",  default: false, null: false
     t.index ["food_id"], name: "index_items_on_food_id", using: :btree
     t.index ["list_item_id"], name: "index_items_on_list_item_id", using: :btree
     t.index ["recipe_id"], name: "index_items_on_recipe_id", using: :btree
