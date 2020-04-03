@@ -12,8 +12,9 @@
 
   <div class="my-3"></div>
 
-<%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>
-
+<% if current_user.beta == true %>
+  <%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>
+<% end %>
 
 <div style="padding: 50px;"></div>
 

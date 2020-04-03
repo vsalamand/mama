@@ -4,10 +4,23 @@
   <div class="row">
     <div class="col-6">
         <div>
-          <h1>Verify Items from lists</h1>
+          <h1>Last unvalidated Items</h1>
         </div>
         <div>
           <% @items.reverse.each do |item| %>
+            <li>
+              <%= item.id %> |
+              <%= link_to item.name, edit_item_path(item) %>
+            </li>
+          <% end %>
+        </div>
+    </div>
+    <div class="col-6">
+        <div>
+          <h1>Last unvalidated items from list items</h1>
+        </div>
+        <div>
+          <% @items_listitems.each do |item| %>
             <li>
               <%= item.id %> |
               <%= link_to item.name, edit_item_path(item) %>

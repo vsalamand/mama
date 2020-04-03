@@ -56,6 +56,7 @@ class PagesController < ApplicationController
 
   def verify_items
     @items = Item.where(is_validated: false).last(50)
+    @items_listitems = Item.list_items_to_validate.last(50)
   end
 
   def verify_listitems
