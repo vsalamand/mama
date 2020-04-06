@@ -160,7 +160,7 @@ class Food < ApplicationRecord
       return "Frais"
     elsif Category.find(4).subtree.include?(self.category)
       return "Viandes & poissons"
-    elsif (Category.find(15).subtree + Category.find(7).subtree + Category.find(18).subtree).include?(self.category)
+    elsif (Category.find(15).subtree + Category.find(12).subtree + Category.find(7).subtree + Category.find(18).subtree).include?(self.category)
       return "Épicerie sucrée"
     else #(Category.find(3).subtree + Category.find(1).subtree + Category.find(2).subtree + Category.find(10).subtree + Category.find(6).subtree + Category.find(44).subtree).include?(self.category)
       return "Épicerie salée"
