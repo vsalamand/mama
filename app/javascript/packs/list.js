@@ -9,6 +9,27 @@ require("jquery-ui/ui/widgets/sortable")
 fetchSuggestedItems();
 loadSuggestions();
 
+$(document).on("turbolinks:load", function(event) {
+  // loadSuggestions();
+  getPriceBtn();
+  getListPlaceholder();
+  openSuggestedItemsModal();
+  // disable Add List item button by default
+  var submitButton = document.getElementById('addListItemBtn');
+  $(submitButton).prop('disabled', true);
+  // getCartsPrice();
+})
+
+$(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
+  // loadSuggestions();
+  getPriceBtn();
+  getListPlaceholder();
+  // getCartsPrice();
+})
+
+$(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
+  getListPlaceholder();
+})
 
 // function sort() {
 //   $("#uncomplete_list_items").sortable({
@@ -75,29 +96,36 @@ function fetchSuggestedItems() {
   })
 }
 
-// When list item input field is empty, then disable submit button and show item suggestion lists
-//$('#addListItemModal').on('shown.bs.modal', function (e) {
-function setInputForm() {
-  let submitButton = document.getElementById('addListItemBtn');
-  let inputField = document.getElementById('newListItem');
-  let suggestedItems = document.querySelectorAll('#itemsRecommendations li');
-  // disable button by default
-  $(submitButton).prop('disabled', true);
+$(document).on("submit", "#new_list_item", function(event) {
+  var addForm = document.getElementById('new_list_item');
+  $(addForm).html(
+    `<div class="form-group-control border border-primary m-0 py-3 rounded">
+    <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
+    </div>
+    `
+  );
+})
+
+
+$(document).on("keyup", "#newListItem", function(event) {
+  var inputField = document.getElementById('newListItem');
+  setInputForm(inputField);
+})
+
+// When list item input field is empty, ||| not used any more => then disable submit button and show item suggestion lists
+function setInputForm(inputField) {
+  var submitButton = document.getElementById('addListItemBtn');
   // change state based on keyup event
-  if(inputField){
-    $(document).on("keyup" , inputField, function(event) {
-      success(inputField, submitButton, suggestedItems);
-    });
-  }
+  success(inputField, submitButton);
 }
 
-function success(inputField, submitButton, suggestedItems) {
+function success(inputField, submitButton) {
    if(inputField.value==="") {
             $(submitButton).prop('disabled', true);
-            enableElements(suggestedItems);
+            // enableElements(suggestedItems);
         } else {
             $(submitButton).prop('disabled', false);
-            disableElements(suggestedItems);
+            // disableElements(suggestedItems);
         }
     }
 
@@ -120,25 +148,6 @@ const itemsRecommendations = document.getElementById('itemsRecommendations');
 // const spinner = document.getElementById('spinner');
 
 
-$(document).on("turbolinks:load", function(event) {
-  // loadSuggestions();
-  setInputForm();
-  getPriceBtn();
-  getListPlaceholder();
-  openSuggestedItemsModal();
-  // getCartsPrice();
-})
-
-$(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
-  // loadSuggestions();
-  getPriceBtn();
-  getListPlaceholder();
-  // getCartsPrice();
-})
-
-$(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
-  getListPlaceholder();
-})
 
 function loadSuggestions() {
   if(document.querySelector("#todo_list")){
@@ -171,12 +180,15 @@ function getListPlaceholder() {
   if(document.getElementById("todo_list")) {
     var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
     const placeholder = document.getElementById('listPlaceholder');
+    const sortListBtn = document.getElementById('sortList');
 
     if(totalCount == 0){
       $(placeholder).show();
+      $(sortListBtn).hide();
       loadSuggestedItems();
     } else {
       $(placeholder).hide();
+      $(sortListBtn).show();
     }
   }
 }
@@ -232,7 +244,6 @@ $(document).on('click', '#shareList',function() {
 
 //  Load suggested items in modal
 $(document).on("click", "#openSuggestedItemsBtn", function(event) {
-
   loadSuggestedItems();
 });
 
@@ -247,4 +258,24 @@ function loadSuggestedItems() {
   });
 }
 
+
+//  Update list sorting
+$(document).on("click", ".sortOptionBtn", function(event) {
+  var option = this.getAttribute('data');
+  sortList(option);
+});
+
+function sortList(option) {
+  const id = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + id +"/sort",
+    cache: false,
+    data: {
+      sort_option: option
+      },
+    success: function(data){
+    }
+  });
+}
 

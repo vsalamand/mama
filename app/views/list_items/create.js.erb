@@ -2,9 +2,28 @@
 function refreshForm(innerHTML) {
   const newListItemForm = document.getElementById('new_list_item');
   newListItemForm.innerHTML = innerHTML;
+  var submitButton = document.getElementById('addListItemBtn');
+  $(submitButton).prop('disabled', true);
   event.preventDefault();
 }
 
+function refreshList() {
+  // reload content in grocerylist
+  const uncompleteListItems = document.getElementById('uncomplete_list_items');
+  uncompleteListItems.innerHTML = "";
+  uncompleteListItems.innerHTML = ("<%= j render 'lists/uncomplete_todo_list', list: @list %>");
+}
+
+
+<% if @list_item.errors.any? %>
+  refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
+<% else %>
+  refreshList();
+  refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
+<% end %>
+
+
+// no longer used...
 function addListItem(reviewHTML) {
   const listItems = document.getElementById('uncomplete_list_items');
   listItems.insertAdjacentHTML('beforeend', reviewHTML);
@@ -15,12 +34,6 @@ function addListItem(reviewHTML) {
   event.preventDefault();
 }
 
-<% if @list_item.errors.any? %>
-  refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
-<% else %>
-  addListItem('<%= j render "list_items/show", list_item: @list_item, list: @list %>');
-  refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
-<% end %>
 
 
 // focus on form input field

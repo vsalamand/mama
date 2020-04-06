@@ -1,5 +1,35 @@
-<% if list_items.not_completed.any? %>
-  <% list_items.not_completed.order(:id).each do |item| %>
-    <%= render 'list_items/show', list: list, list_item: item %>
+<% if list.get_not_completed.any? %>
+
+  <% if list.sorted_by == "rayon" %>
+    <% list.sort_by_store_sections.each do |key, array| %>
+      <% if array.any? %>
+        <div id="<%= key.parameterize(separator: '') %>">
+          <div id="<%= key.parameterize(separator: '') %>Header">
+            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1" >
+              <div class="d-flex align-items-center">
+                <p class="m-0 p-1 font-weight-bold lead"><%= key %></p>
+              </div>
+            </ul>
+          </div>
+          <%  array.sort_by{|i| i.food.name if i.food.present?}.each do |item| %>
+            <%= render 'list_items/show', list: list, list_item: item %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+  <!-- no used for now -->
+  <% elsif list.sorted_by == "ordre alphabétique" %>
+      <% list.get_not_completed.sort_by(&:name).each do |item| %>
+        <%= render 'list_items/show', list: list, list_item: item %>
+      <% end %>
+
+
+  <% else list.sorted_by == "date" || nil %>
+      <% list.get_not_completed.sort_by(&:id).each do |item| %>
+        <%= render 'list_items/show', list: list, list_item: item %>
+      <% end %>
+
   <% end %>
+
 <% end %>

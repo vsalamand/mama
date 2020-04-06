@@ -13,9 +13,9 @@ class ListItemsController < ApplicationController
     @list_item.list = @list
 
     if @list_item.save
-      Thread.new do
-        @list_item.create_or_copy_item
-      end
+      @list_item.create_or_copy_item
+      @store_section = @list_item.get_store_section
+
       # render view
       respond_to do |format|
         format.html { redirect_to list_path(@list) }
@@ -50,18 +50,24 @@ class ListItemsController < ApplicationController
   def destroy
     @list_item = ListItem.find(params[:id])
     @list_item.delete
+    @store_section = @list_item.get_store_section
+
     render "delete.js.erb"
   end
 
   def complete
     @list_item = ListItem.find(params[:list_item_id])
     @list_item.complete
+    @store_section = @list_item.get_store_section
+
     render "complete.js.erb"
   end
 
   def uncomplete
     @list_item = ListItem.find(params[:list_item_id])
     @list_item.uncomplete
+    @store_section = @list_item.get_store_section
+
     render "uncomplete.js.erb"
   end
 

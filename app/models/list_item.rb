@@ -79,4 +79,12 @@ class ListItem < ApplicationRecord
     valid_item = Item.where("lower(name) = ?", self.name.downcase).where(is_validated: true).first
     valid_item.present? ? Item.create(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit) : Item.add_list_items(Array(self))
   end
+
+  def get_store_section
+    if self.food.present?
+      self.food.get_store_section
+    else
+      return "Autres"
+    end
+  end
 end

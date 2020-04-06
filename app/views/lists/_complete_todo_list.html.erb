@@ -1,3 +1,15 @@
-<% list_items.completed.order(:id).each do |item| %>
-  <%= render 'list_items/show', list: list, list_item: item %>
+<% if list_items.completed.any? %>
+
+  <div id="completedListItemHeader">
+    <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1" >
+      <div class="d-flex align-items-center">
+        <p class="m-0 p-1 font-weight-bold lead text-muted">Barrés</p>
+      </div>
+    </ul>
+  </div>
+
+  <% list_items.completed.order(:id).each do |item| %>
+    <%= render 'list_items/show', list: list, list_item: item %>
+  <% end %>
+
 <% end %>

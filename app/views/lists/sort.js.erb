@@ -1,0 +1,4 @@
+// reload content in grocerylist
+var uncompleteListItems = document.getElementById('uncomplete_list_items');
+uncompleteListItems.innerHTML = "";
+uncompleteListItems.innerHTML = ("<%= j render 'lists/uncomplete_todo_list', list: @list %>");

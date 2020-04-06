@@ -61,7 +61,6 @@ $(document).on("click" , "#addMenuToListBtn", function(event) {
   const recipeListId = this.getAttribute('data');
   const recipeListClass = ".recipeListItems" + recipeListId;
   const recipeListSelector = document.querySelector(recipeListClass);
-  console.log(recipeListSelector)
 
   const selectedItems = recipeListSelector.querySelectorAll(`.selectedItem`);
 
