@@ -90,6 +90,13 @@ class ListsController < ApplicationController
     redirect_to store_carts_path(:list_id => @list.id)
   end
 
+  def sort
+     @list = List.find(params[:list_id])
+     @list.update_column(:sorted_by, params[:sort_option])
+
+     render 'sort.js.erb'
+  end
+
   # def fetch_recipes
   #   @list = List.find(params[:list_id])
   #   @list_item = ListItem.new

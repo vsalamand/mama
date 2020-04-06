@@ -8,3 +8,12 @@ listCard.remove();
 const uncompleteListItems = document.getElementById('uncomplete_list_items');
 uncompleteListItems.innerHTML = "";
 uncompleteListItems.innerHTML = ("<%= j render 'lists/uncomplete_todo_list', list: @list_item.list, list_items: @list_item.list.list_items.not_deleted %>");
+
+// show/hide header
+var count = $("#complete_list_items li").length;
+const header = document.getElementById('completedListItemHeader');
+if(count == 0){
+  $(header).hide();
+} else {
+  $(header).show();
+}

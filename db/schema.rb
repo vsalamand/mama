@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200403100516) do
+ActiveRecord::Schema.define(version: 20200405142419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(version: 20200403100516) do
     t.string   "status",     default: "archived"
     t.boolean  "is_deleted", default: false
     t.string   "list_type",  default: "personal"
+    t.string   "sorted_by"
     t.index ["user_id"], name: "index_lists_on_user_id", using: :btree
   end
 

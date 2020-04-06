@@ -7,3 +7,30 @@ listItemCard.remove();
 // let counter = document.querySelector(".grocerylist-count");
 // let count = parseInt(document.querySelector(".grocerylist-count").innerHTML);
 // counter.innerHTML = count - 1;
+updateSectionHeader();
+updateCompletedHeader();
+
+function updateCompletedHeader() {
+  // show/hide header
+  var completedCount = $("#complete_list_items li").length;
+  const completedHeader = document.getElementById('completedListItemHeader');
+  if(completedCount == 0){
+    $(completedHeader).hide();
+  } else {
+    $(completedHeader).show();
+  }
+}
+
+function updateSectionHeader() {
+  // show/hide header
+  var todolistSectionCount = $("#<%= @store_section.parameterize(separator: '') %> li").length;
+  var sectionHeader = document.getElementById("<%= @store_section.parameterize(separator: '') %>Header");
+
+  if(todolistSectionCount == 0){
+    updateCompletedHeader();
+    $(sectionHeader).hide();
+  } else {
+    updateCompletedHeader();
+    $(sectionHeader).show();
+  }
+}

@@ -159,6 +159,30 @@ class List < ApplicationRecord
     self.list_items.not_completed.map{ |list_item| list_item.item }
   end
 
+  def get_not_completed
+    self.list_items.not_completed
+  end
+
+  def get_sort_options
+    return ["ordre d'ajout", "rayon"]
+  end
+
+  def sort_by_store_sections
+    store_sections = ["Légumes", "Fruits", "Frais", "Épicerie salée", "Épicerie sucrée", "Viandes & poissons", "Boissons", "Autres"]
+    sort_by_sections = Hash[store_sections.map {|x| [x, Array.new]}]
+
+    self.list_items.not_completed.each do |list_item|
+      section = list_item.get_store_section
+      if sort_by_sections.has_key?(section)
+        sort_by_sections[section] << list_item
+      else
+        sort_by_sections[section] = Array(list_item)
+      end
+    end
+
+    return sort_by_sections
+  end
+
   def get_store_carts
     items = self.get_items_to_buy
     Store.all.each do |store|
