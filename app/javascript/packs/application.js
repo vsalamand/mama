@@ -11,6 +11,9 @@
 // import Rails from 'jquery_ujs'
 import 'bootstrap';
 
+import ahoy from "ahoy.js";
+
+
 import '../components/selectize';
 import '../components/selectize1';
 

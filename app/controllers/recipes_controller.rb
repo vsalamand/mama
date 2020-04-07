@@ -111,6 +111,8 @@ class RecipesController < ApplicationController
     ListItem.add_menu_to_list(items, @list)
 
     render 'add_to_list.js.erb'
+    ahoy.track "Create list from recipe", request.path_parameters
+
   end
 
   def fetch_suggested_recipes
@@ -139,6 +141,7 @@ class RecipesController < ApplicationController
     @recipe.add_to_recipe_list(@recipe_list)
 
     render 'add_to_menu.js.erb'
+    ahoy.track "Add recipe", request.path_parameters
   end
 
   def add_menu_to_list

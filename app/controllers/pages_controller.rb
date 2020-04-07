@@ -23,6 +23,7 @@ class PagesController < ApplicationController
   end
 
   def profile
+    ahoy.track "Show profile", request.path_parameters
   end
 
   def confirmation

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "ahoy.js": "^0.3.4",
     "bootstrap": "^4.3.1",
     "bootstrap3": "^3.3.5",
     "bootstrap4": "^0.0.1-security",
