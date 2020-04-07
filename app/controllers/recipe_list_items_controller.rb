@@ -8,6 +8,7 @@ class RecipeListItemsController < ApplicationController
     @recipe_list_item.destroy
 
     render 'delete.js.erb'
+    ahoy.track "Remove recipe", request.path_parameters
   end
 
   private

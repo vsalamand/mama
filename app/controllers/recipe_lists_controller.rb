@@ -13,6 +13,7 @@ class RecipeListsController < ApplicationController
     @lists = current_user.lists.saved + current_user.shared_lists
     # @recipe_list.recipe_list_items.build
     # @checklist = Checklist.get_checklist(@recipe_list.foods)
+    ahoy.track "Show recipe list", request.path_parameters
   end
 
   def new
@@ -47,6 +48,7 @@ class RecipeListsController < ApplicationController
     @recipe_list = RecipeList.find(params[:id])
     @categories = Recommendation.where(is_active: true).last
     @lists = current_user.lists.saved + current_user.shared_lists
+    ahoy.track "Explore", request.path_parameters
   end
 
   def search
@@ -60,6 +62,7 @@ class RecipeListsController < ApplicationController
       format.html
       format.js
     end
+    ahoy.track "Search", request.path_parameters
   end
 
   def category
@@ -68,6 +71,7 @@ class RecipeListsController < ApplicationController
     @categories = Recommendation.where(is_active: true).last
     @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
     @lists = current_user.lists.saved + current_user.shared_lists
+    ahoy.track "Category", request.path_parameters
   end
 
   def add_recipe
@@ -93,6 +97,7 @@ class RecipeListsController < ApplicationController
     ListItem.add_menu_to_list(items, @list)
 
     render 'add_to_list.js.erb'
+    ahoy.track "Create list from menu", request.path_parameters
   end
 
   def fetch_recipes

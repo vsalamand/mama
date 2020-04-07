@@ -2,6 +2,7 @@ class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
   skip_before_action :authenticate_user!, only: [:accept_invite]
 
+
   def new
     @list = List.new
   end
@@ -13,6 +14,7 @@ class ListsController < ApplicationController
     if @list.save
       redirect_to lists_path if @list.list_type == "curated"
       redirect_to list_path(@list) if @list.list_type == "personal"
+      ahoy.track "Create list", request.path_parameters
     else
       redirect_to new_list_path
     end
@@ -32,6 +34,7 @@ class ListsController < ApplicationController
     ListItem.add_menu_to_list(@items, @list)
 
     render 'add.js.erb'
+    ahoy.track "Add list items", request.path_parameters
   end
 
   def edit
@@ -44,6 +47,7 @@ class ListsController < ApplicationController
     flash[:notice] = 'La liste est enregistrée !'
     redirect_to lists_path if @list.list_type == "curated"
     redirect_to list_path(@list) if @list.list_type == "personal"
+    ahoy.track "Update list", request.path_parameters
   end
 
   def index
@@ -63,6 +67,7 @@ class ListsController < ApplicationController
     @collaboration = Collaboration.new
     @recipe_list = RecipeList.new
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
+    ahoy.track "Show list", request.path_parameters
   end
 
   def fetch_suggested_items
@@ -91,10 +96,11 @@ class ListsController < ApplicationController
   end
 
   def sort
-     @list = List.find(params[:list_id])
-     @list.update_column(:sorted_by, params[:sort_option])
+    @list = List.find(params[:list_id])
+    @list.update_column(:sorted_by, params[:sort_option])
 
-     render 'sort.js.erb'
+    render 'sort.js.erb'
+    ahoy.track "Sort list", request.path_parameters
   end
 
   # def fetch_recipes
@@ -117,6 +123,7 @@ class ListsController < ApplicationController
     mail = ListMailer.share(list, email)
     mail.deliver_now
     redirect_to list_path(list)
+    ahoy.track "Share list", request.path_parameters
   end
 
   def send_invite
@@ -125,6 +132,7 @@ class ListsController < ApplicationController
     mail = ListMailer.send_invite(list, email)
     mail.deliver_now
     redirect_to list_path(list)
+    ahoy.track "Send collaboration invite", request.path_parameters
   end
 
   def accept_invite
@@ -154,6 +162,7 @@ class ListsController < ApplicationController
     flash[:notice] = 'La liste a été supprimée.'
     redirect_to lists_path if @list.list_type == "curated"
     redirect_to root_path if @list.list_type == "personal"
+    ahoy.track "Destroy list", request.path_parameters
   end
 
 

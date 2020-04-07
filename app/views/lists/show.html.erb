@@ -59,6 +59,23 @@
   </div>
 </div>
 
+<!-- Edit List Modal -->
+<div class="modal fade" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="editListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editListModalLabel">Modifier la liste de courses</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <%= render 'lists/form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
   <!-- Share Modal -->
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -83,40 +100,8 @@
       </div>
     </div>
 
-    <!-- Archive List Modal -->
-    <div class="modal fade" id="archiveListModal" tabindex="-1" role="dialog" aria-labelledby="archiveListModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="archiveListModalLabel">📥 Archiver </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body m-0 p-0">
-            <%= render 'lists/archive_form' %>
-          </div>
-        </div>
-      </div>
-    </div>
 
 
-    <!-- Save List Modal -->
-    <div class="modal fade" id="saveListModal" tabindex="-1" role="dialog" aria-labelledby="saveListModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="saveListModalLabel">🔖 Enregistrer cette liste de courses</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body m-0 p-0">
-            <%= render 'lists/save_form' %>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Collaborators List Modal -->
     <div class="modal fade" id="collabListModal" tabindex="-1" role="dialog" aria-labelledby="collabListModalLabel" aria-hidden="true">
