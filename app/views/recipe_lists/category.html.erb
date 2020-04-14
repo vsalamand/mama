@@ -1,9 +1,21 @@
+  <%= render 'shared/navbar' %>
 
 
-<div class="container d-flex justify-content-start">
-  <%= link_to 'Retour', explore_recipe_list_path, class:"btn close m-2 px-0" %>
+<div class="container bg-white my-2" id="searchRecipes" >
+  <!-- Link to search recipes view-->
+    <div class="text-left text-muted" >
+      <div class="search-form-control form-group my-2 shadow-lg">
+          <%= form_tag(search_recipe_list_path, :method => "get") do %>
+            <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
+
+            <%= button_tag(class: "btn btn-sm btn-primary", id:"searchRecipesBtn") do %>
+              Chercher
+            <% end %>
+          <% end %>
+      </div>
+    </div>
+
 </div>
-
 
 <div class="container d-flex justify-content-center p-1 my-2">
   <div class="btn-group">

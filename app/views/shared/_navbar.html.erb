@@ -10,7 +10,7 @@
           <%= link_to 'Mes courses', list_path(current_user.get_latest_list), class:"btn btn-sm p-0 close" %>
         <% else %>
           <%= simple_form_for @list do |f| %>
-            <%= f.input :name, :autofocus => true, label: false, :as => :hidden, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses" } %>
+            <%= f.input :name, :autofocus => true, label: false, :as => :hidden, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses" }, :wrapper_html=> { class: "m-0" } %>
             <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
             <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
             <%= f.submit "Mes courses", class:"btn btn-sm p-0 close" %>
@@ -27,9 +27,9 @@
         <% else  %>
           <!-- Create new recipe list / menu -->
           <%= simple_form_for @recipe_list do |f| %>
-              <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden %>
-              <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden  %>
-              <%= f.input :status, input_html: {value: "opened"}, :as => :hidden %>
+              <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+              <%= f.input :recipe_list_type, input_html: {value: "personal"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+              <%= f.input :status, input_html: {value: "opened"}, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
               <%= f.submit "Idées repas", class:"btn btn-sm p-0 close" %>
           <% end %>
         <% end %>
