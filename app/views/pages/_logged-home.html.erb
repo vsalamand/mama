@@ -39,9 +39,9 @@
 
 <div class="container my-4">
 
-    <h2 class="text-secondary">Choisir à manger</h2>
+  <%= link_to "Choisir à manger", explore_recipe_list_path(@recipe_list), class:"h2 text-primary" %>
 
-    <div class="row">
+    <div class="row mt-1">
       <% @categories.recommendation_items.order(:id).each do |recommendation| %>
         <div class="col-md-4 col-6 p-1">
           <%= link_to category_recipe_list_path(@recipe_list, :recommendation_item_id => recommendation.id), style:"text-decoration: none;" do %>
