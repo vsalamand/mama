@@ -14,24 +14,16 @@
 
     <div>
       <div class="d-flex align-items-center mb-1">
-        <h1 class="display-4">Faites les vite et bien.</h1>
+        <h1 class="display-4">Faites les courses vite et bien.</h1>
       </div>
-      <p class="">Vos listes de courses en quelques clics !</p>
+      <p class="">Gagnez du temps, choisissez à manger et suivez nos suggestions d'achats pour ne jamais rien oublier.</p>
     </div>
 
     <div class="d-flex flex-column">
-      <%= link_to "S'inscrire", new_user_registration_path, class:"btn btn-flat btn-lg m-1 col-md-6" %>
-      <%= link_to "Se connecter", new_user_session_path, class:"btn btn-lg bg-transparent text-white border m-1 col-md-6" %>
+      <%= link_to "Éssayez maintenant !", new_user_registration_path, class:"btn btn-flat btn-lg m-1 col-md-6" %>
+      <%= link_to "J'ai déjà un compte", new_user_session_path, class:"btn btn-lg bg-transparent text-white border m-1 col-md-6" %>
     </div>
 
-<!--     <div>
-      <%= form_for(:user, :url => registration_path(:user), class:"form-inline") do |f| %>
-        <div class="p-3 form-group row flex-wrap mb-0">
-          <%= f.text_field :email, placeholder: "Votre Adresse Email", class:"mb-2 mr-4 form-control-lg col-md-4 bg-transparent text-white  border" %>
-          <%= f.submit "Demander l'accès", class:"btn btn-flat btn-lg col-xs-2" %>
-        </div>
-      <% end %>
-    </div> -->
 
   </div>
 

@@ -36,6 +36,14 @@ class User < ApplicationRecord
     self.lists.where(status: "saved").last if self.lists.any?
   end
 
+  def get_latest_recipe_list
+    if self.recipe_lists.where(status: "opened").any?
+      return self.recipe_lists.where(status: "opened").last
+    else
+      return RecipeList.create(user_id: self.id, recipe_list_type: "personal", status: "opened")
+    end
+  end
+
 
   private
 

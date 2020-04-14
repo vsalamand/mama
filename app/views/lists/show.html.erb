@@ -132,7 +132,7 @@
         <%= @list.name %>
       </button>
       <div class="dropdown-menu">
-        <% @lists.each do |list|  %>
+        <% @lists.sort_by(&:id).each do |list|  %>
           <%= link_to "#{list.name}", list_path(list), class:"dropdown-item" %>
         <% end %>
         <div class="dropdown-divider"></div>

@@ -9,6 +9,7 @@ class RecipeListsController < ApplicationController
   end
 
   def show
+    @list = List.new
     @recipe_list = RecipeList.find(params[:id])
     @lists = current_user.lists.saved + current_user.shared_lists
     # @recipe_list.recipe_list_items.build
@@ -52,8 +53,11 @@ class RecipeListsController < ApplicationController
   end
 
   def search
+    @list = List.new
     @recipe_list = RecipeList.find(params[:id])
     @lists = current_user.lists.saved + current_user.shared_lists
+    @categories = Recommendation.where(is_active: true).last
+
     @query = params[:query].present? ? params[:query] : nil
 
     @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
@@ -66,6 +70,7 @@ class RecipeListsController < ApplicationController
   end
 
   def category
+    @list = List.new
     @recipe_list = RecipeList.find(params[:id])
     @category = RecommendationItem.find(params[:recommendation_item_id])
     @categories = Recommendation.where(is_active: true).last

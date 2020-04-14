@@ -1,4 +1,4 @@
-<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{Date.today.strftime("%d").to_i}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
+<div class="midbanner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{Date.today.strftime("%d").to_i}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
   <%= render 'shared/navbar_white' %>
 
@@ -7,96 +7,58 @@
   </div>
 
 
-  <div class="container my-auto d-flex flex-column justify-content-start align-items-center">
+  <div class="container my-auto d-flex flex-column justify-content-start align-items-start">
+
+    <h2 class="text-white">Faire les courses</h2>
+
 
     <% if @lists.any? %>
-      <%= link_to 'Mes courses', list_path(current_user.get_latest_list), class:"btn btn-lg bg-transparent text-white border px-5 py-3 font-weight-bold", style:"font-size: 2rem;" %>
+      <div class="btn-group">
+        <button type="button" class="btn btn-lg btn-flat dropdown-toggle border-0 px-5 py-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="white-space: normal;">
+          Choisir une liste
+        </button>
+        <div class="dropdown-menu">
+          <% @lists.sort_by(&:id).each do |list|  %>
+            <%= link_to "#{list.name}", list_path(list), class:"dropdown-item" %>
+          <% end %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "Créer une nouvelle liste", new_list_path, class:"dropdown-item text-primary" %>
+        </div>
+      </div>
     <% else %>
       <%= simple_form_for @list do |f| %>
         <%= f.input :name, :autofocus => true, label: false, :as => :hidden, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses" } %>
         <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
         <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-        <%= f.submit "Créer ma première liste", class:"btn btn-lg bg-transparent text-white border p-3 font-weight-bold", style:"font-size: 2rem; margin-bottom:4px;white-space: normal;" %>
+        <%= f.submit "Commencer les courses", class:"btn btn-lg btn-flat text-white border-0 px-5 py-3" %>
       <% end %>
     <% end %>
 
   </div>
+</div>
 
+<div class="container my-4">
 
-  <%= link_to "Mon compte", profile_path, class:"nav-link text-white text-center"  %>
+    <h2 class="text-secondary">Choisir à manger</h2>
+
+    <div class="row">
+      <% @categories.recommendation_items.order(:id).each do |recommendation| %>
+        <div class="col-md-4 col-6 p-1">
+          <%= link_to category_recipe_list_path(@recipe_list, :recommendation_item_id => recommendation.id), style:"text-decoration: none;" do %>
+            <div class="card bg-transparent shadow border-0" style="height: 90px;">
+              <div class="card-body d-flex align-items-center justify-content-center p-1">
+                <p class="lead card-title text-center font-weight-bold m-0"><%= recommendation.name %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
 </div>
 
+  <%= link_to "Mon compte", profile_path, class:"nav-link text-primary text-center my-3"  %>
 
-<%= render "lists/new_list_modal", list: @list, recipe_list: @recipe_list %>
-
-  <!-- Lists Modal -->
-  <div class="modal fade" id="listsModal" tabindex="-1" role="dialog" aria-labelledby="listsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-      <div class="modal-content bg-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="listsModalLabel">📝 Listes de courses</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="card-body">
-          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createListModal" id="openCreateModal">✏️ Nouvelle liste</h5>
-        </div>
-        <div class="modal-body m-0 p-0" style="height: 60vh; overflow-y: auto;">
-          <%= render 'lists/index', lists: @lists %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Recipe Lists Modal -->
-  <div class="modal fade" id="recipeListsModal" tabindex="-1" role="dialog" aria-labelledby="recipeListsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-      <div class="modal-content bg-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="recipeListsModalLabel">🍔 Menus enregistrés</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="card-body">
-          <h5 class="btn btn-block btn-flat rounded" style="cursor: pointer;" data-toggle="modal" data-target="#createRecipeListModal" id="openCreateModal">✏️ Nouveau menu</h5>
-        </div>
-        <div class="modal-body m-0 p-0" style="height: 60vh; overflow-y: auto;">
-          <%= render 'recipe_lists/index', recipe_lists: @recipe_lists %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- Carts Modal -->
-  <div class="modal fade" id="cartsModal" tabindex="-1" role="dialog" aria-labelledby="cartsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-      <div class="modal-content bg-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="cartsModalLabel">🛒 Historique d'achats</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body m-0 p-0" style="height: 75vh;overflow-y: auto;">
-          <%= render 'carts/index', carts: @carts %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
