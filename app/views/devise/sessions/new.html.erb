@@ -4,10 +4,10 @@
 <div class="container">
   <div class="shadow p-3 mt-5 mb-5 bg-white rounded">
 
-      <h2 class="mb-3">Se connecter à Mama</h2>
+      <h2 class="mb-3">Se connecter</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="form-inputs">
+        <div class="form-inputs mb-0">
           <%= f.input :email,
                       label: false,
                       autofocus: true,
@@ -16,11 +16,11 @@
                       label: false,
                       placeholder: "Mot de passe",
                       input_html: { autocomplete: "current-password" } %>
-          <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean if devise_mapping.rememberable? %>
+          <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Se connecter", class: "btn btn-flat mb-3" %>
+          <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-flat mb-1" %>
         </div>
       <% end %>
 

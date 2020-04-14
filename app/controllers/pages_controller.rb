@@ -4,11 +4,11 @@ class PagesController < ApplicationController
 
   def home
     @list = List.new
+    @categories = Recommendation.where(is_active: true).last
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..5]
     if user_signed_in?
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
-      @categories = Recommendation.where(is_active: true).last
     end
 
     # # get user to the thank you page if not in beta
