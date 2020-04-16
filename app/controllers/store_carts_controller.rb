@@ -5,6 +5,7 @@ class StoreCartsController < ApplicationController
 
     @store_cart.update_store_cart_items(@list.get_items_to_buy)
     # @store_cart_items = @store_cart.store_cart_items
+    ahoy.track "Show store cart", request.path_parameters
   end
 
   def add_to_cart
@@ -21,6 +22,7 @@ class StoreCartsController < ApplicationController
   def index
     @list = List.find(params[:list_id])
     # @store_carts = @list.store_carts
+    ahoy.track "Get store carts", request.path_parameters
   end
 
   def fetch_price

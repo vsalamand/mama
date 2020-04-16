@@ -1,11 +1,12 @@
+  <%= render 'shared/navbar' %>
 
 <div class="container d-flex justify-content-between pl-0" id="indexStoreCart" data="<%= @list.id %>">
-   <%= link_to 'Retour', list_path(@list), class:"btn close m-2" %>
 </div>
 
  <div class="d-flex flex-column align-items-center justify-content-center p-1">
-    <p class="m-1 lead text-primary font-weight-bold"><%= @list.name %></p>
-    <h3 class="text-muted font-weight-bold d-flex text-center mb-0">Paniers de courses</h3>
+
+     <%= link_to "#{@list.name}", list_path(@list), class:"btn btn-lg btn-primary border-0", style:"white-space: normal;" %>
+    <p class="m-0 lead text-center mt-2">Choisir une enseigne pour voir les prix</p>
     <small class="text-muted font-italic d-flex justify-content-center text-center px-4 ">Prix indicatifs calculés à partir des données du site de l'enseigne.</small>
  </div>
 
