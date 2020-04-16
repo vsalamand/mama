@@ -23,6 +23,7 @@ class CartsController < ApplicationController
   def show
     @cart = Cart.find(params[:id])
     @cart_item = CartItem.new
+    ahoy.track "Cart", request.path_parameters
   end
 
   def search
