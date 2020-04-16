@@ -4,7 +4,7 @@
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama <span class="badge badge-pill badge-outline-secondary"><small>BETA</small></span>
       </a>
 
-      <% if params[:controller] == "lists" %>
+      <% if params[:controller] == "lists" && params[:action] == "show" %>
 
         <%= link_to "Ajouter au panier", list_get_store_carts_path(:list_id => @list.id), class:"btn btn-link btn-lg p-0", id:"loadStoreCartsBtn"%>
       <% end %>
