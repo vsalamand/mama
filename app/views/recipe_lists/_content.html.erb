@@ -12,10 +12,10 @@
 
 <% else %>
     <div class="list-group-item border-0">
-      <div class="d-flex align-items-center justify-content-start">
+      <div class="d-flex align-items-center justify-content-center">
         <div id="description">
           <div class="d-flex w-100 flex-column mb-0">
-            <h5 class="mb-0 text-muted">Le menu est vide</h5>
+            <%= link_to "Ajouter des idées repas", explore_recipe_list_path(@recipe_list), class:"h5 mt-5 text-primary" %>
           </div>
         </div>
       </div>
