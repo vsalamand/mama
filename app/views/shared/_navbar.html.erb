@@ -4,11 +4,5 @@
         <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
       </a>
 
-      <% if params[:controller] == "lists" && params[:action] == "show" %>
-
-        <%= link_to "Ajouter au panier", list_get_store_carts_path(:list_id => @list.id), class:"btn btn-link btn-lg p-0", id:"loadStoreCartsBtn"%>
-      <% end %>
-
-
     </nav>
   </div>
