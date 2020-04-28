@@ -61,6 +61,15 @@ Rails.application.routes.draw do
   post 'import', to: 'pages#import'
   get 'thank_you', to: "pages#thank_you"
   get 'profile', to: 'pages#profile'
+  get 'select', to: "pages#select"
+  get 'select_products', to: 'pages#select_products'
+  get 'select_recipes', to: 'pages#select_recipes'
+  get 'explore_recipes', to: 'pages#explore_recipes'
+  get 'browse_category', to: 'pages#browse_category'
+  get 'search_recipes', to: 'pages#search_recipes'
+  get 'add_recipe', to: "pages#add_recipe"
+  get 'remove_recipe', to: "pages#remove_recipe"
+  get 'get_list', to: "pages#get_list"
 
 
   resources :recipes do
@@ -223,6 +232,7 @@ Rails.application.routes.draw do
   end
 
   resources :checklists do
+    get :select
     resources :checklist_items
   end
 

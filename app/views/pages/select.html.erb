@@ -1,0 +1,7 @@
+<% if params[:step] == "products" || params[:step].nil? %>
+  <%= render 'select_products' %>
+<% elsif params[:step] == "recipes" %>
+  <%= render 'select_recipes' %>
+<% elsif params[:step] == "list" %>
+  <%= render 'get_list' %>
+<% end %>

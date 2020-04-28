@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
+  skip_before_action :authenticate_user!, only: [:home, :select, :select_products, :select_recipes, :explore_recipes,
+                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
@@ -10,11 +11,64 @@ class PagesController < ApplicationController
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
     end
+  end
 
-    # # get user to the thank you page if not in beta
-    # if user_signed_in? && current_user.beta == false
-    #   redirect_to thank_you_path
-    # end
+  def select
+    @checklist = Checklist.first
+    @lists = @checklist.get_curated_lists
+
+    @selected_items = params[:i]
+    @selected_recipes = params[:r]
+
+    @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
+    @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
+  end
+
+  def select_products
+    @selected_items = params[:i] if params[:i]
+    @selected_recipes = params[:r].join('&r=') if params[:r]
+    render "select_products.js.erb"
+  end
+
+  def select_recipes
+    @selected_items = params[:i].join('&i=') if params[:i]
+    @selected_recipes = params[:r] if params[:r]
+    render "select_recipes.js.erb"
+  end
+
+  def get_list
+    @selected_items = params[:i]
+    @selected_recipes = params[:r]
+    render 'get_list.js.erb'
+  end
+
+  def add_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+    render 'add_recipe.js.erb'
+  end
+
+  def remove_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+    render 'remove_recipe.js.erb'
+  end
+
+  def explore_recipes
+    @categories = Recommendation.where(is_active: true).last
+    render 'explore_recipes.js.erb'
+  end
+
+  def browse_category
+    @category = RecommendationItem.find(params[:category_id])
+    @categories = Recommendation.where(is_active: true).last
+    @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
+    render 'browse_category.js.erb'
+  end
+
+  def search_recipes
+    @categories = Recommendation.where(is_active: true).last
+    @query = params[:query].present? ? params[:query] : nil
+    @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
+    render 'search_recipes.js.erb'
   end
 
   def thank_you

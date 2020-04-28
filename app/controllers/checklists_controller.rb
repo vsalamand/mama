@@ -1,5 +1,7 @@
 class ChecklistsController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!, only: [:index, :show, :create, :edit, :update]
+  skip_before_action :authenticate_user!, only: [:select]
+
 
   def index
     @checklists = Checklist.all
@@ -33,6 +35,10 @@ class ChecklistsController < ApplicationController
     redirect_to checklist_path(@checklist)
   end
 
+  def select
+    @checklist = Checklist.find(params[:checklist_id])
+    @lists = @checklist.get_curated_lists
+  end
 
   private
   def checklist_params

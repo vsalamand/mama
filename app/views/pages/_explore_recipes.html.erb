@@ -1,0 +1,32 @@
+<h2 class="p-3">Ajouter un plat</h2>
+
+<div class="container bg-white my-2" id="searchRecipes" >
+
+    <div class="text-left text-muted" >
+      <div class="search-form-control form-group my-2 shadow-lg">
+          <%= form_tag(search_recipes_path, :method => "get", remote: true, authenticity_token: true) do %>
+            <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
+            <%= button_tag(class: "btn btn-sm btn-primary") do %>
+              Chercher
+            <% end %>
+          <% end %>
+      </div>
+    </div>
+</div>
+
+<div class="container my-3">
+
+    <div class="row">
+      <% categories.recommendation_items.order(:id).each do |recommendation| %>
+        <div class="col-md-4 col-6 p-1 text-primary">
+          <div class="card bg-white shadow border-0" style="height: 90px; cursor: pointer;" id="getCategoryBtn" data="<%= recommendation.id %>">
+            <div class="card-body d-flex align-items-center justify-content-center p-1">
+              <p class="lead card-title text-center font-weight-bold m-0"><%= recommendation.name %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+</div>
+

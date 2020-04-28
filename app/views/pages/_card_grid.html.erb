@@ -1,0 +1,21 @@
+<% if recipes.size > 0 %>
+
+    <div class="row m-1">
+      <% recipes.each do |recipe| %>
+        <%= render 'card_recipe', recipe: recipe %>
+      <% end %>
+  </div>
+
+<% else %>
+  <div class="list-group-item border-0">
+    <div class="d-flex align-items-center justify-content-center">
+      <div id="description">
+        <div class="d-flex w-100 flex-column mb-0">
+          <h5 class="mb-0 text-muted">Aucun résultat...</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
