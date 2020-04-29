@@ -6,7 +6,7 @@
     <% if user_signed_in? %>
       <button class="btn-warning btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% else %>
-      <button class="btn-warning btn-lg" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
+      <%= link_to "Continuer", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn-warning btn-lg", style:"text-decoration: none;" %>
     <% end %>
   </nav>
 </div>
@@ -76,7 +76,13 @@
     <% if user_signed_in? %>
       <button class="btn-warning btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% else %>
-      <button class="btn-warning btn-lg" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
+      <%= link_to "Continuer", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn-warning btn-lg", style:"text-decoration: none;" %>
     <% end %>
   </div>
 </div>
+
+
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+

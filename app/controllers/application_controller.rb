@@ -3,6 +3,22 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+  def resource_class
+    User
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
   # rescue_from StandardError do |exception|
   #   # render what you want here
   #   # flash[:alert] = 'Oups une erreur est survenue...'
@@ -10,13 +26,14 @@ class ApplicationController < ActionController::Base
   # end
 
   def after_sign_in_path_for(resource)
-    @lists = current_user.lists.saved + current_user.shared_lists
+    return root_path
+    # @lists = current_user.lists.saved + current_user.shared_lists
 
-    if @lists.any?
-      return list_path(@lists.last)
-    else
-      return root_path
-    end
+    # if @lists.any?
+    #   return list_path(@lists.last)
+    # else
+    #   return root_path
+    # end
   end
 
 

@@ -1,0 +1,40 @@
+<div class="modal fade bd-login-modal-lg"tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Connectez-vous pour accéder à votre compte</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-3">
+        <div class="errors"></div>
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
+          <div class="form-inputs mb-0">
+            <%= f.input :email,
+                        label: false,
+                        autofocus: true,
+                        placeholder: "Votre Adresse Email" %>
+            <%= f.input :password,
+                        label: false,
+                        placeholder: "Mot de passe",
+                        input_html: { autocomplete: "current-password" } %>
+            <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-warning mb-1" %>
+          </div>
+            <%= link_to "Mot de passe oublié?", new_password_path(resource_name) %><br />
+        <% end %>
+
+        <div>
+          <p class="text-dark font-weight-bold mt-5 mb-1 lead">Vous n'avez pas de compte ?</p>
+          <!--alter the login link to trigger the opening of the modal -->
+          <%= link_to "Créer un compte", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-outline-primary", style:"text-decoration: none;" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
