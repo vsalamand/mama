@@ -27,12 +27,8 @@
       </div>
 
     <% else %>
-      <%= simple_form_for @list do |f| %>
-        <%= f.input :name, :autofocus => true, label: false, :as => :hidden, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses" } %>
-        <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-        <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
-        <%= f.submit "Commencer les courses", class:"btn btn-lg btn-flat text-white border-0 px-5 py-3" %>
-      <% end %>
+     <%= link_to "Créer une nouvelle liste", select_path, class:"btn btn-lg btn-warning font-weight-bold border-0 px-5 py-3" %>
+
     <% end %>
 
   </div>

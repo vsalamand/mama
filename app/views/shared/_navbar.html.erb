@@ -4,5 +4,16 @@
         <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
       </a>
 
+      <% if user_signed_in? %>
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-sm bg-transparent text-muted border font-weight-bold m-1"  %>
+      <% else %>
+        <!--alter the login link to trigger the opening of the modal -->
+        <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn-lg bg-warning text-dark m-1", style:"text-decoration: none;" %>
+      <% end %>
+
     </nav>
   </div>
+
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>

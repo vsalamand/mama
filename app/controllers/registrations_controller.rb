@@ -1,4 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
+  respond_to :html, :js
+
   after_action :remove_notice, only: [:destroy, :create]
 
   protected
@@ -9,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
       list = List.find(params[:shared_list].keys.first.to_i)
       Collaboration.create(list: list, user: current_user)
     end
-    root_path
+    # root_path
   end
 
   private

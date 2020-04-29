@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  respond_to :html, :js
+
   after_action :remove_notice, only: [:destroy, :create]
   # before_action :configure_sign_in_params, only: [:create]
 

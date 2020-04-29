@@ -1,8 +1,18 @@
-  <div class="container">
+  <div class="container px-1">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
        <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama <span class="badge badge-pill badge-outline-secondary"><small>BETA</small></span>
       </a>
 
+      <% if user_signed_in? %>
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-lg bg-transparent text-white border font-weight-bold m-1"  %>
+      <% else %>
+        <!--alter the login link to trigger the opening of the modal -->
+        <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-lg bg-transparent text-white border font-weight-bold m-1", style:"text-decoration: none;" %>
+      <% end %>
+
     </nav>
   </div>
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
