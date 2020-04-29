@@ -12,6 +12,8 @@ class List < ApplicationRecord
   validates :name, presence: true
   has_many :checklist_items, dependent: :destroy, inverse_of: :list
   has_many :checklists, through: :checklist_items
+  has_many :recipe_list_items, dependent: :destroy
+  has_many :recipes, through: :recipe_list_items
 
   accepts_nested_attributes_for :list_items, allow_destroy: true
   accepts_nested_attributes_for :checklist_items

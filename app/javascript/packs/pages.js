@@ -51,7 +51,7 @@ $(document).on("click" , "#goToSelectRecipesBtn", function(event) {
   var listId = this.getAttribute('list-data');
 
   if(document.getElementById('essentials')){
-    const selectedItems = document.getElementById('essentials').querySelectorAll(".selectedItem");
+    const selectedItems = document.querySelectorAll("#essentials .selectedItem");
     var items = []
     $(selectedItems).map(function() {
                      items.push($(this).text().trim());
@@ -237,6 +237,7 @@ $(document).on("click" , "#addToListBtn", function(event) {
 
   // get items in list
   const listId = this.getAttribute('list-data');
+  const recipeIds = this.getAttribute('recipe-data');
 
   const selectedItems = document.querySelectorAll(`.selectedItem`);
 
@@ -245,17 +246,18 @@ $(document).on("click" , "#addToListBtn", function(event) {
                    items.push($(this).text().trim());
                 })
 
-  addToList(items, listId);
+  addToList(items, listId, recipeIds);
 });
 
-function addToList(items, listId) {
+function addToList(items, listId, recipeIds) {
   // query suggested items
   $.ajax({
     url: "/add_to_list",
     cache: false,
     data: {
         l: listId,
-        i: items
+        i: items,
+        r: recipeIds
         },
     success: function(){
     }

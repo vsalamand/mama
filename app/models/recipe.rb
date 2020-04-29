@@ -58,6 +58,14 @@ class Recipe < ApplicationRecord
     end
   end
 
+  def add_recipe_to_list(list_id)
+    unless List.find(list_id).recipes.include?(self)
+      RecipeListItem.create(recipe_id: self.id,
+                          list_id: list_id,
+                          name: self.title)
+    end
+  end
+
   def dismiss
     self.status = "dismissed"
     self.save
