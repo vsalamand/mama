@@ -76,7 +76,7 @@ class PagesController < ApplicationController
   end
 
   def add_to_list
-    params[:l] ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: current_user, status: "saved") if @list.nil?
+    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: current_user, status: "saved", sorted_by: "rayon") if @list.nil?
     items = params[:i]
     ListItem.add_menu_to_list(items, @list)
 
