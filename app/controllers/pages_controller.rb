@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
+  skip_before_action :authenticate_user!, only: [:home, :select, :select_products, :select_recipes, :explore_recipes,
+                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
@@ -10,11 +11,86 @@ class PagesController < ApplicationController
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
     end
+    ahoy.track "Home", request.path_parameters
+  end
 
-    # # get user to the thank you page if not in beta
-    # if user_signed_in? && current_user.beta == false
-    #   redirect_to thank_you_path
-    # end
+  def select
+    @checklist = Checklist.first
+    @lists = @checklist.get_curated_lists
+
+    @selected_items = params[:i]
+    @selected_recipes = params[:r]
+    @list_id = params[:l]
+
+    @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
+    @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
+  end
+
+  def select_products
+    @selected_items = params[:i] if params[:i]
+    @selected_recipes = params[:r].join('&r=') if params[:r]
+    @list_id = params[:l]
+    render "select_products.js.erb"
+    ahoy.track "Select products", request.path_parameters
+  end
+
+  def select_recipes
+    @selected_items = params[:i].join('&i=') if params[:i]
+    @selected_recipes = params[:r] if params[:r]
+    @list_id = params[:l]
+    render "select_recipes.js.erb"
+    ahoy.track "Select recipes", request.path_parameters
+  end
+
+  def get_list
+    @selected_items = params[:i]
+    @selected_recipes = params[:r]
+    @list_id = params[:l]
+    render 'get_list.js.erb'
+    ahoy.track "Verify list", request.path_parameters
+  end
+
+  def add_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+    render 'add_recipe.js.erb'
+    ahoy.track "Add recipe", request.path_parameters
+  end
+
+  def remove_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+    render 'remove_recipe.js.erb'
+    ahoy.track "Remove recipe", request.path_parameters
+  end
+
+  def explore_recipes
+    @categories = Recommendation.where(is_active: true).last
+    render 'explore_recipes.js.erb'
+    ahoy.track "Explore recipes", request.path_parameters
+  end
+
+  def browse_category
+    @category = RecommendationItem.find(params[:category_id])
+    @categories = Recommendation.where(is_active: true).last
+    @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
+    render 'browse_category.js.erb'
+    ahoy.track "browse category", request.path_parameters
+  end
+
+  def search_recipes
+    @categories = Recommendation.where(is_active: true).last
+    @query = params[:query].present? ? params[:query] : nil
+    @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
+    render 'search_recipes.js.erb'
+    ahoy.track "Search recipes", request.path_parameters
+  end
+
+  def add_to_list
+    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: current_user, status: "saved", sorted_by: "rayon") if @list.nil?
+    items = params[:i]
+    ListItem.add_menu_to_list(items, @list)
+
+    render 'add_to_list.js.erb'
+    ahoy.track "Add to list", request.path_parameters
   end
 
   def thank_you
@@ -22,7 +98,7 @@ class PagesController < ApplicationController
   end
 
   def profile
-    ahoy.track "Show profile", request.path_parameters
+    ahoy.track "Profile", request.path_parameters
   end
 
   def confirmation

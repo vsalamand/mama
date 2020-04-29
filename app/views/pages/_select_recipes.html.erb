@@ -1,0 +1,73 @@
+<div class="container">
+  <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+     <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectProductsBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">
+      <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+    </a>
+    <button class="btn-warning btn-lg" id="goToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Continuer</button>
+  </nav>
+</div>
+
+<div class="jumbotron jumbotron-fluid py-3 bg-primary text-white">
+  <div class="container">
+    <h1 class="">Idées repas</h1>
+    <p class="lead">Ajoutez des repas à votre liste de courses</p>
+  </div>
+</div>
+
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-4 p-1">
+      <div class="card border-primary text-primary mb-3 shadow" style="cursor: pointer;" data-toggle="modal" data-target="#exploreRecipesModal" id="openExploreModalBtn">
+        <div class="">
+          <div class="">
+            <div class="card-body d-flex align-items-center justify-content-center flex-column">
+              <h5 class="card-title"><i class="fas fa-lg fa-plus-circle"></i></h5>
+              <h5 class="card-text">Ajouter un plat</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="selectedRecipes" class="row">
+    <% if @recipes.present? %>
+      <% @recipes.each do |recipe| %>
+        <%= render 'selected_recipe', recipe: recipe %>
+      <% end %>
+    <% end %>
+    <!-- insert selected recipe cards here -->
+  </div>
+
+
+</div>
+
+<div style="padding: 15px;"></div>
+
+<div class="container mb-5 mt-3 d-flex flex-row-reverse">
+  <div class="d-flex flex-column">
+    <p class="text-muted bd-highlight text-center mb-1">Vous pourrez ajouter d'autres produits ensuite</p>
+    <button class="btn-lg btn-warning bd-highlight px-5" id="goToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Continuer la liste</button>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exploreRecipesModal" tabindex="-1" role="dialog" aria-labelledby="exploreRecipesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-white">
+        <div class="modal-body m-0 p-0" style="height: 80vh;overflow-y: auto;">
+
+          <div id="getExploreRecipesContent">
+            <!-- content comes here -->
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,3 @@
+var recipeCard = '<%= j render "selected_recipe", recipe: @recipe %>'
+var recipesList = document.getElementById('selectedRecipes');
+recipesList.insertAdjacentHTML('afterbegin', recipeCard);

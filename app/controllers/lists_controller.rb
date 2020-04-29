@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:accept_invite]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort]
 
 
   def new
@@ -59,13 +59,17 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
-    @lists = current_user.lists.saved + current_user.shared_lists - Array(@list)
-    @list_item = ListItem.new
     @list_items = @list.list_items.not_deleted
-    @uncomplete_list_items = @list.get_items_to_buy
-    @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
-    @collaboration = Collaboration.new
-    @recipe_list = RecipeList.new
+    # @uncomplete_list_items = @list.get_items_to_buy
+    @list_item = ListItem.new
+
+    if user_signed_in?
+      @lists = current_user.lists.saved + current_user.shared_lists - Array(@list)
+      @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
+      @collaboration = Collaboration.new
+      @recipe_list = RecipeList.new
+    end
+
     # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
     ahoy.track "Show list", request.path_parameters
   end
@@ -103,6 +107,7 @@ class ListsController < ApplicationController
     ahoy.track "Sort list", request.path_parameters
   end
 
+
   # def fetch_recipes
   #   @list = List.find(params[:list_id])
   #   @list_item = ListItem.new
@@ -132,7 +137,7 @@ class ListsController < ApplicationController
     mail = ListMailer.send_invite(list, email)
     mail.deliver_now
     redirect_to list_path(list)
-    ahoy.track "Send collaboration invite", request.path_parameters
+    ahoy.track "Send invite", request.path_parameters
   end
 
   def accept_invite
@@ -148,6 +153,7 @@ class ListsController < ApplicationController
     else
       redirect_to new_user_registration_path(:shared_list => list.id, :user_email => params[:user_email])
     end
+    ahoy.track "Accept invite", request.path_parameters
   end
 
   def archive

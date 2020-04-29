@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_action :set_recipe, only: [ :new, :create, :edit, :update ]
   before_action :set_list_item, only: [ :edit, :update, :unvalidate, :validate ]
   before_action :set_item, only: [ :edit, :update ]
+  skip_before_action :authenticate_user!, only: [:select, :unselect]
+
 
   def new
     @item = Item.new

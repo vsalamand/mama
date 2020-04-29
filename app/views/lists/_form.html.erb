@@ -1,11 +1,11 @@
 <%= simple_form_for @list do |f| %>
     <div class="p-3 bg-white">
-      <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus", value: "Liste de courses du #{Date.today.strftime("%d/%m/%y")}" } %>
+      <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus" } %>
       <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
       <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
     </div>
     <div class="modal-footer bg-white">
       <%= link_to "Annuler", root_path, class:"btn btn-secondary py-2 closeModal" %>
-      <%= f.submit "Continuer", class:"btn btn-flat px-5" %>
+      <%= f.submit "Continuer", class:"btn py-2 btn-warning px-5" %>
     </div>
 <% end %>

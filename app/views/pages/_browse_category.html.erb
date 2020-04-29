@@ -1,0 +1,35 @@
+<h2 class="p-3">Ajouter un plat</h2>
+
+<div class="container bg-white my-2" id="searchRecipes" >
+
+    <div class="text-left text-muted" >
+      <div class="search-form-control form-group my-2 shadow-lg">
+          <%= form_tag(search_recipes_path, :method => "get", remote: true, authenticity_token: true) do %>
+            <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
+            <%= button_tag(class: "btn btn-sm btn-primary") do %>
+              Chercher
+            <% end %>
+          <% end %>
+      </div>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center p-1 my-2">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary btn-lg dropdown-toggle border-0" id="categoryMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%= category.name %>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="categoryMenuButton" style="height: 50vh; overflow-y: auto;">
+      <% categories.recommendation_items.order(:id).each do |recommendation| %>
+        <a class="dropdown-item" id="getCategoryBtn" data="<%= recommendation.id %>" style="cursor: pointer;"><%= recommendation.name %></a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div class="container my-4 px-0" id="recipeCategory">
+  <div class="recipesGrid">
+    <%= render 'card_grid', recipes: recipes %>
+  </div>
+</div>

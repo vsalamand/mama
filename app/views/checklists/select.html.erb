@@ -1,0 +1,32 @@
+<%= render 'shared/navbar' %>
+
+
+<div class="container">
+  <h2>Étape 1</h2>
+  <h1>Produits de base</h1>
+  <p class="text-muted">Sélectionnez les produits à ajouter à votre liste</p>
+</div>
+
+<div class="container">
+  <% if @lists.any? %>
+    <% @lists.each do |list| %>
+      <div class="card rounded-0">
+        <div class="card-header text-primary font-weight-bold d-flex flex-column">
+          <span><%= list.name %></span>
+        </div>
+        <ul class="list-group list-group-flush p-1">
+          <% list.get_items_to_buy.compact.sort_by(&:name).each do |item| %>
+            <%= render 'items/unselected_item', item: item %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="container mb-5 mt-3">
+  <div class="d-flex flex-column justify-content-center">
+    <p class="text-muted mx-auto text-center mb-1">Vous pourrez ajouter d'autres produits ensuite</p>
+    <button class="btn-lg btn-flat mx-auto px-5">Continuer la liste</button>
+  </div>
+</div>
