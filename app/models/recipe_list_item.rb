@@ -1,7 +1,7 @@
 class RecipeListItem < ApplicationRecord
   belongs_to :recipe, inverse_of: :recipe_list_items
-
   belongs_to :recipe_list, optional: true
+  belongs_to :list, optional: true
 
   accepts_nested_attributes_for :recipe
 

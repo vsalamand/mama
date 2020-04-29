@@ -23,6 +23,7 @@ class PagesController < ApplicationController
     @list_id = params[:l]
 
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
+    @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
     @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
   end
 
@@ -88,6 +89,11 @@ class PagesController < ApplicationController
     params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: current_user, status: "saved", sorted_by: "rayon") if @list.nil?
     items = params[:i]
     ListItem.add_menu_to_list(items, @list)
+
+    if params[:r].present?
+      recipes = Recipe.find(params[:r].split("&r="))
+      recipes.each{|r| r.add_recipe_to_list(@list.id)}
+    end
 
     render 'add_to_list.js.erb'
     ahoy.track "Add to list", request.path_parameters

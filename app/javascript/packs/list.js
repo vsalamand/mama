@@ -282,3 +282,24 @@ function sortList(option) {
   });
 }
 
+
+
+//  Remove recipe from list
+$(document).on("click", "#removeRecipefromListBtn", function(event) {
+  var recipeId = this.getAttribute('data');
+  const id = document.querySelector("#todo_list").getAttribute('data');
+
+  removeRecipe(recipeId, id);
+});
+
+function removeRecipe(recipeId, id) {
+  $.ajax({
+    url: "/lists/" + id + "/remove_recipe",
+    cache: false,
+    data: {
+      recipe_id: recipeId
+      },
+    success: function(data){
+    }
+  });
+}

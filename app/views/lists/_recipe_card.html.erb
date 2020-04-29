@@ -8,11 +8,13 @@
       <div class="col-7 d-flex align-items-start flex-column bd-highlight">
         <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
           <div class="card-body mb-auto p-2 bd-highlight" style="max-height: 4vh;">
-            <h5 class="card-title text-primary mb-0" style="font-size: 0.9rem;"><%= truncate(recipe.title, length:60) %></h5>
+            <h5 class="card-title text-primary mb-0" style="font-size: 0.9rem;"><%= truncate(recipe.title, length:57) %></h5>
             <p class="card-text m-0 p-0"><small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link }").host %></small></p>
           </div>
         <% end %>
-        <button class="btn-sm btn-outline-secondary rounded mt-auto bd-highlight m-2" id="removeRecipeBtn" data="<%= recipe.id %>"><i class="fas fa-trash p-1"></i>Retirer</button>
+        <% if @list.user == current_user || @list.users.include?(current_user) %>
+          <button class="btn-sm btn-outline-secondary rounded mt-auto bd-highlight m-2" id="removeRecipefromListBtn" data="<%= recipe.id %>"><i class="fas fa-trash p-1"></i></button>
+        <% end %>
       </div>
     </div>
   </div>

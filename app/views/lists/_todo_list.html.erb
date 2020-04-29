@@ -40,9 +40,4 @@
   <div class="my-3"></div>
 
 
-<% if user_signed_in? && current_user.beta == true %>
-  <%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>
-<% end %>
-
-<div style="padding: 50px;"></div>
 

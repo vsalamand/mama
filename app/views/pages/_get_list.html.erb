@@ -4,9 +4,9 @@
       <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
     </a>
     <% if user_signed_in? %>
-      <button class="btn-warning btn-lg" id="addToListBtn" list-data="<%= @list_id %>">Continuer</button>
+      <button class="btn-warning btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% else %>
-      <button class="btn-warning btn-lg" list-data="<%= @list_id %>">Continuer</button>
+      <button class="btn-warning btn-lg" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% end %>
   </nav>
 </div>
@@ -29,8 +29,8 @@
 <div class="container my-2 p-0 shadow">
 
 
-  <% if @temp_items.present? %>
-    <div id="">
+  <div  id="essentials">
+    <% if @temp_items.present? %>
       <div id="Header">
         <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1" >
           <div class="d-flex align-items-center">
@@ -38,13 +38,13 @@
           </div>
         </ul>
       </div>
-      <ul class="list-group list-group-flush" id="essentials">
+      <ul class="list-group list-group-flush">
         <% @temp_items.each do |item| %>
           <%= render 'items/selected_item', item: item %>
         <% end %>
       </ul>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
 
   <% if @recipes.present? %>
@@ -74,9 +74,9 @@
 <div class="container mb-5 mt-3 d-flex flex-row-reverse">
   <div class="d-flex flex-column">
     <% if user_signed_in? %>
-      <button class="btn-warning btn-lg" id="addToListBtn" list-data="<%= @list_id %>">Continuer</button>
+      <button class="btn-warning btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% else %>
-      <button class="btn-warning btn-lg" list-data="<%= @list_id %>">Continuer</button>
+      <button class="btn-warning btn-lg" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% end %>
   </div>
 </div>

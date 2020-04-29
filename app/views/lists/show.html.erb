@@ -36,8 +36,29 @@
 </div>
 
 
+<% if @recipes.present? %>
+  <div class="container px-0 mt-4">
+    <div id="Header">
+        <div class="d-flex align-items-center">
+          <p class="m-0 p-1 font-weight-bold lead">Recette.s</p>
+        </div>
+    </div>
+    <div id="selectedRecipes" class="row m-0">
+        <% @recipes.each do |recipe| %>
+          <%= render 'recipe_card', recipe: recipe, list: @list %>
+        <% end %>
+    </div>
+  </div>
+<% end %>
+
+
 <div style="padding: 50px;"></div>
 
+<% if user_signed_in? && current_user.beta == true %>
+  <%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>
+<% end %>
+
+<div style="padding: 50px;"></div>
 
 
 <!-- Modal views  -->

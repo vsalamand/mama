@@ -62,6 +62,7 @@ class ListsController < ApplicationController
     @list_items = @list.list_items.not_deleted
     # @uncomplete_list_items = @list.get_items_to_buy
     @list_item = ListItem.new
+    @recipes = @list.recipes
 
     if user_signed_in?
       @lists = current_user.lists.saved + current_user.shared_lists - Array(@list)
@@ -105,6 +106,15 @@ class ListsController < ApplicationController
 
     render 'sort.js.erb'
     ahoy.track "Sort list", request.path_parameters
+  end
+
+  def remove_recipe
+    @list = List.find(params[:list_id])
+    @recipe = Recipe.find(params[:recipe_id])
+    RecipeListItem.find_by(recipe_id: params[:recipe_id], list_id: @list.id).destroy
+
+    render 'remove_recipe.js.erb'
+    ahoy.track "Remove recipe", request.path_parameters
   end
 
 
