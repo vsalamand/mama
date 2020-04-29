@@ -137,7 +137,7 @@ class ListsController < ApplicationController
     mail = ListMailer.send_invite(list, email)
     mail.deliver_now
     redirect_to list_path(list)
-    ahoy.track "Send collaboration invite", request.path_parameters
+    ahoy.track "Send invite", request.path_parameters
   end
 
   def accept_invite
@@ -153,6 +153,7 @@ class ListsController < ApplicationController
     else
       redirect_to new_user_registration_path(:shared_list => list.id, :user_email => params[:user_email])
     end
+    ahoy.track "Accept invite", request.path_parameters
   end
 
   def archive

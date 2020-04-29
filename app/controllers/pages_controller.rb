@@ -11,6 +11,7 @@ class PagesController < ApplicationController
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
     end
+    ahoy.track "Home", request.path_parameters
   end
 
   def select
@@ -30,6 +31,7 @@ class PagesController < ApplicationController
     @selected_recipes = params[:r].join('&r=') if params[:r]
     @list_id = params[:l]
     render "select_products.js.erb"
+    ahoy.track "Select products", request.path_parameters
   end
 
   def select_recipes
@@ -37,6 +39,7 @@ class PagesController < ApplicationController
     @selected_recipes = params[:r] if params[:r]
     @list_id = params[:l]
     render "select_recipes.js.erb"
+    ahoy.track "Select recipes", request.path_parameters
   end
 
   def get_list
@@ -44,21 +47,25 @@ class PagesController < ApplicationController
     @selected_recipes = params[:r]
     @list_id = params[:l]
     render 'get_list.js.erb'
+    ahoy.track "Verify list", request.path_parameters
   end
 
   def add_recipe
     @recipe = Recipe.find(params[:recipe_id])
     render 'add_recipe.js.erb'
+    ahoy.track "Add recipe", request.path_parameters
   end
 
   def remove_recipe
     @recipe = Recipe.find(params[:recipe_id])
     render 'remove_recipe.js.erb'
+    ahoy.track "Remove recipe", request.path_parameters
   end
 
   def explore_recipes
     @categories = Recommendation.where(is_active: true).last
     render 'explore_recipes.js.erb'
+    ahoy.track "Explore recipes", request.path_parameters
   end
 
   def browse_category
@@ -66,6 +73,7 @@ class PagesController < ApplicationController
     @categories = Recommendation.where(is_active: true).last
     @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
     render 'browse_category.js.erb'
+    ahoy.track "browse category", request.path_parameters
   end
 
   def search_recipes
@@ -73,6 +81,7 @@ class PagesController < ApplicationController
     @query = params[:query].present? ? params[:query] : nil
     @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
     render 'search_recipes.js.erb'
+    ahoy.track "Search recipes", request.path_parameters
   end
 
   def add_to_list
@@ -81,6 +90,7 @@ class PagesController < ApplicationController
     ListItem.add_menu_to_list(items, @list)
 
     render 'add_to_list.js.erb'
+    ahoy.track "Add to list", request.path_parameters
   end
 
   def thank_you
@@ -88,7 +98,7 @@ class PagesController < ApplicationController
   end
 
   def profile
-    ahoy.track "Show profile", request.path_parameters
+    ahoy.track "Profile", request.path_parameters
   end
 
   def confirmation
