@@ -3,8 +3,16 @@ import 'bootstrap';
 
 // go to select products
 $(document).on("click" , "#goToSelectProductsBtn", function(event) {
+   // disable button
+  $(this).prop("disabled", true);
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
+
   var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
-  var items = this.getAttribute('data')
+  var items = this.getAttribute('data');
+  var listId = this.getAttribute('list-data');
 
   var recipeIds = []
   $(selectedRecipes).map(function() {
@@ -12,16 +20,17 @@ $(document).on("click" , "#goToSelectProductsBtn", function(event) {
                 })
 
   var recipeIds = recipeIds.filter(Boolean)
-  goToSelectProducts(items, recipeIds);
+  goToSelectProducts(items, recipeIds, listId);
 })
 
-function goToSelectProducts(items, recipeIds) {
+function goToSelectProducts(items, recipeIds, listId) {
   $.ajax({
     url: "select_products",
     cache: false,
     data: {
        i: items,
-       r: recipeIds
+       r: recipeIds,
+       l: listId
       },
     success: function(data){
     }
@@ -31,7 +40,15 @@ function goToSelectProducts(items, recipeIds) {
 
 // go to select recipes
 $(document).on("click" , "#goToSelectRecipesBtn", function(event) {
+   // disable button
+  $(this).prop("disabled", true);
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
+
   var recipeIds = this.getAttribute('recipe-data');
+  var listId = this.getAttribute('list-data');
 
   if(document.getElementById('essentials')){
     const selectedItems = document.getElementById('essentials').querySelectorAll(".selectedItem");
@@ -48,16 +65,17 @@ $(document).on("click" , "#goToSelectRecipesBtn", function(event) {
                   })
   }
 
-  goToSelectRecipes(items, recipeIds);
+  goToSelectRecipes(items, recipeIds, listId);
 })
 
-function goToSelectRecipes(items, recipeIds) {
+function goToSelectRecipes(items, recipeIds, listId) {
   $.ajax({
     url: "select_recipes",
     cache: false,
     data: {
        i: items,
-       r: recipeIds
+       r: recipeIds,
+       l: listId
       },
     success: function(data){
     }
@@ -67,9 +85,17 @@ function goToSelectRecipes(items, recipeIds) {
 
 // go to list
 $(document).on("click" , "#goToListBtn", function(event) {
+   // disable button
+  $(this).prop("disabled", true);
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
 
   var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
-  var items = this.getAttribute('data')
+  var items = this.getAttribute('data');
+  var listId = this.getAttribute('list-data');
+
 
   var recipeIds = []
   $(selectedRecipes).map(function() {
@@ -78,16 +104,17 @@ $(document).on("click" , "#goToListBtn", function(event) {
 
   var recipeIds = recipeIds.filter(Boolean)
 
-  goToList(recipeIds, items);
+  goToList(recipeIds, items, listId);
 })
 
-function goToList(recipeIds, items) {
+function goToList(recipeIds, items, listId) {
   $.ajax({
     url: "get_list",
     cache: false,
     data: {
         r: recipeIds,
-        i: items
+        i: items,
+        l: listId
       },
     success: function(data){
     }
@@ -195,3 +222,42 @@ $(document).on("click", "#categoryMenuButton", function(event) {
     });
   });
 });
+
+
+
+//  Add to list
+$(document).on("click" , "#addToListBtn", function(event) {
+
+   // disable button
+  $(this).prop("disabled", true);
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
+
+  // get items in list
+  const listId = this.getAttribute('list-data');
+
+  const selectedItems = document.querySelectorAll(`.selectedItem`);
+
+  const items = []
+  $(selectedItems).map(function() {
+                   items.push($(this).text().trim());
+                })
+
+  addToList(items, listId);
+});
+
+function addToList(items, listId) {
+  // query suggested items
+  $.ajax({
+    url: "/add_to_list",
+    cache: false,
+    data: {
+        l: listId,
+        i: items
+        },
+    success: function(){
+    }
+  });
+}

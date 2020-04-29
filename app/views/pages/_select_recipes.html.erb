@@ -1,9 +1,9 @@
 <div class="container">
   <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-     <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectProductsBtn" data="<%= @selected_items %>">
+     <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectProductsBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">
       <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
     </a>
-    <button class="btn-flat" id="goToListBtn" data="<%= @selected_items %>">Continuer</button>
+    <button class="btn-warning btn-lg" id="goToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Continuer</button>
   </nav>
 </div>
 
@@ -48,7 +48,7 @@
 <div class="container mb-5 mt-3 d-flex flex-row-reverse">
   <div class="d-flex flex-column">
     <p class="text-muted bd-highlight text-center mb-1">Vous pourrez ajouter d'autres produits ensuite</p>
-    <button class="btn-lg btn-flat bd-highlight px-5" id="goToListBtn" data="<%= @selected_items %>">Continuer la liste</button>
+    <button class="btn-lg btn-warning bd-highlight px-5" id="goToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Continuer la liste</button>
   </div>
 </div>
 

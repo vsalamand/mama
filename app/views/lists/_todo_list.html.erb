@@ -1,41 +1,48 @@
 <%= render "lists/suggested_items" %>
 
-<div class="dropdown p-2" id="sortList">
-  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Trier la liste
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownSortButton">
-    <% list.get_sort_options.each do |option| %>
-      <a class="dropdown-item sortOptionBtn" style="cursor: pointer;" data="<%= option %>">par <%= option %></a>
-    <% end %>
+<% if list.user == current_user || list.users.include?(current_user)%>
+  <div class="d-flex justify-content-between ">
+    <div class="p-2" id="openSelect">
+      <%= link_to "🔮 Voir les suggestions", select_path(l: list.id), class:"btn btn-sm btn-warning ml-1" %>
+    </div>
+
+    <div class="dropdown p-2" id="sortList">
+      <button class="btn btn-sm btn-outline-secondary dropdown-toggle px-3" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Trier la liste
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortButton">
+        <% list.get_sort_options.each do |option| %>
+          <a class="dropdown-item sortOptionBtn" style="cursor: pointer;" data="<%= option %>">par <%= option %></a>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="shadow rounded">
   <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
     <%= render 'lists/uncomplete_todo_list', list: list %>
   </div>
 </div>
-<div class="shadow rounded mt-2">
-  <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
-    <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
+
+<% if list.user == current_user || list.users.include?(current_user)%>
+  <div class="my-2 py-2 px-1">
+   <%= render "list_items/form", list: list, list_item: list_item %>
+
+    <div class="shadow rounded">
+      <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
+        <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>
 
   <div class="my-3"></div>
 
-<% if current_user.beta == true %>
+
+<% if user_signed_in? && current_user.beta == true %>
   <%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>
 <% end %>
 
 <div style="padding: 50px;"></div>
 
-
-<div class="container px-1 bg-white fixed-bottom">
-  <% if list.user == current_user || list.users.include?(current_user)%>
-   <%= render "list_items/form", list: list, list_item: list_item %>
-  <% end %>
-  <div class="d-flex justify-content-center">
-    <button class="btn-sm btn-flat my-1 py-2 border-0" id="openSuggestedItemsBtn" data-toggle="modal" data-target="#selectItemsModal">🔮 Suggestions d'achats</button>
-  </div>
-</div>

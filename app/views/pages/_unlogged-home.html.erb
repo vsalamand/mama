@@ -4,7 +4,7 @@
   <div class="container px-1">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
        <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
-        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
+        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama <span class="badge badge-pill badge-outline-secondary"><small>BETA</small></span>
       </a>
       <%= link_to "Connexion", new_user_session_path, class:"btn btn-lg bg-transparent text-white border font-weight-bold m-1" %>
     </nav>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="d-flex flex-column">
-      <%= link_to "Créez une liste de courses", select_path, class:"btn btn-flat btn-lg m-1 col-md-6" %>
+      <%= link_to "Créez une liste de courses", select_path, class:"btn btn-warning btn-lg m-1 col-md-6 font-weight-bold" %>
     </div>
 
   </div>

@@ -7,13 +7,13 @@ require("jquery-ui/ui/widgets/sortable")
 
 // sort();
 fetchSuggestedItems();
-loadSuggestions();
+// loadSuggestions();
 
 $(document).on("turbolinks:load", function(event) {
   // loadSuggestions();
   getPriceBtn();
   getListPlaceholder();
-  openSuggestedItemsModal();
+  // openSuggestedItemsModal();
   // disable Add List item button by default
   var submitButton = document.getElementById('addListItemBtn');
   $(submitButton).prop('disabled', true);
@@ -181,14 +181,17 @@ function getListPlaceholder() {
     var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
     const placeholder = document.getElementById('listPlaceholder');
     const sortListBtn = document.getElementById('sortList');
+    const openRecoBtn = document.getElementById('openSelect');
 
     if(totalCount == 0){
       $(placeholder).show();
       $(sortListBtn).hide();
-      loadSuggestedItems();
+      $(openRecoBtn).hide();
+      // loadSuggestedItems();
     } else {
       $(placeholder).hide();
       $(sortListBtn).show();
+      $(openRecoBtn).show();
     }
   }
 }

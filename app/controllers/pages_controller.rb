@@ -19,6 +19,7 @@ class PagesController < ApplicationController
 
     @selected_items = params[:i]
     @selected_recipes = params[:r]
+    @list_id = params[:l]
 
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
     @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
@@ -27,18 +28,21 @@ class PagesController < ApplicationController
   def select_products
     @selected_items = params[:i] if params[:i]
     @selected_recipes = params[:r].join('&r=') if params[:r]
+    @list_id = params[:l]
     render "select_products.js.erb"
   end
 
   def select_recipes
     @selected_items = params[:i].join('&i=') if params[:i]
     @selected_recipes = params[:r] if params[:r]
+    @list_id = params[:l]
     render "select_recipes.js.erb"
   end
 
   def get_list
     @selected_items = params[:i]
     @selected_recipes = params[:r]
+    @list_id = params[:l]
     render 'get_list.js.erb'
   end
 
@@ -69,6 +73,14 @@ class PagesController < ApplicationController
     @query = params[:query].present? ? params[:query] : nil
     @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
     render 'search_recipes.js.erb'
+  end
+
+  def add_to_list
+    params[:l] ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: current_user, status: "saved") if @list.nil?
+    items = params[:i]
+    ListItem.add_menu_to_list(items, @list)
+
+    render 'add_to_list.js.erb'
   end
 
   def thank_you

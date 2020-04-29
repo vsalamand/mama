@@ -1,188 +1,35 @@
   <%= render 'shared/navbar' %>
 
-
-<% if false %>
-    <% if @list.user == current_user && @list.status == "opened" %>
-      <a class="btn close m-2 px-0" data-toggle="modal" data-target="#closeListModal">Fermer</a>
-    <% elsif @list.user == current_user && @list.status != "opened" %>
-      <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
-    <% else %>
-      <%= link_to 'Fermer', root_path, class:"btn close m-2 px-0" %>
-    <% end %>
-<% end %>
-
-
-
-  <!-- Close List Modal -->
-    <div class="modal fade" id="closeListModal" tabindex="-1" role="dialog" aria-labelledby="closeListModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="closeListModalLabel">Souhaitez-vous enregistrer cette liste de courses ?</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body p-0 m-0">
-
-            <div class="list-group list-group-flush">
-
-              <% if @list.user == current_user %>
-                 <%= link_to "Non", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr.e ?' }, class:"btn list-group-item list-group-item-action text-danger" %>
-              <% elsif @list.users.include?(current_user) %>
-                <%= link_to "Non", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"btn list-group-item list-group-item-action text-primary text-danger" %>
-              <% end %>
-
-              <a class="btn list-group-item list-group-item-action text-primary font-weight-bold" data-toggle="modal" data-target="#saveListModal">Oui</a>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-<!-- Create List Modal -->
-<div class="modal fade" id="createListModal" tabindex="-1" role="dialog" aria-labelledby="createListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="createListModalLabel">📝 Nouvelle liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/form' %>
-      </div>
-    </div>
+<div class="jumbotron shadow jumbotron-fluid py-3 bg-primary text-white mb-3">
+  <div class="container d-flex flex-column">
+    <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
+      <%= cl_image_tag("logo_qj08zi", width: 30, height: 30, class:"mr-1") %> Mama <span class="badge badge-pill badge-outline-secondary"><small>BETA</small></span>
+    </a>
+    <h1 class=""><%= @list.name %></h1>
   </div>
 </div>
 
-<!-- Edit List Modal -->
-<div class="modal fade" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="editListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editListModalLabel">Modifier la liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/form' %>
-      </div>
+<div class="container my-2">
+  <% if @list.user == current_user %>
+    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+      <a class="bd-highlight px-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Collaborer</a>
+      <a class="bd-highlight px-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Éditer</a>
+       <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
     </div>
-  </div>
-</div>
-
-  <!-- Share Modal -->
-    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="shareModalLabel">Envoyer par email</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body p-0 m-0">
-            <%= form_tag(list_share_path(@list), class: 'form-group mb-0') do |f| %>
-              <div class="shadow p-3 bg-white">
-                <%= text_field_tag 'emailShare', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
-                <div class="d-flex align-items-center justify-content-end">
-                  <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2" %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
+  <% end %>
+  <% if @list.users.include?(current_user) %>
+    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+      <a class="bd-highlight px-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Collaborer</a>
+      <a class="bd-highlight px-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Éditer</a>
+       <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
     </div>
-
-
-
-
-    <!-- Collaborators List Modal -->
-    <div class="modal fade" id="collabListModal" tabindex="-1" role="dialog" aria-labelledby="collabListModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content bg-white">
-          <div class="modal-header">
-            <h5 class="modal-title" id="collabListModalLabel">Gérer à plusieurs</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body m-0 p-0">
-            <%= render 'collaborations/index' %>
-          </div>
-          <div class="modal-body m-0 p-0">
-            <%= render 'collaborations/form', list: @list %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-<% if @list.name.present? %>
-  <div class="container d-flex justify-content-center p-1">
-
-    <div class="btn-group my-3">
-      <button type="button" class="btn btn-lg btn-primary dropdown-toggle border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="white-space: normal;">
-        <%= @list.name %>
-      </button>
-      <div class="dropdown-menu">
-        <% @lists.sort_by(&:id).each do |list|  %>
-          <%= link_to "#{list.name}", list_path(list), class:"dropdown-item" %>
-        <% end %>
-        <div class="dropdown-divider"></div>
-        <%= link_to "Créer une nouvelle liste", new_list_path, class:"dropdown-item text-primary" %>
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-lg btn-outline-secondary border-0 rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <!-- do not show share feature for now -->
-        <% if false %>
-          <a class="dropdown-item btn" data-toggle="modal" data-target="#shareModal">Envoyer par email</a>
-        <% end %>
-        <% if @list.user == current_user %>
-          <!-- Option modal for owner -->
-          <% if @list.status == "saved" %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
-          <% else %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#saveListModal">Enregistrer</a>
-          <% end %>
-          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-          <div class="dropdown-divider"></div>
-            <%= link_to "Supprimer la liste", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"dropdown-item text-danger" %>
-        <% elsif @list.users.include?(current_user) %>
-          <!-- Option modal  for collaborators-->
-          <% if @list.status == "saved" %>
-            <a class="btn dropdown-item" data-toggle="modal" data-target="#editListModal">Modifier le titre</a>
-          <% end %>
-          <a class="btn dropdown-item" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-          <div class="dropdown-divider"></div>
-            <%= link_to "Supprimer de mes listes", list_collaboration_path(@list, current_user), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'}, class:"dropdown-item text-danger" %>
-        <% end %>
-       </div>
-    </div>
-
-  </div>
-
-
-<% end %>
-
-
-
-<div class="container">
-  <%= render 'shared/flashes' %>
+  <% end %>
 </div>
 
 
 
-<div class="container px-0" id="todo_list" data="<%= @list.id %>">
+
+<div class="container px-0 mt-4" id="todo_list" data="<%= @list.id %>">
 
   <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
 
@@ -190,3 +37,72 @@
 
 
 <div style="padding: 50px;"></div>
+
+
+
+<!-- Modal views  -->
+<% if user_signed_in? %>
+  <!-- Edit List Modal -->
+  <div class="modal fade" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="editListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editListModalLabel">Modifier la liste de courses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+          <%= render 'lists/form' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="shareModalLabel">Envoyer par email</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body p-0 m-0">
+          <%= form_tag(list_share_path(@list), class: 'form-group mb-0') do |f| %>
+            <div class="shadow p-3 bg-white">
+              <%= text_field_tag 'emailShare', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
+              <div class="d-flex align-items-center justify-content-end">
+                <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Collaborators List Modal -->
+  <div class="modal fade" id="collabListModal" tabindex="-1" role="dialog" aria-labelledby="collabListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="collabListModalLabel">Gérer à plusieurs</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+          <%= render 'collaborations/index' %>
+        </div>
+        <div class="modal-body m-0 p-0">
+          <%= render 'collaborations/form', list: @list %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
