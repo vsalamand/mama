@@ -95,11 +95,13 @@ class ItemsController < ApplicationController
   def select
     @item = Item.find(params[:item_id])
     render "select.js.erb"
+    ahoy.track "Select item", request.path_parameters
   end
 
   def unselect
     @item = Item.find(params[:item_id])
     render "unselect.js.erb"
+    ahoy.track "Unselect item", request.path_parameters
   end
 
 
