@@ -27,9 +27,11 @@
 
 <% if list.user == current_user || list.users.include?(current_user)%>
   <div class="my-1 py-2">
-   <%= render "list_items/form", list: list, list_item: list_item %>
+    <div class="container fixed-bottom px-1">
+      <%= render "list_items/form", list: list, list_item: list_item %>
+    </div>
 
-    <div class="shadow rounded mt-5">
+    <div class="shadow rounded mt-2">
       <div class="list-group list-group-flush list-group-item-secondary" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
         <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
       </div>
