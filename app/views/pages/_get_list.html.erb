@@ -32,7 +32,7 @@
   <div  id="essentials">
     <% if @temp_items.present? %>
       <div id="Header">
-        <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1" >
+        <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
           <div class="d-flex align-items-center">
             <p class="m-0 p-1 font-weight-bold lead">Produits de base</p>
           </div>
@@ -51,7 +51,7 @@
     <% @recipes.each do |recipe| %>
       <div id="">
         <div id="Header">
-          <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1" >
+          <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
             <div class="d-flex align-items-start flex-column">
               <p class="m-0 p-1 font-weight-bold lead"><%= recipe.title %></p>
             </div>
