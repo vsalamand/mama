@@ -4,9 +4,9 @@
       <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
     </a>
     <% if user_signed_in? %>
-      <button class="btn-success btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Valider la sélection</button>
+      <button class="btn-success btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% else %>
-      <%= link_to "Valider la sélection", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn-warning btn-lg", style:"text-decoration: none;" %>
+      <%= link_to "Continuer", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn-warning btn-lg", style:"text-decoration: none;" %>
     <% end %>
   </nav>
 </div>
@@ -54,7 +54,6 @@
           <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1" >
             <div class="d-flex align-items-start flex-column">
               <p class="m-0 p-1 font-weight-bold lead"><%= recipe.title %></p>
-              <small class="text-success pl-1">Quantités pour <%= recipe.servings %></small>
             </div>
           </ul>
         </div>
@@ -74,9 +73,9 @@
 <div class="container mb-5 mt-3 d-flex flex-row-reverse">
   <div class="d-flex flex-column">
     <% if user_signed_in? %>
-      <button class="btn-success btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Valider la sélection</button>
+      <button class="btn-success btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
     <% else %>
-      <%= link_to "Valider la sélection", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn-warning btn-lg", style:"text-decoration: none;" %>
+      <%= link_to "Continuer", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn-warning btn-lg", style:"text-decoration: none;" %>
     <% end %>
   </div>
 </div>
