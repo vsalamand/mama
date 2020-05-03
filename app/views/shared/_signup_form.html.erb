@@ -1,13 +1,9 @@
 <div class="modal fade bd-signup-modal-lg"tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="signupModalLabel">Créez un compte pour profiter de Mama !</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body p-3" style="min-height: 65vh;">
+      <div class="modal-body p-3" style="min-height: 55vh;">
+        <h2 class="p-1">Créer un compte pour enregistrer votre liste de courses</h2>
+
         <div class="errors"></div>
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true) do |f| %>
           <%= f.error_notification %>
@@ -17,9 +13,9 @@
                         label: false,
                         placeholder: "Adresse email",
                         input_html: { autocomplete: "email", value: params[:user_email] }%>
-            <%= f.input :password,
-                        label: false,
-                        placeholder: "Mot de passe" %>
+          <%= f.input :password,
+                      label: false,
+                      placeholder: "Mot de passe" %>
             <%= hidden_field 'shared_list', params[:shared_list] %>
           </div>
 
@@ -31,9 +27,12 @@
         <div>
           <p class="text-dark font-weight-bold mt-5 mb-1 lead">Vous avez déjà un compte ?</p>
           <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-outline-primary", style:"text-decoration: none;" %>
+          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-outline-primary closeModal", style:"text-decoration: none;", id:"closeModalBtn" %>
         </div>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

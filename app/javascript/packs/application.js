@@ -88,5 +88,11 @@ $(document).on('click', '.closeModal',function() {
   $('.modal-backdrop').remove();
 });
 
+$(document).on('click', '#closeModalBtn',function() {
+  $('.modal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+});
+
 
 
