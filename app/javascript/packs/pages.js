@@ -104,10 +104,12 @@ $(document).on("click" , "#goToListBtn", function(event) {
 
   var recipeIds = recipeIds.filter(Boolean)
 
-  goToList(recipeIds, items, listId);
+// This is the function at the bottom to create a new list !!!
+  goToList(items, listId, recipeIds);
 })
 
-function goToList(recipeIds, items, listId) {
+//  not used currently
+function goToList(items, listId, recipeIds) {
   $.ajax({
     url: "get_list",
     cache: false,
@@ -235,16 +237,25 @@ $(document).on("click" , "#addToListBtn", function(event) {
     `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
   );
 
-  // get items in list
-  const listId = this.getAttribute('list-data');
-  const recipeIds = this.getAttribute('recipe-data');
+  var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
+  var items = this.getAttribute('data');
+  var listId = this.getAttribute('list-data');
 
-  const selectedItems = document.querySelectorAll(`.selectedItem`);
 
-  const items = []
-  $(selectedItems).map(function() {
-                   items.push($(this).text().trim());
+  var recipeIds = []
+  $(selectedRecipes).map(function() {
+                   recipeIds.push(this.getAttribute('id'));
                 })
+
+  var recipeIds = recipeIds.filter(Boolean)
+  // // get items in list
+  // const listId = this.getAttribute('list-data');
+  // const recipeIds = this.getAttribute('recipe-data');
+  // const selectedItems = document.querySelectorAll(`.selectedItem`);
+  // var items = []
+  // $(selectedItems).map(function() {
+  //                  items.push($(this).text().trim());
+  //               })
 
   addToList(items, listId, recipeIds);
 });

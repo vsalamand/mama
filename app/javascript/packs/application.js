@@ -88,10 +88,10 @@ $(document).on('click', '.closeModal',function() {
   $('.modal-backdrop').remove();
 });
 
-$(document).on('click', '#closeModalBtn',function() {
+$(document).on('click', '#closeModalBtn',function(event) {
   $('.modal').modal('hide');
   $(document.body).removeClass('modal-open');
-  $('.modal-backdrop').remove();
+  // $('.modal-backdrop').remove();
 });
 
 // tracking signin / signup modal view

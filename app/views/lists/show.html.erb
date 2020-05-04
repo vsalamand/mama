@@ -9,22 +9,24 @@
   </div>
 </div>
 
-<div class="container my-2">
-  <% if @list.user == current_user %>
-    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-      <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-      <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-       <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
-    </div>
-  <% end %>
-  <% if @list.users.include?(current_user) %>
-    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-      <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-      <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-       <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
-    </div>
-  <% end %>
-</div>
+<% if @list.user.present? %>
+  <div class="container my-2">
+    <% if @list.user == current_user %>
+      <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
+        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+         <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
+      </div>
+    <% end %>
+    <% if @list.users.include?(current_user) %>
+      <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
+        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+         <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 
 
@@ -37,8 +39,7 @@
 
 
 <% if @recipes.present? %>
-  <div class="container px-0 mt-4">
-  <hr class="my-4">
+  <div class="container px-0 mt-3">
 
     <div id="selectedRecipes" class="row m-0">
         <% @recipes.each do |recipe| %>

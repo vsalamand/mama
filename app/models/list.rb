@@ -2,7 +2,7 @@ require 'open-uri'
 require 'httparty'
 
 class List < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :list_items, dependent: :destroy
   has_many :items, through: :list_items
   has_many :foods, through: :items
@@ -52,12 +52,16 @@ class List < ApplicationRecord
     self.save
   end
 
-  def duplicate_list
+  def duplicate_list(user)
     new_list = List.new
-    new_list.name = self.name + " du #{Date.today.strftime("%d/%m/%Y")}"
+    new_list.name = self.name
     new_list.user_id = user.id
-    new_list.status = "opened"
+    new_list.status = "saved"
+    new_list.sorted_by = "rayon"
     new_list.save
+    if self.recipes.any?
+      self.recipes.each{|r| r.add_recipe_to_list(new_list.id) }
+    end
     return new_list
   end
 

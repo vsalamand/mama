@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
-                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list]
+                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list, :add_to_list]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
@@ -106,15 +106,18 @@ class PagesController < ApplicationController
   end
 
   def add_to_list
-    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: current_user, status: "saved", sorted_by: "rayon") if @list.nil?
+    user = current_user if user_signed_in?
+    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
 
     if params[:i].present?
-      items = params[:i]
-      ListItem.add_menu_to_list(items, @list)
+      item_inputs = params[:i].split("&i=")
+      ListItem.add_menu_to_list(item_inputs, @list)
     end
 
     if params[:r].present?
       recipes = Recipe.find(params[:r].split("&r="))
+      recipe_item_inputs = recipes.map{ |r| r.items.pluck(:name) }.flatten
+      ListItem.add_menu_to_list(recipe_item_inputs, @list)
       recipes.each{|r| r.add_recipe_to_list(@list.id)}
     end
 
