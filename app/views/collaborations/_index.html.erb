@@ -1,15 +1,17 @@
-<ul class="list-unstyled text-muted mt-2">
-  <li class="ml-4 mr-2 py-2"><%= @list.user.email %> (propriétaire)</li>
-  <% @list.users.each do |collaborator|%>
-    <li class="ml-4 mr-3 py-2 d-flex align-items-center justify-content-between">
-        <%= collaborator.email %>
+<% if @list.user.present? %>
+  <ul class="list-unstyled text-muted mt-2">
+    <li class="ml-4 mr-2 py-2"><%= @list.user.email %> (propriétaire)</li>
+    <% @list.users.each do |collaborator|%>
+      <li class="ml-4 mr-3 py-2 d-flex align-items-center justify-content-between">
+          <%= collaborator.email %>
 
-        <%= link_to list_collaboration_path(@list, collaborator), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'} do %>
-          <button type="button" class="close" aria-label="Close">
-            <small><span aria-hidden="true">&times;</span></small>
-          </button>
-        <% end %>
+          <%= link_to list_collaboration_path(@list, collaborator), method: :delete, data: { confirm: 'Êtes-vous sûr.e ?'} do %>
+            <button type="button" class="close" aria-label="Close">
+              <small><span aria-hidden="true">&times;</span></small>
+            </button>
+          <% end %>
 
-    </li>
-  <% end %>
-</ul>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

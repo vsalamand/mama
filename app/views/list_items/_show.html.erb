@@ -1,4 +1,4 @@
-<% if list.user == current_user || list.users.include?(current_user) %>
+<% if list.user.nil? || list.user == current_user || list.users.include?(current_user) %>
   <div id="grocerylist-item-id<%= list_item.id %>">
     <li class="border-0 pl-3 list-group-item d-flex align-items-center justify-content-between" id="<%= dom_id(list_item) %>" >
 
@@ -6,14 +6,14 @@
         <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
           <div class="d-flex align-items-center">
             <i class="far fa-lg fa-check-square"></i>
-            <p class="m-0 pl-2 p-1"><%= list_item.name %></p>
+            <p class="m-0 pl-2 p-1 no-link"><%= list_item.name %></p>
           </div>
         <% end %>
       <% else %>
         <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
           <div class="d-flex align-items-center">
             <i class="fas fa-lg fa-square"></i>
-            <p class="m-0 pl-2 p-1 text-muted"><del><%= list_item.name %></del></p>
+            <p class="m-0 pl-2 p-1 text-muted no-link"><del><%= list_item.name %></del></p>
           </div>
         <% end %>
       <% end %>

@@ -22,8 +22,10 @@ class ListsController < ApplicationController
 
   def copy
     @list = List.find(params[:list_id])
-    @new_list = @list.duplicate_list
-    @new_list.duplicate_list_items(@list)
+    @new_list = @list.duplicate_list(current_user)
+
+    ListItem.add_menu_to_list(@list.list_items.not_deleted.pluck(:name), @new_list)
+
     redirect_to list_path(@new_list)
   end
 

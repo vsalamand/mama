@@ -5,10 +5,10 @@
       </a>
 
       <% if user_signed_in? %>
-        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-sm bg-transparent text-muted border font-weight-bold m-1"  %>
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-sm bg-transparent text-muted border font-weight-bold"  %>
       <% else %>
         <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn-lg bg-warning text-dark m-1", style:"text-decoration: none;" %>
+        <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm bg-transparent text-muted border font-weight-bold", style:"text-decoration: none;" %>
       <% end %>
 
     </nav>
