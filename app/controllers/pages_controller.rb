@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :select, :select_products, :select_recipes, :explore_recipes,
+  skip_before_action :authenticate_user!, only: [:home, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
@@ -15,6 +15,17 @@ class PagesController < ApplicationController
   end
 
   def select
+    @selected_items = params[:i]
+    @selected_recipes = params[:r]
+    @list_id = params[:l]
+
+    @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
+    @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
+    @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
+    ahoy.track "Select", request.path_parameters
+  end
+
+  def products
     @checklist = Checklist.first
     @lists = @checklist.get_curated_lists
 
@@ -25,6 +36,18 @@ class PagesController < ApplicationController
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
     @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
     @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
+    ahoy.track "Products", request.path_parameters
+  end
+
+  def meals
+    @selected_items = params[:i]
+    @selected_recipes = params[:r]
+    @list_id = params[:l]
+
+    @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
+    @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
+    @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
+    ahoy.track "Meals", request.path_parameters
   end
 
   def select_products
@@ -32,7 +55,6 @@ class PagesController < ApplicationController
     @selected_recipes = params[:r].join('&r=') if params[:r]
     @list_id = params[:l]
     render "select_products.js.erb"
-    ahoy.track "Select products", request.path_parameters
   end
 
   def select_recipes
@@ -40,7 +62,6 @@ class PagesController < ApplicationController
     @selected_recipes = params[:r] if params[:r]
     @list_id = params[:l]
     render "select_recipes.js.erb"
-    ahoy.track "Select recipes", request.path_parameters
   end
 
   def get_list
@@ -48,7 +69,6 @@ class PagesController < ApplicationController
     @selected_recipes = params[:r]
     @list_id = params[:l]
     render 'get_list.js.erb'
-    ahoy.track "Verify list", request.path_parameters
   end
 
   def add_recipe

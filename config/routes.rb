@@ -61,6 +61,8 @@ Rails.application.routes.draw do
   post 'import', to: 'pages#import'
   get 'thank_you', to: "pages#thank_you"
   get 'profile', to: 'pages#profile'
+  get 'products', to: "pages#products"
+  get 'meals', to: "pages#meals"
   get 'select', to: "pages#select"
   get 'select_products', to: 'pages#select_products'
   get 'select_recipes', to: 'pages#select_recipes'

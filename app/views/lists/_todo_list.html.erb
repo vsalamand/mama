@@ -3,7 +3,7 @@
 <% if list.user == current_user || list.users.include?(current_user)%>
   <div class="d-flex justify-content-between ">
     <div class="p-2" id="openSelect">
-      <%= link_to "🔮 Voir les suggestions", select_path(l: list.id), class:"btn btn-sm btn-warning ml-1" %>
+      <%= link_to "🔮 Voir les suggestions", products_path(l: list.id), class:"btn btn-sm btn-warning ml-1" %>
     </div>
 
     <div class="dropdown p-2" id="sortList">
