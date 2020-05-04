@@ -94,5 +94,14 @@ $(document).on('click', '#closeModalBtn',function() {
   $('.modal-backdrop').remove();
 });
 
+// tracking signin / signup modal view
+$(document).on("show.bs.modal", ".bd-signup-modal-lg", function(event) {
+  ahoy.track("Signup modal");
+})
+
+$(document).on("show.bs.modal", ".bd-login-modal-lg", function(event) {
+  ahoy.track("Login modal");
+})
+
 
 
