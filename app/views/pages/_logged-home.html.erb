@@ -22,12 +22,12 @@
             <%= link_to "#{list.name}", list_path(list), class:"dropdown-item" %>
           <% end %>
           <div class="dropdown-divider"></div>
-          <%= link_to "Créer une nouvelle liste", select_path, class:"dropdown-item text-primary" %>
+          <%= link_to "Créer une nouvelle liste", products_path, class:"dropdown-item text-primary" %>
         </div>
       </div>
 
     <% else %>
-     <%= link_to "Créer une nouvelle liste", select_path, class:"btn btn-lg btn-warning font-weight-bold border-0 px-5 py-3" %>
+     <%= link_to "Créer une nouvelle liste", products_path, class:"btn btn-lg btn-warning font-weight-bold border-0 px-5 py-3" %>
 
     <% end %>
 
