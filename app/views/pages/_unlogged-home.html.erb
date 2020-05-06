@@ -1,5 +1,5 @@
 
-<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{Date.today.strftime("%d").to_i}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
+<div class="midbanner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{Date.today.strftime("%d").to_i}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
   <%= render 'shared/navbar_white' %>
 
@@ -21,22 +21,24 @@
 </div>
 
 
+
 <div class="banner jumbotron bg-white d-flex align-items-center">
   <div class="container">
     <div class="row">
       <div class="col-md-6 p-0 my-auto">
-        <h2 class="display-4">N'oubliez plus jamais rien</h2>
-        <p class="lead">Vous achetez souvent la même chose ? <br>
-        Les produits essentiels sont accessibles en 1 clic pour remplir votre liste.</p>
-        <%= link_to "C'est parti !", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
+        <h2 class="display-4">Gagnez du temps en magasin</h2>
+        <p class="lead">Vous avez besoin d'aller vite ? <br>
+        Votre liste est automatiquement organisée par rayon et vous pouvez suivre votre progression en barrant les produits déjà choisis.</p>
+        <%= link_to "Obtenir ma liste de courses", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
       </div>
       <div class="col-md-6 text-center p-0">
         <div style="padding: 10px;"></div>
-        <%= cl_image_tag("product_screens/essential_products", :height=>350, class:"shadow rounded") %>
+        <%= cl_image_tag("product_screens/list_management", :height=>450, class:"shadow rounded") %>
       </div>
     </div>
   </div>
 </div>
+
 
 <div class="banner jumbotron bg-primary text-white rounded-0 d-flex align-items-center my-0">
   <div class="container">
@@ -59,14 +61,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 p-0 my-auto">
-        <h2 class="display-4">Gagnez du temps en magasin</h2>
-        <p class="lead">Vous avez besoin d'aller vite ? <br>
-        Votre liste est automatiquement organisée par rayon et vous pouvez suivre votre progression en barrant les produits déjà choisis.</p>
-        <%= link_to "Créez une liste de courses", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
+        <h2 class="display-4">N'oubliez plus jamais rien</h2>
+        <p class="lead">Vous achetez souvent la même chose ? <br>
+        Les produits essentiels sont accessibles en 1 clic pour remplir votre liste.</p>
+        <%= link_to "C'est parti !", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
       </div>
       <div class="col-md-6 text-center p-0">
         <div style="padding: 10px;"></div>
-        <%= cl_image_tag("product_screens/list_management", :height=>450, class:"shadow rounded") %>
+        <%= cl_image_tag("product_screens/essential_products", :height=>350, class:"shadow rounded") %>
       </div>
     </div>
   </div>
@@ -79,7 +81,7 @@
         <h2 class="display-4">Gérez à plusieurs</h2>
         <p class="lead">Vous faites les courses en commun ?<br>
         Créez une liste et partagez là pour répartir le plaisir entre vous.</p>
-        <%= link_to "Créez une liste partagée", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
+        <%= link_to "Créer une liste en commun", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
       </div>
       <div class="col-md-6 text-center p-0">
         <div style="padding: 10px;"></div>
@@ -101,7 +103,7 @@
     </div>
 
     <div class="d-flex flex-column">
-      <%= link_to "Commencez", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
+      <%= link_to "Commencer", products_path, class:"btn btn-warning btn-lg m-1 py-3 col-md-6 font-weight-bold" %>
     </div>
 
   </div>
