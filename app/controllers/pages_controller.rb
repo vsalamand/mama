@@ -121,7 +121,12 @@ class PagesController < ApplicationController
       recipes.each{|r| r.add_recipe_to_list(@list.id)}
     end
 
-    render 'add_to_list.js.erb'
+    respond_to do |format|
+      format.html { redirect_to list_path(@list) }
+      format.js { render 'add_to_list.js.erb' }
+    end
+
+    # render 'add_to_list.js.erb'
     ahoy.track "Add to list", request.path_parameters
   end
 

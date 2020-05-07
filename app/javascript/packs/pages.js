@@ -265,6 +265,7 @@ function addToList(items, listId, recipeIds) {
   $.ajax({
     url: "/add_to_list",
     cache: false,
+    dataType: 'script',
     data: {
         l: listId,
         i: items,

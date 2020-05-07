@@ -1,10 +1,34 @@
-  <%= render 'shared/navbar' %>
+ <div class="sticky-top bg-white">
+  <div class="container">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
+        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
+      </a>
+
+      <% unless user_signed_in? %>
+        <!--alter the login link to trigger the opening of the modal -->
+        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-success font-weight-bold text-white", style:"text-decoration: none;" %>
+      <% else %>
+        <% if @list.user != current_user %>
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success font-weight-bold text-white" %>
+        <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success font-weight-bold text-white" %>
+        <% end %>
+      <% end %>
+    </nav>
+  </div>
+ </div>
+
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+
+
+
+
 
 <div class="jumbotron shadow jumbotron-fluid py-3 bg-primary text-white mb-3">
   <div class="container d-flex flex-column">
-    <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
-      <%= cl_image_tag("logo_qj08zi", width: 30, height: 30, class:"mr-1") %> Mama</span>
-    </a>
     <h1 class=""><%= @list.name %></h1>
   </div>
 </div>
@@ -13,20 +37,30 @@
   <div class="container my-2">
     <% if @list.user == current_user %>
       <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
+        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
          <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
       </div>
-    <% end %>
-    <% if @list.users.include?(current_user) %>
+
+    <% elsif @list.users.include?(current_user) %>
       <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
-        <a class="bd-highlight pr-3 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
+        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
          <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
       </div>
     <% end %>
   </div>
+
+<% elsif @list.user.nil? %>
+  <div class="container my-2">
+    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+     <%= link_to "Gérer à plusieurs", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"bd-highlight pr-2 text-primary", style:"text-decoration: none;" %>
+      <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+    </div>
+  </div>
 <% end %>
+
+
 
 
 
@@ -60,7 +94,6 @@
 
 
 <!-- Modal views  -->
-<% if user_signed_in? %>
   <!-- Edit List Modal -->
   <div class="modal fade" id="editListModal" tabindex="-1" role="dialog" aria-labelledby="editListModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -77,6 +110,9 @@
       </div>
     </div>
   </div>
+
+
+<% if user_signed_in? %>
 
   <!-- Share Modal -->
   <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
