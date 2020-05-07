@@ -149,7 +149,7 @@ class Food < ApplicationRecord
     self.save
   end
 
-
+# Deprecated method
   def get_store_section
     if self.category == Category.find(14) || self.id == 31
       self.store_section_id = StoreSection.find_by(name: "Légumes").id
