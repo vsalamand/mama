@@ -16,6 +16,7 @@ class Food < ApplicationRecord
   has_many :store_items, through: :products
   has_many :stores, through: :store_items
   has_many :merchants, through: :stores
+  belongs_to :store_section, optional: true
 
   enum measure: {weight: 'weight', volume: 'volume', piece: 'piece'}
 
@@ -150,21 +151,22 @@ class Food < ApplicationRecord
 
 
   def get_store_section
-    if self.category == Category.find(14) || self.id == 31 #avocat
-      return "Légumes"
+    if self.category == Category.find(14) || self.id == 31
+      self.store_section_id = StoreSection.find_by(name: "Légumes").id
     elsif self.category == Category.find(11)
-      return "Fruits"
+      self.store_section_id = StoreSection.find_by(name: "Fruits").id
     elsif (Category.find(8).subtree + Category.find(9).subtree + Category.find(45).subtree + Category.find(31).subtree).include?(self.category) || self.id == 1221
-      return "Boissons"
+      self.store_section_id = StoreSection.find_by(name: "Boissons").id
     elsif (Category.find(5).subtree + Category.find(24).subtree + Category.find(34).subtree).include?(self.category) || self.id == 24
-      return "Frais"
+      self.store_section_id = StoreSection.find_by(name: "Frais").id
     elsif Category.find(4).subtree.include?(self.category)
-      return "Viandes & poissons"
+      self.store_section_id = StoreSection.find_by(name: "Viandes & poissons").id
     elsif (Category.find(15).subtree + Category.find(12).subtree + Category.find(7).subtree + Category.find(18).subtree).include?(self.category)
-      return "Épicerie sucrée"
-    else #(Category.find(3).subtree + Category.find(1).subtree + Category.find(2).subtree + Category.find(10).subtree + Category.find(6).subtree + Category.find(44).subtree).include?(self.category)
-      return "Épicerie salée"
+      self.store_section_id = StoreSection.find_by(name: "Épicerie sucrée").id
+    else
+      self.store_section_id = StoreSection.find_by(name: "Épicerie salée").id
     end
+    self.save
   end
 
 end

@@ -1,0 +1,2 @@
+class StoreSection < ApplicationRecord
+end

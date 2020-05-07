@@ -1,0 +1,18 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <%= link_to "Retour index", foods_path, class:"btn btn-lg btn-outline-primary" %>
+</div>
+
+<div class="container my-3">
+  <div class="row d-flex flex-column">
+    <h1><%= @food.name %></h1>
+    <p><%= @food.availability %></p>
+    <p>Catégorie: <%= @food.category.name %></p>
+    <p>Rayon: <%= @food.store_section.name %></p>
+  </div>
+</div>
+
+<div class="container">
+  <%= link_to "Modifier", edit_food_path(@food), class:"btn btn-link" %>
+</div>

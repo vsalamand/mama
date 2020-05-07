@@ -169,7 +169,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  resources :foods
 
   resources :products do
     collection do

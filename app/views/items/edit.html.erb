@@ -75,6 +75,10 @@
                   <label for="inputZip">Unité de mesure</label>
                   <%= f.collection_select(:unit_id, Unit.all.order(:name), :id, :name, {:include_blank => true}, {:class => 'form-control'}) %>
                   </div>
+                  <div class="form-group col">
+                  <label for="inputStoreSection">Rayon</label>
+                  <%= f.collection_select(:store_section_id, StoreSection.all.order(:name), :id, :name, {:include_blank => true}, {:class => 'form-control'}) %>
+                  </div>
                 </div>
                 <label for="foodId">Food</label>
                 <%= f.collection_select(:food_id, Food.all.order(:name), :id, :name, {:include_blank => true}, {:class => 'form-control select'}) %>
