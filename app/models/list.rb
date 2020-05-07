@@ -174,11 +174,11 @@ class List < ApplicationRecord
   end
 
   def sort_by_store_sections
-    store_sections = ["Légumes", "Fruits", "Frais", "Épicerie salée", "Épicerie sucrée", "Viandes & poissons", "Boissons", "Autres"]
+    store_sections = ["Légumes", "Fruits", "Frais", "Surgelés", "Viandes & poissons", "Épicerie salée", "Épicerie sucrée", "Boissons", "Autres"]
     sort_by_sections = Hash[store_sections.map {|x| [x, Array.new]}]
 
     self.list_items.not_completed.each do |list_item|
-      section = list_item.get_store_section
+      section = list_item.get_item.get_store_section.name
       if sort_by_sections.has_key?(section)
         sort_by_sections[section] << list_item
       else

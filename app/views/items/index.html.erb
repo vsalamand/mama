@@ -31,7 +31,7 @@
                 <div class="product-info d-flex align-items-center justify-content-start">
                   <div class="product-description text-dark">
                     <div class="d-flex w-90 justify-content-between flex-column">
-                      <h7 class="mb-1 text-primary"><%= item.name %></h7>
+                      <h7 class="mb-1 text-primary"><%= link_to item.name, edit_item_path(item) %></h7>
                     </div>
                   </div>
                 </div>

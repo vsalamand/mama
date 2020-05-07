@@ -1,0 +1,37 @@
+<%= render 'shared/admin-navbar' %>
+
+
+
+
+
+<div class="container mb-5">
+  <h1>Foods (<%= @foods.size %>)</h1>
+
+  <%= link_to "Nouveau", new_food_path, class:"btn btn-primary my-3" %>
+
+  <div>
+    <% if @foods %>
+        <% @foods.order(:name).each do |food| %>
+
+           <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+             <%= link_to edit_food_path(food) do %>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="product-info d-flex align-items-center justify-content-start">
+                  <div class="product-description text-dark">
+                    <div class="d-flex w-90 justify-content-between flex-column">
+                      <h7 class="mb-1 text-primary"><%= food.name %></h7>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+        <% end %>
+
+    <% end %>
+
+  </div>
+</div>
+
+

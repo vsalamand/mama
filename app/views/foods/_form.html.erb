@@ -1,0 +1,11 @@
+<%= simple_form_for @food do |f| %>
+  <%= f.input :name, class: 'form-control' %>
+  <%= f.input :availability, class: 'form-control' %>
+  <%= f.collection_select :unit_id, Unit.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+  <%= f.collection_select :category_id, Category.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+  <%= f.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+  <%= f.select :measure, priority: [ "weight" ], collection: [ 'weight', 'volume', 'piece'], class: 'form-control' %>
+  <%= f.input :serving, class: 'form-control' %>
+  <%= f.input :unit_per_piece, class: 'form-control' %>
+  <%= f.submit "Valider", class: "form-control btn-primary" %>
+<% end %>

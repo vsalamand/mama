@@ -3,5 +3,6 @@
   <%= f.input :quantity, class: 'form-control' %>
   <%= f.collection_select :unit_id, Unit.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
   <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+  <%= f.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
   <%= f.submit "Valider", class: "form-control btn-primary" %>
 <% end %>

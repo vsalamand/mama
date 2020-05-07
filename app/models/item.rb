@@ -8,6 +8,8 @@ class Item < ApplicationRecord
   belongs_to :recipe, optional: true
   belongs_to :list_item, optional: true
   belongs_to :unit, optional: true
+  belongs_to :store_section, optional: true
+
   # validates :food_id, presence: true
   has_many :cart_items, dependent: :destroy
   has_many :store_cart_items, dependent: :destroy
@@ -121,5 +123,9 @@ class Item < ApplicationRecord
 
   def unvalidate
     self.update_column(:is_validated, false)
+  end
+
+  def get_store_section
+    self.store_section_id.present? ? self.store_section : self.food.store_section
   end
 end
