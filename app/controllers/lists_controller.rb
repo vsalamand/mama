@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update]
 
 
   def new

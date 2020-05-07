@@ -1,7 +1,9 @@
 <%= simple_form_for @list do |f| %>
     <div class="p-3 bg-white">
       <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"my-3 rounded-0 autofocus" } %>
-      <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+      <% if user_signed_in? %>
+        <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+      <% end %>
       <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
     </div>
     <div class="modal-footer bg-white">
