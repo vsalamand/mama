@@ -6,7 +6,14 @@
 
       <h2 class="mb-3">Se connecter</h2>
 
+      <div class="errors"></div>
+        <% if flash[:alert].present? %>
+          <p class="alert alert-danger"><%= flash[:alert] %></p>
+        <% end %>
+
+
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
         <div class="form-inputs mb-0">
           <%= f.input :email,
                       label: false,

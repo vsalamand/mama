@@ -4,7 +4,11 @@
       <div class="modal-body p-3">
         <h2 class="p-1">Connectez-vous</h2>
 
-        <div class="errors"></div>
+
+        <% if flash[:alert].present? %>
+          <p class="alert alert-danger"><%= flash[:alert] %></p>
+        <% end %>
+
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
           <%= f.error_notification %>
           <div class="form-inputs mb-0">
