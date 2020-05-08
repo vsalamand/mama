@@ -7,12 +7,12 @@
 
       <% unless user_signed_in? %>
         <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-success font-weight-bold text-white", style:"text-decoration: none;" %>
+        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg bg-success font-weight-bold text-white", style:"text-decoration: none;" %>
       <% else %>
         <% if @list.user != current_user %>
-          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success font-weight-bold text-white" %>
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success font-weight-bold text-white" %>
         <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
-          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success font-weight-bold text-white" %>
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success font-weight-bold text-white" %>
         <% end %>
       <% end %>
     </nav>

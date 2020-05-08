@@ -9,7 +9,7 @@
         <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-sm bg-transparent text-muted border font-weight-bold"  %>
       <% else %>
         <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-success font-weight-bold text-white", style:"text-decoration: none;" %>
+        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg bg-success font-weight-bold text-white", style:"text-decoration: none;" %>
       <% end %>
 
     </nav>
