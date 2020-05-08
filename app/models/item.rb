@@ -126,6 +126,12 @@ class Item < ApplicationRecord
   end
 
   def get_store_section
-    self.store_section_id.present? ? self.store_section : self.food.store_section
+    if self.store_section_id.present?
+      return self.store_section
+    elsif self.food.present?
+      return self.food.store_section
+    else
+      return nil
+    end
   end
 end

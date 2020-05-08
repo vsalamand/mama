@@ -178,7 +178,7 @@ class List < ApplicationRecord
     sort_by_sections = Hash[store_sections.map {|x| [x, Array.new]}]
 
     self.list_items.not_completed.each do |list_item|
-      section = list_item.get_item.get_store_section.name
+      list_item.get_item.get_store_section.present? ? section = list_item.get_item.get_store_section.name : section = "Autres"
       if sort_by_sections.has_key?(section)
         sort_by_sections[section] << list_item
       else
