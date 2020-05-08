@@ -1,16 +1,27 @@
 <div class="container">
   <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-     <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectProductsBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">
-      <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
-    </a>
+    <% if false %>
+       <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectProductsBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">
+        <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+      </a>
+    <% end %>
+
+    <% if @list_id.present? %>
+      <a class="navbar-brand text-dark d-flex align-items-center" href="/lists/<%= @list_id %>">
+        <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+      </a>
+    <% else %>
+      <a class="navbar-brand text-dark d-flex align-items-center" href="/">
+        <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+      </a>
+    <% end %>
     <button class="btn-warning btn-lg" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Ajouter à ma la liste</button>
   </nav>
 </div>
 
-<div class="jumbotron jumbotron-fluid py-3 bg-primary text-white">
+<div class="jumbotron jumbotron-fluid py-3 bg-white shadow text-primary">
   <div class="container">
     <h1 class="">Idées repas</h1>
-    <p class="lead">Ajoutez des repas à votre liste de courses</p>
   </div>
 </div>
 
