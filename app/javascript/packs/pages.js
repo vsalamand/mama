@@ -238,7 +238,7 @@ $(document).on("click" , "#addToListBtn", function(event) {
   );
 
   var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
-  var items = this.getAttribute('data');
+  // var items = this.getAttribute('data');
   var listId = this.getAttribute('list-data');
 
 
@@ -251,11 +251,11 @@ $(document).on("click" , "#addToListBtn", function(event) {
   // // get items in list
   // const listId = this.getAttribute('list-data');
   // const recipeIds = this.getAttribute('recipe-data');
-  // const selectedItems = document.querySelectorAll(`.selectedItem`);
-  // var items = []
-  // $(selectedItems).map(function() {
-  //                  items.push($(this).text().trim());
-  //               })
+  const selectedItems = document.querySelectorAll(`.selectedItem`);
+  var items = []
+  $(selectedItems).map(function() {
+                   items.push($(this).text().trim());
+                })
 
   addToList(items, listId, recipeIds);
 });

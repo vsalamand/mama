@@ -5,9 +5,11 @@ class ListMailer < ApplicationMailer
   #
   #   en.list_mailer.share.subject
   #
-  def share(list, email)
+  def share(list, email, recipes)
     @list = list
-    mail(to: email, subject: 'Liste de courses')
+    @email = email
+    @recipes = recipes
+    mail(to: @email, subject: "📝 #{list.name}")
   end
 
   def send_invite(list, email)

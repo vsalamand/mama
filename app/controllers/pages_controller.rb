@@ -107,11 +107,11 @@ class PagesController < ApplicationController
 
   def add_to_list
     user = current_user if user_signed_in?
-    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
+    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "opened", sorted_by: "rayon") if @list.nil?
 
     if params[:i].present?
-      item_inputs = params[:i].split("&i=")
-      ListItem.add_menu_to_list(item_inputs, @list)
+      # item_inputs = params[:i].split("&i=")
+      ListItem.add_menu_to_list(params[:i], @list)
     end
 
     if params[:r].present?

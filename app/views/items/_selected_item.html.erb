@@ -1,3 +1,4 @@
+<% if item.present? %>
   <div id="item-id<%= item.id %>">
     <li class="border-0 pl-3 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;" id="<%= dom_id(item) %>" >
 
@@ -8,3 +9,16 @@
 
     </li>
   </div>
+
+<% else %>
+  <div id="">
+    <li class="border-0 pl-3 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;" >
+
+      <div class="d-flex align-items-center text-primary selectedItem">
+        <i class="far fa-lg fa-check-square"></i>
+        <p class="m-0 pl-2 p-1"><%= list_item.name %></p>
+      </div>
+
+    </li>
+  </div>
+<% end %>

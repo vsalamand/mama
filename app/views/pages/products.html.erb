@@ -1,23 +1,30 @@
-<div class="container">
-  <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+<div class="sticky-top bg-white">
+  <div class="container">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
 
-    <% if @list_id.present? %>
-      <a class="navbar-brand text-dark d-flex align-items-center" href="/lists/<%= @list_id %>">
-        <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
-      </a>
-    <% else %>
-      <a class="navbar-brand text-dark d-flex align-items-center" href="/">
-        <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
-      </a>
-    <% end %>
-    <button class="btn-lg btn-warning rounded" id="goToSelectRecipesBtn" recipe-data="<%= @selected_recipes %>" list-data="<%= @list_id %>">Continuer</button>
-  </nav>
+      <% if @list_id.present? %>
+        <a class="navbar-brand text-dark d-flex align-items-center" href="/lists/<%= @list_id %>">
+          <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+        </a>
+      <% else %>
+        <a class="navbar-brand text-dark d-flex align-items-center" href="/">
+          <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+        </a>
+      <% end %>
+
+      <% if false %>
+        <button class="btn-lg btn-warning rounded" id="goToSelectRecipesBtn" recipe-data="<%= @selected_recipes %>" list-data="<%= @list_id %>">Continuer</button>
+      <% end %>
+
+      <button class="btn-warning btn" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Ajouter à ma la liste</button>
+
+    </nav>
+  </div>
 </div>
 
-<div class="jumbotron jumbotron-fluid py-3 bg-primary text-white">
+<div class="jumbotron jumbotron-fluid py-3 bg-white shadow text-primary">
   <div class="container">
-    <h1 class="">Achats fréquents et de saison</h1>
-    <p class="lead">Sélectionnez les produits qui vous intéressent dans chaque rayon pour les ajouter à votre liste.</p>
+    <h1 class="">Achats fréquents</h1>
   </div>
 </div>
 
@@ -55,10 +62,3 @@
 </div>
 
 
-
-<div class="container my-5 d-flex flex-row-reverse">
-  <div class="d-flex flex-column">
-    <p class="text-muted bd-highlight text-center mb-1">Vous pourrez ajouter d'autres produits ensuite</p>
-    <button class="btn-lg btn-warning bd-highlight px-5" id="goToSelectRecipesBtn" recipe-data="<%= @selected_recipes %>" list-data="<%= @list_id %>">Continuer la liste</button>
-  </div>
-</div>

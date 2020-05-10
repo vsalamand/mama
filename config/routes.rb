@@ -113,6 +113,7 @@ Rails.application.routes.draw do
     get :get_suggested_items
     get :sort
     get :remove_recipe
+    get :save
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort
