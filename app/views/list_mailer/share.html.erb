@@ -1,11 +1,36 @@
-<p style="margin:0;">Liste de courses:</p>
-<ul style="list-style-type:none; padding:0; margin:0;">
-  <% @list.list_items.not_completed.order(:id).each do |list_item| %>
-    <li>- <%= list_item.name %></li>
-  <% end %>
-</ul>
+<p style="margin:0;"><strong><%= @list.name %></strong></p>
+<p style="margin:0;"><i>Envoyée par <%= @email %></i></p>
+<%= link_to "🔗Afficher la liste", list_url(@list), target: "_blank", class:"p-0" %>
+<br>
+<br>
+<div style="list-style-type:none; padding:0; margin:0;">
+    <% @list.sort_by_store_sections.each do |key, array| %>
+      <% if array.any? %>
+        <p style="margin:0;" >
+          <p style="margin:0;"><u><%= key %></u></p>
+          <%  array.each do |list_item| %>
+            <li>- <%= list_item.name %></li>
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>
+</div>
+
+<br>
+<% if @recipes.any? %>
+  <p class="lead font-weight-bold" style="margin:0;"><strong>Recette.s</strong></p>
+  <div style="list-style-type:none; padding:0; margin:0;">
+    <% @recipes.each do |recipe| %>
+      <%= link_to "🔗#{recipe.title}", recipe.link, target: "_blank", class:"li" %>
+    <% end %>
+  </div>
+<% end %>
 
 <br>
 <br>
-<p style="margin:0;">Envoyé par <%= @list.user.email %></p>
-<%= link_to "Cliquer ici pour ouvrir la liste", list_url(@list), target: "_blank", class:"p-0" %>
+-------------
+<br>
+😋Mama
+<br>
+<%= link_to "clubmama.co", "https://www.clubmama.co", target: "blank"  %>
+</p>

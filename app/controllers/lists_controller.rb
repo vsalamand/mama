@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe]
 
 
   def new
@@ -26,12 +26,12 @@ class ListsController < ApplicationController
     if @list.user.nil?
       @list.user = current_user
       @list.save
-      redirect_to list_path(@list)
+      redirect_to list_save_path(@list)
 
     else
       @new_list = @list.duplicate_list(current_user)
       ListItem.add_menu_to_list(@list.list_items.not_deleted.pluck(:name), @new_list)
-      redirect_to list_path(@new_list)
+      redirect_to list_save_path(@new_list)
     end
   end
 
@@ -142,10 +142,12 @@ class ListsController < ApplicationController
 
   def share
     list = List.find(params[:list_id])
-    email = params[:emailShare]
-    mail = ListMailer.share(list, email)
+    recipes = list.recipes
+    params[:emailShare].present? ? email = params[:emailShare] : email = current_user.email
+    mail = ListMailer.share(list, email, recipes)
     mail.deliver_now
-    redirect_to list_path(list)
+
+    redirect_back(fallback_location:"/")
     ahoy.track "Share list", request.path_parameters
   end
 
@@ -187,6 +189,11 @@ class ListsController < ApplicationController
     redirect_to lists_path if @list.list_type == "curated"
     redirect_to root_path if @list.list_type == "personal"
     ahoy.track "Destroy list", request.path_parameters
+  end
+
+  def save
+    @list = List.find(params[:list_id])
+    @list.saved
   end
 
 

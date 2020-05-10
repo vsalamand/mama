@@ -1,18 +1,24 @@
  <div class="sticky-top bg-white">
   <div class="container">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
-       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
+       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold m-0" href="/">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
       </a>
 
       <% unless user_signed_in? %>
         <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg bg-success font-weight-bold text-white", style:"text-decoration: none;" %>
+        <%= link_to "Ajouter à mes listes", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-success text-white", style:"text-decoration: none;" %>
+
       <% else %>
-        <% if @list.user != current_user %>
-          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success font-weight-bold text-white" %>
+        <% if @list.user == current_user || @list.users.include?(current_user)  %>
+          <%= link_to "Terminer", list_save_path(@list), class:"btn bg-success text-white" %>
+
+        <% elsif @list.user != current_user %>
+
+          <%= link_to "Ajouter à mes listes", list_copy_path(@list), class:"btn bg-success text-white" %>
         <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
-          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success font-weight-bold text-white" %>
+
+          <%= link_to "Ajouter à mes listes", list_copy_path(@list), class:"btn bg-success text-white" %>
         <% end %>
       <% end %>
     </nav>

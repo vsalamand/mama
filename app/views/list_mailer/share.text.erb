@@ -1,7 +1,13 @@
-Liste de courses:
-<% @list.list_items.not_completed.order(:id).each do |list_item| %>
-  - <%= list_item.name %>
+<%= @list.name %>:
+Envoyée par <%= @email %>
+
+<% @list.sort_by_store_sections.each do |key, array| %>
+<% if array.any? %>
+<%= key %>:
+  <%  array.each do |list_item| %>
+    - <%= list_item.name %>
+  <% end %>
+
+<% end %>
 <% end %>
 
-
-Envoyé par <%= @list.user.email %>

@@ -17,4 +17,5 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require ahoy
+//= require clipboard
 //= require_tree .

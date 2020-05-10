@@ -99,6 +99,10 @@ gem 'gibbon'
 # An ActiveRecord plugin for managing lists
 gem 'acts_as_list'
 
+# clipboard.js javascript library integration for your Rails 4 and Rails 5 applications
+gem 'clipboard-rails'
+
+
 
 
 
