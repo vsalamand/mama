@@ -1,6 +1,7 @@
 <p style="margin:0;"><strong><%= @list.name %></strong></p>
 <p style="margin:0;"><i>Envoyée par <%= @email %></i></p>
-<%= link_to "🔗Afficher la liste", list_url(@list), target: "_blank", class:"p-0" %>
+<br>
+<%= link_to "Ouvrir la liste", list_url(@list), target: "_blank", class:"p-0" %>
 <br>
 <br>
 <div style="list-style-type:none; padding:0; margin:0;">
@@ -9,7 +10,7 @@
         <p style="margin:0;" >
           <p style="margin:0;"><u><%= key %></u></p>
           <%  array.each do |list_item| %>
-            <li>- <%= list_item.name %></li>
+            <li><%= list_item.name %></li>
           <% end %>
         </p>
       <% end %>
@@ -21,7 +22,7 @@
   <p class="lead font-weight-bold" style="margin:0;"><strong>Recette.s</strong></p>
   <div style="list-style-type:none; padding:0; margin:0;">
     <% @recipes.each do |recipe| %>
-      <%= link_to "🔗#{recipe.title}", recipe.link, target: "_blank", class:"li" %>
+      <%= link_to "#{recipe.title}", recipe.link, target: "_blank", class:"li" %>
     <% end %>
   </div>
 <% end %>

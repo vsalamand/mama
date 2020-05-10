@@ -1,0 +1,43 @@
+ <div class="sticky-top bg-white shadow">
+  <div class="container px-2">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold m-0" href="/">
+        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
+      </a>
+
+      <% unless user_signed_in? %>
+        <!--alter the login link to trigger the opening of the modal -->
+        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-success text-white", style:"text-decoration: none;" %>
+
+      <% else %>
+        <% if @list.user == current_user || @list.users.include?(current_user)  %>
+          <%= link_to "Enregistrer la liste", list_save_path(@list), class:"btn bg-success text-white" %>
+
+        <% elsif @list.user != current_user %>
+
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success text-white" %>
+        <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
+
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success text-white" %>
+        <% end %>
+      <% end %>
+    </nav>
+  </div>
+
+  <% unless user_signed_in? %>
+    <div class="wrapper">
+      <nav class="px-0 navbar navbar-expand-lg">
+        <div class="container d-flex justify-content-center">
+          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-outline-primary px-3 m-1"  %>
+
+          <!--alter the login link to trigger the opening of the modal -->
+          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-primary px-3 m-1" %>
+        </div>
+      </nav>
+    </div>
+  <% end %>
+</div>
+
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>

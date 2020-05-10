@@ -148,7 +148,6 @@ class ListsController < ApplicationController
     mail.deliver_now
 
     head :ok
-    ahoy.track "Share list", request.path_parameters
   end
 
   def send_invite
@@ -194,6 +193,8 @@ class ListsController < ApplicationController
   def save
     @list = List.find(params[:list_id])
     @list.saved
+
+    ahoy.track "Save list", request.path_parameters
   end
 
 

@@ -1,7 +1,7 @@
 <% if @list.user == current_user || @list.users.include?(current_user) || @list.user.nil? %>
-  <div class="container mt-5" id="listPlaceholder">
+  <div class="container" id="listPlaceholder">
     <div class="d-flex flex-column align-items-center">
-      <p class="text-muted text-center font-weight-light font-italic p-3 lead mb-0">Commencer la liste de courses ci-dessous</p>
+      <p class="text-muted text-center font-weight-light font-italic py-3 lead mb-0">Commencez votre liste ci-dessous</p>
       <div class="d-flex">
         <%= link_to products_path(l: @list.id), class:"btn btn-lg bg-white border-primary shadow m-1 d-flex align-items-center justify-content-center", style:"height: 20vh; width: 23vh;" do %>
           <p>🛒<br><small>Achats fréquents</small></p>

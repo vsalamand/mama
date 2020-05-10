@@ -1,10 +1,10 @@
 <div class="banner d-flex flex-column">
 
 
-  <div class="container my-auto">
+  <div class="container">
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white">
-      <div class="d-flex mb-3">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white px-0">
+      <div class="d-flex mb-1">
         <%= link_to "Retour à la liste", list_path(@list), class:"btn btn-outline-secondary m-1" %>
         <%= link_to "Aller à l'accueil", root_path, class:"btn btn-secondary m-1" %>
       </div>
@@ -12,7 +12,7 @@
       <hr class="my-3">
 
         <div class="row m-2">
-          <div class=" px-5 py-3 rounded text-center mb-2">
+          <div class="px-5 py-2 rounded text-center mb-2">
 
             <%= form_tag(list_share_path(@list), remote: true) do |f| %>
               <%= submit_tag "Envoyée !",:value => "✉️ Recevoir par email", class:"btn btn-lg btn btn-warning", id:"emailList" %>

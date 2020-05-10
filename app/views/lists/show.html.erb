@@ -1,75 +1,39 @@
- <div class="sticky-top bg-white">
-  <div class="container">
-    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
-       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold m-0" href="/">
-        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
-      </a>
-
-      <% unless user_signed_in? %>
-        <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Ajouter à mes listes", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-success text-white", style:"text-decoration: none;" %>
-
-      <% else %>
-        <% if @list.user == current_user || @list.users.include?(current_user)  %>
-          <%= link_to "Terminer", list_save_path(@list), class:"btn bg-success text-white" %>
-
-        <% elsif @list.user != current_user %>
-
-          <%= link_to "Ajouter à mes listes", list_copy_path(@list), class:"btn bg-success text-white" %>
-        <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
-
-          <%= link_to "Ajouter à mes listes", list_copy_path(@list), class:"btn bg-success text-white" %>
-        <% end %>
-      <% end %>
-    </nav>
-  </div>
- </div>
-
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
+<%= render "shared/navbar_list" %>
 
 
-
-
-
-<div class="jumbotron shadow jumbotron-fluid bg-white py-3 mb-3">
-  <div class="container d-flex flex-column">
+<div class="jumbotron jumbotron-fluid bg-white py-3 mb-0">
+  <div class="container px-2 d-flex flex-column">
     <h1 class="text-primary"><%= @list.name %></h1>
   </div>
+
+  <% if @list.user.present? %>
+    <div class="container px-2 mb-2">
+      <% if @list.user == current_user %>
+        <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+          <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+           <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
+        </div>
+
+      <% elsif @list.users.include?(current_user) %>
+        <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+          <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+           <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
+        </div>
+      <% end %>
+    </div>
+
+  <% elsif @list.user.nil? %>
+    <div class="container px-2 my-2">
+      <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+       <%= link_to "Gérer à plusieurs", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"bd-highlight pr-2 text-primary", style:"text-decoration: none;" %>
+        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+      </div>
+    </div>
+  <% end %>
 </div>
 
-<% if @list.user.present? %>
-  <div class="container my-2">
-    <% if @list.user == current_user %>
-      <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-         <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
-      </div>
 
-    <% elsif @list.users.include?(current_user) %>
-      <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-         <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
-      </div>
-    <% end %>
-  </div>
-
-<% elsif @list.user.nil? %>
-  <div class="container my-2">
-    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-     <%= link_to "Gérer à plusieurs", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"bd-highlight pr-2 text-primary", style:"text-decoration: none;" %>
-      <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-    </div>
-  </div>
-<% end %>
-
-
-
-
-
-
-<div class="container px-0 mt-4" id="todo_list" data="<%= @list.id %>">
+<div class="banner container px-0 mt-2" id="todo_list" data="<%= @list.id %>">
 
   <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
 
@@ -88,7 +52,37 @@
 <% end %>
 
 
-<div style="padding: 50px;"></div>
+<div class="container my-5 px-1">
+  <div class="jumbotron">
+    <% if @list.user == current_user || @list.users.include?(current_user)  %>
+      <h1>Vous avez terminé.e ?</h1>
+    <% else %>
+      <h1>La liste vous intéresse ?</h1>
+    <% end %>
+    <p class="lead">Enregistrez la liste pour la retrouver à tout moment.</p>
+    <hr class="my-4">
+    <% unless user_signed_in? %>
+      <!--alter the login link to trigger the opening of the modal -->
+      <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg bg-success text-white", style:"text-decoration: none;" %>
+
+    <% else %>
+      <% if @list.user == current_user || @list.users.include?(current_user)  %>
+        <%= link_to "Enregistrer la liste", list_save_path(@list), class:"btn btn-lg bg-success text-white" %>
+
+      <% elsif @list.user != current_user %>
+
+        <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success text-white" %>
+      <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
+
+        <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success text-white" %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+
+
+<div style="padding: 10px;"></div>
 
 <% if user_signed_in? && current_user.beta == true %>
   <%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>

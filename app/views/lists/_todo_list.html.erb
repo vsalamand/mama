@@ -2,14 +2,14 @@
 
 <% if user_signed_in? %>
   <% if list.user == current_user || list.users.include?(current_user) || list.user.nil? %>
-    <div class="d-flex justify-content-between ">
-      <div class="p-1" id="openSelect">
+    <div class="d-flex justify-content-between p-1">
+      <div class="" id="openSelect">
         <%= link_to "🛒 achats fréquents", products_path(l: list.id), class:"btn btn-sm btn-warning px-1" %>
         <%= link_to "🍽️ idées repas", meals_path(l: list.id), class:"btn btn-sm btn-warning px-1" %>
       </div>
 
-      <div class="dropdown p-2" id="sortList">
-        <button class="btn btn-sm btn-outline-secondary dropdown-toggle px-2" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="dropdown" id="sortList">
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle px-1" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Trier
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortButton">
