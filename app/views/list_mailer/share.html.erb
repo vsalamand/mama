@@ -1,5 +1,6 @@
 <p style="margin:0;"><strong><%= @list.name %></strong></p>
 <p style="margin:0;"><i>Envoyée par <%= @email %></i></p>
+<br>
 <%= link_to "🔗Afficher la liste", list_url(@list), target: "_blank", class:"p-0" %>
 <br>
 <br>
@@ -9,7 +10,7 @@
         <p style="margin:0;" >
           <p style="margin:0;"><u><%= key %></u></p>
           <%  array.each do |list_item| %>
-            <li>- <%= list_item.name %></li>
+            <li><%= list_item.name %></li>
           <% end %>
         </p>
       <% end %>
