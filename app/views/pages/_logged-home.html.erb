@@ -1,43 +1,37 @@
-<div class="banner d-flex flex-column" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.1)), url(<%= cl_image_path("home_photos/hp#{Date.today.strftime("%d").to_i}-min", crop: :scale, :quality=>"auto:low", :width => :auto, :responsive_placeholder => "blank", :fetch_format=>:auto) %>);">
 
-  <%= render 'shared/navbar_white' %>
-
-  <div class="container">
-    <%= render 'shared/flashes' %>
-  </div>
+  <%= render 'shared/navbar_black' %>
 
 
-  <div class="container my-auto d-flex flex-column justify-content-start align-items-start">
-
-    <h1 class="text-white mb-2">Choisissez une liste de courses</h1>
+<div class="banner d-flex flex-column">
 
 
-    <% if @lists.any? %>
-      <div class="btn-group">
-        <button type="button" class="btn btn-lg btn-warning font-weight-bold dropdown-toggle border-0 px-5 py-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="white-space: normal;">
-          Listes de courses
-        </button>
-        <div class="dropdown-menu">
-          <% @lists.sort_by(&:id).each do |list|  %>
-            <%= link_to "#{list.name}", list_path(list), class:"dropdown-item" %>
-          <% end %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Créer une nouvelle liste", add_to_list_path, class:"dropdown-item text-primary" %>
+  <div class="container mt-5 p-0">
+
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
+
+      <h1 class="display-4 m-0">Choisissez votre liste de courses</h1>
+      <hr class="my-3">
+
+        <div class="row m-2">
+          <div class=" px-5 py-3 rounded text-center mb-2">
+
+             <%= link_to "Créer une nouvelle liste", add_to_list_path, class:"btn btn-lg btn-warning font-weight-bold border-0 px-5 py-3" %>
+
+
+            <% if @lists.any? %>
+              <% @lists.sort_by(&:id).each do |list|  %>
+                <hr class="my-4">
+                <%= link_to "#{list.name}", list_path(list), class:"btn btn-lg btn-link" %>
+              <% end %>
+            <% end %>
+
+
+          </div>
         </div>
-      </div>
 
-    <% else %>
-     <%= link_to "Créer une nouvelle liste", add_to_list_path, class:"btn btn-lg btn-warning font-weight-bold border-0 px-5 py-3" %>
+    </div>
 
-    <% end %>
 
   </div>
-  <%= link_to "Mon compte", profile_path, class:"nav-link text-white text-center my-3"  %>
+
 </div>
-
-
-
-
-
-
-

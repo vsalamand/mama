@@ -43,14 +43,12 @@
   <div class="container my-2">
     <% if @list.user == current_user %>
       <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
         <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
          <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
       </div>
 
     <% elsif @list.users.include?(current_user) %>
       <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#collabListModal">Gérer à plusieurs</a>
         <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
          <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
       </div>
@@ -117,53 +115,3 @@
     </div>
   </div>
 
-
-<% if user_signed_in? %>
-
-  <!-- Share Modal -->
-  <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="shareModalLabel">Envoyer par email</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body p-0 m-0">
-          <%= form_tag(list_share_path(@list), class: 'form-group mb-0') do |f| %>
-            <div class="shadow p-3 bg-white">
-              <%= text_field_tag 'emailShare', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
-              <div class="d-flex align-items-center justify-content-end">
-                <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2" %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-  <!-- Collaborators List Modal -->
-  <div class="modal fade" id="collabListModal" tabindex="-1" role="dialog" aria-labelledby="collabListModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content bg-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="collabListModalLabel">Gérer à plusieurs</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body m-0 p-0">
-          <%= render 'collaborations/index' %>
-        </div>
-        <div class="modal-body m-0 p-0">
-          <%= render 'collaborations/form', list: @list %>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>

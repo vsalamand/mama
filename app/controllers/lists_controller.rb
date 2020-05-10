@@ -147,7 +147,7 @@ class ListsController < ApplicationController
     mail = ListMailer.share(list, email, recipes)
     mail.deliver_now
 
-    redirect_back(fallback_location:"/")
+    head :ok
     ahoy.track "Share list", request.path_parameters
   end
 

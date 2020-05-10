@@ -285,7 +285,6 @@ function sortList(option) {
 }
 
 
-
 //  Remove recipe from list
 $(document).on("click", "#removeRecipefromListBtn", function(event) {
   var recipeId = this.getAttribute('data');
@@ -307,3 +306,8 @@ function removeRecipe(recipeId, id) {
 }
 
 
+//  Update email list button state
+$(document).on("click", "#emailList", function(event) {
+  var emailButton = document.getElementById('emailList');
+  emailButton.value = "Envoyée !"
+});

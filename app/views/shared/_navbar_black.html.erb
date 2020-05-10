@@ -1,11 +1,13 @@
-  <div class="container px-1">
+ <div class="sticky-top bg-white shadow">
+
+  <div class="container">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
        <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
       </a>
 
       <% if user_signed_in? %>
-        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-lg bg-transparent border font-weight-bold m-1"  %>
+        <%= link_to "Mon compte", profile_path, class:"btn bg-transparent border m-1"  %>
       <% else %>
         <!--alter the login link to trigger the opening of the modal -->
         <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-lg bg-transparent border font-weight-bold m-1", style:"text-decoration: none;" %>
@@ -13,6 +15,7 @@
 
     </nav>
   </div>
+</div>
 <!-- Navbar End -->
 <%= render 'shared/login_form' %>
 <%= render 'shared/signup_form' %>

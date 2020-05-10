@@ -14,8 +14,8 @@
         <div class="row m-2">
           <div class=" px-5 py-3 rounded text-center mb-2">
 
-            <%= form_tag(list_share_path(@list)) do |f| %>
-              <%= submit_tag "Envoyée !",:value => "✉️ Recevoir par email", class:"btn btn-lg btn btn-warning" %>
+            <%= form_tag(list_share_path(@list), remote: true) do |f| %>
+              <%= submit_tag "Envoyée !",:value => "✉️ Recevoir par email", class:"btn btn-lg btn btn-warning", id:"emailList" %>
             <% end %>
 
             <hr class="my-4">
