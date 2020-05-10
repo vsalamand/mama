@@ -121,11 +121,11 @@ $(document).ready(function(){
       .tooltip('show');
   }
 
-function hideTooltip(btn) {
-  setTimeout(function() {
-    $(btn).tooltip('hide');
-  }, 1000);
-}
+  function hideTooltip(btn) {
+    setTimeout(function() {
+      $(btn).tooltip('hide');
+    }, 1000);
+  }
 
   clipboard.on('success', function(e) {
     setTooltip(e.trigger, 'Copié!');
@@ -136,6 +136,8 @@ function hideTooltip(btn) {
     setTooltip(e.trigger, 'Oups!');
     hideTooltip(e.trigger);
   });
+
+  ahoy.track("Copy link");
 
 });
 
