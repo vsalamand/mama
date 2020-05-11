@@ -30,7 +30,9 @@
 .midbanner {
   background-size: cover;
   background-position: center;
-  height: 95vh;
+  height: 90vh;
+  min-height: 90vh;
+
   // padding: 50px 0;
 }
 

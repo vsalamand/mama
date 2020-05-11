@@ -32,23 +32,22 @@
 </div>
 
 
-<div class="banner container px-0 mt-2" id="todo_list" data="<%= @list.id %>">
-
-  <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
-
-</div>
-
-
-<% if @recipes.present? %>
-  <div class="container px-0 mt-3">
-
-    <div id="selectedRecipes" class="row m-0">
-        <% @recipes.each do |recipe| %>
-          <%= render 'recipe_card', recipe: recipe, list: @list %>
-        <% end %>
-    </div>
+<div class="wrapper" style="min-height: 90vh;">
+  <div class="container px-0 mt-2" id="todo_list" data="<%= @list.id %>">
+    <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
   </div>
-<% end %>
+
+  <% if @recipes.present? %>
+    <div class="container px-0 mt-3">
+
+      <div id="selectedRecipes" class="row m-0">
+          <% @recipes.each do |recipe| %>
+            <%= render 'recipe_card', recipe: recipe, list: @list %>
+          <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 
 <div class="container my-5 px-1">
