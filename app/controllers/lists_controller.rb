@@ -140,7 +140,7 @@ class ListsController < ApplicationController
   #   redirect_to carts_path
   # end
 
-  def share
+  def email
     list = List.find(params[:list_id])
     recipes = list.recipes
     params[:emailShare].present? ? email = params[:emailShare] : email = current_user.email
@@ -188,6 +188,12 @@ class ListsController < ApplicationController
     redirect_to lists_path if @list.list_type == "curated"
     redirect_to root_path if @list.list_type == "personal"
     ahoy.track "Destroy list", request.path_parameters
+  end
+
+  def share
+    @list = List.find(params[:list_id])
+
+    ahoy.track "Share list", request.path_parameters
   end
 
   def save

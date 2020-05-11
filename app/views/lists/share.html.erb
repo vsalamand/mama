@@ -6,16 +6,13 @@
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white px-0">
       <div class="d-flex mb-1">
         <%= link_to "Retour à la liste", list_path(@list), class:"btn btn-outline-secondary m-1" %>
+        <%= link_to "Voir mon compte", root_path, class:"btn btn-secondary m-1" %>
       </div>
-      <h1 class="display-4 m-0">La liste est enregistrée sur votre compte !</h1>
+      <h1 class="display-4 m-0">Partagez la liste</h1>
       <hr class="my-3">
-        <%= link_to "Voir mon compte", root_path, class:"btn btn-lg btn-warning m-1" %>
-      <hr class="my-5">
-
-      <p class="lead">Partagez la liste facilement</p>
 
         <div class="row m-2">
-          <div class="px-5 py-2 rounded text-center mb-2">
+          <div class="py-2 rounded text-center mb-2">
 
             <%= form_tag(list_email_path(@list), remote: true) do |f| %>
               <%= submit_tag "Envoyée !",:value => "✉️ Recevoir par email", class:"btn btn-lg btn btn-warning", id:"emailList" %>
@@ -23,6 +20,16 @@
 
             <hr class="my-4">
 
+<div class="d-flex">
+
+            <!-- Target -->
+            <input class="form-control" type="text" id="listLink" value="<%= list_url(@list) %>">
+
+            <!-- Trigger -->
+            <button class="clipboard-btn btn btn-link font-weight-bold" data-clipboard-target="#listLink">
+                COPIER
+            </button>
+</div>
 
             <hr class="my-4">
 

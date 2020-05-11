@@ -103,17 +103,17 @@ Rails.application.routes.draw do
     get 'fetch_suggested_items', to: "lists#fetch_suggested_items"
     get 'fetch_price', to: "lists#fetch_price"
     get 'get_cart', to: "lists#get_cart"
-    post 'share', to: "lists#share"
+    post 'email', to: "lists#email"
     post 'send_invite', to: "lists#send_invite"
     get 'accept_invite', to: "lists#accept_invite"
     get :archive
-    get :copy
+    get :save
     get :get_store_carts
     get :add
     get :get_suggested_items
     get :sort
     get :remove_recipe
-    get :save
+    get :share
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort

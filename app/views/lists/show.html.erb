@@ -25,7 +25,6 @@
   <% elsif @list.user.nil? %>
     <div class="container px-2 my-2">
       <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-       <%= link_to "Gérer à plusieurs", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"bd-highlight pr-2 text-primary", style:"text-decoration: none;" %>
         <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
       </div>
     </div>
@@ -55,11 +54,12 @@
 <div class="container my-5 px-1">
   <div class="jumbotron">
     <% if @list.user == current_user || @list.users.include?(current_user)  %>
-      <h1>Vous avez terminé.e ?</h1>
+      <h1>Prêt pour les courses ?</h1>
+      <p class="lead">Retrouvez facilement votre liste au moment où vous en avez besoin.</p>
     <% else %>
-      <h1>La liste vous intéresse ?</h1>
+      <h1>Cette liste vous intéresse ?</h1>
+      <p class="lead">Retrouvez la facilement au moment où vous en avez besoin.</p>
     <% end %>
-    <p class="lead">Enregistrez la liste pour la retrouver à tout moment.</p>
     <hr class="my-4">
     <% unless user_signed_in? %>
       <!--alter the login link to trigger the opening of the modal -->
@@ -67,14 +67,14 @@
 
     <% else %>
       <% if @list.user == current_user || @list.users.include?(current_user)  %>
-        <%= link_to "Enregistrer la liste", list_save_path(@list), class:"btn btn-lg bg-success text-white" %>
+        <%= link_to "Partager", list_share_path(@list), class:"btn btn-lg bg-success text-white" %>
 
       <% elsif @list.user != current_user %>
 
-        <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success text-white" %>
+        <%= link_to "Enregistrer la liste", list_save_path(@list), class:"btn btn-lg bg-success text-white" %>
       <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
 
-        <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success text-white" %>
+        <%= link_to "Enregistrer la liste", list_save_path(@list), class:"btn btn-lg bg-success text-white" %>
       <% end %>
     <% end %>
 

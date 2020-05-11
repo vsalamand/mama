@@ -7,7 +7,7 @@
       </a>
 
       <% if user_signed_in? %>
-        <%= link_to "Mon compte", profile_path, class:"btn bg-transparent border m-1"  %>
+        <%= link_to "Paramètres", profile_path, class:"btn bg-transparent border m-1"  %>
       <% else %>
         <!--alter the login link to trigger the opening of the modal -->
         <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-lg bg-transparent border font-weight-bold m-1", style:"text-decoration: none;" %>
