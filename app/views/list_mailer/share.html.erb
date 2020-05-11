@@ -1,15 +1,15 @@
 <p style="margin:0;"><strong><%= @list.name %></strong></p>
 <small style="margin:0;"><i>Envoyée par <%= @email %></i></small>
-<strong><%= link_to "Ouvrir la liste", list_url(@list), target: "_blank", class:"p-0" %></strong>
+<p><strong><%= link_to "Ouvrir la liste", list_url(@list), target: "_blank", class:"p-0" %></strong></p>
 <br>
 <br>
 <div style="list-style-type:none; padding:0; margin:0;">
     <% @list.sort_by_store_sections.each do |key, array| %>
       <% if array.any? %>
-        <p style="margin:0;" >
+        <p>
           <p style="margin:0;"><u><%= key %></u></p>
           <%  array.each do |list_item| %>
-            <p>- <%= list_item.name %></p>
+            <p style="margin:0;">- <%= list_item.name %></p>
           <% end %>
         </p>
       <% end %>
@@ -30,7 +30,7 @@
 <br>
 -------------
 <br>
-<%= cl_image_tag("logo_qj08zi", width: 15, height: 15) %> Mama
+<%= cl_image_tag("logo_qj08zi", width: 20, height: 20) %>Mama
 <br>
 <%= link_to "clubmama.co", "https://www.clubmama.co", target: "blank"  %>
 </p>
