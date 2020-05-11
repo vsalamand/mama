@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     get 'accept_invite', to: "lists#accept_invite"
     get :archive
     get :save
+    get :copy
     get :get_store_carts
     get :add
     get :get_suggested_items

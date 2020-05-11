@@ -1,7 +1,6 @@
 <p style="margin:0;"><strong><%= @list.name %></strong></p>
-<p style="margin:0;"><i>Envoyée par <%= @email %></i></p>
-<br>
-<%= link_to "Ouvrir la liste", list_url(@list), target: "_blank", class:"p-0" %>
+<small style="margin:0;"><i>Envoyée par <%= @email %></i></small>
+<strong><%= link_to "Ouvrir la liste", list_url(@list), target: "_blank", class:"p-0" %></strong>
 <br>
 <br>
 <div style="list-style-type:none; padding:0; margin:0;">
@@ -10,7 +9,7 @@
         <p style="margin:0;" >
           <p style="margin:0;"><u><%= key %></u></p>
           <%  array.each do |list_item| %>
-            <li><%= list_item.name %></li>
+            <p>- <%= list_item.name %></p>
           <% end %>
         </p>
       <% end %>
@@ -22,7 +21,7 @@
   <p class="lead font-weight-bold" style="margin:0;"><strong>Recette.s</strong></p>
   <div style="list-style-type:none; padding:0; margin:0;">
     <% @recipes.each do |recipe| %>
-      <%= link_to "#{recipe.title}", recipe.link, target: "_blank", class:"li" %>
+      <%= link_to "#{recipe.title}", recipe.link, target: "_blank" %>
     <% end %>
   </div>
 <% end %>
@@ -31,7 +30,7 @@
 <br>
 -------------
 <br>
-😋Mama
+<%= cl_image_tag("logo_qj08zi", width: 15, height: 15) %> Mama
 <br>
 <%= link_to "clubmama.co", "https://www.clubmama.co", target: "blank"  %>
 </p>
