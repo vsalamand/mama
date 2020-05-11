@@ -104,28 +104,31 @@ $(document).on("show.bs.modal", ".bd-login-modal-lg", function(event) {
 })
 
 
-
 // copy to clipboard
+// Tooltip
+
+$('button').tooltip({
+  trigger: 'click',
+  placement: 'bottom'
+});
+
+function setTooltip(btn, message) {
+  $(btn).tooltip('hide')
+    .attr('data-original-title', message)
+    .tooltip('show');
+}
+
+function hideTooltip(btn) {
+  setTimeout(function() {
+    $(btn).tooltip('hide');
+  }, 1000);
+}
+
+// Clipboard
+
 $(document).ready(function(){
 
   var clipboard = new Clipboard('.clipboard-btn');
-
-  $('.clipboard-btn').tooltip({
-    trigger: 'click',
-    placement: 'bottom'
-  });
-
-  function setTooltip(btn, message) {
-    $(btn).tooltip('show')
-      .attr('data-original-title', message)
-      .tooltip('show');
-  }
-
-  function hideTooltip(btn) {
-    setTimeout(function() {
-      $(btn).tooltip('hide');
-    }, 1000);
-  }
 
   clipboard.on('success', function(e) {
     setTooltip(e.trigger, 'Copié!');
@@ -133,11 +136,11 @@ $(document).ready(function(){
   });
 
   clipboard.on('error', function(e) {
-    setTooltip(e.trigger, 'Oups!');
+    setTooltip(e.trigger, 'Failed!');
     hideTooltip(e.trigger);
   });
+})
 
-  ahoy.track("Copy link");
 
-});
+
 
