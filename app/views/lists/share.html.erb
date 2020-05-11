@@ -20,16 +20,15 @@
 
             <hr class="my-4">
 
-<div class="d-flex">
+            <div class="d-flex">
+              <!-- Target -->
+              <input class="form-control" type="text" id="listLink" value="<%= list_url(@list) %>">
 
-            <!-- Target -->
-            <input class="form-control" type="text" id="listLink" value="<%= list_url(@list) %>">
-
-            <!-- Trigger -->
-            <button class="clipboard-btn btn btn-link font-weight-bold" data-clipboard-target="#listLink">
-                COPIER
-            </button>
-</div>
+              <!-- Trigger -->
+              <button class="clipboard-btn btn btn-link font-weight-bold" data-clipboard-target="#listLink">
+                  COPIER
+              </button>
+            </div>
 
             <hr class="my-4">
 
