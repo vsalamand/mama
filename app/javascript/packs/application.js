@@ -125,9 +125,7 @@ function hideTooltip(btn) {
 }
 
 // Clipboard
-
-$(document).ready(function(){
-
+document.addEventListener("turbolinks:load", function() {
   var clipboard = new Clipboard('.clipboard-btn');
 
   clipboard.on('success', function(e) {

@@ -15,10 +15,10 @@
 
         <% elsif @list.user != current_user %>
 
-          <%= link_to "Enregistrer la liste", list_save_path(@list), class:"btn bg-success text-white" %>
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success text-white" %>
         <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
 
-          <%= link_to "Enregistrer la liste", list_save_path(@list), class:"btn bg-success text-white" %>
+          <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn bg-success text-white" %>
         <% end %>
       <% end %>
     </nav>
