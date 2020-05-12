@@ -81,8 +81,8 @@ class ListItem < ApplicationRecord
   end
 
   def get_store_section
-    if self.food.present?
-      self.food.store_section.name
+    if self.item.present? && self.get_item.get_store_section.present?
+      self.get_item.get_store_section.name
     else
       return "Autres"
     end

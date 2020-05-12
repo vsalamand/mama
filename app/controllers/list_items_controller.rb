@@ -60,7 +60,7 @@ class ListItemsController < ApplicationController
   def complete
     @list_item = ListItem.find(params[:list_item_id])
     @list_item.complete
-    @store_section = @list_item.get_item.get_store_section.name
+    @store_section = @list_item.get_store_section
 
     render "complete.js.erb"
     ahoy.track "complete list item", request.path_parameters
