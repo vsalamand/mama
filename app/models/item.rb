@@ -49,6 +49,18 @@ class Item < ApplicationRecord
     end
   end
 
+  def set(list_item)
+    query = "query=#{list_item.name}"
+    url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{query}"))
+    # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{query}"))
+    parser = JSON.parse(open(url).read).first
+
+    quantity = parser['quantity_match'] if parser['quantity_match'].present?
+    food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
+    unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
+    # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
+    self.update(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item.name, is_validated: false)
+  end
 
   def self.add_recipe_items(recipe)
     new_items = []
