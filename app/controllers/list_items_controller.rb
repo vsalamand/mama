@@ -1,7 +1,7 @@
 class ListItemsController < ApplicationController
   before_action :set_list_item, only: [ :show, :edit, :update ]
   before_action :set_list, only: [ :show, :create, :edit, :update ]
-  skip_before_action :authenticate_user!, only: [:show, :complete, :uncomplete, :destroy, :create]
+  skip_before_action :authenticate_user!, only: [:show, :complete, :uncomplete, :destroy, :create, :edit, :update]
 
   def new
     @list_item = ListItem.new
@@ -36,15 +36,11 @@ class ListItemsController < ApplicationController
 
   def update
     @list_item.update(list_item_params)
+    item = @list_item.get_item
+    @list_item.update_item(item) if item.present?
     # if list item contains an item, then update it
-    if list_item_params[:items_attributes].present?
-      @list_item.name = list_item_params[:items_attributes]["0"][:name]
-      Item.find(list_item_params[:items_attributes]["0"][:id]).validate
-      @list_item.save
+    if @list_item.save
       render "update.js.erb"
-    else
-      @list_item.save
-      redirect_to list_path(@list)
     end
   end
 

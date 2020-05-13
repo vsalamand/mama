@@ -1,3 +1,7 @@
-const detailView = document.querySelector("#detail-view");
-detailView.innerHTML = "";
-detailView.innerHTML = ("<%= j render 'validated_form', list: @list, list_item: @list_item %>");
+const listItemCard = document.querySelector("#grocerylist-item-id<%= @list_item.id %>");
+listItemCard.innerHTML = "";
+listItemCard.innerHTML = ("<%= j render 'list_items/show', list: @list, list_item: @list_item %>");
+
+$('.modal').modal('hide');
+$(document.body).removeClass('modal-open');
+$('.modal-backdrop').remove();

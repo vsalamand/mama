@@ -80,6 +80,15 @@ class ListItem < ApplicationRecord
     valid_item.present? ? Item.create(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit) : Item.add_list_items(Array(self))
   end
 
+  def update_item(item)
+    valid_item = Item.where("lower(name) = ?", self.name.downcase).where(is_validated: true).first
+    if valid_item.present?
+      item.update(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit)
+    else
+      item.set(self)
+    end
+  end
+
   def get_store_section
     if self.item.present? && self.get_item.get_store_section.present?
       self.get_item.get_store_section.name

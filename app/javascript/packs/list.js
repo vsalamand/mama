@@ -314,3 +314,12 @@ $(document).on("click", "#emailList", function(event) {
   ahoy.track("Email list");
 
 });
+
+
+//  Update button state when editing list item
+$(document).on("click", ".editListItemBtn", function(event) {
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
+});
