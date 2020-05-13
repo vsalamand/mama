@@ -54,10 +54,10 @@
   <div class="jumbotron">
     <% if @list.user == current_user || @list.users.include?(current_user)  %>
       <h1>Prêt pour les courses ?</h1>
-      <p class="lead">Retrouvez facilement votre liste au moment où vous en avez besoin.</p>
+      <p class="lead">Retrouvez facilement votre liste au moment où vous en avez besoin pour faire les courses.</p>
     <% else %>
       <h1>Cette liste vous intéresse ?</h1>
-      <p class="lead">Retrouvez la facilement au moment où vous en avez besoin.</p>
+      <p class="lead">Retrouvez la facilement au moment où vous en avez besoin pour faire les courses.</p>
     <% end %>
     <hr class="my-4">
     <% unless user_signed_in? %>

@@ -10,8 +10,10 @@ class PagesController < ApplicationController
     if user_signed_in?
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
+      ahoy.track "Home", request.path_parameters
+    else
+      ahoy.track "Landing", request.path_parameters
     end
-    ahoy.track "Home", request.path_parameters
   end
 
   def select
