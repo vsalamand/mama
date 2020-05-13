@@ -41,6 +41,7 @@ class ListItemsController < ApplicationController
     # if list item contains an item, then update it
     if @list_item.save
       render "update.js.erb"
+      ahoy.track "Edit list item", request.path_parameters
     end
   end
 
