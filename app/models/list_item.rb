@@ -96,4 +96,12 @@ class ListItem < ApplicationRecord
       return "Autres"
     end
   end
+
+  def get_food_name
+    if self.food.present?
+      return self.food.name
+    else
+      return self.name
+    end
+  end
 end

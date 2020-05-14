@@ -11,7 +11,7 @@
               </div>
             </ul>
           </div>
-          <%  array.sort_by{|i| i.food.name if i.food.present?}.each do |item| %>
+          <%  array.sort_by{|i| i.get_food_name }.each do |item| %>
             <%= render 'list_items/show', list: list, list_item: item %>
           <% end %>
         </div>
