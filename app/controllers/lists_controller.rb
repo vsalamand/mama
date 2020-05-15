@@ -72,14 +72,11 @@ class ListsController < ApplicationController
     @list_item = ListItem.new
     @recipes = @list.recipes
 
-    if user_signed_in?
-      @lists = current_user.lists.saved + current_user.shared_lists - Array(@list)
-      @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
-      @collaboration = Collaboration.new
-      @recipe_list = RecipeList.new
-    end
+    # if user_signed_in?
+    #   @lists = current_user.lists.saved + current_user.shared_lists - Array(@list)
+    #   @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
+    # end
 
-    # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..9]
     ahoy.track "Show list", request.path_parameters
   end
 

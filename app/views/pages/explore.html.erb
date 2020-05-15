@@ -1,0 +1,33 @@
+
+  <%= render 'shared/navbar_black' %>
+
+
+<div class="banner d-flex flex-column">
+
+
+  <div class="container mt-5 p-0">
+
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
+
+      <h1 class="display-4 m-0">Listes de courses type</h1>
+      <hr class="my-3">
+
+        <div class="row m-2">
+          <div class=" px-5 py-3 rounded text-center mb-2">
+
+            <% if @lists.each do |list|  %>
+                <hr class="my-4">
+                <%= link_to "#{list.name}", list_path(list), class:"btn btn-lg btn-link" %>
+              <% end %>
+            <% end %>
+
+
+          </div>
+        </div>
+
+    </div>
+
+
+  </div>
+
+</div>
