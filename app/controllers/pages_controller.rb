@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
-                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list, :add_to_list]
+                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list, :add_to_list, :explore]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
@@ -28,7 +28,7 @@ class PagesController < ApplicationController
   end
 
   def products
-    @checklist = Checklist.first
+    @checklist = Checklist.find_by(name: "products")
     @lists = @checklist.get_curated_lists
 
     @selected_items = params[:i]
@@ -130,6 +130,12 @@ class PagesController < ApplicationController
 
     # render 'add_to_list.js.erb'
     ahoy.track "Add to list", request.path_parameters
+  end
+
+  def explore
+    @checklist = Checklist.find_by(name: "templates")
+    @lists = @checklist.get_curated_lists
+    ahoy.track "Explore lists", request.path_parameters
   end
 
   def thank_you
