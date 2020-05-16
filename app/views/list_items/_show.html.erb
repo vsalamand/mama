@@ -1,4 +1,3 @@
-<% if list.user.nil? || list.user == current_user || list.users.include?(current_user) %>
   <div id="grocerylist-item-id<%= list_item.id %>">
     <li class="border-0 py-2 px-2 list-group-item d-flex align-items-center justify-content-between" id="<%= dom_id(list_item) %>" >
 
@@ -7,15 +6,15 @@
             <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
              <i class="far fa-lg fa-check-square"></i>
             <% end %>
-            <p class="m-0 pl-3 p-1 no-link" style="cursor: pointer;" data-toggle="modal" data-target="#editListItem<%= list_item.id %>Modal"><%= list_item.name %></p>
+            <p class="m-0 pl-3 p-1 no-link editListItemModalbtn" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
           </div>
       <% else %>
-          <div class="d-flex align-items-center">
-            <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
+          <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
+            <div class="d-flex align-items-center">
               <i class="fas fa-lg fa-square"></i>
-            <% end %>
-            <p class="m-0 pl-3 p-1 text-muted no-link"><del><%= list_item.name %></del></p>
-          </div>
+              <p class="m-0 pl-3 p-1 text-muted no-link"><del><%= list_item.name %></del></p>
+            </div>
+          <% end %>
       <% end %>
 
       <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
@@ -28,25 +27,3 @@
   </div>
 
 
-<% else %>
-  <%= render 'items/selected_item', item: list_item.item, list_item: list_item %>
-
-<% end %>
-
-
-  <!-- Edit List Modal -->
-  <div class="modal fade" id="editListItem<%= list_item.id %>Modal" tabindex="-1" role="dialog" aria-labelledby="editListItem<%= list_item.id %>ModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editList<%= list_item.id %>ModalLabel">Modifier</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body m-0 p-0">
-          <%= render 'list_items/edit', list: list, list_item: list_item %>
-        </div>
-      </div>
-    </div>
-  </div>

@@ -1,84 +1,20 @@
 <%= render "shared/navbar_list" %>
 
+  <% if @list.user.nil? %>
+      <%= render "lists/show_nil_owner", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
 
-<div class="jumbotron jumbotron-fluid bg-white py-3 mb-0">
-  <div class="container px-2 d-flex flex-column">
-    <h1 class="text-primary"><%= @list.name %></h1>
-  </div>
+  <% elsif user_signed_in? %>
+    <% if @list.user == current_user || @list.users.include?(current_user) %>
+      <%= render "lists/show_owner", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
 
-  <% if @list.user.present? %>
-    <div class="container px-2 mb-2">
-      <% if @list.user == current_user %>
-        <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-          <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-           <%= link_to "Supprimer", list_path(@list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
-        </div>
-
-      <% elsif @list.users.include?(current_user) %>
-        <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-          <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-           <%= link_to "Supprimer", list_collaboration_path(@list, current_user), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
-        </div>
-      <% end %>
-    </div>
-
-  <% elsif @list.user.nil? %>
-    <div class="container px-2 my-2">
-      <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-        <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-
-<div class="wrapper" style="min-height: 90vh;">
-  <div class="container px-0 mt-2" id="todo_list" data="<%= @list.id %>">
-    <%= render "todo_list", list: @list, list_items: @list_items, list_item: @list_item %>
-  </div>
-
-  <% if @recipes.present? %>
-    <div class="container px-0 mt-3">
-
-      <div id="selectedRecipes" class="row m-0">
-          <% @recipes.each do |recipe| %>
-            <%= render 'recipe_card', recipe: recipe, list: @list %>
-          <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-
-<div class="container my-5 px-1">
-  <div class="jumbotron">
-    <% if @list.user == current_user || @list.users.include?(current_user)  %>
-      <h1>Prêt pour les courses ?</h1>
-      <p class="lead">Retrouvez facilement votre liste au moment où vous en avez besoin pour faire les courses.</p>
-    <% else %>
-      <h1>Cette liste vous intéresse ?</h1>
-      <p class="lead">Retrouvez la facilement au moment où vous en avez besoin pour faire les courses.</p>
-    <% end %>
-    <hr class="my-4">
-    <% unless user_signed_in? %>
-      <!--alter the login link to trigger the opening of the modal -->
-      <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg bg-success text-white", style:"text-decoration: none;" %>
-
-    <% else %>
-      <% if @list.user == current_user || @list.users.include?(current_user)  %>
-        <%= link_to "Partager", list_share_path(@list), class:"btn btn-lg bg-success text-white" %>
-
-      <% elsif @list.user != current_user %>
-
-        <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success text-white" %>
-      <% elsif @list.users.exclude?(current_user) &&  @list.user != current_user %>
-
-        <%= link_to "Enregistrer la liste", list_copy_path(@list), class:"btn btn-lg bg-success text-white" %>
-      <% end %>
+    <% elsif @list.user != current_user %>
+      <%= render "lists/show_other_user", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
     <% end %>
 
-  </div>
-</div>
+  <% else user_signed_in? %>
+      <%= render "lists/show_visitor", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+
+  <% end %>
 
 
 <div style="padding: 10px;"></div>
@@ -108,3 +44,21 @@
     </div>
   </div>
 
+    <!-- Edit List Item Modal -->
+  <div class="modal fade" id="editListItemModal" tabindex="-1" role="dialog" aria-labelledby="editListItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editListModalLabel">Modifier</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+
+          <div id="editListItemForm"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>

@@ -122,6 +122,7 @@ Rails.application.routes.draw do
       end
       get :complete
       get :uncomplete
+      get :edit_modal
       # resources :items do
       #   get 'validate', to: "items#validate"
       #   get 'unvalidate', to: "items#unvalidate"

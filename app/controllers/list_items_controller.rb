@@ -1,7 +1,7 @@
 class ListItemsController < ApplicationController
   before_action :set_list_item, only: [ :show, :edit, :update ]
   before_action :set_list, only: [ :show, :create, :edit, :update ]
-  skip_before_action :authenticate_user!, only: [:show, :complete, :uncomplete, :destroy, :create, :edit, :update]
+  skip_before_action :authenticate_user!, only: [:show, :complete, :uncomplete, :destroy, :create, :edit, :update, :edit_modal]
 
   def new
     @list_item = ListItem.new
@@ -78,6 +78,12 @@ class ListItemsController < ApplicationController
     end
 
     head :ok
+  end
+
+  def edit_modal
+    @list = List.find(params[:list_id])
+    @list_item = ListItem.find(params[:list_item_id])
+    render "edit_modal.js.erb"
   end
 
   private

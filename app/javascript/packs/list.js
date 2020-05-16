@@ -184,16 +184,19 @@ function getListPlaceholder() {
     const placeholder = document.getElementById('listPlaceholder');
     const sortListBtn = document.getElementById('sortList');
     const openRecoBtn = document.getElementById('openSelect');
+    const listItemForm = document.getElementById('listItemForm');
 
     if(totalCount == 0){
       $(placeholder).show();
       $(sortListBtn).hide();
       $(openRecoBtn).hide();
+      $(listItemForm).hide();
       // loadSuggestedItems();
     } else {
       $(placeholder).hide();
       $(sortListBtn).show();
       $(openRecoBtn).show();
+      $(listItemForm).show();
     }
   }
 }
@@ -322,4 +325,20 @@ $(document).on("click", ".editListItemBtn", function(event) {
   $(this).html(
     `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
   );
+});
+
+
+//  Edit list item
+$(document).on("click", ".editListItemModalbtn", function(event) {
+  var listId = document.querySelector("#todo_list").getAttribute('data');
+  var listItemId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/list_items/" + listItemId + "/edit_modal",
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+
 });
