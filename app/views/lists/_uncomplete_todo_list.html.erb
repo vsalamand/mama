@@ -11,24 +11,19 @@
               </div>
             </ul>
           </div>
-          <%  array.sort_by{|i| i.get_food_name }.each do |item| %>
+          <%  array.sort_by{|e| e.name.parameterize }.each do |item| %>
             <%= render 'list_items/show', list: list, list_item: item %>
           <% end %>
         </div>
       <% end %>
     <% end %>
 
-  <!-- no used for now -->
-  <% elsif list.sorted_by == "ordre alphabétique" %>
-      <% list.get_not_completed.sort_by(&:name).each do |item| %>
-        <%= render 'list_items/show', list: list, list_item: item %>
-      <% end %>
-
-
   <% else list.sorted_by == "date" || nil %>
-      <% list.get_not_completed.sort_by(&:id).each do |item| %>
-        <%= render 'list_items/show', list: list, list_item: item %>
-      <% end %>
+      <div id="date">
+        <% list.get_not_completed.sort_by(&:id).each do |item| %>
+          <%= render 'list_items/show', list: list, list_item: item %>
+        <% end %>
+      </div>
 
   <% end %>
 

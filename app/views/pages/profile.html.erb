@@ -1,12 +1,12 @@
-<div class="container d-flex justify-content-start mt-2 mb-4 pl-0">
-   <%= link_to 'Retour', :back, class:"btn close m-2 px-0" %>
-</div>
+  <%= render 'shared/navbar_black' %>
 
-<div class="container">
+
+
+<div class="container mt-5">
   <div class="mb-2 bg-white rounded d-flex align-items-start justify-content-between flex-column">
     <h2 class="" id="title"><%= current_user.username %></h2>
-    <p class="font-weight-light">Inscription le <%= current_user.created_at.strftime("%d/%m/%Y") %></p>
-    <p class="font-weight-light">Email <%= current_user.email %></p>
+    <p class="font-weight-light">Inscrit depuis le <%= current_user.created_at.strftime("%d/%m/%Y") %></p>
+    <p class="font-weight-light">Email: <%= current_user.email %></p>
     <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-danger mt-4" %>
   </div>
 </div>

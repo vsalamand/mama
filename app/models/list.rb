@@ -175,23 +175,16 @@ class List < ApplicationRecord
 
   def sort_by_store_sections
     store_sections = ["Légumes", "Fruits", "Frais", "Surgelés", "Viandes & poissons", "Épicerie salée", "Épicerie sucrée", "Boissons", "Autres"]
-    sort_by_sections = Hash[store_sections.map {|x| [x, Array.new]}]
+    data = Hash[store_sections.map {|x| [x, Array.new]}]
 
     self.list_items.not_completed.each do |list_item|
-      if list_item.get_item.present? && list_item.get_item.get_store_section.present?
-        section = list_item.get_item.get_store_section.name
-      else
-        section = "Autres"
-      end
-      if sort_by_sections.has_key?(section)
-        sort_by_sections[section] << list_item
-      else
-        sort_by_sections[section] = Array(list_item)
-      end
+      section = list_item.get_store_section
+      data[section] << list_item
     end
 
-    return sort_by_sections
+    return data
   end
+
 
   def get_store_carts
     items = self.get_items_to_buy

@@ -10,12 +10,17 @@
 </div>
 
 <% if list.user == current_user || list.users.include?(current_user) || list.user.nil? %>
-  <div class="my-1">
-    <div class="container fixed-bottom px-1">
+  <div class="">
+    <div class="container px-1 my-5">
+      <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
+        <div class="d-flex align-items-center">
+          <p class="m-0 p-0 font-weight-bold lead text-primary">Ajouter un produit</p>
+        </div>
+      </ul>
       <%= render "list_items/form", list: list, list_item: list_item %>
     </div>
 
-    <div class="shadow rounded mt-2">
+    <div class="shadow rounded my-3">
       <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
         <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
       </div>
