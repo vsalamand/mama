@@ -1,5 +1,11 @@
 <% if @list.user == current_user || @list.users.include?(current_user) || @list.user.nil? %>
   <div class="container px-1" id="listPlaceholder">
+    <div class="d-flex flex-column align-items-center">
+      <div class="d-flex">
+        <%= link_to "🛒 Achats fréquents", products_path(l: @list.id), class:"btn btn-sm btn-warning m-1" %>
+        <%= link_to "🍽️ Idées repas", meals_path(l: @list.id), class:"btn btn-sm btn-primary m-1" %>
+      </div>
+    </div>
     <div class="">
       <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
         <div class="d-flex align-items-center">
@@ -8,12 +14,7 @@
       </ul>
       <%= render "list_items/form", list: @list, list_item: @list_item %>
     </div>
-    <div class="d-flex flex-column align-items-center">
-      <div class="d-flex flex-column mt-5">
-        <%= link_to "🛒 Achats fréquents", products_path(l: @list.id), class:"btn btn-warning mb-1" %>
-        <%= link_to "🍽️ Idées repas", meals_path(l: @list.id), class:"btn btn-primary mb-1" %>
-      </div>
-    </div>
+
   </div>
 <% else %>
   <div class="container mt-5" id="listPlaceholder">
