@@ -8,13 +8,23 @@
 
       <% if user_signed_in? %>
         <%= link_to "Paramètres", profile_path, class:"btn bg-transparent border m-1"  %>
-      <% else %>
-        <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn bg-transparent border font-weight-bold m-1", style:"text-decoration: none;" %>
       <% end %>
 
     </nav>
   </div>
+
+  <% unless user_signed_in? %>
+    <div class="wrapper">
+      <nav class="px-0 navbar navbar-expand-lg">
+        <div class="container d-flex justify-content-center">
+          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-outline-secondary px-3 m-1"  %>
+
+          <!--alter the login link to trigger the opening of the modal -->
+          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary px-3 m-1" %>
+        </div>
+      </nav>
+    </div>
+  <% end %>
 </div>
 <!-- Navbar End -->
 <%= render 'shared/login_form' %>

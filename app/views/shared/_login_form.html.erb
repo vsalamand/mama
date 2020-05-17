@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-body p-3">
-        <h2 class="p-1">Connectez-vous pour retrouver vos listes</h2>
+        <h2 class="p-1">Connectez-vous à votre compte</h2>
 
 
         <% if flash[:alert].present? %>
@@ -24,7 +24,7 @@
           </div>
 
           <div class="form-actions">
-            <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-warning mb-1" %>
+            <%= f.button :submit, "Se connecter", class: "btn btn-warning mb-1" %>
           </div>
             <%= link_to "Mot de passe oublié?", new_password_path(resource_name) %><br />
         <% end %>
