@@ -9,6 +9,11 @@
 
 <div class="wrapper" style="min-height: 90vh;">
   <div class="container px-0 mt-2" id="todo_list" data="<%= list.id %>">
+
+    <p class="text-center">
+      <%= link_to "Vous pouvez modifier la liste une fois enregistrée", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"badge badge-warning p-1" %>
+    </p>
+
     <div class="shadow rounded">
       <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
 
