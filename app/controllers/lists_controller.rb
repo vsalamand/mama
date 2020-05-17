@@ -1,10 +1,11 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create]
 
 
   def new
     @list = List.new
+    ahoy.track "New list", request.path_parameters
   end
 
   def create
