@@ -19,20 +19,22 @@ function refreshList() {
   refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
 <% else %>
   refreshList();
+  scrollToLastItem();
   refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
 <% end %>
 
 
 // no longer used...
-// function addListItem(reviewHTML) {
-//   const listItems = document.getElementById('uncomplete_list_items');
-//   listItems.insertAdjacentHTML('beforeend', reviewHTML);
-//   listItems.scrollIntoView(true);
-//   var lastItem = document.getElementById("grocerylist-item-id<%= @list_item.id %>");
-//   lastItem.scrollIntoView();
-//   window.scrollBy(0, -40);
-//   event.preventDefault();
-// }
+function scrollToLastItem() {
+  // const listItems = document.querySelectorAll('#uncomplete_list_items li');
+  // var lastItem = listItems[listItems.length - 1];
+  // listItems.insertAdjacentHTML('beforeend', reviewHTML);
+  // listItems.scrollIntoView(true);
+  // var lastItem = document.getElementById("grocerylist-item-id<%= @list_item.id %>");
+  var position = document.getElementById("scrollPoint")
+  position.scrollIntoView(false);
+  event.preventDefault();
+}
 
 
 
