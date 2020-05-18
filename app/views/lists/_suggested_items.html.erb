@@ -1,19 +1,8 @@
 <% if @list.user == current_user || @list.users.include?(current_user) || @list.user.nil? %>
   <div class="container px-1" id="listPlaceholder">
-    <div class="d-flex flex-column align-items-center">
-      <div class="d-flex">
-        <%= link_to "🛒 Achats fréquents", products_path(l: @list.id), class:"btn btn-sm btn-warning m-1" %>
-        <%= link_to "🍽️ Idées repas", meals_path(l: @list.id), class:"btn btn-sm btn-primary m-1" %>
-      </div>
-    </div>
-    <div class="">
-      <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
-        <div class="d-flex align-items-center">
-          <p class="m-0 p-0 font-weight-bold lead text-primary">Ajouter un produit</p>
-        </div>
-      </ul>
+
       <%= render "list_items/form", list: @list, list_item: @list_item %>
-    </div>
+
 
   </div>
 <% else %>

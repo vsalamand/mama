@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create ]
 
 
   def new
@@ -205,7 +205,7 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:id, :name, :user_id, :status, :list_type)
+    params.require(:list).permit(:id, :name, :user_id, :status, :list_type, :sorted_by)
   end
 
   def set_list
