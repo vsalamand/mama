@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get 'get_list', to: "pages#get_list"
   get 'add_to_list', to: "pages#add_to_list"
   get 'explore', to: "pages#explore"
+  get 'browse', to: "pages#browse"
 
 
   resources :recipes do

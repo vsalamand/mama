@@ -1,4 +1,4 @@
-<% if list.get_not_completed.any? %>
+<% if list.get_not_deleted.any? %>
 
   <% if list.sorted_by == "rayon" %>
     <% list.sort_by_store_sections.each do |key, array| %>

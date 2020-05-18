@@ -169,6 +169,10 @@ class List < ApplicationRecord
     self.list_items.not_completed
   end
 
+  def get_not_deleted
+    self.list_items.not_deleted
+  end
+
   def get_sort_options
     return ["ordre d'ajout", "rayon"]
   end
@@ -177,7 +181,7 @@ class List < ApplicationRecord
     store_sections = ["Légumes", "Fruits", "Frais", "Surgelés", "Viandes & poissons", "Épicerie salée", "Épicerie sucrée", "Boissons", "Autres"]
     data = Hash[store_sections.map {|x| [x, Array.new]}]
 
-    self.list_items.not_completed.each do |list_item|
+    self.get_not_deleted.each do |list_item|
       section = list_item.get_store_section
       data[section] << list_item
     end

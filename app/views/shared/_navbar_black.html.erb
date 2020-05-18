@@ -2,7 +2,7 @@
 
   <div class="container">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/">
+       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold" href="/browse">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
       </a>
 
@@ -12,20 +12,25 @@
 
     </nav>
   </div>
+</div>
 
-  <% unless user_signed_in? %>
+
+<% unless user_signed_in? %>
+  <div class="fixed-bottom bg-white shadow border-top">
     <div class="wrapper">
       <nav class="px-0 navbar navbar-expand-lg">
         <div class="container d-flex justify-content-center">
-          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-outline-secondary px-3 m-1"  %>
+          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-light border px-3 m-1"  %>
 
           <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary px-3 m-1" %>
+          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1" %>
         </div>
       </nav>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
+
+
 <!-- Navbar End -->
 <%= render 'shared/login_form' %>
 <%= render 'shared/signup_form' %>
