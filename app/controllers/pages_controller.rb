@@ -1,19 +1,32 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
+  skip_before_action :authenticate_user!, only: [:home, :browse, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list, :add_to_list, :explore]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
-    @list = List.new
+    if user_signed_in?
+      redirect_to browse_path
+    else
+      ahoy.track "Landing", request.path_parameters
+    end
+  end
+
+  def browse
     @categories = Recommendation.where(is_active: true).last
-    # @recipes = RecipeList.where(recipe_list_type: "curated").last.recipes[0..5]
+
     if user_signed_in?
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
       ahoy.track "Home", request.path_parameters
     else
-      ahoy.track "Landing", request.path_parameters
+      redirect_to explore_path
     end
+  end
+
+  def explore
+    @checklist = Checklist.find_by(name: "templates")
+    @lists = @checklist.get_curated_lists
+    ahoy.track "Explore lists", request.path_parameters
   end
 
   def select
@@ -130,12 +143,6 @@ class PagesController < ApplicationController
 
     # render 'add_to_list.js.erb'
     ahoy.track "Add to list", request.path_parameters
-  end
-
-  def explore
-    @checklist = Checklist.find_by(name: "templates")
-    @lists = @checklist.get_curated_lists
-    ahoy.track "Explore lists", request.path_parameters
   end
 
   def thank_you
