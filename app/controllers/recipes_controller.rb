@@ -104,7 +104,7 @@ class RecipesController < ApplicationController
 
   def add_to_list
     @recipe = Recipe.find(params[:id])
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user, status: "saved") if @list.nil?
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
 
     items = params[:items]
 

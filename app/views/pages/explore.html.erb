@@ -7,14 +7,17 @@
   <ul class="nav nav-pills justify-content-center my-4 nav-secondary">
     <li class="nav-item">
       <% if user_signed_in? %>
-        <%= link_to "Listes enregistrées", root_path, class:"nav-link" %>
+        <%= link_to "Mes listes", root_path, class:"nav-link px-2" %>
       <% else %>
         <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Listes enregistrées", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link" %>
+        <%= link_to "Mes listes", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link px-2" %>
       <% end %>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="#">Listes type</a>
+      <a class="nav-link px-2" href="#">Mes recettes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active px-2" href="#">Nouveau</a>
     </li>
   </ul>
 
@@ -22,23 +25,35 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
 
-      <h1 class="display-4 m-1">Choisissez une liste</h1>
+      <h1 class="display-4 m-1">Nouvelle liste</h1>
+
+      <hr class="my-2">
+        <p class="lead mb-2">Idée recette</p>
+        <div class="row m-1">
+          <div class="offset-md-3 col-md-6 p-0">
+            <%= render 'card_recipe', recipe: RecommendationItem.first.recipe_list.recipes.last %>
+          </div>
+        </div>
+        <%= link_to "Parcourir les recettes", meals_path, class:"btn btn-light border m-1 px-3" %>
+
+      <% if false %>
+      <% RecommendationItem.first.recipe_list.recipes[-2..-1].each do |recipe| %>
+        <%= render 'selected_recipe', recipe: recipe %>
+      <% end %>
+      <% end %>
 
       <hr class="my-3">
 
-        <div class="row m-2">
-          <div class=" px-5 py-3 rounded text-center mb-2">
 
-
-            <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-lg btn-light border px-5" %>
-
+        <div class="row">
+          <div class="text-center px-0">
+            <p class="lead p-4">Vous avez besoin d'une liste de courses type ?</p>
             <% if @lists.each do |list|  %>
-                <hr class="my-4">
                 <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+                <hr class="my-4 mx-5">
               <% end %>
             <% end %>
-
-
+            <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
           </div>
         </div>
 
@@ -48,6 +63,32 @@
   </div>
 
 </div>
+
+<div style="padding: 50px;"></div>
+
+
+<!-- add to list modal -->
+  <div class="modal fade" id="addRecipeToListModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeToListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRecipeToListModal">Liste de courses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div id="recipeModalContent">
+          <div style="height: 40vh;" class="d-flex flex-column align-items-center justify-content-center">
+            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+            Chargement en cours...
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 
 
 <!-- Navbar End -->

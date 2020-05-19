@@ -1,9 +1,11 @@
 <% if recipes.size > 0 %>
 
-    <div class="row m-1">
-      <% recipes.each do |recipe| %>
-        <%= render 'card_recipe', recipe: recipe %>
-      <% end %>
+  <div class="row m-1">
+    <% recipes.each do |recipe| %>
+      <div class="col-md-4 p-1">
+        <%= render 'card_recipe', recipe: recipe, list: list %>
+      </div>
+    <% end %>
   </div>
 
 <% else %>

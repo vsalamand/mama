@@ -1,0 +1,6 @@
+var recipeItemsModal = document.getElementById("addRecipeToListModal");
+$(recipeItemsModal).modal("show");
+
+var modalBody = document.getElementById("recipeModalContent");
+modalBody.innerHTML = "";
+modalBody.innerHTML = ("<%= j render 'modal_card_recipe', list: @list, recipe: @recipe %>");

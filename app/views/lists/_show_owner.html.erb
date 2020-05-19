@@ -19,7 +19,7 @@
 
     <%= render "lists/options", list: list %>
 
-    <div class="shadow rounded my-4 px-0">
+    <div class="shadow rounded mb-4 px-0">
       <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
         <%= render 'lists/uncomplete_todo_list', list: list %>
       </div>
@@ -36,8 +36,8 @@
       <%= render "lists/suggested_items" %>
       <div class="d-flex flex-column align-items-center">
         <div class="d-flex">
-          <%= link_to "🛒 Achats fréquents", products_path(l: @list.id), class:"btn btn-light border m-1" %>
-          <%= link_to "🍽️ Idées repas", meals_path(l: @list.id), class:"btn btn-light border m-1" %>
+          <%= link_to "Achats fréquents", products_path(l: @list.id), class:"btn btn-light border m-1" %>
+          <%= link_to "Recettes", meals_path(l: @list.id), class:"btn btn-light border m-1" %>
         </div>
       </div>
     </div>

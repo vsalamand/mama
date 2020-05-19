@@ -85,6 +85,18 @@ class Recipe < ApplicationRecord
     return store_prices.min
   end
 
+  def sort_by_store_sections
+    store_sections = ["Légumes", "Fruits", "Frais", "Surgelés", "Viandes & poissons", "Épicerie salée", "Épicerie sucrée", "Boissons", "Autres"]
+    data = Hash[store_sections.map {|x| [x, Array.new]}]
+
+    self.items.each do |item|
+      item.get_store_section.present? ? section = item.get_store_section.name : section = "Autres"
+      data[section] << item
+    end
+
+    return data
+  end
+
 
   def seasonal?
     seasonal_foods = FoodList.find_by(name: "seasonal foods", food_list_type: "pool")

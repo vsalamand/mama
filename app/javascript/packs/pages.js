@@ -126,7 +126,8 @@ function goToList(items, listId, recipeIds) {
 
 
 
-//  Load explore recipes in modal
+//  Load explore recipes
+
 $(document).on("click", "#openExploreModalBtn", function(event) {
   fetchExploreRecipes();
 });
@@ -142,17 +143,25 @@ function fetchExploreRecipes() {
 
 
 
-//  Load browse category in modal
+//  Load category recipes
+$(document).on('turbolinks:load', function() {
+  if(document.getElementById('getExploreRecipesContent')){
+    var listId = document.getElementById('getExploreRecipesContent').getAttribute('list-data');
+    fetchBrowseCategory(listId);
+  }
+})
 $(document).on("click", "#getCategoryBtn", function(event) {
+  var listId = document.getElementById('getExploreRecipesContent').getAttribute('list-data');
   var categoryId = this.getAttribute('data');
-  fetchBrowseCategory(categoryId);
+  fetchBrowseCategory(listId, categoryId);
 });
 
-function fetchBrowseCategory(categoryId) {
+function fetchBrowseCategory(listId, categoryId) {
   $.ajax({
     url: "browse_category",
     cache: false,
     data: {
+      l: listId,
       category_id: categoryId
       },
     success: function(data){
@@ -237,17 +246,18 @@ $(document).on("click" , "#addToListBtn", function(event) {
     `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
   );
 
-  var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
+  // var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
+  var recipeId = this.getAttribute('data');
   // var items = this.getAttribute('data');
   var listId = this.getAttribute('list-data');
 
 
-  var recipeIds = []
-  $(selectedRecipes).map(function() {
-                   recipeIds.push(this.getAttribute('id'));
-                })
+  // var recipeIds = []
+  // $(selectedRecipes).map(function() {
+  //                  recipeIds.push(this.getAttribute('id'));
+  //               })
 
-  var recipeIds = recipeIds.filter(Boolean)
+  // var recipeIds = recipeIds.filter(Boolean)
   // // get items in list
   // const listId = this.getAttribute('list-data');
   // const recipeIds = this.getAttribute('recipe-data');
@@ -257,10 +267,10 @@ $(document).on("click" , "#addToListBtn", function(event) {
                    items.push($(this).text().trim());
                 })
 
-  addToList(items, listId, recipeIds);
+  addToList(items, listId, recipeId);
 });
 
-function addToList(items, listId, recipeIds) {
+function addToList(items, listId, recipeId) {
   // query suggested items
   $.ajax({
     url: "/add_to_list",
@@ -269,9 +279,32 @@ function addToList(items, listId, recipeIds) {
     data: {
         l: listId,
         i: items,
-        r: recipeIds
+        r: recipeId
         },
     success: function(){
     }
   });
 }
+
+
+
+
+//  Show recipe content in  add to list modal
+$(document).on("click", ".addToListModalBtn", function(event) {
+  var listId = this.getAttribute('list-data');
+  var recipeId = this.getAttribute('data');
+
+
+  $.ajax({
+    url: "/add_to_list_modal",
+    cache: false,
+    dataType: 'script',
+    data: {
+        l: listId,
+        r: recipeId
+        },
+    success: function(){
+    }
+  });
+
+});

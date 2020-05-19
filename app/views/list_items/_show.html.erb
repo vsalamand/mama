@@ -11,7 +11,7 @@
       <% else %>
           <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
             <div class="d-flex align-items-center">
-              <i class="fas fa-lg fa-check-square"></i>
+              <i class="fas fa-lg fa-check-square text-muted"></i>
               <p class="m-0 pl-3 p-1 text-muted no-link"><del><%= list_item.name %></del></p>
             </div>
           <% end %>

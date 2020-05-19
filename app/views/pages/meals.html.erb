@@ -12,69 +12,78 @@
           <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
         </a>
       <% else %>
-        <a class="navbar-brand text-dark d-flex align-items-center" href="/">
+        <a class="navbar-brand text-dark d-flex align-items-center" href="/explore">
           <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
         </a>
       <% end %>
-      <button class="btn-warning btn" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Ajouter à ma la liste</button>
-    </nav>
-  </div>
-</div>
-
-<div class="jumbotron jumbotron-fluid py-3 bg-white shadow text-primary">
-  <div class="container">
-    <h1 class="">Idées repas</h1>
+<!--       <button class="btn-warning btn" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">Ajouter à ma la liste</button>
+ -->    </nav>
   </div>
 </div>
 
 
 <div class="container">
+  <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
+    <h1 class="display-4 text-center m-1">Choisissez une recette</h1>
 
-  <div class="row">
-    <div class="col-md-4 p-1">
-      <div class="card border-primary text-primary mb-3 shadow" style="cursor: pointer;" data-toggle="modal" data-target="#exploreRecipesModal" id="openExploreModalBtn">
-        <div class="">
-          <div class="">
-            <div class="card-body d-flex align-items-center justify-content-center flex-column">
-              <h5 class="card-title"><i class="fas fa-lg fa-plus-circle"></i></h5>
-              <h5 class="card-text">Ajouter un plat</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-  <div id="selectedRecipes" class="row">
-    <% if @recipes.present? %>
-      <% @recipes.each do |recipe| %>
-        <%= render 'selected_recipe', recipe: recipe %>
-      <% end %>
-    <% end %>
-    <!-- insert selected recipe cards here -->
-  </div>
-
-
 </div>
 
-<div style="padding: 15px;"></div>
+
+
+<div id="getExploreRecipesContent" list-data="<%= @list_id %>">
+  <div style="height: 80vh;" class="d-flex flex-column align-items-center justify-content-center">
+    <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+    Chargement en cours...
+  </div>
+  <!-- content comes here -->
+</div>
 
 
 
+<div style="padding: 50px;"></div>
 
-<div class="modal fade" id="exploreRecipesModal" tabindex="-1" role="dialog" aria-labelledby="exploreRecipesModalLabel" aria-hidden="true">
+
+<!-- add to list modal -->
+  <div class="modal fade" id="addRecipeToListModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeToListModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content bg-white">
-        <div class="modal-body m-0 p-0" style="height: 80vh;overflow-y: auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRecipeToListModal">Liste de courses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-          <div id="getExploreRecipesContent">
-            <!-- content comes here -->
+        <div id="recipeModalContent">
+          <div style="height: 40vh;" class="d-flex flex-column align-items-center justify-content-center">
+            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+            Chargement en cours...
           </div>
-
-
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        </div>
+
       </div>
     </div>
   </div>
+
+
+
+<% unless user_signed_in? %>
+  <div class="fixed-bottom bg-white border-top">
+    <div class="wrapper">
+      <nav class="px-0 navbar navbar-expand-lg">
+        <div class="container d-flex justify-content-center">
+          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-light border px-3 m-1"  %>
+
+          <!--alter the login link to trigger the opening of the modal -->
+          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1" %>
+        </div>
+      </nav>
+    </div>
+  </div>
+<% end %>
+
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+
