@@ -42,7 +42,7 @@
 
 
       <div class="text-center">
-        <p class="lead py-4">Vous avez besoin d'une liste de courses type ?</p>
+        <p class="lead py-4 px-2">Vous avez besoin d'une liste de courses type ?</p>
         <% if @lists.each do |list|  %>
             <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
             <hr class="my-4 mx-5">
