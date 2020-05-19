@@ -13,9 +13,9 @@
         <%= link_to "Mes listes", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link px-2" %>
       <% end %>
     </li>
-    <li class="nav-item">
+<!--     <li class="nav-item">
       <a class="nav-link px-2" href="#">Mes recettes</a>
-    </li>
+    </li> -->
     <li class="nav-item">
       <a class="nav-link active px-2" href="#">Nouveau</a>
     </li>
@@ -28,34 +28,28 @@
       <h1 class="display-4 m-1">Nouvelle liste</h1>
 
       <hr class="my-2">
-        <p class="lead mb-2">Idée recette</p>
-        <div class="row m-1">
-          <div class="offset-md-3 col-md-6 p-0">
-            <%= render 'card_recipe', recipe: RecommendationItem.first.recipe_list.recipes.last %>
-          </div>
-        </div>
-        <%= link_to "Parcourir les recettes", meals_path, class:"btn btn-light border m-1 px-3" %>
 
-      <% if false %>
-      <% RecommendationItem.first.recipe_list.recipes[-2..-1].each do |recipe| %>
-        <%= render 'selected_recipe', recipe: recipe %>
-      <% end %>
-      <% end %>
+      <p class="lead mb-2">Idée recette</p>
+      <div class="row m-1">
+        <div class="offset-md-3 col-md-6 p-0">
+          <%= render 'card_recipe', recipe: RecommendationItem.first.recipe_list.recipes.last %>
+        </div>
+      </div>
+      <%= link_to "Parcourir les recettes", meals_path, class:"btn btn-light border m-1 px-3" %>
+
 
       <hr class="my-3">
 
 
-        <div class="row">
-          <div class="text-center px-0">
-            <p class="lead p-4">Vous avez besoin d'une liste de courses type ?</p>
-            <% if @lists.each do |list|  %>
-                <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
-                <hr class="my-4 mx-5">
-              <% end %>
-            <% end %>
-            <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
-          </div>
-        </div>
+      <div class="text-center">
+        <p class="lead py-4">Vous avez besoin d'une liste de courses type ?</p>
+        <% if @lists.each do |list|  %>
+            <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+            <hr class="my-4 mx-5">
+          <% end %>
+        <% end %>
+        <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
+      </div>
 
     </div>
 

@@ -12,9 +12,9 @@
           </div>
         <% end %>
         <div class="mt-auto bd-highlight m-2">
-          <button class="btn-sm btn-warning rounded addToListModalBtn" style="cursor: pointer;" list-data="<%= list.id %>" data="<%= recipe.id %>">Ajouter</button>
-          <button class="btn-sm btn-light border rounded text-muted" style="cursor: pointer;"><i class="fas fa-star"></i></button>
-        </div>
+          <button class="btn-sm btn-warning rounded addToListModalBtn" style="cursor: pointer;" list-data="<%= list.id if params[:l].present? %>" data="<%= recipe.id %>">Ajouter</button>
+<!--           <button class="btn-sm btn-light border rounded text-muted" style="cursor: pointer;"><i class="fas fa-star"></i></button>
+ -->        </div>
       </div>
     </div>
   </div>

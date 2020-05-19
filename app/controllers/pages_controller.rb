@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
-                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list, :add_to_list, :add_to_list_modal, :explore]
+                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
+                                                  :add_to_list, :add_to_list_modal, :explore, :select_list]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
@@ -79,7 +80,7 @@ class PagesController < ApplicationController
     @categories = Recommendation.where(is_active: true).last
     @query = params[:query].present? ? params[:query] : nil
     @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..49] if @query
-    @list = List.find(params[:l]) if params[:l].present?
+    @list = List.find(params[:l].keys.first) if params[:l].present?
 
     render 'search_recipes.js.erb'
     ahoy.track "Search recipes", request.path_parameters
@@ -128,7 +129,7 @@ class PagesController < ApplicationController
 
   def add_to_list
     user = current_user if user_signed_in?
-    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Nouvelle liste de courses", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
+    (params[:l].present? && params[:l] != "0") ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
 
     if params[:i].present?
       # item_inputs = params[:i].split("&i=")
@@ -157,6 +158,11 @@ class PagesController < ApplicationController
 
     render "add_to_list_modal.js.erb"
     ahoy.track "Open Add to list modal", request.path_parameters
+  end
+
+  def select_list
+    @list = List.find(params[:l]) if params[:l].present? && params[:l] != "0"
+    render "select_list.js.erb"
   end
 
 

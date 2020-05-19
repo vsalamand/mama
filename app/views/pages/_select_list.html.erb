@@ -1,0 +1,23 @@
+<% if list.present? %>
+     <a class="btn btn-light border text-success rounded-0 dropdown-toggle" style="width: 100%;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectListBtn" list-data="<%= list.id %>">
+      <%= list.name %>
+    </a>
+<% else %>
+    <a class="btn btn-light border text-success rounded-0 dropdown-toggle" style="width: 100%;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="selectListBtn" list-data="0">
+      Créer une nouvelle liste de courses
+    </a>
+<% end %>
+<div class="dropdown-menu rounded-0" aria-labelledby="selectListBtn" style="width: 100%; height: 69vh; overflow-y: auto;">
+  <h6 class="dropdown-header">Sélectionner une liste</h6>
+  <div class="dropdown-divider"></div>
+  <button class="dropdown-item font-weight-bold text-primary selectListOptionBtn" data="0" type="button">Créer une nouvelle liste</button>
+  <% if user_signed_in? %>
+    <% current_user.lists.order(:id).reverse.each do |list| %>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item text-primary selectListOptionBtn" data="<%= list.id %>" type="button"><%= list.name.capitalize %></button>
+    <% end %>
+  <% elsif list.present? %>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item text-primary selectListOptionBtn" data="<%= list.id %>" type="button"><%= list.name.capitalize %></button>
+  <% end %>
+</div>

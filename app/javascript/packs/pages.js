@@ -214,6 +214,7 @@ function removeRecipe(recipeId) {
 
 //  show browse category dropdown options
 // make bootstrap dropdowns work with turbolinks
+
 function toggleDropdown(element) {
   var dropdown = new Dropdown(element);
   dropdown.toggle();
@@ -234,6 +235,41 @@ $(document).on("click", "#categoryMenuButton", function(event) {
   });
 });
 
+$(document).on("click", "#selectListBtn", function(event) {
+  var options = document.getElementById('selectListBtn');
+  $(options).dropdown('show')
+
+  var dropdown_buttons = document.querySelectorAll('[data-toggle="dropdown"]');
+
+  dropdown_buttons.forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      toggleDropdown(this);
+    });
+  });
+});
+
+
+
+// update selected list in modal
+$(document).on("click", ".selectListOptionBtn", function(event) {
+  var listId = this.getAttribute('data');
+  selectList(listId);
+});
+
+function selectList(listId) {
+  $.ajax({
+    url: "/select_list",
+    cache: false,
+    dataType: 'script',
+    data: {
+        l: listId
+        },
+    success: function(){
+    }
+  });
+}
 
 
 //  Add to list
@@ -249,7 +285,13 @@ $(document).on("click" , "#addToListBtn", function(event) {
   // var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
   var recipeId = this.getAttribute('data');
   // var items = this.getAttribute('data');
-  var listId = this.getAttribute('list-data');
+  if ($(document.getElementById('selectListBtn')).is('[list-data]')) {
+    // recipe modal
+    var listId = document.getElementById('selectListBtn').getAttribute('list-data');
+  } else {
+    // product page
+    var listId = this.getAttribute('list-data');
+  }
 
 
   // var recipeIds = []
@@ -294,7 +336,6 @@ $(document).on("click", ".addToListModalBtn", function(event) {
   var listId = this.getAttribute('list-data');
   var recipeId = this.getAttribute('data');
 
-
   $.ajax({
     url: "/add_to_list_modal",
     cache: false,
@@ -306,5 +347,4 @@ $(document).on("click", ".addToListModalBtn", function(event) {
     success: function(){
     }
   });
-
 });

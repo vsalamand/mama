@@ -16,6 +16,7 @@
       <div class="search-form-control form-group mb-5 shadow-lg">
           <%= form_tag(search_recipes_path, :method => "get", remote: true, authenticity_token: true) do %>
             <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
+            <%= hidden_field :l, list.id if list.present? %>
             <%= button_tag(class: "btn btn-sm btn-primary") do %>
               Chercher
             <% end %>
