@@ -1,0 +1,45 @@
+<div class="modal-body m-0 p-0" style="max-height: 65vh; overflow-y: auto;">
+
+    <div class="card rounded-0">
+      <div class="card-header d-flex flex-column px-3">
+        <p class="lead text-primary m-0 font-weight-bold"><%= recipe.title %></p>
+        <small class="text-muted"><%= recipe.items.size %> produits</small>
+      </div>
+      <div class="container px-1">
+        <ul class="list-group list-group-flush shadow">
+
+          <% recipe.sort_by_store_sections.each do |key, array| %>
+            <% if array.any? %>
+              <div id="<%= key.parameterize(separator: '') %>">
+                <div id="<%= key.parameterize(separator: '') %>Header">
+                  <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
+                    <div class="d-flex align-items-center">
+                      <p class="m-0 p-1 font-weight-bold lead"><%= key %></p>
+                    </div>
+                  </ul>
+                </div>
+                <div class="recipeItem<%= recipe.id %>">
+                  <%  array.sort_by{|e| e.name.parameterize }.each do |item| %>
+                    <%= render 'items/selected_item', item: item %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div class="modal-body m-0 p-0">
+  <div class="btn-group dropup d-flex flex-column" style="width: 100%;">
+    <small class="text-dark text-center shadow py-1 border-top border-primary">Ajouter dans:</small>
+    <div id="selectListOptions"><%= render 'select_list', list: list %></div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+  <button class="btn btn-warning" id="addToListBtn" data="<%= recipe.id %>">Ajouter les produits</button>
+</div>

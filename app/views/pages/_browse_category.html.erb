@@ -1,22 +1,6 @@
-<h2 class="p-3">Ajouter un plat</h2>
-
-<div class="container bg-white my-2" id="searchRecipes" >
-
-    <div class="text-left text-muted" >
-      <div class="search-form-control form-group my-2 shadow-lg">
-          <%= form_tag(search_recipes_path, :method => "get", remote: true, authenticity_token: true) do %>
-            <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
-            <%= button_tag(class: "btn btn-sm btn-primary") do %>
-              Chercher
-            <% end %>
-          <% end %>
-      </div>
-    </div>
-</div>
-
-<div class="container d-flex justify-content-center p-1 my-2">
+<div class="container d-flex justify-content-center p-1 my-4">
   <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-lg dropdown-toggle border-0" id="categoryMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-light btn-lg dropdown-toggle border" id="categoryMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <%= category.name %>
     </button>
     <div class="dropdown-menu" aria-labelledby="categoryMenuButton" style="height: 50vh; overflow-y: auto;">
@@ -27,9 +11,23 @@
   </div>
 </div>
 
+<div class="container px-1 bg-white my-4" id="searchRecipes" >
+    <div class="text-left text-muted" >
+      <div class="search-form-control form-group mb-5 shadow-lg">
+          <%= form_tag(search_recipes_path, :method => "get", remote: true, authenticity_token: true) do %>
+            <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
+            <%= hidden_field :l, list.id if list.present? %>
+            <%= button_tag(class: "btn btn-sm btn-primary") do %>
+              Chercher
+            <% end %>
+          <% end %>
+      </div>
+    </div>
+</div>
 
-<div class="container my-4 px-0" id="recipeCategory">
+
+<div class="container p-0 my-4" id="recipeCategory">
   <div class="recipesGrid">
-    <%= render 'card_grid', recipes: recipes %>
+    <%= render 'card_grid', recipes: recipes, list: list %>
   </div>
 </div>

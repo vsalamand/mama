@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
-                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list, :add_to_list, :explore]
+                                                  :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
+                                                  :add_to_list, :add_to_list_modal, :explore, :select_list]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
@@ -58,11 +59,31 @@ class PagesController < ApplicationController
     @selected_items = params[:i]
     @selected_recipes = params[:r]
     @list_id = params[:l]
+    # @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
+    # @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
+    # @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
+    # ahoy.track "Meals", request.path_parameters
+  end
 
-    @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
-    @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
-    @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
-    ahoy.track "Meals", request.path_parameters
+
+  def browse_category
+    @category = params[:category_id].present? ? RecommendationItem.find(params[:category_id]) : RecommendationItem.first
+    @categories = Recommendation.where(is_active: true).last
+    @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }.sort_by(&:title)
+    @list = List.find(params[:l]) if params[:l].present?
+
+    render 'browse_category.js.erb'
+    ahoy.track "browse category", request.path_parameters
+  end
+
+  def search_recipes
+    @categories = Recommendation.where(is_active: true).last
+    @query = params[:query].present? ? params[:query] : nil
+    @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..49] if @query
+    @list = List.find(params[:l].keys.first) if params[:l].present?
+
+    render 'search_recipes.js.erb'
+    ahoy.track "Search recipes", request.path_parameters
   end
 
   def select_products
@@ -104,25 +125,11 @@ class PagesController < ApplicationController
     ahoy.track "Explore recipes", request.path_parameters
   end
 
-  def browse_category
-    @category = RecommendationItem.find(params[:category_id])
-    @categories = Recommendation.where(is_active: true).last
-    @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }
-    render 'browse_category.js.erb'
-    ahoy.track "browse category", request.path_parameters
-  end
 
-  def search_recipes
-    @categories = Recommendation.where(is_active: true).last
-    @query = params[:query].present? ? params[:query] : nil
-    @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
-    render 'search_recipes.js.erb'
-    ahoy.track "Search recipes", request.path_parameters
-  end
 
   def add_to_list
     user = current_user if user_signed_in?
-    params[:l].present? ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "opened", sorted_by: "rayon") if @list.nil?
+    (params[:l].present? && params[:l] != "0") ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
 
     if params[:i].present?
       # item_inputs = params[:i].split("&i=")
@@ -131,8 +138,8 @@ class PagesController < ApplicationController
 
     if params[:r].present?
       recipes = Recipe.find(params[:r].split("&r="))
-      recipe_item_inputs = recipes.map{ |r| r.items.pluck(:name) }.flatten
-      ListItem.add_menu_to_list(recipe_item_inputs, @list)
+      # recipe_item_inputs = recipes.map{ |r| r.items.pluck(:name) }.flatten
+      # ListItem.add_menu_to_list(recipe_item_inputs, @list)
       recipes.each{|r| r.add_recipe_to_list(@list.id)}
     end
 
@@ -144,6 +151,20 @@ class PagesController < ApplicationController
     # render 'add_to_list.js.erb'
     ahoy.track "Add to list", request.path_parameters
   end
+
+  def add_to_list_modal
+    @recipe = Recipe.find(params[:r])
+    @list = List.find(params[:l]) if params[:l].present?
+
+    render "add_to_list_modal.js.erb"
+    ahoy.track "Open Add to list modal", request.path_parameters
+  end
+
+  def select_list
+    @list = List.find(params[:l]) if params[:l].present? && params[:l] != "0"
+    render "select_list.js.erb"
+  end
+
 
   def thank_you
     @user = current_user
