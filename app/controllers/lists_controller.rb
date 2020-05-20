@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create ]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create, :share, :email]
 
 
   def new
@@ -139,13 +139,21 @@ class ListsController < ApplicationController
   # end
 
   def email
-    list = List.find(params[:list_id])
-    recipes = list.recipes
-    params[:emailShare].present? ? email = params[:emailShare] : email = current_user.email
-    mail = ListMailer.share(list, email, recipes)
-    mail.deliver_now
+    @list = List.find(params[:list_id])
+    recipes = @list.recipes
+    if params[:emailShare].present?
+      email = params[:emailShare]
+    elsif user_signed_in?
+      email = current_user.email
+    end
+    unless email.nil?
+      mail = ListMailer.share(@list, email, recipes)
+      mail.deliver_now
 
-    head :ok
+      flash[:notice] = 'La liste a été envoyée !'
+    end
+
+    redirect_to list_share_path(@list)
   end
 
   def send_invite
@@ -153,7 +161,7 @@ class ListsController < ApplicationController
     email = params[:email]
     mail = ListMailer.send_invite(list, email)
     mail.deliver_now
-    redirect_to list_path(list)
+    redirect_to list_share_path(@list)
     ahoy.track "Send invite", request.path_parameters
   end
 

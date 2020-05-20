@@ -1,7 +1,7 @@
 <%= render "shared/navbar_list" %>
 
   <% if @list.user.nil? %>
-      <%= render "lists/show_nil_owner", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+      <%= render "lists/show_free", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
 
   <% elsif user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>

@@ -3,8 +3,8 @@
   <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
     <h1 class="display-4"><%= list.name %></h1>
     <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-      <a class="bd-highlight pr-2 text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-       <%= link_to "Supprimer", list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight px-2 text-secondary" %>
+      <a class="bd-highlight mr-1 btn bg-light border text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+       <%= link_to "Supprimer", list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" %>
     </div>
     <hr class="my-4">
   </div>

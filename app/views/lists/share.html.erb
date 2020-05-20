@@ -1,22 +1,36 @@
+
+
 <div class="banner d-flex flex-column">
 
+  <div class="container my-4">
+    <%= render 'shared/flashes' %>
+  </div>
 
   <div class="container">
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white px-0">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
       <div class="d-flex mb-1">
-        <%= link_to "Retour à la liste", list_path(@list), class:"btn btn-outline-secondary m-1" %>
-        <%= link_to "Voir mon compte", root_path, class:"btn btn-secondary m-1" %>
+        <%= link_to "Retour à la liste", list_path(@list), class:"btn btn-light border m-1" %>
+        <% if user_signed_in? %>
+          <%= link_to "Voir mon compte", root_path, class:"btn btn-light border m-1" %>
+        <% else %>
+         <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border m-1" %>
+        <% end %>
       </div>
       <h1 class="display-4 m-0">Partagez la liste</h1>
-      <hr class="my-3">
+      <hr class="my-4">
 
         <div class="row m-2">
           <div class="py-2 rounded text-center mb-2">
 
-            <%= form_tag(list_email_path(@list), remote: true) do |f| %>
-              <%= submit_tag "Envoyée !",:value => "✉️ Recevoir par email", class:"btn btn-lg btn btn-warning", id:"emailList" %>
+            <% if user_signed_in? %>
+                <%= form_tag(list_email_path(@list), remote: true) do |f| %>
+                  <%= submit_tag "Envoyée !", :value => "✉️ Recevoir par email", class:"btn btn-lg btn btn-warning", id:"emailList" %>
+                <% end %>
+            <% else %>
+                <button class="btn btn-lg btn btn-warning" data-toggle="modal" data-target="#shareModal">✉️ Recevoir par email</button>
             <% end %>
+
 
             <hr class="my-4">
 
@@ -32,7 +46,11 @@
 
             <hr class="my-4">
 
-            <button class="btn btn-lg btn btn-primary" data-toggle="modal" data-target="#collabListModal">👋 Inviter un ami à gérer la liste</button>
+            <% if user_signed_in? %>
+              <button class="btn btn-lg btn btn-primary" data-toggle="modal" data-target="#collabListModal">👋 Inviter un ami à gérer la liste</button>
+            <% else %>
+             <%= link_to "👋 Inviter un ami à gérer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg btn btn-primary" %>
+            <% end %>
           </div>
         </div>
 
@@ -55,10 +73,10 @@
         </div>
         <div class="modal-body p-0 m-0">
           <%= form_tag(list_email_path(@list), class: 'form-group mb-0') do |f| %>
-            <div class="shadow p-3 bg-white">
-              <%= text_field_tag 'emailShare', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
+            <div class="shadow px-2 bg-white py-4">
+              <%= text_field_tag 'emailShare', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", placeholder: "Votre email", class:"form-control py-4 mb-3 rounded" %>
               <div class="d-flex align-items-center justify-content-end">
-                <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2" %>
+                <%= submit_tag "submit",:value => "Envoyer", class:"btn btn-warning closeModal" %>
               </div>
             </div>
           <% end %>
@@ -86,3 +104,26 @@
       </div>
     </div>
   </div>
+
+
+
+
+<% unless user_signed_in? %>
+  <div class="fixed-bottom bg-white border-top">
+    <div class="wrapper">
+      <nav class="px-0 navbar navbar-expand-lg">
+        <div class="container d-flex justify-content-center">
+          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-light border px-3 m-1"  %>
+
+          <!--alter the login link to trigger the opening of the modal -->
+          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1" %>
+        </div>
+      </nav>
+    </div>
+  </div>
+<% end %>
+
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+

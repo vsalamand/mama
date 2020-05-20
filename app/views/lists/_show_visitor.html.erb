@@ -1,9 +1,8 @@
 <div class="container">
   <div class="jumbotron jumbotron-fluid bg-white  pb-0">
     <h1 class="display-4"><%= list.name %></h1>
+    <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1", style:"text-decoration: none;" %>
     <hr class="my-4">
-    <p class="">Vous pouvez modifier la liste une fois enregistrée.</p>
-    <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-light border" %>
   </div>
 </div>
 
@@ -11,7 +10,7 @@
 
 
 <div class="wrapper" style="min-height: 90vh;">
-  <div class="container px-1 my-4" id="todo_list" data="<%= list.id %>">
+  <div class="container px-1" id="todo_list" data="<%= list.id %>">
 
 
     <div class="shadow rounded">
@@ -56,8 +55,7 @@
       <h1>Cette liste vous intéresse ?</h1>
       <p class="lead">Retrouvez la facilement au moment où vous en avez besoin pour faire les courses.</p>
     <hr class="my-4">
-      <!--alter the login link to trigger the opening of the modal -->
-      <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg bg-success text-white", style:"text-decoration: none;" %>
+      <%= link_to "Partager", list_share_path(list), class:"btn btn-lg bg-success text-white" %>
   </div>
 </div>
 
