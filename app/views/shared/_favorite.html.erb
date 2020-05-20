@@ -1,0 +1,5 @@
+<% if recipe.is_user_favorite?(current_user) %>
+  <button class="btn-sm btn-light border rounded removeFromFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-star" style="color: #ffd700 ;"></i></button>
+<% else %>
+  <button class="btn-sm btn-light border rounded text-muted addToFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-star"></i></button>
+<% end %>

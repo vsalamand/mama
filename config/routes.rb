@@ -77,6 +77,11 @@ Rails.application.routes.draw do
   get 'browse', to: "pages#browse"
   get 'add_to_list_modal', to: "pages#add_to_list_modal"
   get 'select_list', to: 'pages#select_list'
+  get 'cuisine', to: 'pages#cuisine'
+  get 'history', to: 'pages#history'
+  get 'favorites', to: 'pages#favorites'
+  get 'add_to_favorites', to: 'pages#add_to_favorites'
+  get 'remove_from_favorites', to: 'pages#remove_from_favorites'
 
 
   resources :recipes do

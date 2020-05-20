@@ -36,7 +36,7 @@
               <% end %>
             <% end %>
           <% else list.sorted_by == "date" || nil %>
-              <% list.get_not_completed.sort_by(&:id).each do |list_item| %>
+              <% list.get_not_deleted.sort_by(&:id).each do |list_item| %>
                 <%= render 'items/selected_item', item: list_item.item, list_item: list_item %>
               <% end %>
           <% end %>

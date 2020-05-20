@@ -76,6 +76,10 @@ class Recipe < ApplicationRecord
     self.save
   end
 
+  def is_user_favorite?(user)
+    user.get_latest_recipe_list.recipes.pluck(:id).include?(self.id)
+  end
+
 
   def get_best_store
     store_prices = []

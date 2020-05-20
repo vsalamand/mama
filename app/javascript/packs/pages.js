@@ -348,3 +348,36 @@ $(document).on("click", ".addToListModalBtn", function(event) {
     }
   });
 });
+
+
+//  Add recipe to favorites
+$(document).on("click", ".addToFavorites", function(event) {
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/add_to_favorites",
+    cache: false,
+    dataType: 'script',
+    data: {
+        r: recipeId
+        },
+    success: function(){
+    }
+  });
+});
+
+//  Remove recipe from favorites
+$(document).on("click", ".removeFromFavorites", function(event) {
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/remove_from_favorites",
+    cache: false,
+    dataType: 'script',
+    data: {
+        r: recipeId
+        },
+    success: function(){
+    }
+  });
+});

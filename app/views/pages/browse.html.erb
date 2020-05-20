@@ -6,18 +6,18 @@
 
   <ul class="nav nav-pills justify-content-center my-4">
     <li class="nav-item">
+      <a class="nav-link active px-3" href="#">Courses</a>
+    </li>
+    <li class="nav-item">
       <% if user_signed_in? %>
-        <%= link_to "Mes listes", root_path, class:"nav-link active p-2" %>
+        <%= link_to "Cuisine", cuisine_path, class:"nav-link px-3" %>
       <% else %>
         <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Mes listes", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link disabled p-2" %>
+        <%= link_to "Cuisine", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link px-3" %>
       <% end %>
     </li>
-<!--     <li class="nav-item">
-      <a class="nav-link p-2" href="#">Mes recettes</a>
-    </li> -->
     <li class="nav-item">
-      <%= link_to "Nouveau", explore_path, class:"nav-link p-2" %>
+      <%= link_to "Nouveauté", explore_path, class:"nav-link px-3" %>
     </li>
   </ul>
 
@@ -25,7 +25,7 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
 
-      <h1 class="display-4 m-1">Mes listes</h1>
+      <h1 class="display-4 m-1">Vos listes de courses</h1>
       <hr class="my-3">
 
         <div class="m-2">

@@ -1,0 +1,53 @@
+<div class="sticky-top bg-white">
+  <div class="container">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+      <a class="navbar-brand text-dark d-flex align-items-center" href="/cuisine">
+        <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+      </a>
+    </nav>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="jumbotron jumbotron-fluid bg-white pb-0">
+    <h1 class="display-4 text-center m-1">Vos dernières recettes</h1>
+
+  </div>
+</div>
+
+
+
+<div class="container p-0 my-4" id="recipeCategory">
+  <div class="recipesGrid">
+    <%= render 'card_grid', recipes: @recipes, list: @list %>
+  </div>
+</div>
+
+
+
+<div style="padding: 50px;"></div>
+
+
+<!-- add to list modal -->
+  <div class="modal fade" id="addRecipeToListModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeToListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRecipeToListModal">Liste de courses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div id="recipeModalContent">
+          <div style="height: 40vh;" class="d-flex flex-column align-items-center justify-content-center">
+            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+            Chargement en cours...
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
