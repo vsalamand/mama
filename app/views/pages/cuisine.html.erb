@@ -1,0 +1,97 @@
+
+  <%= render 'shared/navbar_black' %>
+
+
+<div class="banner d-flex flex-column">
+
+  <ul class="nav nav-pills justify-content-center my-4">
+    <li class="nav-item">
+      <% if user_signed_in? %>
+        <%= link_to "Courses", root_path, class:"nav-link px-3" %>
+      <% else %>
+        <!--alter the login link to trigger the opening of the modal -->
+        <%= link_to "Courses", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link disabled px-3" %>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active px-3" href="#">Cuisine</a>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Nouveauté", explore_path, class:"nav-link px-3" %>
+    </li>
+  </ul>
+
+  <div class="container p-0">
+
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
+
+      <h1 class="display-4 m-1">Cuisine</h1>
+
+       <hr class="my-2">
+
+       <% if @latest_recipe.present? %>
+        <p class="lead mb-2">Votre dernier ajout</p>
+        <div class="row m-1" style="min-width: 70%;">
+          <div class="offset-md-3 col-md-6 p-0">
+            <%= render 'card_recipe', recipe: @latest_recipe %>
+          </div>
+        </div>
+        <%= link_to "Parcourir vos dernières recettes", history_path, class:"btn btn-light border m-1 px-3" %>
+
+      <% else %>
+        <p class="lead mb-2">Les recettes ajoutées dans vos listes de courses s'affichent ici.</p>
+
+      <% end %>
+
+      <hr class="my-4">
+
+      <% if @favorite_recipe.present? %>
+        <p class="lead mb-2">Votre dernière recette en favoris</p>
+        <div class="row m-1" style="min-width: 70%;">
+          <div class="offset-md-3 col-md-6 p-0">
+            <%= render 'card_recipe', recipe: @favorite_recipe %>
+          </div>
+        </div>
+        <%= link_to "Parcourir vos favoris", favorites_path, class:"btn btn-light border m-1 px-3" %>
+
+      <% else %>
+        <p class="lead mb-2">Les recettes ajoutées en favoris s'affichent ici.</p>
+
+      <% end %>
+
+
+
+      <hr class="my-3">
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+<div style="padding: 50px;"></div>
+
+
+<!-- add to list modal -->
+  <div class="modal fade" id="addRecipeToListModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeToListModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRecipeToListModal">Liste de courses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div id="recipeModalContent">
+          <div style="height: 40vh;" class="d-flex flex-column align-items-center justify-content-center">
+            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
+            Chargement en cours...
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

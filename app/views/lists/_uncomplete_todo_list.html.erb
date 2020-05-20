@@ -20,7 +20,7 @@
 
   <% else list.sorted_by == "date" || nil %>
       <div id="date">
-        <% list.get_not_completed.sort_by(&:id).each do |item| %>
+        <% list.get_not_deleted.sort_by(&:id).each do |item| %>
           <%= render 'list_items/show', list: list, list_item: item %>
         <% end %>
       </div>

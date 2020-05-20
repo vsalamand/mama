@@ -1,5 +1,5 @@
 
-  <div class="card mb-2 rounded shadow" style="break-inside: avoid;">
+  <div class="card mb-2 rounded shadow">
     <div class="row no-gutters">
       <div class="col-5">
         <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid rounded-0") %>
@@ -11,10 +11,15 @@
             <p class="card-text m-0 p-0"><small class="text-muted" style="font-size: 0.5rem;"><%= URI("#{recipe.link }").host %></small></p>
           </div>
         <% end %>
-        <div class="mt-auto bd-highlight m-2">
-          <button class="btn-sm btn-warning rounded addToListModalBtn" style="cursor: pointer;" list-data="<%= list.id if params[:l].present? %>" data="<%= recipe.id %>">Ajouter</button>
-<!--           <button class="btn-sm btn-light border rounded text-muted" style="cursor: pointer;"><i class="fas fa-star"></i></button>
- -->        </div>
+        <div class="mt-auto bd-highlight m-2 d-flex">
+          <button class="btn-sm btn-warning rounded addToListModalBtn mr-1" style="cursor: pointer;" list-data="<%= list.id if params[:l].present? %>" data="<%= recipe.id %>">Liste de courses</button>
+
+          <% if user_signed_in? %>
+            <div id="isFavorite<%= recipe.id %>">
+              <%= render 'shared/favorite', recipe: recipe %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

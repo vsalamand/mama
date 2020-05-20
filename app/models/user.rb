@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :recipes, through: :recipe_lists
   has_many :food_lists, dependent: :destroy
   has_many :lists, dependent: :destroy
+  has_many :recipe_list_items, through: :lists
   has_many :collaborations
   has_many :shared_lists, through: :collaborations, source: :list
 

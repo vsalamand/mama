@@ -18,7 +18,18 @@ class PagesController < ApplicationController
     if user_signed_in?
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
-      ahoy.track "Home", request.path_parameters
+      ahoy.track "Browse", request.path_parameters
+    else
+      redirect_to explore_path
+    end
+  end
+
+  def cuisine
+    if user_signed_in?
+      @latest_recipe = current_user.recipe_list_items.last.recipe
+      @favorites = current_user.get_latest_recipe_list
+      @favorite_recipe = @favorites.recipes.first
+      ahoy.track "Cuisine", request.path_parameters
     else
       redirect_to explore_path
     end
@@ -27,7 +38,17 @@ class PagesController < ApplicationController
   def explore
     @checklist = Checklist.find_by(name: "templates")
     @lists = @checklist.get_curated_lists
-    ahoy.track "Explore lists", request.path_parameters
+    ahoy.track "Explore", request.path_parameters
+  end
+
+  def history
+    @recipes = current_user.recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq
+    ahoy.track "History", request.path_parameters
+  end
+
+  def favorites
+    @recipes = current_user.get_latest_recipe_list.recipes
+    ahoy.track "Favorites", request.path_parameters
   end
 
   def select
@@ -163,6 +184,27 @@ class PagesController < ApplicationController
   def select_list
     @list = List.find(params[:l]) if params[:l].present? && params[:l] != "0"
     render "select_list.js.erb"
+  end
+
+  def add_to_favorites
+    @recipe = Recipe.find(params[:r])
+    @recipe_list = current_user.get_latest_recipe_list
+
+    @recipe.add_to_recipe_list(@recipe_list)
+    render 'add_to_favorites.js.erb'
+    ahoy.track "Add to favorites", request.path_parameters
+  end
+
+  def remove_from_favorites
+    @recipe = Recipe.find(params[:r])
+    @recipe_list = current_user.get_latest_recipe_list
+    @recipe_list_item = RecipeListItem.find_by(recipe_id: @recipe.id, recipe_list_id: @recipe_list.id)
+
+    if @recipe_list_item.present?
+      @recipe_list_item.destroy
+      render 'remove_from_favorites.js.erb'
+      ahoy.track "Remove from favorites", request.path_parameters
+    end
   end
 
 
