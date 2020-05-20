@@ -28,7 +28,7 @@ class PagesController < ApplicationController
     if user_signed_in?
       @latest_recipe = current_user.recipe_list_items.last.recipe
       @favorites = current_user.get_latest_recipe_list
-      @favorite_recipe = @favorites.recipes.first
+      @favorite_recipe = @favorites.recipe_list_items.last.recipe
       ahoy.track "Cuisine", request.path_parameters
     else
       redirect_to explore_path

@@ -1,15 +1,17 @@
 <div class="container">
   <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
     <h1 class="display-4"><%= list.name %></h1>
+    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+      <%= link_to "Enregistrer la liste", list_copy_path(list), class:"btn btn-light border text-primary" %>
+    </div>
     <hr class="my-4">
-    <p class="">Vous pouvez modifier la liste une fois enregistrée.</p>
-    <%= link_to "Enregistrer la liste", list_copy_path(list), class:"btn btn-light border" %>  </div>
+  </div>
 </div>
 
 
 
 <div class="wrapper" style="min-height: 90vh;">
-  <div class="container px-1 my-4" id="todo_list" data="<%= list.id %>">
+  <div class="container px-1" id="todo_list" data="<%= list.id %>">
 
 
     <div class="shadow rounded">
@@ -51,10 +53,10 @@
 
 <div class="container my-5 px-1">
   <div class="jumbotron">
-      <h1>Cette liste vous intéresse ?</h1>
-      <p class="lead">Retrouvez la facilement au moment où vous en avez besoin pour faire les courses.</p>
+    <h1>Prêt pour les courses ?</h1>
+    <p class="lead">Retrouvez facilement cette liste au moment où vous en avez besoin pour faire les courses.</p>
     <hr class="my-4">
-      <%= link_to "Enregistrer la liste", list_copy_path(list), class:"btn btn-lg bg-success text-white" %>
+    <%= link_to "Partager", list_share_path(list), class:"btn btn-lg bg-success text-white" %>
   </div>
 </div>
 

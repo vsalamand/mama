@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <% if list.user == current_user || list.users.include?(current_user) || list.user.nil? %>
-    <div class="d-flex justify-content-between p-1">
+    <div class="d-flex justify-content-between p-2 mt-3">
 
       <div class="dropdown" id="sortList">
         <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -16,7 +16,7 @@
   <% end %>
 
 <% elsif list.user.nil? %>
-    <div class="d-flex justify-content-between p-1 mt-3">
+    <div class="d-flex justify-content-between p-2 mt-3">
 
       <div class="dropdown" id="sortList">
         <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
