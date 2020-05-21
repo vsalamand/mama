@@ -149,10 +149,10 @@ class ListsController < ApplicationController
     unless email.nil?
       mail = ListMailer.share(@list, email, recipes)
       mail.deliver_now
-
       flash[:notice] = 'La liste a été envoyée !'
     end
 
+    ahoy.track "Email list", request.path_parameters
     redirect_to list_share_path(@list)
   end
 
