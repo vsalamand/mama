@@ -6,7 +6,7 @@
         <%= link_to "Enregistrer la liste", list_copy_path(list), class:"btn bg-light border mr-1" %>
       <% else %>
         <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1", style:"text-decoration: none;" %>
+        <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1 signupBtn", context: "Show list (free)", action: "save_list", style:"text-decoration: none;" %>
       <% end %>
       <a class="bd-highlight btn bg-light border mr-1" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
     </div>

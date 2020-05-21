@@ -95,8 +95,10 @@ $(document).on('click', '#closeModalBtn',function(event) {
 });
 
 // tracking signin / signup modal view
-$(document).on("show.bs.modal", ".bd-signup-modal-lg", function(event) {
-  ahoy.track("Signup modal");
+$(document).on("click", ".signupBtn", function(event) {
+  var context = this.getAttribute('context');
+  var action = this.getAttribute('action');
+  ahoy.track("Signup modal", {context:  context, action: action});
 })
 
 $(document).on("show.bs.modal", ".bd-login-modal-lg", function(event) {
@@ -130,6 +132,7 @@ document.addEventListener("turbolinks:load", function() {
 
   clipboard.on('success', function(e) {
     setTooltip(e.trigger, 'Copié!');
+    ahoy.track("Copy link");
     hideTooltip(e.trigger);
   });
 
