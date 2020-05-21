@@ -161,8 +161,8 @@ class ListsController < ApplicationController
     email = params[:email]
     mail = ListMailer.send_invite(list, email)
     mail.deliver_now
-    redirect_to list_share_path(@list)
     ahoy.track "Send invite", request.path_parameters
+    redirect_to list_share_path(list)
   end
 
   def accept_invite
