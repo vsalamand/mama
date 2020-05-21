@@ -14,7 +14,7 @@
         <% if user_signed_in? %>
           <%= link_to "Voir mon compte", root_path, class:"btn btn-light border m-1" %>
         <% else %>
-         <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border m-1" %>
+         <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border m-1 signupBtn", context: "Share list", action: "save_list" %>
         <% end %>
       </div>
       <h1 class="display-4 m-0">Partagez la liste</h1>
@@ -49,7 +49,7 @@
             <% if user_signed_in? %>
               <button class="btn btn-lg btn btn-primary" data-toggle="modal" data-target="#collabListModal">👋 Inviter un ami à gérer la liste</button>
             <% else %>
-             <%= link_to "👋 Inviter un ami à gérer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg btn btn-primary" %>
+             <%= link_to "👋 Inviter un ami à gérer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-lg btn btn-primary signupBtn", context: "Share list", action: "send_invite" %>
             <% end %>
           </div>
         </div>
@@ -116,7 +116,7 @@
           <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-light border px-3 m-1"  %>
 
           <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1" %>
+          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1 signupBtn", context: "Share list", action: "signup" %>
         </div>
       </nav>
     </div>

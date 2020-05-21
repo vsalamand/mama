@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     if user_signed_in?
       redirect_to browse_path
     else
-      ahoy.track "Landing", request.path_parameters
+      ahoy.track "Landing"
     end
   end
 
@@ -18,7 +18,7 @@ class PagesController < ApplicationController
     if user_signed_in?
       @lists = current_user.lists.saved + current_user.shared_lists
       @recipe_list = current_user.get_latest_recipe_list
-      ahoy.track "Browse", request.path_parameters
+      ahoy.track "Browse"
     else
       redirect_to explore_path
     end
@@ -29,7 +29,7 @@ class PagesController < ApplicationController
       @latest_recipe = current_user.recipe_list_items.last.recipe
       @favorites = current_user.get_latest_recipe_list
       @favorite_recipe = @favorites.recipe_list_items.last.recipe
-      ahoy.track "Cuisine", request.path_parameters
+      ahoy.track "Cuisine"
     else
       redirect_to explore_path
     end
@@ -38,17 +38,17 @@ class PagesController < ApplicationController
   def explore
     @checklist = Checklist.find_by(name: "templates")
     @lists = @checklist.get_curated_lists
-    ahoy.track "Explore", request.path_parameters
+    ahoy.track "Explore"
   end
 
   def history
     @recipes = current_user.recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq
-    ahoy.track "History", request.path_parameters
+    ahoy.track "History"
   end
 
   def favorites
     @recipes = current_user.get_latest_recipe_list.recipes
-    ahoy.track "Favorites", request.path_parameters
+    ahoy.track "Favorites"
   end
 
   def select
@@ -59,7 +59,7 @@ class PagesController < ApplicationController
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
     @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
     @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
-    ahoy.track "Select", request.path_parameters
+    ahoy.track "Select"
   end
 
   def products
@@ -73,7 +73,7 @@ class PagesController < ApplicationController
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
     @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
     @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
-    ahoy.track "Products", request.path_parameters
+    ahoy.track "Products"
   end
 
   def meals
@@ -94,7 +94,7 @@ class PagesController < ApplicationController
     @list = List.find(params[:l]) if params[:l].present?
 
     render 'browse_category.js.erb'
-    ahoy.track "browse category", request.path_parameters
+    ahoy.track "browse category", name: @category.name
   end
 
   def search_recipes
@@ -104,7 +104,7 @@ class PagesController < ApplicationController
     @list = List.find(params[:l].keys.first) if params[:l].present?
 
     render 'search_recipes.js.erb'
-    ahoy.track "Search recipes", request.path_parameters
+    ahoy.track "Search recipes", query: @query
   end
 
   def select_products
@@ -131,13 +131,13 @@ class PagesController < ApplicationController
   def add_recipe
     @recipe = Recipe.find(params[:recipe_id])
     render 'add_recipe.js.erb'
-    ahoy.track "Add recipe", request.path_parameters
+    ahoy.track "Add recipe", recipe_id: @recipe.id, title: @recipe.title
   end
 
   def remove_recipe
     @recipe = Recipe.find(params[:recipe_id])
     render 'remove_recipe.js.erb'
-    ahoy.track "Remove recipe", request.path_parameters
+    ahoy.track "Remove recipe", recipe_id: @recipe.id, title: @recipe.title
   end
 
   def explore_recipes
@@ -170,7 +170,7 @@ class PagesController < ApplicationController
     end
 
     # render 'add_to_list.js.erb'
-    ahoy.track "Add to list", request.path_parameters
+    ahoy.track "Add to list", list_id: @list.id, name: @list.name, items: params[:i]
   end
 
   def add_to_list_modal
@@ -178,7 +178,7 @@ class PagesController < ApplicationController
     @list = List.find(params[:l]) if params[:l].present?
 
     render "add_to_list_modal.js.erb"
-    ahoy.track "Open Add to list modal", request.path_parameters
+    ahoy.track "Open Add to list modal", recipe_id: @recipe.id, title: @recipe.title
   end
 
   def select_list
@@ -192,7 +192,7 @@ class PagesController < ApplicationController
 
     @recipe.add_to_recipe_list(@recipe_list)
     render 'add_to_favorites.js.erb'
-    ahoy.track "Add to favorites", request.path_parameters
+    ahoy.track "Add to favorites", recipe_id: @recipe.id, title: @recipe.title
   end
 
   def remove_from_favorites
@@ -203,7 +203,7 @@ class PagesController < ApplicationController
     if @recipe_list_item.present?
       @recipe_list_item.destroy
       render 'remove_from_favorites.js.erb'
-      ahoy.track "Remove from favorites", request.path_parameters
+      ahoy.track "Remove from favorites", recipe_id: @recipe.id, title: @recipe.title
     end
   end
 

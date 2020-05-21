@@ -313,9 +313,6 @@ function removeRecipe(recipeId, id) {
 $(document).on("click", "#emailList", function(event) {
   var emailButton = document.getElementById('emailList');
   emailButton.value = "Envoyée !"
-
-  ahoy.track("Email list");
-
 });
 
 

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="jumbotron jumbotron-fluid bg-white  pb-0">
     <h1 class="display-4"><%= list.name %></h1>
-    <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1", style:"text-decoration: none;" %>
+    <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1 signupBtn", context: "Show list (existing)", action: "save_list", style:"text-decoration: none;" %>
     <hr class="my-4">
   </div>
 </div>

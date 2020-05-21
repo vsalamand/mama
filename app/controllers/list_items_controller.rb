@@ -21,7 +21,7 @@ class ListItemsController < ApplicationController
         format.html { redirect_to list_path(@list) }
         format.js  # <-- will render `app/views/list_items/create.js.erb`
       end
-      ahoy.track "Create list item", request.path_parameters
+      ahoy.track "Create list item", name: @list_item.name
 
     else
       respond_to do |format|
@@ -41,17 +41,19 @@ class ListItemsController < ApplicationController
     # if list item contains an item, then update it
     if @list_item.save
       render "update.js.erb"
-      ahoy.track "Edit list item", request.path_parameters
+      ahoy.track "Edit list item", name: @list_item.name
     end
   end
 
   def destroy
     @list_item = ListItem.find(params[:id])
+
+    ahoy.track "Destroy list item", name: @list_item.name
+
     @list_item.delete
     @store_section = @list_item.get_store_section
 
     render "delete.js.erb"
-    ahoy.track "Destroy list item", request.path_parameters
   end
 
   def complete
@@ -60,7 +62,7 @@ class ListItemsController < ApplicationController
     @store_section = @list_item.get_store_section
 
     render "complete.js.erb"
-    ahoy.track "complete list item", request.path_parameters
+    ahoy.track "complete list item", name: @list_item.name
   end
 
   def uncomplete
@@ -69,7 +71,7 @@ class ListItemsController < ApplicationController
     @store_section = @list_item.get_store_section
 
     render "uncomplete.js.erb"
-    ahoy.track "Uncomplete list item", request.path_parameters
+    ahoy.track "Uncomplete list item", name: @list_item.name
   end
 
   def sort

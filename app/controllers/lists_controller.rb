@@ -5,7 +5,7 @@ class ListsController < ApplicationController
 
   def new
     @list = List.new
-    ahoy.track "New list", request.path_parameters
+    ahoy.track "New list"
   end
 
   def create
@@ -15,7 +15,7 @@ class ListsController < ApplicationController
     if @list.save
       redirect_to lists_path if @list.list_type == "curated"
       redirect_to list_path(@list) if @list.list_type == "personal"
-      ahoy.track "Create list", request.path_parameters
+      ahoy.track "Create list", list_id: @list.id, name: @list.name
     else
       redirect_to new_list_path
     end
@@ -56,7 +56,7 @@ class ListsController < ApplicationController
     flash[:notice] = 'La liste est enregistrée !'
     redirect_to lists_path if @list.list_type == "curated"
     redirect_to list_path(@list) if @list.list_type == "personal"
-    ahoy.track "Update list", request.path_parameters
+    ahoy.track "Update list", list_id: @list.id, name: @list.name
   end
 
   def index
@@ -78,7 +78,7 @@ class ListsController < ApplicationController
     #   @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
     # end
 
-    ahoy.track "Show list", request.path_parameters
+    ahoy.track "Show list", list_id: @list.id, name: @list.name
   end
 
   def fetch_suggested_items
@@ -111,7 +111,7 @@ class ListsController < ApplicationController
     @list.update_column(:sorted_by, params[:sort_option])
 
     render 'sort.js.erb'
-    ahoy.track "Sort list", request.path_parameters
+    ahoy.track "Sort list", list_id: @list.id, sorting: @list.sorted_by
   end
 
   def remove_recipe
@@ -120,7 +120,7 @@ class ListsController < ApplicationController
     RecipeListItem.find_by(recipe_id: params[:recipe_id], list_id: @list.id).destroy
 
     render 'remove_recipe.js.erb'
-    ahoy.track "Remove recipe", request.path_parameters
+    ahoy.track "Remove recipe", list_id: @list.id, recipe_id: @recipe.id, title: @recipe.title
   end
 
 
@@ -150,9 +150,9 @@ class ListsController < ApplicationController
       mail = ListMailer.share(@list, email, recipes)
       mail.deliver_now
       flash[:notice] = 'La liste a été envoyée !'
+      ahoy.track "Email list", email: email, list_id: @list.id
     end
 
-    ahoy.track "Email list", request.path_parameters
     redirect_to list_share_path(@list)
   end
 
@@ -164,8 +164,7 @@ class ListsController < ApplicationController
 
     flash[:notice] = "L'invitation a été envoyée !"
 
-    ahoy.track "Send invite", request.path_parameters
-    redirect_to list_share_path(list)
+    ahoy.track "Send invite", email: "#{email}", list_id: @list.id
   end
 
   def accept_invite
@@ -202,14 +201,14 @@ class ListsController < ApplicationController
   def share
     @list = List.find(params[:list_id])
 
-    ahoy.track "Share list", request.path_parameters
+    ahoy.track "Share list", list_id: @list.id, name: @list.name
   end
 
   def save
     @list = List.find(params[:list_id])
     @list.saved
 
-    ahoy.track "Save list", request.path_parameters
+    ahoy.track "Save list", list_id: @list.id, name: @list.name
   end
 
 
