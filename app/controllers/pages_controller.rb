@@ -86,6 +86,11 @@ class PagesController < ApplicationController
     # @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
     # @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
     # ahoy.track "Meals", request.path_parameters
+    @categories = Recommendation.where(is_active: true).last
+    @most_popular_recipes = RecipeListItem.where.not(list_id: nil).pluck(:recipe_id)
+                                .group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)[0..29]
+                                .map{ |r_id| Recipe.find(r_id) }
+    ahoy.track "Meals"
   end
 
 

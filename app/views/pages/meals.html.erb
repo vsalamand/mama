@@ -21,22 +21,20 @@
   </div>
 </div>
 
-
+<!--
 <div class="container">
   <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
     <h1 class="display-4 text-center m-1">Choisissez une recette</h1>
-
   </div>
-</div>
+</div> -->
 
 
 
 <div id="getExploreRecipesContent" list-data="<%= @list_id %>">
-  <div style="height: 80vh;" class="d-flex flex-column align-items-center justify-content-center">
-    <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
-    Chargement en cours...
-  </div>
+
   <!-- content comes here -->
+  <%= render "popular_recipes", recipes: @most_popular_recipes, categories: @categories, list: @list %>
+
 </div>
 
 
