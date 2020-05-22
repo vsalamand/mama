@@ -22,7 +22,7 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <a class="nav-link active px-3" href="#">Nouveauté</a>
+      <a class="nav-link active px-3" href="#">Nouveau</a>
     </li>
   </ul>
 
@@ -45,16 +45,22 @@
 
       <hr class="my-3">
 
+          <div class="px-5 py-3 rounded text-center mb-2">
+            <p class="lead py-4 px-2">Vous avez besoin d'une liste de courses type ?</p>
 
-      <div class="text-center">
-        <p class="lead py-4 px-2">Vous avez besoin d'une liste de courses type ?</p>
-        <% if @lists.each do |list|  %>
-            <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
-            <hr class="my-4 mx-5">
-          <% end %>
-        <% end %>
-        <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
-      </div>
+             <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
+
+
+            <% if @lists.each do |list|  %>
+                <hr class="my-4 mx-5">
+                <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+              <% end %>
+            <% end %>
+
+
+          </div>
+
+
 
     </div>
 

@@ -164,7 +164,7 @@ class ListsController < ApplicationController
 
     flash[:notice] = "L'invitation a été envoyée !"
 
-    ahoy.track "Send invite", email: "#{email}", list_id: @list.id
+    ahoy.track "Send invite", email: "#{email}", list_id: list.id
   end
 
   def accept_invite
