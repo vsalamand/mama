@@ -144,12 +144,13 @@ function fetchExploreRecipes() {
 
 
 //  Load category recipes
-// $(document).on('turbolinks:load', function() {
-//   if(document.getElementById('getExploreRecipesContent')){
-//     var listId = document.getElementById('getExploreRecipesContent').getAttribute('list-data');
-//     fetchBrowseCategory(listId);
-//   }
-// })
+$(document).on('turbolinks:load', function() {
+  if(document.getElementById('getExploreRecipesContent')){
+    var listId = document.getElementById('getExploreRecipesContent').getAttribute('list-data');
+    var categoryId = document.getElementById('getExploreRecipesContent').getAttribute('category');
+    fetchBrowseCategory(listId, categoryId);
+  }
+})
 $(document).on("click", "#getCategoryBtn", function(event) {
   var listId = document.getElementById('getExploreRecipesContent').getAttribute('list-data');
   var categoryId = this.getAttribute('data');

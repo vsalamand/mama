@@ -30,32 +30,39 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
 
-      <h1 class="display-4 m-1">Nouveau</h1>
-
       <hr class="my-2">
 
-      <p class="lead mb-2">Idée recette</p>
+      <p class="lead mb-2">Idées recettes</p>
       <div class="row m-1" style="min-width: 70%;">
         <div class="offset-md-3 col-md-6 p-0">
           <%= render 'card_recipe', recipe: @recipe_idea %>
         </div>
       </div>
-      <%= link_to "Parcourir les recettes", meals_path, class:"btn btn-light border m-1 px-3" %>
 
+      <div class="px-5 py-3 rounded text-center mb-2">
 
-      <hr class="my-3">
+        <%= link_to "🔥 Les plus populaires", meals_path, class:"p lead" %>
+        <hr class="my-4 mx-5">
+        <% if @categories.present? %>
+          <% @categories.recommendation_items.order(:id).each do |recommendation|  %>
+              <%= link_to "#{recommendation.name}", meals_path(category_id: recommendation.id), class:"p lead" %>
+              <hr class="my-4 mx-5">
+          <% end %>
+        <% end %>
+      </div>
+
 
           <div class="px-5 py-3 rounded text-center mb-2">
             <p class="lead py-4 px-2">Vous avez besoin d'une liste de courses type ?</p>
 
-             <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
-
-
-            <% if @lists.each do |list|  %>
-                <hr class="my-4 mx-5">
-                <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+            <% if @lists.any? %>
+              <% @lists.each do |list|  %>
+                  <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+                  <hr class="my-4 mx-5">
               <% end %>
             <% end %>
+
+            <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
 
 
           </div>

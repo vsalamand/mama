@@ -40,6 +40,8 @@ class PagesController < ApplicationController
     @lists = @checklist.get_curated_lists
     recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
     @recipe_idea = Recipe.find(recipe_idea_id)
+    @categories = Recommendation.where(is_active: true).last
+
     ahoy.track "Explore"
   end
 
@@ -82,26 +84,29 @@ class PagesController < ApplicationController
     @selected_items = params[:i]
     @selected_recipes = params[:r]
     @list_id = params[:l]
+    @category = RecommendationItem.find(params[:category_id]) if params[:category_id].present?
     # @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
     # @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
     # @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
     # ahoy.track "Meals", request.path_parameters
-    @categories = Recommendation.where(is_active: true).last
-    @most_popular_recipes = RecipeListItem.where.not(list_id: nil).pluck(:recipe_id)
-                                .group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)[0..29]
-                                .map{ |r_id| Recipe.find(r_id) }
     ahoy.track "Meals"
   end
 
 
   def browse_category
-    @category = params[:category_id].present? ? RecommendationItem.find(params[:category_id]) : RecommendationItem.first
+    @category = RecommendationItem.find(params[:category_id]) if params[:category_id].present?
     @categories = Recommendation.where(is_active: true).last
-    @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }.sort_by(&:title)
     @list = List.find(params[:l]) if params[:l].present?
 
-    render 'browse_category.js.erb'
-    ahoy.track "browse category", name: @category.name
+    if @category.present?
+      @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }.sort_by(&:title)
+      render 'browse_category.js.erb'
+      ahoy.track "browse category", name: @category.name
+    else
+      @recipes = RecipeListItem.get_most_popular
+      render 'popular_recipes.js.erb'
+      ahoy.track "browse category", name: "most popular"
+    end
   end
 
   def search_recipes
