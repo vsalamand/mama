@@ -6,7 +6,7 @@
         <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid rounded-0") %>
       </div>
       <div class="col-7 d-flex align-items-start flex-column bd-highlight">
-        <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;" do %>
+        <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
           <div class="card-body mb-auto p-2 bd-highlight" style="max-height: 4vh;">
             <h5 class="card-title text-primary mb-0" style="font-size: 0.9rem;"><%= truncate(recipe.title, length:57) %></h5>
             <p class="card-text m-0 p-0"><small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link }").host %></small></p>

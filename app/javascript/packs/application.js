@@ -105,6 +105,12 @@ $(document).on("show.bs.modal", ".bd-login-modal-lg", function(event) {
   ahoy.track("Login modal");
 })
 
+// tracking click on recipe links
+$(document).on("click", ".recipeLinkClick", function(event) {
+  var link = this.getAttribute('href')
+  ahoy.track("Click recipe link", {link:  link});
+})
+
 
 // copy to clipboard
 // Tooltip
