@@ -38,6 +38,8 @@ class PagesController < ApplicationController
   def explore
     @checklist = Checklist.find_by(name: "templates")
     @lists = @checklist.get_curated_lists
+    recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
+    @recipe_idea = Recipe.find(recipe_idea_id)
     ahoy.track "Explore"
   end
 

@@ -37,7 +37,7 @@
       <p class="lead mb-2">Idée recette</p>
       <div class="row m-1" style="min-width: 70%;">
         <div class="offset-md-3 col-md-6 p-0">
-          <%= render 'card_recipe', recipe: RecommendationItem.first.recipe_list.recipes.last %>
+          <%= render 'card_recipe', recipe: @recipe_idea %>
         </div>
       </div>
       <%= link_to "Parcourir les recettes", meals_path, class:"btn btn-light border m-1 px-3" %>
