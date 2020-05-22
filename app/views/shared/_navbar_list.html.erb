@@ -13,12 +13,15 @@
 <% unless user_signed_in? %>
   <div class="fixed-bottom bg-white border-top">
     <div class="wrapper">
-      <nav class="px-0 navbar navbar-expand-lg">
-        <div class="container d-flex justify-content-center">
-          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-light border px-3 m-1"  %>
+      <nav class="px-0 pt-0 pb-1 navbar navbar-expand-lg d-flex align-items-center justify-content-center">
+        <div class="container px-2 d-flex flex-column ">
+          <small class="text-muted text-center p-1">Connectez-vous pour enregistrer vos listes</small>
+          <div class="d-flex justify-content-center">
+            <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-light border px-3 m-1"  %>
 
-          <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1 signupBtn", context: "Show list", action: "signup" %>
+            <!--alter the login link to trigger the opening of the modal -->
+            <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1 signupBtn", context: "Show list", action: "signup" %>
+          </div>
         </div>
       </nav>
     </div>
