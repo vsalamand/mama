@@ -1,0 +1,49 @@
+<div class="container my-4">
+  <div class="jumbotron">
+    <h1 class="display-4"><%= list.name %></h1>
+    <hr class="my-4">
+    <p>Sélectionnez les produits que vous souhaitez ajouter à votre liste de courses.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Sélectionner tout</a>
+  </div>
+</div>
+
+
+<div class="wrapper" style="min-height: 90vh;">
+  <div class="container px-1" id="todo_list" data="<%= list.id %>">
+
+
+    <div class="shadow rounded">
+      <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
+
+        <% if list.get_not_completed.any? %>
+          <% if list.sorted_by == "rayon" %>
+            <% list.sort_by_store_sections.each do |key, array| %>
+              <% if array.any? %>
+                <div id="<%= key.parameterize(separator: '') %>">
+                  <div id="<%= key.parameterize(separator: '') %>Header">
+                    <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
+                      <div class="d-flex align-items-center">
+                        <p class="m-0 p-1 font-weight-bold lead"><%= key %></p>
+                      </div>
+                    </ul>
+                  </div>
+                  <%  array.sort_by{|e| e.name.parameterize }.each do |list_item| %>
+                    <%= render 'items/unselected_item', item: list_item.item, list_item: list_item %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          <% else list.sorted_by == "date" || nil %>
+              <% list.get_not_deleted.sort_by(&:id).each do |list_item| %>
+                <%= render 'items/unselected_item', item: list_item.item, list_item: list_item %>
+              <% end %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <%= render 'lists/related_recipes', recipes: recipes, list: list %>
+
+</div>

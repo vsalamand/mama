@@ -26,9 +26,9 @@ class PagesController < ApplicationController
 
   def cuisine
     if user_signed_in?
-      @latest_recipe = current_user.recipe_list_items.last.recipe
+      @latest_recipe = current_user.recipe_list_items.last.recipe if current_user.recipe_list_items.any?
       @favorites = current_user.get_latest_recipe_list
-      @favorite_recipe = @favorites.recipe_list_items.last.recipe
+      @favorite_recipe = @favorites.recipe_list_items.last.recipe if @favorites.recipe_list_items.any?
       ahoy.track "Cuisine"
     else
       redirect_to explore_path
@@ -89,7 +89,6 @@ class PagesController < ApplicationController
     # @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
     # @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
     # ahoy.track "Meals", request.path_parameters
-    ahoy.track "Meals"
   end
 
 

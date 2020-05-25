@@ -30,9 +30,10 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
 
+      <h1 class="display-4 m-1">Nouvelle liste</h1>
       <hr class="my-2">
 
-      <p class="lead mb-2">Idées recettes</p>
+      <p class="lead mb-2">à partir d'une recette</p>
       <div class="row m-1" style="min-width: 70%;">
         <div class="offset-md-3 col-md-6 p-0">
           <%= render 'card_recipe', recipe: @recipe_idea %>
@@ -52,20 +53,22 @@
       </div>
 
 
-          <div class="px-5 py-3 rounded text-center mb-2">
-            <p class="lead py-4 px-2">Vous avez besoin d'une liste de courses type ?</p>
+      <div class="px-5 py-3 rounded text-center mb-2">
+        <p class="lead">à partir d'une liste de courses type</p>
 
-            <% if @lists.any? %>
-              <% @lists.each do |list|  %>
-                  <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
-                  <hr class="my-4 mx-5">
-              <% end %>
-            <% end %>
+        <% if @lists.any? %>
+          <% @lists.each do |list|  %>
+              <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+              <hr class="my-4 mx-5">
+          <% end %>
+        <% end %>
 
-            <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
+      </div>
 
-
-          </div>
+      <div class="px-5 py-3 rounded text-center mb-2">
+        <p class="lead">à partir d'une liste de courses vierge</p>
+        <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold py-3 shadow m-1" %>
+      </div>
 
 
 
