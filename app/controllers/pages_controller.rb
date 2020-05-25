@@ -56,14 +56,19 @@ class PagesController < ApplicationController
   end
 
   def select
-    @selected_items = params[:i]
-    @selected_recipes = params[:r]
+    @selected_items = params[:i].join("&i=") if params[:i]
     @list_id = params[:l]
 
+    @pr = Recipe.find(params[:pr]) if params[:pr].present?
+    @selected_recipes = @pr.id if @pr.present?
+
+    @pl = List.find(params[:pl]) if params[:pl].present?
+    @selected_recipes = @pl.recipes.pluck(:id).join('&r=') if @pl.present? && @pl.recipes.any?
+
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
-    @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
-    @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
-    ahoy.track "Select"
+
+
+    ahoy.track "Select", items: params[:i]
   end
 
   def products
@@ -136,6 +141,13 @@ class PagesController < ApplicationController
     @selected_items = params[:i]
     @selected_recipes = params[:r]
     @list_id = params[:l]
+
+    if params[:c] == "list"
+      @pl = List.find(params[:s])
+    elsif params[:c] == "recipe"
+      @pr = Recipe.find(params[:s])
+    end
+
     render 'get_list.js.erb'
   end
 
@@ -164,8 +176,8 @@ class PagesController < ApplicationController
     (params[:l].present? && params[:l] != "0") ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
 
     if params[:i].present?
-      # item_inputs = params[:i].split("&i=")
-      ListItem.add_menu_to_list(params[:i], @list)
+      item_inputs = params[:i].split("&i=")
+      ListItem.add_menu_to_list(item_inputs, @list)
     end
 
     if params[:r].present?

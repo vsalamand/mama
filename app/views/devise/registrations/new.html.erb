@@ -8,6 +8,10 @@
       <hr class="my-4">
 
         <div class="errors"></div>
+        <% if flash[:alert].present? %>
+          <p class="alert alert-danger"><%= flash[:alert] %></p>
+        <% end %>
+
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= f.error_notification %>
 
@@ -24,12 +28,12 @@
             <%= hidden_field 'shared_list', params[:shared_list] %>
           </div>
 
-          <div class="form-actionsd d-flex justify-content-end">
+          <div class="form-actions d d-flex justify-content-end">
             <%= f.button :submit, "Continuer", class: "btn btn-warning btn-lg mb-3 px-5" %>
           </div>
         <% end %>
 
-    <%= link_to "Cliquez ici si vous avez déjà un compte", new_session_path(resource_name), class:"d-flex justify-content-end" %>
+      <%= link_to "Vous avez déjà un compte?", new_session_path(resource_name), class:"d-flex justify-content-end" %>
     </div>
 
 

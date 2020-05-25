@@ -1,10 +1,24 @@
 <%= render "shared/navbar_list" %>
 
+<% if user_signed_in? %>
+    <% if @list.user == current_user || @list.users.include?(current_user) %>
+      <%= render "lists/show_owner", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+    <% else %>
+      <%= render 'lists/select', list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+    <% end %>
 
+<% else  %>
   <% if @list.user.nil? %>
       <%= render "lists/show_free", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+  <% else  %>
+      <%= render 'lists/select', list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+  <% end %>
+<% end %>
 
-  <% elsif user_signed_in? %>
+
+<% if false %>
+
+  <% if user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>
       <%= render "lists/show_owner", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
 
@@ -16,6 +30,7 @@
       <%= render "lists/show_visitor", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
 
   <% end %>
+<% end %>
 
 
 <div style="padding: 10px;"></div>

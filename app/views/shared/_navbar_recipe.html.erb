@@ -4,8 +4,6 @@
        <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold m-0" href="/browse">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
       </a>
-
-      <%= link_to "Partager", list_share_path(@list), class:"btn bg-success text-white" %>
     </nav>
   </div>
 <% unless user_signed_in? %>
@@ -13,7 +11,7 @@
       <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
 
         <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
-        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0 signupBtn", context: "Show list", action: "signup"  %>
+        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0 signupBtn", context: "Show recipe", action: "signup"  %>
 
       </nav>
     </div>

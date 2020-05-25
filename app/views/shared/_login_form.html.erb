@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-body p-3">
-        <h2 class="p-1">Connectez-vous à votre compte</h2>
+        <h2 class="p-1">Connectez-vous</h2>
 
 
         <% if flash[:alert].present? %>
@@ -15,25 +15,23 @@
             <%= f.input :email,
                         label: false,
                         autofocus: true,
-                        placeholder: "Votre Adresse Email" %>
+                        placeholder: "Votre Adresse Email",
+                        input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
             <%= f.input :password,
                         label: false,
                         placeholder: "Mot de passe",
-                        input_html: { autocomplete: "current-password" } %>
+                        input_html: { autocomplete: "current-password", class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
             <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
           </div>
 
-          <div class="form-actions">
-            <%= f.button :submit, "Se connecter", class: "btn btn-warning mb-1" %>
-          </div>
-            <%= link_to "Mot de passe oublié?", new_password_path(resource_name) %><br />
+            <div class="form-actions d-flex justify-content-end">
+              <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-warning mb-1" %>
+            </div>
         <% end %>
 
-        <div>
-          <p class="text-dark font-weight-bold mt-5 mb-1 lead">Vous n'avez pas de compte ?</p>
-          <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "Créer un compte", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-outline-primary closeModal", style:"text-decoration: none;", id:"closeModalBtn" %>
-        </div>
+         <%= link_to "Mot de passe oublié?", new_password_path(resource_name), class:"d-flex justify-content-end my-1" %>
+          <%= link_to "Vous n'avez avez pas de compte?", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"d-flex justify-content-end closeModal my-2", style:"text-decoration: none;", id:"closeModalBtn" %>
+
 
       </div>
       <div class="modal-footer">

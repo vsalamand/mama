@@ -84,7 +84,7 @@ function goToSelectRecipes(items, recipeIds, listId) {
 
 
 // go to list
-$(document).on("click" , "#goToListBtn", function(event) {
+$(document).on("click" , "#getListBtn", function(event) {
    // disable button
   $(this).prop("disabled", true);
   // add spinner to button
@@ -92,36 +92,72 @@ $(document).on("click" , "#goToListBtn", function(event) {
     `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
   );
 
-  var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
-  var items = this.getAttribute('data');
+  const selectedItems = document.querySelectorAll(".selectedItem");
+  var items = []
+  $(selectedItems).map(function() {
+                   items.push($(this).text().trim());
+
+                })
+
+  var context = this.getAttribute('context');
+  var sourceId = this.getAttribute('source');
   var listId = this.getAttribute('list-data');
 
 
-  var recipeIds = []
-  $(selectedRecipes).map(function() {
-                   recipeIds.push(this.getAttribute('id'));
-                })
-
-  var recipeIds = recipeIds.filter(Boolean)
-
 // This is the function at the bottom to create a new list !!!
-  goToList(items, listId, recipeIds);
+  getList(items, listId, context, sourceId);
 })
 
 //  not used currently
-function goToList(items, listId, recipeIds) {
+function getList(items, listId, context, sourceId) {
   $.ajax({
-    url: "get_list",
+    url: "/get_list",
     cache: false,
     data: {
-        r: recipeIds,
         i: items,
-        l: listId
+        l: listId,
+        c: context,
+        s: sourceId
       },
     success: function(data){
     }
   });
 }
+
+
+//  Add to list
+$(document).on("click" , "#addToListBtn", function(event) {
+
+   // disable button
+  $(this).prop("disabled", true);
+  // add spinner to button
+  $(this).html(
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+  );
+
+  const listId = this.getAttribute('list-data');
+  const recipeIds = this.getAttribute('recipe-data');
+  const items = this.getAttribute('data');
+
+  addToList(items, listId, recipeIds);
+});
+
+function addToList(items, listId, recipeIds) {
+  // query suggested items
+  $.ajax({
+    url: "/add_to_list",
+    cache: false,
+    dataType: 'script',
+    data: {
+        l: listId,
+        r: recipeIds,
+        i: items
+        },
+    success: function(){
+    }
+  });
+}
+
 
 
 
@@ -272,62 +308,6 @@ function selectList(listId) {
   });
 }
 
-
-//  Add to list
-$(document).on("click" , "#addToListBtn", function(event) {
-
-   // disable button
-  $(this).prop("disabled", true);
-  // add spinner to button
-  $(this).html(
-    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
-  );
-
-  // var selectedRecipes = document.querySelectorAll("#selectedRecipes div");
-  var recipeId = this.getAttribute('data');
-  // var items = this.getAttribute('data');
-  if ($(document.getElementById('selectListBtn')).is('[list-data]')) {
-    // recipe modal
-    var listId = document.getElementById('selectListBtn').getAttribute('list-data');
-  } else {
-    // product page
-    var listId = this.getAttribute('list-data');
-  }
-
-
-  // var recipeIds = []
-  // $(selectedRecipes).map(function() {
-  //                  recipeIds.push(this.getAttribute('id'));
-  //               })
-
-  // var recipeIds = recipeIds.filter(Boolean)
-  // // get items in list
-  // const listId = this.getAttribute('list-data');
-  // const recipeIds = this.getAttribute('recipe-data');
-  const selectedItems = document.querySelectorAll(`.selectedItem`);
-  var items = []
-  $(selectedItems).map(function() {
-                   items.push($(this).text().trim());
-                })
-
-  addToList(items, listId, recipeId);
-});
-
-function addToList(items, listId, recipeId) {
-  // query suggested items
-  $.ajax({
-    url: "/add_to_list",
-    cache: false,
-    dataType: 'script',
-    data: {
-        l: listId,
-        i: items,
-        r: recipeId
-        },
-    success: function(){
-    }
-  });
-}
 
 
 

@@ -1,101 +1,75 @@
-<div class="container d-flex justify-content-start mt-2 mb-4 pl-0" id="recipeId", data="<%= recipe.id %>">
-   <%= link_to 'Retour', :back, class:"btn close m-2 px-0" %>
-</div>
-
-
-<% if current_user && current_user.admin == true %>
-  <%= link_to "god view", god_show_recipe_path(recipe) %>
-<% end %>
-
-
-<div class="container" id="flash">
-  <% if notice.present? %>
-    <%= render "shared/flashes" %>
-  <% end %>
-</div>
-
-
-
-<div class="container my-5">
-  <h1 class="font-weight-bold"><%= recipe.title.capitalize %></h1>
-  <% if recipe.link.present? %>
-    <strong><%= link_to "Voir la recette sur le site de #{recipe.origin}", recipe.link, target: "_blank" %></strong>
-  <% end %>
-</div>
-
-
-<hr class="my-4">
-
-
-<div class="container d-flex justify-content-between">
-  <div class="mb-1 p-1 d-flex flex-column justify-content-start">
-    <div>
-      <h2 class="pl-0 pr-0 font-weight-bold" id="title">Liste de courses pour <%= recipe.servings %></h2>
-      <div class="d-flex">
-        <h5 class="font-weight-light grocerylist-count mr-1"><%= recipe.items.size %></h5> <h5 class="font-weight-light"></%> <%= recipe.items.size < 2 ?  " élément" : " éléments" %></h5>
-      </div>
-    </div>
-  </div>
-    <!-- Button trigger Add to List modal -->
-  <div class="p-1 align-self-center">
-    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addToListModal">
-      <strong>Tout ajouter <br>à ma liste</strong>
-    </button>
-  </div>
-</div>
-
-
-
-<!-- Add to List Modal -->
-<div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addToListModalLabel">Choisir une liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/recipe_select_list', recipe: recipe %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container mb-3">
-  <div class="shadow p-0 bg-white rounded">
-    <div class="list-group list-group-flush" id="list_items">
-      <% if recipe.items.any? %>
-        <% recipe.items.order(:id).each do |item| %>
-          <%= render 'items/show', item: item, recipe: recipe %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-
-<div class="container mb-5">
-  <!-- Button trigger Select Store modal -->
-  <a class="btn btn-block btn-flat2 py-3 font-weight-bold" data-toggle="modal" data-target="#selectStoreModal">Courses à partir de <%= Store.get_cheapest_store_price(recipe.items) %>€</a>
-</div>
-
-  <!-- Select Store Modal -->
-  <div class="modal fade" id="selectStoreModal" tabindex="-1" role="dialog" aria-labelledby="selectStoreModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content bg-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="selectStoreModalLabel">Choisissez un magasin</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<div class="container my-4">
+          <% if current_user && current_user.admin == true %>
+            <%= link_to "god view", god_show_recipe_path(recipe) %>
+          <% end %>
+  <div class="jumbotron py-3">
+      <div class="row">
+        <div class="col-md-6 p-0 my-auto d-flex flex-column p-2">
+          <h1 class="display-4"><%= recipe.title %></h1>
+          <%= link_to "#{URI("#{recipe.link }").host}", recipe.link, target: "_blank", class:"p lead recipeLinkClick" %>
+          <div class="d-flex my-2">
+            <%= link_to "Voir la recette", recipe.link, target: "_blank", class:"btn btn-primary recipeLinkClick m-1" %>
+            <% if user_signed_in? %>
+              <div id="isFavorite<%= recipe.id %>" class="m-1">
+                <%= render 'shared/favorite', recipe: recipe %>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <div class="modal-body m-0 p-0">
-          <%= render 'recipes/select_store', recipe: recipe %>
+        <div class="col-md-6 text-center p-0">
+          <div style="padding: 10px;"></div>
+          <%= cl_image_tag("#{recipe.id}", :width=>270, :fetch_format=>:auto, :quality=>"auto:low", class:"shadow rounded") %>
         </div>
       </div>
+      <hr class="my-4">
+      <p class="lead">Sélectionnez les produits qui vous intéressent.</p>
+  </div>
+</div>
+
+
+
+
+<div class="wrapper" style="min-height: 90vh;">
+  <div class="container mb-3">
+    <div class="shadow rounded">
+      <div class="list-group list-group-flush p-1" id="uncomplete_list_items">
+
+          <% recipe.sort_by_store_sections.each do |key, array| %>
+            <% if array.any? %>
+              <div id="<%= key.parameterize(separator: '') %>">
+                <div id="<%= key.parameterize(separator: '') %>Header">
+                  <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
+                    <div class="d-flex align-items-center">
+                      <p class="m-0 p-1 font-weight-bold lead"><%= key %></p>
+                    </div>
+                  </ul>
+                </div>
+                <div class="recipeItem<%= recipe.id %>">
+                  <%  array.sort_by{|e| e.name.parameterize }.each do |item| %>
+                    <%= render 'items/unselected_item', item: item %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+      </div>
     </div>
   </div>
+</div>
 
+<div style="padding: 50px;"></div>
+
+
+<div class="fixed-bottom bg-white">
+  <div class="wrapper py-2">
+    <nav class="p-0 navbar navbar-expand-lg d-flex align-items-center justify-content-center">
+      <div class="container px-2 d-flex flex-column ">
+        <div class="d-flex justify-content-center">
+
+          <button class="btn-warning btn-lg" id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id if params[:l].present? %>" recipe-data="<%= recipe.id %>">Continuer votre liste de courses</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

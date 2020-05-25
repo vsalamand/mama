@@ -13,6 +13,7 @@ class RecipesController < ApplicationController
     respond_to do |format|
       format.html
     end
+    ahoy.track "Show recipe", recipe_id: @recipe.id, title: @recipe.title
   end
 
   def god_show
