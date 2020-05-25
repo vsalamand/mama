@@ -339,3 +339,19 @@ $(document).on("click", ".editListItemModalbtn", function(event) {
   });
 
 });
+
+
+// Select all items
+$(document).on("click" , ".selectAllListItemsBtn", function(event) {
+
+  const listId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/select_all",
+    cache: false,
+    success: function(){
+    }
+  });
+
+
+});

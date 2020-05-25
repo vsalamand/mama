@@ -46,3 +46,18 @@ function addRecipeToList(items, recipeId) {
     }
   });
 }
+
+
+
+$(document).on("click" , ".selectAllRecipeItemsBtn", function(event) {
+
+  const recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/recipes/" + recipeId + "/select_all",
+    cache: false,
+    success: function(){
+    }
+  });
+
+});

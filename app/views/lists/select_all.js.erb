@@ -1,0 +1,3 @@
+var itemsList = document.getElementById('uncomplete_list_items');
+itemsList.innerHTML = ""
+itemsList.innerHTML = ("<%= j render 'lists/selected_items', list: @list %>");

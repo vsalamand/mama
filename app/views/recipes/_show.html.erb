@@ -1,7 +1,4 @@
 <div class="container my-4">
-          <% if current_user && current_user.admin == true %>
-            <%= link_to "god view", god_show_recipe_path(recipe) %>
-          <% end %>
   <div class="jumbotron py-3">
       <div class="row">
         <div class="col-md-6 p-0 my-auto d-flex flex-column p-2">
@@ -23,6 +20,8 @@
       </div>
       <hr class="my-4">
       <p class="lead">Sélectionnez les produits qui vous intéressent.</p>
+      <a class="btn btn-light border btn-lg selectAllRecipeItemsBtn" data="<%= recipe.id %>" style="cursor: pointer;" role="button">Tout sélectionner</a>
+
   </div>
 </div>
 
@@ -34,32 +33,7 @@
     <div class="shadow rounded">
       <div class="list-group list-group-flush p-1" id="uncomplete_list_items">
 
-          <% recipe.sort_by_store_sections.each do |key, array| %>
-            <% if array.any? %>
-              <div id="<%= key.parameterize(separator: '') %>">
-                <div id="<%= key.parameterize(separator: '') %>Header">
-                  <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
-                    <div class="d-flex align-items-center">
-                      <p class="m-0 p-1 font-weight-bold lead"><%= key %></p>
-                    </div>
-                  </ul>
-                </div>
-                <div class="recipeItem<%= recipe.id %>">
-                  <%  array.sort_by{|e| e.name.parameterize }.each do |item| %>
-                    <div class="d-flex align-items-center">
-                      <%= render 'items/unselected_item', item: item %>
-                      <% if user_signed_in? && current_user.admin == true %>
-                        <%= link_to edit_item_path(item), target: "_blank" do  %>
-                          <i class="fas fa-edit m-0 p-0"></i>
-                        <% end %>
-                      <% end %>
-                    </div>
-                  <% end %>
-
-                </div>
-              </div>
-            <% end %>
-          <% end %>
+          <%= render "recipes/unselected_items", recipe: recipe %>
 
       </div>
     </div>

@@ -4,7 +4,7 @@ require 'hangry'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
-  skip_before_action :authenticate_user!, only: [ :show, :card, :cart ]
+  skip_before_action :authenticate_user!, only: [ :show, :card, :cart, :select_all]
   before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show ]
 
   def show
@@ -14,6 +14,12 @@ class RecipesController < ApplicationController
       format.html
     end
     ahoy.track "Show recipe", recipe_id: @recipe.id, title: @recipe.title
+  end
+
+  def select_all
+    @recipe = Recipe.find(params[:id])
+    render "select_all.js.erb"
+    ahoy.track "Select all recipe items", recipe_id: @recipe.id, title: @recipe.title
   end
 
   def god_show

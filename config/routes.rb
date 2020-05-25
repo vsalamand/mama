@@ -102,6 +102,7 @@ Rails.application.routes.draw do
       get :add_to_list
       get :fetch_recipe_card
       get :add_to_menu
+      get :select_all
     end
     resources :items do
       get :add_to_list
@@ -124,6 +125,7 @@ Rails.application.routes.draw do
     get :sort
     get :remove_recipe
     get :share
+    get :select_all
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort

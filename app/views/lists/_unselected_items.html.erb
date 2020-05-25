@@ -1,0 +1,24 @@
+<% if list.get_not_completed.any? %>
+  <% if list.sorted_by == "rayon" %>
+    <% list.sort_by_store_sections.each do |key, array| %>
+      <% if array.any? %>
+        <div id="<%= key.parameterize(separator: '') %>">
+          <div id="<%= key.parameterize(separator: '') %>Header">
+            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
+              <div class="d-flex align-items-center">
+                <p class="m-0 p-1 font-weight-bold lead"><%= key %></p>
+              </div>
+            </ul>
+          </div>
+          <%  array.sort_by{|e| e.name.parameterize }.each do |list_item| %>
+            <%= render 'items/unselected_item', item: list_item.item, list_item: list_item %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% else list.sorted_by == "date" || nil %>
+      <% list.get_not_deleted.sort_by(&:id).each do |list_item| %>
+        <%= render 'items/unselected_item', item: list_item.item, list_item: list_item %>
+      <% end %>
+  <% end %>
+<% end %>

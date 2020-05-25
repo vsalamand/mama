@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create, :share, :email]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create, :share, :email, :select_all]
 
 
   def new
@@ -137,6 +137,12 @@ class ListsController < ApplicationController
   #   Cart.get_carts(@list, user)
   #   redirect_to carts_path
   # end
+
+  def select_all
+    @list = List.find(params[:list_id])
+    render "select_all.js.erb"
+    ahoy.track "Select all list items", list_id: @list.id, name: @list.name
+  end
 
   def email
     @list = List.find(params[:list_id])
