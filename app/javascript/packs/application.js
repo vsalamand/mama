@@ -101,6 +101,10 @@ $(document).on("click", ".signupBtn", function(event) {
   ahoy.track("Signup modal", {context:  context, action: action});
 })
 
+$(document).on("click", ".goToSignupBtn", function(event) {
+  ahoy.track("Signup page");
+})
+
 $(document).on("show.bs.modal", ".bd-login-modal-lg", function(event) {
   ahoy.track("Login modal");
 })

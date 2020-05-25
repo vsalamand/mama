@@ -38,8 +38,6 @@
         </div>
         <%= link_to "Parcourir vos dernières recettes", history_path, class:"btn btn-light border m-1 px-3" %>
 
-      <% else %>
-        <p class="lead mb-2">Les recettes ajoutées dans vos listes de courses s'affichent ici.</p>
 
       <% end %>
 
@@ -55,7 +53,7 @@
         <%= link_to "Parcourir vos favoris", favorites_path, class:"btn btn-light border m-1 px-3" %>
 
       <% else %>
-        <p class="lead mb-2">Les recettes ajoutées en favoris s'affichent ici.</p>
+        <p class="lead m-4 text-muted">Vous n'avez pas encore de recette en favoris !</p>
 
       <% end %>
 
