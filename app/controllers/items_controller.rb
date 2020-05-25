@@ -55,9 +55,14 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    @list = @item.list_item.list
     @item.destroy
-    redirect_to list_path(@list)
+
+    if @item.list_item.present?
+      @list = @item.list_item.list
+      redirect_to list_path(@list)
+    else
+      head :ok
+    end
   end
 
   def add_to_list

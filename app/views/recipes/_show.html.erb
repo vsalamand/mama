@@ -46,8 +46,16 @@
                 </div>
                 <div class="recipeItem<%= recipe.id %>">
                   <%  array.sort_by{|e| e.name.parameterize }.each do |item| %>
-                    <%= render 'items/unselected_item', item: item %>
+                    <div class="d-flex align-items-center">
+                      <%= render 'items/unselected_item', item: item %>
+                      <% if user_signed_in? && current_user.admin == true %>
+                        <%= link_to edit_item_path(item), target: "_blank" do  %>
+                          <i class="fas fa-edit m-0 p-0"></i>
+                        <% end %>
+                      <% end %>
+                    </div>
                   <% end %>
+
                 </div>
               </div>
             <% end %>
