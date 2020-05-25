@@ -2,18 +2,18 @@
   <div class="jumbotron">
     <h1 class="display-4"><%= list.name %></h1>
     <hr class="my-4">
-    <p>Sélectionnez les produits que vous souhaitez ajouter à votre liste de courses.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Sélectionner tout</a>
-  </div>
+    <p class="lead">Sélectionnez les produits qui vous intéressent.</p>
+<!--     <a class="btn btn-light border btn-lg" href="#" role="button">Tout sélectionner</a>
+ -->  </div>
 </div>
 
 
 <div class="wrapper" style="min-height: 90vh;">
-  <div class="container px-1" id="todo_list" data="<%= list.id %>">
+  <div class="container mb-3" id="todo_list" data="<%= list.id %>">
 
 
     <div class="shadow rounded">
-      <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
+      <div class="list-group list-group-flush p-1" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
 
         <% if list.get_not_completed.any? %>
           <% if list.sorted_by == "rayon" %>
@@ -44,6 +44,24 @@
     </div>
   </div>
 
-  <%= render 'lists/related_recipes', recipes: recipes, list: list %>
+    <%= render 'lists/related_recipes', recipes: recipes, list: list %>
 
+
+</div>
+
+
+
+
+
+<div class="fixed-bottom bg-white">
+  <div class="wrapper py-2">
+    <nav class="p-0 navbar navbar-expand-lg d-flex align-items-center justify-content-center">
+      <div class="container px-2 d-flex flex-column ">
+        <div class="d-flex justify-content-center">
+
+          <button class="btn-warning btn-lg" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Continuer votre liste de courses</button>
+        </div>
+      </div>
+    </nav>
+  </div>
 </div>

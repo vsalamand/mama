@@ -6,13 +6,13 @@
             <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
              <i class="far fa-lg fa-square"></i>
             <% end %>
-            <p class="m-0 pl-3 p-1 no-link editListItemModalbtn text-primary" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
+            <p class="lead m-0 pl-3 p-1 no-link editListItemModalbtn text-primary" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
           </div>
       <% else %>
           <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
             <div class="d-flex align-items-center">
               <i class="fas fa-lg fa-check-square text-muted"></i>
-              <p class="m-0 pl-3 p-1 text-muted no-link"><del><%= list_item.name %></del></p>
+              <p class="lead m-0 pl-3 p-1 text-muted no-link"><del><%= list_item.name %></del></p>
             </div>
           <% end %>
       <% end %>

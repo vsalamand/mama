@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-body p-3" style="min-height: 55vh;">
-        <h3 class="p-1">Enregistrez vos listes avec un compte Mama</h3>
+        <h3 class="p-1">Enregistrez vos listes avec un compte Mama !</h3>
 
         <div class="errors"></div>
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true) do |f| %>
@@ -12,23 +12,22 @@
             <%= f.input :email,
                         label: false,
                         placeholder: "Adresse email",
-                        input_html: { autocomplete: "email", value: params[:user_email] }%>
+                        input_html: { autocomplete: "email", value: params[:user_email], class:"py-3 px-2 rounded autofocus form-control form-control-lg" }
+                        %>
           <%= f.input :password,
                       label: false,
-                      placeholder: "Mot de passe" %>
+                      placeholder: "Mot de passe",
+                      input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg" }
+                       %>
             <%= hidden_field 'shared_list', params[:shared_list] %>
           </div>
 
-          <div class="form-actions">
-            <%= f.button :submit, "Continuer", class: "btn btn-warning mb-3" %>
+          <div class="form-actions d-flex justify-content-end">
+            <%= f.button :submit, "Continuer", class: "btn btn-lg btn-warning mb-1" %>
           </div>
         <% end %>
 
-        <div>
-          <p class="text-dark font-weight-bold mt-5 mb-1 lead">Vous avez déjà un compte ?</p>
-          <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-outline-primary closeModal", style:"text-decoration: none;", id:"closeModalBtn" %>
-        </div>
+          <%= link_to "Vous avez déjà un compte?", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn d-flex justify-content-end closeModal my-2", style:"text-decoration: none;", id:"closeModalBtn" %>
 
       </div>
       <div class="modal-footer">

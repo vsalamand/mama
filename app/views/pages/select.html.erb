@@ -1,80 +1,60 @@
-<div class="container">
-  <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-     <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectRecipesBtn" products-data="<%= @selected_items %>"  recipe-data="<%= @selected_recipes.join("&r=") if @selected_recipes.present? %>"  list-data="<%= @list_id %>">
-      <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
-    </a>
-    <button class="btn-success btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
-  </nav>
+<div class="sticky-top bg-white shadow">
+<% unless user_signed_in? %>
+    <div class="wrapper py-0 alert-warning">
+      <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
+
+        <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
+        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0"  %>
+
+      </nav>
+    </div>
+<% end %>
 </div>
 
-<div class="jumbotron jumbotron-fluid py-3 bg-primary text-white">
+
+<div class="banner d-flex flex-column">
+
+
   <div class="container">
-    <h1 class="">Sélection</h1>
-    <p class="lead">Validez vos choix avant de poursuivre la liste de courses.</p>
-  </div>
-</div>
 
-
-<div class="container my-5">
-  <% if @temp_items.blank? && @recipes.blank? %>
-    <p class="lead text-muted">Ancun produit sélectionné. <br><br>Continuez pour compléter votre liste de courses manuellement.</p>
-  <% end %>
-</div>
-
-
-<div class="container my-2 p-0 shadow">
-
-
-  <div  id="essentials">
-    <% if @temp_items.present? %>
-      <div id="Header">
-        <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
-          <div class="d-flex align-items-center">
-            <p class="m-0 p-1 font-weight-bold lead">Produits de base</p>
-          </div>
-        </ul>
-      </div>
-      <ul class="list-group list-group-flush">
-        <% @temp_items.each do |item| %>
-          <%= render 'items/selected_item', item: item %>
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white px-0">
+      <div class="d-flex mb-1">
+        <% if @pl.present? %>
+          <%= link_to "Retour", list_path(@pl), class:"btn btn-light border m-1" %>
+        <% elsif @pr.present? %>
+          <%= link_to "Retour", recipe_path(@pr), class:"btn btn-light border m-1" %>
         <% end %>
-      </ul>
-    <% end %>
-  </div>
 
-
-  <% if @recipes.present? %>
-    <% @recipes.each do |recipe| %>
-      <div id="">
-        <div id="Header">
-          <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
-            <div class="d-flex align-items-start flex-column">
-              <p class="m-0 p-1 font-weight-bold lead"><%= recipe.title %></p>
-            </div>
-          </ul>
-        </div>
-        <ul class="list-group list-group-flush">
-          <% recipe.items.reverse.each do |item| %>
-            <%= render 'items/selected_item', item: item %>
-          <% end %>
-        </ul>
       </div>
-    <% end %>
-  <% end %>
+      <h1 class="display-4 m-1">Ajouter les produits dans une liste</h1>
 
-</div>
+      <hr class="my-3">
 
-<div style="padding: 5px;"></div>
+      <% unless user_signed_in? %>
+        <%= link_to "Créer une nouvelle liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1 signupBtn", context: "Add to list", action: "create list", style:"text-decoration: none;"  %>
 
-<div class="container mb-5 mt-3 d-flex flex-row-reverse">
-  <div class="d-flex flex-column">
-    <% if user_signed_in? %>
-      <button class="btn-success btn-lg" id="addToListBtn" recipe-data="<%= @recipe_ids %>" list-data="<%= @list_id %>">Continuer</button>
-    <% else %>
-      <%= link_to "Continuer", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn-warning btn-lg", style:"text-decoration: none;" %>
-    <% end %>
+      <% else %>
+
+        <p class="btn btn-warning font-weight-bold px-5 py-3 shadow m-1" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="0" recipe-data="<%= @selected_recipes %>">Créer une nouvelle liste</p>
+        <div class="px-5 py-3 rounded text-center my-2">
+          <% if current_user.lists.saved.any? %>
+              <% current_user.lists.saved.sort_by(&:id).reverse.each do |list|  %>
+                <p class="lead text-primary" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= list.id %>" recipe-data="<%= @selected_recipes %>"><%= list.name %></p>
+                <hr class="my-4 mx-5">
+              <% end %>
+          <% end %>
+        </div>
+
+      <% end %>
+
+    </div>
+
+
   </div>
+
 </div>
+
+
 
 
 <!-- Navbar End -->

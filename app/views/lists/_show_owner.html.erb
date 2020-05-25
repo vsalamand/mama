@@ -3,7 +3,7 @@
   <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
     <h1 class="display-4"><%= list.name %></h1>
     <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-      <a class="bd-highlight mr-1 btn bg-light border text-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+      <a class="bd-highlight mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
        <%= link_to "Supprimer", list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" %>
     </div>
     <hr class="my-4">
@@ -15,7 +15,7 @@
 
 
 <div class="wrapper" style="min-height: 70vh;">
-  <div class="container px-1" id="todo_list" data="<%= list.id %>">
+  <div class="container px-2" id="todo_list" data="<%= list.id %>">
 
     <%= render "lists/options", list: list %>
 
@@ -26,7 +26,7 @@
     </div>
 
 
-    <div class="container px-1">
+    <div class="container px-0">
       <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
         <div class="d-flex align-items-center">
           <p class="m-0 p-0 font-weight-bold lead text-primary">Ajouter un produit</p>
@@ -36,8 +36,7 @@
       <%= render "lists/suggested_items" %>
       <div class="d-flex flex-column align-items-center">
         <div class="d-flex">
-          <%= link_to "Achats fréquents", products_path(l: @list.id), class:"btn btn-light border m-1" %>
-          <%= link_to "Recettes", meals_path(l: @list.id), class:"btn btn-light border m-1" %>
+          <%= link_to "Ajouter une recette", meals_path(l: @list.id), class:"btn btn-light border m-1 text-primary" %>
         </div>
       </div>
     </div>

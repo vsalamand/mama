@@ -28,22 +28,18 @@
       <h1 class="display-4 m-1">Mes listes de courses</h1>
       <hr class="my-3">
 
-        <div class="m-2">
-          <div class="px-5 py-3 rounded text-center mb-2">
 
-             <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
+         <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
 
 
-            <% if @lists.any? %>
-                <% @lists.sort_by(&:id).reverse.each do |list|  %>
-                  <hr class="my-4">
-                  <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
-                <% end %>
+      <div class="px-5 py-4 rounded text-center mb-2">
+        <% if @lists.any? %>
+            <% @lists.sort_by(&:id).reverse.each do |list|  %>
+              <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+              <hr class="my-4">
             <% end %>
-
-
-          </div>
-        </div>
+        <% end %>
+      </div>
 
     </div>
 

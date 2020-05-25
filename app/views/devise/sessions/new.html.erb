@@ -1,37 +1,43 @@
- <%= render 'shared/navbar_white' %>
 
+<div class="banner d-flex flex-column my-3">
+  <%= render 'shared/navbar_black' %>
 
-<div class="container">
-  <div class="shadow p-3 mt-5 mb-5 bg-white rounded">
+  <div class="container my-auto px-2">
 
-      <h2 class="mb-3">Se connecter</h2>
+    <div class="jumbotron">
+      <h1 class="display-4">Votre compte Mama!</h1>
+      <p class="lead">Connectez-vous <strong class="text-primary"> pour retrouver vos listes et vos recettes en favoris</strong>.</p>
+      <hr class="my-4">
 
-      <div class="errors"></div>
+        <div class="errors"></div>
         <% if flash[:alert].present? %>
           <p class="alert alert-danger"><%= flash[:alert] %></p>
         <% end %>
 
+         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+            <div class="form-inputs mb-0">
+              <%= f.input :email,
+                          label: false,
+                          autofocus: true,
+                          placeholder: "Votre Adresse Email",
+                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
+              <%= f.input :password,
+                          label: false,
+                          placeholder: "Mot de passe",
+                          input_html: { autocomplete: "current-password" },
+                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
+              <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
+            </div>
 
-      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <%= f.error_notification %>
-        <div class="form-inputs mb-0">
-          <%= f.input :email,
-                      label: false,
-                      autofocus: true,
-                      placeholder: "Votre Adresse Email" %>
-          <%= f.input :password,
-                      label: false,
-                      placeholder: "Mot de passe",
-                      input_html: { autocomplete: "current-password" } %>
-          <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
-        </div>
+            <div class="form-actions">
+              <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-warning mb-1" %>
+            </div>
+          <% end %>
 
-        <div class="form-actions">
-          <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-warning mb-1" %>
-        </div>
-      <% end %>
+    <%= link_to "Cliquez ici si vous n'avez avez pas de compte", new_registration_path(resource_name), class:"d-flex justify-content-end" %>
+    </div>
 
-    <%= render "devise/shared/links" %>
 
   </div>
 </div>
