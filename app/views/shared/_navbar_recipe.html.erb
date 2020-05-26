@@ -4,6 +4,9 @@
        <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold m-0" href="/browse">
         <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
       </a>
+
+      <button class="btn btn-warning" id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id if params[:l].present? %>" recipe-data="<%= recipe.id %>">Continuer</button>
+
     </nav>
   </div>
 <% unless user_signed_in? %>

@@ -1,3 +1,29 @@
+<div class="sticky-top bg-white shadow">
+  <div class="container px-2">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold m-0" href="/browse">
+        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
+      </a>
+
+      <button class="btn btn-warning" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Continuer</button>
+
+    </nav>
+  </div>
+<% unless user_signed_in? %>
+    <div class="wrapper py-0 alert-warning">
+      <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
+
+        <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
+        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0 signupBtn", context: "Show list", action: "signup"  %>
+
+      </nav>
+    </div>
+<% end %>
+</div>
+
+
+
+
 <div class="container my-4">
   <div class="jumbotron">
     <h1 class="display-4"><%= list.name %></h1>
@@ -43,3 +69,12 @@
     </nav>
   </div>
 </div>
+
+
+
+
+
+
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
