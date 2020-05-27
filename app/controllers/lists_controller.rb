@@ -75,7 +75,7 @@ class ListsController < ApplicationController
 
     @referrer = params[:ref]
     if @referrer.nil? || @referrer == request.url
-      @referrer = "/explore"
+      @referrer = "/browse"
     end
 
     ahoy.track "Show list", list_id: @list.id, name: @list.name
@@ -163,14 +163,17 @@ class ListsController < ApplicationController
   end
 
   def send_invite
-    list = List.find(params[:list_id])
+    @list = List.find(params[:list_id])
     email = params[:email]
-    mail = ListMailer.send_invite(list, email)
-    mail.deliver_now
 
-    flash[:notice] = "L'invitation a été envoyée !"
+    unless email.nil?
+      mail = ListMailer.send_invite(@list, email)
+      mail.deliver_now
+      flash[:notice] = "L'invitation a été envoyée !"
+      ahoy.track "Send invite", email: "#{email}", list_id: @list.id
+    end
 
-    ahoy.track "Send invite", email: "#{email}", list_id: list.id
+    redirect_to list_share_path(@list)
   end
 
   def accept_invite

@@ -61,7 +61,7 @@
             <div class="shadow p-3 bg-white">
               <%= text_field_tag 'emailShare', '', value: "#{current_user.present? ? current_user.email : ''}", type: "email", class:"form-control py-4 mb-3 rounded-0 border-top-0 border-left-0 border-right-0" %>
               <div class="d-flex align-items-center justify-content-end">
-                <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2" %>
+                <%= submit_tag "submit",:value => "Envoyer", class:"shadow btn btn-block btn-flat2 closeModalBtn" %>
               </div>
             </div>
           <% end %>

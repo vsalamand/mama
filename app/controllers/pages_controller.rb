@@ -68,7 +68,7 @@ class PagesController < ApplicationController
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
 
 
-    ahoy.track "Select", items: params[:i]
+    ahoy.track "Select"
   end
 
   # def products
