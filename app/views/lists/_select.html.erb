@@ -5,7 +5,7 @@
         <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
       </a>
 
-      <button class="btn btn-warning" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Continuer</button>
+      <button class="btn btn-lg btn-warning" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Continuer</button>
 
     </nav>
   </div>
@@ -56,7 +56,7 @@
 
 
 
-
+<% if false %>
 <div class="fixed-bottom bg-white">
   <div class="wrapper py-2">
     <nav class="p-0 navbar navbar-expand-lg d-flex align-items-center justify-content-center">
@@ -69,7 +69,7 @@
     </nav>
   </div>
 </div>
-
+<% end %>
 
 
 
