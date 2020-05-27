@@ -155,3 +155,31 @@ document.addEventListener("turbolinks:load", function() {
 
 
 
+//  Enable Continue to select list button in recipe and list views
+
+$(document).on("turbolinks:load", function(event) {
+  getListBtn();
+})
+
+$(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
+  getListBtn();
+})
+
+function getListBtn() {
+  if(document.querySelector("#getListBtn")){
+    var selectedItemsCount = document.querySelectorAll(".selectedItem").length;
+    var btns = document.querySelectorAll("#getListBtn");
+    if(selectedItemsCount > 0){
+      $(btns).each(function() {
+                      $(this).prop('disabled', false);
+                    })
+    } else {
+      $(btns).each(function() {
+                $(this).prop('disabled', true);
+              })
+    }
+  }
+
+}
+
+
