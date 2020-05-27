@@ -10,7 +10,7 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
       <div class="d-flex mb-1">
-        <%= link_to "Retour à la liste", list_path(@list), class:"btn btn-light border m-1" %>
+        <%= link_to "Retour à la liste", url_for(:back), class:"btn btn-light border m-1" %>
         <% if user_signed_in? %>
           <%= link_to "Voir mon compte", root_path, class:"btn btn-light border m-1" %>
         <% else %>

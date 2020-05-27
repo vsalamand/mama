@@ -1,6 +1,5 @@
 <%= render "shared/navbar_list" %>
 
-
 <div class="container">
   <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
     <h1 class="display-4"><%= list.name %></h1>
@@ -67,7 +66,7 @@
     <h1>Prêt pour les courses ?</h1>
     <p class="lead">Retrouvez facilement votre liste au moment où vous en avez besoin pour faire les courses.</p>
     <hr class="my-4">
-    <%= link_to "Partager", list_share_path(list), class:"btn btn-lg bg-success text-white" %>
+    <%= link_to "Envoyer la liste", list_share_path(list), class:"btn btn-lg bg-success text-white" %>
   </div>
 </div>
 

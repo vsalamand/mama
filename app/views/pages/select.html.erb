@@ -19,11 +19,7 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white px-0">
       <div class="d-flex mb-1">
-        <% if @pl.present? %>
-          <%= link_to "Retour", list_path(@pl), class:"btn btn-light border m-1" %>
-        <% elsif @pr.present? %>
-          <%= link_to "Retour", recipe_path(@pr), class:"btn btn-light border m-1" %>
-        <% end %>
+        <%= link_to "Retour", url_for(:back), class:"btn btn-light border m-1" %>
 
       </div>
       <h1 class="display-4 m-1">Ajouter les produits dans une liste</h1>

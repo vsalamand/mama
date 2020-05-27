@@ -73,10 +73,10 @@ class ListsController < ApplicationController
     @list_item = ListItem.new
     @recipes = @list.recipes
 
-    # if user_signed_in?
-    #   @lists = current_user.lists.saved + current_user.shared_lists - Array(@list)
-    #   @list_foods = @list_items.not_completed.map{ |item| item.food }.flatten
-    # end
+    @referrer = params[:ref]
+    if @referrer.nil? || @referrer == request.url
+      @referrer = "/explore"
+    end
 
     ahoy.track "Show list", list_id: @list.id, name: @list.name
   end

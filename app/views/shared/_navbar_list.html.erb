@@ -1,11 +1,11 @@
 <div class="sticky-top bg-white shadow">
   <div class="container px-2">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
-       <a class="navbar-brand text-dark d-flex align-items-center font-weight-bold m-0" href="/browse">
-        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
+       <a class="navbar-brand text-dark d-flex align-items-center m-0" href="<%= @referrer %>">
+        <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
       </a>
 
-      <%= link_to "Partager", list_share_path(@list), class:"btn bg-success text-white" %>
+      <%= link_to "Envoyer", list_share_path(@list), class:"btn bg-success text-white" %>
 
     </nav>
   </div>

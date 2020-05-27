@@ -10,6 +10,11 @@ class RecipesController < ApplicationController
   def show
     @list_item = ListItem.new
 
+    @referrer = params[:ref]
+    if @referrer.nil? || @referrer == request.url
+      @referrer = "/explore"
+    end
+
     respond_to do |format|
       format.html
     end

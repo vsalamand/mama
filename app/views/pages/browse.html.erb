@@ -29,13 +29,13 @@
       <hr class="my-3">
 
 
-         <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
+      <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
 
 
       <div class="px-5 py-4 rounded text-center mb-2">
         <% if @lists.any? %>
             <% @lists.sort_by(&:id).reverse.each do |list|  %>
-              <%= link_to "#{list.name}", list_path(list), class:"p lead" %>
+              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead" %>
               <hr class="my-4">
             <% end %>
         <% end %>
