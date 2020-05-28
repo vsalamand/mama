@@ -16,7 +16,7 @@ class PagesController < ApplicationController
     @categories = Recommendation.where(is_active: true).last
 
     if user_signed_in?
-      @lists = current_user.lists.saved + current_user.shared_lists
+      @lists = current_user.get_lists
       @recipe_list = current_user.get_latest_recipe_list
       ahoy.track "Browse"
     else
@@ -57,7 +57,6 @@ class PagesController < ApplicationController
 
   def select
     @selected_items = params[:i].join("&i=") if params[:i]
-    @list_id = params[:l]
 
     @pr = Recipe.find(params[:pr]) if params[:pr].present?
     @selected_recipes = @pr.id if @pr.present?
@@ -67,8 +66,12 @@ class PagesController < ApplicationController
 
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
 
-
-    ahoy.track "Select"
+    @list = List.find(params[:l]) if params[:l].present?
+    if @list.present?
+      redirect_to add_to_list_path(l: @list.id, r: @pr, i: @selected_items)
+    else
+      ahoy.track "Select"
+    end
   end
 
   # def products

@@ -5,7 +5,13 @@
         <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
       </a>
 
-      <button class="btn btn-warning btn-lg" id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id if params[:l].present? %>" recipe-data="<%= recipe.id %>">Continuer</button>
+      <% if list.present? %>
+        <button class="btn btn-warning btn-lg" id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id  %>" recipe-data="<%= recipe.id %>">Ajouter</button>
+
+      <% else %>
+        <button class="btn btn-warning btn-lg" id="getListBtn" context="recipe" source="<%= recipe.id %>" recipe-data="<%= recipe.id %>">Continuer</button>
+
+      <% end %>
 
     </nav>
   </div>

@@ -1,1 +1,3 @@
-<%= render 'show', recipe: @recipe, referrer: @referrer %>
+<%= render "shared/navbar_recipe", recipe: @recipe, referrer: @referrer, list: @list %>
+
+<%= render 'show', recipe: @recipe, referrer: @referrer, list: @list %>

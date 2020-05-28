@@ -9,6 +9,7 @@ class RecipesController < ApplicationController
 
   def show
     @list_item = ListItem.new
+    @list = List.find(params[:l]) if params[:l].present?
 
     @referrer = params[:ref]
     if @referrer.nil? || @referrer == request.url

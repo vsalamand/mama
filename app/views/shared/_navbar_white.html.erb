@@ -9,7 +9,7 @@
           <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-lg bg-transparent text-white border font-weight-bold m-1"  %>
         <% else %>
           <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "Connexion", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-lg bg-transparent text-white border font-weight-bold m-1", style:"text-decoration: none;" %>
+          <%= link_to "Connexion", new_user_session_path, class:"btn btn-lg bg-transparent text-white border font-weight-bold m-1" %>
         <% end %>
 
       </nav>
