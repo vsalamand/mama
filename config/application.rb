@@ -23,6 +23,7 @@ module Mama
     # -- all .rb files in that directory are automatically loaded.
     config.active_job.queue_adapter = :sidekiq
     config.action_view.embed_authenticity_token_in_remote_forms = true
+    config.middleware.use Rack::Attack
 
   end
 end
