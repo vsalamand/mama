@@ -114,6 +114,11 @@ class Recipe < ApplicationRecord
     self.save
   end
 
+  def scrape(url)
+    url = URI.parse("https://smartmama.herokuapp.com/api/v1/scrape?link=#{url}")
+    parser = JSON.parse(open(url).read)
+  end
+
   def self.import_csv(csv)
 
     unvalid_recipes = []

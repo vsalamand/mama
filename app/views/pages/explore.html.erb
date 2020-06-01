@@ -33,13 +33,12 @@
       <h1 class="display-4 m-1">Nouvelle liste</h1>
       <hr class="my-2">
       <div class="px-5 py-3 rounded text-center my-2">
-        <p class="lead">à partir d'une liste de courses vierge</p>
         <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold py-3 shadow m-1" %>
       </div>
 
-      <div class="px-5 py-3 rounded text-center my-2">
-        <p class="lead">à partir d'une liste de courses type</p>
 
+      <p class="lead m-0 mt-3">Ajouter des produits du quotidien</p>
+      <div class="px-5 py-3 rounded text-center my-2">
         <% if @lists.any? %>
           <% @lists.each do |list|  %>
               <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead" %>
@@ -51,7 +50,7 @@
 
 
 
-      <p class="lead mb-2">à partir d'une recette</p>
+      <p class="lead mb-2">Ajouter des ingrédients pour cuisiner</p>
       <div class="row m-1" style="min-width: 70%;">
         <div class="offset-md-3 col-md-6 p-0">
           <%= render 'card_recipe', recipe: @recipe_idea %>

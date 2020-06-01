@@ -111,33 +111,6 @@ class PagesController < ApplicationController
     # ahoy.track "Meals", request.path_parameters
   end
 
-
-  # def browse_category
-  #   @category = RecommendationItem.find(params[:category_id]) if params[:category_id].present?
-  #   @categories = Recommendation.where(is_active: true).last
-  #   @list = List.find(params[:l]) if params[:l].present?
-
-  #   if @category.present?
-  #     @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }.sort_by(&:title)
-  #     render 'browse_category.js.erb'
-  #     ahoy.track "browse category", name: @category.name
-  #   else
-  #     @recipes = RecipeListItem.get_most_popular
-  #     render 'popular_recipes.js.erb'
-  #     ahoy.track "browse category", name: "most popular"
-  #   end
-  # end
-
-  # def search_recipes
-  #   @categories = Recommendation.where(is_active: true).last
-  #   @query = params[:query].present? ? params[:query] : nil
-  #   @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..49] if @query
-  #   @list = List.find(params[:l].keys.first) if params[:l].present?
-
-  #   render 'search_recipes.js.erb'
-  #   ahoy.track "Search recipes", query: @query
-  # end
-
   def select_products
     @selected_items = params[:i] if params[:i]
     @selected_recipes = params[:r].join('&r=') if params[:r]
