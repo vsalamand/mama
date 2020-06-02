@@ -114,10 +114,23 @@ class Recipe < ApplicationRecord
     self.save
   end
 
-  def scrape(url)
-    url = URI.parse("https://smartmama.herokuapp.com/api/v1/scrape?link=#{url}")
-    parser = JSON.parse(open(url).read)
+  def scrape
+    url = URI.parse("https://smartmama.herokuapp.com/api/v1/scrape?link=#{self.link}")
+    # url = URI.parse("http://127.0.0.1:5000/api/v1/scrape?link=#{self.link}")
+
+    unless JSON.parse(open(url).read) == "Website is not supported."
+      parser = JSON.parse(open(url).read).first
+      self.image_url = parser["image"]
+      self.origin = parser["author"]
+      self.origin = URI("#{self.link }").host if self.origin.nil?
+      self.title = parser["name"].downcase.capitalize
+      self.ingredients = parser["recipeIngredient"].join("\r\n")
+      parser["recipeInstructions"].class == "String" ? self.instructions = parser["recipeInstructions"] : self.instructions = parser["recipeInstructions"].join("\r\n")
+      self.servings = parser["recipeYield"]
+      self.save
+    end
   end
+
 
   def self.import_csv(csv)
 
