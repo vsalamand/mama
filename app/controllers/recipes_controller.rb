@@ -63,15 +63,19 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.status = "pending"
+
     if @recipe.title.nil?
-      recipe_parser(@recipe.link)
-      @recipe.title = @recipe.title.downcase.capitalize
+      @recipe.scrape
       if @recipe.save
-        Item.add_recipe_items(@recipe)
+        Thread.new do
+          Item.add_recipe_items(@recipe)
+        end
         redirect_to pending_path
       else
+        flash[:notice] = "Impossible d'importer ce type de lien pour le moment"
         redirect_to import_recipes_path
       end
+
     else
       @recipe.origin = "mama" if @recipe.origin.blank?
       @recipe.title = @recipe.title.downcase.capitalize
@@ -79,6 +83,7 @@ class RecipesController < ApplicationController
         Item.add_recipe_items(@recipe)
         redirect_to pending_path
       else
+        flash[:notice] = "Il y a eu une erreur, la recette n'a pas été créée"
         redirect_to new_recipe_path
       end
     end
