@@ -1,21 +1,17 @@
 {
   "short_name": "Mama",
   "name": "Mama",
+  "description": "Listes de courses faciles et fun à faire !",
   "icons": [
     {
-      "src": "<%= asset_path('android-icon-192x192.png')%>",
+      "src": "<%= image_path 'icons/android-icon-192x192.png' %>",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
-    },
-    {
-      "src": "<%= asset_path('logo.png')%>",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "start_url": "<%= new_user_registration_path %>",
-  "background_color": "#FFFFFF",
+  "background_color": "white",
   "display": "standalone",
   "scope": "<%= root_path %>",
   "theme_color": "#8e2731"
