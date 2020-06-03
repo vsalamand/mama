@@ -2,6 +2,7 @@
   <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
     <h1 class="display-4"><%= list.name %></h1>
     <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+      <%= render "lists/options", list: list %>
       <% if user_signed_in? %>
         <%= link_to "Enregistrer la liste", list_copy_path(list), class:"btn bg-light border mr-1" %>
       <% else %>
@@ -18,8 +19,6 @@
 
 <div class="wrapper" style="min-height: 90vh;">
   <div class="container" id="todo_list" data="<%= list.id %>">
-
-    <%= render "lists/options", list: list %>
 
     <div class="shadow rounded mb-4 px-0">
       <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">

@@ -19,7 +19,7 @@ function refreshList() {
   refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
 <% else %>
   refreshList();
-  scrollToLastItem();
+  // scrollToLastItem();
   refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
 <% end %>
 

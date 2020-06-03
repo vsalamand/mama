@@ -4,6 +4,7 @@
   <div class="jumbotron jumbotron-fluid bg-white mb-0 pb-0">
     <h1 class="display-4"><%= list.name %></h1>
     <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+      <%= render "lists/options", list: list %>
       <a class="bd-highlight mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
        <%= link_to "Supprimer", list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" %>
     </div>
@@ -18,17 +19,9 @@
 <div class="wrapper" style="min-height: 70vh;">
   <div class="container px-2" id="todo_list" data="<%= list.id %>">
 
-    <%= render "lists/options", list: list %>
-
-    <div class="shadow rounded mb-4 px-0">
-      <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
-        <%= render 'lists/uncomplete_todo_list', list: list %>
-      </div>
-    </div>
-
 
     <div class="container px-0">
-      <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
+      <ul class="border-0 list-group-item d-flex align-items-center justify-content-between p-0 pl-1" >
         <div class="d-flex align-items-center">
           <p class="m-0 p-0 font-weight-bold lead text-primary">Ajouter un produit</p>
         </div>
@@ -43,7 +36,16 @@
     </div>
 
 
-    <div id="scrollPoint" style="padding: 30px;"></div>
+
+    <div class="shadow rounded my-3 px-0">
+      <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
+        <%= render 'lists/uncomplete_todo_list', list: list %>
+      </div>
+    </div>
+
+
+
+    <div id="scrollPoint" style="padding: 20px;"></div>
 
     <% if false %>
       <div class="shadow rounded">

@@ -1,25 +1,22 @@
 <% if user_signed_in? %>
   <% if list.user == current_user || list.users.include?(current_user) || list.user.nil? %>
-    <div class="d-flex justify-content-between p-2 mt-3">
 
       <div class="dropdown" id="sortList">
-        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Trier la liste
+        <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Trier
         </button>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortButton">
+        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
           <% list.get_sort_options.each do |option| %>
             <a class="dropdown-item sortOptionBtn" style="cursor: pointer;" data="<%= option %>">par <%= option %></a>
           <% end %>
         </div>
       </div>
-    </div>
   <% end %>
 
 <% elsif list.user.nil? %>
-    <div class="d-flex justify-content-between p-2 mt-3">
 
       <div class="dropdown" id="sortList">
-        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Trier la liste
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortButton">
@@ -28,5 +25,5 @@
           <% end %>
         </div>
       </div>
-    </div>
+
 <% end %>
