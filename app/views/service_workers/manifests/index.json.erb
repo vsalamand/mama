@@ -3,14 +3,20 @@
   "name": "Mama",
   "icons": [
     {
+      "src": "<%= asset_path('android-icon-192x192.png')%>",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
       "src": "<%= asset_path('logo.png')%>",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": "<%= root_path %>",
+  "start_url": "<%= browse_path %>",
   "background_color": "#FFFFFF",
   "display": "standalone",
   "scope": "<%= root_path %>",
-  "theme_color": "#000"
+  "theme_color": "#8e2731"
 }
