@@ -26,6 +26,14 @@ import 'packs/items';
 import 'packs/pages';
 
 
+// Service worker for progressive web app management
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('/service-worker.js', { scope: './' })
+    .then(function(reg) {
+      console.log('[Companion]', 'Service worker registered!');
+      console.log(reg);
+    });
+}
 
 //// Handle Turbolinks side-issues
 // clear the cache often

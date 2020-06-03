@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "blazer"
   end
 
+  # PWA
+  get '/service-worker.js', to: 'service_workers/workers#index'
+  get '/manifest.json', to: 'service_workers/manifests#index'
 
+  # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # get 'suggest', to: 'actions#suggest'
@@ -46,6 +50,8 @@ Rails.application.routes.draw do
       registrations: "registrations",
       sessions: 'users/sessions'
     }
+
+
 
   root to: 'pages#home'
 
