@@ -57,7 +57,7 @@ var  isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matche
 // if (isIos() && !isInStandaloneMode()) {
   // this.setState({ showInstallMessage: true });
 $(document).on("turbolinks:load", function(event) {
-  if (iOS === true && isSafari === true && document.querySelector("#iOSInstallNavbar")) {
+  if (iOS === true && isSafari === true && isInStandaloneMode === false && document.querySelector("#iOSInstallNavbar")) {
     getInstallMessageIOS();
   }
 })
