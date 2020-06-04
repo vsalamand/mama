@@ -38,16 +38,17 @@ if (navigator.serviceWorker) {
 
 //  prompt install pwa popup on safari only
 // Detects if device is on iOS
-const isIos = () => {
-  const userAgent = window.navigator.userAgent.toLowerCase();
-  return /iphone|ipad|ipod/.test( userAgent );
-}
+var iOS = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+// Detects if browser is safari
+var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 // Detects if device is in standalone mode
-const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+var  isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches
+// const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
 // Checks if should display install popup notification:
-if (isIos() && !isInStandaloneMode()) {
+// if (isIos() && !isInStandaloneMode()) {
   // this.setState({ showInstallMessage: true });
+if (iOS === true && isSafari === true && isInStandaloneMode === false) {
   $('#showInstallMessage').modal('show')
 }
 
