@@ -35,6 +35,14 @@ if (navigator.serviceWorker) {
     });
 }
 
+// reload page when back online after being offline
+window.addEventListener('offline', () => {
+  console.log('Offline');
+  window.addEventListener('online', () => {
+   console.log('Online');
+    location.reload();
+  });
+});
 
 //  prompt install pwa popup on safari only
 // Detects if device is on iOS
@@ -48,11 +56,26 @@ var  isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matche
 // Checks if should display install popup notification:
 // if (isIos() && !isInStandaloneMode()) {
   // this.setState({ showInstallMessage: true });
-if (iOS === true && isSafari === true && isInStandaloneMode === false) {
-  $('#showInstallMessage').modal('show')
+$(document).on("turbolinks:load", function(event) {
+  if (iOS === true && isSafari === true && document.querySelector("#iOSInstallNavbar")) {
+    getInstallMessageIOS();
+  }
+})
+
+function getInstallMessageIOS() {
+  $.ajax({
+    url: "/fetch_ios_install",
+    cache: false,
+    data: {
+      },
+    success: function(data){
+    }
+  });
 }
 
-
+$(document).on('click', '#showInstallMessage',function() {
+  $('#installiOSModal').modal('show');
+});
 
 
 //// Handle Turbolinks side-issues

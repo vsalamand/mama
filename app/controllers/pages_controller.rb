@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
-                                                  :add_to_list, :add_to_list_modal, :explore, :select_list]
+                                                  :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
@@ -296,6 +296,10 @@ class PagesController < ApplicationController
       @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores]) if query
     end
     # @results = search.zip(search.hits.map{ |hit| hit["_score"] }) if search
+  end
+
+  def fetch_ios_install
+    render 'fetch_ios_install.js.erb'
   end
 
 
