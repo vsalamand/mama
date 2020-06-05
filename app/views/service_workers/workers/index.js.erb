@@ -6,12 +6,13 @@ function onInstall(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function prefill(cache) {
       return cache.addAll([
-        '/offline.html',
         '<%= asset_pack_path 'application.js' %>',
         '<%= asset_pack_path 'application.css' %>',
-        '<%= root_path %>',
-        '<%= browse_path %>',
-        '<%= explore_path %>',
+        '/offline',
+        '/browse',
+        '/explore',
+        '/cuisine',
+        '/'
       ]);
     })
   );
@@ -59,6 +60,3 @@ function onFetch(event) {
 self.addEventListener('install', onInstall);
 self.addEventListener('activate', onActivate);
 self.addEventListener('fetch', onFetch);
-self.addEventListener('install', function(event) {
-  self.skipWaiting();
-});
