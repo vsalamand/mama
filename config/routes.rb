@@ -89,7 +89,7 @@ Rails.application.routes.draw do
   get 'add_to_favorites', to: 'pages#add_to_favorites'
   get 'remove_from_favorites', to: 'pages#remove_from_favorites'
   get 'fetch_ios_install', to: 'pages#fetch_ios_install'
-
+  get 'fetch_android_install', to: 'pages#fetch_android_install'
 
   resources :recipes do
     collection do

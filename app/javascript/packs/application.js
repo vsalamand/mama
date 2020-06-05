@@ -44,7 +44,63 @@ window.addEventListener('offline', () => {
   });
 });
 
-//  prompt install pwa popup on safari only
+
+// PWA prompt install on ANDROID
+// Detects if device is on iOS
+var android = /(android)/i.test(navigator.userAgent);
+// Detects if device is in standalone mode
+var isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
+
+
+$(document).on("turbolinks:load", function(event) {
+  if (android === true && isInStandaloneMode === false) {
+    getInstallMessageAndroid();
+  }
+})
+
+function getInstallMessageAndroid() {
+  $.ajax({
+    url: "/fetch_android_install",
+    cache: false,
+    data: {
+      },
+    success: function(data){
+    }
+  });
+}
+
+var deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // prevent earlier version of chrome 67 to automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  var androidInstallBanner = document.getElementById("androidInstallBanner");
+  androidInstallBanner.style.display = "none";
+});
+
+$(document).on('click', '#androidInstallBtn', (e) => {
+  console.log('👍', 'butInstall-clicked');
+  const promptEvent = window.deferredPrompt;
+  if (!promptEvent) {
+    // The deferred prompt isn't available.
+    return;
+  }
+  // Show the install prompt.
+  promptEvent.prompt();
+  // Log the result
+  promptEvent.userChoice.then((result) => {
+    console.log('👍', 'userChoice', result);
+    // Reset the deferred prompt variable, since
+    // prompt() can only be called once.
+    window.deferredPrompt = null;
+  });
+});
+
+
+
+//  PWA prompt install on IOS
 // Detects if device is on iOS
 var iOS = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 // Detects if browser is safari
@@ -76,6 +132,8 @@ function getInstallMessageIOS() {
 $(document).on('click', '#showInstallMessage',function() {
   $('#installiOSModal').modal('show');
 });
+
+
 
 
 //// Handle Turbolinks side-issues
