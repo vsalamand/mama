@@ -4,60 +4,55 @@
 
 <div class="banner d-flex flex-column">
 
-  <ul class="nav nav-pills justify-content-center my-4">
+  <ul class="nav nav-pills justify-content-center my-4 text-primary">
     <li class="nav-item">
-      <% if user_signed_in? %>
-        <%= link_to "Mes listes", root_path, class:"nav-link px-3" %>
-      <% else %>
-        <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Mes listes", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link disabled px-3" %>
-      <% end %>
+      <%= link_to "Courses", browse_path, class:"nav-link h2" %>
     </li>
     <li class="nav-item">
-      <a class="nav-link active px-3" href="#">Cuisine</a>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Suggestions", explore_path, class:"nav-link px-3" %>
+      <a class="nav-link active h2" href="#">Cuisine</a>
     </li>
   </ul>
 
   <div class="container p-0">
+    <% unless params[:l].present? %>
+      <div class="container px-1 bg-white" id="searchRecipes" >
+          <div class="text-left text-muted" >
+            <div class="search-form-control form-group shadow-lg">
+                <%= form_tag(meals_path, :method => "get") do %>
+                  <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
+                  <%= submit_tag "Chercher", class: "btn btn-sm btn-primary" %>
+                <% end %>
+            </div>
+          </div>
+      </div>
+    <% end %>
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0 my-4">
 
-       <hr class="my-2">
-
-       <% if @latest_recipe.present? %>
-        <h2 class="mb-2">Votre dernier ajout</h2>
+        <h2 class="mb-2">Idée recette</h2>
         <div class="row m-1" style="min-width: 70%;">
           <div class="offset-md-3 col-md-6 p-0">
-            <%= render 'card_recipe', recipe: @latest_recipe %>
+            <%= render 'card_recipe', recipe: @recipe_idea %>
           </div>
         </div>
-        <%= link_to "Parcourir vos dernières recettes", history_path, class:"btn btn-light border m-1 px-3" %>
+        <hr class="my-2 mx-5">
+        <h2 class="mb-2">Recettes et ingrédients</h2>
 
+        <div class="px-5 py-3 rounded text-center mb-2">
 
-      <% end %>
-
-      <hr class="my-4">
-
-      <% if @favorite_recipe.present? %>
-        <h2 class="mb-2">Votre dernière recette en favoris</h2>
-        <div class="row m-1" style="min-width: 70%;">
-          <div class="offset-md-3 col-md-6 p-0">
-            <%= render 'card_recipe', recipe: @favorite_recipe %>
-          </div>
+          <%= link_to "🔥 Les plus populaires", meals_path, class:"p lead" %>
+          <hr class="my-4 mx-5">
+          <%= link_to "⭐ Vos recettes en favoris", meals_path(favorites: 0), class:"p lead" %>
+          <hr class="my-4 mx-5">
+          <%= link_to "🔖 Vos dernières recettes", meals_path(history: 0), class:"p lead" %>
+          <hr class="my-4 mx-5">
+          <% if @categories.present? %>
+            <% @categories.recommendation_items.order(:id).each do |recommendation|  %>
+                <%= link_to "#{recommendation.name}", meals_path(category_id: recommendation.id), class:"p lead" %>
+                <hr class="my-4 mx-5">
+            <% end %>
+          <% end %>
         </div>
-        <%= link_to "Parcourir vos favoris", favorites_path, class:"btn btn-light border m-1 px-3" %>
-
-      <% else %>
-        <p class="lead m-4 text-muted">Vous n'avez pas encore de recette en favoris !</p>
-
-      <% end %>
-
-
-
-      <hr class="my-3">
 
 
     </div>
@@ -91,3 +86,9 @@
       </div>
     </div>
   </div>
+
+<% unless user_signed_in? %>
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+<% end %>

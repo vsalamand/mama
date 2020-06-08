@@ -6,7 +6,7 @@
         <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
       </a>
 
-      <%= link_to "Partager", list_share_path(@list), class:"btn btn-lg bg-success text-white" %>
+      <%= link_to "Partager", list_share_path(@list), class:"btn bg-success text-white" %>
 
     </nav>
   </div>
@@ -25,6 +25,8 @@
 
 
 
+<% unless user_signed_in? %>
 <!-- Navbar End -->
 <%= render 'shared/login_form' %>
 <%= render 'shared/signup_form' %>
+<% end %>

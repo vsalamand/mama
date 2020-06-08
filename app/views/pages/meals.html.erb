@@ -12,7 +12,7 @@
           <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
         </a>
       <% else %>
-        <a class="navbar-brand text-dark d-flex align-items-center" href="/explore">
+        <a class="navbar-brand text-dark d-flex align-items-center" href="/cuisine">
           <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
         </a>
       <% end %>
@@ -26,12 +26,18 @@
     <button type="button" class="btn btn-light btn-lg dropdown-toggle border" id="categoryMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <% if params[:query].present? %>
         Voir les catégories
+      <% elsif params[:favorites].present? %>
+        ⭐ Vos recettes en favoris
+      <% elsif params[:history].present? %>
+        🔖 Vos dernières recettes
       <% else %>
         <%= @category.present? ? @category.name : "🔥 Les plus populaires" %>
       <% end %>
     </button>
     <div class="dropdown-menu" aria-labelledby="categoryMenuButton" style="height: 50vh; overflow-y: auto;">
       <%= link_to "🔥 Les plus populaires", meals_path(l: params[:l]), class:"dropdown-item" %>
+      <%= link_to "⭐ Vos recettes en favoris", meals_path(favorites: 0, l: params[:l]), class:"dropdown-item" %>
+      <%= link_to "🔖 Vos dernières recettes", meals_path(history: 0, l: params[:l]), class:"dropdown-item" %>
       <% @categories.recommendation_items.order(:id).each do |recommendation| %>
         <%= link_to recommendation.name, meals_path(category_id: recommendation.id, l: params[:l]), class:"dropdown-item" %>
       <% end %>
@@ -52,13 +58,13 @@
   </div>
 <% end %>
 
-
-<div class="container p-0 my-4" id="recipeCategory">
-  <div class="recipesGrid">
-    <%= render 'card_grid', recipes: @recipes, list: @list %>
+<% if @recipes.present? %>
+  <div class="container p-0 my-4" id="recipeCategory">
+    <div class="recipesGrid">
+      <%= render 'card_grid', recipes: @recipes, list: @list %>
+    </div>
   </div>
-</div>
-
+<% end %>
 
 
 <div style="padding: 50px;"></div>

@@ -5,20 +5,12 @@
 
 <div class="banner d-flex flex-column">
 
-  <ul class="nav nav-pills justify-content-center my-4">
+  <ul class="nav nav-pills justify-content-center my-4 text-primary">
     <li class="nav-item">
-      <a class="nav-link active px-3" href="#">Mes listes</a>
+      <a class="nav-link active h2" href="#">Courses</a>
     </li>
     <li class="nav-item">
-      <% if user_signed_in? %>
-        <%= link_to "Cuisine", cuisine_path, class:"nav-link px-3" %>
-      <% else %>
-        <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Cuisine", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"nav-link px-3" %>
-      <% end %>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Suggestions", explore_path, class:"nav-link px-3" %>
+      <%= link_to "Cuisine", cuisine_path, class:"nav-link h2" %>
     </li>
   </ul>
 
@@ -33,13 +25,24 @@
 
 
 
-
-      <div class="px-5 py-5 rounded text-center mb-2">
-        <% if @lists.any? %>
-            <% @lists.sort_by(&:id).reverse.each do |list|  %>
+      <div class="px-5 pt-5 rounded text-center mb-2">
+        <% if @lists.present? %>
+            <% @lists.sort_by(&:id).reverse[0..1].each do |list|  %>
               <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead" %>
               <hr class="my-4">
             <% end %>
+        <% end %>
+      </div>
+
+      <hr class="my-2">
+
+      <h2 class="m-0 mt-3">Produits du quotidien</h2>
+      <div class="px-5 py-3 rounded text-center my-2">
+        <% if @checklists.present? %>
+          <% @checklists.each do |list|  %>
+              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead" %>
+              <hr class="my-4 mx-5">
+          <% end %>
         <% end %>
       </div>
 
@@ -51,3 +54,8 @@
 </div>
 
 
+<% unless user_signed_in? %>
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+<% end %>
