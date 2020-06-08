@@ -15,11 +15,9 @@ class PagesController < ApplicationController
   def browse
     @checklist = Checklist.find_by(name: "templates")
     @checklists = @checklist.get_curated_lists
-    @categories = Recommendation.where(is_active: true).last
 
     if user_signed_in?
       @lists = current_user.get_lists
-      @recipe_list = current_user.get_latest_recipe_list
     end
 
     ahoy.track "Browse"
@@ -44,15 +42,15 @@ class PagesController < ApplicationController
     ahoy.track "Explore"
   end
 
-  def history
-    @recipes = current_user.recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq
-    ahoy.track "History"
-  end
+  # def history
+  #   @recipes = current_user.recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq
+  #   ahoy.track "History"
+  # end
 
-  def favorites
-    @recipes = current_user.get_latest_recipe_list.recipes
-    ahoy.track "Favorites"
-  end
+  # def favorites
+  #   @recipes = current_user.get_latest_recipe_list.recipes
+  #   ahoy.track "Favorites"
+  # end
 
   def select
     @selected_items = params[:i].join("&i=") if params[:i]
@@ -66,6 +64,7 @@ class PagesController < ApplicationController
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
 
     @list = List.find(params[:l]) if params[:l].present?
+
     if @list.present?
       redirect_to add_to_list_path(l: @list.id, r: @pr, i: @selected_items)
     else
@@ -73,19 +72,13 @@ class PagesController < ApplicationController
     end
   end
 
-  # def products
-  #   @checklist = Checklist.find_by(name: "products")
-  #   @lists = @checklist.get_curated_lists
+  def products
+    @checklist = Checklist.find_by(name: "templates")
+    @checklists = @checklist.get_curated_lists
+    @list = List.find(params[:l]) if params[:l].present?
 
-  #   @selected_items = params[:i]
-  #   @selected_recipes = params[:r]
-  #   @list_id = params[:l]
-
-  #   @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
-  #   @recipe_ids = @recipes.pluck(:id).join('&r=') if params[:r] && params[:r].present?
-  #   @temp_items = @selected_items.split("&i=").map{ |p| Item.find_by(name: p)} if params[:i]
-  #   ahoy.track "Products"
-  # end
+    ahoy.track "Products"
+  end
 
   def meals
     @selected_items = params[:i]
@@ -170,7 +163,7 @@ class PagesController < ApplicationController
 
   def add_to_list
     user = current_user if user_signed_in?
-    (params[:l].present? && params[:l] != "0") ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
+    (params[:l].present? && params[:l] != "0") ? @list = List.find(params[:l]) : @list = List.create(name: "Liste de courses semaine #{Date.today.strftime("%U")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
 
     if params[:i].present?
       item_inputs = params[:i].split("&i=")

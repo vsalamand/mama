@@ -30,7 +30,8 @@
       <%= render "lists/suggested_items" %>
       <div class="d-flex flex-column align-items-center">
         <div class="d-flex">
-          <%= link_to "Ajouter une recette", meals_path(l: @list.id), class:"btn btn-light border m-1 text-primary" %>
+          <%= link_to "Produits fréquents", products_path(l: @list.id), class:"btn btn-light m-1 border text-primary" %>
+          <%= link_to "Idées recettes", meals_path(l: @list.id), class:"btn btn-light border m-1 text-primary" %>
         </div>
       </div>
     </div>
