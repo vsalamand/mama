@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :browse, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
+  skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
                                                   :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
@@ -13,26 +13,24 @@ class PagesController < ApplicationController
   end
 
   def browse
+    @checklist = Checklist.find_by(name: "templates")
+    @checklists = @checklist.get_curated_lists
     @categories = Recommendation.where(is_active: true).last
 
     if user_signed_in?
       @lists = current_user.get_lists
       @recipe_list = current_user.get_latest_recipe_list
-      ahoy.track "Browse"
-    else
-      redirect_to explore_path
     end
+
+    ahoy.track "Browse"
   end
 
   def cuisine
-    if user_signed_in?
-      @latest_recipe = current_user.recipe_list_items.last.recipe if current_user.recipe_list_items.any?
-      @favorites = current_user.get_latest_recipe_list
-      @favorite_recipe = @favorites.recipe_list_items.last.recipe if @favorites.recipe_list_items.any?
-      ahoy.track "Cuisine"
-    else
-      redirect_to explore_path
-    end
+    recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
+    @recipe_idea = Recipe.find(recipe_idea_id)
+    @categories = Recommendation.where(is_active: true).last
+
+    ahoy.track "Cuisine"
   end
 
   def explore
@@ -42,6 +40,7 @@ class PagesController < ApplicationController
     @recipe_idea = Recipe.find(recipe_idea_id)
     @categories = Recommendation.where(is_active: true).last
 
+    redirect_to browse_path
     ahoy.track "Explore"
   end
 
@@ -100,10 +99,20 @@ class PagesController < ApplicationController
     if @category.present?
       @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }.sort_by(&:title)
       ahoy.track "browse category", name: @category.name
+
     elsif params[:query].present?
       @query = params[:query].present? ? params[:query] : nil
       @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..49] if @query
       ahoy.track "Search", query: @query
+
+    elsif params[:favorites].present?
+      @recipes = current_user.get_latest_recipe_list.recipes if user_signed_in?
+      ahoy.track "Favorites"
+
+    elsif params[:history].present?
+      @recipes = current_user.recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq if user_signed_in?
+      ahoy.track "History"
+
     else
       @recipes = RecipeListItem.get_most_popular
       ahoy.track "browse category", name: "most popular"
