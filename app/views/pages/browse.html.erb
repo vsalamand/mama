@@ -27,7 +27,7 @@
 
       <div class="px-5 pt-5 rounded text-center mb-2">
         <% if @lists.present? %>
-            <% @lists.sort_by(&:id).reverse[0..1].each do |list|  %>
+            <% @lists.sort_by(&:id).reverse.each do |list|  %>
               <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead" %>
               <hr class="my-4">
             <% end %>
