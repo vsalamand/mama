@@ -17,7 +17,7 @@
 
             <%= simple_form_for @list do |f| %>
                 <div class="mt-4 bg-white">
-                  <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"py-3 rounded autofocus form-control form-control-lg", value: "Liste de courses du #{Date.today.strftime("%d/%m")}" } %>
+                  <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"py-3 rounded autofocus form-control form-control-lg", value: "Liste de courses semaine #{Date.today.strftime("%U")}" } %>
                   <% if user_signed_in? %>
                     <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
                   <% end %>

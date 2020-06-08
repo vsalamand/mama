@@ -73,6 +73,8 @@ class ListsController < ApplicationController
     @list_item = ListItem.new
     @recipes = @list.recipes
 
+    @ref_list = params[:l]
+
     @referrer = params[:ref]
     if @referrer.nil? || @referrer == request.url
       @referrer = "/browse"

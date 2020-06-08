@@ -8,10 +8,10 @@
       </a>
 
       <% if list.present? %>
-        <button class="btn btn-warning btn-lg" id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id  %>" recipe-data="<%= recipe.id %>">Ajouter</button>
+        <button class="btn btn-warning" id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id  %>" recipe-data="<%= recipe.id %>">Ajouter la recette</button>
 
       <% else %>
-        <button class="btn btn-warning btn-lg" id="getListBtn" context="recipe" source="<%= recipe.id %>" recipe-data="<%= recipe.id %>">Continuer</button>
+        <button class="btn btn-warning" id="getListBtn" context="recipe" source="<%= recipe.id %>" recipe-data="<%= recipe.id %>">Ajouter la recette</button>
 
       <% end %>
 
