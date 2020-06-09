@@ -5,41 +5,60 @@
 
 <div class="container m-3">
 
-  <div>
-    <%= form_tag(items_path, :method => "get") do %>
-      <%= collection_select :food, :id, Food.all.order(:name), :id, :name %>
 
-      <%= submit_tag "Search" %>
-    <% end %>
+  <div class="d-flex flex-column bd-highlight my-2">
+
+      <div class="my-3">
+        <%= form_tag(items_path, :method => "get") do %>
+          <%= text_field_tag :query, params[:query] %>
+          <%= submit_tag "Search" %>
+        <% end %>
+      </div>
+
+      <div class="d-flex">
+        <div class="dropdown">
+          <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= @food.present? ? @food.name : "Food" %>
+          </button>
+          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
+            <%= link_to "ALL FOOD", foods_path, class:"dropdown-item" %>
+            <% Food.all.order(:name).each do |food| %>
+            <%= link_to food.name, items_path(food_id: food.id), class:"dropdown-item" %>
+            <% end %>
+          </div>
+        </div>
+        <button class="btn border"><%= link_to "Unlabeled", items_path(is_labeled: 0) %></button>
+      </div>
+
   </div>
-</div>
 
 
-<div class="container mb-5">
   <div>
-    <h2><%= @results.size if @results %> results:</h2>
+    <div class="d-flex">
+      <p class="m-2"><%= @results.size if @results %> results</p>
+      <p class="m-2"><%= @results.distinct.count('name') if @results %> uniques</p>
+    </div>
 
     <% if @results %>
 
       <%= form_tag(edit_multiple_items_path, :method => "get") do %>
         <%= submit_tag "Update all"%>
-        <% @results.each do |item| %>
+        <% @results.order(:id).reverse.uniq(&:name).each do |item| %>
 
            <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
              <%= hidden_field_tag "item_ids[]", item.id  %>
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="product-info d-flex align-items-center justify-content-start">
+                <div class="product-info p-2">
                   <div class="product-description text-dark">
-                    <div class="d-flex w-90 justify-content-between flex-column">
-                      <h7 class="mb-1 text-primary"><%= link_to item.name, edit_item_path(item) %></h7>
+                    <div class="d-flex justify-content-between">
+                      <h5 class="mb-1 text-primary"><%= link_to item.name, edit_item_path(item) %></h5>
+                      <div class="d-flex flex-column align-items-end">
+                        <p class="text-primary m-0"><%= item.food.present? ? item.food.name : "no match" %></p>
+                        <small class="text-muted m-0"><%= item.get_store_section.name if item.get_store_section.present? %></small>
+                      </div>
                     </div>
                   </div>
                 </div>
-               <div class="product-options d-flex flex-column  align-items-center">
-                  <%= item.food.present? ? item.food.name : "no match" %>
-             </div>
-            </div>
-          </div>
+           </div>
 
         <% end %>
       <% end %>
