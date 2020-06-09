@@ -56,7 +56,7 @@ class ListItem < ApplicationRecord
       # process new item
       valid_item = Item.where("lower(name) = ?", list_item.name.downcase).where(is_validated: true).first
       if valid_item.present?
-        new_validated_items << Item.new(food: valid_item.food, list_item: list_item, name: list_item.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit)
+        new_validated_items << Item.new(food: valid_item.food, list_item: list_item, name: list_item.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit, store_section_id: valid_item.store_section_id, is_non_food: valid_item.is_non_food)
       end
     end
     # create all list items
@@ -77,13 +77,13 @@ class ListItem < ApplicationRecord
 
   def create_or_copy_item
     valid_item = Item.where("lower(name) = ?", self.name.downcase).where(is_validated: true).first
-    valid_item.present? ? Item.create(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit) : Item.add_list_items(Array(self))
+    valid_item.present? ? Item.create(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit, store_section_id: valid_item.store_section_id, is_non_food: valid_item.is_non_food) : Item.add_list_items(Array(self))
   end
 
   def update_item(item)
     valid_item = Item.where("lower(name) = ?", self.name.downcase).where(is_validated: true).first
     if valid_item.present?
-      item.update(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit)
+      item.update(food: valid_item.food, list_item: self, name: self.name, is_validated: valid_item.is_validated, quantity: valid_item.quantity, unit: valid_item.unit, store_section_id: valid_item.store_section_id, is_non_food: valid_item.is_non_food)
     else
       item.set(self)
     end

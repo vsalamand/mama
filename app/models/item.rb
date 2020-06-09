@@ -117,6 +117,8 @@ class Item < ApplicationRecord
             .update_all(quantity: self.quantity,
                      unit_id: self.unit_id,
                      food_id: self.food_id,
+                     store_section_id: self.store_section_id,
+                     is_non_food: self.is_non_food,
                      is_validated: self.is_validated)
       # end
     end
@@ -127,7 +129,7 @@ class Item < ApplicationRecord
     if matching_list_items.any?
       new_validated_items = []
       matching_list_items.each do |list_item|
-        new_validated_items << Item.new(food: self.food, list_item: list_item, name: list_item.name, is_validated: self.is_validated, quantity: self.quantity, unit: self.unit)
+        new_validated_items << Item.new(food: self.food, list_item: list_item, name: list_item.name, is_validated: self.is_validated, quantity: self.quantity, unit: self.unit, store_section_id: self.store_section_id, is_non_food: self.is_non_food)
       end
       Item.import new_validated_items
     end

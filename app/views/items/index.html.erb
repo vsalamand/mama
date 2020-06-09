@@ -8,10 +8,11 @@
 
   <div class="d-flex flex-column bd-highlight my-2">
 
-      <div class="my-3">
-        <%= form_tag(items_path, :method => "get") do %>
-          <%= text_field_tag :query, params[:query] %>
-          <%= submit_tag "Search" %>
+      <div class="my-3 d-flex">
+        <%= form_tag(items_path, :method => "get", class:"form-inline") do %>
+          <%= text_field_tag :query, params[:query], class: 'form-control' %>
+           <%= collection_select :food_id, :id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+          <%= submit_tag "Search", class: 'form-control  btn-primary' %>
         <% end %>
       </div>
 

@@ -78,8 +78,11 @@ class ItemsController < ApplicationController
   end
 
   def index
-    if params[:query].present?
-      @results = Item.where('name LIKE ?', "%#{params[:query]}%")
+    if params[:query].present? && params[:food_id][:id].present?
+      @food = Food.find(params[:food_id][:id])
+      @results = Item.where('LOWER(name) LIKE ?', "%#{params[:query].downcase}%").where(food_id: @food.id)
+    elsif params[:query].present?
+      @results = Item.where('LOWER(name) LIKE ?', "%#{params[:query].downcase}%")
     elsif params[:food_id].present?
       @food = Food.find(params[:food_id])
       @results = Item.where(food_id: @food.id)
