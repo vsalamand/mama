@@ -4,7 +4,7 @@ require 'hangry'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
-  skip_before_action :authenticate_user!, only: [ :show, :card, :cart, :select_all]
+  skip_before_action :authenticate_user!, only: [ :show, :card, :cart, :select_all, :index]
   before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show ]
 
   def show
@@ -36,7 +36,9 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = current_user.recipes.uniq
+    # @recipes = current_user.recipes.uniq
+
+    redirect_to cuisine_path
   end
 
   def import
