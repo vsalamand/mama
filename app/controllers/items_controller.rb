@@ -78,13 +78,14 @@ class ItemsController < ApplicationController
   end
 
   def index
-    food_id = params[:food].present? ? params[:food]['id'] : nil
-
-    if food_id.present?
-      @food = Food.find(food_id)
+    if params[:query].present?
+      @results = Item.where('name LIKE ?', "%#{params[:query]}%")
+    elsif params[:food_id].present?
+      @food = Food.find(params[:food_id])
       @results = Item.where(food_id: @food.id)
+    elsif params[:is_labeled].present?
+      @results = Item.where(food_id: nil).where(store_section_id: nil).where(recipe_id: nil)
     end
-
   end
 
   def edit_multiple

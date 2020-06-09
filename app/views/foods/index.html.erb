@@ -9,21 +9,50 @@
 
   <%= link_to "Nouveau", new_food_path, class:"btn btn-primary my-3" %>
 
+  <div class="d-flex flex-row bd-highlight my-2">
+
+      <div class="dropdown">
+        <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= @category.present? ? @category.name : "Catégories" %>
+        </button>
+        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
+          <%= link_to "ALL FOOD", foods_path, class:"dropdown-item" %>
+          <% @categories.order(:id).each do |category| %>
+          <%= link_to category.name, foods_path(category_id: category.id), class:"dropdown-item" %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= @store_section.present? ? @store_section.name : "Rayons" %>
+        </button>
+        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
+          <%= link_to "ALL FOOD", foods_path, class:"dropdown-item" %>
+          <% @store_sections.order(:id).each do |section| %>
+          <%= link_to section.name, foods_path(section_id: section.id), class:"dropdown-item" %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+
   <div>
     <% if @foods %>
         <% @foods.order(:name).each do |food| %>
 
            <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
              <%= link_to edit_food_path(food) do %>
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="product-info d-flex align-items-center justify-content-start">
+                <div class="product-info p-2">
                   <div class="product-description text-dark">
-                    <div class="d-flex w-90 justify-content-between flex-column">
-                      <h7 class="mb-1 text-primary"><%= food.name %></h7>
+                    <div class="d-flex justify-content-between">
+                      <h5 class="mb-1 text-primary"><%= food.name %></h5>
+                      <div class="d-flex flex-column align-items-end">
+                        <p class="text-primary m-0"><%= food.store_section.name %></p>
+                        <small class="text-muted m-0"><%= food.category.name %></small>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
             <% end %>
           </div>
 

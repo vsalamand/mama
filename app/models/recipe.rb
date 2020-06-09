@@ -90,7 +90,8 @@ class Recipe < ApplicationRecord
   end
 
   def sort_by_store_sections
-    store_sections = ["Légumes", "Fruits", "Frais", "Surgelés", "Viandes & poissons", "Épicerie salée", "Épicerie sucrée", "Boissons", "Autres"]
+    store_sections = StoreSection.order(:position).pluck(:name)
+    store_sections << "Autres"
     data = Hash[store_sections.map {|x| [x, Array.new]}]
 
     self.items.each do |item|

@@ -3,7 +3,18 @@ class FoodsController < ApplicationController
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :show ]
 
   def index
-    @foods = Food.all
+    @categories = Category.all.where.not(ancestry: nil)
+    @store_sections = StoreSection.all
+
+    @category = Category.find(params[:category_id]) if params[:category_id].present?
+    @store_section = StoreSection.find(params[:section_id]) if params[:section_id].present?
+    if @category.present?
+      @foods = @category.foods
+    elsif @store_section.present?
+      @foods = @store_section.foods
+    else
+      @foods = Food.all
+    end
   end
 
   def new
