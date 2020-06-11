@@ -5,6 +5,9 @@ class PagesController < ApplicationController
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
   def home
+    if params[:mode].present?
+      ahoy.track "Webapp launch"
+    end
     if user_signed_in?
       redirect_to browse_path
     else
@@ -103,7 +106,7 @@ class PagesController < ApplicationController
       ahoy.track "Favorites"
 
     elsif params[:history].present?
-      @recipes = current_user.recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq if user_signed_in?
+      @recipes = current_user.get_lists.map{ |l| l.recipe_list_items}.flatten.last(50).reverse.map{ |rli| rli.recipe}.uniq if user_signed_in?
       ahoy.track "History"
 
     else

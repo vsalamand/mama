@@ -29,9 +29,9 @@ class User < ApplicationRecord
   after_create :subscribe_to_waiting_list
   after_create :send_welcome_email
 
-  after_save do
-    send_welcome_email_to_beta_user if self.beta_changed? && self.beta == true
-  end
+  # after_save do
+  #   send_welcome_email_to_beta_user if self.beta_changed? && self.beta == true
+  # end
 
   def get_latest_list
     self.lists.where(status: "saved").last if self.lists.any?
@@ -53,7 +53,7 @@ class User < ApplicationRecord
   private
 
   def subscribe_to_waiting_list
-    SubscribeToWaitingList.new(self).call
+    SubscribeToWaitingList.new(self).call if Rails.env.production?
   end
 
   def send_welcome_email

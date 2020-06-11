@@ -45,6 +45,15 @@ window.addEventListener('offline', () => {
 });
 
 
+// Detect if PWA is installed
+window.addEventListener('appinstalled', (e) =>{
+  app.logEvent('a2hs', 'installed');
+  ahoy.track("Webapp install");
+});
+
+
+
+
 // PWA prompt install on ANDROID
 // Detects if device is on iOS
 var android = /(android)/i.test(navigator.userAgent);
@@ -222,6 +231,23 @@ $(document).on("click", ".goToSignupBtn", function(event) {
 $(document).on("show.bs.modal", ".bd-login-modal-lg", function(event) {
   ahoy.track("Login modal");
 })
+
+document.addEventListener('turbolinks:load', function() {
+  if(document.getElementById('loginPage')){
+    ahoy.track("Login page");
+  }
+});
+
+document.addEventListener('turbolinks:load', function() {
+  if(document.getElementById('signupPage')){
+    ahoy.track("Signup page");
+  }
+});
+
+$(document).on("click", "#signout", function(event) {
+  ahoy.track("Logout");
+})
+
 
 // tracking click on recipe links
 $(document).on("click", ".recipeLinkClick", function(event) {
