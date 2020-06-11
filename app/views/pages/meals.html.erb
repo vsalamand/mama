@@ -28,15 +28,15 @@
       <% elsif params[:favorites].present? %>
         ⭐ Vos recettes en favoris
       <% elsif params[:history].present? %>
-        🔖 Vos dernières recettes
+        ➕ Vos dernières recettes
       <% else %>
         <%= @category.present? ? @category.name : "🔥 Les plus populaires" %>
       <% end %>
     </button>
     <div class="dropdown-menu" aria-labelledby="categoryMenuButton" style="height: 50vh; overflow-y: auto;">
       <%= link_to "🔥 Les plus populaires", meals_path(l: params[:l]), class:"dropdown-item" %>
+      <%= link_to "➕ Vos dernières recettes", meals_path(history: 0, l: params[:l]), class:"dropdown-item" %>
       <%= link_to "⭐ Vos recettes en favoris", meals_path(favorites: 0, l: params[:l]), class:"dropdown-item" %>
-      <%= link_to "🔖 Vos dernières recettes", meals_path(history: 0, l: params[:l]), class:"dropdown-item" %>
       <% @categories.recommendation_items.order(:id).each do |recommendation| %>
         <%= link_to recommendation.name, meals_path(category_id: recommendation.id, l: params[:l]), class:"dropdown-item" %>
       <% end %>

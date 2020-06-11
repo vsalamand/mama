@@ -19,7 +19,7 @@
           <div class="text-left text-muted" >
             <div class="search-form-control form-group shadow-lg">
                 <%= form_tag(meals_path, :method => "get") do %>
-                  <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control" %>
+                  <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"form-control font-weight-bold" %>
                   <%= submit_tag "Chercher", class: "btn btn-sm btn-primary" %>
                 <% end %>
             </div>
@@ -29,22 +29,14 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0 my-4">
 
-        <h2 class="mb-2">Idée recette</h2>
-        <div class="row m-1" style="min-width: 70%;">
-          <div class="offset-md-3 col-md-6 p-0">
-            <%= render 'card_recipe', recipe: @recipe_idea %>
-          </div>
-        </div>
         <hr class="my-2 mx-5">
-        <h2 class="mb-2">Recettes et ingrédients</h2>
-
         <div class="px-5 py-3 rounded text-center mb-2">
 
           <%= link_to "🔥 Les plus populaires", meals_path, class:"p lead" %>
           <hr class="my-4 mx-5">
-          <%= link_to "⭐ Vos recettes en favoris", meals_path(favorites: 0), class:"p lead" %>
+          <%= link_to "➕ Vos dernières recettes", meals_path(history: 0), class:"p lead" %>
           <hr class="my-4 mx-5">
-          <%= link_to "🔖 Vos dernières recettes", meals_path(history: 0), class:"p lead" %>
+          <%= link_to "⭐ Vos recettes en favoris", meals_path(favorites: 0), class:"p lead" %>
           <hr class="my-4 mx-5">
           <% if @categories.present? %>
             <% @categories.recommendation_items.order(:id).each do |recommendation|  %>
