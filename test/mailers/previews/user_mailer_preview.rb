@@ -5,6 +5,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.welcome(user)
   end
 
+  def d1_feedback
+    user = User.first
+    UserMailer.d1_feedback(user)
+  end
+
   def waiting_list
     user = User.last
     # This is how you pass value to params[:user] inside mailer definition!
