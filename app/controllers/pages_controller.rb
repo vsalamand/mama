@@ -106,7 +106,10 @@ class PagesController < ApplicationController
       ahoy.track "Favorites"
 
     elsif params[:history].present?
-      @recipes = current_user.get_lists.map{ |l| l.recipe_list_items}.flatten.last(50).reverse.map{ |rli| rli.recipe}.uniq if user_signed_in?
+      if user_signed_in?
+        recipe_list_items = current_user.recipe_list_items + current_user.get_lists.map{ |l| l.recipe_list_items}.flatten
+        @recipes = recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq
+      end
       ahoy.track "History"
 
     else
