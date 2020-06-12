@@ -27,4 +27,5 @@ yarn-debug.log*
 public/assets
 node_modules
 dist
+.latest.dump*
 #db/product_catalogs
