@@ -4,3 +4,10 @@ task send_day1_email: :environment do
   Day1feedbackJob.perform_now
   puts "ok !"
 end
+
+desc "send PMF survey to targeted user who visited yesterday"
+task send_pmf_survey_email: :environment do
+  puts "Sending PMF survey emails..."
+  SendPmfSurveyJob.perform_now
+  puts "ok !"
+end
