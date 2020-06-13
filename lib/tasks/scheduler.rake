@@ -14,7 +14,7 @@ end
 
 desc "send email to inactive users"
 task send_email_to_inactive_users: :environment do
-  puts "Sending PMF survey emails..."
+  puts "Sending email to inactive users..."
   SendEmailToInactiveUsersJob.perform_now
   puts "ok !"
 end
