@@ -27,15 +27,19 @@
     <div class="container px-0">
       <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
         <div class="d-flex align-items-center">
-          <p class="m-0 p-0 font-weight-bold lead text-primary">Ajouter un produit</p>
-        </div>
+<!--           <p class="m-0 p-0 font-weight-bold lead text-primary">Ajouter un produit</p>
+ -->        </div>
       </ul>
       <div id="listItemForm"><%= render "list_items/form", list: list, list_item: list_item %></div>
       <%= render "lists/suggested_items" %>
       <div class="d-flex flex-column align-items-center">
         <div class="d-flex">
-          <%= link_to "Produits du quotidien", products_path(l: @list.id), class:"btn btn-light border m-1 text-primary" %>
-          <%= link_to "Idées recettes", meals_path(l: @list.id), class:"btn btn-light border m-1 text-primary" %>
+          <%= link_to products_path(l: @list.id), class:"btn btn-link mx-2 p-0" do %>
+            Produits fréquents <i class="fas fa-chevron-right fa-xs"></i>
+          <% end %>
+          <%= link_to meals_path(l: @list.id), class:"btn btn-link mx-2 p-0" do %>
+            Idées recettes <i class="fas fa-chevron-right fa-xs"></i>
+          <% end %>
         </div>
       </div>
     </div>

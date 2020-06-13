@@ -13,7 +13,7 @@ class UserMailer < ApplicationMailer
 
   def d1_feedback(user)
     @user = user # Instance variable => available in view
-    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Vos premiers pas sur Mama')
+    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Premiers pas sur Mama')
     # This will render a view in `app/views/user_mailer`!
   end
 

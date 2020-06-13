@@ -77,5 +77,6 @@ class Rack::Attack
 
   # blocking specific ips here because of repeted attack
   Rack::Attack.blocklist_ip("190.85.239.252")
+  Rack::Attack.blocklist_ip("46.229.168.134")
 
 end
