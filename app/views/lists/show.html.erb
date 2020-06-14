@@ -32,13 +32,13 @@
 <% end %>
 
 
-<div style="padding: 10px;"></div>
+<div class="bg-dark" style="padding: 10px;"></div>
 
 <% if user_signed_in? && current_user.beta == true %>
   <%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>
 <% end %>
 
-<div style="padding: 50px;"></div>
+<div class="bg-dark" style="padding: 50px;"></div>
 
 
 <!-- Modal views  -->
