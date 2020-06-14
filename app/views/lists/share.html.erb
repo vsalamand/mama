@@ -8,7 +8,7 @@
 
   <div class="container">
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-dark p-0">
       <div class="d-flex mb-1">
         <%= link_to "Retour à la liste", url_for(:back), class:"btn btn-light border m-1" %>
         <% if user_signed_in? %>
@@ -17,7 +17,7 @@
          <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border m-1 signupBtn", context: "Share list", action: "save_list" %>
         <% end %>
       </div>
-      <h1 class="display-4 m-0">Partagez la liste</h1>
+      <h1 class="display-4 m-0 text-white">Partagez la liste</h1>
       <hr class="my-4">
 
         <div class="row m-2">

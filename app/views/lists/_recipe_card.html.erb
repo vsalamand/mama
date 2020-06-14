@@ -1,6 +1,6 @@
 <div class="col-md-4 p-1" id="<%= recipe.id %>">
 
-  <div class="card mb-3 rounded shadow">
+  <div class="card mb-3 rounded shadow bg-dark">
     <div class="row no-gutters">
       <div class="col-5">
         <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid rounded-0") %>
@@ -13,7 +13,7 @@
           </div>
         <% end %>
         <% if @list.user == current_user || @list.users.include?(current_user) %>
-          <button class="btn-sm btn-outline-secondary rounded mt-auto bd-highlight m-2" id="removeRecipefromListBtn" data="<%= recipe.id %>"><i class="fas fa-trash p-1"></i></button>
+          <button class="btn-sm btn-light text-muted mt-auto bd-highlight m-2" id="removeRecipefromListBtn" data="<%= recipe.id %>"><i class="fas fa-trash p-1"></i></button>
         <% end %>
       </div>
     </div>

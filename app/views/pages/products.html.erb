@@ -1,23 +1,22 @@
-<div class="sticky-top bg-white">
+<div class="sticky-top bg-dark">
   <div class="container">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
       <% if @list.present? %>
         <a class="navbar-brand text-dark d-flex align-items-center" href="/lists/<%= @list.id %>">
-          <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+          <i class="fas fa-lg fa-arrow-left text-white p-2"></i> <span class="text-white"></span>
         </a>
       <% else %>
         <a class="navbar-brand text-dark d-flex align-items-center" href="/browse">
-          <i class="fas fa-lg fa-arrow-left text-secondary p-2"></i> <span class="text-secondary">Retour</span>
+          <i class="fas fa-lg fa-arrow-left text-white p-2"></i> <span class="text-white"></span>
         </a>
       <% end %>
     </nav>
   </div>
 </div>
 
-  <div class="container p-0">
-
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
-
+<div class="wrapper bg-dark py-3">
+  <div class="container p-0 bg-dark">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-dark p-0">
       <div class="px-5 py-3 rounded text-center my-2">
         <% if @checklists.present? %>
           <% @checklists.each do |list|  %>
@@ -26,8 +25,6 @@
           <% end %>
         <% end %>
       </div>
-
     </div>
-
-
   </div>
+</div>
