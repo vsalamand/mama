@@ -22,9 +22,8 @@
         <%= link_to "Retour", url_for(:back), class:"btn btn-light border m-1" %>
 
       </div>
-      <h1 class="text-white m-1 my-2">Ajouter la sélection</h1>
+      <h1 class="text-white m-1 my-5">Ajouter la sélection</h1>
 
-      <hr class="my-3">
 
       <% unless user_signed_in? %>
         <%= link_to "Créer une nouvelle liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1 signupBtn", context: "Add to list", action: "create list", style:"text-decoration: none;"  %>
