@@ -52,6 +52,16 @@ window.addEventListener('appinstalled', (e) =>{
 });
 
 
+// open install modal if param is present
+if(window.location.href.indexOf("install") > -1 ) {
+  if (iOS === true && isSafari === true && isInStandaloneMode === false) {
+   $('#installiOSModal').modal('show');
+  }
+  if (android === true && isInStandaloneMode === false) {
+    $('#installAndroidModal').modal('show');
+  }
+}
+
 
 
 // PWA prompt install on ANDROID
