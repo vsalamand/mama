@@ -1,19 +1,19 @@
-<div class="sticky-top bg-dark">
+<div class="sticky-top bg-white">
   <div class="container">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
       <% if false %>
          <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectProductsBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">
-          <i class="fas fa-lg fa-arrow-left text-white p-2"></i> <span class="text-white"></span>
+          <i class="fas fa-lg fa-arrow-left p-2"></i> <span class=""></span>
         </a>
       <% end %>
 
       <% if @list.present? %>
         <a class="navbar-brand text-dark d-flex align-items-center" href="/lists/<%= @list.id %>">
-          <i class="fas fa-lg fa-arrow-left text-white p-2"></i> <span class="text-white"></span>
+          <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
         </a>
       <% else %>
         <a class="navbar-brand text-dark d-flex align-items-center" href="/cuisine">
-          <i class="fas fa-lg fa-arrow-left text-white p-2"></i> <span class="text-white"></span>
+          <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
         </a>
       <% end %>
     </nav>
@@ -45,7 +45,7 @@
 </div>
 
 <% unless params[:l].present? %>
-  <div class="container px-1 bg-dark my-4" id="searchRecipes" >
+  <div class="container px-1 my-4" id="searchRecipes" >
       <div class="text-left text-muted" >
         <div class="search-form-control form-group mb-5 shadow-lg">
             <%= form_tag(meals_path, :method => "get") do %>

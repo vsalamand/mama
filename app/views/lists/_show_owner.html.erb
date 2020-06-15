@@ -1,9 +1,9 @@
 <%= render "shared/navbar_list" %>
 
-<div class="wrapper bg-dark py-3">
-  <div class="container bg-dark">
-    <div class="jumbotron jumbotron-fluid bg-dark pb-0 border-0">
-      <h1 class="text-white"><%= list.name %></h1>
+<div class="wrapper py-3">
+  <div class="container">
+    <div class="jumbotron jumbotron-fluid bg-white pb-0 border-0">
+      <h1 class=""><%= list.name %></h1>
       <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
         <%= render "lists/options", list: list %>
         <a class="bd-highlight mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
@@ -17,7 +17,7 @@
 
 
 
-<div class="wrapper bg-dark" style="min-height: 70vh;">
+<div class="wrapper" style="min-height: 70vh;">
   <div class="container px-2" id="todo_list" data="<%= list.id %>">
 
 
@@ -51,7 +51,7 @@
 
 
 
-    <div class="bg-dark" id="scrollPoint" style="padding: 20px;"></div>
+    <div id="scrollPoint" style="padding: 20px;"></div>
 
     <% if false %>
       <div class="shadow rounded">

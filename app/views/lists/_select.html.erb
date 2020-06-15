@@ -1,8 +1,8 @@
-<div class="sticky-top bg-dark shadow">
+<div class="sticky-top bg-white shadow">
   <div class="container px-2">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
        <a class="navbar-brand text-dark d-flex align-items-center m-0" href="<%= @referrer %>">
-        <i class="fas fa-lg fa-arrow-left text-white p-2"></i> <span class="text-white"></span>
+        <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
       </a>
 
       <button class="btn btn-warning" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @ref_list %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Ajouter la sélection</button>
@@ -25,7 +25,7 @@
 
 
 <div class="container my-4">
-  <div class="jumbotron jumbotron-fluid bg-dark text-white">
+  <div class="jumbotron jumbotron-fluid bg-white">
     <h1 class=""><%= list.name %></h1>
     <hr class="my-4">
     <p class="lead">Sélectionnez les produits qui vous intéressent.</p>
@@ -34,7 +34,7 @@
 </div>
 
 
-<div class="wrapper bg-dark" style="min-height: 90vh;">
+<div class="wrapper" style="min-height: 90vh;">
   <div class="container mb-3 px-2" id="todo_list" data="<%= list.id %>">
 
 

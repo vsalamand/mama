@@ -6,7 +6,7 @@
 
   <div class="container p-0">
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-dark text-white p-0">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
 
       <h1 class="display-4 mt-5">Nouvelle liste de courses</h1>
 
@@ -16,7 +16,7 @@
           <div class="rounded text-center mb-2">
 
             <%= simple_form_for @list do |f| %>
-                <div class="mt-4 bg-dark">
+                <div class="mt-4">
                   <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"py-3 rounded autofocus form-control form-control-lg", value: "Liste de courses semaine #{Date.today.strftime("%U")}" } %>
                   <% if user_signed_in? %>
                     <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
@@ -24,7 +24,7 @@
                   <%= f.input :sorted_by, input_html: {value: "rayon"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
                   <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
                 </div>
-                <div class="modal-footer bg-dark">
+                <div class="modal-footer">
                   <%= link_to "Annuler", :back, class:"btn py-2 btn-outline-secondary" %>
                   <%= f.submit "Continuer", class:"btn py-2 btn-warning px-5" %>
                 </div>

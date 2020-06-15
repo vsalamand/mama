@@ -1,4 +1,4 @@
-<div class="sticky-top bg-dark shadow">
+<div class="sticky-top bg-white shadow">
 <% unless user_signed_in? %>
     <div class="wrapper py-0 alert-warning">
       <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
@@ -17,12 +17,12 @@
 
   <div class="container">
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-dark px-0">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white px-0">
       <div class="d-flex mb-1">
         <%= link_to "Retour", url_for(:back), class:"btn btn-light border m-1" %>
 
       </div>
-      <h1 class="text-white m-1 my-5">Ajouter la sélection</h1>
+      <h1 class="m-1 my-5">Ajouter la sélection</h1>
 
 
       <% unless user_signed_in? %>
