@@ -5,7 +5,7 @@
 
   <div class="container my-3 px-2">
 
-    <div class="jumbotron" id="loginPage">
+    <div class="jumbotron bg-dark text-white" id="loginPage">
       <h1 >Connectez-vous</h1>
       <p class="lead">Accédez à votre compte<strong class="text-primary"> pour retrouver vos listes et vos recettes en favoris</strong>.</p>
       <hr class="my-4">
@@ -22,7 +22,7 @@
                           label: false,
                           autofocus: true,
                           placeholder: "Votre Adresse Email",
-                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
+                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" } %>
               <%= f.input :password,
                           label: false,
                           placeholder: "Mot de passe",
@@ -36,7 +36,7 @@
           <% end %>
 
     <%= link_to "Mot de passe oublié?", new_password_path(resource_name), class:"d-flex justify-content-end my-1" %>
-    <%= link_to "Vous n'avez avez pas de compte?", new_registration_path(resource_name), class:"d-flex justify-content-end my-1" %>
+    <%= link_to "Vous n'avez avez pas de compte?", new_registration_path(resource_name), class:"d-flex lead justify-content-end my-1 font-weight-bold" %>
     </div>
 
 

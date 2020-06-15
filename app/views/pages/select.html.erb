@@ -22,7 +22,7 @@
         <%= link_to "Retour", url_for(:back), class:"btn btn-light border m-1" %>
 
       </div>
-      <h1 class="display-4 text-white m-1">Ajouter les produits dans une liste</h1>
+      <h1 class="text-white m-1 my-2">Ajouter la sélection</h1>
 
       <hr class="my-3">
 
@@ -35,7 +35,7 @@
         <div class="px-5 py-3 rounded text-center my-2">
           <% if current_user.get_lists.any? %>
               <% current_user.get_lists.sort_by(&:id).reverse.each do |list|  %>
-                <p class="lead text-primary" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= list.id %>" recipe-data="<%= @selected_recipes %>"><%= list.name %></p>
+                <p class="lead text-primary font-weight-bold" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= list.id %>" recipe-data="<%= @selected_recipes %>"><%= list.name %></p>
                 <hr class="my-4 mx-5">
               <% end %>
           <% end %>

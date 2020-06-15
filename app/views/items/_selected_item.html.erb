@@ -1,12 +1,16 @@
 <% if item.present? %>
   <div id="item-id<%= item.id %>">
-    <li class="bg-dark border-0 px-2 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;" id="<%= dom_id(item) %>" >
+    <li class="bg-dark border-0 px-2 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer; filter: brightness(1.40);" id="<%= dom_id(item) %>" >
 
       <div class="d-flex align-items-center text-primary selectedItem" data="<%= item.id %>">
         <i class="far fa-lg fa-check-square"></i>
-        <p class="lead m-0 pl-2 p-1"><%= item.name %></p>
+        <p class="lead m-0 pl-2 p-1 font-weight-bold"><%= item.name %></p>
       </div>
-
+       <% if user_signed_in? && current_user.admin == true %>
+        <%= link_to edit_item_path(item), target: "_blank" do  %>
+          <i class="fas fa-edit fa-xs m-0 p-0 text-white"></i>
+        <% end %>
+      <% end %>
     </li>
   </div>
 

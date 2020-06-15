@@ -1,12 +1,12 @@
   <div id="grocerylist-item-id<%= list_item.id %>">
-    <li class="bg-dark border-0 py-2 px-2 list-group-item d-flex align-items-center justify-content-between" id="<%= dom_id(list_item) %>" >
+    <li class="bg-dark border-0 py-2 px-2 list-group-item d-flex align-items-center justify-content-between" id="<%= dom_id(list_item) %>" style="filter: brightness(1.40);">
 
       <% if list_item.is_completed == false %>
           <div class="d-flex align-items-center">
             <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
              <i class="far fa-lg fa-square"></i>
             <% end %>
-            <p class="lead m-0 pl-3 p-1 no-link editListItemModalbtn text-primary" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
+            <p class="lead m-0 pl-3 p-1 no-link editListItemModalbtn text-primary font-weight-bold" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
           </div>
       <% else %>
           <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>

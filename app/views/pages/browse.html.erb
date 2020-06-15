@@ -28,7 +28,7 @@
       <div class="px-5 pt-5 rounded text-center mb-2">
         <% if @lists.present? %>
             <% @lists.sort_by(&:id).reverse.each do |list|  %>
-              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead" %>
+              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead font-weight-bold" %>
               <hr class="my-4">
             <% end %>
         <% end %>
@@ -40,7 +40,7 @@
       <div class="px-5 py-3 rounded text-center my-2">
         <% if @checklists.present? %>
           <% @checklists.each do |list|  %>
-              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead" %>
+              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead font-weight-bold" %>
               <hr class="my-4 mx-5">
           <% end %>
         <% end %>

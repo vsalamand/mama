@@ -5,7 +5,7 @@
 
   <div class="container my-3 px-2">
 
-    <div class="jumbotron" id="signupPage">
+    <div class="jumbotron bg-dark text-white" id="signupPage">
       <div class="row">
 
         <div class="col-md-6 my-auto">
@@ -25,7 +25,7 @@
                 <%= f.input :email,
                             label: false,
                             placeholder: "Adresse email",
-                            input_html: { autocomplete: "email", value: params[:user_email], class:"py-3 px-2 rounded autofocus form-control form-control-lg" }%>
+                            input_html: { autocomplete: "email", value: params[:user_email], class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" }%>
                 <%= f.input :password,
                             label: false,
                             placeholder: "Mot de passe",
