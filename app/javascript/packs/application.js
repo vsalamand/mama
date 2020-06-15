@@ -62,7 +62,7 @@ $(document).on("turbolinks:load", function(event) {
       $('#installAndroidModal').modal('show');
     }
   }
-}
+});
 
 
 
