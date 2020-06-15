@@ -38,7 +38,7 @@ class RecipesController < ApplicationController
   def index
     # @recipes = current_user.recipes.uniq
 
-    redirect_to cuisine_path
+    redirect_to root_path
   end
 
   def import

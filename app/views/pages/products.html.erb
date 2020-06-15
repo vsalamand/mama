@@ -20,7 +20,7 @@
       <div class="px-5 py-3 rounded text-center my-2">
         <% if @checklists.present? %>
           <% @checklists.each do |list|  %>
-              <%= link_to "#{list.name}", list_path(list, ref: request.url, l: @list.id), class:"p lead" %>
+              <%= link_to "#{list.name}", list_path(list, ref: request.url, l: @list.id), class:"p lead font-weight-bold" %>
               <hr class="my-4 mx-5">
           <% end %>
         <% end %>
