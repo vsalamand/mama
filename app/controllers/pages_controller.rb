@@ -58,7 +58,7 @@ class PagesController < ApplicationController
   def select
     @selected_items = params[:i].join("&i=") if params[:i]
 
-    @pr = Recipe.find(params[:pr]) if params[:pr].present?
+    @pr = Recipe.friendly.find(params[:pr]) if params[:pr].present?
     @selected_recipes = @pr.id if @pr.present?
 
     @pl = List.friendly.find(params[:pl]) if params[:pl].present?
@@ -69,7 +69,7 @@ class PagesController < ApplicationController
     @list = List.friendly.find(params[:l]) if params[:l].present?
 
     if @list.present?
-      redirect_to add_to_list_path(l: @list.id, r: @pr, i: @selected_items)
+      redirect_to add_to_list_path(l: @list.id, r: @pr.id, i: @selected_items)
     else
       ahoy.track "Select"
     end
@@ -135,7 +135,7 @@ class PagesController < ApplicationController
 
   def get_list
     @selected_items = params[:i]
-    @selected_recipes = params[:r]
+    # @selected_recipes = params[:r]
     @list_id = params[:l]
 
     if params[:c] == "list"
@@ -177,7 +177,7 @@ class PagesController < ApplicationController
     end
 
     if params[:r].present?
-      recipes = Recipe.find(params[:r].split("&r="))
+      recipes = Recipe.friendly.find(params[:r].split("&r="))
       # recipe_item_inputs = recipes.map{ |r| r.items.pluck(:name) }.flatten
       # ListItem.add_menu_to_list(recipe_item_inputs, @list)
       recipes.each{|r| r.add_recipe_to_list(@list.id)}

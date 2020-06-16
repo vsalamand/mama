@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200616091610) do
+ActiveRecord::Schema.define(version: 20200616104548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -422,6 +422,8 @@ ActiveRecord::Schema.define(version: 20200616091610) do
     t.string   "link"
     t.string   "rating"
     t.string   "image_url"
+    t.string   "slug"
+    t.index ["slug"], name: "index_recipes_on_slug", unique: true, using: :btree
   end
 
   create_table "recommendation_items", force: :cascade do |t|
