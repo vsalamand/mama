@@ -2,6 +2,9 @@ require 'open-uri'
 require 'httparty'
 
 class List < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :history
+
   belongs_to :user, optional: true
   has_many :list_items, dependent: :destroy
   has_many :items, through: :list_items
@@ -198,5 +201,9 @@ class List < ApplicationRecord
       store_cart.clean_store_cart
     end
     return self.store_carts
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
   end
 end

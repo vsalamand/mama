@@ -10,13 +10,27 @@
     })(window,document,'script','dataLayer','GTM-KBZQ9D3');</script>
     <!-- End Google Tag Manager -->
 
-    <title>Mama | listes de courses faciles à faire !</title>
-    <!-- Google result description-->
-    <meta name="description" content="L'application de courses pratique et facile à utiliser pour gagner du temps et sortir de la routine.">
-    <!-- Facebook post-->
-    <meta property="og:title" content="Mama | listes de courses faciles à faire !">
-    <meta property="og:description" content="L'application de courses pratique et facile à utiliser pour gagner du temps et sortir de la routine.">
-    <meta property="og:site_name" content="Mama | listes de courses faciles à faire !"/>
+
+    <title><%= meta_title %></title>
+    <meta name="description" content="<%= meta_description %>">
+
+    <!-- Facebook Open Graph data -->
+    <meta property="og:title" content="<%= meta_title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:image" content="<%= meta_image %>" />
+    <meta property="og:description" content="<%= meta_description %>" />
+    <meta property="og:site_name" content="<%= meta_title %>" />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="<%= DEFAULT_META["twitter_account"] %>">
+    <meta name="twitter:title" content="<%= meta_title %>">
+    <meta name="twitter:description" content="<%= meta_description %>">
+    <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
+    <meta name="twitter:image:src" content="<%= meta_image %>">
+
+
 
 
     <%= csrf_meta_tags %>

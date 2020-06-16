@@ -116,7 +116,7 @@ class ItemsController < ApplicationController
 
   private
   def set_recipe
-    @recipe = Recipe.find(params[:recipe_id]) if params[:recipe_id].present?
+    @recipe = Recipe.friendly.find(params[:recipe_id]) if params[:recipe_id].present?
   end
 
   def set_list_item

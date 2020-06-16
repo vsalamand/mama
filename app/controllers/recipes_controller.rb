@@ -23,7 +23,7 @@ class RecipesController < ApplicationController
   end
 
   def select_all
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.friendly.find(params[:id])
     render "select_all.js.erb"
     ahoy.track "Select all recipe items", recipe_id: @recipe.id, title: @recipe.title
   end
@@ -118,12 +118,12 @@ class RecipesController < ApplicationController
 
 
   def cart
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.friendly.find(params[:id])
     @store = Store.find(params[:store_id])
   end
 
   def add_to_list
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.friendly.find(params[:id])
     params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
 
     items = params[:items]
@@ -142,7 +142,7 @@ class RecipesController < ApplicationController
   end
 
   def fetch_recipe_card
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.friendly.find(params[:id])
     @context = params[:referrer]
     render 'fetch_recipe_card.js.erb'
   end
@@ -154,7 +154,7 @@ class RecipesController < ApplicationController
   end
 
   def add_to_menu
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.friendly.find(params[:id])
     @recipe_list = RecipeList.find(params[:recipe_list_id])
 
     @recipe.add_to_recipe_list(@recipe_list)
@@ -182,8 +182,9 @@ class RecipesController < ApplicationController
   private
 
   def set_recipe
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.friendly.find(params[:id])
   end
+
 
   def recipe_params
     params.require(:recipe).permit(:title, :servings, :ingredients, :instructions, :tag_list, :origin, :status, :link, :image_url, :rating, recipe_list_ids: [], recipe_list_items_attributes:[:name, :recipe_list_id, :recipe_id])

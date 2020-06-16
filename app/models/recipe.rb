@@ -3,6 +3,9 @@ require 'uri'
 require 'csv'
 
 class Recipe < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :history
+
   validates :title, :ingredients, :status, :link, :image_url, presence: :true
   validates :link, uniqueness: :true
 
@@ -206,5 +209,8 @@ class Recipe < ApplicationRecord
     RecipeJob.perform_now(csv)
   end
 
+  def should_generate_new_friendly_id?
+    slug.blank? || title_changed?
+  end
 
 end

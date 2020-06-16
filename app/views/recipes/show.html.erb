@@ -1,3 +1,7 @@
+<% content_for :meta_title, "#{@recipe.title}" %>
+<% content_for :meta_description, "#{@recipe.items.pluck(:name).join(", ").capitalize[0..255]}" %>
+<% content_for :meta_image, cl_image_path(@recipe.image_url) %>
+
 <%= render "shared/navbar_recipe", recipe: @recipe, referrer: @referrer, list: @list %>
 
 <%= render 'show', recipe: @recipe, referrer: @referrer, list: @list %>
