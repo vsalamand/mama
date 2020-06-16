@@ -154,6 +154,8 @@ GEM
       railties (>= 3.2, < 6.1)
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
+    friendly_id (5.2.5)
+      activerecord (>= 4.0.0)
     geocoder (1.6.3)
     gibbon (3.3.4)
       faraday (>= 0.16.0)
@@ -457,6 +459,7 @@ DEPENDENCIES
   elasticsearch-rails
   figaro
   font-awesome-sass
+  friendly_id (~> 5.2.4)
   gibbon
   hangry
   httparty

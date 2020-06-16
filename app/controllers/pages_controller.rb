@@ -61,12 +61,12 @@ class PagesController < ApplicationController
     @pr = Recipe.find(params[:pr]) if params[:pr].present?
     @selected_recipes = @pr.id if @pr.present?
 
-    @pl = List.find(params[:pl]) if params[:pl].present?
+    @pl = List.friendly.find(params[:pl]) if params[:pl].present?
     @selected_recipes = @pl.recipes.pluck(:id).join('&r=') if @pl.present? && @pl.recipes.any?
 
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
 
-    @list = List.find(params[:l]) if params[:l].present?
+    @list = List.friendly.find(params[:l]) if params[:l].present?
 
     if @list.present?
       redirect_to add_to_list_path(l: @list.id, r: @pr, i: @selected_items)

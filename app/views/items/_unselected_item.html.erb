@@ -2,7 +2,7 @@
     <li class="border-0 px-2 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;" id="<%= dom_id(item) %>">
 
       <div class="d-flex align-items-center text-muted unselectedItem" data="<%= item.id %>">
-        <i class="far fa-lg fa-square"></i>
+        <i class="far fa-lg fa-square px-2"></i>
         <p class="lead m-0 pl-2 p-1"><%= item.name %></p>
       </div>
        <% if user_signed_in? && current_user.admin == true %>

@@ -1,5 +1,5 @@
 <% content_for :meta_title, "#{@list.name}" %>
-<% content_for :meta_description, "#{@list_items.pluck(:name).join(", ").capitalize}" %>
+<% content_for :meta_description, "#{@list_items.pluck(:name).join(", ").capitalize[0..255] if @list_items.any?}" %>
 
 
 <% if user_signed_in? %>

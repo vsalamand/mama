@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [ :show ]
+  before_action :set_list, only: [ :show, :update, :copy, :share, :save, :destroy, :archive, :accept_invite, :send_invite, :email, :select_all, :remove_recipe, :sort ]
   skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create, :share, :email, :select_all]
 
 
@@ -22,8 +22,6 @@ class ListsController < ApplicationController
   end
 
   def copy
-    @list = List.find(params[:list_id])
-
     if @list.user.nil?
       @list.user = current_user
       @list.save
@@ -50,7 +48,6 @@ class ListsController < ApplicationController
   end
 
   def update
-    @list = List.find(params[:id])
     @list.update(list_params)
     @all_list_items = []
     flash[:notice] = 'La liste est enregistrée !'
@@ -67,7 +64,8 @@ class ListsController < ApplicationController
   end
 
   def show
-    @list = List.find(params[:id])
+    @list = List.friendly.find(params[:id])
+
     @list_items = @list.list_items.not_deleted
     # @uncomplete_list_items = @list.get_items_to_buy
     @list_item = ListItem.new
@@ -84,32 +82,32 @@ class ListsController < ApplicationController
   end
 
   def fetch_suggested_items
-    @list = List.find(params[:list_id])
+    @list = List.friendly.find(params[:list_id])
     render 'fetch_suggested_items.js.erb'
   end
 
   def get_suggested_items
-    @list = List.find(params[:list_id])
+    @list = List.friendly.find(params[:list_id])
     @checklists = Checklist.first.get_curated_lists
 
     render 'get_suggested_items.js.erb'
   end
 
   def fetch_price
-    @list = List.find(params[:list_id])
+    @list = List.friendly.find(params[:list_id])
     @carts_price = Store.get_cheapest_store_price(@list)
 
     render 'fetch_price.js.erb'
   end
 
   def get_store_carts
-    @list = List.find(params[:list_id])
+    @list = List.friendly.find(params[:list_id])
     @list.get_store_carts
     redirect_to store_carts_path(:list_id => @list.id)
   end
 
   def sort
-    @list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
     @list.update_column(:sorted_by, params[:sort_option])
 
     render 'sort.js.erb'
@@ -117,7 +115,7 @@ class ListsController < ApplicationController
   end
 
   def remove_recipe
-    @list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
     @recipe = Recipe.find(params[:recipe_id])
     RecipeListItem.find_by(recipe_id: params[:recipe_id], list_id: @list.id).destroy
 
@@ -141,13 +139,13 @@ class ListsController < ApplicationController
   # end
 
   def select_all
-    @list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
     render "select_all.js.erb"
     ahoy.track "Select all list items", list_id: @list.id, name: @list.name
   end
 
   def email
-    @list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
     recipes = @list.recipes
     if params[:emailShare].present?
       email = params[:emailShare]
@@ -165,7 +163,7 @@ class ListsController < ApplicationController
   end
 
   def send_invite
-    @list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
     email = params[:email]
 
     unless email.nil?
@@ -179,7 +177,7 @@ class ListsController < ApplicationController
   end
 
   def accept_invite
-    list = List.find(params[:list_id])
+    # list = List.find(params[:list_id])
     user = User.find_by(email: params[:user_email])
     if user
       collab = Collaboration.new(list: list, user: user)
@@ -195,13 +193,13 @@ class ListsController < ApplicationController
   end
 
   def archive
-    list = List.find(params[:list_id])
+    # list = List.find(params[:list_id])
     list.archive
     redirect_to root_path
   end
 
   def destroy
-    @list = List.find(params[:id])
+    # @list = List.find(params[:id])
     @list.delete
     flash[:notice] = 'La liste a été supprimée.'
     redirect_to lists_path if @list.list_type == "curated"
@@ -210,13 +208,13 @@ class ListsController < ApplicationController
   end
 
   def share
-    @list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
 
     ahoy.track "Share list", list_id: @list.id, name: @list.name
   end
 
   def save
-    @list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
     @list.saved
 
     ahoy.track "Save list", list_id: @list.id, name: @list.name
@@ -230,6 +228,10 @@ class ListsController < ApplicationController
   end
 
   def set_list
-    @list = List.find(params[:id])
+    if params[:id].present?
+      @list = List.friendly.find(params[:id])
+    elsif params[:list_id].present?
+      @list = List.friendly.find(params[:list_id])
+    end
   end
 end

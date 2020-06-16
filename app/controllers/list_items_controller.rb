@@ -8,7 +8,7 @@ class ListItemsController < ApplicationController
   end
 
   def create
-    @list = List.find(params[:list_id])
+    @list = List.friendly.find(params[:list_id])
     @list_item = ListItem.new(list_item_params)
     @list_item.list = @list
 
@@ -99,6 +99,6 @@ class ListItemsController < ApplicationController
   end
 
   def set_list
-    @list = List.find(params[:list_id])
+    @list = List.friendly.find(params[:list_id])
   end
 end
