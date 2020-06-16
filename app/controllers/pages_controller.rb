@@ -69,7 +69,7 @@ class PagesController < ApplicationController
     @list = List.friendly.find(params[:l]) if params[:l].present?
 
     if @list.present?
-      redirect_to add_to_list_path(l: @list.id, r: @pr.id, i: @selected_items)
+      redirect_to add_to_list_path(l: @list.id, r: @selected_recipes, i: @selected_items)
     else
       ahoy.track "Select"
     end
