@@ -1,0 +1,5 @@
+meta_product_name: "Mama | listes de courses faciles à faire"
+meta_title: "Mama | listes de courses faciles à faire"
+meta_description: "L'application de courses pratique et facile à utiliser pour gagner du temps et sortir de la routine !"
+meta_image: "logo.png" # should exist in `app/assets/images/`
+twitter_account: "@helloclubmama"   # required for Twitter Cards

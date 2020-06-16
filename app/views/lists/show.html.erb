@@ -1,3 +1,6 @@
+<% content_for :meta_title, "#{@list.name}" %>
+<% content_for :meta_description, "#{@list_items.pluck(:name).join(", ").capitalize}" %>
+
 
 <% if user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>
@@ -15,21 +18,6 @@
 <% end %>
 
 
-<% if false %>
-
-  <% if user_signed_in? %>
-    <% if @list.user == current_user || @list.users.include?(current_user) %>
-      <%= render "lists/show_owner", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
-
-    <% elsif @list.user != current_user %>
-      <%= render "lists/show_other_user", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
-    <% end %>
-
-  <% else user_signed_in? %>
-      <%= render "lists/show_visitor", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
-
-  <% end %>
-<% end %>
 
 
 <div style="padding: 10px;"></div>
