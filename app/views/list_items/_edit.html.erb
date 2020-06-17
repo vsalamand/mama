@@ -1,11 +1,11 @@
 
 <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
   <div class="p-3 bg-white">
-    <%= form.input :name, as: :string, label: false, input_html: { value: "#{list_item.name}", id:"editListItem", class:"form-control" }, wrapper_html: { class:"m-0" } %>
+    <%= form.input :name, as: :string, label: false, input_html: { value: "#{list_item.name}", id:"editListItem", class:"form-control form-control-lg font-weight-bold text-primary" }, wrapper_html: { class:"m-0" } %>
   </div>
   <div class="modal-footer bg-white">
     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
-    <%= button_tag(type: "submit", class:"btn btn-warning editListItemBtn") do %>
+    <%= button_tag(type: "submit", class:"btn btn-flat2 editListItemBtn") do %>
       Valider
     <% end %>
   </div>

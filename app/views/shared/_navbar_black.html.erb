@@ -1,20 +1,19 @@
- <div class="sticky-top bg-white shadow">
+ <div class="sticky-top bg-transparent">
   <div id="iOSInstallNavbar"></div>
   <div id="androidInstallNavbar"></div>
 
-
-
   <div class="container">
-    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
-       <a class="navbar-brand d-flex text-dark align-items-center font-weight-bold" href="/">
-        <%= cl_image_tag("logo_qj08zi", width: 30, height: 30) %> Mama
-      </a>
-
-      <% if user_signed_in? %>
-        <%= link_to "Compte", profile_path, class:"btn bg-transparent border m-1"  %>
-      <% end %>
-
-    </nav>
+    <% if user_signed_in? %>
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-end">
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 danger text-center" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %></a>
+      </nav>
+    <% else %>
+       <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-start" style="background-color: transparent;">
+          <a class="navbar-brand text-dark d-flex align-items-center" href="/">
+            <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
+          </a>
+       </nav>
+    <% end %>
   </div>
 </div>
 

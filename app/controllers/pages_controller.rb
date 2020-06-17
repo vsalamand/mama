@@ -78,7 +78,7 @@ class PagesController < ApplicationController
   def products
     @checklist = Checklist.find_by(name: "templates")
     @checklists = @checklist.get_curated_lists
-    @list = List.find(params[:l]) if params[:l].present?
+    @list_id = params[:l] if params[:l].present?
 
     ahoy.track "Products"
   end

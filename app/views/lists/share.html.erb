@@ -1,23 +1,34 @@
+<div class="sticky-top bg-white">
+    <div class="container">
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+          <%= link_to url_for(:back), class:"navbar-brand text-dark d-flex align-items-center" do %>
+            <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
+          <% end %>
+      </nav>
+    </div>
+  <% unless user_signed_in? %>
+    <div class="wrapper py-0 alert-warning">
+      <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
 
+        <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
+        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0"  %>
+
+      </nav>
+    </div>
+  <% end %>
+</div>
 
 <div class="banner d-flex flex-column">
 
-  <div class="container my-4">
+  <div class="container">
     <%= render 'shared/flashes' %>
   </div>
 
   <div class="container">
 
-    <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
-      <div class="d-flex mb-1">
-        <%= link_to "Retour à la liste", url_for(:back), class:"btn btn-light border m-1" %>
-        <% if user_signed_in? %>
-          <%= link_to "Voir mon compte", root_path, class:"btn btn-light border m-1" %>
-        <% else %>
-         <%= link_to "Enregistrer la liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border m-1 signupBtn", context: "Share list", action: "save_list" %>
-        <% end %>
-      </div>
-      <h1 class="my-5">Partager</h1>
+    <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0 m-0">
+      <h1 class="bigh1 font-weight-bold">Partager la liste</h1>
+      <hr class="my-3">
 
         <div class="row m-2">
           <div class="py-2 rounded text-center mb-2">
@@ -105,25 +116,10 @@
   </div>
 
 
+<%= render 'shared/menu' %>
 
 
-<% unless user_signed_in? %>
-  <div class="fixed-bottom bg-white border-top">
-    <div class="wrapper">
-      <nav class="px-0 pt-0 pb-1 navbar navbar-expand-lg d-flex align-items-center justify-content-center">
-        <div class="container px-2 d-flex flex-column ">
-          <small class="text-muted text-center p-1">Connectez-vous pour enregistrer vos listes</small>
-          <div class="d-flex justify-content-center">
-            <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm rounded btn-light border px-3 m-1"  %>
 
-            <!--alter the login link to trigger the opening of the modal -->
-            <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm rounded btn-secondary border px-3 m-1 signupBtn", context: "Show list", action: "signup" %>
-          </div>
-        </div>
-      </nav>
-    </div>
-  </div>
-<% end %>
 
 <!-- Navbar End -->
 <%= render 'shared/login_form' %>

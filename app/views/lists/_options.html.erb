@@ -1,8 +1,9 @@
 <% if user_signed_in? %>
   <% if list.user == current_user || list.users.include?(current_user) || list.user.nil? %>
 
+      <%= link_to "Partager", list_share_path(@list), class:"bd-highlight btn btn-flat2 text-white mr-1" %>
       <div class="dropdown" id="sortList">
-        <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="bd-highlight py-2 mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Trier
         </button>
         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
@@ -15,9 +16,10 @@
 
 <% elsif list.user.nil? %>
 
+      <%= link_to "Partager", list_share_path(@list), class:"btn btn-flat2 text-white mr-1" %>
       <div class="dropdown" id="sortList">
-        <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Trier la liste
+        <button class="bd-highlight py-2 mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Trier
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortButton">
           <% list.get_sort_options.each do |option| %>

@@ -1,4 +1,4 @@
-<%= render 'shared/navbar_black' %>
+<%= render 'shared/navbar_list' %>
 
 
 
@@ -8,7 +8,7 @@
 
     <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
 
-      <h1 class="display-4 mt-5">Nouvelle liste de courses</h1>
+      <h1 class="bigh1 font-weight-bold mt-5">Donnez un titre à votre liste de courses</h1>
 
       <hr class="my-3">
 
@@ -17,7 +17,7 @@
 
             <%= simple_form_for @list do |f| %>
                 <div class="mt-4">
-                  <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"py-3 rounded autofocus form-control form-control-lg", value: "Liste de courses semaine #{Date.today.strftime("%U")}" } %>
+                  <%= f.input :name, :autofocus => true, label: false, placeholder: "Donnez un nom à votre liste", input_html: { class:"py-3 rounded autofocus form-control form-control-lg font-weight-bold text-primary", value: "Liste de courses semaine #{Date.today.strftime("%U")}" } %>
                   <% if user_signed_in? %>
                     <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
                   <% end %>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="modal-footer">
                   <%= link_to "Annuler", :back, class:"btn py-2 btn-outline-secondary" %>
-                  <%= f.submit "Continuer", class:"btn py-2 btn-warning px-5" %>
+                  <%= f.submit "Continuer", class:"btn py-2 btn-flat2 px-5" %>
                 </div>
             <% end %>
 
