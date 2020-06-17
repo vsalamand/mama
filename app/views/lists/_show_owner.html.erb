@@ -1,13 +1,15 @@
 <%= render "shared/navbar_list" %>
 
-<div class="wrapper py-3">
-  <div class="container">
-    <div class="jumbotron jumbotron-fluid bg-white pb-0 border-0">
-      <h1 class=""><%= list.name %></h1>
-      <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
+<div class="wrapper m-0">
+  <div class="container text-center">
+    <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
+      <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
+      <div class="d-flex flex-row bd-highlight mt-3 justify-content-center" id="listOptions">
         <%= render "lists/options", list: list %>
-        <a class="bd-highlight mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-         <%= link_to "Supprimer", list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" %>
+        <a class="bd-highlight py-2 mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+         <%= link_to list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" do %>
+          <i class="fas fa-trash p-1"></i>
+        <% end %>
       </div>
     </div>
   </div>
@@ -29,16 +31,6 @@
       </ul>
       <div id="listItemForm"><%= render "list_items/form", list: list, list_item: list_item %></div>
       <%= render "lists/suggested_items" %>
-      <div class="d-flex flex-column align-items-start">
-        <div class="d-flex">
-          <%= link_to products_path(l: @list.id), class:"btn btn-link mx-2 p-0" do %>
-            Produits fréquents <i class="fas fa-chevron-right fa-xs"></i>
-          <% end %>
-          <%= link_to meals_path(l: @list.id), class:"btn btn-link mx-2 p-0" do %>
-            Idées recettes <i class="fas fa-chevron-right fa-xs"></i>
-          <% end %>
-        </div>
-      </div>
     </div>
 
 

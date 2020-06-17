@@ -1,19 +1,25 @@
 <%= render "shared/navbar_list" %>
 
 
-<div class="container">
-  <div class="jumbotron jumbotron-fluid bg-dark pb-0 border-0">
-    <h1 class="text-white"><%= list.name %></h1>
-    <p class="text-white">⚠️ Enregistrez cette liste pour ne pas la perdre !</p>
-    <div class="d-flex flex-row bd-highlight mt-2" id="listOptions">
-      <% if user_signed_in? %>
-        <%= link_to "Enregistrer", list_copy_path(list), class:"btn bg-light border mr-1 font-weight-bold text-primary" %>
-      <% else %>
-        <!--alter the login link to trigger the opening of the modal -->
-        <%= link_to "Enregistrer", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1 font-weight-bold text-primary signupBtn", context: "Show list (free)", action: "save_list", style:"text-decoration: none;" %>
-      <% end %>
-      <%= render "lists/options", list: list %>
-      <a class="bd-highlight btn bg-light border mr-1" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+<div class="wrapper m-0">
+  <div class="container text-center">
+    <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
+      <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
+      <p class="text-primary">⚠️ Enregistrez cette liste pour ne pas la perdre !</p>
+      <div class="d-flex flex-row justify-content-center bd-highlight mt-2" id="listOptions">
+        <% if user_signed_in? %>
+          <%= link_to list_copy_path(list), class:"btn bg-light border mr-1 font-weight-bold text-primary" do %>
+            <i class="fas fa-save"></i>
+          <% end %>
+        <% else %>
+          <!--alter the login link to trigger the opening of the modal -->
+          <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1 font-weight-bold text-primary signupBtn py-2", context: "Show list (free)", action: "save_list", style:"text-decoration: none;" do %>
+            <i class="fas fa-save"></i>
+          <% end %>
+        <% end %>
+        <%= render "lists/options", list: list %>
+        <a class="bd-highlight btn bg-light border mr-1" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+      </div>
     </div>
   </div>
 </div>
@@ -24,22 +30,9 @@
   <div class="container" id="todo_list" data="<%= list.id %>">
 
     <div class="container px-0">
-      <ul class="bg-dark border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0" >
-        <div class="d-flex align-items-center">
-<!--           <p class="m-0 p-0 font-weight-bold lead text-primary">Ajouter un produit</p>
- -->        </div>
-      </ul>
       <div id="listItemForm"><%= render "list_items/form", list: list, list_item: list_item %></div>
       <%= render "lists/suggested_items" %>
       <div class="d-flex flex-column align-items-start">
-        <div class="d-flex">
-          <%= link_to products_path(l: @list.id), class:"btn btn-link mx-2 p-0" do %>
-            Produits fréquents <i class="fas fa-chevron-right fa-xs"></i>
-          <% end %>
-          <%= link_to meals_path(l: @list.id), class:"btn btn-link mx-2 p-0" do %>
-            Idées recettes <i class="fas fa-chevron-right fa-xs"></i>
-          <% end %>
-        </div>
       </div>
     </div>
 

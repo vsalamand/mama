@@ -1,12 +1,19 @@
-  <%= render 'shared/navbar_black' %>
 
 
+<div class="wrapper">
+  <div class="container px-2 mt-5">
+    <div class="jumbotron d-flex flex-column bg-white text-center">
+      <h1 class="bigh1 font-weight-bold">Votre compte</h1>
 
-<div class="container mt-5">
-  <div class="mb-2 rounded d-flex align-items-start justify-content-between flex-column">
-    <h2 class="" id="title"><%= current_user.username %></h2>
-    <p class="font-weight-light">Inscrit depuis le <%= current_user.created_at.strftime("%d/%m/%Y") %></p>
-    <p class="font-weight-light">Email: <%= current_user.email %></p>
-    <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-danger mt-4", id:"signout" %>
+      <hr class="my-3">
+      <div class="mb-2 rounded d-flex align-items-center justify-content-between flex-column">
+        <h2 class="" id="title"><%= current_user.username %></h2>
+        <p class="font-weight-light">Inscrit depuis le <%= current_user.created_at.strftime("%d/%m/%Y") %></p>
+        <p class="font-weight-light">Email: <%= current_user.email %></p>
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-danger mt-4", id:"signout" %>
+      </div>
+    </div>
   </div>
 </div>
+
+<%= render 'shared/menu' %>

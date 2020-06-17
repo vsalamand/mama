@@ -7,23 +7,16 @@
 
 <div class="banner d-flex flex-column">
 
-  <ul class="nav nav-pills justify-content-center my-4 text-primary">
-    <li class="nav-item">
-      <a class="nav-link active h2" href="#">Courses</a>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Cuisine", cuisine_path, class:"nav-link h2" %>
-    </li>
-  </ul>
 
   <div class="container p-0">
 
     <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
 
+       <h1 class="bigh1 font-weight-bold">Vos listes de courses</h1>
+
       <hr class="my-3">
 
-
-      <%= link_to "Créer une nouvelle liste", new_list_path, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1" %>
+      <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-flat2 p-3 px-5 shadow m-1 font-weight-bold" %>
 
 
 
@@ -36,17 +29,6 @@
         <% end %>
       </div>
 
-      <hr class="my-2">
-
-      <h2 class="m-0 mt-3">Produits du quotidien</h2>
-      <div class="px-5 py-3 rounded text-center my-2">
-        <% if @checklists.present? %>
-          <% @checklists.each do |list|  %>
-              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead font-weight-bold" %>
-              <hr class="my-4 mx-5">
-          <% end %>
-        <% end %>
-      </div>
 
     </div>
 
@@ -54,6 +36,8 @@
   </div>
 
 </div>
+
+<%= render 'shared/menu' %>
 
 
 <% unless user_signed_in? %>

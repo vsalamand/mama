@@ -1,5 +1,12 @@
-<div class="sticky-top bg-white shadow">
-<% unless user_signed_in? %>
+<div class="sticky-top bg-white">
+    <div class="container">
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+          <%= link_to url_for(:back), class:"navbar-brand text-dark d-flex align-items-center" do %>
+            <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
+          <% end %>
+      </nav>
+    </div>
+  <% unless user_signed_in? %>
     <div class="wrapper py-0 alert-warning">
       <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
 
@@ -8,7 +15,7 @@
 
       </nav>
     </div>
-<% end %>
+  <% end %>
 </div>
 
 
@@ -17,20 +24,17 @@
 
   <div class="container">
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white px-0">
-      <div class="d-flex mb-1">
-        <%= link_to "Retour", url_for(:back), class:"btn btn-light border m-1" %>
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0 m-0">
+      <h1 class="bigh1 font-weight-bold">Ajoutez dans une liste</h1>
 
-      </div>
-      <h1 class="m-1 my-5">Ajouter la sélection</h1>
-
+      <hr class="my-3">
 
       <% unless user_signed_in? %>
-        <%= link_to "Créer une nouvelle liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-warning font-weight-bold px-5 py-3 shadow m-1 signupBtn", context: "Add to list", action: "create list", style:"text-decoration: none;"  %>
+        <%= link_to "Nouvelle liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-flat2 font-weight-bold px-5 py-3 shadow m-1 signupBtn", context: "Add to list", action: "create list", style:"text-decoration: none;"  %>
 
       <% else %>
 
-        <p class="btn btn-warning font-weight-bold px-5 py-3 shadow m-1" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="0" recipe-data="<%= @selected_recipes %>">Créer une nouvelle liste</p>
+        <p class="btn btn-flat2 font-weight-bold px-5 py-3 shadow m-1" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="0" recipe-data="<%= @selected_recipes %>">Nouvelle liste</p>
         <div class="px-5 py-3 rounded text-center my-2">
           <% if current_user.get_lists.any? %>
               <% current_user.get_lists.sort_by(&:id).reverse.each do |list|  %>

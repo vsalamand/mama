@@ -1,16 +1,12 @@
-<div class="sticky-top bg-white shadow">
-
-  <div class="container px-2">
-    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
-       <a class="navbar-brand text-dark d-flex align-items-center m-0" href="<%= @referrer %>">
-        <i class="fas fa-lg fa-arrow-left p-2"></i><span class=""></span>
-      </a>
-
-      <%= link_to "Partager", list_share_path(@list), class:"btn bg-success text-white" %>
-
-    </nav>
-  </div>
-<% unless user_signed_in? %>
+<div class="sticky-top bg-white">
+    <div class="container">
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+          <a class="navbar-brand text-dark d-flex align-items-center" href="/browse">
+            <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
+          </a>
+      </nav>
+    </div>
+  <% unless user_signed_in? %>
     <div class="wrapper py-0 alert-warning">
       <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
 
@@ -19,7 +15,7 @@
 
       </nav>
     </div>
-<% end %>
+  <% end %>
 </div>
 
 

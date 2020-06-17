@@ -1,0 +1,25 @@
+<div class="fixed-bottom bg-transparent" style="background-image: linear-gradient(transparent, lightgrey);">
+  <div class="container bg-transparent">
+    <div class="d-flex justify-content-center m-4 text-primary bg-transparent">
+
+       <% if params[:action] == "products" %>
+           <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3"  style="background: linear-gradient(#e66465, #9198e5);" href="/products"><%= cl_image_tag("menu_icons/crystal-ball", width: 40, height: 40) %></a>
+       <% else %>
+          <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" href="/products"><%= cl_image_tag("menu_icons/crystal-ball", width: 40, height: 40) %></a>
+       <% end %>
+
+      <% if params[:action] == "browse" %>
+         <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" style="background: linear-gradient(#e66465, #9198e5);" href="/browse"><%= cl_image_tag("menu_icons/face-food", width: 40, height: 40) %></a>
+       <% else %>
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" href="/browse"><%= cl_image_tag("menu_icons/face-food", width: 40, height: 40) %></a>
+       <% end %>
+
+       <% if params[:action] == "cuisine" %>
+          <a class="shadow-lg rounded-pill rounded-lg p-2 mx-3" style="background: linear-gradient(#e66465, #9198e5);" href="/cuisine"><%= cl_image_tag("menu_icons/male-cook", width: 40, height: 40) %></a>
+       <% else %>
+          <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" href="/cuisine"><%= cl_image_tag("menu_icons/male-cook", width: 40, height: 40) %></a>
+       <% end %>
+
+    </div>
+  </div>
+</div>

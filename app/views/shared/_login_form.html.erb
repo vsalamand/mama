@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-body p-3">
-        <h2 class="p-1">Connectez-vous</h2>
+        <h2 class="bigh1 font-weight-bold">Connectez-vous</h2>
 
 
         <% if flash[:alert].present? %>
@@ -16,7 +16,7 @@
                         label: false,
                         autofocus: true,
                         placeholder: "Votre Adresse Email",
-                        input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
+                        input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" } %>
             <%= f.input :password,
                         label: false,
                         placeholder: "Mot de passe",
@@ -25,12 +25,12 @@
           </div>
 
             <div class="form-actions d-flex justify-content-end">
-              <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-warning mb-1" %>
+              <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-flat2 mb-1" %>
             </div>
         <% end %>
 
          <%= link_to "Mot de passe oublié?", new_password_path(resource_name), class:"d-flex justify-content-end my-1" %>
-          <%= link_to "Vous n'avez avez pas de compte?", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"d-flex justify-content-end closeModal my-2", style:"text-decoration: none;", id:"closeModalBtn" %>
+          <%= link_to "Vous n'avez avez pas de compte?", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"d-flex font-weight-bold justify-content-end closeModal my-2", style:"text-decoration: none;", id:"closeModalBtn" %>
 
 
       </div>
