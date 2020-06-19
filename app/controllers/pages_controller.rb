@@ -36,7 +36,7 @@ class PagesController < ApplicationController
 
   def explore
     # get last published recipes
-    @recipes = Recipe.search_import.last(40).reverse
+    @recipes = Recipe.search_import.last(10).reverse
 
     ahoy.track "Explore"
   end
