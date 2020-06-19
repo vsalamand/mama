@@ -1,0 +1,33 @@
+<%= render 'shared/admin-navbar' %>
+
+
+<div class="container mb-5">
+  <h1>Recipes</h1>
+
+
+  <div>
+    <% if @recipes %>
+        <% @recipes.reverse.each do |recipe| %>
+
+           <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+             <%= link_to recipe_path(recipe) do %>
+                <div class="product-info p-2">
+                  <div class="product-description text-dark">
+                    <div class="d-flex justify-content-between">
+                      <h5 class="mb-1 text-primary"><%= recipe.title %></h5>
+                      <div class="d-flex flex-column align-items-end">
+                        <p class="text-primary m-0"></p>
+                        <small class="text-muted m-0"><%= recipe.created_at.to_date %></small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+
+        <% end %>
+
+    <% end %>
+
+  </div>
+</div>

@@ -5,7 +5,7 @@ require 'hangry'
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
   skip_before_action :authenticate_user!, only: [ :show, :card, :cart, :select_all, :index]
-  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show ]
+  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage ]
 
   def show
     @list_item = ListItem.new
@@ -50,8 +50,8 @@ class RecipesController < ApplicationController
    redirect_back(fallback_location:"/")
   end
 
-  def search
-    # @recipes = Recipe.where(status: "published")
+  def manage
+    @recipes = Recipe.where(status: "published").last(100)
     @query = params[:query].present? ? params[:query] : nil
 
     @results = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query

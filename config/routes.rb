@@ -95,7 +95,7 @@ Rails.application.routes.draw do
     collection do
       get 'import', to: 'recipes#import'
       post :import_recipes
-      get 'search', to: 'recipes#search'
+      get :manage
       get :fetch_suggested_recipes
       get :fetch_menu
       get :add_menu_to_list
