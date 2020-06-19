@@ -47,7 +47,7 @@ class Recipe < ApplicationRecord
   end
 
   def upload_to_cloudinary
-    if self.status == "published" &&  Rails.env.production? && self.image_url.present?
+    if Rails.env.production? && self.image_url.present?
       file = open(URI.parse(URI.escape(self.image_url)))
       Cloudinary::Uploader.upload(file, :public_id => self.id, :invalidate => true)
     end
