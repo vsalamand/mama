@@ -61,7 +61,7 @@
       </ul>
     </div>
     <% if current_user %>
-      <%= link_to 'Ajouter un item', new_recipe_item_path(@recipe), class:"btn btn-outline-primary" %>
+      <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: @recipe.id), class:"btn btn-outline-primary" %>
     <% end %>
   </div>
 </div>

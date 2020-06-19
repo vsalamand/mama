@@ -22,19 +22,8 @@
 
 <div class="container mb-5">
   <% if params[:recipe_id].present? %>
-    <div class="container">
-      <div class="form-wrapper">
-        <div class="row">
-          <div class="col-xs-6 col-xs-offset-3">
-            <h2>Modifier un item</h2>
-            <div class="recipe-form">
-              <%= render 'form' %>
-            </div>
-            <%= link_to 'Annuler', recipe_path(@recipe) %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render 'form' %>
+
 
   <% elsif params[:list_item_id].present? %>
     <div class="container">

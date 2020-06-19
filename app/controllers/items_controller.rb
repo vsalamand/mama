@@ -7,17 +7,15 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    @recipe_id = Recipe.find(params[:recipe_id]).id if params[:recipe_id]
   end
 
   def create
     @item = Item.new(items_params)
-    @item.recipe = @recipe
+    # @item.recipe = @recipe
     if @item.save
-      if params[:recipe_id].present?
-        redirect_to god_show_recipe_path(@recipe)
-      else
-        redirect_to verify_listitems_path
-      end
+      # if params[:recipe_id].present?
+      redirect_to god_show_recipe_path(@item.recipe)
     else
       render 'new'
     end
@@ -30,9 +28,13 @@ class ItemsController < ApplicationController
 
   def update
     @item.update(items_params)
-    redirect_to god_show_recipe_path(@recipe) if params[:recipe_id].present?
-    redirect_to list_path(@list_item.list) if params[:list_item_id].present?
-    redirect_to edit_item_path(@item)
+    if @item.recipe_id.present?
+      redirect_to god_show_recipe_path(@item.recipe_id)
+    elsif @item.list_item_id.present?
+      redirect_to list_path(@item.list_item.list)
+    else
+      redirect_to edit_item_path(@item)
+    end
   end
 
   def validate
@@ -61,7 +63,7 @@ class ItemsController < ApplicationController
       @list = @item.list_item.list
       redirect_to list_path(@list)
     else
-      head :ok
+      redirect_to verify_items_path
     end
   end
 
@@ -128,6 +130,6 @@ class ItemsController < ApplicationController
   end
 
   def items_params
-    params.require(:item).permit(:food_id, :recipe, :list_item, :unit_id, :quantity, :name, :is_validated, :is_non_food, :store_section_id) ## Rails 4 strong params usage
+    params.require(:item).permit(:food_id, :recipe, :recipe_id, :list_item, :unit_id, :quantity, :name, :is_validated, :is_non_food, :store_section_id) ## Rails 4 strong params usage
   end
 end
