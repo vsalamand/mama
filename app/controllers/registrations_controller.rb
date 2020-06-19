@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
       list = List.find(params[:shared_list].keys.first.to_i)
       Collaboration.create(list: list, user: current_user)
     else
-      explore_path
+      root_path
     end
     # root_path
   end
