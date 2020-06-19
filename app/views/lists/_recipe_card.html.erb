@@ -1,4 +1,4 @@
-<div class="col-md-4 p-1" id="<%= recipe.id %>">
+<div id="<%= recipe.id %>">
 
   <div class="card mb-3 rounded shadow border-0">
     <div class="row no-gutters">
@@ -8,7 +8,7 @@
       <div class="col-7 d-flex align-items-start flex-column bd-highlight">
         <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
           <div class="card-body mb-auto p-2 bd-highlight" style="max-height: 4vh;">
-            <h5 class="card-title text-primary mb-0" style="font-size: 0.9rem;"><%= truncate(recipe.title, length:57) %></h5>
+            <h5 class="card-title text-primary mb-0"><%= truncate(recipe.title, length:57) %></h5>
             <p class="card-text m-0 p-0"><small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link }").host %></small></p>
           </div>
         <% end %>

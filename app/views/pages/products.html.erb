@@ -1,6 +1,8 @@
-<div class="wrapper bg-white py-3">
+<%= render 'shared/navbar_black' %>
+
+<div class="banner d-flex flex-column">
   <div class="container p-0 ">
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white">
+    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0">
       <h1 class="bigh1 font-weight-bold">Produits du quotidien</h1>
       <div class="px-5 py-3 rounded text-center my-2">
         <% if @checklists.present? %>

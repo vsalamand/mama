@@ -68,6 +68,7 @@ class RecipesController < ApplicationController
 
     if @recipe.title.nil?
       @recipe.scrape
+      binding.pry
       if @recipe.save
         Thread.new do
           Item.add_recipe_items(@recipe)

@@ -1,11 +1,4 @@
 <div class="sticky-top bg-white">
-    <div class="container">
-      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-          <a class="navbar-brand text-dark d-flex align-items-center" href="/browse">
-            <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
-          </a>
-      </nav>
-    </div>
   <% unless user_signed_in? %>
     <div class="wrapper py-0 alert-warning">
       <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
@@ -16,6 +9,13 @@
       </nav>
     </div>
   <% end %>
+    <div class="container">
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+          <a class="navbar-brand text-dark d-flex align-items-center" href="/browse">
+            <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
+          </a>
+      </nav>
+    </div>
 </div>
 
 

@@ -2,14 +2,15 @@
 <% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas de la semaine sans même y penser." %>
 
 
+<%= render 'shared/navbar_black' %>
 
 
 <div class="banner d-flex flex-column">
   <div class="container px-2 mt-5">
     <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
 
-       <h1 class="bigh1 font-weight-bold">Cuisine</h1>
-
+<!--        <h1 class="bigh1 font-weight-bold">Cuisine</h1>
+ -->
       <hr class="my-3">
 
         <% unless params[:l].present? %>
@@ -33,8 +34,6 @@
               <%= link_to "🔥 Les plus populaires", meals_path, class:"p lead font-weight-bold" %>
               <hr class="my-4 mx-5">
               <%= link_to "➕ Vos dernières recettes", meals_path(history: 0), class:"p lead font-weight-bold" %>
-              <hr class="my-4 mx-5">
-              <%= link_to "⭐ Vos recettes en favoris", meals_path(favorites: 0), class:"p lead font-weight-bold" %>
               <hr class="my-4 mx-5">
               <% if @categories.present? %>
                 <% @categories.recommendation_items.order(:id).each do |recommendation|  %>
