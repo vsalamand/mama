@@ -28,10 +28,10 @@ class Recipe < ApplicationRecord
   scope :search_import, -> { where(status: "published").where.not(origin: "mama") }
   scope :to_validate, -> { includes(:items).where(status: "published").where( :items => { :is_validated => false } ) }
 
-  # before_save do
-  #   # update to cloudinary
-  #   self.upload_to_cloudinary
-  # end
+  after_create do
+    # update to cloudinary
+    self.upload_to_cloudinary
+  end
 
   def search_data
     {

@@ -35,13 +35,8 @@ class PagesController < ApplicationController
   end
 
   def explore
-    @checklist = Checklist.find_by(name: "templates")
-    @lists = @checklist.get_curated_lists
-    recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
-    @recipe_idea = Recipe.find(recipe_idea_id)
-    @categories = Recommendation.where(is_active: true).last
+    @recipes = Recipe.last(40).reverse
 
-    redirect_to browse_path
     ahoy.track "Explore"
   end
 
@@ -50,10 +45,10 @@ class PagesController < ApplicationController
   #   ahoy.track "History"
   # end
 
-  # def favorites
-  #   @recipes = current_user.get_latest_recipe_list.recipes
-  #   ahoy.track "Favorites"
-  # end
+  def favorites
+    @recipes = current_user.get_latest_recipe_list.recipes
+    ahoy.track "Favorites"
+  end
 
   def select
     @selected_items = params[:i].join("&i=") if params[:i]
