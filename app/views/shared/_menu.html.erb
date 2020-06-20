@@ -9,9 +9,9 @@
          <% end %>
 
         <% if params[:action] == "browse" %>
-           <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" style="background: linear-gradient(#e66465, #9198e5);" href="<%= $path %>"><%= cl_image_tag("menu_icons/face-food", width: 40, height: 40) %></a>
+           <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" style="background: linear-gradient(#e66465, #9198e5);" href="<%= $path.present? ? $path : browse_path %>"><%= cl_image_tag("menu_icons/face-food", width: 40, height: 40) %></a>
          <% else %>
-          <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" href="<%= $path %>"><%= cl_image_tag("menu_icons/face-food", width: 40, height: 40) %></a>
+          <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 mx-3" href="<%= $path.present? ? $path : browse_path %>"><%= cl_image_tag("menu_icons/face-food", width: 40, height: 40) %></a>
          <% end %>
 
          <% if params[:action] == "explore" %>
