@@ -1,7 +1,7 @@
  <div class="sticky-top bg-transparent">
   <div id="iOSInstallNavbar"></div>
   <div id="androidInstallNavbar"></div>
-  <% unless user_signed_in? %>
+  <% unless user_signed_in? && params[:controller] != "user" %>
     <div class="wrapper py-0 alert-warning">
       <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
 
@@ -13,9 +13,15 @@
   <% end %>
 
   <div class="container">
-    <% if user_signed_in? && ["explore", "browse", "products", "favorites", "cuisine", "show"].include?(params[:action]) %>
+    <% if user_signed_in? && ["explore", "browse", "products", "favorites", "cuisine"].include?(params[:action]) %>
       <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
         <a class="shadow-lg bg-white rounded-pill rounded-lg text-center mr-auto p-2 bd-highlight" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %></a>
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/favorites"><%= cl_image_tag("menu_icons/star", width: 25, height: 25, class:"m-0") %></a>
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/cuisine"><%= cl_image_tag("menu_icons/search", width: 25, height: 25, class:"m-0") %></a>
+      </nav>
+    <% elsif user_signed_in? && ["show"].include?(params[:action]) %>
+      <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
+        <a class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
         <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/favorites"><%= cl_image_tag("menu_icons/star", width: 25, height: 25, class:"m-0") %></a>
         <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/cuisine"><%= cl_image_tag("menu_icons/search", width: 25, height: 25, class:"m-0") %></a>
       </nav>
