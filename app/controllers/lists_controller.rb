@@ -78,6 +78,7 @@ class ListsController < ApplicationController
       @referrer = "/browse"
     end
 
+    current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user
     ahoy.track "Show list", list_id: @list.id, name: @list.name
   end
 

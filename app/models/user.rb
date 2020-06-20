@@ -38,6 +38,23 @@ class User < ApplicationRecord
     self.lists.where(status: "saved").last if self.lists.any?
   end
 
+  def get_current_list
+    flag = Flag.find_or_create_by(name: "current_list", user_id: self.id)
+    return  flag.data.present? ? List.find(flag.data.to_i) : nil
+  end
+
+  def reset_current_list
+    flag = Flag.find_or_create_by(name: "current_list", user_id: self.id)
+    flag.data = nil
+    flag.save
+  end
+
+  def set_current_list(list_id)
+    flag = Flag.find_or_create_by(name: "current_list", user_id: self.id)
+    flag.data = list_id
+    flag.save
+  end
+
   def get_lists
     return self.lists.saved + self.shared_lists.saved
   end

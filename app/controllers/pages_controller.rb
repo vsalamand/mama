@@ -16,13 +16,21 @@ class PagesController < ApplicationController
   end
 
   def browse
-    @checklist = Checklist.find_by(name: "templates")
-    @checklists = @checklist.get_curated_lists
-
     if user_signed_in?
       @lists = current_user.get_lists
+      @current_list = current_user.get_current_list
+
+      # get user to his current list if there is a current list and its not the referrer
+      if @current_list.present? && request.referrer.exclude?(@current_list.slug)
+        redirect_to list_path(@current_list)
+        #  else if there reset the current list state
+      elsif @current_list.present? && request.referrer.include?(@current_list.slug)
+        current_user.reset_current_list
+      end
     end
 
+    @checklist = Checklist.find_by(name: "templates")
+    @checklists = @checklist.get_curated_lists
     ahoy.track "Browse"
   end
 
