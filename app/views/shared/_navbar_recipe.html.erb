@@ -1,5 +1,4 @@
 <div class="sticky-top bg-white">
-  <div id="iOSInstallNavbar"></div>
 
   <div class="container px-2">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
@@ -17,28 +16,5 @@
 
     </nav>
   </div>
-<% unless user_signed_in? %>
-    <div class="wrapper py-0 alert-warning">
-      <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
 
-        <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
-        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0 signupBtn", context: "Show recipe", action: "signup"  %>
-
-      </nav>
-    </div>
-<% end %>
 </div>
-
-
-
-
-<% unless user_signed_in? %>
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
-<% end %>
-
-<!-- PWA prompt on safari IOS -->
-<%= render 'shared/ios_install_popup' %>
-<!-- PWA prompt on Android -->
-<%= render 'shared/android_install_popup' %>

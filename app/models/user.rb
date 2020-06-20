@@ -44,6 +44,7 @@ class User < ApplicationRecord
   end
 
   def reset_current_list
+    $path = "/browse"
     flag = Flag.find_or_create_by(name: "current_list", user_id: self.id)
     flag.data = nil
     flag.save

@@ -1,4 +1,5 @@
 module ApplicationHelper
+
   def instruction_lines(recipe)
     i = 1
     html = []

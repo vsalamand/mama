@@ -1,27 +1,6 @@
 <% content_for :meta_title, "Parcourir" %>
 <% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas de la semaine sans même y penser." %>
 
-<div class="sticky-top bg-white">
-  <div class="container">
-    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-      <% if false %>
-         <a class="navbar-brand text-dark d-flex align-items-center" style="cursor: pointer;" id="goToSelectProductsBtn" data="<%= @selected_items %>" list-data="<%= @list_id %>">
-          <i class="fas fa-lg fa-arrow-left p-2"></i> <span class=""></span>
-        </a>
-      <% end %>
-
-      <% if @list.present? %>
-        <a class="navbar-brand text-dark d-flex align-items-center" href="/lists/<%= @list.id %>">
-          <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
-        </a>
-      <% else %>
-        <a class="navbar-brand text-dark d-flex align-items-center" href="/cuisine">
-          <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
-        </a>
-      <% end %>
-    </nav>
-  </div>
-</div>
 
 <div class="container d-flex justify-content-center p-1 my-4">
   <div class="btn-group">
@@ -37,8 +16,6 @@
       <% end %>
     </button>
     <div class="dropdown-menu" aria-labelledby="categoryMenuButton" style="height: 50vh; overflow-y: auto;">
-      <%= link_to "🔥 Les plus populaires", meals_path(l: params[:l]), class:"dropdown-item" %>
-      <%= link_to "➕ Vos dernières recettes", meals_path(history: 0, l: params[:l]), class:"dropdown-item" %>
       <% @categories.recommendation_items.order(:id).each do |recommendation| %>
         <%= link_to recommendation.name, meals_path(category_id: recommendation.id, l: params[:l]), class:"dropdown-item" %>
       <% end %>
@@ -70,27 +47,4 @@
 
 <div style="padding: 50px;"></div>
 
-
-
-
-<% unless user_signed_in? %>
-  <div class="fixed-bottom alert-warning border-top">
-    <div class="wrapper">
-      <nav class="px-0 pb-1 navbar navbar-expand-lg d-flex align-items-center justify-content-center">
-        <div class="container px-2 d-flex flex-column ">
-          <div class="d-flex justify-content-center">
-            <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
-
-            <!--alter the login link to trigger the opening of the modal -->
-            <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0 signupBtn", context: "Show list", action: "signup" %>
-          </div>
-        </div>
-      </nav>
-    </div>
-  </div>
-<% end %>
-
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
 

@@ -2,9 +2,6 @@
 <% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas de la semaine sans même y penser." %>
 
 
-<%= render 'shared/navbar_black' %>
-
-
 <div class="banner d-flex flex-column">
   <div class="container px-2 mt-5">
     <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
@@ -30,11 +27,6 @@
 
             <hr class="my-2 mx-5">
             <div class="px-5 py-3 rounded text-center mb-2">
-
-              <%= link_to "🔥 Les plus populaires", meals_path, class:"p lead font-weight-bold" %>
-              <hr class="my-4 mx-5">
-              <%= link_to "➕ Vos dernières recettes", meals_path(history: 0), class:"p lead font-weight-bold" %>
-              <hr class="my-4 mx-5">
               <% if @categories.present? %>
                 <% @categories.recommendation_items.order(:id).each do |recommendation|  %>
                     <%= link_to "#{recommendation.name}", meals_path(category_id: recommendation.id), class:"p lead font-weight-bold" %>
@@ -54,32 +46,4 @@
 
 <div style="padding: 50px;"></div>
 
-<%= render 'shared/menu' %>
 
-<!-- add to list modal -->
-  <div class="modal fade" id="addRecipeToListModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeToListModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addRecipeToListModal">Liste de courses</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div id="recipeModalContent">
-          <div style="height: 40vh;" class="d-flex flex-column align-items-center justify-content-center">
-            <i id="modalSpinner" class="fas fa-circle-notch fa-spin text-primary"></i>
-            Chargement en cours...
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-<% unless user_signed_in? %>
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
-<% end %>

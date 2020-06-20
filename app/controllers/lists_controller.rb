@@ -1,7 +1,20 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show, :update, :copy, :share, :save, :destroy, :archive, :accept_invite, :send_invite, :email, :select_all, :remove_recipe, :sort ]
   skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create, :share, :email, :select_all]
+  after_action :current_list
 
+  def current_list
+    if user_signed_in?
+      current_list = current_user.get_current_list
+      referrer = request.referrer
+      # if referrer is not the current list page
+      if current_list.present? && referrer.present? && referrer.exclude?(current_list.slug)
+        $path = "/lists/#{current_list.slug}"
+      end
+    else
+      $path = "/browse"
+    end
+  end
 
   def new
     @list = List.new
@@ -78,7 +91,7 @@ class ListsController < ApplicationController
       @referrer = "/browse"
     end
 
-    current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user
+    current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user || @list.users.include?(current_user)
     ahoy.track "Show list", list_id: @list.id, name: @list.name
   end
 

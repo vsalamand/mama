@@ -1,5 +1,12 @@
-<%= render "shared/navbar_black" %>
-
+ <div class="sticky-top bg-white">
+  <div class="container">
+    <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
+      <a class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+      <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/favorites"><%= cl_image_tag("menu_icons/star", width: 25, height: 25, class:"m-0") %></a>
+      <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/cuisine"><%= cl_image_tag("menu_icons/search", width: 25, height: 25, class:"m-0") %></a>
+    </nav>
+  </div>
+</div>
 
 <div class="wrapper m-0">
   <div class="container text-center">
@@ -45,25 +52,11 @@
 
     <div id="scrollPoint" style="padding: 20px;"></div>
 
-    <% if false %>
-      <div class="shadow rounded mb-5">
-        <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
-          <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
-        </div>
-      </div>
-    <% end %>
 
   </div>
 
   <%= render 'lists/related_recipes', recipes: recipes, list: list %>
 
 </div>
-
-
-
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
-
 
 

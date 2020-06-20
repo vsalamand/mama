@@ -2,14 +2,26 @@
 <html>
 
   <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KBZQ9D3');</script>
-    <!-- End Google Tag Manager -->
-
+    <% if ["users/sessions", "registrations", "devise/passwords"].include?(params[:controller]) || ["home", "browse", "products", "explore", "meals", "cuisine", "profile", "show", "favorites", "select", "share"].include?(params[:action]) %>
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KBZQ9D3');</script>
+      <!-- End Google Tag Manager -->
+      <!-- Hotjar Tracking Code for https://www.clubmama.co/ -->
+      <script>
+          (function(h,o,t,j,a,r){
+              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+              h._hjSettings={hjid:1857953,hjsv:6};
+              a=o.getElementsByTagName('head')[0];
+              r=o.createElement('script');r.async=1;
+              r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+              a.appendChild(r);
+          })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+      </script>
+    <% end %>
 
     <title><%= meta_title %></title>
     <meta name="description" content="<%= meta_description %>">
@@ -57,18 +69,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <!-- Hotjar Tracking Code for https://www.clubmama.co/ -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:1857953,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
-
   </head>
 
 
@@ -79,6 +79,19 @@
     <!-- End Google Tag Manager (noscript) -->
 
 
+
+    <div class="sticky-top bg-white">
+      <div id="iOSInstallNavbar"></div>
+      <div id="androidInstallNavbar"></div>
+      <% unless ["users/sessions", "registrations", "devise/passwords"].include?(params[:controller]) || params[:action] == "home" %>
+        <% unless user_signed_in? %>
+          <%= render 'shared/navbar_visitor' %>
+        <% end %>
+        <% if ["browse", "products", "explore", "meals", "cuisine", "profile", "favorites"].include?(params[:action]) %>
+          <%= render 'shared/navbar_black' %>
+        <% end %>
+      <% end %>
+    </div>
      <div id="page-container">
        <div id="content-wrap ">
          <!-- all other page content -->
@@ -86,7 +99,22 @@
        </div>
      </div>
 
+    <% if ["browse", "products", "explore", "meals", "cuisine", "profile", "show", "favorites"].include?(params[:action])  %>
+      <%= render 'shared/menu' %>
+    <% end %>
+
     <%= render 'shared/footer'  %>
+
+    <% unless user_signed_in? %>
+    <!-- Navbar End -->
+    <%= render 'shared/login_form' %>
+    <%= render 'shared/signup_form' %>
+    <% end %>
+
+    <!-- PWA prompt on safari IOS -->
+    <%= render 'shared/ios_install_popup' %>
+    <!-- PWA prompt on Android -->
+    <%= render 'shared/android_install_popup' %>
 
 
   </body>

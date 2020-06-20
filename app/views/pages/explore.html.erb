@@ -1,7 +1,5 @@
-<% content_for :meta_title, "Pour vous" %>
-<% content_for :meta_description, "Des idéres recettes pour compléter vos courses et vous faire plaisir." %>
-
-<%= render 'shared/navbar_black' %>
+<% content_for :meta_title, "Idées recettes" %>
+<% content_for :meta_description, "Des idées recettes pour compléter vos courses et vous faire plaisir." %>
 
 
 
@@ -34,11 +32,3 @@
 
 </div>
 
-<%= render 'shared/menu' %>
-
-
-<% unless user_signed_in? %>
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
-<% end %>

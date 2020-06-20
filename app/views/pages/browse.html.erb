@@ -1,7 +1,5 @@
-<% content_for :meta_title, "Courses" %>
-<% content_for :meta_description, "Retrouvez toutes vos listes et produits du quotidien pour faire les courses facilement." %>
-
-<%= render 'shared/navbar_black' %>
+<% content_for :meta_title, "Listes de courses" %>
+<% content_for :meta_description, "Retrouvez toutes vos listes pour faire les courses facilement." %>
 
 
 
@@ -37,11 +35,6 @@
 
 </div>
 
-<%= render 'shared/menu' %>
 
 
-<% unless user_signed_in? %>
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
-<% end %>
+

@@ -9,16 +9,6 @@
 
     </nav>
   </div>
-<% unless user_signed_in? %>
-    <div class="wrapper py-0 alert-warning">
-      <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
-
-        <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
-        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0 signupBtn", context: "Show list", action: "signup"  %>
-
-      </nav>
-    </div>
-<% end %>
 </div>
 
 
@@ -52,28 +42,3 @@
 
 </div>
 
-
-
-
-<% if false %>
-<div class="fixed-bottom bg-white">
-  <div class="wrapper py-2">
-    <nav class="p-0 navbar navbar-expand-lg d-flex align-items-center justify-content-center">
-      <div class="container px-2 d-flex flex-column ">
-        <div class="d-flex justify-content-center">
-
-          <button class="btn-warning btn-lg" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Continuer votre liste de courses</button>
-        </div>
-      </div>
-    </nav>
-  </div>
-</div>
-<% end %>
-
-
-
-
-
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
