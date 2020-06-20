@@ -1,4 +1,33 @@
-<%= render "shared/navbar_black" %>
+ <div class="sticky-top bg-transparent">
+  <div id="iOSInstallNavbar"></div>
+  <div id="androidInstallNavbar"></div>
+  <% unless user_signed_in? %>
+    <div class="wrapper py-0 alert-warning">
+      <nav class="p-0 navbar navbar-expand-lg  d-flex align-items-center justify-content-center">
+
+        <%= link_to "Se connecter", "", data: {toggle: "modal", target: ".bd-login-modal-lg"}, class:"btn btn-sm btn-link m-1 border-0"  %>
+        <%= link_to "S'inscrire", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-sm btn-link alert-warning m-1 border-0 signupBtn", context: "Show list", action: "signup"  %>
+
+      </nav>
+    </div>
+  <% end %>
+  <div class="container">
+    <% if user_signed_in? %>
+      <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
+        <a class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/favorites"><%= cl_image_tag("menu_icons/star", width: 25, height: 25, class:"m-0") %></a>
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/cuisine"><%= cl_image_tag("menu_icons/search", width: 25, height: 25, class:"m-0") %></a>
+      </nav>
+    <% else %>
+       <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+          <a class="navbar-brand text-dark d-flex align-items-center" href="/">
+            <i class="fas fa-lg fa-arrow-left p-2"></i>
+          </a>
+       </nav>
+    <% end %>
+  </div>
+</div>
+
 
 <div class="wrapper m-0">
   <div class="container text-center">
@@ -63,6 +92,15 @@
 
 
 
+<% unless user_signed_in? %>
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+<% end %>
+<!-- PWA prompt on safari IOS -->
+<%= render 'shared/ios_install_popup' %>
+<!-- PWA prompt on Android -->
+<%= render 'shared/android_install_popup' %>
 
 
 
