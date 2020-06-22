@@ -79,6 +79,10 @@ class Recipe < ApplicationRecord
     self.save
   end
 
+  def is_published?
+    self.status == "published"
+  end
+
   def is_user_favorite?(user)
     user.get_latest_recipe_list.recipes.pluck(:id).include?(self.id)
   end
@@ -116,6 +120,14 @@ class Recipe < ApplicationRecord
     end
 
     self.save
+  end
+
+  def get_curated_lists
+    self.recipe_lists.where(recipe_list_type: "curated")
+  end
+
+  def get_curated_recipe_list_items
+    self.recipe_list_items.select{ |rli| rli.is_curated?} if self.recipe_list_items.any?
   end
 
   def scrape
@@ -175,7 +187,7 @@ class Recipe < ApplicationRecord
         recipe.servings = data["recipeYield"] if data["recipeYield"]
         recipe.image_url = eval(data["image"]).first if data["image"]
         recipe.origin =  data["author"] if data["author"]
-        recipe.status = "published"
+        recipe.status = "pending"
 
         begin
           if recipe.save

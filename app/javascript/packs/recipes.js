@@ -61,3 +61,19 @@ $(document).on("click" , ".selectAllRecipeItemsBtn", function(event) {
   });
 
 });
+
+
+
+//  Edit list item
+$(document).on("click", ".editRecipeListItemsModalbtn", function(event) {
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/recipes/" + recipeId + "/edit_modal",
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+
+});

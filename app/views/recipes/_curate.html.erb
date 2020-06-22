@@ -1,0 +1,28 @@
+<p class="lead"><%= recipe.title %></p>
+
+<% if recipe_list_items.present? %>
+  <div class="d-flex flex-column">
+    <% recipe_list_items.each do |rli| %>
+      <div class="d-flex justify-content-between" id="recipeListItemCard<%= rli.id %>">
+        <span class="my-2"><%= rli.recipe_list.name %></span>
+        <a class="text-secondary disabled card-link font-weight-bold p-2 border rounded-0" id="removeFromMenuBtn" data="<%= rli.id %>" data-container="<%= rli.recipe_list.id %>" aria-label="Close" style="font-size: 0.8rem; cursor: pointer;"><span aria-hidden="true">&times;</span></a>
+
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<p>
+  <a class="btn btn-primary mt-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Ajouter dans une liste
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body p-0">
+    <ul class="list-group p-0">
+      <% RecipeList.curated.each do |category| %>
+       <%= link_to category.name, add_to_menu_recipe_path(recipe, recipe_list_id: category.id), remote: true, data: { confirm: 'Êtes-vous sûr ?' }, class:"list-group-item" %>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -15,6 +15,9 @@ class RecipeList < ApplicationRecord
 
   acts_as_ordered_taggable
 
+  scope :curated, -> { where(recipe_list_type: "curated") }
+
+
   RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool"]
   STATUS = ["archived", "saved", "opened"]
 

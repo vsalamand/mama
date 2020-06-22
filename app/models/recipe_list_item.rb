@@ -17,6 +17,10 @@ class RecipeListItem < ApplicationRecord
     self.save
   end
 
+  def is_curated?
+    self.recipe_list.recipe_list_type == "curated" if self.recipe_list.present?
+  end
+
   def self.get_most_popular
     RecipeListItem.where.not(list_id: nil).pluck(:recipe_id)
                                 .group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)[0..29]

@@ -110,6 +110,7 @@ Rails.application.routes.draw do
       get :fetch_recipe_card
       get :add_to_menu
       get :select_all
+      get :edit_modal
     end
     resources :items do
       get :add_to_list
