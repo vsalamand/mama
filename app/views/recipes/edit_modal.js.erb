@@ -1,0 +1,6 @@
+var recipeListItemsModal = document.getElementById("editRecipeListItemsModal");
+$(recipeListItemsModal).modal("show");
+
+var modalBody = document.getElementById("editRecipeListItemsForm");
+modalBody.innerHTML = "";
+modalBody.innerHTML = ("<%= j render 'recipes/curate', recipe: @recipe, recipe_list_item: @recipe_list_item, recipe_list_items: @recipe_list_items %>");

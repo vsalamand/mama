@@ -30,14 +30,15 @@ class PagesController < ApplicationController
   def cuisine
     recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
     @recipe_idea = Recipe.find(recipe_idea_id)
-    @categories = Recommendation.where(is_active: true).last
+    @categories = Recommendation.find_by(name: "Categories")
 
     ahoy.track "Cuisine"
   end
 
   def explore
     # get last published recipes
-    @recipes = Recipe.search_import.last(10).reverse
+    @weekly_menu = Recommendation.find_by(name: "Weekly menus").recipe_lists.last
+    @recipes = @weekly_menu.recipe_list_items.sort_by(&:id).map{ |rli| rli.recipe }.reverse.select{|r| r.is_published?}
 
     ahoy.track "Explore"
   end
@@ -48,7 +49,7 @@ class PagesController < ApplicationController
   # end
 
   def favorites
-    @recipes = current_user.get_latest_recipe_list.recipes
+    @recipes = current_user.get_latest_recipe_list.recipes.order(:title)
     ahoy.track "Favorites"
   end
 
@@ -86,16 +87,16 @@ class PagesController < ApplicationController
     @list = List.find(params[:l]) if params[:l].present?
     # @list_id = params[:l]
 
-    @categories = Recommendation.where(is_active: true).last
+    @categories = Recommendation.find_by(name: "Categories")
     @category = RecommendationItem.find(params[:category_id]) if params[:category_id].present?
 
     if @category.present?
-      @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }.sort_by(&:title)
+      @recipes = @category.recipe_list.recipe_list_items.map{ |rli| rli.recipe }.sort_by(&:id).reverse.select{|r| r.is_published?}
       ahoy.track "browse category", name: @category.name
 
     elsif params[:query].present?
       @query = params[:query].present? ? params[:query] : nil
-      @recipes = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..49] if @query
+      @recipes = Recipe.search(@query, fields: [:title, :ingredients])[0..49] if @query
       ahoy.track "Search", query: @query
 
     elsif params[:favorites].present?

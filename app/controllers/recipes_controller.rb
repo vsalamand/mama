@@ -5,7 +5,7 @@ require 'hangry'
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
   skip_before_action :authenticate_user!, only: [ :show, :card, :cart, :select_all, :index]
-  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage ]
+  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage]
 
   def show
     @list_item = ListItem.new
@@ -51,15 +51,32 @@ class RecipesController < ApplicationController
   end
 
   def manage
-    @recipes = Recipe.where(status: "published").last(100)
-    @query = params[:query].present? ? params[:query] : nil
+    @categories = RecipeList.curated
+    @category = RecipeList.find(params[:category_id]) if params[:category_id].present?
+    @query = params[:query].present?
+    @recipe_list_item = RecipeListItem.new
 
-    @results = Recipe.search(@query, fields: [:title, :ingredients, :tags, :categories])[0..29] if @query
+    if @category.present?
+      @recipes = @category.recipes
+    elsif params[:pending].present?
+      @recipes = Recipe.where(status: "pending")
+    elsif @query.present?
+      @recipes = Recipe.search(@query, fields: [:title])[0..49] if @query
+    else
+      @recipes = Recipe.where(status: "published").last(100)
+    end
 
     respond_to do |format|
       format.html
       format.js
     end
+  end
+
+  def edit_modal
+    @recipe = Recipe.find(params[:id])
+    @recipe_list_items = @recipe.get_curated_recipe_list_items
+    @recipe_list_item = RecipeListItem.new
+    render "edit_modal.js.erb"
   end
 
   def create
@@ -97,14 +114,14 @@ class RecipesController < ApplicationController
     @recipe.save
     @recipe.items.each{ |item| item.validate }
     # @recipe.upload_to_cloudinary
-    redirect_to recipe_path(@recipe)
+   redirect_back(fallback_location:"/")
   end
 
   def set_dismissed_status
     @recipe.status = "dismissed"
     @recipe.save
-    @recipe.items.each{ |item| item.unvalidate }
-    redirect_to recipe_path(@recipe)
+    # @recipe.items.each{ |item| item.unvalidate }
+   redirect_back(fallback_location:"/")
   end
 
 
