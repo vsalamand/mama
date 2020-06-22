@@ -92,6 +92,7 @@ function getInstallMessageAndroid() {
 
 $(document).on('click', '#androidInstallBtn',function() {
   $('#installAndroidModal').modal('show');
+  ahoy.track("Click Android install");
 });
 
 
@@ -157,6 +158,7 @@ function getInstallMessageIOS() {
 
 $(document).on('click', '#iOSInstallMessage',function() {
   $('#installiOSModal').modal('show');
+  ahoy.track("Click iOS install");
 });
 
 
