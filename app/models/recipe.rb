@@ -187,7 +187,7 @@ class Recipe < ApplicationRecord
         recipe.servings = data["recipeYield"] if data["recipeYield"]
         recipe.image_url = eval(data["image"]).first if data["image"]
         recipe.origin =  data["author"] if data["author"]
-        recipe.status = "published"
+        recipe.status = "pending"
 
         begin
           if recipe.save
