@@ -37,7 +37,7 @@ class PagesController < ApplicationController
 
   def explore
     # get last published recipes
-    @weekly_menu = Recommendation.find_by(name: "Weekly menus").recipe_lists.last
+    @weekly_menu = Recommendation.find_by(name: "Featured").recipe_lists.last
     @recipes = @weekly_menu.recipe_list_items.sort_by(&:id).map{ |rli| rli.recipe }.reverse.select{|r| r.is_published?}
 
     ahoy.track "Explore"
