@@ -30,8 +30,8 @@ class ItemsController < ApplicationController
     @item.update(items_params)
     if @item.recipe_id.present?
       redirect_to god_show_recipe_path(@item.recipe_id)
-    elsif @item.list_item_id.present?
-      redirect_to list_path(@item.list_item.list)
+    # elsif @item.list_item_id.present?
+    #   redirect_to list_path(@item.list_item.list)
     else
       redirect_to edit_item_path(@item)
     end

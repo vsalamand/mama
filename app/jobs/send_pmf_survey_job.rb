@@ -9,8 +9,8 @@ class SendPmfSurveyJob < ApplicationJob
                       .uniq
     yesterday_users = User.find(yesterday_user_ids)
 
-    #  do not have a flag "pmf_survey" && user created more than 2 weeks ago
-    target_yesterday_users = yesterday_users.select{ |u| u.flags.pluck(:name).exclude?("pmf_survey") && u.created_at < (Date.today.beginning_of_day - 14.days) }
+    #  do not have a flag "pmf_survey" && user created more than 3 weeks ago
+    target_yesterday_users = yesterday_users.select{ |u| u.flags.pluck(:name).exclude?("pmf_survey") && u.created_at < (Date.today.beginning_of_day - 21.days) }
 
     # visited the app at least 5 times
     users = target_yesterday_users.select{ |u| u.visits.size > 4 if u.visits.any? }

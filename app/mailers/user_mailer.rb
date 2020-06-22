@@ -13,18 +13,18 @@ class UserMailer < ApplicationMailer
 
   def d1_feedback(user)
     @user = user # Instance variable => available in view
-    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Premiers pas sur Mama')
+    mail(from: 'vincent@clubmama.co', to: @user.email, subject: "La liste de courses idéale")
     # This will render a view in `app/views/user_mailer`!
   end
 
   def pmf_survey(user)
     @user = user # Instance variable => available in view
-    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Votre avis sur Mama')
+    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Votre avis sur Mama 🙏')
   end
 
   def inactive_feedback(user)
     @user = user # Instance variable => available in view
-    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Vos listes de courses')
+    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Votre avis sur Mama 🙏')
   end
 
   def welcome_beta(user)
