@@ -191,7 +191,7 @@ class ListsController < ApplicationController
   end
 
   def accept_invite
-    # list = List.find(params[:list_id])
+    list = List.find(params[:list_id])
     user = User.find_by(email: params[:user_email])
     if user
       collab = Collaboration.new(list: list, user: user)
