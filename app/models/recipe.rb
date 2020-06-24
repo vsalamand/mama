@@ -143,7 +143,9 @@ class Recipe < ApplicationRecord
       self.ingredients = parser["recipeIngredient"].join("\r\n")
       parser["recipeInstructions"].class == "String" ? self.instructions = parser["recipeInstructions"] : self.instructions = parser["recipeInstructions"].join("\r\n")
       self.servings = parser["recipeYield"]
-      self.save
+      unless Recipe.find_by(title: self.title, origin: self.origin)
+        self.save
+      end
     end
   end
 

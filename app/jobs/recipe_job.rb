@@ -4,10 +4,7 @@ class RecipeJob < ApplicationJob
   def perform(csv)
     csv.each do |row|
       data = row.to_h
-      recipe = Recipe.find_by(link: data["link"])
-      if recipe.present?
-        puts "already in databse"
-      else
+      if Recipe.find_by(link: data["link"]).nil?
         recipe = Recipe.new
         recipe.link = data["link"]
         recipe.status = "pending"

@@ -24,7 +24,7 @@ class UserMailer < ApplicationMailer
 
   def inactive_feedback(user)
     @user = user # Instance variable => available in view
-    mail(from: 'vincent@clubmama.co', to: @user.email, subject: 'Votre avis sur Mama 🙏')
+    mail(from: 'vincent@clubmama.co', to: @user.email, subject: '👋 Vos listes de courses Mama')
   end
 
   def welcome_beta(user)

@@ -41,6 +41,7 @@
                         <% if recipe.status == "published" %>
                           <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-sm btn-light p-0 border text-danger" %>
                         <% else %>
+                          <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-sm btn-light p-0 border text-danger" %>
                           <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"btn btn-sm btn-success" %>
                         <% end %>
                       </div>

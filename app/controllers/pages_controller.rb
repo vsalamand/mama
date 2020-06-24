@@ -96,7 +96,7 @@ class PagesController < ApplicationController
 
     elsif params[:query].present?
       @query = params[:query].present? ? params[:query] : nil
-      @recipes = Recipe.search(@query, fields: [:title, :ingredients])[0..49] if @query
+      @recipes = Recipe.where(status: "published").search(@query, fields: [:title, :ingredients])[0..49] if @query
       ahoy.track "Search", query: @query
 
     elsif params[:favorites].present?

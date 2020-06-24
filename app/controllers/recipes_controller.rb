@@ -46,8 +46,8 @@ class RecipesController < ApplicationController
   end
 
   def import_recipes
-   Recipe.import(params[:file])
-   redirect_back(fallback_location:"/")
+    Recipe.import(params[:file])
+    redirect_to pending_path
   end
 
   def manage

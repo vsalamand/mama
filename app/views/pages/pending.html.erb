@@ -8,8 +8,18 @@
     <% @recipes.order(:id).each do |recipe| %>
       <h1 class="mt-5">
         <%= recipe.id %> |
-        <%= link_to recipe.title, god_show_recipe_path(recipe) %>
+        <%= link_to recipe.title, god_show_recipe_path(recipe), target: "_blank" %>
       </h1>
+      <div class="m-1 d-flex flex-column">
+          <button class="btn btn-light m-0 border p-1 editRecipeListItemsModalbtn" data="<%= recipe.id %>">Gérer</button>
+          <% recipe.get_curated_lists.each do |cl| %>
+            <span class="m-0 small"><%= cl.name %></span>
+          <% end %>
+      </div>
+      <div class="d-flex">
+        <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-sm btn-light border text-danger m-1" %>
+        <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"btn btn-sm btn-success m-1" %>
+      </div>
       <div class="recipe-ingredients">
         <ul>
           <% recipe.items.order(:id).each do |item| %>
@@ -17,19 +27,39 @@
               <p class="font-weight-bold text-success"><%= item.name %></p>
               <% if current_user %>
                 <% if item.food  %>
-                  <p class="lead border"><%= item.quantity %> <%= item.unit.name if item.unit_id %> <%= link_to item.food.name, edit_recipe_item_path(recipe, item) %></p>
+                  <p class="lead border"><%= item.quantity %> <%= item.unit.name if item.unit_id %> <%= link_to item.food.name, edit_recipe_item_path(recipe, item), target: "_blank" %></p>
                 <% else %>
-                  <p class="recipe-ingredient-item"><%= link_to "not found", edit_recipe_item_path(recipe, item) %></p>
+                  <p class="recipe-ingredient-item"><%= link_to "not found", edit_recipe_item_path(recipe, item), target: "_blank" %></p>
                 <% end %>
               <% end %>
             </li>
           <% end %>
         </ul>
       </div>
-      <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: recipe.id), class:"btn btn-outline-primary px-5" %>
+      <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: recipe.id), target: "_blank", class:"btn btn-outline-primary px-5" %>
 
     <% end %>
   </div>
 
 </div>
 
+
+
+    <!-- Edit Recipe List Item Modal -->
+  <div class="modal fade" id="editRecipeListItemsModal" tabindex="-1" role="dialog" aria-labelledby="editRecipeListItemsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editRecipeListItemsModal">Catégoriser la recette</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body ">
+
+          <div id="editRecipeListItemsForm"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
