@@ -8,7 +8,7 @@
     <% @recipes.order(:id).each do |recipe| %>
       <h1 class="mt-5">
         <%= recipe.id %> |
-        <%= link_to recipe.title, god_show_recipe_path(recipe), target: "_blank" %>
+        <%= link_to recipe.title, recipe_path(recipe), target: "_blank" %>
       </h1>
       <div class="m-1 d-flex flex-column">
           <button class="btn btn-light m-0 border p-1 editRecipeListItemsModalbtn" data="<%= recipe.id %>">Gérer</button>
