@@ -10,7 +10,7 @@ class RecipeJob < ApplicationJob
         recipe.status = "pending"
         recipe.scrape
         Item.add_recipe_items(recipe) if recipe.save
-        puts "#{recipe.title}"
+        puts "#{recipe.link}"
       end
     end
   end
