@@ -4,13 +4,32 @@
   <div class="row">
     <h1>Nouveau contenu en attente de validation</h1>
   </div>
-  <div class="row">
+  <div class="my-3">
     <% @recipes.order(:id).each do |recipe| %>
-      <li>
+      <h1 class="mt-5">
         <%= recipe.id %> |
         <%= link_to recipe.title, god_show_recipe_path(recipe) %>
-      </li>
+      </h1>
+      <div class="recipe-ingredients">
+        <ul>
+          <% recipe.items.order(:id).each do |item| %>
+            <li class="recipe-ingredients__list__item">
+              <p class="font-weight-bold text-success"><%= item.name %></p>
+              <% if current_user %>
+                <% if item.food  %>
+                  <p class="lead border"><%= item.quantity %> <%= item.unit.name if item.unit_id %> <%= link_to item.food.name, edit_recipe_item_path(recipe, item) %></p>
+                <% else %>
+                  <p class="recipe-ingredient-item"><%= link_to "not found", edit_recipe_item_path(recipe, item) %></p>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: recipe.id), class:"btn btn-outline-primary px-5" %>
+
     <% end %>
   </div>
 
 </div>
+
