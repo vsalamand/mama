@@ -13,8 +13,8 @@ class SendEmailToInactiveUsersJob < ApplicationJob
       d7_d28_users = User.where(created_at: 28.days.ago.beginning_of_day..7.days.ago.end_of_day)
       d7_d28_inactive_users = d7_d28_users.select{ |u| u.flags.pluck(:name).exclude?("inactive") && u.visits.last.started_at < 14.days.ago if u.visits.any? }
       inactive_users << d7_d28_inactive_users
-      # Get users who have more than 5 visits and last visit was 21 days ago, and do not have the inactive flag
-      other_inactive_users = User.select{ |u| u.flags.pluck(:name).exclude?("inactive") && u.visits.size > 4 && u.visits.last.started_at < 21.days.ago if u.visits.any? }
+      # Get users who have more than 7 visits and last visit was 21 days ago, and do not have the inactive flag
+      other_inactive_users = User.select{ |u| u.flags.pluck(:name).exclude?("inactive") && u.visits.size > 7 && u.visits.last.started_at < 21.days.ago if u.visits.any? }
       inactive_users << other_inactive_users
     end
 

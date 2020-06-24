@@ -147,74 +147,6 @@ class Recipe < ApplicationRecord
     end
   end
 
-
-  def self.import_csv(csv)
-
-    unvalid_recipes = []
-
-    Thread.new do
-      csv.each do |row|
-
-        data = row.to_h
-
-        Recipe.find_by(link: data["url"]).nil? ? recipe = Recipe.new : recipe = Recipe.find_by(link: data["url"])
-
-        recipe.title = data["name"].chars.select(&:valid_encoding?).join if data["name"]
-        recipe.link = data["url"] if data["url"]
-
-        # proceed with ingredients only if there is a value
-        unless data["recipeIngredient"].empty?
-          # rescue when single quotes in array that cant be eval
-          begin
-            recipe.ingredients = eval(data["recipeIngredient"]).join("\r\n").chars.select(&:valid_encoding?).join
-          rescue SyntaxError
-            recipe.ingredients = data["recipeIngredient"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join
-          end
-          # if recipe had items, destroy so we do not generate duplicated items after save
-          recipe.items.destroy_all if recipe.items.any?
-        end
-
-        if data["recipeInstructions"]
-          unless data["recipeInstructions"].empty? || data["recipeInstructions"] == "[nan]"
-            begin
-              recipe.instructions = eval(data["recipeInstructions"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
-            rescue SyntaxError
-              recipe.instructions = data["recipeInstructions"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
-            end
-          end
-        end
-
-        recipe.servings = data["recipeYield"] if data["recipeYield"]
-        recipe.image_url = eval(data["image"]).first if data["image"]
-        recipe.origin =  data["author"] if data["author"]
-        recipe.status = "pending"
-
-        begin
-          if recipe.save
-            begin
-              recipe.upload_to_cloudinary
-              Item.add_recipe_items(recipe)
-              puts "#{recipe.title}"
-            rescue
-              unvalid_recipes << data
-              recipe.dismiss
-            end
-          else
-            unvalid_recipes << data
-          end
-        rescue ActiveRecord::StatementInvalid
-          unvalid_recipes << data
-        end
-      end
-
-      if unvalid_recipes.any?
-        puts "#{unvalid_recipes.size}"
-        puts "#{unvalid_recipes}"
-      end
-
-    end
-  end
-
   # Import CSV
   def self.import(file)
     csv = CSV.read(file.path, headers: true)
@@ -226,3 +158,70 @@ class Recipe < ApplicationRecord
   end
 
 end
+
+  # def self.import_csv(csv)
+
+  #   unvalid_recipes = []
+
+  #   Thread.new do
+  #     csv.each do |row|
+
+  #       data = row.to_h
+
+  #       Recipe.find_by(link: data["url"]).nil? ? recipe = Recipe.new : recipe = Recipe.find_by(link: data["url"])
+
+  #       recipe.title = data["name"].chars.select(&:valid_encoding?).join if data["name"]
+  #       recipe.link = data["url"] if data["url"]
+
+  #       # proceed with ingredients only if there is a value
+  #       unless data["recipeIngredient"].empty?
+  #         # rescue when single quotes in array that cant be eval
+  #         begin
+  #           recipe.ingredients = eval(data["recipeIngredient"]).join("\r\n").chars.select(&:valid_encoding?).join
+  #         rescue SyntaxError
+  #           recipe.ingredients = data["recipeIngredient"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join
+  #         end
+  #         # if recipe had items, destroy so we do not generate duplicated items after save
+  #         recipe.items.destroy_all if recipe.items.any?
+  #       end
+
+  #       if data["recipeInstructions"]
+  #         unless data["recipeInstructions"].empty? || data["recipeInstructions"] == "[nan]"
+  #           begin
+  #             recipe.instructions = eval(data["recipeInstructions"]).join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+  #           rescue SyntaxError
+  #             recipe.instructions = data["recipeInstructions"].gsub(/\'/, ' ')[1..-2].split(", ").map{|e| e.strip}.join("\r\n").chars.select(&:valid_encoding?).join if data["recipeInstructions"]
+  #           end
+  #         end
+  #       end
+
+  #       recipe.servings = data["recipeYield"] if data["recipeYield"]
+  #       recipe.image_url = eval(data["image"]).first if data["image"]
+  #       recipe.origin =  data["author"] if data["author"]
+  #       recipe.status = "pending"
+
+  #       begin
+  #         if recipe.save
+  #           begin
+  #             recipe.upload_to_cloudinary
+  #             Item.add_recipe_items(recipe)
+  #             puts "#{recipe.title}"
+  #           rescue
+  #             unvalid_recipes << data
+  #             recipe.dismiss
+  #           end
+  #         else
+  #           unvalid_recipes << data
+  #         end
+  #       rescue ActiveRecord::StatementInvalid
+  #         unvalid_recipes << data
+  #       end
+  #     end
+
+  #     if unvalid_recipes.any?
+  #       puts "#{unvalid_recipes.size}"
+  #       puts "#{unvalid_recipes}"
+  #     end
+
+  #   end
+  # end
