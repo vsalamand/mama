@@ -1,8 +1,8 @@
 
   <div class="card mb-2 rounded shadow border-0">
     <div class="row no-gutters">
-      <div class="col-5" style="height: 100%;">
-        <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid rounded-0") %>
+      <div class="col-5">
+        <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto", class:"card-img-top img-fluid rounded-0") %>
       </div>
       <div class="col-7 d-flex align-items-start flex-column bd-highlight">
       <% if @list.present? %>
