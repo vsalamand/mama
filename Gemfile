@@ -69,7 +69,6 @@ gem 'oj'
 # Typhoeus wraps libcurl in order to make fast and reliable requests.
 gem "typhoeus"
 
-
 # Pagination library
 gem 'will_paginate', '~> 3.1.0'
 
