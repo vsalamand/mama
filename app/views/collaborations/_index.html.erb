@@ -1,6 +1,6 @@
 <% if @list.user.present? %>
-  <ul class="list-unstyled text-muted mt-2">
-    <li class="ml-4 mr-2 py-2"><%= @list.user.email %> (propriétaire)</li>
+  <ul class="list-unstyled text-muted mt-2 bg-white">
+    <li class="text-left py-2 font-weight-bold lead"><%= @list.user.email %> (propriétaire)</li>
     <% @list.users.each do |collaborator|%>
       <li class="ml-4 mr-3 py-2 d-flex align-items-center justify-content-between">
           <%= collaborator.email %>
