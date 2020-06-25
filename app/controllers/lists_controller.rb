@@ -180,14 +180,16 @@ class ListsController < ApplicationController
     # @list = List.find(params[:list_id])
     email = params[:email]
 
-    unless email.nil?
+    unless email.empty?
       mail = ListMailer.send_invite(@list, email)
       mail.deliver_now
       flash[:notice] = "L'invitation a été envoyée !"
       ahoy.track "Send invite", email: "#{email}", list_id: @list.id
+    else
+      flash[:notice] = "Une erreur est survenue, l'invitation n'a pas été envoyée..."
     end
 
-    redirect_to list_share_path(@list)
+    redirect_to list_path(@list)
   end
 
   def accept_invite

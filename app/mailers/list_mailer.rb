@@ -15,6 +15,6 @@ class ListMailer < ApplicationMailer
   def send_invite(list, email)
     @list = list
     @email = email
-    mail(to: @email, subject: 'Vous avez reçu une invitation pour une liste de courses en commun')
+    mail(to: @email, subject: 'Vous avez reçu une invitation pour une liste de courses partagée')
   end
 end

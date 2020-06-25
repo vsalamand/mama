@@ -1,5 +1,5 @@
 <p>Bonjour,</p>
-<p>Vous avez reçu une invitation de la part de <%= @list.user.email %> pour gérer une liste de courses en commun.</p>
+<p><%= @list.user.email %> vous a envoyé une invitation pour une liste de courses partagée.</p>
 
 <p>Pour accepter l'invitation et retrouver la liste, cliquez sur le lien ci-dessous: <br>
 <%= link_to "J'accepte l'invitation", list_accept_invite_url(@list, :user_email => @email), class:"btn btn-sm btn-flat" %>
