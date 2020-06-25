@@ -12,18 +12,28 @@
   <div class="container text-center">
     <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
       <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
-      <p class="text-primary">⚠️ Enregistrez cette liste pour ne pas la perdre !</p>
-      <div class="d-flex flex-row justify-content-center bd-highlight mt-2" id="listOptions">
-        <% if user_signed_in? %>
-          <%= link_to list_copy_path(list), class:"btn bg-light border mr-1 font-weight-bold text-primary" do %>
-            <i class="fas fa-save"></i>
-          <% end %>
-        <% else %>
-          <!--alter the login link to trigger the opening of the modal -->
-          <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn bg-light border mr-1 font-weight-bold text-primary signupBtn py-2", context: "Show list (free)", action: "save_list", style:"text-decoration: none;" do %>
-            <i class="fas fa-save"></i>
-          <% end %>
+      <% if user_signed_in? %>
+        <%= link_to list_copy_path(list) do %>
+          <p class="text-primary font-weight-bold">⚠️ Enregistrez cette liste pour ne pas la perdre !</p>
         <% end %>
+      <% else %>
+        <!--alter the login link to trigger the opening of the modal -->
+        <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"bsignupBtn", context: "Show list (free)", action: "save_list", style:"text-decoration: none;" do %>
+          <p class="text-primary font-weight-bold">⚠️ Enregistrez cette liste pour ne pas la perdre !</p>
+        <% end %>
+      <% end %>
+      <div class="d-flex justify-content-center">
+         <div class="d-flex flex-column justify-content-center">
+            <!-- Trigger -->
+            <button class="clipboard-btn btn btn-light border text-secondary" data-clipboard-target="#listLink" id="copyLink">
+                Copier le lien <i class="fas fa-copy ml-1"></i>
+            </button>
+            <!-- Target -->
+            <input class="small form-control form-control-sm p-0" type="text" style="opacity: 0; height: 0vh;" id="listLink" value="<%= list_url(list) %>">
+
+          </div>
+      </div>
+      <div class="d-flex flex-row justify-content-center bd-highlight mt-2" id="listOptions">
         <%= render "lists/options", list: list %>
         <a class="bd-highlight btn bg-light border mr-1" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
       </div>
