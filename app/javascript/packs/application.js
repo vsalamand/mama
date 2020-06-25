@@ -269,6 +269,10 @@ $(document).on("click", ".recipeLinkClick", function(event) {
   ahoy.track("Click recipe link", {link:  link});
 })
 
+// tracking click on share list
+$(document).on("click", ".shareList", function(event) {
+  ahoy.track("Share list modal");
+})
 
 // copy to clipboard
 // Tooltip
