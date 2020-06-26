@@ -5,6 +5,9 @@ class ListItem < ApplicationRecord
   has_many :cart_items, through: :item
   has_one :food, through: :item
 
+  audited associated_with: :list
+
+
   accepts_nested_attributes_for :item
 
   #add a model scope to fetch only non-deleted records

@@ -59,7 +59,7 @@ class ListItemsController < ApplicationController
   def complete
     @list_item = ListItem.find(params[:list_item_id])
     @list_item.complete
-    @store_section = @list_item.get_store_section
+    # @store_section = @list_item.get_store_section
 
     render "complete.js.erb"
     ahoy.track "complete list item", name: @list_item.name
@@ -68,7 +68,7 @@ class ListItemsController < ApplicationController
   def uncomplete
     @list_item = ListItem.find(params[:list_item_id])
     @list_item.uncomplete
-    @store_section = @list_item.get_store_section
+    # @store_section = @list_item.get_store_section
 
     render "uncomplete.js.erb"
     ahoy.track "Uncomplete list item", name: @list_item.name

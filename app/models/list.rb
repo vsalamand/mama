@@ -2,6 +2,9 @@ require 'open-uri'
 require 'httparty'
 
 class List < ApplicationRecord
+  audited max_audits: 3
+  has_associated_audits
+
   extend FriendlyId
   friendly_id :name, use: :history
 
@@ -201,6 +204,25 @@ class List < ApplicationRecord
       store_cart.clean_store_cart
     end
     return self.store_carts
+  end
+
+  def get_last_edit(user)
+    Time.zone = "Europe/Paris"
+    event = self.own_and_associated_audits.first
+    unless  event.nil? || event.user == user
+      email = event.user.email
+      email = "vous" if event.user == user
+      day = event.created_at
+      time = "#{day.hour}h#{day.min}"
+      if day.today?
+        day = ""
+      elsif day.to_date == Date.yesterday
+        day = "hier"
+      else
+        day = "il y a #{(day.to_date..Date.today).count - 1} jours"
+      end
+      return "Dernière modification #{day} à #{time} \n\npar #{email}"
+    end
   end
 
   def should_generate_new_friendly_id?

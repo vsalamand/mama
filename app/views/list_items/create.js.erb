@@ -24,25 +24,6 @@ function refreshList() {
 <% end %>
 
 
-// no longer used...
-function scrollToLastItem() {
-  // const listItems = document.querySelectorAll('#uncomplete_list_items li');
-  // var lastItem = listItems[listItems.length - 1];
-  // listItems.insertAdjacentHTML('beforeend', reviewHTML);
-  // listItems.scrollIntoView(true);
-  // var lastItem = document.getElementById("grocerylist-item-id<%= @list_item.id %>");
-  var position = document.getElementById("scrollPoint")
-  position.scrollIntoView(false);
-  event.preventDefault();
-}
-
-
 
 // focus on form input field
 $('#newListItem').focus();
-
-
-// Increment counters
-// let counter = document.querySelector(".grocerylist-count");
-// let count = parseInt(document.querySelector(".grocerylist-count").innerHTML);
-// counter.innerHTML = count + 1;
