@@ -207,6 +207,7 @@ class List < ApplicationRecord
   end
 
   def get_last_edit(user)
+    Time.zone = "Europe/Paris"
     event = self.own_and_associated_audits.first
     unless  event.nil? || event.user == user
       email = event.user.email
