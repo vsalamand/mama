@@ -1,35 +1,3 @@
 const listItemCard = document.querySelector("#grocerylist-item-id<%= @list_item.id %>");
 listItemCard.innerHTML = "";
 listItemCard.innerHTML = ("<%= j render 'list_items/show', list: @list, list_item: @list_item %>");
-
-// // remove card from grocerylist
-// const listCard = document.querySelector("#grocerylist-item-id<%= @list_item.id %>");
-// listCard.remove();
-
-
-// updateSectionHeader();
-
-// function updateSectionHeader() {
-//   // show/hide header
-//   var todolistSectionCount = $("#<%= @store_section.parameterize(separator: '') %> li").length;
-//   var sectionHeader = document.getElementById("<%= @store_section.parameterize(separator: '') %>Header");
-//   console.log("#<%= @store_section.parameterize(separator: '') %> li")
-//   console.log(todolistSectionCount)
-//   console.log(sectionHeader)
-
-//   if(todolistSectionCount == 0){
-//     completeListItem();
-//     $(sectionHeader).hide();
-//   } else {
-//     completeListItem();
-//     $(sectionHeader).show();
-//   }
-// }
-
-// function completeListItem() {
-//   // reload content complte todo list
-//   const completeListItems = document.getElementById('complete_list_items');
-//   completeListItems.innerHTML = "";
-//   completeListItems.innerHTML = ("<%= j render 'lists/complete_todo_list', list: @list_item.list, list_items: @list_item.list.list_items.not_deleted %>");
-// }
-
