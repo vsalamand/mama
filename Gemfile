@@ -107,6 +107,9 @@ gem 'rack-attack'
 # slugging and permalink plugins for ActiveRecord
 gem 'friendly_id', '~> 5.2.4' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
 
+# Audited (formerly acts_as_audited) is an ORM extension that logs all changes to your Rails models.
+gem "audited", "~> 4.9"
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -69,6 +69,8 @@ GEM
     ancestry (3.0.7)
       activerecord (>= 3.2.0)
     arel (7.1.4)
+    audited (4.9.0)
+      activerecord (>= 4.2, < 6.1)
     autoprefixer-rails (9.7.6)
       execjs
     aws_cf_signer (0.1.3)
@@ -444,6 +446,7 @@ DEPENDENCIES
   acts_as_list
   ahoy_matey
   ancestry
+  audited (~> 4.9)
   autoprefixer-rails
   better_errors
   binding_of_caller
