@@ -1,3 +1,10 @@
+<% if @list_item.errors.any? %>
+  refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
+<% else %>
+  refreshList();
+  refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
+<% end %>
+
 
 function refreshForm(innerHTML) {
   const newListItemForm = document.getElementById('new_list_item');
@@ -15,15 +22,19 @@ function refreshList() {
 }
 
 
-<% if @list_item.errors.any? %>
-  refreshForm('<%= j render "list_items/form", list: @list, list_item: @list_item %>');
-<% else %>
-  refreshList();
-  // scrollToLastItem();
-  refreshForm('<%= j render "list_items/form", list: @list, list_item: ListItem.new %>');
-<% end %>
+const current_user_id = "<%= current_user.id %>";
+getEditHistory(current_user_id);
 
+function getEditHistory(current_user_id) {
+  const listId = document.querySelector("#todo_list").getAttribute('data');
 
-
-// focus on form input field
-$('#newListItem').focus();
+  $.ajax({
+    url: "/lists/" + listId + "/get_edit_history",
+    cache: false,
+    data: {
+      a: current_user_id
+      },
+    success: function(data){
+    }
+  });
+}

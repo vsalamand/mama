@@ -2,13 +2,8 @@
 // remove card from grocerylist
 const listItemCard = document.querySelector("#grocerylist-item-id<%= @list_item.id %>");
 listItemCard.remove();
+updateSectionHeader("<%= @store_section %>");
 
-// // Increment counters
-// let counter = document.querySelector(".grocerylist-count");
-// let count = parseInt(document.querySelector(".grocerylist-count").innerHTML);
-// counter.innerHTML = count - 1;
-updateSectionHeader();
-updateCompletedHeader();
 
 function updateCompletedHeader() {
   // show/hide header
@@ -21,10 +16,11 @@ function updateCompletedHeader() {
   }
 }
 
-function updateSectionHeader() {
-  // show/hide header
-  var todolistSectionCount = $("#<%= @store_section.parameterize(separator: '') %> li").length;
-  var sectionHeader = document.getElementById("<%= @store_section.parameterize(separator: '') %>Header");
+function updateSectionHeader(storeSection) {
+  var header = "#" + storeSection + " li"
+  var todolistSectionCount = $(header).length;
+  var sectionHeader = document.getElementById(storeSection+"Header");
+
 
   if(todolistSectionCount == 0){
     updateCompletedHeader();
@@ -33,4 +29,22 @@ function updateSectionHeader() {
     updateCompletedHeader();
     $(sectionHeader).show();
   }
+}
+
+
+const current_user_id = "<%= current_user.id %>";
+getEditHistory(current_user_id);
+
+function getEditHistory(current_user_id) {
+  const listId = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/get_edit_history",
+    cache: false,
+    data: {
+      a: current_user_id
+      },
+    success: function(data){
+    }
+  });
 }

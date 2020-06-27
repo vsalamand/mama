@@ -1,0 +1,3 @@
+var editHistory = document.querySelector("#editHistory");
+editHistory.innerHTML = "";
+editHistory.innerHTML = ("<%= j render 'lists/edit_history', content: @message %>");

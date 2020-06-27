@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show, :update, :copy, :share, :save, :destroy, :archive, :accept_invite, :send_invite, :email, :select_all, :remove_recipe, :sort ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create, :share, :email, :select_all]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :new, :create, :share, :email, :select_all, :get_edit_history]
   after_action :current_list
 
   def current_list
@@ -91,6 +91,7 @@ class ListsController < ApplicationController
       @referrer = "/browse"
     end
 
+    @message = @list.get_last_edit(current_user.id) if user_signed_in?
     current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user || @list.users.include?(current_user)
     ahoy.track "Show list", list_id: @list.id, name: @list.name
   end
@@ -234,6 +235,13 @@ class ListsController < ApplicationController
     @list.saved
 
     ahoy.track "Save list", list_id: @list.id, name: @list.name
+  end
+
+  def get_edit_history
+    list = List.friendly.find(params[:list_id])
+    params[:a].present? ? author_id = params[:a] : author_id = current_user.id
+    @message = list.get_last_edit(author_id)
+    render "get_edit_history.js.erb"
   end
 
 

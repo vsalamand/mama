@@ -201,6 +201,7 @@ function getListPlaceholder() {
   }
 }
 
+
 function openSuggestedItemsModal() {
   var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
   const selectSuggestedItemsModal = document.getElementById('selectItemsModal');
