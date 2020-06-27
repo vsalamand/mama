@@ -14,9 +14,7 @@ class ListItemsController < ApplicationController
 
     if @list_item.save
       @list_item.create_or_copy_item
-      @store_section = @list_item.get_store_section
 
-      # render view
       respond_to do |format|
         format.html { redirect_to list_path(@list) }
         format.js  # <-- will render `app/views/list_items/create.js.erb`
@@ -37,6 +35,7 @@ class ListItemsController < ApplicationController
   def update
     @list_item.update(list_item_params)
     item = @list_item.get_item
+    @list = @list_item.list
     @list_item.update_item(item) if item.present?
     # if list item contains an item, then update it
     if @list_item.save
@@ -47,19 +46,19 @@ class ListItemsController < ApplicationController
 
   def destroy
     @list_item = ListItem.find(params[:id])
-
+    @list = @list_item.list
     ahoy.track "Destroy list item", name: @list_item.name
 
     @list_item.delete
-    @store_section = @list_item.get_store_section
+    @store_section = @list_item.get_store_section.parameterize(separator: '')
 
     render "delete.js.erb"
   end
 
   def complete
     @list_item = ListItem.find(params[:list_item_id])
+    @list = @list_item.list
     @list_item.complete
-    # @store_section = @list_item.get_store_section
 
     render "complete.js.erb"
     ahoy.track "complete list item", name: @list_item.name
@@ -67,8 +66,8 @@ class ListItemsController < ApplicationController
 
   def uncomplete
     @list_item = ListItem.find(params[:list_item_id])
+    @list = @list_item.list
     @list_item.uncomplete
-    # @store_section = @list_item.get_store_section
 
     render "uncomplete.js.erb"
     ahoy.track "Uncomplete list item", name: @list_item.name

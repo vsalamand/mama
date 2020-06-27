@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "blazer"
   end
 
+  mount ActionCable.server => '/cable'
+
+
   # PWA
   get '/service-worker.js', to: 'service_workers/workers#index'
   get '/manifest.json', to: 'service_workers/manifests#index'
@@ -134,6 +137,7 @@ Rails.application.routes.draw do
     get :remove_recipe
     get :share
     get :select_all
+    get :get_edit_history
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort

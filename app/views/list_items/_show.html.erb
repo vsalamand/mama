@@ -1,4 +1,4 @@
-  <div id="grocerylist-item-id<%= list_item.id %>">
+  <div id="grocerylist-item-id<%= list_item.id %>" class="listItemShow" data="<%= list_item.id %>">
     <li class="border-0 py-2 px-2 list-group-item d-flex align-items-center justify-content-between" id="<%= dom_id(list_item) %>" >
 
       <% if list_item.is_completed == false %>

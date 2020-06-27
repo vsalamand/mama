@@ -20,7 +20,50 @@ class ListItem < ApplicationRecord
   scope :not_completed, -> { where(is_completed: false, deleted: false) }
   scope :completed, -> { where(is_completed: true, deleted: false) }
 
+  after_create :broadcast_create
+  after_update :broadcast_is_complete, if: :is_completed_changed?
+  after_update :broadcast_is_complete, if: :name_changed?
+  after_update :broadcast_is_deleted, if: :deleted_changed?
 
+  def broadcast_create
+    # render through broadcast cable
+    data = {
+             action: "create",
+             list_item_id: self.id,
+             message_partial_list: ApplicationController.renderer.render(partial: "lists/uncomplete_todo_list", locals: { list: self.list, list_item: self }),
+             message_partial_form: ApplicationController.renderer.render(partial: "list_items/form", locals: { list: self.list, list_item: ListItem.new })
+           }
+    ListChannel.broadcast_to(
+      "list_#{self.list.id}",
+      data
+    )
+  end
+
+  def broadcast_is_complete
+    # # render through broadcast cable
+    data = {
+            list_item_id: self.id,
+            message_partial: ApplicationController.renderer.render(partial: "list_items/show", locals: { list: self.list, list_item: self })
+           }
+    ListChannel.broadcast_to(
+      "list_#{self.list.id}",
+      data
+    )
+  end
+
+  def broadcast_is_deleted
+    # render through broadcast cable
+    data = {
+            action: "delete",
+            list_item_id: self.id,
+            store_section: self.get_store_section.parameterize(separator: ''),
+            message_partial: ApplicationController.renderer.render(partial: "list_items/show", locals: { list: self.list, list_item: self })
+          }
+    ListChannel.broadcast_to(
+      "list_#{self.list.id}",
+      data
+    )
+  end
 
   #create the soft delete method
   def delete

@@ -25,6 +25,13 @@ import 'packs/recipes';
 import 'packs/items';
 import 'packs/pages';
 
+import { initListCable } from '../channels/list_channel';
+
+document.addEventListener('turbolinks:load', () => {
+  // Call your JS functions here
+  initListCable();
+});
+
 
 // Service worker for progressive web app management
 if (navigator.serviceWorker) {

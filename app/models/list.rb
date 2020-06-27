@@ -206,14 +206,15 @@ class List < ApplicationRecord
     return self.store_carts
   end
 
-  def get_last_edit(user)
+  def get_last_edit(user_id)
     Time.zone = "Europe/Paris"
     event = self.own_and_associated_audits.first
+    user = User.find(user_id)
     unless  event.nil? || event.user == user
       email = event.user.email
       email = "vous" if event.user == user
       day = event.created_at
-      time = "#{day.hour}h#{day.min}"
+      time = "#{day.strftime('%H')}h#{day.strftime('%M')}"
       if day.today?
         day = ""
       elsif day.to_date == Date.yesterday
@@ -221,7 +222,8 @@ class List < ApplicationRecord
       else
         day = "il y a #{(day.to_date..Date.today).count - 1} jours"
       end
-      return "Dernière modification #{day} à #{time} \n\npar #{email}"
+      message = "Mise à jour #{day} à #{time} \n\npar #{email}"
+      return message
     end
   end
 
