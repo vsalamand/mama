@@ -2,9 +2,9 @@ class RecipeList < ApplicationRecord
   belongs_to :user, optional: true
 
   # validates :name, :recipe_list_type, presence: :true
+  has_many :recipe_list_items, dependent: :destroy, inverse_of: :recipe_list
   has_many :recipes, through: :recipe_list_items
   has_many :items, through: :recipes
-  has_many :recipe_list_items, dependent: :destroy, inverse_of: :recipe_list
   has_many :foods, through: :recipes
   has_many :recommendation_items, dependent: :destroy, inverse_of: :recipe_list
   has_many :recommendations, through: :recommendation_items
