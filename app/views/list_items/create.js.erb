@@ -22,7 +22,7 @@ function refreshList() {
 }
 
 
-const current_user_id = "<%= user_signed_in? ? current_user.id : nil%>";
+const current_user_id = "<%= user_signed_in? ? current_user.id : nil %>";
 getEditHistory(current_user_id);
 
 function getEditHistory(current_user_id) {

@@ -72,7 +72,11 @@ class User < ApplicationRecord
   private
 
   def subscribe_to_waiting_list
-    SubscribeToWaitingList.new(self).call if Rails.env.production?
+    begin
+      SubscribeToWaitingList.new(self).call if Rails.env.production?
+    rescue => e
+      print e
+    end
   end
 
   def send_welcome_email

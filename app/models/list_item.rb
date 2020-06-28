@@ -21,9 +21,7 @@ class ListItem < ApplicationRecord
   scope :completed, -> { where(is_completed: true, deleted: false) }
 
   after_create :broadcast_create
-  after_update :broadcast_is_complete, if: :is_completed_changed?
-  after_update :broadcast_is_complete, if: :name_changed?
-  after_update :broadcast_is_deleted, if: :deleted_changed?
+  after_update :broadcast_update
 
   def broadcast_create
     # render through broadcast cable
@@ -39,30 +37,30 @@ class ListItem < ApplicationRecord
     )
   end
 
-  def broadcast_is_complete
-    # # render through broadcast cable
-    data = {
-            list_item_id: self.id,
-            message_partial: ApplicationController.renderer.render(partial: "list_items/show", locals: { list: self.list, list_item: self })
-           }
-    ListChannel.broadcast_to(
-      "list_#{self.list.id}",
-      data
-    )
-  end
-
-  def broadcast_is_deleted
-    # render through broadcast cable
-    data = {
-            action: "delete",
-            list_item_id: self.id,
-            store_section: self.get_store_section.parameterize(separator: ''),
-            message_partial: ApplicationController.renderer.render(partial: "list_items/show", locals: { list: self.list, list_item: self })
-          }
-    ListChannel.broadcast_to(
-      "list_#{self.list.id}",
-      data
-    )
+  def broadcast_update
+    if saved_change_to_is_completed? || saved_change_to_name?
+      # # render through broadcast cable
+      data = {
+              list_item_id: self.id,
+              message_partial: ApplicationController.renderer.render(partial: "list_items/show", locals: { list: self.list, list_item: self })
+             }
+      ListChannel.broadcast_to(
+        "list_#{self.list.id}",
+        data
+      )
+    elsif saved_change_to_deleted?
+      # render through broadcast cable
+      data = {
+              action: "delete",
+              list_item_id: self.id,
+              store_section: self.get_store_section.parameterize(separator: ''),
+              message_partial: ApplicationController.renderer.render(partial: "list_items/show", locals: { list: self.list, list_item: self })
+            }
+      ListChannel.broadcast_to(
+        "list_#{self.list.id}",
+        data
+      )
+    end
   end
 
   #create the soft delete method

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "blazer"
   end
 
-  mount ActionCable.server => '/cable'
+  # mount ActionCable.server => '/cable'
 
 
   # PWA
