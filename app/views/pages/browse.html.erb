@@ -21,7 +21,12 @@
       <div class="px-5 pt-5 rounded text-center mb-2">
         <% if @lists.present? %>
             <% @lists.sort_by(&:id).reverse.each do |list|  %>
-              <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead font-weight-bold" %>
+              <div class="d-flex flex-column m-0">
+                <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead font-weight-bold" %>
+                <% if user_signed_in? %>
+                  <%= render "lists/edit_history", content: list.get_last_edit(current_user.id) %>
+                <% end %>
+              </div>
               <hr class="my-4">
             <% end %>
         <% end %>

@@ -222,8 +222,10 @@ class List < ApplicationRecord
       else
         day = "il y a #{(day.to_date..Date.today).count - 1} jours"
       end
-      message = "Mise à jour #{day} à #{time} \n\npar #{email}"
+      message = "Modifiée #{day} à #{time} par #{email}"
       return message
+    else
+      return nil
     end
   end
 
