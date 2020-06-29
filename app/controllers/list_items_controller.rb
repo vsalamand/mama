@@ -13,7 +13,9 @@ class ListItemsController < ApplicationController
     @list_item.list = @list
 
     if @list_item.save
-      @list_item.create_or_copy_item
+      store_section = @list_item.store_section
+      store_section.present? ? @store_section_name = store_section.name.parameterize(separator: '') : @store_section_name = "autres"
+      # @list_item.create_or_copy_item
 
       respond_to do |format|
         format.html { redirect_to list_path(@list) }

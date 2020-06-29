@@ -21,6 +21,7 @@ class Item < ApplicationRecord
   # update item validations if new item is validated
   after_save do
     self.validate if self.is_validated == true
+    self.set_store_section if saved_change_to_name?
   end
 
 
@@ -147,5 +148,10 @@ class Item < ApplicationRecord
     else
       return nil
     end
+  end
+
+  def set_store_section
+    self.store_section_id = self.food.store_section_id if self.food.present?
+    self.save
   end
 end

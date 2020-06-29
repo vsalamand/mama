@@ -2,34 +2,7 @@
 // remove card from grocerylist
 const listItemCard = document.querySelector("#grocerylist-item-id<%= @list_item.id %>");
 listItemCard.remove();
-updateSectionHeader("<%= @store_section %>");
 
-
-function updateCompletedHeader() {
-  // show/hide header
-  var completedCount = $("#complete_list_items li").length;
-  const completedHeader = document.getElementById('completedListItemHeader');
-  if(completedCount == 0){
-    $(completedHeader).hide();
-  } else {
-    $(completedHeader).show();
-  }
-}
-
-function updateSectionHeader(storeSection) {
-  var header = "#" + storeSection + " li"
-  var todolistSectionCount = $(header).length;
-  var sectionHeader = document.getElementById(storeSection+"Header");
-
-
-  if(todolistSectionCount == 0){
-    updateCompletedHeader();
-    $(sectionHeader).hide();
-  } else {
-    updateCompletedHeader();
-    $(sectionHeader).show();
-  }
-}
 
 
 const current_user_id = "<%= current_user.id %>";

@@ -1,6 +1,6 @@
 <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
   <div class="my-2">
-    <div class="search-form-control shadow-lg">
+    <div class="search-form-control shadow">
       <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"newListItem" }, wrapper_html: { class:" rounded rounded-lg"} %>
 
       <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
