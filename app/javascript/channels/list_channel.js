@@ -35,7 +35,7 @@ function insert(store_section_name, new_partial) {
 
 function sortSectionElements(sectionElements) {
   const listItems = sectionElements.querySelectorAll(".listItemShow")
-  const sortedListItems = $(listItems).sort((a,b)=>a.innerText>b.innerText?1:-1)
+  const sortedListItems = $(listItems).sort((a,b)=>a.innerText.toLowerCase()>b.innerText.toLowerCase()?1:-1)
   const sortedSectionElements = $(sortedListItems).map(function() {
     sectionElements.appendChild(this);
   })
