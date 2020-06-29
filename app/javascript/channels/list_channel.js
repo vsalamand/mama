@@ -9,7 +9,7 @@ const initListCable = () => {
       received(data) {
         if (data.action === "create") {
             refreshForm(data.message_partial_form);
-            refreshList(data.message_partial_list);
+            insert(data.store_section_name, data.message_partial_list_item);
           } else if (data.action === "delete") {
             const listItemId = data.list_item_id;
             const storeSection = data.store_section;
@@ -26,12 +26,21 @@ const initListCable = () => {
 
 export { initListCable };
 
-
-function refreshList(list_partial) {
-  // reload content in grocerylist
-  const uncompleteListItems = document.getElementById('uncomplete_list_items');
-  uncompleteListItems.innerHTML = (list_partial);
+function insert(store_section_name, new_partial) {
+  const header = store_section_name + "Elements"
+  const sectionElements = document.getElementById(header)
+  sectionElements.insertAdjacentHTML('beforeend', new_partial);
+  sortSectionElements(sectionElements);
 }
+
+function sortSectionElements(sectionElements) {
+  const listItems = sectionElements.querySelectorAll(".listItemShow")
+  const sortedListItems = $(listItems).sort((a,b)=>a.innerText>b.innerText?1:-1)
+  const sortedSectionElements = $(sortedListItems).map(function() {
+    sectionElements.appendChild(this);
+  })
+}
+
 
 function refreshForm(form_partial) {
   const newListItemForm = document.getElementById('new_list_item');
@@ -48,36 +57,9 @@ function refreshListItem(listItemId, show_partial) {
 }
 
 
-function updateCompletedHeader() {
-  // show/hide header
-  var completedCount = $("#complete_list_items li").length;
-  const completedHeader = document.getElementById('completedListItemHeader');
-  if(completedCount == 0){
-    $(completedHeader).hide();
-  } else {
-    $(completedHeader).show();
-  }
-}
-
-function updateSectionHeader(storeSection) {
-  // show/hide header
-  var header = "#" + storeSection + " li"
-  var todolistSectionCount = $(header).length;
-  var sectionHeader = document.getElementById(storeSection+"Header");
-
-  if(todolistSectionCount === 0){
-    updateCompletedHeader();
-    $(sectionHeader).hide();
-  } else {
-    updateCompletedHeader();
-    $(sectionHeader).show();
-  }
-}
-
 function deleteListItem(listItemId, storeSection) {
   const listItemCard = document.querySelector("#grocerylist-item-id" + listItemId);
   listItemCard.remove();
-  updateSectionHeader(storeSection);
 }
 
 

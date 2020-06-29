@@ -32,7 +32,7 @@
 
 
 <div class="wrapper" style="min-height: 70vh;">
-  <div class="container px-2" id="todo_list" data="<%= list.id %>">
+  <div class="container px-1" id="todo_list" data="<%= list.id %>">
 
 
     <div class="container px-0">
@@ -48,8 +48,8 @@
       <%= render "lists/edit_history", content: @message %>
     </div>
 
-    <div class="shadow rounded mb-3 px-0">
-      <div class="list-group list-group-flush" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
+    <div class="mb-3 px-0">
+      <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
         <%= render 'lists/uncomplete_todo_list', list: list %>
       </div>
     </div>

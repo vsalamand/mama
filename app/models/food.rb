@@ -31,6 +31,13 @@ class Food < ApplicationRecord
     self.add_to_shelf
   end
 
+  before_update do
+    self.update_related_items_store_section_id if saved_store_section_id_to_name?
+  end
+
+  def update_related_items_store_section_id
+    Item.where(food: self).where.not(store_section_id: self.store_section_id_was).update_all(store_section_id: self.store_section_id)
+  end
 
   def search_data
     {

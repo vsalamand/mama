@@ -210,7 +210,7 @@ class List < ApplicationRecord
     Time.zone = "Europe/Paris"
     event = self.own_and_associated_audits.first
     user = User.find(user_id)
-    unless  event.nil? || event.user == user
+    unless  event.nil? || event.user == user || event.user.nil?
       email = event.user.email
       email = "vous" if event.user == user
       day = event.created_at

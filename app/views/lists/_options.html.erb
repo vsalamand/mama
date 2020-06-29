@@ -3,31 +3,23 @@
 
       <button class="bd-highlight btn btn-flat2 text-white mr-1 font-weight-bold shareList" data-toggle="modal" data-target="#collabListModal">Partager</button>
 
-      <div class="dropdown" id="sortList">
-        <button class="bd-highlight py-2 mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Trier
-        </button>
-        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
-          <% list.get_sort_options.each do |option| %>
-            <a class="dropdown-item sortOptionBtn" style="cursor: pointer;" data="<%= option %>">par <%= option %></a>
-          <% end %>
+      <% if false %>
+        <div class="dropdown" id="sortList">
+          <button class="bd-highlight py-2 mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Trier
+          </button>
+          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
+            <% list.get_sort_options.each do |option| %>
+              <a class="dropdown-item sortOptionBtn" style="cursor: pointer;" data="<%= option %>">par <%= option %></a>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end  %>
   <% end %>
 
 <% elsif list.user.nil? %>
 
       <%= link_to "Partager", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"bd-highlight btn btn-flat2 text-white mr-1 signupBtn font-weight-bold", context: "Share list", action: "send_invite" %>
-      <div class="dropdown" id="sortList">
-        <button class="bd-highlight py-2 mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Trier
-        </button>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSortButton">
-          <% list.get_sort_options.each do |option| %>
-            <a class="dropdown-item sortOptionBtn" style="cursor: pointer;" data="<%= option %>">par <%= option %></a>
-          <% end %>
-        </div>
-      </div>
 
 <% end %>
 

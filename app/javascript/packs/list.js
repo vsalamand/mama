@@ -11,8 +11,9 @@ fetchSuggestedItems();
 
 $(document).on("turbolinks:load", function(event) {
   // loadSuggestions();
-  getPriceBtn();
+  // getPriceBtn();
   getListPlaceholder();
+  setStoreSectionHeaders();
   // openSuggestedItemsModal();
   // disable Add List item button by default
   var submitButton = document.getElementById('addListItemBtn');
@@ -22,13 +23,15 @@ $(document).on("turbolinks:load", function(event) {
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   // loadSuggestions();
-  getPriceBtn();
+  // getPriceBtn();
+  setStoreSectionHeaders();
   getListPlaceholder();
   // getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
   getListPlaceholder();
+  setStoreSectionHeaders();
 })
 
 // function sort() {
@@ -356,3 +359,23 @@ $(document).on("click" , ".selectAllListItemsBtn", function(event) {
 
 
 });
+
+
+// show / hide store section header
+function setStoreSectionHeaders() {
+  if(document.getElementById("todo_list")) {
+    var headers = document.querySelectorAll('.listHeader');
+    $(headers).map(function() {
+     var count = $(this).find('li').length;
+      if(count === 0){
+         this.style.display = "none";
+      } else {
+         this.style.display = "block";
+      }
+    })
+  }
+}
+
+
+
+
