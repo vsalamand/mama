@@ -19,7 +19,6 @@ class Item < ApplicationRecord
   scope :recipe_items_to_validate, -> { includes(:recipe).where(is_validated: false).where.not(:recipe_id => nil ).where(:recipes => { :status => "published" } ) }
 
   # update item validations if new item is validated
-  after_create :set_store_section
   after_save do
     self.validate if self.is_validated == true
     self.set_store_section if saved_change_to_name? || saved_change_to_food_id?
@@ -43,8 +42,9 @@ class Item < ApplicationRecord
         quantity = element['quantity_match'] if element['quantity_match'].present?
         food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
         unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+        store_section_id = food.store_section_id if food.present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-        new_items << Item.new(food: food, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit)
+        new_items << Item.new(food: food, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit, store_section_id: store_section_id)
       end
       Item.import new_items
     end
@@ -59,8 +59,9 @@ class Item < ApplicationRecord
     quantity = parser['quantity_match'] if parser['quantity_match'].present?
     food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
     unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
+    store_section_id = food.store_section_id if food.present?
     # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-    self.update(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item.name, is_validated: false)
+    self.update(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item.name, is_validated: false, store_section_id: store_section_id)
   end
 
   def self.add_recipe_items(recipe)
@@ -74,13 +75,15 @@ class Item < ApplicationRecord
       valid_item = Item.where("lower(name) = ?", element['ingredients'].downcase).where(is_validated: true).first
 
       if valid_item.present?
-        new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated)
+        new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated, store_section_id: valid_item.store_section_id)
 
       else
         quantity = element['quantity_match'] if element['quantity_match'].present?
         food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
         unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-        new_items << Item.new(quantity: quantity, unit: unit, food: food, recipe: recipe, name: element['ingredients'], is_validated: false)
+        store_section_id = food.store_section_id if food.present?
+
+        new_items << Item.new(quantity: quantity, unit: unit, food: food, recipe: recipe, name: element['ingredients'], is_validated: false, store_section_id: store_section_id)
       end
     end
 
