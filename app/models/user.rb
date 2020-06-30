@@ -28,7 +28,7 @@ class User < ApplicationRecord
 
 
   after_create :subscribe_to_waiting_list
-  after_create :send_welcome_email
+  # after_create :send_welcome_email
 
   # after_save do
   #   send_welcome_email_to_beta_user if self.beta_changed? && self.beta == true

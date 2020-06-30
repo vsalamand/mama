@@ -4,7 +4,7 @@ class SendEmailToInactiveUsersJob < ApplicationJob
   def perform
     inactive_users  = []
     # Get users who created an account 7 days ago and did not visit again
-    d7_users = User.where(created_at: 7.days.ago.beginning_of_day..7.days.ago.end_of_day)
+    d7_users = User.where(created_at: 10.days.ago.beginning_of_day..10.days.ago.end_of_day)
     d7_inactive_users = d7_users.select{ |u| u.visits.size < 2  if u.visits.any? }
     inactive_users << d7_inactive_users
 
