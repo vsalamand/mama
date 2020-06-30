@@ -19,9 +19,10 @@ class Item < ApplicationRecord
   scope :recipe_items_to_validate, -> { includes(:recipe).where(is_validated: false).where.not(:recipe_id => nil ).where(:recipes => { :status => "published" } ) }
 
   # update item validations if new item is validated
+  after_create :set_store_section
   after_save do
     self.validate if self.is_validated == true
-    self.set_store_section if saved_change_to_name?
+    self.set_store_section if saved_change_to_name? || saved_change_to_food_id?
   end
 
 
@@ -43,9 +44,8 @@ class Item < ApplicationRecord
         food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
         unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-        new_items << Item.new(quantity: quantity, unit: unit, food: food, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false)
+        new_items << Item.new(food: food, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit)
       end
-
       Item.import new_items
     end
   end
