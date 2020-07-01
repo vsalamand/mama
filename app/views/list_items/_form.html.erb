@@ -1,21 +1,25 @@
-<%= simple_form_for([ list, list_item ], remote: true) do |form| %>
-  <div class="my-2">
-    <div class="search-form-control shadow">
-      <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"newListItem" }, wrapper_html: { class:" rounded rounded-lg"} %>
+<div class="banner d-flex flex-column">
 
-      <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
-        Ajouter
-      <% end %>
+  <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
+    <div class="sticky-top bg-white">
+        <div class="container">
+          <div class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" id="hideNewlistItemForm" style="cursor: pointer;"><i class="fas fa-lg fa-arrow-left p-2"></i></div>
+        </div>
+        <div class="container px-2">
+          <div class="search-form-control shadow">
+            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"newListItem" }, wrapper_html: { class:" rounded rounded-lg"} %>
+
+            <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
+              Ajouter
+            <% end %>
+          </div>
+            <!-- NOT USED FOR NOW -->
+              <% if false %>
+                <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
+                <ul class="list-inline mx-2" id="itemsRecommendations">
+                </ul>
+              <% end %>
+        </div>
     </div>
-
-        <!-- NOT USED FOR NOW -->
-          <% if false %>
-            <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
-            <ul class="list-inline mx-2" id="itemsRecommendations">
-            </ul>
-          <% end %>
-
-    </div>
-<% end %>
-
-
+  <% end %>
+</div>

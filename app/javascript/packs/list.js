@@ -6,13 +6,13 @@ require("jquery-ui/ui/widget")
 require("jquery-ui/ui/widgets/sortable")
 
 // sort();
-fetchSuggestedItems();
+// fetchSuggestedItems();
 // loadSuggestions();
 
 $(document).on("turbolinks:load", function(event) {
   // loadSuggestions();
   // getPriceBtn();
-  getListPlaceholder();
+  // getListPlaceholder();
   setStoreSectionHeaders();
   // openSuggestedItemsModal();
   // disable Add List item button by default
@@ -25,12 +25,12 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   // loadSuggestions();
   // getPriceBtn();
   setStoreSectionHeaders();
-  getListPlaceholder();
+  // getListPlaceholder();
   // getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
-  getListPlaceholder();
+  // getListPlaceholder();
   setStoreSectionHeaders();
 })
 
@@ -109,6 +109,7 @@ $(document).on("submit", "#new_list_item", function(event) {
     </div>
     `
   );
+  hideListItemForm();
 })
 
 
@@ -146,6 +147,39 @@ function enableElements(list) {
   });
 }
 
+// show / hide top and bottom menu while focus on create form
+$(document).on("focus", "#toggleListItemform", function(event) {
+  showListItemForm();
+})
+$(document).on("click", "#hideNewlistItemForm", function(event) {
+  hideListItemForm();
+})
+
+function showListItemForm() {
+  var newListItemForm = document.getElementById('newlistItemForm');
+  newListItemForm.style.display = "block";
+  $('#newListItem').focus();
+  var listShow = document.getElementById('listShow');
+  listShow.style.display = "none";
+  hideBottomMenu();
+}
+
+function hideListItemForm() {
+  var newListItemForm = document.getElementById('newlistItemForm');
+  newListItemForm.style.display = "none";
+  var listShow = document.getElementById('listShow');
+  listShow.style.display = "block";
+  showBottomMenu();
+}
+
+function hideBottomMenu() {
+  var bottomMenu = document.getElementById('menuBarBottom');
+  bottomMenu.style.display = "none";
+}
+function showBottomMenu() {
+  var bottomMenu = document.getElementById('menuBarBottom');
+  bottomMenu.style.display = "block";
+}
 
 
 // On form submit, fetch updated suggested items inside the form
@@ -154,20 +188,20 @@ const itemsRecommendations = document.getElementById('itemsRecommendations');
 
 
 
-function loadSuggestions() {
-  if(document.querySelector("#todo_list")){
-    const id = document.querySelector("#todo_list").getAttribute('data');
-    // Show spinner while doing ajax call
-    $(spinner).show();
-    // query suggested items
-    $.ajax({
-      url: "/lists/" + id +"/fetch_suggested_items",
-      cache: false,
-      success: function(){
-      }
-    });
-  }
-}
+// function loadSuggestions() {
+//   if(document.querySelector("#todo_list")){
+//     const id = document.querySelector("#todo_list").getAttribute('data');
+//     // Show spinner while doing ajax call
+//     $(spinner).show();
+//     // query suggested items
+//     $.ajax({
+//       url: "/lists/" + id +"/fetch_suggested_items",
+//       cache: false,
+//       success: function(){
+//       }
+//     });
+//   }
+// }
 
 function getPriceBtn() {
   var count = $("#uncomplete_list_items li").length;
@@ -181,38 +215,38 @@ function getPriceBtn() {
 }
 
 
-function getListPlaceholder() {
-  if(document.getElementById("todo_list")) {
-    var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
-    const placeholder = document.getElementById('listPlaceholder');
-    const sortListBtn = document.getElementById('sortList');
-    const openRecoBtn = document.getElementById('openSelect');
-    const listItemForm = document.getElementById('listItemForm');
+// function getListPlaceholder() {
+//   if(document.getElementById("todo_list")) {
+//     var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+//     const placeholder = document.getElementById('listPlaceholder');
+//     const sortListBtn = document.getElementById('sortList');
+//     const openRecoBtn = document.getElementById('openSelect');
+//     const listItemForm = document.getElementById('listItemForm');
 
-    if(totalCount == 0){
-      $(placeholder).show();
-      $(sortListBtn).hide();
-      $(openRecoBtn).hide();
-      $(listItemForm).hide();
-      // loadSuggestedItems();
-    } else {
-      $(placeholder).hide();
-      $(sortListBtn).show();
-      $(openRecoBtn).show();
-      $(listItemForm).show();
-    }
-  }
-}
+//     if(totalCount == 0){
+//       $(placeholder).show();
+//       $(sortListBtn).hide();
+//       $(openRecoBtn).hide();
+//       $(listItemForm).hide();
+//       // loadSuggestedItems();
+//     } else {
+//       $(placeholder).hide();
+//       $(sortListBtn).show();
+//       $(openRecoBtn).show();
+//       $(listItemForm).show();
+//     }
+//   }
+// }
 
 
-function openSuggestedItemsModal() {
-  var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
-  const selectSuggestedItemsModal = document.getElementById('selectItemsModal');
+// function openSuggestedItemsModal() {
+//   var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+//   const selectSuggestedItemsModal = document.getElementById('selectItemsModal');
 
-  if(totalCount == 0){
-    $(selectSuggestedItemsModal).modal('show');
-  }
-}
+//   if(totalCount == 0){
+//     $(selectSuggestedItemsModal).modal('show');
+//   }
+// }
 
 
 // on Get Price modal show, get store prices
@@ -255,20 +289,20 @@ $(document).on('click', '#shareList',function() {
 
 
 //  Load suggested items in modal
-$(document).on("click", "#openSuggestedItemsBtn", function(event) {
-  loadSuggestedItems();
-});
+// $(document).on("click", "#openSuggestedItemsBtn", function(event) {
+//   loadSuggestedItems();
+// });
 
-function loadSuggestedItems() {
-  const listId = document.getElementById('getSuggestedItems').getAttribute('data');
+// function loadSuggestedItems() {
+//   const listId = document.getElementById('getSuggestedItems').getAttribute('data');
 
-  $.ajax({
-    url: "/lists/" + listId + "/get_suggested_items",
-    cache: false,
-    success: function(){
-    }
-  });
-}
+//   $.ajax({
+//     url: "/lists/" + listId + "/get_suggested_items",
+//     cache: false,
+//     success: function(){
+//     }
+//   });
+// }
 
 
 //  Update list sorting

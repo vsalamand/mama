@@ -13,7 +13,7 @@
           </div>
         <% end %>
         <% if @list.user == current_user || @list.users.include?(current_user) %>
-          <button class="btn-sm btn-light text-muted mt-auto bd-highlight m-2" id="removeRecipefromListBtn" data="<%= recipe.id %>"><i class="fas fa-trash p-1"></i></button>
+          <button class="btn-sm border-0 text-secondary mt-auto ml-auto bd-highlight m-1 p-1" id="removeRecipefromListBtn" data="<%= recipe.id %>"><i class="fas fa-trash p-1"></i></button>
         <% end %>
       </div>
     </div>
