@@ -3,24 +3,26 @@ const initListCable = () => {
   if (listItemsContainer) {
     const id = listItemsContainer.dataset.listId;
 
-    App[`list_${id}`] = App.cable.subscriptions.create(
-      { channel: "ListChannel", list_id: id },
-      {
-      received(data) {
-        if (data.action === "create") {
-            refreshForm(data.message_partial_form);
-            insert(data.store_section_name, data.message_partial_list_item);
-          } else if (data.action === "delete") {
-            const listItemId = data.list_item_id;
-            const storeSection = data.store_section;
-            deleteListItem(listItemId, storeSection);
-          } else {
-            const listItemId = data.list_item_id;
-            refreshListItem(listItemId, data.message_partial);
-          }
-        getEditHistory(data.current_user_id);
-      },
-    });
+    if (!App[`list_${id}`]) {
+      App[`list_${id}`] = App.cable.subscriptions.create(
+        { channel: "ListChannel", list_id: id },
+        {
+        received(data) {
+          if (data.action === "create") {
+              refreshForm(data.message_partial_form);
+              insert(data.store_section_name, data.message_partial_list_item);
+            } else if (data.action === "delete") {
+              const listItemId = data.list_item_id;
+              const storeSection = data.store_section;
+              deleteListItem(listItemId, storeSection);
+            } else {
+              const listItemId = data.list_item_id;
+              refreshListItem(listItemId, data.message_partial);
+            }
+          getEditHistory(data.current_user_id);
+        },
+      });
+    }
   }
 }
 
