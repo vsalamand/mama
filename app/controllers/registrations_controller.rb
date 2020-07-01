@@ -7,9 +7,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     # check if user sign-up using a list invite link
-    if params[:shared_list].values.join.present?
+    if params[:shared_list].keys.first.to_i > 0
       list = List.find(params[:shared_list].keys.first.to_i)
       Collaboration.create(list: list, user: current_user)
+      root_path
     else
       root_path
     end

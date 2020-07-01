@@ -19,9 +19,9 @@ class User < ApplicationRecord
   has_many :food_lists, dependent: :destroy
   has_many :lists, dependent: :destroy
   has_many :recipe_list_items, through: :lists
-  has_many :collaborations
+  has_many :collaborations, dependent: :destroy
   has_many :shared_lists, through: :collaborations, source: :list
-  has_many :flags
+  has_many :flags, dependent: :destroy
 
   has_many :visits, class_name: "Ahoy::Visit", dependent: :destroy
   has_many :events, class_name: "Ahoy::Event", dependent: :destroy

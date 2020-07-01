@@ -211,7 +211,7 @@ class List < ApplicationRecord
     event = self.own_and_associated_audits.first
     user = User.find(user_id)
     unless  event.nil? || event.user == user || event.user.nil?
-      email = event.user.email
+      email = event.user.email.split('@')[0]
       email = "vous" if event.user == user
       day = event.created_at
       time = "#{day.strftime('%H')}h#{day.strftime('%M')}"
@@ -222,7 +222,11 @@ class List < ApplicationRecord
       else
         day = "il y a #{(day.to_date..Date.today).count - 1} jours"
       end
-      message = "Modifiée #{day} à #{time} par #{email}"
+      if day.empty?
+        message = "Mise à jour à #{time} par #{email}"
+      else
+        message = "Mise à jour #{day} par #{email}"
+      end
       return message
     else
       return nil
