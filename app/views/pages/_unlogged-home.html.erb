@@ -3,108 +3,88 @@
 
   <%= render 'shared/navbar_white' %>
 
-
-  <div class="container my-auto px-2">
-
-    <div class="text-white">
-      <div class="d-flex align-items-start flex-column mb-3">
-        <h1 class="display-4 font-weight-bold">Listes de courses faciles à faire</h1>
-        <p class="lead">Pas le temps de prévoir à manger et de vous organiser ?</p>
+  <div class="container bg-transparent d-flex align-items-center my-auto">
+    <div class="container text-white">
+      <div class="row text-center">
+        <div class="col-md-6 my-auto">
+          <h2 class="display-4 font-weight-bold">Listes de courses faciles à faire</h2>
+          <p class="lead">Pas le temps de prévoir à manger et vous organiser ?</p>
+          <%= link_to "Commencer", new_user_registration_path, class:"btn btn-flat2 btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center p-0">
+          <%= cl_image_tag("product_screens/iphonex_list", :height=>500, :fetch_format=>:auto, class:"m-2") %>
+        </div>
       </div>
     </div>
-
-      <%= link_to "Commencer", new_user_registration_path, class:"btn btn-flat2 btn-lg py-3 col-md-6 font-weight-bold goToSignupBtn" %>
   </div>
 
 </div>
 
 
 
-<div class="banner jumbotron bg-white d-flex align-items-center">
+<div class="banner jumbotron bg-transparent d-flex align-items-center">
   <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-6 p-0 my-auto">
-        <h2 class="bigh1 font-weight-bold">Gagnez du temps en magasin</h2>
+        <h2 class="bigh1 font-weight-bold">Gagnez du temps</h2>
         <p class="lead">Vous avez besoin d'aller vite ? <br>
-        Votre liste est automatiquement organisée par rayon et vous pouvez suivre votre progression en barrant les produits déjà choisis.</p>
+        Retrouvez nos listes pré-remplies et ajoutez vos produits en quelques secondes dans votre liste de courses.</p>
         <%= link_to "Faire ma liste de courses", new_user_registration_path, class:"btn btn-flat2 btn-lg m-1 py-3 col-md-6 font-weight-bold goToSignupBtn" %>
       </div>
-      <div class="col-md-6 text-center p-0">
-        <div style="padding: 10px;"></div>
-        <%= cl_image_tag("product_screens/list_management", :height=>450, class:"shadow rounded") %>
+      <div class="col-md-6 d-flex justify-content-center p-0">
+        <%= cl_image_tag("product_screens/products_lists", :height=>500, :fetch_format=>:auto, class:"m-2") %>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="banner jumbotron bg-primary text-white rounded-0 d-flex align-items-center my-0">
+<div class="banner jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
   <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-6 p-0 my-auto">
         <h2 class="bigh1 font-weight-bold">Sortez de la routine</h2>
         <p class="lead">Vous mangez toujours les mêmes plats ?<br>
         Découvrez des recettes simples et rapides pour compléter vos courses.</p>
         <%= link_to "Découvrir les recettes", new_user_registration_path, class:"btn btn-flat2 btn-lg m-1 py-3 col-md-6 font-weight-bold goToSignupBtn" %>
       </div>
-      <div class="col-md-6 text-center p-0">
-        <div style="padding: 10px;"></div>
-        <%= cl_image_tag("product_screens/recipe_options", :height=>450, class:"rounded") %>
+      <div class="col-md-6 d-flex justify-content-center p-0">
+        <%= cl_image_tag("product_screens/food", :height=>500, :fetch_format=>:auto, class:"m-2") %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="banner jumbotron bg-white d-flex align-items-center">
+<div class="banner jumbotron bg-transparent d-flex align-items-center">
   <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-6 p-0 my-auto">
         <h2 class="bigh1 font-weight-bold">N'oubliez plus jamais rien</h2>
         <p class="lead">Vous achetez souvent la même chose ? <br>
         Les produits essentiels sont accessibles en 1 clic pour remplir votre liste.</p>
         <%= link_to "Faire ma liste de courses", new_user_registration_path, class:"btn btn-flat2 btn-lg m-1 py-3 col-md-6 font-weight-bold goToSignupBtn" %>
       </div>
-      <div class="col-md-6 text-center p-0">
-        <div style="padding: 10px;"></div>
-        <%= cl_image_tag("product_screens/essential_products", :height=>350, class:"shadow rounded") %>
+      <div class="col-md-6 d-flex justify-content-center p-0">
+        <%= cl_image_tag("product_screens/products", :height=>500, :fetch_format=>:auto, class:"m-2") %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="banner jumbotron bg-primary text-white rounded-0 d-flex align-items-center my-0">
+<div class="banner jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
   <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-6 p-0 my-auto">
         <h2 class="bigh1 font-weight-bold">Gérez à plusieurs</h2>
         <p class="lead">Vous faites les courses en commun ?<br>
         Créez une liste et partagez là pour répartir le plaisir entre vous.</p>
-        <%= link_to "Faire une liste en commun", new_user_registration_path, class:"btn btn-flat2 btn-lg m-1 py-3 col-md-6 font-weight-bold goToSignupBtn" %>
+        <%= link_to "Faire une liste partagée", new_user_registration_path, class:"btn btn-flat2 btn-lg m-1 py-3 col-md-6 font-weight-bold goToSignupBtn" %>
 
       </div>
-      <div class="col-md-6 text-center p-0">
-        <div style="padding: 10px;"></div>
-        <%= cl_image_tag("product_screens/collaborate", :height=>450, class:"rounded") %>
+      <div class="col-md-6 d-flex justify-content-center p-0">
+        <%= cl_image_tag("product_screens/social", :height=>500, :fetch_format=>:auto, class:"m-2") %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="midbanner d-flex flex-column" style="background: linear-gradient(#e66465, #9198e5);">
-
-
-  <div class="container my-auto">
-
-    <div class="text-white">
-      <div class="d-flex align-items-start flex-column mb-1">
-        <h1 class="display-4 font-weight-bold">Faites les courses facilement !</h1>
-      </div>
-    </div>
-
-    <div class="d-flex flex-column">
-      <%= link_to "Commencer", new_user_registration_path, class:"btn btn-flat2 btn-lg m-1 py-3 col-md-6 font-weight-bold goToSignupBtn" %>
-    </div>
-
-  </div>
-
-</div>
