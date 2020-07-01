@@ -2,11 +2,11 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable
+         :recoverable, :rememberable, :trackable, :validatable
 
   # validates :sender_id, uniqueness: true
   # validates :username, uniqueness: true
-  validates :email, uniqueness: true
+  validates :email, presence: true, uniqueness: true
 
   # validates :email, :uniqueness => {:allow_blank => true}
   belongs_to :diet, optional: true
@@ -90,8 +90,4 @@ class User < ApplicationRecord
   end
 
 
-  protected
-  def password_required?
-    confirmed? ? super : false
-  end
 end
