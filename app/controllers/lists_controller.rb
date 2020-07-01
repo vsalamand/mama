@@ -218,7 +218,6 @@ class ListsController < ApplicationController
   def destroy
     # @list = List.find(params[:id])
     @list.delete
-    flash[:notice] = 'La liste a été supprimée.'
     redirect_to lists_path if @list.list_type == "curated"
     redirect_to root_path if @list.list_type == "personal"
     ahoy.track "Destroy list", request.path_parameters
