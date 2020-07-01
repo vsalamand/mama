@@ -1,4 +1,4 @@
- <div class="sticky-top bg-white">
+ <div class="sticky-top bg-white" id="listBarTop">
   <div class="container">
     <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
       <a class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
@@ -41,7 +41,6 @@
 
     <div class="container px-0">
       <div id="listItemForm"><%= render "list_items/form", list: list, list_item: list_item %></div>
-      <%= render "lists/suggested_items" %>
       <div class="d-flex flex-column align-items-start">
       </div>
     </div>

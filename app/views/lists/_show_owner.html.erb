@@ -1,77 +1,82 @@
- <div class="sticky-top bg-white">
-  <div class="container">
-    <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
-      <a class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
-      <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/favorites"><%= cl_image_tag("menu_icons/star", width: 25, height: 25, class:"m-0") %></a>
-      <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/cuisine"><%= cl_image_tag("menu_icons/search", width: 25, height: 25, class:"m-0") %></a>
-    </nav>
-  </div>
-</div>
+<div id="newlistItemForm" style="display: none;"><%= render "list_items/form", list: list, list_item: list_item %></div>
 
-  <div class="container">
-    <%= render 'shared/flashes' %>
+
+<div id="listShow">
+  <div class="sticky-top bg-white" id="listBarTop">
+    <div class="container">
+      <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
+        <a class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/favorites"><%= cl_image_tag("menu_icons/star", width: 25, height: 25, class:"m-0") %></a>
+        <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/cuisine"><%= cl_image_tag("menu_icons/search", width: 25, height: 25, class:"m-0") %></a>
+      </nav>
+    </div>
   </div>
 
-<div class="wrapper m-0">
-  <div class="container text-center">
-    <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
-      <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
-      <div class="d-flex flex-row bd-highlight mt-3 justify-content-center" id="listOptions">
-        <%= render "lists/options", list: list %>
-        <a class="bd-highlight py-2 mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-         <%= link_to list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" do %>
-          <i class="fas fa-trash p-1"></i>
+    <div class="container">
+      <%= render 'shared/flashes' %>
+    </div>
+
+  <div class="wrapper m-0">
+    <div class="container text-center">
+      <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
+        <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
+        <div class="d-flex flex-row bd-highlight mt-3 justify-content-center" id="listOptions">
+          <%= render "lists/options", list: list %>
+          <a class="bd-highlight py-2 mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+           <%= link_to list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" do %>
+            <i class="fas fa-trash p-1"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="container px-2" style="min-height: 70vh;">
+    <div class="container px-0" id="todo_list" data="<%= list.id %>">
+
+      <div class="container px-0">
+
+        <ul class="border-0 list-group-item d-flex align-items-center justify-content-between p-0 pl-1" >
+          <div class="d-flex align-items-center">
+          </div>
+        </ul>
+        <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
+          <div class="search-form-control shadow">
+            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"toggleListItemform", style:"cursor: pointer;" }, wrapper_html: { class:" rounded rounded-lg"} %>
+          </div>
         <% end %>
+
+
+        <div id="editHistory" class="m-1">
+          <%= render "lists/edit_history", content: @message %>
+        </div>
+
+        <div class="mb-3">
+          <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
+            <%= render 'lists/uncomplete_todo_list', list: list %>
+          </div>
+        </div>
+
+        <div id="scrollPoint" style="padding: 20px;"></div>
+        <% if false %>
+          <div class="shadow rounded">
+            <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
+              <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
+            </div>
+          </div>
+        <% end %>
+
       </div>
+
+      <%= render 'lists/related_recipes', recipes: recipes, list: list %>
     </div>
-  </div>
+
 </div>
 
 
-
-
-
-<div class="wrapper" style="min-height: 70vh;">
-  <div class="container px-1" id="todo_list" data="<%= list.id %>">
-
-
-    <div class="container px-0">
-      <ul class="border-0 list-group-item d-flex align-items-center justify-content-between p-0 pl-1" >
-        <div class="d-flex align-items-center">
-        </div>
-      </ul>
-      <div id="listItemForm"><%= render "list_items/form", list: list, list_item: list_item %></div>
-      <%= render "lists/suggested_items" %>
-    </div>
-
-    <div id="editHistory" class="m-1">
-      <%= render "lists/edit_history", content: @message %>
-    </div>
-
-    <div class="mb-3 px-0">
-      <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
-        <%= render 'lists/uncomplete_todo_list', list: list %>
-      </div>
-    </div>
-
-
-
-    <div id="scrollPoint" style="padding: 20px;"></div>
-
-    <% if false %>
-      <div class="shadow rounded">
-        <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
-          <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
-        </div>
-      </div>
-    <% end %>
-
-
-  </div>
-
-  <%= render 'lists/related_recipes', recipes: recipes, list: list %>
-
-</div>
 
 
 
