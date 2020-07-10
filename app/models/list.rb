@@ -10,7 +10,7 @@ class List < ApplicationRecord
 
   belongs_to :user, optional: true
   has_many :list_items, dependent: :destroy
-  has_many :items, through: :list_items
+  has_many :items
   has_many :foods, through: :items
   has_many :collaborations
   has_many :users, through: :collaborations
@@ -22,6 +22,7 @@ class List < ApplicationRecord
   has_many :recipes, through: :recipe_list_items
 
   accepts_nested_attributes_for :list_items, allow_destroy: true
+  accepts_nested_attributes_for :items, allow_destroy: true
   accepts_nested_attributes_for :checklist_items
 
   STATUS = ["archived", "opened", "saved", "deleted"]

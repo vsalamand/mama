@@ -68,7 +68,7 @@ $('#selectListModal').on('hide.bs.modal', function (e) {
 
 // when click on food reco, add in input field as value
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
-const form = document.getElementById('new_list_item');
+const form = document.getElementById('new_item');
 // const id = document.querySelector("#todo_list").getAttribute('data');
 
 function fetchSuggestedItems() {
@@ -99,16 +99,16 @@ function fetchSuggestedItems() {
   })
 }
 
-$(document).on("submit", "#new_list_item", function(event) {
-  var addForm = document.getElementById('new_list_item');
-  $(addForm).html(
-    `<div class="my-2">
-      <div class="search-form-control border border-primary m-0 py-3 rounded bg-white">
-      <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
-      </div>
-    </div>
-    `
-  );
+$(document).on("submit", "#new_item", function(event) {
+  var addForm = document.getElementById('new_item');
+  // $(addForm).html(
+  //   `<div class="my-2">
+  //     <div class="search-form-control border border-primary m-0 py-3 rounded bg-white">
+  //     <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
+  //     </div>
+  //   </div>
+  //   `
+  // );
   hideListItemForm();
 })
 
@@ -203,16 +203,16 @@ const itemsRecommendations = document.getElementById('itemsRecommendations');
 //   }
 // }
 
-function getPriceBtn() {
-  var count = $("#uncomplete_list_items li").length;
-  const btn = document.getElementById('loadStoreCartsBtn')
+// function getPriceBtn() {
+//   var count = $("#uncomplete_list_items li").length;
+//   const btn = document.getElementById('loadStoreCartsBtn')
 
-  if(count > 0){
-    $(btn).show();
-  } else {
-    $(btn).hide();
-  }
-}
+//   if(count > 0){
+//     $(btn).show();
+//   } else {
+//     $(btn).hide();
+//   }
+// }
 
 
 // function getListPlaceholder() {
@@ -249,32 +249,32 @@ function getPriceBtn() {
 // }
 
 
-// on Get Price modal show, get store prices
-$(document).on('click', '#selectStoreBtn',function() {
-  getCartsPrice();
-})
+// // on Get Price modal show, get store prices
+// $(document).on('click', '#selectStoreBtn',function() {
+//   getCartsPrice();
+// })
 
 
-function getCartsPrice() {
-  if(document.querySelector("#todo_list")){
-    const id = document.querySelector("#todo_list").getAttribute('data');
-    var cartsPrice = document.getElementById('listCartPrice');
-    var modalSpinner = document.querySelectorAll('#modalSpinner');
+// function getCartsPrice() {
+//   if(document.querySelector("#todo_list")){
+//     const id = document.querySelector("#todo_list").getAttribute('data');
+//     var cartsPrice = document.getElementById('listCartPrice');
+//     var modalSpinner = document.querySelectorAll('#modalSpinner');
 
-    $(cartsPrice).hide();
-    $(modalSpinner).show();
+//     $(cartsPrice).hide();
+//     $(modalSpinner).show();
 
-    $.ajax({
-      url: "/lists/" + id +"/fetch_price",
-      cache: false,
-      success: function(){
-        $(cartsPrice).show();
-        $(modalSpinner).hide();
-      }
-    });
+//     $.ajax({
+//       url: "/lists/" + id +"/fetch_price",
+//       cache: false,
+//       success: function(){
+//         $(cartsPrice).show();
+//         $(modalSpinner).hide();
+//       }
+//     });
 
-  }
-}
+//   }
+// }
 
 
 
@@ -366,10 +366,10 @@ $(document).on("click", ".editListItemBtn", function(event) {
 //  Edit list item
 $(document).on("click", ".editListItemModalbtn", function(event) {
   var listId = document.querySelector("#todo_list").getAttribute('data');
-  var listItemId = this.getAttribute('data');
+  var itemId = this.getAttribute('data');
 
   $.ajax({
-    url: "/lists/" + listId + "/list_items/" + listItemId + "/edit_modal",
+    url: "/lists/" + listId + "/items/" + itemId + "/edit_modal",
     cache: false,
     dataType: 'script',
     success: function(){

@@ -1,28 +1,33 @@
-<li class="list-group-item d-flex align-items-center justify-content-between">
-  <p class="text-dark">
-    <%= item.name.capitalize %>
-  </p>
-  <div class="d-flex align-items-center">
-      <button type="button" class="btn-sm btn-outline-primary" data-toggle="modal" data-target="#addItem<%=item.id%>ToListModal">
-        <strong>Ajouter</strong>
-      </button>
-  </div>
-</li>
+  <div id="grocerylist-item-id<%= item.id %>" class="listItemShow" data="<%= item.id %>">
+    <li class="border-0 py-2 px-2 list-group-item d-flex align-items-center justify-content-between" >
 
-<!-- Add to List Modal -->
-<div class="modal fade" id="addItem<%=item.id%>ToListModal" tabindex="-1" role="dialog" aria-labelledby="addItem<%=item.id%>ToListModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addItem<%=item.id%>ToListModalLabel">Choisir une liste de courses</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-0 p-0">
-        <%= render 'lists/item_select_list', item: item, recipe: recipe %>
-      </div>
-    </div>
+      <% if item.is_completed == false %>
+          <div class="d-flex align-items-center">
+            <%= link_to item_path(item), method: :delete, remote: true do %>
+              <button type="button" class="close ml-2 mr-0 remove-item text-muted" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <% end %>
+            <p class="li lead m-0 pl-3 p-1 no-link editListItemModalbtn text-primary font-weight-bold" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
+          </div>
+          <%= link_to list_item_complete_path(item.list, item), remote: true  do %>
+           <i class="far fa-lg fa-square px-2"></i>
+          <% end %>
+      <% else %>
+          <div class="d-flex align-items-center">
+            <%= link_to item_path(item), method: :delete, remote: true do %>
+              <button type="button" class="close ml-2 mr-0 remove-item text-muted" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <% end %>
+            <p class="lead m-0 pl-3 p-1 text-muted editListItemModalbtn no-link" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
+          </div>
+          <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
+            <i class="fas fa-lg fa-check-square text-muted px-2"></i>
+          <% end %>
+      <% end %>
+
+    </li>
   </div>
-</div>
+
 

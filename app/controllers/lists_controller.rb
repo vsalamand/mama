@@ -79,9 +79,9 @@ class ListsController < ApplicationController
   def show
     @list = List.friendly.find(params[:id])
 
-    @list_items = @list.list_items.not_deleted
+    @items = @list.items.not_deleted
     # @uncomplete_list_items = @list.get_items_to_buy
-    @list_item = ListItem.new
+    @item = Item.new
     @recipes = @list.recipes
 
     @ref_list = params[:l]

@@ -1,4 +1,4 @@
-<div id="newlistItemForm" style="display: none;"><%= render "list_items/form", list: list, list_item: list_item %></div>
+<div id="newlistItemForm" style="display: none;"><%= render "items/list_item_form", list: list, item: item %></div>
 
 
 <div id="listShow">
@@ -43,7 +43,7 @@
           <div class="d-flex align-items-center">
           </div>
         </ul>
-        <%= simple_form_for([ list, list_item ], remote: true) do |form| %>
+        <%= simple_form_for([ list, item ], remote: true) do |form| %>
           <div class="search-form-control shadow">
             <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"toggleListItemform", style:"cursor: pointer;" }, wrapper_html: { class:" rounded rounded-lg"} %>
           </div>

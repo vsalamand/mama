@@ -1,0 +1,23 @@
+// then when click is detected do the following:
+// remove card from grocerylist
+const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
+listItemCard.remove();
+
+
+
+const current_user_id = "<%= current_user.id %>";
+getEditHistory(current_user_id);
+
+function getEditHistory(current_user_id) {
+  const listId = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/get_edit_history",
+    cache: false,
+    data: {
+      a: current_user_id
+      },
+    success: function(data){
+    }
+  });
+}

@@ -120,6 +120,17 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :items do
+    get :validate
+    get :select
+    get :unselect
+    collection do
+      get :edit_multiple
+      put :update_multiple
+    end
+  end
+
+
   resources :lists do
     get 'fetch_suggested_items', to: "lists#fetch_suggested_items"
     get 'fetch_price', to: "lists#fetch_price"
@@ -138,6 +149,11 @@ Rails.application.routes.draw do
     get :share
     get :select_all
     get :get_edit_history
+    resources :items, only: [ :create, :show, :destroy, :edit, :update ] do
+      get :complete
+      get :uncomplete
+      get :edit_modal
+    end
     resources :list_items, only: [ :create, :show, :destroy, :edit, :update ] do
       collection do
         patch :sort
@@ -184,16 +200,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-  resources :items do
-    get :validate
-    get :select
-    get :unselect
-    collection do
-      get :edit_multiple
-      put :update_multiple
-    end
-  end
 
   resources :foods
 

@@ -12,11 +12,11 @@ const initListCable = () => {
               refreshForm(data.message_partial_form);
               insert(data.store_section_name, data.message_partial_list_item);
             } else if (data.action === "delete") {
-              const listItemId = data.list_item_id;
+              const listItemId = data.item_id;
               const storeSection = data.store_section;
               deleteListItem(listItemId, storeSection);
             } else {
-              const listItemId = data.list_item_id;
+              const listItemId = data.item_id;
               refreshListItem(listItemId, data.message_partial);
             }
           getEditHistory(data.current_user_id);
@@ -45,7 +45,7 @@ function sortSectionElements(sectionElements) {
 
 
 function refreshForm(form_partial) {
-  const newListItemForm = document.getElementById('new_list_item');
+  const newListItemForm = document.getElementById('new_item');
   newListItemForm.innerHTML = form_partial;
   var submitButton = document.getElementById('addListItemBtn');
   $(submitButton).prop('disabled', true);

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_151203) do
+ActiveRecord::Schema.define(version: 2020_07_09_101032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -298,7 +298,11 @@ ActiveRecord::Schema.define(version: 2020_06_26_151203) do
     t.boolean "is_validated", default: false
     t.boolean "is_non_food", default: false, null: false
     t.integer "store_section_id"
+    t.bigint "list_id"
+    t.boolean "is_deleted", default: false
+    t.boolean "is_completed", default: false
     t.index ["food_id"], name: "index_items_on_food_id"
+    t.index ["list_id"], name: "index_items_on_list_id"
     t.index ["list_item_id"], name: "index_items_on_list_item_id"
     t.index ["recipe_id"], name: "index_items_on_recipe_id"
     t.index ["store_section_id"], name: "index_items_on_store_section_id"
@@ -632,6 +636,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_151203) do
   add_foreign_key "foods", "units"
   add_foreign_key "items", "foods"
   add_foreign_key "items", "list_items"
+  add_foreign_key "items", "lists"
   add_foreign_key "items", "recipes"
   add_foreign_key "items", "store_sections"
   add_foreign_key "items", "units"

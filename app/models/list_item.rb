@@ -153,4 +153,16 @@ class ListItem < ApplicationRecord
       return self.name
     end
   end
+
+  def self.migrate_to_item
+    ListItem.all.each do |list_item|
+      if list_item.item
+        item = list_item.item
+        item.list = list_item.list
+        item.is_deleted = list_item.deleted
+        item.is_completed = list_item.is_completed
+        item.save
+      end
+    end
+  end
 end

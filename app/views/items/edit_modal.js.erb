@@ -1,0 +1,6 @@
+var listItemModal = document.getElementById("editListItemModal");
+$(listItemModal).modal("show");
+
+var modalBody = document.getElementById("editListItemForm");
+modalBody.innerHTML = "";
+modalBody.innerHTML = ("<%= j render 'items/list_item_edit', list: @list, item: @item %>");

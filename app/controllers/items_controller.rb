@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_recipe, only: [ :new, :create, :edit, :update ]
   before_action :set_list_item, only: [ :edit, :update, :unvalidate, :validate ]
   before_action :set_item, only: [ :edit, :update ]
-  skip_before_action :authenticate_user!, only: [:select, :unselect]
+  skip_before_action :authenticate_user!, only: [:select, :unselect, :show, :complete, :uncomplete, :destroy, :create, :edit, :update, :edit_modal]
 
 
   def new
@@ -12,13 +12,29 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(items_params)
-    # @item.recipe = @recipe
-    if @item.save
-      # if params[:recipe_id].present?
+    if params[:list_id]
+      @list = List.friendly.find(params[:list_id])
+      @item = @item.set
+      @item.list = @list
+      if @item.save
+        @store_section_name = @item.get_store_section_name.downcase.parameterize(separator: '')
+        render "create.js.erb"
+        # redirect_to list_path(@list)
+        ahoy.track "Create list item", name: @item.name
+      else
+        redirect_to list_path(@list)
+      end
+    elsif @item.recipe
       redirect_to god_show_recipe_path(@item.recipe)
     else
       render 'new'
     end
+  end
+
+  def edit_modal
+    @list = List.find(params[:list_id])
+    @item = Item.find(params[:item_id])
+    render "edit_modal.js.erb"
   end
 
   def edit
@@ -27,14 +43,53 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item.update(items_params)
-    if @item.recipe_id.present?
+
+    if params[:list_id]
+      completed_status = @item.is_completed
+      store_section = @item.store_section_id
+      new_store_section = items_params["store_section_id"].to_i
+
+      @item.update(items_params)
+      @item = @item.set
+      @item.is_completed = completed_status
+      # if user is updating store section specificaly
+      if (new_store_section != store_section)
+        @item.store_section_id = new_store_section
+        @item.is_validated = false
+      end
+      @item.save
+      @store_section_name = @item.get_store_section_name.downcase.parameterize(separator: '')
+
+      render "update.js.erb"
+      ahoy.track "Edit list item", name: @item.name
+
+    elsif @item.recipe_id.present?
+      @item.update(items_params)
       redirect_to god_show_recipe_path(@item.recipe_id)
     # elsif @item.list_item_id.present?
     #   redirect_to list_path(@item.list_item.list)
     else
+      @item.update(items_params)
       redirect_to edit_item_path(@item)
     end
+  end
+
+  def complete
+    @item = Item.find(params[:item_id])
+    @list = @item.list
+    @item.complete
+
+    render "complete.js.erb"
+    ahoy.track "complete list item", name: @item.name
+  end
+
+  def uncomplete
+    @item = Item.find(params[:item_id])
+    @list = @item.list
+    @item.uncomplete
+
+    render "uncomplete.js.erb"
+    ahoy.track "Uncomplete list item", name: @item.name
   end
 
   def validate
@@ -57,12 +112,14 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy
-
-    if @item.list_item.present?
-      @list = @item.list_item.list
-      redirect_to list_path(@list)
+    @list = @item.list
+    if @list
+      @item.delete
+      @store_section = @item.get_store_section_name.parameterize(separator: '')
+      render "delete.js.erb"
+      ahoy.track "Destroy list item", name: @item.name
     else
+      @item.destroy
       redirect_to verify_items_path
     end
   end
@@ -130,6 +187,6 @@ class ItemsController < ApplicationController
   end
 
   def items_params
-    params.require(:item).permit(:food_id, :recipe, :recipe_id, :list_item, :unit_id, :quantity, :name, :is_validated, :is_non_food, :store_section_id) ## Rails 4 strong params usage
+    params.require(:item).permit(:food_id, :recipe, :recipe_id, :list, :list_item, :unit_id, :quantity, :name, :is_validated, :is_deleted, :is_completed, :is_non_food, :store_section_id) ## Rails 4 strong params usage
   end
 end
