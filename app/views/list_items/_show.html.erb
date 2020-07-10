@@ -3,27 +3,30 @@
 
       <% if list_item.is_completed == false %>
           <div class="d-flex align-items-center">
-            <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
-             <i class="far fa-lg fa-square px-2"></i>
+            <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
+              <button type="button" class="close ml-2 mr-0 remove-item text-muted" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             <% end %>
-            <p class="lead m-0 pl-3 p-1 no-link editListItemModalbtn text-primary font-weight-bold" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
+            <p class="li lead m-0 pl-3 p-1 no-link editListItemModalbtn text-primary font-weight-bold" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
           </div>
-      <% else %>
-          <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
-            <div class="d-flex align-items-center">
-              <i class="fas fa-lg fa-check-square text-muted px-2"></i>
-              <p class="lead m-0 pl-3 p-1 text-muted no-link"><del><%= list_item.name %></del></p>
-            </div>
+          <%= link_to list_list_item_complete_path(list_item.list, list_item), remote: true  do %>
+           <i class="far fa-lg fa-square px-2"></i>
           <% end %>
-      <% end %>
-
-      <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
-        <button type="button" class="close ml-2 mr-0 remove-item text-muted" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <% else %>
+          <div class="d-flex align-items-center">
+            <%= link_to list_list_item_path(list_item.list, list_item), method: :delete, remote: true do %>
+              <button type="button" class="close ml-2 mr-0 remove-item text-muted" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <% end %>
+            <p class="lead m-0 pl-3 p-1 text-muted editListItemModalbtn no-link" style="cursor: pointer;" data="<%= list_item.id %>"><%= list_item.name %></p>
+          </div>
+          <%= link_to list_list_item_uncomplete_path(list_item.list, list_item), remote: true do %>
+            <i class="fas fa-lg fa-check-square text-muted px-2"></i>
+          <% end %>
       <% end %>
 
     </li>
   </div>
-
 

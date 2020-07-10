@@ -171,7 +171,7 @@ class PagesController < ApplicationController
 
     if params[:i].present?
       item_inputs = params[:i].split("&i=")
-      ListItem.add_menu_to_list(item_inputs, @list)
+      Item.add_menu_to_list(item_inputs, @list)
     end
 
     if params[:r].present?

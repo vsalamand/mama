@@ -1,0 +1,45 @@
+
+<% unless @item.errors.any? %>
+  reinsert();
+  $('.modal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+<% else %>
+  $('.modal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+<% end %>
+
+
+function reinsert() {
+  const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
+  listItemCard.remove();
+  const sectionElements = document.getElementById("<%= @store_section_name %>Elements");
+  sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @item.list, item: @item %>");
+  sortSectionElements(sectionElements);
+}
+
+function sortSectionElements(sectionElements) {
+  const listItems = sectionElements.querySelectorAll(".listItemShow")
+  const sortedListItems = $(listItems).sort((a,b)=>a.innerText.toLowerCase()>b.innerText.toLowerCase()?1:-1)
+  const sortedSectionElements = $(sortedListItems).map(function() {
+    sectionElements.appendChild(this);
+  })
+}
+
+const current_user_id = "<%= user_signed_in? ? current_user.id : nil %>";
+getEditHistory(current_user_id);
+
+function getEditHistory(current_user_id) {
+  const listId = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/get_edit_history",
+    cache: false,
+    data: {
+      a: current_user_id
+      },
+    success: function(data){
+    }
+  });
+}

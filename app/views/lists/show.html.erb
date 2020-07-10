@@ -1,19 +1,19 @@
 <% content_for :meta_title, "#{@list.name}" %>
-<% content_for :meta_description, "#{@list_items.pluck(:name).join(", ").capitalize[0..255] if @list_items.any?}" %>
+<% content_for :meta_description, "#{@items.pluck(:name).join(", ").capitalize[0..255] if @items.any?}" %>
 
 
 <% if user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>
-      <%= render "lists/show_owner", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+      <%= render "lists/show_owner", list: @list, items: @items, item: @item, recipes: @recipes %>
     <% else %>
-      <%= render 'lists/select', list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+      <%= render 'lists/select', list: @list, items: @items, item: @item, recipes: @recipes %>
     <% end %>
 
 <% else  %>
   <% if @list.user.nil? %>
-      <%= render "lists/show_free", list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+      <%= render "lists/show_free", list: @list, items: @items, item: @item, recipes: @recipes %>
   <% else  %>
-      <%= render 'lists/select', list: @list, list_items: @list_items, list_item: @list_item, recipes: @recipes %>
+      <%= render 'lists/select', list: @list, items: @items, item: @item, recipes: @recipes %>
   <% end %>
 <% end %>
 
@@ -22,9 +22,6 @@
 
 <div style="padding: 10px;"></div>
 
-<% if user_signed_in? && current_user.beta == true %>
-  <%= render "lists/get_price", list: @list, uncomplete_list_items: @uncomplete_list_items %>
-<% end %>
 
 <div style="padding: 50px;"></div>
 

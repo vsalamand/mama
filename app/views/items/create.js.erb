@@ -1,0 +1,49 @@
+<% if @item.errors.any? %>
+  refreshForm('<%= j render "items/list_item_form", list: @list, item: @item %>');
+<% else %>
+  insert();
+  refreshForm('<%= j render "items/list_item_form", list: @list, item: Item.new %>');
+<% end %>
+
+
+function refreshForm(innerHTML) {
+  const newListItemForm = document.getElementById('new_item');
+  newListItemForm.innerHTML = innerHTML;
+  var submitButton = document.getElementById('addListItemBtn');
+  $(submitButton).prop('disabled', true);
+  event.preventDefault();
+}
+
+function insert() {
+  const sectionElements = document.getElementById("<%= @store_section_name %>Elements");
+  sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @item %>");
+  sortSectionElements(sectionElements);
+}
+
+function sortSectionElements(sectionElements) {
+  const listItems = sectionElements.querySelectorAll(".listItemShow")
+  const sortedListItems = $(listItems).sort((a,b)=>a.innerText.toLowerCase()>b.innerText.toLowerCase()?1:-1)
+  const sortedSectionElements = $(sortedListItems).map(function() {
+    sectionElements.appendChild(this);
+  })
+}
+
+const current_user_id = "<%= user_signed_in? ? current_user.id : nil %>";
+getEditHistory(current_user_id);
+
+function getEditHistory(current_user_id) {
+  const listId = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/get_edit_history",
+    cache: false,
+    data: {
+      a: current_user_id
+      },
+    success: function(data){
+    }
+  });
+}
+
+// focus on form input field
+$('#newListItem').focus();

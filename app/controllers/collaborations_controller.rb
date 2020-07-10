@@ -17,7 +17,7 @@ class CollaborationsController < ApplicationController
   # end
 
   def destroy
-    @list = List.find(params[:list_id])
+    @list = List.friendly.find(params[:list_id])
     @collaboration = Collaboration.find_by(user: params[:id], list: @list)
     @collaboration.destroy
     flash[:notice] = "Vous ne participez plus à cette liste."
