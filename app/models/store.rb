@@ -35,6 +35,35 @@ class Store < ApplicationRecord
   end
 
 
+  def create_store_section_items
+    self.store_items.pluck(:shelters).uniq.each do |shelter|
+      # clean store sections array strings
+      breadcrumb = StoreSectionItem.clean_breadcrumb(shelter)
+
+      # iterate over clean store sections array to create new store section item and assign ancestor if necessary
+      breadcrumb.each_with_index do |store_section, index|
+
+        store_section_item = StoreSectionItem.find_or_create_by(name: store_section,
+                                                                breadcrumb: breadcrumb,
+                                                                store: self,
+                                                                level: index)
+
+        if index > 0
+          store_section_item.parent_id = StoreSectionItem.find_by(name: breadcrumb[index - 1],
+                                                              breadcrumb: breadcrumb,
+                                                              store: self).id
+          store_section_item.save
+        end
+
+        # apply clean breadcrumb + lowest level store section item to related store items
+        if index == (breadcrumb.size - 1)
+          StoreItem.where(store: self, shelters: shelter).update_all(shelters: breadcrumb, store_section_item_id: store_section_item.id)
+        end
+      end
+    end
+  end
+
+
 
   def get_main_shelter_list
     self.store_items.pluck(:shelters).uniq.map{ |array| array.first}.uniq

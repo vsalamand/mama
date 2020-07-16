@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_101032) do
+ActiveRecord::Schema.define(version: 2020_07_16_140313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -527,8 +527,24 @@ ActiveRecord::Schema.define(version: 2020_07_09_101032) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "shelters", default: [], array: true
+    t.bigint "store_section_item_id"
     t.index ["product_id"], name: "index_store_items_on_product_id"
     t.index ["store_id"], name: "index_store_items_on_store_id"
+    t.index ["store_section_item_id"], name: "index_store_items_on_store_section_item_id"
+  end
+
+  create_table "store_section_items", force: :cascade do |t|
+    t.string "name"
+    t.string "breadcrumb", default: [], array: true
+    t.bigint "store_id"
+    t.bigint "store_section_id"
+    t.integer "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_store_section_items_on_ancestry"
+    t.index ["store_id"], name: "index_store_section_items_on_store_id"
+    t.index ["store_section_id"], name: "index_store_section_items_on_store_section_id"
   end
 
   create_table "store_sections", id: :serial, force: :cascade do |t|
@@ -668,7 +684,10 @@ ActiveRecord::Schema.define(version: 2020_07_09_101032) do
   add_foreign_key "store_carts", "users"
   add_foreign_key "store_item_histories", "store_items"
   add_foreign_key "store_items", "products"
+  add_foreign_key "store_items", "store_section_items"
   add_foreign_key "store_items", "stores"
+  add_foreign_key "store_section_items", "store_sections"
+  add_foreign_key "store_section_items", "stores"
   add_foreign_key "stores", "merchants"
   add_foreign_key "users", "diets"
 end
