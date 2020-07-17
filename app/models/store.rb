@@ -3,6 +3,7 @@ class Store < ApplicationRecord
   has_many :store_items
   has_many :products, through: :store_items
   has_many :foods, through: :products
+  has_many :store_section_items
 
   STORE_TYPE = ["online", "physical"]
 
@@ -36,33 +37,45 @@ class Store < ApplicationRecord
 
 
   def create_store_section_items
-    self.store_items.pluck(:shelters).uniq.each do |shelter|
-      # clean store sections array strings
-      breadcrumb = StoreSectionItem.clean_breadcrumb(shelter)
+    # get list of level 0 store sections
+    level_0 = self.store_items.pluck(:shelters).uniq.map{ |shelter| shelter.first }.uniq
 
-      # iterate over clean store sections array to create new store section item and assign ancestor if necessary
-      breadcrumb.each_with_index do |store_section, index|
+    level_0.each do |shelter_0|
+      # find or create level 0 store sections
+      l0_store_section_item = StoreSectionItem.find_or_create_by(name: shelter_0,
+                                                              # breadcrumb: breadcrumb,
+                                                              store: self,
+                                                              level: 0)
+      # get list of level 1 store sections for the given level 0 store section
+      level_1 = self.store_items.pluck(:shelters).select{ |shelter| shelter.first == shelter_0}.map{ |shelter| shelter.second }.uniq
 
-        store_section_item = StoreSectionItem.find_or_create_by(name: store_section,
-                                                                breadcrumb: breadcrumb,
+      level_1.each do |shelter_1|
+        # find or create level 1 store sections + assign level 0 ancestry
+        l1_store_section_item = StoreSectionItem.find_or_create_by(name: shelter_1,
+                                                              # breadcrumb: breadcrumb,
+                                                              store: self,
+                                                              level: 1)
+        l1_store_section_item.parent_id = l0_store_section_item.id
+        l1_store_section_item.save
+
+        level_2_breadcrumbs = self.store_items.pluck(:shelters).select{ |shelter| shelter.first == shelter_0 && shelter.second == shelter_1}.uniq
+        # level_2 = level_2_breadcrumbs.map{ |shelter| shelter.third }
+        level_2_breadcrumbs.each do |breadcrumb|
+          # find or create level 2 store sections + assign level 1 ancestry + assign breadcrumb + update related store items
+          clean_breadcrumb = StoreSectionItem.clean_breadcrumb(breadcrumb)
+          shelter_2 = clean_breadcrumb.third
+          l2_store_section_item = StoreSectionItem.find_or_create_by(name: shelter_2,
+                                                                breadcrumb: clean_breadcrumb,
                                                                 store: self,
-                                                                level: index)
-
-        if index > 0
-          store_section_item.parent_id = StoreSectionItem.find_by(name: breadcrumb[index - 1],
-                                                              breadcrumb: breadcrumb,
-                                                              store: self).id
-          store_section_item.save
-        end
-
-        # apply clean breadcrumb + lowest level store section item to related store items
-        if index == (breadcrumb.size - 1)
-          StoreItem.where(store: self, shelters: shelter).update_all(shelters: breadcrumb, store_section_item_id: store_section_item.id)
+                                                                level: 2)
+          l2_store_section_item.parent_id = l1_store_section_item.id
+          l2_store_section_item.save
+          # apply clean breadcrumb + lowest level store section item to related store items
+          StoreItem.where(store: self, shelters: breadcrumb).update_all(shelters: clean_breadcrumb, store_section_item_id: l2_store_section_item.id)
         end
       end
     end
   end
-
 
 
   def get_main_shelter_list

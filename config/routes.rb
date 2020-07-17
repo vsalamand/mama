@@ -228,7 +228,7 @@ Rails.application.routes.draw do
 
   resources :orders
 
-  # resources :stores do
+  resources :stores
   #   resources :store_carts do
   #     get 'fetch_price', to: "store_carts#fetch_price"
   #     member do

@@ -2,7 +2,7 @@ class StoreSectionItem < ApplicationRecord
   has_ancestry
   belongs_to :store
   belongs_to :store_section
-  has_many :store_items, dependent: :destroy
+  has_many :store_items
 
 
   def self.clean_breadcrumb(text)
