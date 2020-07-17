@@ -228,7 +228,10 @@ Rails.application.routes.draw do
 
   resources :orders
 
-  resources :stores
+  resources :stores do
+    get :store_section
+    resources :store_section_items
+  end
   #   resources :store_carts do
   #     get 'fetch_price', to: "store_carts#fetch_price"
   #     member do

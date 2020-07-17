@@ -35,6 +35,10 @@ class Store < ApplicationRecord
     return cheapest_cart_price.compact
   end
 
+  def get_level_0_store_sections
+    self.store_section_items.where(level: 0)
+  end
+
 
   def create_store_section_items
     # get list of level 0 store sections

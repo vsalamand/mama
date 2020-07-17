@@ -1,3 +1,5 @@
+<%= render 'shared/admin-navbar' %>
+
 <div class="container my-5">
   <h1 class="display-4 font-weight-bold"><%= @store.name.capitalize %></h1>
   <p class="ml-1 text-muted">Catalogue du magasin <%= @store.store_type %></p>
@@ -7,9 +9,12 @@
 
 
 <div class="container my-5">
-  <div class="list-group shadow">
-    <% @shelves.each do |store_shelve| %>
-      <%= render 'stores/store_shelves', store_shelve: store_shelve %>
+  <div class="list-group">
+    <% @store_sections.each do |store_section| %>
+      <div class="d-flex align-items-center">
+        <li class="lead text-primary mr-1"><%= link_to store_section.name, store_store_section_path(@store, store_section_item_id: store_section.id) %></li>
+        <small><%= store_section.get_store_section.name if store_section.get_store_section.present? %></small>
+      </div>
     <% end %>
   </div>
 </div>

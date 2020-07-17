@@ -1,0 +1,8 @@
+<%= simple_form_for [store, store_section_item] do |f| %>
+    <div class="mt-4 bg-white">
+      <%= f.collection_select(:store_section_id, StoreSection.all.order(:name), :id, :name, {:include_blank => true}, {:class => 'form-control form-control-lg'}) %>
+    </div>
+    <div class="modal-footer bg-white">
+      <%= f.submit "Continuer", class:"btn py-2 btn-warning px-5" %>
+    </div>
+<% end %>
