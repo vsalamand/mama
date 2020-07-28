@@ -13,7 +13,7 @@
     <% @store_sections.each do |store_section| %>
       <div class="d-flex align-items-center">
         <li class="lead text-primary mr-1"><%= link_to store_section.name, store_store_section_path(@store, store_section_item_id: store_section.id) %></li>
-        <small><%= store_section.get_store_section.name if store_section.get_store_section.present? %></small>
+        <small><%= store_section.get_category.name if store_section.get_category.present? %></small>
       </div>
     <% end %>
   </div>

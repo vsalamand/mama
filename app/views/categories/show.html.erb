@@ -1,16 +1,16 @@
 <%= render 'shared/admin-navbar' %>
 
 <div class="container my-5">
-  <p><%= link_to "Accueil", categories_path %></p>
+  <%= link_to "Accueil", categories_path, class:"btn btn-light border" %>
   <% if @root %>
-    <p><%= link_to @root.name, category_path(@root), class:"btn btn-light border" %></p>
+    <%= link_to @root.name, category_path(@root), class:"btn btn-light border" %>
   <% end %>
   <% if @parent %>
-    <p><%= link_to @parent.name, category_path(@parent), class:"btn btn-light border" %></p>
+    <%= link_to @parent.name, category_path(@parent), class:"btn btn-light border" %>
   <% end %>
 
   <div>
-    <h1 class="display-4 font-weight-bold mb-0"><%= @category.name.capitalize %></h1>
+    <h1 class="display-4 font-weight-bold mb-0 mt-2"><%= @category.name.capitalize %></h1>
     <small><%= @category.get_store_section.name %></small>
   </div>
   <%= link_to "Modifier", edit_category_path(@category), class:"btn btn-primary my-2" %>

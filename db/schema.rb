@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_110005) do
+ActiveRecord::Schema.define(version: 2020_07_28_125528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -554,7 +554,9 @@ ActiveRecord::Schema.define(version: 2020_07_28_110005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ancestry"
+    t.bigint "category_id"
     t.index ["ancestry"], name: "index_store_section_items_on_ancestry"
+    t.index ["category_id"], name: "index_store_section_items_on_category_id"
     t.index ["store_id"], name: "index_store_section_items_on_store_id"
     t.index ["store_section_id"], name: "index_store_section_items_on_store_section_id"
   end
@@ -699,6 +701,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_110005) do
   add_foreign_key "store_items", "products"
   add_foreign_key "store_items", "store_section_items"
   add_foreign_key "store_items", "stores"
+  add_foreign_key "store_section_items", "categories"
   add_foreign_key "store_section_items", "store_sections"
   add_foreign_key "store_section_items", "stores"
   add_foreign_key "stores", "merchants"

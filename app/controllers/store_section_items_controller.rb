@@ -16,6 +16,6 @@ class StoreSectionItemsController < ApplicationController
 
   private
   def store_section_items_params
-    params.require(:store_section_item).permit(:id, :name, :breadcrumb, :store_id, :store_section_id, :level)
+    params.require(:store_section_item).permit(:id, :name, :breadcrumb, :store_id, :store_section_id, :level, :category_id)
   end
 end

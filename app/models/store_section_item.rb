@@ -2,6 +2,7 @@ class StoreSectionItem < ApplicationRecord
   has_ancestry
   belongs_to :store
   belongs_to :store_section
+  belongs_to :category
   has_many :store_items
 
 
@@ -41,6 +42,18 @@ class StoreSectionItem < ApplicationRecord
       return self.parent.store_section
     elsif self.root.present? && self.root.store_section.present?
       return self.root.store_section
+    else
+      return nil
+    end
+  end
+
+  def get_category
+    if self.category.present?
+      return self.category
+    elsif self.parent.present? && self.parent.category.present?
+      return self.parent.category
+    elsif self.root.present? && self.root.category.present?
+      return self.root.category
     else
       return nil
     end
