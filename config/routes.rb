@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get 'get_recipe', to: 'actions#get_recipe'
       get 'get_foods', to: 'actions#get_foods'
       get 'get_units', to: 'actions#get_units'
+      get 'get_store_section_items', to: 'actions#get_store_section_items'
     end
   end
 
@@ -171,6 +172,12 @@ Rails.application.routes.draw do
     resources :collaborations, only: [:create, :destroy]
   end
 
+  resources :categories do
+    collection do
+      get :tree
+    end
+  end
+
   resources :carts do
     post 'share', to: "carts#share"
     post 'special_share', to: "carts#special_share"
@@ -228,7 +235,10 @@ Rails.application.routes.draw do
 
   resources :orders
 
-  # resources :stores do
+  resources :stores do
+    get :store_section
+    resources :store_section_items
+  end
   #   resources :store_carts do
   #     get 'fetch_price', to: "store_carts#fetch_price"
   #     member do

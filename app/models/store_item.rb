@@ -4,6 +4,7 @@ class StoreItem < ApplicationRecord
 
   belongs_to :product
   belongs_to :store
+  belongs_to :store_section_item
   has_many :store_item_histories, dependent: :destroy
   has_many :store_cart_items, dependent: :destroy
   has_one :food, through: :product
@@ -11,7 +12,18 @@ class StoreItem < ApplicationRecord
   has_one :unit, through: :product
   # this validation is to avoid duplicate products...
   validates :url, uniqueness: true
+  has_one :store_section, through: :store_section_item
 
+  searchkick language: "french"
+  scope :search_import, -> { includes(:store, :store_section_item) }
+
+  def search_data
+    {
+      name: name,
+      store_section_item: store_section_item.name,
+      store: store.name
+    }
+  end
 
   def get_best_price
     best_price = self.is_promo ? self.price * (self.promo_price_per_unit / self.price_per_unit) : self.price

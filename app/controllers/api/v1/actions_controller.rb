@@ -225,6 +225,13 @@ class Api::V1::ActionsController < Api::V1::BaseController
     end
   end
 
+  #http://localhost:3000/api/v1/get_foods
+  def get_store_section_items
+    @store_section_items = StoreSectionItem.all
+    respond_to do |format|
+      format.json { render :get_store_section_items }
+    end
+  end
 
 
 ## STANDBY

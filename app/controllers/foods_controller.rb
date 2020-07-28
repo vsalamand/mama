@@ -3,13 +3,13 @@ class FoodsController < ApplicationController
   before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :show ]
 
   def index
-    @categories = Category.all.where.not(ancestry: nil)
+    @food_groups = FoodGroup.all.where.not(ancestry: nil)
     @store_sections = StoreSection.all
 
-    @category = Category.find(params[:category_id]) if params[:category_id].present?
+    @food_group = FoodGroup.find(params[:food_group_id]) if params[:food_group_id].present?
     @store_section = StoreSection.find(params[:section_id]) if params[:section_id].present?
-    if @category.present?
-      @foods = @category.foods
+    if @food_group.present?
+      @foods = @food_group.foods
     elsif @store_section.present?
       @foods = @store_section.foods
     else
@@ -48,6 +48,6 @@ class FoodsController < ApplicationController
   end
 
   def food_params
-    params.require(:food).permit(:name, :availability, :category_id, :store_section_id, :tag_list, food_list_ids: [], food_list_items_attributes:[:name, :food_list_id, :food_id]) ## Rails 4 strong params usage
+    params.require(:food).permit(:name, :availability, :food_group_id, :store_section_id, :tag_list, food_list_ids: [], food_list_items_attributes:[:name, :food_list_id, :food_id]) ## Rails 4 strong params usage
   end
 end

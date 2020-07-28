@@ -44,7 +44,7 @@ RailsAdmin.config do |config|
   end
 
   ## == Ancestry ==
-  config.model Category do
+  config.model FoodGroup do
     field :id
     field :name
     field :parent_id, :enum do
@@ -68,7 +68,7 @@ RailsAdmin.config do |config|
       end
     end
     field :availability
-    field :category
+    field :food_group
     field :measure, :enum do
       enum_method do
         :measure

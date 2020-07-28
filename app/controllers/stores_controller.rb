@@ -1,13 +1,21 @@
 class StoresController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :show, :catalog, :cart ]
+  before_action :authenticate_admin!
 
   def show
     @store = Store.find(params[:id])
-    @shelves = @store.get_main_shelter_list
+    @store_sections = @store.get_level_0_store_sections
   end
 
   def index
     @stores = Store.all
+  end
+
+  def store_section
+    @store = Store.find(params[:store_id])
+    @store_section = StoreSectionItem.find(params[:store_section_item_id])
+    @root = @store_section.root if @store_section.root.present? && @store_section.root != @store_section && @store_section.root != @store_section.parent
+    @parent = @store_section.parent if @store_section.parent.present?
+    @children = @store_section.children if @store_section.children.present?
   end
 
   def catalog

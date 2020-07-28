@@ -1,13 +1,16 @@
 class Category < ApplicationRecord
-  # attr_accessible :name, :parent_id
+  belongs_to :store_section
   has_ancestry
-  has_many :foods
-  has_many :banned_categories
-  has_many :diets, through: :banned_categories
 
-  RATING = ["good", "limit", "avoid"]
-
-  def parent_enum
-    Category.where.not(id: id).map { |c| [ c.name, c.id ] }
+  def get_store_section
+    if self.store_section.present?
+      return self.store_section
+    elsif self.parent.present? && self.parent.store_section.present?
+      return self.parent.store_section
+    elsif self.root.present? && self.root.store_section.present?
+      return self.root.store_section
+    else
+      return nil
+    end
   end
 end
