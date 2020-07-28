@@ -5,7 +5,7 @@ class Food < ApplicationRecord
   has_many :meta_recipe_items, dependent: :destroy
   has_many :meta_recipes, through: :meta_recipe_items
   has_many :cart_items, :as => :productable
-  belongs_to :category
+  belongs_to :food_group
   belongs_to :unit, optional: true
   has_many :banned_foods
   has_many :diets, through: :banned_foods
@@ -132,22 +132,22 @@ class Food < ApplicationRecord
   end
 
   def self.get_condiment_food
-    return Category.find(14).foods.tagged_with("légumes bulbes") + Category.find(6).subtree.map { |c| c.foods }.flatten + Category.find(44).foods + Category.find(38).foods + Category.find(42).foods + Category.find(39).foods + Category.find(16).foods  + Category.find(17).foods
+    return FoodGroup.find(14).foods.tagged_with("légumes bulbes") + FoodGroup.find(6).subtree.map { |c| c.foods }.flatten + FoodGroup.find(44).foods + FoodGroup.find(38).foods + FoodGroup.find(42).foods + FoodGroup.find(39).foods + FoodGroup.find(16).foods  + FoodGroup.find(17).foods
 
   end
 
   def add_to_shelf
-    if (Category.find(1).subtree - Category.find(15).subtree).include?(self.category)
+    if (FoodGroup.find(1).subtree - FoodGroup.find(15).subtree).include?(self.category)
       self.shelf_list = "fruits et légumes"
-    elsif Category.find(3).subtree.include?(self.category)
+    elsif FoodGroup.find(3).subtree.include?(self.category)
       self.shelf_list = "légumineuses"
-    elsif Category.find(15).subtree.include?(self.category)
+    elsif FoodGroup.find(15).subtree.include?(self.category)
       self.shelf_list = "oléagineux"
-    elsif Category.find(2).subtree.include?(self.category)
+    elsif FoodGroup.find(2).subtree.include?(self.category)
       self.shelf_list = "céréales"
-    elsif (Category.find(5).subtree + Category.find(24).subtree).include?(self.category)
+    elsif (FoodGroup.find(5).subtree + FoodGroup.find(24).subtree).include?(self.category)
       self.shelf_list = "crèmerie"
-    elsif Category.find(4).subtree.include?(self.category)
+    elsif FoodGroup.find(4).subtree.include?(self.category)
       self.shelf_list = "viandes et poissons"
     else
       self.shelf_list = "épicerie"
@@ -158,17 +158,17 @@ class Food < ApplicationRecord
 
 # Deprecated method
   def get_store_section
-    if self.category == Category.find(14) || self.id == 31
+    if self.category == FoodGroup.find(14) || self.id == 31
       self.store_section_id = StoreSection.find_by(name: "Légumes").id
-    elsif self.category == Category.find(11)
+    elsif self.category == FoodGroup.find(11)
       self.store_section_id = StoreSection.find_by(name: "Fruits").id
-    elsif (Category.find(8).subtree + Category.find(9).subtree + Category.find(45).subtree + Category.find(31).subtree).include?(self.category) || self.id == 1221
+    elsif (FoodGroup.find(8).subtree + FoodGroup.find(9).subtree + FoodGroup.find(45).subtree + FoodGroup.find(31).subtree).include?(self.category) || self.id == 1221
       self.store_section_id = StoreSection.find_by(name: "Boissons").id
-    elsif (Category.find(5).subtree + Category.find(24).subtree + Category.find(34).subtree).include?(self.category) || self.id == 24
+    elsif (FoodGroup.find(5).subtree + FoodGroup.find(24).subtree + FoodGroup.find(34).subtree).include?(self.category) || self.id == 24
       self.store_section_id = StoreSection.find_by(name: "Frais").id
-    elsif Category.find(4).subtree.include?(self.category)
+    elsif FoodGroup.find(4).subtree.include?(self.category)
       self.store_section_id = StoreSection.find_by(name: "Viandes & poissons").id
-    elsif (Category.find(15).subtree + Category.find(12).subtree + Category.find(7).subtree + Category.find(18).subtree).include?(self.category)
+    elsif (FoodGroup.find(15).subtree + FoodGroup.find(12).subtree + FoodGroup.find(7).subtree + FoodGroup.find(18).subtree).include?(self.category)
       self.store_section_id = StoreSection.find_by(name: "Épicerie sucrée").id
     else
       self.store_section_id = StoreSection.find_by(name: "Épicerie salée").id

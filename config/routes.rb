@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get 'get_recipe', to: 'actions#get_recipe'
       get 'get_foods', to: 'actions#get_foods'
       get 'get_units', to: 'actions#get_units'
+      get 'get_store_section_items', to: 'actions#get_store_section_items'
     end
   end
 
@@ -169,6 +170,12 @@ Rails.application.routes.draw do
       get 'search', to: "products#search"
     end
     resources :collaborations, only: [:create, :destroy]
+  end
+
+  resources :categories do
+    collection do
+      get :tree
+    end
   end
 
   resources :carts do

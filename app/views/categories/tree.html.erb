@@ -1,0 +1,33 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container my-5">
+  <%= link_to "Accueil", categories_path, class:"btn btn-link my-3" %>
+  <h1 class="display-4 font-weight-bold">Catégories tree</h1>
+</div>
+
+<hr class="my-5">
+
+
+
+
+<div class="container my-5">
+  <ul>
+    <% @categories.each do |category| %>
+        <li class="h2 text-primary mr-1 font-weight-bold"><%= link_to category.name, category_path(category) %></li>
+         <small><%= category.get_store_section.name %></small>
+         <ul>
+            <% category.children.each do |subcategory| %>
+              <li class="lead text-primary mr-1"><%= link_to subcategory.name, category_path(subcategory) %></li>
+             <small><%= subcategory.get_store_section.name %></small>
+              <ul>
+                <% subcategory.children.each do |subsubcategory| %>
+                  <li class="text-secondary mr-1"><%= link_to subsubcategory.name, category_path(subsubcategory) %></li>
+                 <small><%= subsubcategory.get_store_section.name %></small>
+                <% end %>
+              </ul>
+            <% end %>
+         </ul>
+    <% end %>
+
+  </ul>
+</div>

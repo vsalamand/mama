@@ -1,0 +1,38 @@
+<%= simple_form_for @category do |f| %>
+  <div class="mt-4 bg-white">
+
+    <%= f.input :name, class: 'form-control form-control-lg' %>
+    <label>Store section</label>
+    <div class="form-group">
+    <%= f.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
+    </div>
+    <div class="form-group">
+    <label>Type de catégorie</label>
+    <%= f.select :category_type, priority: [ "food" ], collection: [ 'food', 'non-food'], class: 'form-control form-control-lg' %>
+   </div>
+
+    <div class="form-group">
+      <% if params[:parent].present? %>
+        <label>Parent</label>
+        <%= f.collection_select :parent_id, Category.all.order(:name), :id, :name, :selected => params[:parent], :include_blank => true %>
+        <label>Niveau de catégorie</label>
+        <%= f.select :level, :value => [(Category.find(params[:parent]).level + 1)], class: 'form-control form-control-lg' %>
+      <% else %>
+        <%= f.collection_select :parent_id, Category.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
+        <label>Niveau de catégorie</label>
+        <%= f.select :level, priority: [ 0 ], collection: [ 0, 1, 2, 3], class: 'form-control form-control-lg' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="d-flex">
+    <% if params[:parent].present? %>
+      <%= link_to "Retour", category_path(Category.find(params[:parent])), class:"form-control form-control-lg btn-secondary m-1" %>
+    <% elsif params[:id].present? %>
+      <%= link_to "Retour", category_path(@category), class:"form-control form-control-lg btn-secondary m-1" %>
+    <% else %>
+      <%= link_to "Retour", categories_path, class:"form-control form-control-lg btn-secondary m-1" %>
+    <% end %>
+    <%= f.submit "Valider", class: "form-control form-control-lg btn-primary m-1" %>
+  </div>
+
+<% end %>

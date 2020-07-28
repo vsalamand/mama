@@ -5,6 +5,17 @@ class StoreSectionItem < ApplicationRecord
   has_many :store_items
 
 
+  # searchkick language: "french"
+  # scope :search_import, -> { includes(:store) }
+
+  # def search_data
+  #   {
+  #     name: name,
+  #     breadcrumb: breadcrumb,
+  #     store: store.name
+  #   }
+  # end
+
   def self.clean_breadcrumb(text)
     breadcrumd = []
 

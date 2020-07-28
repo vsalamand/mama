@@ -13,12 +13,12 @@
 
       <div class="dropdown">
         <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= @category.present? ? @category.name : "Catégories" %>
+          <%= @food_group.present? ? @food_group.name : "Food groups" %>
         </button>
         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
           <%= link_to "ALL FOOD", foods_path, class:"dropdown-item" %>
-          <% @categories.order(:id).each do |category| %>
-          <%= link_to category.name, foods_path(category_id: category.id), class:"dropdown-item" %>
+          <% @food_groups.order(:id).each do |food_group| %>
+          <%= link_to food_group.name, foods_path(food_group_id: food_group.id), class:"dropdown-item" %>
           <% end %>
         </div>
       </div>
@@ -48,7 +48,7 @@
                       <h5 class="mb-1 text-primary"><%= food.name %></h5>
                       <div class="d-flex flex-column align-items-end">
                         <p class="text-primary m-0"><%= food.store_section.name %></p>
-                        <small class="text-muted m-0"><%= food.category.name %></small>
+                        <small class="text-muted m-0"><%= food.food_group.name %></small>
                       </div>
                     </div>
                   </div>

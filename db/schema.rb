@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_140313) do
+ActiveRecord::Schema.define(version: 2020_07_28_110005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -179,13 +179,16 @@ ActiveRecord::Schema.define(version: 2020_07_16_140313) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
-  create_table "categories", id: :serial, force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.string "category_type"
+    t.bigint "store_section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ancestry"
-    t.string "rating"
+    t.integer "level"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
+    t.index ["store_section_id"], name: "index_categories_on_store_section_id"
   end
 
   create_table "checklist_items", id: :serial, force: :cascade do |t|
@@ -233,6 +236,15 @@ ActiveRecord::Schema.define(version: 2020_07_16_140313) do
     t.index ["user_id"], name: "index_flags_on_user_id"
   end
 
+  create_table "food_groups", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ancestry"
+    t.string "rating"
+    t.index ["ancestry"], name: "index_food_groups_on_ancestry"
+  end
+
   create_table "food_list_items", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "food_id"
@@ -262,7 +274,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_140313) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "availability", default: "01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12"
-    t.integer "category_id"
+    t.integer "food_group_id"
     t.string "ancestry"
     t.string "measure"
     t.float "serving"
@@ -270,7 +282,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_140313) do
     t.integer "unit_id"
     t.integer "store_section_id"
     t.index ["ancestry"], name: "index_foods_on_ancestry"
-    t.index ["category_id"], name: "index_foods_on_category_id"
+    t.index ["food_group_id"], name: "index_foods_on_food_group_id"
     t.index ["store_section_id"], name: "index_foods_on_store_section_id"
     t.index ["unit_id"], name: "index_foods_on_unit_id"
   end
@@ -627,8 +639,8 @@ ActiveRecord::Schema.define(version: 2020_07_16_140313) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "banned_categories", "categories"
   add_foreign_key "banned_categories", "diets"
+  add_foreign_key "banned_categories", "food_groups", column: "category_id"
   add_foreign_key "banned_foods", "diets"
   add_foreign_key "banned_foods", "foods"
   add_foreign_key "cart_items", "carts"
@@ -636,6 +648,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_140313) do
   add_foreign_key "cart_items", "orders", on_delete: :cascade
   add_foreign_key "carts", "merchants"
   add_foreign_key "carts", "users"
+  add_foreign_key "categories", "store_sections"
   add_foreign_key "checklist_items", "checklists"
   add_foreign_key "checklist_items", "lists"
   add_foreign_key "checklists", "diets"
@@ -647,7 +660,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_140313) do
   add_foreign_key "food_list_items", "foods"
   add_foreign_key "food_lists", "diets"
   add_foreign_key "food_lists", "users"
-  add_foreign_key "foods", "categories"
+  add_foreign_key "foods", "food_groups"
   add_foreign_key "foods", "store_sections"
   add_foreign_key "foods", "units"
   add_foreign_key "items", "foods"

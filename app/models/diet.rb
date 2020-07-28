@@ -4,7 +4,7 @@ class Diet < ApplicationRecord
   has_many :checklists
   has_many :users
   has_many :banned_categories
-  has_many :categories, through: :banned_categories
+  has_many :food_groups, through: :banned_categories
   has_many :banned_foods
   has_many :foods, through: :banned_foods
 

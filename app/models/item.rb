@@ -79,6 +79,7 @@ class Item < ApplicationRecord
       item.unit = valid_item.unit
       item.quantity = valid_item.quantity
       item.is_non_food = valid_item.is_non_food
+      item.is_validated = valid_item.is_validated
       item.store_section_id = valid_item.store_section_id
       item.recipe = nil
     else
@@ -88,13 +89,19 @@ class Item < ApplicationRecord
       parser = JSON.parse(open(url).read).first
       quantity = parser['quantity_match'] if parser['quantity_match'].present?
       food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
+      # store_section_item_search = StoreItem.search(parser['clean_item']) if parser['clean_item'].present? && food.nil?
       unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
 
       item.quantity = quantity
       item.unit = unit
       item.food = food
       item.is_validated = false
-      item.store_section_id = food.store_section_id if food.present?
+      if food.present?
+        item.store_section_id = food.store_section_id
+      # elsif store_section_item_search.present?
+      #   item.store_section_id = store_section_item_search.first.store_section_item.get_store_section.id if store_section_item_search.first.store_section_item.get_store_section.present?
+
+      end
     end
 
     return item

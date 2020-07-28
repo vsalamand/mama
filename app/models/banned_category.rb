@@ -5,6 +5,6 @@ class BannedCategory < ApplicationRecord
     self.name = self.category.name
   end
 
-  belongs_to :category
+  belongs_to :food_group
   belongs_to :diet
 end
