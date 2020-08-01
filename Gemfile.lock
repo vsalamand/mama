@@ -157,6 +157,7 @@ GEM
       sassc (>= 1.11)
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
+    fuzzy_match (2.1.0)
     geocoder (1.6.3)
     gibbon (3.3.4)
       faraday (>= 0.16.0)
@@ -421,6 +422,7 @@ DEPENDENCIES
   figaro
   font-awesome-sass
   friendly_id (~> 5.2.4)
+  fuzzy_match
   gibbon
   hangry
   httparty

@@ -11,7 +11,7 @@
 
   <div>
     <h1 class="display-4 font-weight-bold mb-0 mt-2"><%= @category.name.capitalize %></h1>
-    <small><%= @category.get_store_section.name %></small>
+    <small><%= @category.get_store_section.name  if @category.get_store_section.present? %></small>
   </div>
   <%= link_to "Modifier", edit_category_path(@category), class:"btn btn-primary my-2" %>
   <%= link_to "Nouvelle sous-catégorie", new_category_path(parent: @category.id), class:"btn btn-secondary my-3" %>

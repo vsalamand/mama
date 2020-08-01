@@ -68,6 +68,8 @@ gem 'elasticsearch-rails'
 gem 'oj'
 # Typhoeus wraps libcurl in order to make fast and reliable requests.
 gem "typhoeus"
+# Fuzzy match
+gem "fuzzy_match"
 
 # Pagination library
 gem 'will_paginate', '~> 3.1.0'
