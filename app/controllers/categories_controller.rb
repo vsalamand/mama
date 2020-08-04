@@ -9,7 +9,11 @@ class CategoriesController < ApplicationController
 
   def index
     @category = Category.new
-    @categories = Category.roots.sort_by{|e| e.name.parameterize }
+    if params[:query].present?
+      @categories = Category.where('LOWER(name) LIKE ?', "%#{params[:query].downcase}%")
+    else
+      @categories = Category.roots.sort_by{|e| e.name.parameterize }
+    end
   end
 
 
