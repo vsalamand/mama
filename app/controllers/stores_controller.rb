@@ -3,19 +3,18 @@ class StoresController < ApplicationController
 
   def show
     @store = Store.find(params[:id])
-    @store_sections = @store.get_level_0_store_sections
+    @store_sections = @store.get_level_0_store_sections.sort_by{|e| e.name.parameterize }
   end
 
   def index
-    @stores = Store.all
+    @stores = Store.all.sort_by{|e| e.name.parameterize }
   end
 
   def store_section
     @store = Store.find(params[:store_id])
     @store_section = StoreSectionItem.find(params[:store_section_item_id])
-    @root = @store_section.root if @store_section.root.present? && @store_section.root != @store_section && @store_section.root != @store_section.parent
-    @parent = @store_section.parent if @store_section.parent.present?
-    @children = @store_section.children if @store_section.children.present?
+    @path = @store_section.path
+    @children = @store_section.children.sort_by{|e| e.name.parameterize } if @store_section.children.present?
   end
 
   def catalog

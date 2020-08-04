@@ -3,15 +3,13 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @categories = @category.children
-    @root = @category.root if @category.root.present? && @category.root != @category && @category.root != @category.parent
-    @parent = @category.parent if @category.parent.present?
-    @children = @category.children if @category.children.present?
+    @categories = @category.children.sort_by{|e| e.name.parameterize }
+    @path = @category.path
   end
 
   def index
     @category = Category.new
-    @categories = Category.where(level: 0)
+    @categories = Category.roots.sort_by{|e| e.name.parameterize }
   end
 
 
@@ -39,8 +37,15 @@ class CategoriesController < ApplicationController
     redirect_to category_path(@category)
   end
 
+  def destroy
+    @category = Category.find(params[:id])
+    @parent = @category.parent
+    @category.destroy
+    redirect_to category_path(@parent)
+  end
+
   def tree
-    @categories = Category.where(level: 0)
+    @categories = Category.roots
   end
 
   private
@@ -49,6 +54,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :category_type, :store_section_id, :level, :parent_id) ## Rails 4 strong params usage
+    params.require(:category).permit(:name, :category_type, :store_section_id, :food_id, :level, :parent_id) ## Rails 4 strong params usage
   end
 end

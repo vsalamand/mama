@@ -9,12 +9,16 @@
 
 
 <div class="container my-5">
-  <div class="list-group">
+  <ol class="list-group m-4">
     <% @store_sections.each do |store_section| %>
       <div class="d-flex align-items-center">
-        <li class="lead text-primary mr-1"><%= link_to store_section.name, store_store_section_path(@store, store_section_item_id: store_section.id) %></li>
-        <small><%= store_section.get_category.name if store_section.get_category.present? %></small>
+        <li class="h2 text-primary mr-1"><%= link_to store_section.name, store_store_section_path(@store, store_section_item_id: store_section.id) %></li>
+        <% if store_section.get_category.present? %>
+          <% store_section.get_category.path.each do |p| %>
+            <%= link_to p.name, category_path(p), class:"badge badge-light border text-muted" %>
+          <% end %>
+        <% end %>
       </div>
     <% end %>
-  </div>
+  </ol>
 </div>

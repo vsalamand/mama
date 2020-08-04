@@ -1,34 +1,46 @@
 <%= render 'shared/admin-navbar' %>
 
-<div class="container my-5">
+<div class="container my-3">
+  <p class="text-muted">Catégories</p>
   <%= link_to "Accueil", categories_path, class:"btn btn-light border" %>
-  <% if @root %>
-    <%= link_to @root.name, category_path(@root), class:"btn btn-light border" %>
+  <% @path.each do |p| %>
+    <%= link_to p.name, category_path(p), class:"btn btn-light border" %>
   <% end %>
-  <% if @parent %>
-    <%= link_to @parent.name, category_path(@parent), class:"btn btn-light border" %>
-  <% end %>
+<hr class="my-3">
 
   <div>
-    <h1 class="display-4 font-weight-bold mb-0 mt-2"><%= @category.name.capitalize %></h1>
-    <small><%= @category.get_store_section.name  if @category.get_store_section.present? %></small>
+    <h1 class="display-4 mb-0 mt-2 font-weight-bold"><%= link_to @category.name.capitalize, edit_category_path(@category) %></h1>
+    <div class="d-flex flex-column">
+      <% if @category.get_store_section.present? %>
+        <small class="text-success">Rayon: <%= @category.get_store_section.name %></small>
+      <% end %>
+      <% if @category.food.present? %>
+        <small class="text-secondary">Food: <%= @category.food.name %></small>
+      <% end %>
+    </div>
   </div>
-  <%= link_to "Modifier", edit_category_path(@category), class:"btn btn-primary my-2" %>
-  <%= link_to "Nouvelle sous-catégorie", new_category_path(parent: @category.id), class:"btn btn-secondary my-3" %>
+  <%= link_to "Supprimer", category_path(@category), method: :delete, class:"btn btn-sm btn-light border text-danger my-2" %>
+  <%= link_to "Nouvelle sous-catégorie", new_category_path(parent: @category.id), class:"btn btn-sm btn-light text-primary border my-2" %>
 
 </div>
 
-<hr class="my-5">
 
 
-<div class="container my-5">
-  <div class="list-group">
+<div class="container">
+  <ol class="mx-4 list-group">
     <% @categories.each do |subcategory| %>
       <div class="d-flex align-items-center">
         <li class="lead text-primary mr-1"><%= link_to subcategory.name, category_path(subcategory) %></li>
       </div>
     <% end %>
-  </div>
+  </ol>
 </div>
 
+<div class="container my-5">
+  <hr class="my-3">
+  <p class="text-secondary">Store mapping</p>
+  <% @category.stores.each_with_index do |s, index| %>
+    <%= link_to s.name, store_path(s), class:"btn btn-link border" %>
+  <% end %>
+</div>
 
