@@ -1,37 +1,44 @@
 <%= render 'shared/admin-navbar' %>
 
-<div class="container my-5">
-  <h1 class="display-4 font-weight-bold"><%= @store.name.capitalize %></h1>
+<div class="container my-2">
+  <h1 class="font-weight-bold"><%= @store.name.capitalize %></h1>
   <p class="ml-1 text-muted">Catalogue du magasin <%= @store.store_type %></p>
-</div>
 
-<hr class="my-5">
 
-<div class="container my-5">
   <%= link_to "Accueil", store_path(@store), class:"btn btn-light border" %>
-  <% if @root %>
-    <%= link_to @root.name, store_store_section_path(@store, store_section_item_id: @root.id), class:"btn btn-light border" %>
+  <% @path.each do |p| %>
+    <%= link_to p.name, store_store_section_path(@store, store_section_item_id: p.id), class:"btn btn-light border" %>
   <% end %>
-  <% if @parent %>
-    <%= link_to @parent.name, store_store_section_path(@store, store_section_item_id: @parent.id), class:"btn btn-light border" %>
+<hr class="my-3">
+  <small class="text-muted">Rayon:</small>
+  <h2 class="my-0 display-4"> <%= link_to @store_section.name, edit_store_store_section_item_path(@store, @store_section) %></h2>
+    <small class="text-muted">Catégorisé dans:</small>
+  <% if @store_section.get_category.present? %>
+      <% @store_section.get_category.path.each do |p| %>
+        <%= link_to p.name, category_path(p), class:"btn btn-primary btn-sm" %>
+      <% end %>
   <% end %>
-
-  <h2 class="mb-0 mt-2"><%= @store_section.name %></h2>
-  <%= link_to "Modifier", edit_store_store_section_item_path(@store, @store_section), class:"btn btn-primary" %>
-  <small><%= @store_section.get_category.name if @store_section.get_category.present? %></small>
+  <div>
+    <%= link_to "Supprimer", store_store_section_item_path(@store, @store_section), method: :delete, class:"my-2 btn btn-sm btn-light border text-danger" %>
+  </div>
 </div>
 
 
 
 <% if @children %>
   <div class="container my-5">
-    <div class="list-group">
+    <ol class="list-group m-4">
       <% @children.each do |store_section| %>
         <div class="d-flex align-items-center">
           <li class="lead text-primary mr-2"><%= link_to store_section.name, store_store_section_path(@store, store_section_item_id: store_section.id) %></li>
-          <small><%= store_section.get_category.name if store_section.get_category.present? %></small>
+          <% if store_section.get_category.present? %>
+            <% store_section.get_category.path.each do |p| %>
+              <%= link_to p.name, category_path(p), class:"badge badge-light border text-muted" %>
+            <% end %>
+          <% end %>
+
         </div>
       <% end %>
-    </div>
+    </ol>
   </div>
 <% end %>

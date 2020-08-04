@@ -17,6 +17,7 @@ class Food < ApplicationRecord
   has_many :stores, through: :store_items
   has_many :merchants, through: :stores
   belongs_to :store_section, optional: true
+  has_one :category
 
   enum measure: {weight: 'weight', volume: 'volume', piece: 'piece'}
 

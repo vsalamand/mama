@@ -1,7 +1,8 @@
 <%= simple_form_for [store, store_section_item] do |f| %>
     <div class="mt-4 bg-white">
-      <label>Categories</label>
-      <%= f.collection_select(:category_id, Category.order(:name), :id, :name, {:include_blank => true}, {:class => 'form-control form-control-lg select'}) %>
+      <label>Select a Category</label>
+
+      <%= f.collection_select(:category_id, Category.arrange_as_array.each{|n| puts "#{'-' * n.depth} #{n.name}" }, :id, :name_for_selects, {:include_blank => true}, {:class => 'form-control form-control-lg select'}) %>
     </div>
 
 

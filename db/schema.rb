@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_125528) do
+ActiveRecord::Schema.define(version: 2020_08_04_140902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -187,7 +187,9 @@ ActiveRecord::Schema.define(version: 2020_07_28_125528) do
     t.datetime "updated_at", null: false
     t.string "ancestry"
     t.integer "level"
+    t.bigint "food_id"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
+    t.index ["food_id"], name: "index_categories_on_food_id"
     t.index ["store_section_id"], name: "index_categories_on_store_section_id"
   end
 
@@ -650,6 +652,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_125528) do
   add_foreign_key "cart_items", "orders", on_delete: :cascade
   add_foreign_key "carts", "merchants"
   add_foreign_key "carts", "users"
+  add_foreign_key "categories", "foods"
   add_foreign_key "categories", "store_sections"
   add_foreign_key "checklist_items", "checklists"
   add_foreign_key "checklist_items", "lists"

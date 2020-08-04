@@ -1,20 +1,15 @@
 <%= render 'shared/admin-navbar' %>
 
 <div class="container my-5">
-  <h1 class="display-4 font-weight-bold"><%= @store.name.capitalize %></h1>
+  <h1 class="font-weight-bold"><%= @store.name.capitalize %></h1>
   <p class="ml-1 text-muted">Catalogue du magasin <%= @store.store_type %></p>
-</div>
 
-<hr class="my-5">
+  <%= link_to "Accueil", store_path(@store), class:"btn btn-light border" %>
+  <% @path.each do |p| %>
+    <%= link_to p.name, store_store_section_path(@store, store_section_item_id: p.id), class:"btn btn-light border" %>
+  <% end %>
 
-<div class="container my-5">
-  <p><%= link_to "Accueil", store_path(@store) %></p>
-  <% if @root %>
-    <p><%= link_to @root.name, store_store_section_path(@store, store_section_item_id: @root.id) %></p>
-  <% end %>
-  <% if @parent %>
-    <p><%= link_to @parent.name, store_store_section_path(@store, store_section_item_id: @parent.id) %></p>
-  <% end %>
+<hr class="my-3">
 
   <h2 class="mb-0"><%= @store_section_item.name %></h2>
 

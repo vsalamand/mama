@@ -6,7 +6,7 @@
 
 <div class="container my-3">
   <div class="row d-flex flex-column">
-    <h1><%= @food.name %></h1>
+    <h1><%= @food.name %> <br><span class="text-muted"> <%= @food.category.name if @food.category.present? %></span> </h1>
     <p><%= @food.availability %></p>
     <p>Catégorie: <%= @food.category.name %></p>
     <p>Rayon: <%= @food.store_section.name %></p>

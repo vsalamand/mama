@@ -45,7 +45,7 @@
                 <div class="product-info p-2">
                   <div class="product-description text-dark">
                     <div class="d-flex justify-content-between">
-                      <h5 class="mb-1 text-primary"><%= food.name %></h5>
+                      <h5 class="mb-1 text-primary"><%= food.name %> <br><span class="text-muted"> <%= food.category.name if food.category.present? %></span> </h5>
                       <div class="d-flex flex-column align-items-end">
                         <p class="text-primary m-0"><%= food.store_section.name %></p>
                         <small class="text-muted m-0"><%= food.food_group.name %></small>

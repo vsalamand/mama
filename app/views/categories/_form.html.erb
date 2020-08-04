@@ -6,21 +6,21 @@
     <div class="form-group">
     <%= f.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
     </div>
+    <label>Food</label>
     <div class="form-group">
+    <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
+    </div>
     <label>Type de catégorie</label>
+    <div class="form-group">
     <%= f.select :category_type, priority: [ "food" ], collection: [ 'food', 'non-food'], class: 'form-control form-control-lg' %>
    </div>
 
+    <label>Parent</label>
     <div class="form-group">
       <% if params[:parent].present? %>
-        <label>Parent</label>
-        <%= f.collection_select :parent_id, Category.all.order(:name), :id, :name, :selected => params[:parent], :include_blank => true %>
-        <label>Niveau de catégorie</label>
-        <%= f.select :level, :value => [(Category.find(params[:parent]).level + 1)], class: 'form-control form-control-lg' %>
+        <%= f.collection_select :parent_id, Category.arrange_as_array.each{|n| puts "#{'-' * n.depth} #{n.name}" }, :id, :name_for_selects, :selected => params[:parent], :include_blank => true %>
       <% else %>
-        <%= f.collection_select :parent_id, Category.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
-        <label>Niveau de catégorie</label>
-        <%= f.select :level, priority: [ 0 ], collection: [ 0, 1, 2, 3], class: 'form-control form-control-lg' %>
+        <%= f.collection_select :parent_id, Category.arrange_as_array.each{|n| puts "#{'-' * n.depth} #{n.name}" }, :id, :name_for_selects, :include_blank => true, class: 'form-control form-control-lg' %>
       <% end %>
     </div>
   </div>
