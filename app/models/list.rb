@@ -12,6 +12,7 @@ class List < ApplicationRecord
   has_many :list_items, dependent: :destroy
   has_many :items
   has_many :foods, through: :items
+  has_many :categories, through: :items
   has_many :collaborations
   has_many :users, through: :collaborations
   has_many :store_carts, dependent: :destroy
@@ -84,7 +85,7 @@ class List < ApplicationRecord
       Thread.new do
         if valid_item.present?
           # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
-          Item.create(food: valid_item.food, list_item: new_list_item, name: valid_item.food.name, is_validated: valid_item.is_validated)
+          Item.create(category: valid_item.category, list_item: new_list_item, name: valid_item.category.name, is_validated: valid_item.is_validated)
         else
           Item.create_list_item(new_list_item)
         end

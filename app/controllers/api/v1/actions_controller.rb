@@ -211,7 +211,8 @@ class Api::V1::ActionsController < Api::V1::BaseController
 
   #http://localhost:3000/api/v1/get_foods
   def get_foods
-    @foods = Food.all
+    # @foods = Food.all
+    @foods = Category.all.pluck(:name)
     respond_to do |format|
       format.json { render :get_foods }
     end
