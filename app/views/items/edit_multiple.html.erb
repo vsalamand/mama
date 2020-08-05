@@ -13,6 +13,7 @@
     </ul>
     <%= fields_for :item do |f| %>
       <%= f.collection_select :food_id, Food.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+      <%= f.collection_select(:category_id, Category.arrange_as_array, :id, :name_for_selects, {:include_blank => true}, {:class => 'form-control form-control-lg select'}) %>
       <%= f.collection_select :store_section_id, StoreSection.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
     <% end %>
 

@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'fuzzy_match'
 
 class Item < ApplicationRecord
   # validates :ingredient_id, presence: true
@@ -10,6 +11,7 @@ class Item < ApplicationRecord
   belongs_to :unit, optional: true
   belongs_to :store_section, optional: true
   belongs_to :list, optional: true
+  belongs_to :category, optional: true
 
   # validates :food_id, presence: true
   has_many :cart_items, dependent: :destroy
@@ -75,7 +77,8 @@ class Item < ApplicationRecord
     item = self
     valid_item = Item.where("lower(name) = ?", item.name.downcase).where(is_validated: true).first
     if valid_item.present?
-      item.food = valid_item.food
+      # item.food = valid_item.food
+      item.category = valid_item.category
       item.unit = valid_item.unit
       item.quantity = valid_item.quantity
       item.is_non_food = valid_item.is_non_food
@@ -88,20 +91,20 @@ class Item < ApplicationRecord
       # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{query}"))
       parser = JSON.parse(open(url).read).first
       quantity = parser['quantity_match'] if parser['quantity_match'].present?
-      food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
+      category = Category.search(parser['food_match'], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
+      # category = Category.find_by(name: FuzzyMatch.new(Category.pluck(:name)).find(parser['food_match']))
       # store_section_item_search = StoreItem.search(parser['clean_item']) if parser['clean_item'].present? && food.nil?
-      unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
+      unit = Unit.search(parser['unit_match'], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
 
       item.quantity = quantity
       item.unit = unit
-      item.food = food
+      item.category = category
+      item.store_section_id = category.get_store_section.id if category.present?
       item.is_validated = false
-      if food.present?
-        item.store_section_id = food.store_section_id
+      # if category.present?
       # elsif store_section_item_search.present?
       #   item.store_section_id = store_section_item_search.first.store_section_item.get_store_section.id if store_section_item_search.first.store_section_item.get_store_section.present?
-
-      end
+      # end
     end
 
     return item
@@ -118,12 +121,13 @@ class Item < ApplicationRecord
 
       parser.each_with_index do |element, index|
         quantity = element['quantity_match'] if element['quantity_match'].present?
-        food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-        unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-        store_section_id = food.store_section_id if food.present?
+        category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+
+        store_section_id = category.get_store_section.id if category.present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
         new_item =  Item.new(name: inputs_list[index],
-                              food: food,
+                              category: category,
                               is_validated: false,
                               quantity: quantity,
                               unit: unit,
@@ -156,11 +160,11 @@ class Item < ApplicationRecord
 
       parser.each_with_index do |element, index|
         quantity = element['quantity_match'] if element['quantity_match'].present?
-        food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-        unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-        store_section_id = food.store_section_id if food.present?
+        category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+        store_section_id = category.get_store_section.id if category.present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-        new_items << Item.new(food: food, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit, store_section_id: store_section_id)
+        new_items << Item.new(category: category, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit, store_section_id: store_section_id)
       end
       Item.import new_items
     end
@@ -173,11 +177,12 @@ class Item < ApplicationRecord
     parser = JSON.parse(open(url).read).first
 
     quantity = parser['quantity_match'] if parser['quantity_match'].present?
-    food = Food.search(parser['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
-    unit = Unit.search(parser['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
-    store_section_id = food.store_section_id if food.present?
+    category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+    unit = Unit.search(parser['unit_match'], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
+    store_section_id = category.get_store_section.id if category.present?
+
     # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-    self.update(quantity: quantity, unit: unit, food: food, list_item: list_item, name: list_item.name, is_validated: false, store_section_id: store_section_id)
+    self.update(quantity: quantity, unit: unit, category: category, list_item: list_item, name: list_item.name, is_validated: false, store_section_id: store_section_id)
   end
 
   def self.add_recipe_items(recipe)
@@ -191,15 +196,15 @@ class Item < ApplicationRecord
       valid_item = Item.where("lower(name) = ?", element['ingredients'].downcase).where(is_validated: true).first
 
       if valid_item.present?
-        new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated, store_section_id: valid_item.store_section_id)
+        new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, category: valid_item.category, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated, store_section_id: valid_item.store_section_id)
 
       else
         quantity = element['quantity_match'] if element['quantity_match'].present?
-        food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-        unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-        store_section_id = food.store_section_id if food.present?
+        category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+        store_section_id = category.get_store_section.id if category.present?
 
-        new_items << Item.new(quantity: quantity, unit: unit, food: food, recipe: recipe, name: element['ingredients'], is_validated: false, store_section_id: store_section_id)
+        new_items << Item.new(quantity: quantity, unit: unit, category: category, recipe: recipe, name: element['ingredients'], is_validated: false, store_section_id: store_section_id)
       end
     end
 
@@ -220,7 +225,7 @@ class Item < ApplicationRecord
 
       unless item.nil?
         item.quantity = element['quantity_match'] if element['quantity_match'].present?
-        item.unit = Unit.search(element['unit_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+        item.unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
         #item.food = Food.search(element['food_match'], fields: [{name: :exact}], misspellings: {edit_distance: 1}).first if element['food_match'].present?
         item.save
       end
@@ -228,7 +233,7 @@ class Item < ApplicationRecord
   end
 
   def validate
-    self.update_column(:is_validated, true) if self.food.present?
+    self.update_column(:is_validated, true) if self.category.present?
 
     if self.is_validated == true
       # Thread.new do
@@ -236,7 +241,7 @@ class Item < ApplicationRecord
         Item.where("lower(name) = ?", self.name.downcase)
             .update_all(quantity: self.quantity,
                      unit_id: self.unit_id,
-                     food_id: self.food_id,
+                     category_id: self.category_id,
                      store_section_id: self.store_section_id,
                      is_non_food: self.is_non_food,
                      is_validated: self.is_validated)
@@ -276,15 +281,15 @@ class Item < ApplicationRecord
   def get_store_section
     if self.store_section_id.present?
       return self.store_section
-    elsif self.food.present?
-      return self.food.store_section
+    elsif self.category.present?
+      return self.category.store_section
     else
       return nil
     end
   end
 
   def set_store_section
-    self.store_section_id = self.food.store_section_id if self.food.present?
+    self.store_section_id = self.category.store_section_id if self.category.present?
     self.save
   end
 
@@ -294,6 +299,12 @@ class Item < ApplicationRecord
     else
       return "Autres"
     end
+  end
 
+  def set_category_from_food
+    if self.food.present?
+      self.category = self.food.category
+      self.save
+    end
   end
 end

@@ -12,6 +12,7 @@
         <%= form_tag(items_path, :method => "get", class:"form-inline") do %>
           <%= text_field_tag :query, params[:query], class: 'form-control' %>
            <%= collection_select :food_id, :id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
+           <%= f.collection_select(:category_id, Category.arrange_as_array, :id, :name_for_selects, {:include_blank => true}, {:class => 'form-control form-control-lg select'}) %>
           <%= submit_tag "Search", class: 'form-control  btn-primary' %>
         <% end %>
       </div>
@@ -25,6 +26,12 @@
             <%= link_to "ALL FOOD", foods_path, class:"dropdown-item" %>
             <% Food.all.order(:name).each do |food| %>
             <%= link_to food.name, items_path(food_id: food.id), class:"dropdown-item" %>
+            <% end %>
+          </div>
+          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
+            <%= link_to "CATEGORIES", categories_path, class:"dropdown-item" %>
+            <% Category.all.order(:name).each do |category| %>
+            <%= link_to category.name, items_path(category_id: category.id), class:"dropdown-item" %>
             <% end %>
           </div>
         </div>
@@ -53,7 +60,7 @@
                     <div class="d-flex justify-content-between">
                       <h5 class="mb-1 text-primary"><%= link_to item.name, edit_item_path(item) %></h5>
                       <div class="d-flex flex-column align-items-end">
-                        <p class="text-primary m-0"><%= item.food.present? ? item.food.name : "no match" %></p>
+                        <p class="text-primary m-0"><%= item.categroy.present? ? item.category.name : "no match" %></p>
                         <small class="text-muted m-0"><%= item.get_store_section.name if item.get_store_section.present? %></small>
                       </div>
                     </div>

@@ -145,6 +145,9 @@ class ItemsController < ApplicationController
     elsif params[:food_id].present?
       @food = Food.find(params[:food_id])
       @results = Item.where(food_id: @food.id)
+    elsif params[:category_id].present?
+      @category = Category.find(params[:category_id])
+      @results = Item.where(category_id: @category.id)
     elsif params[:is_labeled].present?
       @results = Item.where(food_id: nil).where(store_section_id: nil).where(recipe_id: nil)
     end
@@ -187,6 +190,6 @@ class ItemsController < ApplicationController
   end
 
   def items_params
-    params.require(:item).permit(:food_id, :recipe, :recipe_id, :list, :list_item, :unit_id, :quantity, :name, :is_validated, :is_deleted, :is_completed, :is_non_food, :store_section_id) ## Rails 4 strong params usage
+    params.require(:item).permit(:food_id, :recipe, :recipe_id, :category_id, :list, :list_item, :unit_id, :quantity, :name, :is_validated, :is_deleted, :is_completed, :is_non_food, :store_section_id) ## Rails 4 strong params usage
   end
 end

@@ -19,9 +19,7 @@ class StoreItem < ApplicationRecord
 
   def search_data
     {
-      name: name,
-      store_section_item: store_section_item.name,
-      store: store.name
+      name: name
     }
   end
 

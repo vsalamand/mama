@@ -26,7 +26,7 @@ class Food < ApplicationRecord
   acts_as_taggable_on :shelves
 
   has_ancestry
-  searchkick language: "french"
+  # searchkick language: "french"
 
   after_create do
     self.add_to_shelf
@@ -40,12 +40,12 @@ class Food < ApplicationRecord
     Item.where(food: self).where(store_section_id: self.store_section_id_was).update_all(store_section_id: self.store_section_id)
   end
 
-  def search_data
-    {
-      name: name,
-      tags: tag_list,
-    }
-  end
+  # def search_data
+  #   {
+  #     name: name,
+  #     tags: tag_list,
+  #   }
+  # end
 
   def parent_enum
     Food.where.not(id: id).map { |f| [ f.name, f.id ] }
@@ -175,6 +175,14 @@ class Food < ApplicationRecord
       self.store_section_id = StoreSection.find_by(name: "Épicerie salée").id
     end
     self.save
+  end
+
+
+  def set_items_category
+    if self.category.present?
+      items = Item.where(food: self)
+      items.update_all(category_id: self.category.id)
+    end
   end
 
 end

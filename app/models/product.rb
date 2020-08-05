@@ -10,8 +10,6 @@ class Product < ApplicationRecord
   searchkick language: "french"
   scope :search_import, -> { includes(:stores, :food) }
 
-
-
   def search_data
     {
       name: name,
