@@ -27,7 +27,7 @@ class Item < ApplicationRecord
   # update item validations if new item is validated
   after_save do
     self.validate if self.is_validated == true
-    self.set_store_section if saved_change_to_name? || saved_change_to_food_id?
+    self.set_store_section if saved_change_to_name? || saved_change_to_category_id?
   end
   # after_create :broadcast_create
   # after_update :broadcast_update
@@ -311,7 +311,7 @@ class Item < ApplicationRecord
   end
 
   def set_store_section
-    self.store_section_id = self.category.store_section_id if self.category.present?
+    self.store_section_id = self.category.get_store_section.id if self.category.present?
     self.save
   end
 
