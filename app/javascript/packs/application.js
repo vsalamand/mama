@@ -10,12 +10,23 @@
 
 // import Rails from 'jquery_ujs'
 import 'bootstrap';
+import 'bootstrap/js/dist/util';
+import 'bootstrap/js/dist/dropdown';
 
 import ahoy from "ahoy.js";
 
 
-import '../components/selectize';
-import '../components/selectize1';
+// import '../components/selectize1';
+// import '../components/selectize';
+import "selectize"
+import "selectize/dist/css/selectize";
+import "selectize/dist/css/selectize.default";
+$(document).on("turbolinks:load", function() {
+  $(".select").selectize({
+     plugins: ['remove_button'],
+     closeAfterSelect: true,
+  })
+})
 
 import 'packs/list';
 import 'packs/cart';
@@ -24,6 +35,7 @@ import 'packs/recipe_lists';
 import 'packs/recipes';
 import 'packs/items';
 import 'packs/pages';
+
 
 // import { initListCable } from '../channels/list_channel';
 

@@ -70,7 +70,7 @@
                 </div>
 
                 <label for="foodId" class="font-weight-bold">Category</label>
-                <%= f.collection_select(:category_id, Category.arrange_as_array, :id, :name_for_selects, {:include_blank => true}, {:class => 'form-control form-control-lg'}) %>
+                <%= f.collection_select(:category_id, Category.arrange_as_array, :id, :name_for_selects, {:include_blank => true}, {:class => "select"} ) %>
 
                 <div class="form-group form-check mt-4 mb-0 d-flex align-items-center flex-column">
                   <%= f.input :is_non_food, input_html: { class:"form-check-input", type:"checkbox"  } %>

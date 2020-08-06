@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ankane/searchkick
-  revision: 96984e06cd1bb934c79b8ddbfe32ceda47215f49
+  revision: baf9a8fe44a4ace162ee76ba2f3d3f248cf48e6a
   specs:
     searchkick (4.4.1)
       activemodel (>= 5)
@@ -48,7 +48,7 @@ GEM
       activemodel (= 5.2.4.3)
       activesupport (= 5.2.4.3)
       arel (>= 9.0)
-    activerecord-import (1.0.5)
+    activerecord-import (1.0.6)
       activerecord (>= 3.2)
     activestorage (5.2.4.3)
       actionpack (= 5.2.4.3)
@@ -70,15 +70,15 @@ GEM
       device_detector
       geocoder (>= 1.4.5)
       safely_block (>= 0.2.1)
-    ancestry (3.0.7)
-      activerecord (>= 3.2.0)
+    ancestry (3.1.0)
+      activerecord (>= 4.2.0)
     arel (9.0.0)
     audited (4.9.0)
       activerecord (>= 4.2, < 6.1)
-    autoprefixer-rails (9.8.4)
+    autoprefixer-rails (9.8.6.1)
       execjs
     aws_cf_signer (0.1.3)
-    bcrypt (3.1.13)
+    bcrypt (3.1.15)
     better_errors (2.7.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -86,7 +86,7 @@ GEM
     bindex (0.8.1)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    blazer (2.2.5)
+    blazer (2.2.6)
       activerecord (>= 5)
       chartkick (>= 3.2)
       railties (>= 5)
@@ -97,10 +97,10 @@ GEM
       sassc-rails (>= 2.0.0)
     builder (3.2.4)
     byebug (11.1.3)
-    chartkick (3.3.1)
+    chartkick (3.4.0)
     choice (0.2.0)
     clipboard-rails (1.7.1)
-    cloudinary (1.15.0)
+    cloudinary (1.16.1)
       aws_cf_signer
       rest-client
     coderay (1.1.3)
@@ -124,21 +124,21 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    dotenv (2.7.5)
-    dotenv-rails (2.7.5)
-      dotenv (= 2.7.5)
-      railties (>= 3.2, < 6.1)
-    elasticsearch (7.8.0)
-      elasticsearch-api (= 7.8.0)
-      elasticsearch-transport (= 7.8.0)
-    elasticsearch-api (7.8.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
+    elasticsearch (7.8.1)
+      elasticsearch-api (= 7.8.1)
+      elasticsearch-transport (= 7.8.1)
+    elasticsearch-api (7.8.1)
       multi_json
     elasticsearch-model (7.1.0)
       activesupport (> 3)
       elasticsearch (> 1)
       hashie
     elasticsearch-rails (7.1.0)
-    elasticsearch-transport (7.8.0)
+    elasticsearch-transport (7.8.1)
       faraday (~> 1)
       multi_json
     errbase (0.2.0)
@@ -177,7 +177,7 @@ GEM
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    i18n (1.8.3)
+    i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
@@ -187,7 +187,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.3.0)
+    json (2.3.1)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -222,19 +222,19 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.1)
-    multi_json (1.14.1)
+    multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nested_form (0.3.2)
-    nested_form_fields (0.8.2)
+    nested_form_fields (0.8.4)
       coffee-rails (>= 3.2.1)
       jquery-rails
       rails (>= 3.2.0)
     netrc (0.11.0)
     nio4r (2.5.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
-    oj (3.10.6)
+    oj (3.10.8)
     orm_adapter (0.5.0)
     pg (1.2.3)
     popper_js (1.16.0)
@@ -255,8 +255,6 @@ GEM
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
-    rack-protection (2.0.8.1)
-      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -340,13 +338,11 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selectize-rails (0.12.6)
     semantic_range (2.3.0)
-    sidekiq (6.0.7)
+    sidekiq (6.1.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+      redis (>= 4.2.0)
     sidekiq-failures (1.0.0)
       sidekiq (>= 4.0.0)
     simple_form (5.0.2)
@@ -391,7 +387,7 @@ GEM
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
-    websocket-driver (0.7.2)
+    websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (3.1.8)
@@ -445,7 +441,6 @@ DEPENDENCIES
   remotipart!
   sass-rails
   searchkick!
-  selectize-rails
   sidekiq
   sidekiq-failures (~> 1.0)
   simple_form

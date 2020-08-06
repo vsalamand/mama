@@ -47,8 +47,6 @@ gem "font-awesome-sass"
 gem "simple_form"
 gem 'nested_form_fields'
 gem "autoprefixer-rails"
-# A small gem for putting selectize.js into the Rails asset pipeline
-gem "selectize-rails"
 
 # debugging
 gem 'better_errors'

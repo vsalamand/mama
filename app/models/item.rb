@@ -25,10 +25,10 @@ class Item < ApplicationRecord
   scope :recipe_items_to_validate, -> { includes(:recipe).where(is_validated: false).where.not(:recipe_id => nil ).where(:recipes => { :status => "published" } ) }
 
   # update item validations if new item is validated
-  # after_save do
-  #   # self.validate if self.is_validated == true
-  #   # self.set_store_section if saved_change_to_name? || saved_change_to_food_id?
-  # end
+  after_save do
+    self.validate if self.is_validated == true
+    self.set_store_section if saved_change_to_name? || saved_change_to_food_id?
+  end
   # after_create :broadcast_create
   # after_update :broadcast_update
 
@@ -75,7 +75,7 @@ class Item < ApplicationRecord
 
   def set
     item = self
-    valid_item = Item.where("lower(name) = ?", item.name.downcase).where(is_validated: true).first
+    valid_item = Item.where("lower(trim(name)) = ?", item.name.downcase).where(is_validated: true).first
     if valid_item.present?
       # item.food = valid_item.food
       item.category = valid_item.category
@@ -145,7 +145,7 @@ class Item < ApplicationRecord
                               is_completed: false,
                               is_deleted: false,
                               list: list)
-        valid_item = Item.where("lower(name) = ?", new_item.name.downcase).where(is_validated: true).first
+        valid_item = Item.where("lower(trim(name)) = ?", new_item.name.downcase).where(is_validated: true).first
         valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
         new_items << new_item
       end
@@ -211,7 +211,7 @@ class Item < ApplicationRecord
     parser = JSON.parse(open(url).read)
 
     parser.each do |element|
-      valid_item = Item.where("lower(name) = ?", element['ingredients'].downcase).where(is_validated: true).first
+      valid_item = Item.where("lower(trim(name)) = ?", element['ingredients'].downcase).where(is_validated: true).first
 
       if valid_item.present?
         new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, category: valid_item.category, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated, store_section_id: valid_item.store_section_id)
@@ -260,7 +260,7 @@ class Item < ApplicationRecord
     if self.is_validated == true
       # Thread.new do
         # validate any items with same name and not yet validated
-        Item.where("lower(name) = ?", self.name.downcase)
+        Item.where("lower(trim(name)) = ?", self.name.downcase)
             .update_all(quantity: self.quantity,
                      unit_id: self.unit_id,
                      category_id: self.category_id,
