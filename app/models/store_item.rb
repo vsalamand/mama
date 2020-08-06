@@ -5,6 +5,7 @@ class StoreItem < ApplicationRecord
   belongs_to :product
   belongs_to :store
   belongs_to :store_section_item
+  has_one :category, through: :store_section_item
   has_many :store_item_histories, dependent: :destroy
   has_many :store_cart_items, dependent: :destroy
   has_one :food, through: :product
@@ -19,8 +20,19 @@ class StoreItem < ApplicationRecord
 
   def search_data
     {
-      name: name
+      name: name,
+      store_id: store_id
     }
+  end
+
+  def get_category
+    self.store_section_item.path.reverse.each do |c|
+      if c.category.present?
+        return c.category
+        break
+      end
+    end
+    return nil
   end
 
   def get_best_price

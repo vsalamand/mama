@@ -91,9 +91,15 @@ class Item < ApplicationRecord
       # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{query}"))
       parser = JSON.parse(open(url).read).first
       quantity = parser['quantity_match'] if parser['quantity_match'].present?
+
       category = Category.search(parser['food_match'], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
+      # category = Category.search(parser['clean_item'], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
       # category = Category.find_by(name: FuzzyMatch.new(Category.pluck(:name)).find(parser['food_match']))
-      # store_section_item_search = StoreItem.search(parser['clean_item']) if parser['clean_item'].present? && food.nil?
+      if category.nil? && parser['clean_item'].present?
+        product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+        category = product.get_category if product.present?
+      end
+
       unit = Unit.search(parser['unit_match'], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
 
       item.quantity = quantity
@@ -122,6 +128,10 @@ class Item < ApplicationRecord
       parser.each_with_index do |element, index|
         quantity = element['quantity_match'] if element['quantity_match'].present?
         category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        if category.nil? && parser['clean_item'].present?
+          product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+          category = product.get_category if product.present?
+        end
         unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
 
         store_section_id = category.get_store_section.id if category.present?
@@ -161,6 +171,10 @@ class Item < ApplicationRecord
       parser.each_with_index do |element, index|
         quantity = element['quantity_match'] if element['quantity_match'].present?
         category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        if category.nil? && parser['clean_item'].present?
+          product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+          category = product.get_category if product.present?
+        end
         unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
         store_section_id = category.get_store_section.id if category.present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
@@ -178,6 +192,10 @@ class Item < ApplicationRecord
 
     quantity = parser['quantity_match'] if parser['quantity_match'].present?
     category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+    if category.nil? && parser['clean_item'].present?
+      product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+      category = product.get_category if product.present?
+    end
     unit = Unit.search(parser['unit_match'], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
     store_section_id = category.get_store_section.id if category.present?
 
@@ -201,6 +219,10 @@ class Item < ApplicationRecord
       else
         quantity = element['quantity_match'] if element['quantity_match'].present?
         category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        if category.nil? && parser['clean_item'].present?
+          product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+          category = product.get_category if product.present?
+        end
         unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
         store_section_id = category.get_store_section.id if category.present?
 
