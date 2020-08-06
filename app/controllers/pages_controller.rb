@@ -263,8 +263,8 @@ class PagesController < ApplicationController
   end
 
   def verify_items
-    @items = Item.where(is_validated: false).last(50)
-    @items_listitems = Item.list_items_to_validate.last(50)
+    @items = Item.where(is_validated: false).last(100)
+    @items_listitems = Item.where(is_validated: true).last(100)
   end
 
   def verify_listitems
