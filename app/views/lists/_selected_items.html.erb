@@ -1,21 +1,37 @@
-<% if list.get_not_completed.any? %>
+<% if list.items.not_deleted.any? %>
   <% if list.sorted_by == "rayon" %>
-    <% list.sort_by_store_sections.each do |key, array| %>
-      <% if array.any? %>
-        <div id="<%= key.parameterize(separator: '') %>">
-          <div id="<%= key.parameterize(separator: '') %>Header">
-            <ul class="border-0 list-group-item rounded-top d-flex align-items-center justify-content-between pl-1 pb-0 m-0">
+    <% StoreSection.order(:position).each do |store_section| %>
+        <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader">
+          <div id="<%= store_section.name.parameterize(separator: '') %>Header">
+            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
               <div class="d-flex align-items-center">
-                <p class="m-0 p-1 font-weight-bold lead"><%= key %></p>
+                <p class="m-0 p-1 font-weight-bold lead"><%= store_section.name %></p>
               </div>
             </ul>
           </div>
-          <%  array.sort_by{|e| e.name.parameterize }.each do |list_item| %>
-            <%= render 'items/selected_item', item: list_item.item, list_item: list_item %>
-          <% end %>
+          <div id="<%= store_section.name.parameterize(separator: '') %>Elements">
+            <% list.items.not_deleted.where(store_section_id: store_section.id).sort_by{|e| e.name.parameterize }.each do |item| %>
+              <%= render 'items/selected_item', item: item %>
+            <% end %>
+          </div>
         </div>
-      <% end %>
     <% end %>
+    <div id="autres" class="listHeader">
+      <div id="autresHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead">Autres</p>
+          </div>
+        </ul>
+      </div>
+      <div id="autresElements">
+        <%  list.items.not_deleted.where(store_section_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
+          <%= render 'items/selected_item', item: item %>
+        <% end %>
+      </div>
+    </div>
+
+
   <% else list.sorted_by == "date" || nil %>
       <% list.get_not_deleted.sort_by(&:id).each do |list_item| %>
         <%= render 'items/selected_item', item: list_item.item, list_item: list_item %>
