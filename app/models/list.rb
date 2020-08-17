@@ -182,7 +182,7 @@ class List < ApplicationRecord
   end
 
   def get_sort_options
-    return ["ordre d'ajout", "rayon"]
+    return ["ordre d'ajout", "rayon", "category"]
   end
 
   def sort_by_store_sections
