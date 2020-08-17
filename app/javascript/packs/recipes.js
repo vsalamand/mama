@@ -1,6 +1,18 @@
 import Rails from 'rails-ujs'
 import 'bootstrap';
 
+$(document).on("turbolinks:load", function(event) {
+  setStoreSectionHeaders();
+})
+
+$(document).on("DOMSubtreeModified", "#recipeItems", function(event) {
+  setStoreSectionHeaders();
+})
+
+$(document).on("DOMSubtreeModified", "#recipeItems", function(event) {
+  setStoreSectionHeaders();
+})
+
 // // close recipe modal when user wants to add recipe to a list
 // $(document).on('click', '.addToListBtn',function() {
 //   $('.showRecipeModal').modal('hide');
@@ -77,3 +89,19 @@ $(document).on("click", ".editRecipeListItemsModalbtn", function(event) {
   });
 
 });
+
+
+// show / hide section headers
+function setStoreSectionHeaders() {
+  if(document.getElementById("recipeItems")) {
+    var headers = document.querySelectorAll('.listHeader');
+    $(headers).map(function() {
+     var count = $(this).find('li').length;
+      if(count === 0){
+         this.style.display = "none";
+      } else {
+         this.style.display = "block";
+      }
+    })
+  }
+}
