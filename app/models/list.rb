@@ -198,6 +198,10 @@ class List < ApplicationRecord
     return data
   end
 
+  def get_foodgroup_items(foodgroup)
+    Item.where(is_deleted: false, list_id: self.id, category_id: Category.where(:food_group_id => foodgroup.subtree.pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
+  end
+
 
   def get_store_carts
     items = self.get_items_to_buy

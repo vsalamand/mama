@@ -1,16 +1,18 @@
 
   <% if list.sorted_by == "rayon" %>
-    <% Category.roots.each do |category| %>
-        <div id="<%= category.name.parameterize(separator: '') %>" class="listHeader">
-          <div id="<%= category.name.parameterize(separator: '') %>Header">
+    <% FoodGroup.roots.each do |group| %>
+        <div id="<%= group.name.parameterize(separator: '') %>" class="listHeader">
+          <div id="<%= group.name.parameterize(separator: '') %>Header">
             <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
               <div class="d-flex align-items-center">
-                <p class="m-0 p-1 font-weight-bold lead"><%= category.name %></p>
+                <p class="m-0 p-1 font-weight-bold lead"><%= group.name %></p>
               </div>
             </ul>
           </div>
-          <div id="<%= category.name.parameterize(separator: '') %>Elements">
-            <% list.items.not_deleted.where(category_id: category.subtree.pluck(:id)).sort_by{|e| e.name.parameterize }.each do |item| %>
+          <div id="<%= group.name.parameterize(separator: '') %>Elements">
+<!--             list.items.not_deleted.where(category_id: group.subtree.pluck(:id)).sort_by{|e| e.name.parameterize }.each do |item|
+ -->
+            <% list.get_foodgroup_items(group).sort_by{|e| e.name.parameterize }.each do |item| %>
               <%= render 'items/show', item: item %>
             <% end %>
           </div>

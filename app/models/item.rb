@@ -12,6 +12,7 @@ class Item < ApplicationRecord
   belongs_to :store_section, optional: true
   belongs_to :list, optional: true
   belongs_to :category, optional: true
+  has_one :food_group, through: :category
 
   # validates :food_id, presence: true
   has_many :cart_items, dependent: :destroy
