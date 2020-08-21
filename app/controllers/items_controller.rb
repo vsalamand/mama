@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
       @item = @item.set
       @item.list = @list
       if @item.save
-        @store_section_name = @item.get_store_section_name.downcase.parameterize(separator: '')
+        @headername = @item.get_header_name
         render "create.js.erb"
         # redirect_to list_path(@list)
         ahoy.track "Create list item", name: @item.name

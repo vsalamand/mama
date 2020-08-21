@@ -54,6 +54,21 @@
           <%= render "lists/edit_history", content: @message %>
         </div>
 
+        <% if current_user.admin == true %>
+            <div class="dropdown">
+              <button class="btn-block btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= list.sorted_by %>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= link_to "Tri par foodgroup", list_sort_path(list, sort_option: "foodgroup"), remote: true, class:"dropdown-item" %>
+                <%= link_to "Tri par rayon", list_sort_path(list, sort_option: "rayon"), remote: true, class:"dropdown-item" %>
+                <%= link_to "Tri par date", list_sort_path(list, sort_option: "date"), remote: true, class:"dropdown-item" %>
+              </div>
+            </div>
+
+
+        <% end %>
+
         <div class="mb-3">
           <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
             <%= render 'lists/uncomplete_todo_list', list: list %>
