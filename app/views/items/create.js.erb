@@ -15,7 +15,7 @@ function refreshForm(innerHTML) {
 }
 
 function insert() {
-  const sectionElements = document.getElementById("<%= @store_section_name %>Elements");
+  const sectionElements = document.getElementById("<%= @headername %>Elements");
   sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @item %>");
   sortSectionElements(sectionElements);
 }

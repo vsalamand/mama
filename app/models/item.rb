@@ -12,6 +12,7 @@ class Item < ApplicationRecord
   belongs_to :store_section, optional: true
   belongs_to :list, optional: true
   belongs_to :category, optional: true
+  has_one :food_group, through: :category
 
   # validates :food_id, presence: true
   has_many :cart_items, dependent: :destroy
@@ -327,6 +328,18 @@ class Item < ApplicationRecord
     if self.food.present?
       self.category = self.food.category
       self.save
+    end
+  end
+
+  def get_header_name
+    if self.list.sorted_by == "rayon"
+      return self.get_store_section_name.downcase.parameterize(separator: '')
+
+    elsif self.list.sorted_by == "foodgroup" && self.category.present? && self.category.get_food_group.present?
+      return self.category.get_food_group.root.name.downcase.parameterize(separator: '')
+
+    else
+      return "autres"
     end
   end
 end

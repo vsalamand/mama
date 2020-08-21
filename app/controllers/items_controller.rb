@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
       @item = @item.set
       @item.list = @list
       if @item.save
-        @store_section_name = @item.get_store_section_name.downcase.parameterize(separator: '')
+        @headername = @item.get_header_name
         render "create.js.erb"
         # redirect_to list_path(@list)
         ahoy.track "Create list item", name: @item.name
@@ -54,11 +54,11 @@ class ItemsController < ApplicationController
       @item.is_completed = completed_status
       # if user is updating store section specificaly
       if (new_store_section != store_section)
-        @item.store_section_id = new_store_section
+        new_store_section > 0 ? @item.store_section_id = new_store_section : @item.store_section_id = nil
         @item.is_validated = false
       end
       @item.save
-      @store_section_name = @item.get_store_section_name.downcase.parameterize(separator: '')
+      @headername = @item.get_header_name
 
       render "update.js.erb"
       ahoy.track "Edit list item", name: @item.name
@@ -115,7 +115,7 @@ class ItemsController < ApplicationController
     @list = @item.list
     if @list
       @item.delete
-      @store_section = @item.get_store_section_name.parameterize(separator: '')
+      # @headername = @item.get_header_name
       render "delete.js.erb"
       ahoy.track "Destroy list item", name: @item.name
     else

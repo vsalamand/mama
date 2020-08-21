@@ -182,7 +182,7 @@ class List < ApplicationRecord
   end
 
   def get_sort_options
-    return ["ordre d'ajout", "rayon"]
+    return ["date", "rayon", "category", "foodgroup"]
   end
 
   def sort_by_store_sections
@@ -196,6 +196,24 @@ class List < ApplicationRecord
     end
 
     return data
+  end
+
+  def get_store_section_items(store_section)
+     Item.where(is_deleted: false,
+               list_id: self.id,
+               store_section_id: store_section.id)
+  end
+
+  def get_foodgroup_items(foodgroup)
+    Item.where(is_deleted: false,
+               list_id: self.id,
+               category_id: Category.where(:food_group_id => foodgroup.subtree.pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
+  end
+
+  def get_category_items(category)
+     Item.where(is_deleted: false,
+               list_id: self.id,
+               category_id: category.subtree.pluck(:id))
   end
 
 

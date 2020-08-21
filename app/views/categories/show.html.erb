@@ -10,12 +10,15 @@
 
   <div>
     <h1 class="display-4 mb-0 mt-2 font-weight-bold"><%= link_to @category.name.capitalize, edit_category_path(@category) %></h1>
-    <div class="d-flex flex-column">
+    <div class="">
       <% if @category.get_store_section.present? %>
-        <small class="text-success">Rayon: <%= @category.get_store_section.name %></small>
+        <p class="btn btn-warning border lead m-0 font-weight-bold">rayon: <%= @category.get_store_section.name %></p>
+      <% end %>
+      <% if @category.food_group.present? %>
+        <p class="btn btn-success border lead m-0 font-weight-bold">repère: <%= @category.food_group.name %></p>
       <% end %>
       <% if @category.food.present? %>
-        <small class="text-secondary">Food: <%= @category.food.name %></small>
+        <p class="btn btn-light border lead text-secondary m-0 font-weight-bold">food: <%= @category.food.name %></p>
       <% end %>
     </div>
   </div>

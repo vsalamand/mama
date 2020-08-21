@@ -14,7 +14,7 @@
 function reinsert() {
   const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
   listItemCard.remove();
-  const sectionElements = document.getElementById("<%= @store_section_name %>Elements");
+  const sectionElements = document.getElementById("<%= @headername %>Elements");
   sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @item.list, item: @item %>");
   sortSectionElements(sectionElements);
 }

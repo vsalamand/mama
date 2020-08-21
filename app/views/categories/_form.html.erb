@@ -6,6 +6,10 @@
     <div class="form-group">
     <%= f.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
     </div>
+    <label>Food Group</label>
+    <div class="form-group">
+    <%= f.collection_select :food_group_id, FoodGroup.where('ancestry is not NULL').order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
+    </div>
     <label>Food</label>
     <div class="form-group">
     <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>

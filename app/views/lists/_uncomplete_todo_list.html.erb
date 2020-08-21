@@ -1,5 +1,37 @@
 
-  <% if list.sorted_by == "rayon" %>
+  <% if list.sorted_by == "foodgroup" %>
+    <% FoodGroup.roots.each do |group| %>
+        <div id="<%= group.name.parameterize(separator: '') %>" class="listHeader">
+          <div id="<%= group.name.parameterize(separator: '') %>Header">
+            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+              <div class="d-flex align-items-center">
+                <p class="m-0 p-1 font-weight-bold lead"><%= group.name %></p>
+              </div>
+            </ul>
+          </div>
+          <div id="<%= group.name.parameterize(separator: '') %>Elements">
+            <% list.get_foodgroup_items(group).sort_by{|e| e.name.parameterize }.each do |item| %>
+              <%= render 'items/show', item: item %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+    <div id="autres" class="listHeader">
+      <div id="autresHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead">Autres</p>
+          </div>
+        </ul>
+      </div>
+      <div id="autresElements">
+        <%  list.items.not_deleted.where(category_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
+          <%= render 'items/show', item: item %>
+        <% end %>
+      </div>
+    </div>
+
+  <% elsif list.sorted_by == "rayon" %>
     <% StoreSection.order(:position).each do |store_section| %>
         <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader">
           <div id="<%= store_section.name.parameterize(separator: '') %>Header">
@@ -10,7 +42,7 @@
             </ul>
           </div>
           <div id="<%= store_section.name.parameterize(separator: '') %>Elements">
-            <% list.items.not_deleted.where(store_section_id: store_section.id).sort_by{|e| e.name.parameterize }.each do |item| %>
+            <% list.get_store_section_items(store_section).sort_by{|e| e.name.parameterize }.each do |item| %>
               <%= render 'items/show', item: item %>
             <% end %>
           </div>

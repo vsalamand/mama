@@ -2,6 +2,8 @@ class FoodGroup < ApplicationRecord
   # attr_accessible :name, :parent_id
   has_ancestry
   has_many :foods
+  has_many :categories
+  has_many :items, through: :categories
   # has_many :banned_categories
   # has_many :diets, through: :banned_categories
 

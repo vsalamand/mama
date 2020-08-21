@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   belongs_to :store_section
+  belongs_to :food_group
   belongs_to :food, optional: true
   has_many :store_section_items
   has_many :stores, through: :store_section_items
@@ -26,6 +27,16 @@ class Category < ApplicationRecord
     self.path.reverse.each do |c|
       if c.store_section.present?
         return c.store_section
+        break
+      end
+    end
+    return nil
+  end
+
+  def get_food_group
+    self.path.reverse.each do |c|
+      if c.food_group.present?
+        return c.food_group
         break
       end
     end
