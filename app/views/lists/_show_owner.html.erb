@@ -60,9 +60,10 @@
                 <%= list.sorted_by %>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <%= link_to "Tri par foodgroup", list_sort_path(list, sort_option: "foodgroup"), remote: true, class:"dropdown-item" %>
                 <%= link_to "Tri par rayon", list_sort_path(list, sort_option: "rayon"), remote: true, class:"dropdown-item" %>
+                <%= link_to "Tri par catégorie", list_sort_path(list, sort_option: "category"), remote: true, class:"dropdown-item" %>
                 <%= link_to "Tri par date", list_sort_path(list, sort_option: "date"), remote: true, class:"dropdown-item" %>
+                <%= link_to "Tri par foodgroup", list_sort_path(list, sort_option: "foodgroup"), remote: true, class:"dropdown-item" %>
               </div>
             </div>
         <% end %>

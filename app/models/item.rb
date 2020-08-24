@@ -320,7 +320,7 @@ class Item < ApplicationRecord
     if self.store_section.present?
       self.store_section.name
     else
-      return "Autres"
+      return "non-alimentaires"
     end
   end
 
@@ -332,14 +332,17 @@ class Item < ApplicationRecord
   end
 
   def get_header_name
-    if self.list.sorted_by == "rayon"
+    if self.list.sorted_by == "category" && self.category.present?
+      return self.category.root.name.downcase.parameterize(separator: '')
+
+    elsif self.list.sorted_by == "rayon"
       return self.get_store_section_name.downcase.parameterize(separator: '')
 
     elsif self.list.sorted_by == "foodgroup" && self.category.present? && self.category.get_food_group.present?
       return self.category.get_food_group.root.name.downcase.parameterize(separator: '')
 
     else
-      return "autres"
+      return "non-alimentaires"
     end
   end
 end

@@ -1,0 +1,30 @@
+    <% Category.roots.each do |category| %>
+        <div id="<%= category.name.parameterize(separator: '') %>" class="listHeader">
+          <div id="<%= category.name.parameterize(separator: '') %>Header">
+            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+              <div class="d-flex align-items-center">
+                <p class="m-0 p-1 font-weight-bold lead"><%= category.name %></p>
+              </div>
+            </ul>
+          </div>
+          <div id="<%= category.name.parameterize(separator: '') %>Elements">
+            <% list.items.not_deleted.where(category_id: category.subtree.pluck(:id)).sort_by{|e| e.name.parameterize }.each do |item| %>
+              <%= render 'items/show', item: item %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+    <div id="non-alimentaires" class="listHeader">
+      <div id="nonalimentaireHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead">Non-alimentaires</p>
+          </div>
+        </ul>
+      </div>
+      <div id="non-alimentairesElements">
+        <%  list.items.not_deleted.where(category_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
+          <%= render 'items/show', item: item %>
+        <% end %>
+      </div>
+    </div>
