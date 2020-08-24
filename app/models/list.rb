@@ -187,7 +187,7 @@ class List < ApplicationRecord
 
   def sort_by_store_sections
     store_sections = StoreSection.order(:position).pluck(:name)
-    store_sections << "Autres"
+    store_sections << "Non-alimentaires"
     data = Hash[store_sections.map {|x| [x, Array.new]}]
 
     self.get_not_deleted.each do |list_item|

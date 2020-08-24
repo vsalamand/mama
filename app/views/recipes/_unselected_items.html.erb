@@ -16,15 +16,15 @@
           </div>
         </div>
     <% end %>
-    <div id="autres" class="listHeader">
-      <div id="autresHeader">
+    <div id="non-alimentaires" class="listHeader">
+      <div id="non-alimentairesHeader">
         <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
           <div class="d-flex align-items-center">
-            <p class="m-0 p-1 font-weight-bold lead">Autres</p>
+            <p class="m-0 p-1 font-weight-bold lead">Non-alimentaires</p>
           </div>
         </ul>
       </div>
-      <div id="autresElements" class="recipeItem<%= recipe.id %>">
+      <div id="non-alimentairesElements" class="recipeItem<%= recipe.id %>">
         <%  recipe.items.where(category_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
           <%= render 'items/unselected_item', item: item %>
         <% end %>

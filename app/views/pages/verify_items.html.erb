@@ -11,7 +11,7 @@
             <li>
               <%= item.id %> |
               <%= link_to item.name, edit_item_path(item) %>
-              <small class="text-dark"><%= item.category.name if item.category.present? %></small>
+              <small class="text-success"><%= item.category.name if item.category.present? %></small>
               <small class="text-warning"><%= item.store_section.name if item.store_section %></small>
             </li>
           <% end %>
@@ -26,7 +26,7 @@
             <li>
               <%= item.id %> |
               <%= link_to item.name, edit_item_path(item) %>
-              <small class="text-dark"><%= item.category.name if item.category.present? %></small>
+              <small class="text-success"><%= item.category.name if item.category.present? %></small>
               <small class="text-warning"><%= item.store_section.name if item.store_section %></small>
             </li>
           <% end %>

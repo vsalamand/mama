@@ -1,0 +1,16 @@
+<% if item.category.present? && item.category.get_food_group.present? %>
+  <% if item.category.get_food_group.rating == "good"%>
+    <i class="fas fa-circle fa-xs text-success pl-2 pr-1" style="opacity: 0.7;"></i>
+
+  <% elsif item.category.get_food_group.rating == "limit"%>
+    <i class="fas fa-circle fa-xs text-warning pl-2 pr-1" style="opacity: 0.7;"></i>
+
+  <% elsif item.category.get_food_group.rating == "avoid"%>
+    <i class="fas fa-circle fa-xs text-danger pl-2 pr-1" style="opacity: 0.7;"></i>
+
+  <% end %>
+
+<% else %>
+  <i class="fas fa-circle fa-xs text-secondary pl-2 pr-1" style="opacity: 0.7;"></i>
+
+<% end %>
