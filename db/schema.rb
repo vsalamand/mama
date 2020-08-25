@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_082316) do
+ActiveRecord::Schema.define(version: 2020_08_25_160724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -302,6 +302,12 @@ ActiveRecord::Schema.define(version: 2020_08_18_082316) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "games", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", id: :serial, force: :cascade do |t|
     t.integer "food_id"
     t.integer "recipe_id"
@@ -348,6 +354,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_082316) do
     t.string "list_type", default: "personal"
     t.string "sorted_by"
     t.string "slug"
+    t.bigint "game_id"
+    t.index ["game_id"], name: "index_lists_on_game_id"
     t.index ["slug"], name: "index_lists_on_slug", unique: true
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
@@ -608,6 +616,29 @@ ActiveRecord::Schema.define(version: 2020_08_18_082316) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "task_items", force: :cascade do |t|
+    t.bigint "task_id"
+    t.bigint "list_id"
+    t.integer "step_count", default: 0
+    t.integer "score", default: 0
+    t.boolean "is_completed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_task_items_on_list_id"
+    t.index ["task_id"], name: "index_task_items_on_task_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "game_id"
+    t.string "name"
+    t.string "description"
+    t.integer "max_steps"
+    t.integer "score_per_step"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_tasks_on_game_id"
+  end
+
   create_table "units", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -681,6 +712,7 @@ ActiveRecord::Schema.define(version: 2020_08_18_082316) do
   add_foreign_key "items", "store_sections"
   add_foreign_key "items", "units"
   add_foreign_key "list_items", "lists"
+  add_foreign_key "lists", "games"
   add_foreign_key "lists", "users"
   add_foreign_key "meta_recipe_items", "foods"
   add_foreign_key "meta_recipe_items", "meta_recipes"
@@ -714,5 +746,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_082316) do
   add_foreign_key "store_section_items", "store_sections"
   add_foreign_key "store_section_items", "stores"
   add_foreign_key "stores", "merchants"
+  add_foreign_key "task_items", "lists"
+  add_foreign_key "task_items", "tasks"
+  add_foreign_key "tasks", "games"
   add_foreign_key "users", "diets"
 end

@@ -243,6 +243,12 @@ class ListsController < ApplicationController
     render "get_edit_history.js.erb"
   end
 
+  def get_score
+    @list = List.friendly.find(params[:list_id])
+    @score = @list.get_score
+    render "get_score.js.erb"
+  end
+
 
   private
 

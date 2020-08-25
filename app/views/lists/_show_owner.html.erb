@@ -22,14 +22,21 @@
         <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
         <div class="d-flex flex-row bd-highlight mt-3 justify-content-center" id="listOptions">
           <%= render "lists/options", list: list %>
-          <a class="bd-highlight py-2 mr-1 btn bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
-           <%= link_to list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn bg-light border text-secondary" do %>
+          <a class="bd-highlight py-2 mr-1 btn btn-sm bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
+           <%= link_to list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn btn-sm bg-light border text-secondary" do %>
             <i class="fas fa-trash p-1"></i>
           <% end %>
         </div>
       </div>
     </div>
   </div>
+
+
+  <% if current_user.admin == true %>
+    <div id="listScore" class="container mb-3">
+      <%= render "lists/rating", list: list, score: list.get_score %>
+    </div>
+  <% end %>
 
 
 
@@ -53,7 +60,6 @@
         <div id="editHistory" class="m-1">
           <%= render "lists/edit_history", content: @message %>
         </div>
-
         <% if current_user.admin == true %>
             <div class="dropdown">
               <button class="btn-block btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
