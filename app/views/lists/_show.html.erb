@@ -1,13 +1,19 @@
 <div id="newlistItemForm" style="display: none;"><%= render "items/list_item_form", list: list, item: item %></div>
 
+<div id="listOnboarding" style="display: none;"><%= render "lists/onboarding", list: list %></div>
+
 
 <div id="listShow">
   <div class="sticky-top bg-white" id="listBarTop">
     <div class="container">
       <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
         <a class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+
+        <% if false %>
         <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/favorites"><%= cl_image_tag("menu_icons/star", width: 25, height: 25, class:"m-0") %></a>
         <a class="shadow-lg bg-white rounded-pill rounded-lg p-2 bd-highlight text-center ml-2" href="/cuisine"><%= cl_image_tag("menu_icons/search", width: 25, height: 25, class:"m-0") %></a>
+        <% end %>
+
       </nav>
     </div>
   </div>
@@ -32,12 +38,11 @@
   </div>
 
 
-  <% if current_user.admin == true %>
-    <div id="listScore" class="container my-3 text-center">
-    </div>
-    <div id="ratingProgress" class="container my-3 px-2">
-    </div>
-  <% end %>
+
+  <div id="listScore" class="container my-3">
+  </div>
+  <div id="ratingProgress" class="container my-3 px-2">
+  </div>
 
 
 
@@ -58,10 +63,10 @@
         <% end %>
 
 
-        <div id="editHistory" class="m-1">
-          <%= render "lists/edit_history", content: @message %>
-        </div>
         <% if false %>
+            <div id="editHistory" class="m-1">
+              <%= render "lists/edit_history", content: @message %>
+            </div>
             <div class="dropdown">
               <button class="btn-block btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= list.sorted_by %>

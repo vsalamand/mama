@@ -14,7 +14,7 @@
 
       <hr class="my-3">
 
-      <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-flat2 p-3 px-5 shadow m-1 font-weight-bold" %>
+      <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-light border p-3 px-5 m-1 font-weight-bold" %>
 
 
 
@@ -23,7 +23,7 @@
             <% @lists.sort_by(&:id).reverse.each do |list|  %>
               <div class="d-flex flex-column m-0">
                 <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead font-weight-bold" %>
-                <% if user_signed_in? %>
+                <% if false %>
                   <small>
                    <%= render "lists/edit_history", content: list.get_last_edit(current_user.id) %>
                   </small>

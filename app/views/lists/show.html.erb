@@ -4,7 +4,7 @@
 
 <% if user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>
-      <%= render "lists/show_owner", list: @list, items: @items, item: @item, recipes: @recipes %>
+      <%= render "lists/show", list: @list, items: @items, item: @item, recipes: @recipes %>
     <% else %>
       <%= render 'lists/select', list: @list, items: @items, item: @item, recipes: @recipes %>
     <% end %>

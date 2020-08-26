@@ -8,7 +8,7 @@ class TaskItem < ApplicationRecord
       self.is_completed = false
 
     else
-      self.score = self.task.max_steps * self.task.score_per_step
+      self.score = (self.task.max_steps * self.task.score_per_step) + (step_count - self.task.max_steps)
       self.is_completed = true
 
     end

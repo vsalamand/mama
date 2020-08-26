@@ -1,13 +1,39 @@
 <div class="jumbotron shadow-lg collapse py-1 pl-3 pr-1 d-flex flex-column">
   <i class="fas fa-2x fa-times close text-right m-3" style="cursor: pointer;" id="closeRatingProgress"></i>
 
-    <div>
-    <% list.tasks.each do |task| %>
+
+
+  <p class="lead">Pour gagner un maximum de points, remplissez les indicateurs ci-dessous:</p>
+  <div>
+    <% list.tasks.order(:position).each do |task| %>
       <div class="mb-3">
         <p class="h2"><%= task.name %></p>
         <%= render "lists/task_progress", task_item: TaskItem.find_by(list: list, task: task) %>
       </div>
     <% end %>
+  </div>
+
+  <hr class="my-4">
+
+  <p class="lead">Le score est calculé selon les règles ci-dessous:</p>
+
+  <ul class="list-group mb-3">
+    <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+      <div class="lead p-1 m-0"><strong class="text-primary h3">+1</strong> pour un produit <span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span></div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+      <div class="lead p-1 m-0"><strong class="text-primary h3">+5</strong> pour contribuer à un indicateur</div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+      <div class="lead p-1 m-0"><strong class="text-secondary h3">-1</strong> pour un produit <span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span></div>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+      <div class="lead p-1 m-0"><strong class="text-secondary h3">-3</strong> pour un produit <span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span></div>
+    </li>
+  </ul>
+
+  <div class="text-center mb-3">
+    <button class="btn btn-light border btn-lg" id="closeRatingProgress">Fermer</button>
   </div>
 </div>
 

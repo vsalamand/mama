@@ -1,39 +1,57 @@
-<p class="lead m-0 p-2 text-muted font-weight-light"><small>Score:</small> <%= score %></p>
+<hr class="mt-4">
+<i class="fas fa-info-circle text-muted d-flex justify-content-end mx-2" id="toggleListOnboarding" style="cursor: pointer;"></i>
 
-<% case
-   when score > 90 %>
-  <div class="bg-transparent d-flex justify-content-center">
-    <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(165, 5, 189),rgb(239, 87, 203));" id="showRatingProgress">
-       <h1 class="font-weight-bold m-0 text-white">💖 Excellent!</h1>
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <% if list.items.not_deleted.where.not(category_id: nil).size > 4 %>
+    <p class="lead m-0 p-2 text-muted font-weight-light"><small>Score:</small> <strong><%= score %></strong></p>
+
+    <% case
+       when score > 90 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(165, 5, 189),rgb(239, 87, 203));" id="showRatingProgress">
+           <p class="bigh1 font-weight-bold m-0 text-white">💖 Excellent!</p>
+        </div>
+      </div>
+
+    <% when score > 70 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));" id="showRatingProgress">
+           <p class="bigh1 font-weight-bold m-0 text-white">💚 Super</p>
+        </div>
+      </div>
+
+    <% when score > 30 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(135deg, rgb(182, 244, 85),rgb(63, 128, 87));" id="showRatingProgress">
+           <p class="bigh1 font-weight-bold m-0 text-white">💛 Bien</p>
+        </div>
+      </div>
+
+    <% when score > 0 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));" id="showRatingProgress">
+           <p class="bigh1 font-weight-bold m-0 text-white">🧡 Moyen</p>
+        </div>
+      </div>
+
+    <% when score <= 0 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));" id="showRatingProgress">
+           <p class="bigh1 font-weight-bold m-0 text-white">💔 Pas top</p>
+        </div>
+      </div>
+    <% end %>
+
+
+  <% else %>
+    <div class="bg-transparent d-flex justify-content-center">
+      <div class="border-0 border-success rounded-lg p-0" style="cursor: pointer;" id="showRatingProgress">
+         <p class="bigh1 font-weight-bold m-0 text-primary"><%= list.items.not_deleted.where.not(category_id: nil).size %></p>
+      </div>
     </div>
-  </div>
+    <p class="m-0 px-2 text-muted font-weight-light text-center">Ajoutez 5 produits alimentaires pour commencer l'évaluation !</p>
 
-<% when score > 70 %>
-  <div class="bg-transparent d-flex justify-content-center">
-    <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));" id="showRatingProgress">
-       <h1 class="font-weight-bold m-0 text-white">💚 Super</h1>
-    </div>
-  </div>
+  <% end %>
 
-<% when score > 30 %>
-  <div class="bg-transparent d-flex justify-content-center">
-    <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(135deg, rgb(182, 244, 85),rgb(63, 128, 87));" id="showRatingProgress">
-       <h1 class="font-weight-bold m-0 text-white">💛 Bien</h1>
-    </div>
-  </div>
 
-<% when score > 0 %>
-  <div class="bg-transparent d-flex justify-content-center">
-    <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));" id="showRatingProgress">
-       <h1 class="font-weight-bold m-0 text-white">🧡 Moyen</h1>
-    </div>
-  </div>
-
-<% when score <= 0 %>
-  <div class="bg-transparent d-flex justify-content-center">
-    <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));" id="showRatingProgress">
-       <h1 class="font-weight-bold m-0 text-white">♡ Pas top</h1>
-    </div>
-  </div>
-<% end %>
-
+</div>

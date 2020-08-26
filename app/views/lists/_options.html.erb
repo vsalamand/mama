@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <% if list.user == current_user || list.users.include?(current_user) || list.user.nil? %>
 
-      <button class="bd-highlight btn btn-sm btn-flat2 text-white mr-1 font-weight-bold shareList" data-toggle="modal" data-target="#collabListModal">Partager</button>
+      <button class="bd-highlight btn btn-sm btn-light border mr-1 shareList" data-toggle="modal" data-target="#collabListModal">Partager</button>
 
       <% if false %>
         <div class="dropdown" id="sortList">

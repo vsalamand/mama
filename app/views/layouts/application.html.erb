@@ -89,9 +89,11 @@
         <% unless user_signed_in? %>
           <%= render 'shared/navbar_visitor' %>
         <% end %>
+
         <% if ["browse", "products", "explore", "meals", "cuisine", "profile", "favorites"].include?(params[:action]) %>
           <%= render 'shared/navbar_black' %>
         <% end %>
+
       <% end %>
     </div>
      <div id="page-container">
@@ -101,9 +103,12 @@
        </div>
      </div>
 
-    <% if ["browse", "products", "explore", "meals", "cuisine", "profile", "show", "favorites"].include?(params[:action])  %>
-      <%= render 'shared/menu' %>
-    <% end %>
+      <% if false %>
+        <% if ["browse", "products", "explore", "meals", "cuisine", "profile", "show", "favorites"].include?(params[:action])  %>
+          <%= render 'shared/menu' %>
+        <% end %>
+      <% end %>
+
 
     <%= render 'shared/footer'  %>
 

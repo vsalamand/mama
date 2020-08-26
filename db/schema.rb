@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_160724) do
+ActiveRecord::Schema.define(version: 2020_08_26_165641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -636,6 +636,7 @@ ActiveRecord::Schema.define(version: 2020_08_25_160724) do
     t.integer "score_per_step"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["game_id"], name: "index_tasks_on_game_id"
   end
 

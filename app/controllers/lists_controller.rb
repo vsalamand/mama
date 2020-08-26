@@ -79,6 +79,8 @@ class ListsController < ApplicationController
   def show
     @list = List.friendly.find(params[:id])
 
+    @list.set_game if @list.game.nil?
+
     @items = @list.items.not_deleted
     # @uncomplete_list_items = @list.get_items_to_buy
     @item = Item.new

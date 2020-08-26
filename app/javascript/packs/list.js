@@ -12,7 +12,7 @@ require("jquery-ui/ui/widgets/sortable")
 $(document).on("turbolinks:load", function(event) {
   // loadSuggestions();
   // getPriceBtn();
-  // getListPlaceholder();
+  getListPlaceholder();
   setStoreSectionHeaders();
   setScore();
   // openSuggestedItemsModal();
@@ -164,7 +164,7 @@ function showListItemForm() {
   $('#newListItem').focus();
   var listShow = document.getElementById('listShow');
   listShow.style.display = "none";
-  hideBottomMenu();
+  // hideBottomMenu();
 }
 
 function hideListItemForm() {
@@ -172,7 +172,7 @@ function hideListItemForm() {
   newListItemForm.style.display = "none";
   var listShow = document.getElementById('listShow');
   listShow.style.display = "block";
-  showBottomMenu();
+  // showBottomMenu();
 }
 
 function hideBottomMenu() {
@@ -185,6 +185,42 @@ function showBottomMenu() {
   bottomMenu.style.display = "block";
 }
 
+
+// show / hide list onboarding
+$(document).on("click", "#toggleListOnboarding", function(event) {
+  showListOnboarding();
+})
+$(document).on("click", "#closeListOnboarding", function(event) {
+  hideListOnboarding();
+})
+
+function showListOnboarding() {
+  var onboarding = document.getElementById('listOnboarding');
+  onboarding.style.display = "block";
+  $('#newListItem').focus();
+  var listShow = document.getElementById('listShow');
+  listShow.style.display = "none";
+  // hideBottomMenu();
+}
+
+function hideListOnboarding() {
+  var onboarding = document.getElementById('listOnboarding');
+  onboarding.style.display = "none";
+  var listShow = document.getElementById('listShow');
+  listShow.style.display = "block";
+  $(window).scrollTop(0);
+  // showBottomMenu();
+}
+
+function getListPlaceholder() {
+  if(document.getElementById("todo_list")) {
+    var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+
+    if(totalCount == 0){
+      showListOnboarding();
+    }
+  }
+}
 
 // On form submit, fetch updated suggested items inside the form
 const itemsRecommendations = document.getElementById('itemsRecommendations');
@@ -218,29 +254,6 @@ const itemsRecommendations = document.getElementById('itemsRecommendations');
 //   }
 // }
 
-
-// function getListPlaceholder() {
-//   if(document.getElementById("todo_list")) {
-//     var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
-//     const placeholder = document.getElementById('listPlaceholder');
-//     const sortListBtn = document.getElementById('sortList');
-//     const openRecoBtn = document.getElementById('openSelect');
-//     const listItemForm = document.getElementById('listItemForm');
-
-//     if(totalCount == 0){
-//       $(placeholder).show();
-//       $(sortListBtn).hide();
-//       $(openRecoBtn).hide();
-//       $(listItemForm).hide();
-//       // loadSuggestedItems();
-//     } else {
-//       $(placeholder).hide();
-//       $(sortListBtn).show();
-//       $(openRecoBtn).show();
-//       $(listItemForm).show();
-//     }
-//   }
-// }
 
 
 // function openSuggestedItemsModal() {
@@ -449,6 +462,7 @@ $(document).on("click", "#showRatingProgress", function(event) {
 $(document).on("click", "#closeRatingProgress", function(event) {
   var ratingElement = document.querySelector("#ratingProgress");
   ratingElement.style.display = "none";
+  $(window).scrollTop(0);
 })
 
 

@@ -1,0 +1,114 @@
+<div class="banner d-flex flex-column">
+
+    <div class="sticky-top bg-white">
+        <div class="container d-flex align-items-center p-2 justify-content-center">
+          <button class="btn btn-light border btn-lg" id="closeListOnboarding">Fermer</button>
+        </div>
+        <div class="container px-2">
+
+          <div class="jumbotron">
+            <h1 class="display-4">Prêt.e pour les courses ?</h1>
+            <p class="lead">Pour s'amuser en adoptant un mode de vie plus équilibré, votre liste de courses est évaluée selon une méthode de notation basée sur <%= link_to "les recommandations du programme national de santé (PNNS)", "https://www.mangerbouger.fr/Les-recommandations", target: "_blank" %>.</p>
+
+            <hr class="my-4">
+
+            <p class="lead">En fonction des produits alimentaires que vous ajoutez, votre liste se voit attribuer l'un des 5 niveaux suivants:</p>
+            <ul class="list-group">
+              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                💖 Excellent!
+                <span class="lead badge badge-primary badge-pill">+90</span>
+              </li>
+              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                💚 Super
+                <span class="lead badge badge-primary badge-pill">+70</span>
+              </li>
+              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                💛 Bien
+                <span class="lead badge badge-primary badge-pill">+30</span>
+              </li>
+              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                🧡 Moyen
+                <span class="lead badge badge-primary badge-pill">+=0</span>
+              </li>
+              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                💔 Pas top
+                <span class="lead badge badge-danger badge-pill">>0</span>
+              </li>
+            </ul>
+
+
+            <hr class="my-4">
+
+            <p class="lead">Les produits que vous ajoutez sont qualifiés par un badge de couleur selon le degrés de recommandations du programme national de santé (PNNS).</p>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                <div class="d-flex align-items-center text-primary">
+                  <%= render "items/rating_indicator", item: Item.find_by(name: "Carottes") %>
+                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Carottes").name %></p>
+                </div>
+                <span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                <div class="d-flex align-items-center text-primary">
+                  <%= render "items/rating_indicator", item: Item.find_by(name: "Fromage") %>
+                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Fromage").name %></p>
+                </div>
+                <span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                <div class="d-flex align-items-center text-primary">
+                  <%= render "items/rating_indicator", item: Item.find_by(name: "Coca") %>
+                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Coca").name %></p>
+                </div>
+                <span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+                <div class="d-flex align-items-center text-primary">
+                  <%= render "items/rating_indicator", item: Item.find_by(name: "Couches") %>
+                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Couches").name %></p>
+                </div>
+                <span class="lead badge badge-secondary badge-pill" style="opacity: 0.7">Non-alimentaire</span>
+              </li>
+            </ul>
+
+
+            <hr class="my-4">
+
+            <p class="lead">Le score est calculé selon les règles ci-dessous:</p>
+
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <div class="lead p-1 m-0"><strong class="text-primary h3">+1</strong> pour un produit <span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span></div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <div class="lead p-1 m-0"><strong class="text-primary h3">+5</strong> pour contribuer à un indicateur</div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <div class="lead p-1 m-0"><strong class="text-secondary h3">-1</strong> pour un produit <span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span></div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <div class="lead p-1 m-0"><strong class="text-secondary h3">-3</strong> pour un produit <span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span></div>
+              </li>
+            </ul>
+
+            <p class="lead mt-4">Pour gagner un maximum de points, remplissez les indicateurs ci-dessous:</p>
+            <div>
+            <% list.tasks.order(:position).each do |task| %>
+              <div class="mb-3">
+                <p class="h2"><%= task.name %></p>
+                <%= render "lists/task_progress", task_item: TaskItem.find_by(list: list, task: task) %>
+              </div>
+            <% end %>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="text-center">
+              <button class="btn btn-light border btn-lg" id="closeListOnboarding">C'est parti !</button>
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+</div>
