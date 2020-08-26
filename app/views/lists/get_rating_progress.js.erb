@@ -1,0 +1,3 @@
+var rating = document.querySelector("#ratingProgress");
+rating.innerHTML = "";
+rating.innerHTML = ("<%= j render 'lists/rating_progress', list: @list %>");

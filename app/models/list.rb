@@ -9,6 +9,7 @@ class List < ApplicationRecord
   friendly_id :name, use: :history
 
   belongs_to :user, optional: true
+  belongs_to :game, optional: true
   has_many :list_items, dependent: :destroy
   has_many :items
   has_many :foods, through: :items
@@ -21,6 +22,8 @@ class List < ApplicationRecord
   has_many :checklists, through: :checklist_items
   has_many :recipe_list_items, dependent: :destroy
   has_many :recipes, through: :recipe_list_items
+  has_many :tasks, through: :game
+  has_many :task_items
 
   accepts_nested_attributes_for :list_items, allow_destroy: true
   accepts_nested_attributes_for :items, allow_destroy: true
@@ -210,6 +213,12 @@ class List < ApplicationRecord
                category_id: Category.where(:food_group_id => foodgroup.subtree.pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
   end
 
+  def get_good_and_limit_foodgroup_items(foodgroup)
+    Item.where(is_deleted: false,
+               list_id: self.id,
+               category_id: Category.where(:food_group_id => foodgroup.subtree.where.not(rating: "avoid").pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
+  end
+
   def get_category_items(category)
      Item.where(is_deleted: false,
                list_id: self.id,
@@ -251,6 +260,18 @@ class List < ApplicationRecord
     else
       return nil
     end
+  end
+
+  def get_score
+    self.tasks.each{ |t| t.get_score(self)}
+    self.task_items.pluck(:score).reduce(:+) if self.task_items.any?
+  end
+
+  def set_game
+    self.game = Game.first
+    self.save
+    self.game.tasks.each{ |t| TaskItem.find_or_create_by(list: self, task: t) }
+    self.tasks.each{ |t| t.get_score(self)}
   end
 
   def should_generate_new_friendly_id?

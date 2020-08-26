@@ -1,12 +1,13 @@
-  <% if list.sorted_by == "category" %>
-    <%= render 'lists/category', list: list %>
+  <% if list.sorted_by == "rayon" %>
+    <%= render 'lists/sort_by_store_section', list: list %>
 
 
-  <% elsif list.sorted_by == "rayon" %>
-    <%= render 'lists/store_section', list: list %>
+  <% elsif list.sorted_by == "category" %>
+    <%= render 'lists/sort_by_category', list: list %>
+
 
   <% elsif list.sorted_by == "foodgroup" %>
-    <%= render 'lists/foodgroup', list: list %>
+    <%= render 'lists/sort_by_foodgroup', list: list %>
 
 
   <% else list.sorted_by == "date" || nil %>

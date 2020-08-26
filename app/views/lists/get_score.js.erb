@@ -1,0 +1,3 @@
+var score = document.querySelector("#listScore");
+score.innerHTML = "";
+score.innerHTML = ("<%= j render 'lists/rating', list: @list, score: @score %>");

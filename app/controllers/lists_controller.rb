@@ -79,6 +79,8 @@ class ListsController < ApplicationController
   def show
     @list = List.friendly.find(params[:id])
 
+    @list.set_game if @list.game.nil?
+
     @items = @list.items.not_deleted
     # @uncomplete_list_items = @list.get_items_to_buy
     @item = Item.new
@@ -241,6 +243,17 @@ class ListsController < ApplicationController
     params[:a].present? ? author_id = params[:a] : author_id = current_user.id
     @message = list.get_last_edit(author_id)
     render "get_edit_history.js.erb"
+  end
+
+  def get_score
+    @list = List.friendly.find(params[:list_id])
+    @score = @list.get_score
+    render "get_score.js.erb"
+  end
+
+  def get_rating_progress
+    @list = List.friendly.find(params[:list_id])
+    render "get_rating_progress.js.erb"
   end
 
 

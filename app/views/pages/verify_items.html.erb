@@ -8,12 +8,13 @@
         </div>
         <div>
           <% @items.reverse.each do |item| %>
-            <li>
+            <div>
+              <%= render "items/rating_indicator", item: item %>
               <%= item.id %> |
               <%= link_to item.name, edit_item_path(item) %>
               <small class="text-success"><%= item.category.name if item.category.present? %></small>
               <small class="text-warning"><%= item.store_section.name if item.store_section %></small>
-            </li>
+            </div>
           <% end %>
         </div>
     </div>
@@ -23,12 +24,13 @@
         </div>
         <div>
           <% @items_listitems.reverse.each do |item| %>
-            <li>
+            <div>
+              <%= render "items/rating_indicator", item: item %>
               <%= item.id %> |
               <%= link_to item.name, edit_item_path(item) %>
               <small class="text-success"><%= item.category.name if item.category.present? %></small>
               <small class="text-warning"><%= item.store_section.name if item.store_section %></small>
-            </li>
+            </div>
           <% end %>
         </div>
     </div>
