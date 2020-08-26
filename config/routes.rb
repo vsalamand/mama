@@ -151,6 +151,7 @@ Rails.application.routes.draw do
     get :select_all
     get :get_edit_history
     get :get_score
+    get :get_rating_progress
     resources :items, only: [ :create, :show, :destroy, :edit, :update ] do
       get :complete
       get :uncomplete

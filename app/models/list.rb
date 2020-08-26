@@ -263,6 +263,7 @@ class List < ApplicationRecord
   end
 
   def get_score
+    self.tasks.each{ |t| t.get_score(self)}
     self.task_items.pluck(:score).reduce(:+) if self.task_items.any?
   end
 

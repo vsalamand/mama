@@ -249,6 +249,11 @@ class ListsController < ApplicationController
     render "get_score.js.erb"
   end
 
+  def get_rating_progress
+    @list = List.friendly.find(params[:list_id])
+    render "get_rating_progress.js.erb"
+  end
+
 
   private
 

@@ -14,6 +14,7 @@ $(document).on("turbolinks:load", function(event) {
   // getPriceBtn();
   // getListPlaceholder();
   setStoreSectionHeaders();
+  setScore();
   // openSuggestedItemsModal();
   // disable Add List item button by default
   var submitButton = document.getElementById('addListItemBtn');
@@ -25,6 +26,7 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   // loadSuggestions();
   // getPriceBtn();
   setStoreSectionHeaders();
+  setScore();
   // getListPlaceholder();
   // getCartsPrice();
 })
@@ -32,6 +34,7 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
 $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
   // getListPlaceholder();
   setStoreSectionHeaders();
+  setScore();
 })
 
 // function sort() {
@@ -176,6 +179,7 @@ function hideBottomMenu() {
   var bottomMenu = document.getElementById('menuBarBottom');
   bottomMenu.style.display = "none";
 }
+
 function showBottomMenu() {
   var bottomMenu = document.getElementById('menuBarBottom');
   bottomMenu.style.display = "block";
@@ -410,6 +414,42 @@ function setStoreSectionHeaders() {
   }
 }
 
+
+// Set list score
+function setScore() {
+  if(document.querySelector("#todo_list")){
+    var listId = document.querySelector("#todo_list").getAttribute('data');
+
+    $.ajax({
+      url: "/lists/" + listId + "/get_score",
+      cache: false,
+      success: function(){
+      }
+    });
+  }
+}
+
+
+
+// get rating progress detail view
+$(document).on("click", "#showRatingProgress", function(event) {
+  var listId = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/get_rating_progress",
+    cache: false,
+    success: function(){
+    }
+  });
+  var ratingElement = document.querySelector("#ratingProgress");
+  ratingElement.style.display = "block";
+})
+
+// hide rating progress view
+$(document).on("click", "#closeRatingProgress", function(event) {
+  var ratingElement = document.querySelector("#ratingProgress");
+  ratingElement.style.display = "none";
+})
 
 
 

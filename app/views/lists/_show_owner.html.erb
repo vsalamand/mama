@@ -18,7 +18,7 @@
 
   <div class="wrapper m-0">
     <div class="container text-center">
-      <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
+      <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
         <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
         <div class="d-flex flex-row bd-highlight mt-3 justify-content-center" id="listOptions">
           <%= render "lists/options", list: list %>
@@ -33,8 +33,9 @@
 
 
   <% if current_user.admin == true %>
-    <div id="listScore" class="container mb-3">
-      <%= render "lists/rating", list: list, score: list.get_score %>
+    <div id="listScore" class="container my-3 text-center">
+    </div>
+    <div id="ratingProgress" class="container my-3 px-2">
     </div>
   <% end %>
 
@@ -60,7 +61,7 @@
         <div id="editHistory" class="m-1">
           <%= render "lists/edit_history", content: @message %>
         </div>
-        <% if current_user.admin == true %>
+        <% if false %>
             <div class="dropdown">
               <button class="btn-block btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= list.sorted_by %>
