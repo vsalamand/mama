@@ -270,7 +270,7 @@ class List < ApplicationRecord
   def set_game
     self.game = Game.first
     self.save
-    self.game.tasks.each{ |t| TaskItem.find_or_create_by(list: self, task: t) }
+    Game.first.tasks.each{ |t| TaskItem.find_or_create_by(list_id: self.id, task_id: t.id) }
     self.tasks.each{ |t| t.get_score(self)}
   end
 
