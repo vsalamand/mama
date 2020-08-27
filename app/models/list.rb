@@ -220,7 +220,7 @@ class List < ApplicationRecord
   end
 
   def get_rated_foodgroup_items(rating)
-    self.items.not_deleted.select{ |i| i.category.get_food_group.rating == rating  if i.category.present?}
+    self.items.not_deleted.select{ |i| i.category.get_food_group.rating == rating  if i.category.present? && i.category.get_food_group.present?}
   end
 
   def get_store_carts
