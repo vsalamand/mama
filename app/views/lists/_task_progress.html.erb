@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="lead p-1 m-0" style="opacity: 0.5;">
-    <strong class="text-muted h3"><%= task_item.task.max_steps * task_item.task.score_per_step %></strong>
+    <strong class="text-muted h3"><%= task_item.task.max_steps * task_item.task.max_steps %></strong>
     <small class="text-muted">points</small>
   </div>
 
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="lead p-1 m-0">
-    <strong class="text-primary h3"><%= task_item.task.max_steps * task_item.task.score_per_step %></strong>
+    <strong class="text-primary h3"><%= task_item.get_score %></strong>
     <small class="text-muted">points</small>
   </div>
 

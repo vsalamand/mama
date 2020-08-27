@@ -16,4 +16,8 @@ class TaskItem < ApplicationRecord
     self.step_count = step_count
     self.save
   end
+
+  def get_score
+    return self.task.max_steps * self.task.score_per_step if self.is_completed
+  end
 end

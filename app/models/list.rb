@@ -260,8 +260,18 @@ class List < ApplicationRecord
   end
 
   def get_score
-    self.tasks.each{ |t| t.get_score(self)}
-    self.task_items.pluck(:score).reduce(:+) if self.task_items.any?
+    self.tasks.each{ |t| t.set_bonus_scores(self)}
+    points = []
+    # check bonus points
+    points << self.task_items.map{ |t| t.get_score} if self.task_items.any?
+    # get green points
+    points << self.get_rated_foodgroup_items("good").size * 3
+    # get yellow points
+    points << self.get_rated_foodgroup_items("limit").size * -1
+    # get red points
+    points << self.get_rated_foodgroup_items("avoid").size * -3
+
+    return points.flatten.compact.reduce(:+)
   end
 
   def set_game

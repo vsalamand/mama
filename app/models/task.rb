@@ -3,7 +3,7 @@ class Task < ApplicationRecord
   has_many :task_items
   has_many :lists, through: :task_items
 
-  def get_score(list)
+  def set_bonus_scores(list)
     case self.name
     when "5 fruits & légumes" then list.task_items.where(task: self).first.update_score(list.get_good_and_limit_foodgroup_items(FoodGroup.find(1)).size)
     when 'Féculents' then list.task_items.where(task: self).first.update_score(list.get_good_and_limit_foodgroup_items(FoodGroup.find(2)).size)
