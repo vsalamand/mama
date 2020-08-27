@@ -278,7 +278,8 @@ class List < ApplicationRecord
     self.game = Game.first
     self.save
     Game.first.tasks.each{ |t| TaskItem.find_or_create_by(list_id: self.id, task_id: t.id) }
-    self.tasks.each{ |t| t.get_score(self)}
+    self.get_score
+    # self.tasks.each{ |t| t.get_score(self)}
   end
 
   def should_generate_new_friendly_id?
