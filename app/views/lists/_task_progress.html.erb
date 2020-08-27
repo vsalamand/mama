@@ -1,18 +1,33 @@
-<% if task_item.step_count <= task_item.task.max_steps %>
-  <div class="d-flex flex-wrap">
-    <% task_item.step_count.times do |step|  %>
-      <div class="bigh1 p-1">✅</div>
-    <% end %>
-    <% (task_item.task.max_steps - task_item.step_count).times do |step|  %>
-      <div class="bigh1 p-1"><i class="far fa-1x fa-square text-primary"></i></div>
-    <% end %>
+<% if task_item.step_count < task_item.task.max_steps %>
+  <div class="d-flex flex-column">
+    <p class="lead text-muted m-0"><%= task_item.task.name %></p>
+    <div class="d-flex flex-wrap">
+      <% task_item.step_count.times do |step|  %>
+        <div class="h3 p-1">✅</div>
+      <% end %>
+      <% (task_item.task.max_steps - task_item.step_count).times do |step|  %>
+        <div class="h3 p-1"><i class="far fa-square text-muted"></i></div>
+      <% end %>
+    </div>
+  </div>
+  <div class="lead p-1 m-0" style="opacity: 0.5;">
+    <strong class="text-muted h3"><%= task_item.task.max_steps * task_item.task.score_per_step %></strong>
+    <small class="text-muted">points</small>
   </div>
 
-<% elsif task_item.step_count > task_item.task.max_steps %>
-  <div class="d-flex flex-wrap">
-    <% task_item.task.max_steps.times do |step|  %>
-      <div class="bigh1 p-1">✅</div>
-    <% end %>
+
+<% elsif task_item.step_count >= task_item.task.max_steps %>
+  <div class="d-flex flex-column">
+    <p class="lead text-primary font-weight-bold m-0"><%= task_item.task.name %> 🔥</p>
+    <div class="d-flex flex-wrap">
+      <% task_item.task.max_steps.times do |step|  %>
+        <div class="h3 p-1">✅</div>
+      <% end %>
+    </div>
+  </div>
+  <div class="lead p-1 m-0">
+    <strong class="text-primary h3"><%= task_item.task.max_steps * task_item.task.score_per_step %></strong>
+    <small class="text-muted">points</small>
   </div>
 
 <% end %>

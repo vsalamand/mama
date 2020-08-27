@@ -253,6 +253,9 @@ class ListsController < ApplicationController
 
   def get_rating_progress
     @list = List.friendly.find(params[:list_id])
+    @good_products = @list.get_rated_foodgroup_items("good")
+    @limit_products = @list.get_rated_foodgroup_items("limit")
+    @avoid_products = @list.get_rated_foodgroup_items("avoid")
     render "get_rating_progress.js.erb"
   end
 

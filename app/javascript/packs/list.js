@@ -27,6 +27,7 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   // getPriceBtn();
   setStoreSectionHeaders();
   setScore();
+  hideRatingProgress();
   // getListPlaceholder();
   // getCartsPrice();
 })
@@ -35,6 +36,7 @@ $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
   // getListPlaceholder();
   setStoreSectionHeaders();
   setScore();
+  hideRatingProgress();
 })
 
 // function sort() {
@@ -164,6 +166,7 @@ function showListItemForm() {
   $('#newListItem').focus();
   var listShow = document.getElementById('listShow');
   listShow.style.display = "none";
+  hideRatingProgress();
   // hideBottomMenu();
 }
 
@@ -208,6 +211,7 @@ function hideListOnboarding() {
   onboarding.style.display = "none";
   var listShow = document.getElementById('listShow');
   listShow.style.display = "block";
+  hideRatingProgress();
   $(window).scrollTop(0);
   // showBottomMenu();
 }
@@ -460,10 +464,14 @@ $(document).on("click", "#showRatingProgress", function(event) {
 
 // hide rating progress view
 $(document).on("click", "#closeRatingProgress", function(event) {
-  var ratingElement = document.querySelector("#ratingProgress");
-  ratingElement.style.display = "none";
+  hideRatingProgress();
   $(window).scrollTop(0);
 })
+
+function hideRatingProgress() {
+  var ratingElement = document.querySelector("#ratingProgress");
+  ratingElement.style.display = "none";
+}
 
 
 

@@ -219,12 +219,9 @@ class List < ApplicationRecord
                category_id: Category.where(:food_group_id => foodgroup.subtree.where.not(rating: "avoid").pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
   end
 
-  def get_category_items(category)
-     Item.where(is_deleted: false,
-               list_id: self.id,
-               category_id: category.subtree.pluck(:id))
+  def get_rated_foodgroup_items(rating)
+    self.items.not_deleted.select{ |i| i.category.get_food_group.rating == rating  if i.category.present?}
   end
-
 
   def get_store_carts
     items = self.get_items_to_buy

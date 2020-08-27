@@ -3,7 +3,7 @@
 
 <div class="d-flex flex-column justify-content-center align-items-center" id="showRatingProgress" style="cursor: pointer;">
   <% if list.items.not_deleted.where.not(category_id: nil).size > 4 %>
-    <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold"><%= score %></strong> <small class="text-muted">points</small></p>
+    <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= score %></strong> <small class="text-muted">points</small></p>
 
 
     <% case
