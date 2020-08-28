@@ -58,6 +58,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :category_type, :store_section_id, :food_group_id, :food_id, :level, :parent_id) ## Rails 4 strong params usage
+    params.require(:category).permit(:name, :category_type, :store_section_id, :food_group_id, :food_id, :level, :parent_id, :rating) ## Rails 4 strong params usage
   end
 end

@@ -216,11 +216,13 @@ class List < ApplicationRecord
   def get_good_and_limit_foodgroup_items(foodgroup)
     Item.where(is_deleted: false,
                list_id: self.id,
-               category_id: Category.where(:food_group_id => foodgroup.subtree.where.not(rating: "avoid").pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
+               category_id: Category.where(rating: [1, 2]).where(:food_group_id => foodgroup.subtree.pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
   end
 
-  def get_rated_foodgroup_items(rating)
-    self.items.not_deleted.select{ |i| i.category.get_food_group.rating == rating  if i.category.present? && i.category.get_food_group.present?}
+  def get_rated_items(rating_array)
+    Item.where(is_deleted: false,
+               list_id: self.id,
+               category_id: Category.where(rating: rating_array).pluck(:id))
   end
 
   def get_store_carts
@@ -265,11 +267,11 @@ class List < ApplicationRecord
     # check bonus points
     points << self.task_items.map{ |t| t.get_score} if self.task_items.any?
     # get green points
-    points << self.get_rated_foodgroup_items("good").size * 3
+    points << self.get_rated_items([1]).size * 3
     # get yellow points
-    points << self.get_rated_foodgroup_items("limit").size * -1
+    points << self.get_rated_items([2]).size * -1
     # get red points
-    points << self.get_rated_foodgroup_items("avoid").size * -3
+    points << self.get_rated_items([3]).size * -3
 
     return points.flatten.compact.reduce(:+)
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_26_165641) do
+ActiveRecord::Schema.define(version: 2020_08_28_164828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(version: 2020_08_26_165641) do
     t.integer "level"
     t.bigint "food_id"
     t.bigint "food_group_id"
+    t.integer "rating"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
     t.index ["food_group_id"], name: "index_categories_on_food_group_id"
     t.index ["food_id"], name: "index_categories_on_food_id"

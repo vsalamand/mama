@@ -43,6 +43,16 @@ class Category < ApplicationRecord
     return nil
   end
 
+  def set_foodgroup_rating
+    rating = self.get_food_group.rating if self.get_food_group.present?
+    case rating
+    when "good" then self.rating = 1
+    when "limit" then self.rating = 2
+    when "avoid" then self.rating = 3
+    end
+    self.save
+  end
+
   def self.arrange_as_array(options={}, hash=nil)
     hash ||= arrange(options)
 

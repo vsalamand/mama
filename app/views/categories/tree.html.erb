@@ -7,48 +7,38 @@
     <% Category.arrange_as_array.each do |n| %>
       <li>
         <% if n.depth == 0 %>
+          <%= render "categories/rating_indicator", category: n %>
           <%= link_to "#{'-' * n.depth * 2} #{n.name}", category_path(n), class:"mt-4 h2 font-weight-bold text-dark"  %>
           <% if n.get_store_section.present? %>
             <p class="btn btn-light btn-sm border lead m-0 text-success">rayon: <%= n.get_store_section.name %></p>
           <% end %>
-          <% if n.food_group.present? %>
-            <p class="btn btn-light btn-sm border lead m-0 text-warning">repère: <%= n.food_group.name %></p>
-          <% end %>
 
         <% elsif n.depth == 1 %>
+          <%= render "categories/rating_indicator", category: n %>
           <%= link_to "#{'-' * n.depth * 2} #{n.name}", category_path(n), class:"h4 font-weight-bold text-success"  %>
           <% if n.get_store_section.present? %>
             <p class="btn btn-light btn-sm border lead m-0 text-success">rayon: <%= n.get_store_section.name %></p>
           <% end %>
-          <% if n.food_group.present? %>
-            <p class="btn btn-light btn-sm border lead m-0 text-warning">repère: <%= n.food_group.name %></p>
-          <% end %>
 
         <% elsif n.depth == 2 %>
+          <%= render "categories/rating_indicator", category: n %>
           <%= link_to "#{'-' * n.depth * 2} #{n.name}", category_path(n), class:"lead font-weight-bold"  %>
           <% if n.get_store_section.present? %>
             <p class="btn btn-light btn-sm border lead m-0 text-success">rayon: <%= n.get_store_section.name %></p>
           <% end %>
-          <% if n.food_group.present? %>
-            <p class="btn btn-light btn-sm border lead m-0 text-warning">repère: <%= n.food_group.name %></p>
-          <% end %>
 
         <% elsif n.depth == 3 %>
+          <%= render "categories/rating_indicator", category: n %>
           <%= link_to "#{'-' * n.depth * 2} #{n.name}", category_path(n), class:"lead"  %>
           <% if n.get_store_section.present? %>
             <p class="btn btn-light btn-sm border lead m-0 text-success">rayon: <%= n.get_store_section.name %></p>
           <% end %>
-          <% if n.food_group.present? %>
-            <p class="btn btn-light btn-sm border lead m-0 text-warning">repère: <%= n.food_group.name %></p>
-          <% end %>
 
         <% else %>
+          <%= render "categories/rating_indicator", category: n %>
           <%= link_to "#{'-' * n.depth * 2} #{n.name}", category_path(n), class:"lead text-muted"  %>
           <% if n.get_store_section.present? %>
             <p class="btn btn-light btn-sm border lead m-0 text-success">rayon: <%= n.get_store_section.name %></p>
-          <% end %>
-          <% if n.food_group.present? %>
-            <p class="btn btn-light btn-sm border lead m-0 text-warning">repère: <%= n.food_group.name %></p>
           <% end %>
 
         <% end %>
