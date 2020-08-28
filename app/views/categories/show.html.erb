@@ -9,7 +9,10 @@
 <hr class="my-3">
 
   <div>
-    <h1 class="display-4 mb-0 mt-2 font-weight-bold"><%= link_to @category.name.capitalize, edit_category_path(@category) %></h1>
+    <h1 class="display-4 mb-0 mt-2 font-weight-bold">
+      <%= render "categories/rating_indicator", category: @category %>
+      <%= link_to @category.name.capitalize, edit_category_path(@category) %>
+    </h1>
     <div class="">
       <% if @category.get_store_section.present? %>
         <p class="btn btn-warning border lead m-0 font-weight-bold">rayon: <%= @category.get_store_section.name %></p>
@@ -33,6 +36,7 @@
   <ol class="mx-4 list-group">
     <% @categories.each do |subcategory| %>
       <div class="d-flex align-items-center">
+        <%= render "categories/rating_indicator", category: subcategory %>
         <li class="lead text-primary mr-1"><%= link_to subcategory.name, category_path(subcategory) %></li>
       </div>
     <% end %>

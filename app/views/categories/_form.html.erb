@@ -2,6 +2,9 @@
   <div class="mt-4 bg-white">
 
     <%= f.input :name, class: 'form-control form-control-lg' %>
+    <label>Rating</label>
+    <div class="form-group">
+    <%= f.select :rating, priority: [ 1 ], collection: [ 0, 1, 2, 3], class: 'form-control form-control-lg' %>
     <label>Store section</label>
     <div class="form-group">
     <%= f.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, class: 'form-control form-control-lg' %>
