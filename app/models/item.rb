@@ -74,9 +74,13 @@ class Item < ApplicationRecord
     end
   end
 
+  def get_valid_item
+    Item.where("lower(trim(name)) = ?", self.name.downcase.strip).where(is_validated: true).first
+  end
+
   def set
     item = self
-    valid_item = Item.where("lower(trim(name)) = ?", item.name.downcase).where(is_validated: true).first
+    valid_item = self.get_valid_item
     if valid_item.present?
       # item.food = valid_item.food
       item.category = valid_item.category
@@ -146,7 +150,7 @@ class Item < ApplicationRecord
                               is_completed: false,
                               is_deleted: false,
                               list: list)
-        valid_item = Item.where("lower(trim(name)) = ?", new_item.name.downcase).where(is_validated: true).first
+        valid_item = self.get_valid_item
         valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
         new_items << new_item
       end
@@ -212,7 +216,7 @@ class Item < ApplicationRecord
     parser = JSON.parse(open(url).read)
 
     parser.each do |element|
-      valid_item = Item.where("lower(trim(name)) = ?", element['ingredients'].downcase).where(is_validated: true).first
+      valid_item = self.get_valid_item
 
       if valid_item.present?
         new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, category: valid_item.category, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated, store_section_id: valid_item.store_section_id)
@@ -261,7 +265,7 @@ class Item < ApplicationRecord
     if self.is_validated == true
       # Thread.new do
         # validate any items with same name and not yet validated
-        Item.where("lower(trim(name)) = ?", self.name.downcase)
+        Item.where("lower(trim(name)) = ?", self.name.downcase.strip)
             .update_all(quantity: self.quantity,
                      unit_id: self.unit_id,
                      category_id: self.category_id,

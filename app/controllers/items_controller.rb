@@ -70,6 +70,7 @@ class ItemsController < ApplicationController
     #   redirect_to list_path(@item.list_item.list)
     else
       @item.update(items_params)
+      @item = @item.set
       redirect_to edit_item_path(@item)
     end
   end

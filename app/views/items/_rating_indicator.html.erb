@@ -1,4 +1,4 @@
-<% if item.category.present? %>
+<% if item.category.present? && item.category.get_food_group.present? %>
   <% if item.category.get_food_group.rating == "good"%>
     <i class="fas fa-circle fa-xs text-success pl-2 pr-1" style="opacity: 0.7;"></i>
 
