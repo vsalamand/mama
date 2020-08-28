@@ -109,8 +109,9 @@
         <% end %>
       <% end %>
 
-
-    <%= render 'shared/footer'  %>
+    <% if ["home", "browse", "profile"].include?(params[:action])  %>
+      <%= render 'shared/footer'  %>
+    <% end %>
 
     <% unless user_signed_in? %>
     <!-- Navbar End -->
