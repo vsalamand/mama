@@ -3,7 +3,13 @@
 
 <div class="d-flex flex-column justify-content-center align-items-center" id="showRatingProgress" style="cursor: pointer;">
   <% if list.items.not_deleted.where.not(category_id: nil).size > 4 %>
-    <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= score %></strong> <small class="text-muted">points</small></p>
+    <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= score %></strong> <small class="text-muted"><%= score > 1 ? "points" : "point" %></small></p>
+
+    <% if list.task_items.where(is_completed: true).size < 2 %>
+     <p class="btn btn-link btn-sm border"><%= list.task_items.where(is_completed: true).size %> challenge terminé</p>
+    <% else %>
+     <p class="btn btn-link btn-sm border"><%= list.task_items.where(is_completed: true).size %> challenges terminés 🔥</p>
+    <% end %>
 
 
     <% case
@@ -43,20 +49,14 @@
       </div>
     <% end %>
 
-    <% if list.task_items.where(is_completed: true).size < 2 %>
-     <p class="btn btn-link btn-lg"><%= list.task_items.where(is_completed: true).size %> challenge terminé</p>
-    <% else %>
-     <p class="btn btn-link btn-lg"><%= list.task_items.where(is_completed: true).size %> challenges terminés 🔥</p>
-    <% end %>
-
 
   <% else %>
+    <p class="lead m-0 px-2 text-muted font-weight-bold text-center">Ajoutez 5 produits alimentaires pour commencer !</p>
     <div class="bg-transparent d-flex justify-content-center" style="cursor: pointer;" id="showRatingProgress">
       <div class="border-0 border-success rounded-lg p-0">
-         <p class="bigh1 font-weight-bold m-0 text-primary"><%= list.items.not_deleted.where.not(category_id: nil).size %></p>
+         <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= list.items.not_deleted.where.not(category_id: nil).size %></strong> <small class="text-muted">/ 5</small></p>
       </div>
     </div>
-    <p class="m-0 px-2 text-muted font-weight-light text-center">Ajoutez 5 produits alimentaires pour commencer !</p>
 
   <% end %>
 

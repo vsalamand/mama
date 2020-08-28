@@ -93,7 +93,7 @@ class ListsController < ApplicationController
       @referrer = "/browse"
     end
 
-    @message = @list.get_last_edit(current_user.id) if user_signed_in?
+    # @message = @list.get_last_edit(current_user.id) if user_signed_in?
     current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user || @list.users.include?(current_user)
     ahoy.track "Show list", list_id: @list.id, name: @list.name
   end
@@ -247,6 +247,7 @@ class ListsController < ApplicationController
 
   def get_score
     @list = List.friendly.find(params[:list_id])
+    @list.set_game if @list.task_items.size != Task.where(game_id: @list.id).size
     @score = @list.get_score
     render "get_score.js.erb"
   end

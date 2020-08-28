@@ -1,6 +1,6 @@
 <% if task_item.step_count < task_item.task.max_steps %>
   <div class="d-flex flex-column">
-    <p class="lead text-muted m-0"><%= task_item.task.name %></p>
+    <p class="lead font-weight-bold m-0"><%= task_item.task.name %></p>
     <div class="d-flex flex-wrap">
       <% task_item.step_count.times do |step|  %>
         <div class="h3 p-1">✅</div>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="lead p-1 m-0" style="opacity: 0.5;">
-    <strong class="text-muted h3"><%= task_item.task.max_steps * task_item.task.max_steps %></strong>
+    <strong class="text-muted h3"><%= task_item.task.max_steps * task_item.task.score_per_step %></strong>
     <small class="text-muted">points</small>
   </div>
 

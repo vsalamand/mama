@@ -260,7 +260,7 @@ class List < ApplicationRecord
   end
 
   def get_score
-    self.tasks.each{ |t| t.set_bonus_scores(self)}
+    Task.set_bonus_scores(self)
     points = []
     # check bonus points
     points << self.task_items.map{ |t| t.get_score} if self.task_items.any?

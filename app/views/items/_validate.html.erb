@@ -5,5 +5,5 @@
   <%= f.collection_select :food_id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
   <%= f.collection_select(:category_id, Category.arrange_as_array, :id, :name_for_selects, {:include_blank => true}, {:class => 'form-control form-control-lg select'}) %>
   <%= f.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
-  <%= f.submit "Valider", class: "form-control btn-primary" %>
+  <%= f.submit "Valider", class: "form-control btn-light border" %>
 <% end %>
