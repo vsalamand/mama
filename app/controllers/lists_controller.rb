@@ -26,6 +26,7 @@ class ListsController < ApplicationController
     # @list.user_id = current_user.id
     # @list.status = "opened"
     if @list.save
+      @list.set_game
       redirect_to lists_path if @list.list_type == "curated"
       redirect_to list_path(@list) if @list.list_type == "personal"
       ahoy.track "Create list", list_id: @list.id, name: @list.name

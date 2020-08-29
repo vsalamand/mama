@@ -13,90 +13,22 @@
             <hr class="my-4">
 
             <p class="lead">En fonction des produits alimentaires que vous ajoutez, votre liste gagne (ou perd !) des points pour atteindre l'un des 5 niveaux suivants:</p>
-            <ul class="list-group">
-              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                💖 Excellent!
-                 <div class="d-flex flex-column justify-content-end text-right">
-                  <p class="p-1 m-0"><strong class="text-secondary lead">100</strong><small class="text-muted pl-1">points</small> </p>
-                </div>
-              </li>
-              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                💚 Super
-                 <div class="d-flex flex-column justify-content-end text-right">
-                  <p class="p-1 m-0"><strong class="text-secondary lead">60</strong><small class="text-muted pl-1">points</small> </p>
-                </div>
-              </li>
-              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                💛 Bien
-                <div class="d-flex flex-column justify-content-end text-right">
-                  <p class="p-1 m-0"><strong class="text-secondary lead">30</strong><small class="text-muted pl-1">points</small> </p>
-                </div>
-              </li>
-              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                🧡 Moyen
-                <div class="d-flex flex-column justify-content-end text-right">
-                  <p class="p-1 m-0"><strong class="text-secondary lead">10</strong><small class="text-muted pl-1">points</small> </p>
-                </div>
-              </li>
-              <li class="lead list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                💔 Pas top
-                 <div class="d-flex flex-column justify-content-end text-right">
-                  <p class="p-1 m-0"><strong class="text-secondary lead">- de 10</strong><small class="text-muted pl-1">points</small> </p>
-                </div>
-              </li>
-            </ul>
+            <%= render 'shared/onboarding_levels' %>
 
 
             <hr class="my-4">
 
             <p class="lead">Les produits que vous ajoutez sont qualifiés par un badge de couleur selon le degré de recommandations du programme national de santé (PNNS).</p>
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                <div class="d-flex align-items-center text-primary">
-                  <%= render "items/rating_indicator", item: Item.find_by(name: "Carottes") %>
-                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Carottes").name %></p>
-                </div>
-                <span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                <div class="d-flex align-items-center text-primary">
-                  <%= render "items/rating_indicator", item: Item.find_by(name: "Fromage") %>
-                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Fromage").name %></p>
-                </div>
-                <span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                <div class="d-flex align-items-center text-primary">
-                  <%= render "items/rating_indicator", item: Item.find_by(name: "Coca") %>
-                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Coca").name %></p>
-                </div>
-                <span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
-                <div class="d-flex align-items-center text-primary">
-                  <%= render "items/rating_indicator", item: Item.find_by(name: "Couches") %>
-                  <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Couches").name %></p>
-                </div>
-                <span class="lead badge badge-secondary badge-pill" style="opacity: 0.7">Non-alimentaire</span>
-              </li>
-            </ul>
+            <%= render 'shared/onboarding_product_ratings' %>
+
 
 
             <hr class="my-4">
 
             <p class="lead">Chaque produit alimentaire ajouté permet de gagner ou perdre des points selon les règles ci-dessous:</p>
+            <%= render 'shared/onboarding_points' %>
 
-            <ul class="list-group mb-3">
-              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
-                <div class="lead p-1 m-0"><strong class="text-primary h3">+3</strong> pour un produit <span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span></div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
-                <div class="lead p-1 m-0"><strong class="text-secondary h3">-1</strong> pour un produit <span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span></div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
-                <div class="lead p-1 m-0"><strong class="text-secondary h3">-3</strong> pour un produit <span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span></div>
-              </li>
-            </ul>
+
 
             <p class="lead mt-4">🔥 Des challenges vous attendent aussi pour gagner un maximum de points bonus !</p>
 

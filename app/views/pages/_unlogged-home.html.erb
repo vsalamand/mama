@@ -7,12 +7,12 @@
     <div class="container text-white">
       <div class="row text-center">
         <div class="col-md-6 my-auto">
-          <h2 class="display-4 font-weight-bold">Prêt.e pour les courses ?</h2>
-          <p class="lead">Mama est l'application la plus fun pour faire les bonnes courses !</p>
-          <%= link_to "J'essaye !", new_user_registration_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
+          <h2 class="display-4 font-weight-bold">Les courses qui comptent !</h2>
+          <p class="lead">Mama permet d'évaluer votre liste de courses pour s'amuser en adoptant un mode de vie plus équilibré.</p>
+          <%= link_to "Commencer", new_user_registration_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
         </div>
         <div class="col-md-6 d-flex flex-wrap justify-content-center p-0">
-          <%= cl_image_tag("product_screens/iphonex_gamelist", :height=>500, :fetch_format=>:auto, class:"m-2") %>
+          <%= cl_image_tag("product_screens/iphonex_gamelist", :fetch_format=>:auto, class:"m-2", style:"max-width: 100%; max-height: 100%;") %>
         </div>
       </div>
     </div>
@@ -23,4 +23,58 @@
 
 
 
+<div class="banner jumbotron bg-transparent d-flex align-items-center">
+  <div class="container">
+    <div class="d-flex flex-wrap text-center justify-content-center">
+      <div class="col-md-8 p-0">
+        <h2 class="bigh1 font-weight-bold">Prêt.e pour les courses ?</h2>
+        <p class="lead">En fonction des produits alimentaires que vous ajoutez, votre liste gagne (ou perd !) des points pour atteindre l'un des 5 niveaux suivants:</p>
+        <%= render 'shared/onboarding_levels' %>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+<div class="banner jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
+  <div class="container">
+    <div class="d-flex flex-wrap text-center justify-content-center">
+      <div class="col-md-8 p-0">
+        <h2 class="bigh1 font-weight-bold">🍅🥑🥕🍄🍔🍕🍳🍝🍫</h2>
+        <p class="lead">Les produits que vous ajoutez sont qualifiés par un badge de couleur selon le degré de <%= link_to "recommandation du programme national de santé (PNNS)", "https://www.mangerbouger.fr/Les-recommandations", target: "_blank", class:"font-weight-bold text-white" %>.</p>
+        <%= render 'shared/onboarding_product_ratings' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="banner jumbotron bg-transparent d-flex align-items-center">
+  <div class="container">
+    <div class="d-flex flex-wrap text-center justify-content-center">
+      <div class="col-md-8 p-0">
+        <h2 class="bigh1 font-weight-bold">La bourse ou la vie ?</h2>
+        <p class="lead">Chaque produit alimentaire ajouté permet de gagner ou perdre des points.</p>
+        <%= render 'shared/onboarding_points' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="banner jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
+  <div class="container">
+    <div class="d-flex flex-wrap text-center justify-content-center">
+      <div class="col-md-8 p-0">
+        <h2 class="bigh1 font-weight-bold">Vos choix comptent 🔥</h2>
+        <p class="lead">Terminez les challenges pour gagner un maximum de points bonus !</p>
+        <ul class="list-group mb-3 text-primary">
+          <% List.last.tasks.order(:position).each do |task| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+              <%= render "lists/task_progress", task_item: TaskItem.find_by(list: List.last, task: task) %>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to "C'est parti !", new_user_registration_path, class:"btn btn-light border btn-lg my-3 py-3 px-5 font-weight-bold goToSignupBtn" %>
+      </div>
+    </div>
+  </div>
+</div>

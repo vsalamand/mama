@@ -1,0 +1,30 @@
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+    <div class="d-flex align-items-center text-primary">
+      <%= render "items/rating_indicator", item: Item.find_by(name: "Fruits") %>
+      <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Fruits").name %></p>
+    </div>
+    <span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+    <div class="d-flex align-items-center text-primary">
+      <%= render "items/rating_indicator", item: Item.find_by(name: "Fromage") %>
+      <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Fromage").name %></p>
+    </div>
+    <span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+    <div class="d-flex align-items-center text-primary">
+      <%= render "items/rating_indicator", item: Item.find_by(name: "Soda") %>
+      <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Soda").name %></p>
+    </div>
+    <span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold px-2">
+    <div class="d-flex align-items-center text-primary">
+      <%= render "items/rating_indicator", item: Item.find_by(name: "Couches") %>
+      <p class="lead m-0 p-0 font-weight-bold"><%= Item.find_by(name: "Couches").name %></p>
+    </div>
+    <span class="lead badge badge-secondary badge-pill" style="opacity: 0.7">Non-alimentaire</span>
+  </li>
+</ul>
