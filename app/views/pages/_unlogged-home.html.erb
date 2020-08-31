@@ -7,9 +7,11 @@
     <div class="container text-white">
       <div class="row text-center">
         <div class="col-md-6 my-auto">
-          <h2 class="display-4 font-weight-bold">Les courses qui comptent !</h2>
-          <p class="lead">Mama permet d'évaluer votre liste de courses pour s'amuser en adoptant un mode de vie plus équilibré.</p>
-          <%= link_to "Commencer", new_user_registration_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
+          <h2 class="bigh1 font-weight-bold">L'application qui analyse votre liste de courses</h2>
+          <p class="lead">Supernet permet d'analyser votre liste de courses pour vous aider à adopter un mode de vie plus équilibré !</p>
+
+          <button class="btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" id="installBtn">Commencer !</button>
+
         </div>
         <div class="col-md-6 d-flex flex-wrap justify-content-center p-0">
           <%= cl_image_tag("product_screens/iphone11_list", :fetch_format=>:auto, :height=>500, class:"my-4") %>
@@ -40,7 +42,7 @@
   <div class="container">
     <div class="d-flex flex-wrap text-center justify-content-center">
       <div class="col-md-8 p-0">
-        <h2 class="bigh1 font-weight-bold">🍅🥑🥕🍄🍔🍕🍳🍝🍫</h2>
+        <h2 class="bigh1 font-weight-bold">🥕🍕🍝</h2>
         <p class="lead">Les produits que vous ajoutez sont qualifiés par un badge de couleur selon le degré de <%= link_to "recommandation du programme national de santé (PNNS)", "https://www.mangerbouger.fr/Les-recommandations", target: "_blank", class:"font-weight-bold text-white" %>.</p>
         <%= render 'shared/onboarding_product_ratings' %>
       </div>
@@ -73,7 +75,9 @@
             </li>
           <% end %>
         </ul>
-        <%= link_to "C'est parti !", new_user_registration_path, class:"btn btn-light border btn-lg my-3 py-3 px-5 font-weight-bold goToSignupBtn" %>
+
+        <button class="btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" id="installBtn">Commencer !</button>
+
       </div>
     </div>
   </div>

@@ -71,6 +71,22 @@ window.addEventListener('appinstalled', (e) =>{
 });
 
 
+// HP START button
+$(document).on('click', '#installBtn',function() {
+  if (android === true && isInStandaloneMode === false) {
+    $('#installAndroidModal').modal('show');
+    ahoy.track("Click Android install");
+  }
+  if (iOS === true && isSafari === true && isInStandaloneMode === false && document.querySelector("#iOSInstallNavbar")) {
+    $('#installiOSModal').modal('show');
+    ahoy.track("Click iOS install");
+  }
+  else {
+    // go to signup page
+    window.location = '/users/sign_up'
+  }
+});
+
 // open install modal if param is present
 $(document).on("turbolinks:load", function(event) {
   if(window.location.href.indexOf("install") > -1 ) {

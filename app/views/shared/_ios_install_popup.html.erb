@@ -6,13 +6,25 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body d-flex flex-column pt-0">
-        <p class="text-muted font-weight-bold">Pour ajouter l'app sur votre écran d'accueil:</p>
-        <ol class="">
-          <li class="text-dark">Tapez l'icône <img src="https://img.icons8.com/ios-glyphs/24/000000/share-rounded.png" class="text-dark" style="height: 20px;"/> de Safari pour afficher les options disponibles</li>
+      <div class="modal-body d-flex flex-column pt-0 text-center">
+        <div class="d-flex flex-column">
+          <p class="m-0"><%= cl_image_tag("menu_icons/sparkling-heart", width: 30, height: 30) %></p>
+          <p class="bigh1 font-weight-bold">Supernet</p>
+        </div>
 
-          <li class="text-dark">Sélectionnez l'option "Ajouter sur l'écran d'accueil"</li>
+        <p class="text-primary font-weight-bold">Pour ajouter l'app sur votre écran d'accueil:</p>
+        <ol class="text-left">
+          <li class="font-weight-light text-dark">Tapez sur l'icône "Partager" situé en bas de Safari</li>
+          <li class="font-weight-light text-dark">Sélectionnez l'option "Ajouter sur l'écran d'accueil"</li>
+          <li class="font-weight-light text-dark">Appuyez sur "Ajouter" en haut à droite</li>
         </ol>
+
+        <hr class="my-4">
+        <p class="text-primary font-weight-bold">Pour utiliser la version web:</p>
+        <div>
+          <%= link_to "Créez un compte", new_user_registration_path, class:"btn btn-light border px-5 btn-sm goToSignupBtn"%>
+        </div>
+
       </div>
     </div>
   </div>

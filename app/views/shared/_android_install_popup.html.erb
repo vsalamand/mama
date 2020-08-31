@@ -6,12 +6,24 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body d-flex flex-columnpt-0">
-        <p class="text-muted font-weight-bold">Pour ajouter l'app sur votre écran d'accueil:</p>
-        <ol class="">
-          <li class="font-weight-bold text-dark">Tapez l'icône <img src="https://img.icons8.com/fluent/48/000000/menu-2.png" style="height: 20px;"/> de votre navigateur pour afficher les options disponibles</li>
-          <li class="font-weight-bold text-dark">Sélectionnez l'option "Ajouter sur l'écran d'accueil"</li>
+      <div class="modal-body d-flex flex-column pt-0 text-center">
+        <div class="d-flex flex-column">
+          <p class="m-0"><%= cl_image_tag("menu_icons/sparkling-heart", width: 30, height: 30) %></p>
+          <p class="bigh1 font-weight-bold">Supernet</p>
+        </div>
+
+        <p class="text-primary font-weight-bold">Pour ajouter l'app sur votre écran d'accueil:</p>
+        <ol class="text-left">
+          <li class="font-weight-light text-dark">Ouvrez le menu de votre navigateur grâce au bouton en haut à droite</li>
+          <li class="font-weight-light text-dark">Sélectionnez l'option "Ajouter sur l'écran d'accueil"</li>
+          <li class="font-weight-light text-dark">Appuyez sur le bouton "Ajouter"</li>
         </ol>
+
+        <hr class="my-4">
+        <p class="text-primary font-weight-bold">Pour utiliser la version web:</p>
+        <div>
+          <%= link_to "Créez un compte", new_user_registration_path, class:"btn btn-light border px-5 btn-sm goToSignupBtn"%>
+        </div>
       </div>
     </div>
   </div>
