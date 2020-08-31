@@ -191,7 +191,7 @@ $(document).on('click', '#installBtn',function() {
   if (android === true && isInStandaloneMode === false) {
     $('#installAndroidModal').modal('show');
     ahoy.track("Click Android install");
-  } else if (iOS === true && isSafari === true && isInStandaloneMode === false && document.querySelector("#iOSInstallNavbar")) {
+  } else if (iOS === true && isSafari === true && isInStandaloneMode === false) {
     $('#installiOSModal').modal('show');
     ahoy.track("Click iOS install");
   } else {
