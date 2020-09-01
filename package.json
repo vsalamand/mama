@@ -20,6 +20,8 @@
     "bootstrap": "^4.3.1",
     "bootstrap3": "^3.3.5",
     "bootstrap4": "^0.0.1-security",
+    "chart.js": "^2.9.3",
+    "chartkick": "^3.2.1",
     "clipboard": "^2.0.6",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",

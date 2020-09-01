@@ -8,6 +8,9 @@
 // layout file, like app/views/layouts/application.html.erb
 
 
+require("chartkick")
+require("chart.js")
+
 // import Rails from 'jquery_ujs'
 import 'bootstrap';
 import 'bootstrap/js/dist/util';

@@ -1,0 +1,72 @@
+<div class="sticky-top bg-white">
+    <div class="container">
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+          <%= link_to list_path(@list), class:"navbar-brand text-dark d-flex align-items-center" do %>
+            <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="font-weight-bold"><%= @list.name %></span>
+          <% end %>
+      </nav>
+    </div>
+</div>
+
+
+
+
+<div class="container px-1">
+
+  <div class="mb-3 text-center">
+      <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= @score %></strong> <small class="text-muted"><%= @score > 1 ? "points" : "point" %></small></p>
+
+      <%= render "lists/level", score: @score %>
+
+  </div>
+
+
+  <div class="jumbotron d-flex flex-column">
+
+
+    <div class="">
+      <p class="bigh1 font-weight-bold text-center">Synthèse</p>
+      <%= pie_chart @list.items.not_deleted.map{|i| i.category.get_food_group if i.category.present?}.compact.group_by(&:root).map { |k, v| [k.name, v.size] }.to_h, legend: "bottom" %>
+    </div>
+
+    <hr class="my-2">
+
+
+    <p class="bigh1 font-weight-bold text-center">Produits</p>
+
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+        <div class="lead p-1 m-0 d-flex align-items-center"><strong class="text-primary h3 m-0"><%= @good_products.size %></strong><span class="text-muted px-1"><%= @good_products.size > 1 ? "produits" : "produit" %></span><span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span></div>
+        <div class="lead p-1 m-0"><strong class="text-primary h3"><%= @good_products.size * 3 %></strong> <small class="text-muted"><%= @good_products.size > 1 ? "points" : "point" %></small></div>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+        <div class="lead p-1 m-0 d-flex align-items-center"><strong class="text-primary h3 m-0"><%= @limit_products.size %></strong><span class="text-muted px-1"><%= @limit_products.size > 1 ? "produits" : "produit" %></span><span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span></div>
+        <div class="lead p-1 m-0"><strong class="text-primary h3"><%= @limit_products.size * -1 %></strong> <small class="text-muted"><%= @limit_products.size > 1 ? "points" : "point" %></small></div>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+        <div class="lead p-1 m-0 d-flex align-items-center"><strong class="text-primary h3 m-0"><%= @avoid_products.size %></strong><span class="text-muted px-1"><%= @avoid_products.size > 1 ? "produits" : "produit" %></span><span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span></div>
+        <div class="lead p-1 m-0"><strong class="text-primary h3"><%= @avoid_products.size * -3 %></strong> <small class="text-muted"><%= @avoid_products.size > 0 ? "points" : "point" %></small></div>
+      </li>
+
+    </ul>
+
+    <hr class="my-2">
+
+    <p class="bigh1 font-weight-bold text-center">Challenges</p>
+    <ul class="list-group mb-3">
+      <% @list.tasks.order(:position).each do |task| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+          <%= render "lists/task_progress", task_item: TaskItem.find_by(list: @list, task: task) %>
+        </li>
+      <% end %>
+    </ul>
+
+
+    <div class="text-center mt-4">
+      <%= link_to "Fermer", list_path(@list), class:"btn btn-light border btn-lg" %>
+    </div>
+
+</div>
+
