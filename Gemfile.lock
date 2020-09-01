@@ -408,6 +408,7 @@ DEPENDENCIES
   blazer
   bootstrap
   byebug
+  chartkick
   clipboard-rails
   cloudinary
   coffee-rails

@@ -42,12 +42,8 @@
 
 
 
-  <div id="listScore" class="container my-1">
+  <div id="listScore" class="container">
   </div>
-  <div id="ratingProgress" class="container my-3 px-2">
-  </div>
-
-
 
 
   <div class="container px-2" style="min-height: 70vh;">
@@ -60,8 +56,8 @@
           </div>
         </ul>
         <%= simple_form_for([ list, item ], remote: true) do |form| %>
-          <div class="search-form-control shadow">
-            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"toggleListItemform", style:"cursor: pointer;" }, wrapper_html: { class:" rounded rounded-lg"} %>
+          <div class="search-form-control">
+            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"toggleListItemform", style:"cursor: pointer;" }, wrapper_html: { class:" rounded rounded-lg border border-light"} %>
           </div>
         <% end %>
 

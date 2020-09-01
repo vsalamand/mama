@@ -239,6 +239,15 @@ class ListsController < ApplicationController
     ahoy.track "Save list", list_id: @list.id, name: @list.name
   end
 
+  def analyze
+    @list = List.friendly.find(params[:list_id])
+    @good_products = @list.get_rated_items([1])
+    @limit_products = @list.get_rated_items([2])
+    @avoid_products = @list.get_rated_items([3])
+    @score = @list.get_score
+    ahoy.track "Analyze list", list_id: @list.id, name: @list.name
+  end
+
   def get_edit_history
     list = List.friendly.find(params[:list_id])
     params[:a].present? ? author_id = params[:a] : author_id = current_user.id
