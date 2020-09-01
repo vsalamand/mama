@@ -95,8 +95,10 @@ var isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches
 
 
 $(document).on("turbolinks:load", function(event) {
-  if (android === true && isInStandaloneMode === false) {
-    getInstallMessageAndroid();
+  if (android === true && isInStandaloneMode === false && document.getElementById("todo_list")) {
+    // getInstallMessageAndroid();
+    var installBtn = document.getElementById('installBtn');
+    installBtn.style.display = "block";
   }
 })
 
@@ -161,8 +163,10 @@ var  isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matche
 // if (isIos() && !isInStandaloneMode()) {
   // this.setState({ showInstallMessage: true });
 $(document).on("turbolinks:load", function(event) {
-  if (iOS === true && isSafari === true && isInStandaloneMode === false && document.querySelector("#iOSInstallNavbar")) {
-    getInstallMessageIOS();
+  if (iOS === true && isSafari === true && isInStandaloneMode === false && document.getElementById("todo_list")) {
+    // getInstallMessageIOS();
+    var installBtn = document.getElementById('installBtn');
+    installBtn.style.display = "block";
   }
 })
 
@@ -194,9 +198,6 @@ $(document).on('click', '#installBtn',function() {
   } else if (iOS === true && isSafari === true && isInStandaloneMode === false) {
     $('#installiOSModal').modal('show');
     ahoy.track("Click iOS install");
-  } else {
-    // go to signup page
-    window.location = '/users/sign_up'
   }
 });
 

@@ -17,8 +17,8 @@
       <div class="row">
 
         <div class="col-md-6 my-auto">
-          <h1 class="bigh1 font-weight-bold">Créez un compte</h1>
-          <p class="lead">C'est gratuit et pratique <strong class="text-primary"> pour enregistrer vos listes</strong>.</p>
+          <h1 class="bigh1 font-weight-bold">Inscription</h1>
+          <p class="lead">Se connecter par email</p>
           <hr class="my-4">
 
             <div class="errors"></div>
@@ -32,11 +32,11 @@
               <div class=" my-3">
                 <%= f.input :email,
                             label: false,
-                            placeholder: "Adresse email",
+                            placeholder: "Entrez votre email",
                             input_html: { autocomplete: "email", value: params[:user_email], class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" }%>
                 <%= f.input :password,
                             label: false,
-                            placeholder: "Mot de passe",
+                            placeholder: "Choisissez un mot de passe",
                             input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg" }
                              %>
                 <%= hidden_field 'shared_list', params[:shared_list] %>
