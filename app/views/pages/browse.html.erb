@@ -1,5 +1,4 @@
 <% content_for :meta_title, "Listes de courses" %>
-<% content_for :meta_description, "Retrouvez toutes vos listes pour faire les courses facilement." %>
 
 
 
@@ -10,7 +9,10 @@
 
     <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
 
-       <h1 class="bigh1 font-weight-bold">Vos listes de courses</h1>
+       <div class="display-4 font-weight-bold d-flex align-items-center">
+          <%= cl_image_tag("menu_icons/sparkling-heart", width: 50, height: 50) %>
+          <span class="pl-1">Supernet</span>
+       </div>
 
       <hr class="my-3">
 
@@ -22,7 +24,7 @@
         <% if @lists.present? %>
             <% @lists.sort_by(&:id).reverse.each do |list|  %>
               <div class="d-flex flex-column m-0">
-                <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"p lead font-weight-bold" %>
+                <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"h3 font-weight-bold" %>
                 <% if false %>
                   <small>
                    <%= render "lists/edit_history", content: list.get_last_edit(current_user.id) %>
