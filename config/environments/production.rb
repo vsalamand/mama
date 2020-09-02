@@ -39,8 +39,8 @@ config.webpacker.check_yarn_integrity = false
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  config.action_cable.url = 'wss://clubmama.co/cable'
-  config.action_cable.allowed_request_origins = [ 'http://clubmama.co', /http:\/\/clubmama.*/ ]
+  config.action_cable.url = 'wss://supernet.fr/cable'
+  config.action_cable.allowed_request_origins = [ 'http://supernet.fr', /http:\/\/supernet.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
@@ -61,11 +61,11 @@ config.webpacker.check_yarn_integrity = false
   config.action_mailer.perform_caching = false
 
   # default url options
-  config.action_mailer.default_url_options = { host: "http://www.clubmama.co" }
+  config.action_mailer.default_url_options = { host: "http://www.supernet.fr" }
 
   config.action_mailer.delivery_method     = :postmark
   config.action_mailer.postmark_settings   = { api_token: ENV['POSTMARK_API_TOKEN'] }
-  config.action_mailer.default_url_options = { host: "www.clubmama.co" }
+  config.action_mailer.default_url_options = { host: "www.supernet.fr" }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'mama@clubmama.co'
+  default from: 'bonjour@supernet.fr'
   layout 'mailer'
 end
