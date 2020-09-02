@@ -14,7 +14,10 @@
 <div class="container px-1">
 
   <div class="mb-3 text-center">
-      <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= @score %></strong> <small class="text-muted"><%= @score > 1 ? "points" : "point" %></small></p>
+      <p class="m-0 p-0 text-muted">
+        <strong class="bigh1 font-weight-bold"><%= @score %></strong>
+        <small class="text-muted"><%= @score > 1 ? "points" : "point" %></small>
+      </p>
 
       <%= render "lists/level", score: @score %>
 
@@ -37,7 +40,7 @@
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center px-2">
         <div class="lead p-1 m-0 d-flex align-items-center"><strong class="text-primary h3 m-0"><%= @good_products.size %></strong><span class="text-muted px-1"><%= @good_products.size > 1 ? "produits" : "produit" %></span><span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span></div>
-        <div class="lead p-1 m-0"><strong class="text-primary h3"><%= @good_products.size * 3 %></strong> <small class="text-muted"><%= @good_products.size > 1 ? "points" : "point" %></small></div>
+        <div class="lead p-1 m-0"><strong class="text-primary h3">+<%= @good_products.size * 3 %></strong> <small class="text-muted"><%= @good_products.size > 1 ? "points" : "point" %></small></div>
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-items-center px-2">
@@ -54,7 +57,7 @@
 
     <hr class="my-2">
 
-    <p class="bigh1 font-weight-bold text-center">Challenges</p>
+    <p class="bigh1 font-weight-bold text-center">Recommandations</p>
     <ul class="list-group mb-3">
       <% @list.tasks.order(:position).each do |task| %>
         <li class="list-group-item d-flex justify-content-between align-items-center px-2">

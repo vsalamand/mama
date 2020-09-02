@@ -1,12 +1,12 @@
 <% if task_item.step_count < task_item.task.max_steps %>
   <div class="d-flex flex-column">
     <p class="lead font-weight-bold m-0 text-left"><%= task_item.task.name %></p>
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap align-items-center">
       <% task_item.step_count.times do |step|  %>
-        <div class="h3 p-1">✅</div>
+        <div class="h3 p-1"><%= cl_image_tag("menu_icons/check-mark", width: 25, height: 25, class:"mb-1") %></div>
       <% end %>
       <% (task_item.task.max_steps - task_item.step_count).times do |step|  %>
-        <div class="h3 p-1"><i class="far fa-square text-muted"></i></div>
+        <div class="h3 p-1"><%= cl_image_tag("menu_icons/red-circle", width: 25, height: 25, class:"mb-1", style:"opacity: 0.8") %></div>
       <% end %>
     </div>
   </div>
@@ -19,14 +19,14 @@
 <% elsif task_item.step_count >= task_item.task.max_steps %>
   <div class="d-flex flex-column">
     <p class="lead text-primary font-weight-bold m-0 text-left"><%= task_item.task.name %> 🔥</p>
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap align-items-center">
       <% task_item.task.max_steps.times do |step|  %>
-        <div class="h3 p-1">✅</div>
+        <div class="h3 p-1"><%= cl_image_tag("menu_icons/check-mark", width: 25, height: 25, class:"mb-1") %></div>
       <% end %>
     </div>
   </div>
   <div class="lead p-1 m-0">
-    <strong class="text-primary h3"><%= task_item.get_score %></strong>
+    <strong class="text-primary h3">+<%= task_item.get_score %></strong>
     <small class="text-muted">points</small>
   </div>
 

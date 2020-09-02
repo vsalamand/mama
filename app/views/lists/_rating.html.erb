@@ -6,7 +6,10 @@
 
   <% if list.items.not_deleted.where.not(category_id: nil).size > 4 %>
     <%= link_to list_analyze_path(list), class:"btn btn-link btn-lg font-weight-light", style:"text-decoration: none;" do %>
-      <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= score %></strong> <small class="text-muted"><%= score > 1 ? "points" : "point" %></small></p>
+      <p class="m-0 p-0 text-muted">
+        <strong class="bigh1 font-weight-bold"><%= score %></strong>
+        <small class="text-muted"><%= score > 1 ? "points" : "point" %></small>
+      </p>
 
 
       <%= render "lists/level", score: score %>
