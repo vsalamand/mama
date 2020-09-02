@@ -1,22 +1,19 @@
-<% content_for :meta_title, "Listes de courses" %>
+
+<div class="d-flex flex-column">
 
 
+  <div class="container px-2">
 
-<div class="banner d-flex flex-column">
+    <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0 my-5">
 
-
-  <div class="container p-0">
-
-    <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
-
-       <div class="display-4 font-weight-bold d-flex align-items-center">
+       <h1 class="display-4 font-weight-bold d-flex align-items-center">
           <%= cl_image_tag("menu_icons/sparkling-heart", width: 50, height: 50) %>
           <span class="pl-1">Supernet</span>
-       </div>
+       </h1>
 
       <hr class="my-3">
 
-      <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-light border p-3 px-5 m-1 font-weight-bold" %>
+      <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-light border btn-lg m-1 px-5" %>
 
 
 
@@ -24,7 +21,7 @@
         <% if @lists.present? %>
             <% @lists.sort_by(&:id).reverse.each do |list|  %>
               <div class="d-flex flex-column m-0">
-                <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"h3 font-weight-bold" %>
+                <%= link_to "#{list.name}", list_path(list, ref: request.url), class:"lead font-weight-bold" %>
                 <% if false %>
                   <small>
                    <%= render "lists/edit_history", content: list.get_last_edit(current_user.id) %>
@@ -39,7 +36,10 @@
 
     </div>
 
+  </div>
 
+  <div class="container fixed-bottom mb-3 text-right">
+    <a class="shadow-lg bg-white rounded-pill rounded-lg text-center ml-auto p-2 bd-highlight" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %></a>
   </div>
 
 </div>
