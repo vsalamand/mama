@@ -1,5 +1,5 @@
 
-<div class="banner d-flex flex-column" style="background: linear-gradient(#e66465, #9198e5);">
+<div class="banner d-flex flex-column" style="background: linear-gradient(#e66465, #9198e5); overflow-x: hidden;">
 
   <%= render 'shared/navbar_white' %>
 
@@ -67,10 +67,10 @@
 </div>
 
 <div class="jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
-  <div class="container">
+  <div class="container px-0">
     <div class="d-flex flex-wrap text-center justify-content-center">
       <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Recommandations</h2>
+        <h2 class="font-weight-bold">Challenges</h2>
         <p class="">Suivez les recommandations pour gagner un maximum de points bonus !</p>
         <ul class="list-group mb-3 text-primary">
           <% List.last.tasks.order(:position).each do |task| %>
