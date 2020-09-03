@@ -7,14 +7,18 @@
     <div class="container text-white">
       <div class="row text-center">
         <div class="col-md-6 my-auto">
-          <h2 class="bigh1 font-weight-bold">L'application pour analyser votre liste de courses</h2>
-          <p class="lead">Supernet est une appli qui vous aide à faire des listes de courses plus saines et équilibrées !</p>
+          <h2 class="display-4 font-weight-bold">Bien manger<br>sans y penser !</h2>
+          <p class="lead">Supernet est une application qui vous aide à faire des listes de courses plus saines et équilibrées.</p>
 
-          <%= link_to "C'est parti !", new_user_registration_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
+          <%= link_to "C'est parti !", new_user_registration_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn mb-3" %>
 
         </div>
-        <div class="col-md-6 d-flex flex-wrap justify-content-center p-0">
-          <%= cl_image_tag("product_screens/iphone11_list_analysis", :fetch_format=>:auto, :height=>500, class:"my-4") %>
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-4 my-4">
+            <%= cl_image_tag("product_screens/iphone11_list_analysis", :fetch_format=>:auto, :height=>500, class:"pl-1", style:"position:relative; top: -15px; left: -20%;") %>
+            <%= cl_image_tag("product_screens/iphone11_grocerylist", :fetch_format=>:auto, :height=>500, style:"position:absolute; top: +30px; left: 40%;") %>
         </div>
       </div>
     </div>

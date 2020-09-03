@@ -1,5 +1,4 @@
-meta_product_name: "Supernet - L'application pour analyser votre liste de courses"
-meta_title: "Supernet - L'application pour analyser votre liste de courses"
-meta_description: "Supernet est une appli qui vous aide à faire des listes de courses plus saines et équilibrées !"
+meta_product_name: "Supernet - L'appli de courses pour bien manger sans y penser"
+meta_title: "Supernet - L'appli de courses pour bien manger sans y penser"
+meta_description: "Supernet est une application qui vous aide à faire des listes de courses plus saines et équilibrées !"
 meta_image: "logo.png" # should exist in `app/assets/images/`
-twitter_account: "@helloclubmama"   # required for Twitter Cards
