@@ -31,7 +31,7 @@
                           label: false,
                           autofocus: true,
                           placeholder: "Votre Adresse Email",
-                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" } %>
+                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold", value: params[:user_email] } %>
               <%= f.input :password,
                           label: false,
                           placeholder: "Mot de passe",

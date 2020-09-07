@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
-                                                  :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install]
+                                                  :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install, :welcome]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
 
@@ -281,6 +281,8 @@ class PagesController < ApplicationController
    redirect_back(fallback_location:"/")
   end
 
+  def welcome
+  end
 
   def products_search
     query = params[:query].present? ? params[:query] : nil
