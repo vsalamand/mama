@@ -1,0 +1,21 @@
+<div class="sticky-top bg-white" id="listBarTop">
+  <div class="container">
+    <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
+      <a class="navbar-brand text-dark d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+    </nav>
+  </div>
+</div>
+
+
+<div class="container mt-4">
+  <div class="jumbotron ">
+        <h1 class="display-4"><%= cl_image_tag("menu_icons/sparkling-heart", width: 50, class:"pb-2") %> Bienvenue</h1>
+        <p class="lead">Supernet vous aide à faire des listes de courses plus saines et équilibrées !</p>
+
+        <hr class="my-5">
+
+
+        <%= link_to "S'inscrire", new_user_registration_path, class:"btn btn-primary btn-lg py-3 px-5 font-weight-bold mb-3" %>
+        <%= link_to "Se connecter", new_user_session_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold mb-3" %>
+  </div>
+</div>

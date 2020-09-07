@@ -362,3 +362,4 @@ $(document).on("click", ".removeFromFavorites", function(event) {
     }
   });
 });
+
