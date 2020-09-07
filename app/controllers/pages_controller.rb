@@ -282,6 +282,7 @@ class PagesController < ApplicationController
   end
 
   def welcome
+    ahoy.track "Welcome"
   end
 
   def products_search

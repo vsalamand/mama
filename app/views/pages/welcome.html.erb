@@ -7,15 +7,26 @@
 </div>
 
 
-<div class="container mt-4">
-  <div class="jumbotron ">
-        <h1 class="display-4"><%= cl_image_tag("menu_icons/sparkling-heart", width: 50, class:"pb-2") %> Bienvenue</h1>
-        <p class="lead">Supernet vous aide à faire des listes de courses plus saines et équilibrées !</p>
+<div class="container px-2">
+  <div class="jumbotron mt-2 mb-0">
+    <h1 class="display-4"><%= cl_image_tag("menu_icons/sparkling-heart", width: 50, class:"pb-2") %> Bienvenue</h1>
+    <p class="lead">Supernet vous aide à faire des listes de courses plus saines et équilibrées !</p>
 
-        <hr class="my-5">
+    <hr class="my-4">
 
 
-        <%= link_to "S'inscrire", new_user_registration_path, class:"btn btn-primary btn-lg py-3 px-5 font-weight-bold mb-3" %>
-        <%= link_to "Se connecter", new_user_session_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold mb-3" %>
+    <%= link_to "S'inscrire", new_user_registration_path, class:"btn btn-primary btn-lg py-3 px-5 font-weight-bold m-1" %>
+    <%= link_to "Se connecter", new_user_session_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold m-1" %>
+  </div>
+</div>
+
+
+<div class="container px-2">
+  <div class="jumbotron bg-transparent">
+    <h2 class="">Avec un compte Supernet, vous pourrez facilement:</h2>
+    <p class="lead my-3"><%= cl_image_tag("menu_icons/crystal-ball", width: 30, class:"pb-1 pr-2") %> Faire des choix éclairés</p>
+    <p class="lead my-3"><%= cl_image_tag("menu_icons/search", width: 30, class:"pb-1 pr-2") %> Analyser vos achats</p>
+    <p class="lead my-3"><%= cl_image_tag("menu_icons/light-bulb", width: 30, class:"pb-1 pr-2") %> Trouver des idées</p>
+    <p class="lead my-3"><%= cl_image_tag("menu_icons/list", width: 30, class:"pb-1 pr-2") %> Partager vos listes</p>
   </div>
 </div>

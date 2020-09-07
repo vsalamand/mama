@@ -1,7 +1,13 @@
 
 <div class="banner d-flex flex-column" style="background: linear-gradient(#e66465, #9198e5); overflow-x: hidden; overflow-y: hidden;">
 
-  <%= render 'shared/navbar_white' %>
+  <div class="container px-1">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+       <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
+        <%= cl_image_tag("menu_icons/sparkling-heart", width: 30, height: 30) %> Supernet <span class="badge badge-pill badge-outline-secondary"></span>
+      </a>
+    </nav>
+  </div>
 
   <div class="container bg-transparent d-flex align-items-center my-auto">
     <div class="container text-white">

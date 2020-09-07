@@ -1,16 +1,16 @@
 {
   "short_name": "Supernet",
   "name": "Supernet",
-  "description": "L'application qui analyse votre liste de courses.",
+  "description": "Votre liste de courses healthy facile à faire.",
   "icons": [
     {
-      "src": "<%= image_path 'logo.png' %>",
+      "src": "<%= image_path 'android-icon-144x144.png' %>",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
     }
   ],
-  "start_url": "<%= root_path(mode: "standalone") %>",
+  "start_url": "<%= welcome_path(mode: "standalone") %>",
   "background_color": "white",
   "display": "standalone",
   "scope": "<%= root_path %>",
