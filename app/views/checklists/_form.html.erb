@@ -5,10 +5,5 @@
     <%= f.input :name, placeholder: "Write a catchy title !" %>
     </div>
 
-    <h3>lists:</h3>
-
-    <%= f.collection_select :list_ids, List.where(list_type: "curated" ).order(:id).reverse, :id, :name, {}, multiple: true, class: 'select'%>
-
-
-    <%= f.submit "Validate", class: "form-control btn-primary" %>
+    <%= f.submit "Validate", class: "form-controlx" %>
   <% end %>

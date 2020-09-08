@@ -12,9 +12,10 @@ require("jquery-ui/ui/widgets/sortable")
 $(document).on("turbolinks:load", function(event) {
   // loadSuggestions();
   // getPriceBtn();
-  getListPlaceholder();
+  setListOnboarding();
   setStoreSectionHeaders();
   setScore();
+  setListItemForm();
   // openSuggestedItemsModal();
   // disable Add List item button by default
   var submitButton = document.getElementById('addListItemBtn');
@@ -178,6 +179,13 @@ function hideListItemForm() {
   // showBottomMenu();
 }
 
+function setListItemForm() {
+  var urlParameters = window.location.search;
+  if (urlParameters.includes('?form')) {
+    showListItemForm();
+  }
+}
+
 function hideBottomMenu() {
   var bottomMenu = document.getElementById('menuBarBottom');
   bottomMenu.style.display = "none";
@@ -216,15 +224,22 @@ function hideListOnboarding() {
   // showBottomMenu();
 }
 
-function getListPlaceholder() {
-  if(document.getElementById("todo_list")) {
-    var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
-
-    if(totalCount == 0){
-      showListOnboarding();
-    }
+function setListOnboarding() {
+  var urlParameters = window.location.search;
+  if (urlParameters.includes('?onboarding') && urlParameters.includes('?form') === false) {
+    showListOnboarding();
   }
 }
+
+// function getListPlaceholder() {
+//   if(document.getElementById("todo_list")) {
+//     var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+
+//     if(totalCount == 0){
+//       showListOnboarding();
+//     }
+//   }
+// }
 
 // On form submit, fetch updated suggested items inside the form
 const itemsRecommendations = document.getElementById('itemsRecommendations');
@@ -434,8 +449,8 @@ function setStoreSectionHeaders() {
 
 // Set list score
 function setScore() {
-  if(document.querySelector("#todo_list")){
-    var listId = document.querySelector("#todo_list").getAttribute('data');
+  if(document.querySelector("#listScore")){
+    var listId = document.querySelector("#listScore").getAttribute('data');
 
     $.ajax({
       url: "/lists/" + listId + "/get_score",

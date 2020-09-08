@@ -2,16 +2,17 @@
 
   <%= simple_form_for([ list, item ], remote: true) do |form| %>
     <div class="sticky-top bg-white">
-        <div class="container">
-          <div class="navbar-brand text-dark d-flex align-items-center mr-auto p-2 bd-highlight" id="hideNewlistItemForm" style="cursor: pointer;"><i class="fas fa-lg fa-arrow-left p-2"></i></div>
-        </div>
         <div class="container px-2">
+          <div class="navbar-brand text-dark d-flex align-items-center mr-auto bd-highlight" id="hideNewlistItemForm" style="cursor: pointer;"><i class="fas fa-lg fa-arrow-left p-2"></i><span class=""><%= list.name %></span></div>
+        </div>
+        <div class="container px-2 mt-2">
           <div class="search-form-control shadow">
             <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"newListItem" }, wrapper_html: { class:" rounded rounded-lg"} %>
             <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
               Ajouter
             <% end %>
           </div>
+          <%= render 'checklists/suggested', checklists: Checklist.find_by(name: "suggestions"), list: list %>
         </div>
     </div>
   <% end %>
