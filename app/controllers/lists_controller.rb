@@ -73,7 +73,7 @@ class ListsController < ApplicationController
   def index
     # @lists = current_user.lists.saved
     # @shared_lists = current_user.shared_lists
-    @lists = List.where(list_type: "curated", status: "saved")
+    @lists = List.where(list_type: "curated", status: "saved", sorted_by: "rayon")
     @list = List.new
   end
 
