@@ -6,7 +6,7 @@
         <div class="h3 p-1"><%= cl_image_tag("menu_icons/check-mark", width: 25, height: 25, class:"mb-1") %></div>
       <% end %>
       <% (task_item.task.max_steps - task_item.step_count).times do |step|  %>
-        <div class="h3 p-1"><%= cl_image_tag("menu_icons/red-circle", width: 25, height: 25, class:"mb-1", style:"opacity: 0.8") %></div>
+        <div class="h3 p-1"> <i class="far fa-square text-primary"></i></div>
       <% end %>
     </div>
   </div>

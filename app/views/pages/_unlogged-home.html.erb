@@ -35,60 +35,64 @@
 
 
 
-<div class=" jumbotron bg-transparent d-flex align-items-center">
-  <div class="container">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Prêt.e pour les courses ?</h2>
-        <p class="">En fonction des produits alimentaires que vous ajoutez, votre liste gagne (ou perd !) des points pour atteindre l'un des 5 niveaux suivants:</p>
-        <%= render 'shared/onboarding_levels' %>
+<% if false %>
+
+  <div class=" jumbotron bg-transparent d-flex align-items-center">
+    <div class="container">
+      <div class="d-flex flex-wrap text-center justify-content-center">
+        <div class="col-md-8 p-0">
+          <h2 class="font-weight-bold">Prêt.e pour les courses ?</h2>
+          <p class="">En fonction des produits alimentaires que vous ajoutez, votre liste gagne (ou perd !) des points pour atteindre l'un des 5 niveaux suivants:</p>
+          <%= render 'shared/onboarding_levels' %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<div class="jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
-  <div class="container">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Analyse des produits</h2>
-        <p class="">Les produits que vous ajoutez sont qualifiés par un badge de couleur selon le degré de <%= link_to "recommandation du programme national de santé (PNNS)", "https://www.mangerbouger.fr/Les-recommandations", target: "_blank", class:"font-weight-bold text-white" %>.</p>
-        <%= render 'shared/onboarding_product_ratings' %>
+  <div class="jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
+    <div class="container">
+      <div class="d-flex flex-wrap text-center justify-content-center">
+        <div class="col-md-8 p-0">
+          <h2 class="font-weight-bold">Analyse des produits</h2>
+          <p class="">Les produits que vous ajoutez sont qualifiés par un badge de couleur selon le degré de <%= link_to "recommandation du programme national de santé (PNNS)", "https://www.mangerbouger.fr/Les-recommandations", target: "_blank", class:"font-weight-bold text-white" %>.</p>
+          <%= render 'shared/onboarding_product_ratings' %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="jumbotron bg-transparent d-flex align-items-center">
-  <div class="container">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Suivi de consommation</h2>
-        <p class="">Chaque produit alimentaire ajouté permet de gagner ou perdre des points.</p>
-        <%= render 'shared/onboarding_points' %>
+  <div class="jumbotron bg-transparent d-flex align-items-center">
+    <div class="container">
+      <div class="d-flex flex-wrap text-center justify-content-center">
+        <div class="col-md-8 p-0">
+          <h2 class="font-weight-bold">Suivi de consommation</h2>
+          <p class="">Chaque produit alimentaire ajouté permet de gagner ou perdre des points.</p>
+          <%= render 'shared/onboarding_points' %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
-  <div class="container px-0">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Challenges</h2>
-        <p class="">Suivez les recommandations pour gagner un maximum de points bonus !</p>
-        <ul class="list-group mb-3 text-primary">
-          <% List.last.tasks.order(:position).each do |task| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center px-2">
-              <%= render "lists/task_progress", task_item: TaskItem.find_by(list: List.where(list_type: "curated").last, task: task) %>
-            </li>
-          <% end %>
-        </ul>
+  <div class="jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
+    <div class="container px-0">
+      <div class="d-flex flex-wrap text-center justify-content-center">
+        <div class="col-md-8 p-0">
+          <h2 class="font-weight-bold">Challenges</h2>
+          <p class="">Suivez les recommandations pour gagner un maximum de points bonus !</p>
+          <ul class="list-group mb-3 text-primary">
+            <% List.last.tasks.order(:position).each do |task| %>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <%= render "lists/task_progress", task_item: TaskItem.find_by(list: List.where(list_type: "curated").last, task: task) %>
+              </li>
+            <% end %>
+          </ul>
 
-          <%= link_to "C'est parti !", welcome_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
+            <%= link_to "C'est parti !", welcome_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
 
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+<% end %>
