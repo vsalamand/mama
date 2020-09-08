@@ -28,7 +28,7 @@ class ListsController < ApplicationController
     if @list.save
       @list.set_game
       redirect_to lists_path if @list.list_type == "curated"
-      redirect_to list_path(@list) if @list.list_type == "personal"
+      redirect_to list_path(@list, onboarding: 0) if @list.list_type == "personal"
       ahoy.track "Create list", list_id: @list.id, name: @list.name
     else
       redirect_to new_list_path
@@ -83,19 +83,21 @@ class ListsController < ApplicationController
     @list.set_game if @list.game.nil?
 
     @items = @list.items.not_deleted
-    # @uncomplete_list_items = @list.get_items_to_buy
     @item = Item.new
     @recipes = @list.recipes
 
-    @ref_list = params[:l]
-
-    @referrer = params[:ref]
-    if @referrer.nil? || @referrer == request.url
-      @referrer = "/browse"
+    @ref_list_id = params[:l]
+    if @ref_list_id.present?
+      @ref_list = List.find(@ref_list_id)
+      @referrer = list_url(@ref_list) + "?form"
     end
 
+    # if @referrer.nil? || @referrer == request.url
+    #   @referrer = "/browse"
+    # end
+
     # @message = @list.get_last_edit(current_user.id) if user_signed_in?
-    current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user || @list.users.include?(current_user)
+    # current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user || @list.users.include?(current_user)
     ahoy.track "Show list", list_id: @list.id, name: @list.name
   end
 

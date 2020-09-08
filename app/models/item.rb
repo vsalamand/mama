@@ -133,8 +133,8 @@ class Item < ApplicationRecord
       parser.each_with_index do |element, index|
         quantity = element['quantity_match'] if element['quantity_match'].present?
         category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-        if category.nil? && parser['clean_item'].present?
-          product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+        if category.nil? && element['clean_item'].present?
+          product = StoreItem.search(element['clean_item'], where: {store_id: 1}).first
           category = product.get_category if product.present?
         end
         unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
@@ -150,7 +150,8 @@ class Item < ApplicationRecord
                               is_completed: false,
                               is_deleted: false,
                               list: list)
-        valid_item = self.get_valid_item
+
+        valid_item = Item.where("lower(trim(name)) = ?", element['clean_item'].downcase.strip).where(is_validated: true).first
         valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
         new_items << new_item
       end
