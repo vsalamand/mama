@@ -25,6 +25,7 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     # @list.user_id = current_user.id
     # @list.status = "opened"
+    @list.sorted_by = "rayon"
     if @list.save
       @list.set_game
       redirect_to lists_path if @list.list_type == "curated"
@@ -73,7 +74,7 @@ class ListsController < ApplicationController
   def index
     # @lists = current_user.lists.saved
     # @shared_lists = current_user.shared_lists
-    @lists = List.where(list_type: "curated", status: "saved", sorted_by: "rayon")
+    @lists = List.where(list_type: "curated", status: "saved")
     @list = List.new
   end
 
