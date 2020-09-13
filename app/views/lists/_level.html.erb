@@ -20,14 +20,14 @@
         </div>
       </div>
 
-    <% when score > 9 %>
+    <% when score > 0 %>
       <div class="bg-transparent d-flex justify-content-center">
         <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
-           <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/orange-heart", width: 30, height: 30, class:"mb-1") %> Moyen</p>
+           <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/orange-heart", width: 30, height: 30, class:"mb-1") %> Correct</p>
         </div>
       </div>
 
-    <% when score < 10 %>
+    <% when score < 1 %>
       <div class="bg-transparent d-flex justify-content-center">
         <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));">
            <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/broken-heart", width: 30, height: 30, class:"mb-1") %> Pas top</p>
