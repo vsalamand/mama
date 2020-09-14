@@ -16,7 +16,7 @@
   <div class="mb-3 text-center">
       <p class="m-0 p-0 text-muted">
         <strong class="bigh1 font-weight-bold"><%= @score %></strong>
-        <small class="text-muted"><%= @score > 1 ? "points" : "point" %></small>
+        <small class="text-muted"><%= (-1..1).include?(@score) ? "point" : "points" %></small>
       </p>
 
       <%= render "lists/level", score: @score %>
@@ -25,14 +25,6 @@
 
 
   <div class="jumbotron d-flex flex-column">
-
-
-    <div class="">
-      <p class="bigh1 font-weight-bold text-center">Synthèse</p>
-      <%= pie_chart @list.items.not_deleted.map{|i| i.category.get_food_group if i.category.present?}.compact.group_by(&:root).map { |k, v| [k.name, v.size] }.to_h, legend: "bottom" %>
-    </div>
-
-    <hr class="my-2">
 
 
     <p class="bigh1 font-weight-bold text-center">Produits</p>
@@ -55,7 +47,10 @@
 
     </ul>
 
+
     <hr class="my-2">
+
+
 
     <p class="bigh1 font-weight-bold text-center">Challenges</p>
     <ul class="list-group mb-3">
@@ -65,6 +60,18 @@
         </li>
       <% end %>
     </ul>
+
+
+
+    <hr class="my-2">
+
+
+    <div class="">
+      <p class="bigh1 font-weight-bold text-center">Synthèse</p>
+      <%= pie_chart @list.items.not_deleted.map{|i| i.category.get_food_group if i.category.present?}.compact.group_by(&:root).map { |k, v| [k.name, v.size] }.to_h, legend: "bottom" %>
+    </div>
+
+
 
 
     <div class="text-center mt-4">
