@@ -1,33 +1,34 @@
 <% if list.items.not_deleted.any? %>
-  <% Category.roots.each do |category| %>
-      <div id="<%= category.name.parameterize(separator: '') %>" class="listHeader">
-        <div id="<%= category.name.parameterize(separator: '') %>Header">
-          <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
-            <div class="d-flex align-items-center">
-              <p class="m-0 p-1 font-weight-bold lead"><%= category.name %></p>
-            </div>
-          </ul>
+
+    <% StoreSection.order(:position).each do |store_section| %>
+        <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader">
+          <div id="<%= store_section.name.parameterize(separator: '') %>Header">
+            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+              <div class="d-flex align-items-center">
+                <p class="m-0 p-1 font-weight-bold lead"><%= store_section.name %></p>
+              </div>
+            </ul>
+          </div>
+          <div id="<%= store_section.name.parameterize(separator: '') %>Elements">
+            <% list.get_store_section_items(store_section).sort_by{|e| e.name.parameterize }.each do |item| %>
+              <%= render 'items/selected_item', item: item %>
+            <% end %>
+          </div>
         </div>
-        <div id="<%= category.name.parameterize(separator: '') %>Elements">
-          <% list.items.not_deleted.where(category_id: category.subtree.pluck(:id)).sort_by{|e| e.name.parameterize }.each do |item| %>
-            <%= render 'items/selected_item', item: item %>
-          <% end %>
-        </div>
+    <% end %>
+    <div id="non-alimentaires" class="listHeader">
+      <div id="non-alimentairesHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead">Non-alimentaires</p>
+          </div>
+        </ul>
       </div>
-  <% end %>
-  <div id="non-alimentaires" class="listHeader">
-    <div id="non-alimentairesHeader">
-      <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
-        <div class="d-flex align-items-center">
-          <p class="m-0 p-1 font-weight-bold lead">Non-alimentaires</p>
-        </div>
-      </ul>
+      <div id="non-alimentairesElements">
+        <%  list.items.not_deleted.where(store_section_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
+          <%= render 'items/selected_item', item: item %>
+        <% end %>
+      </div>
     </div>
-    <div id="non-alimentairesElements">
-      <%  list.items.not_deleted.where(category_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
-        <%= render 'items/selected_item', item: item %>
-      <% end %>
-    </div>
-  </div>
 
 <% end %>
