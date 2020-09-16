@@ -4,7 +4,7 @@
 
 <div class="d-flex flex-column justify-content-center align-items-center" id="OLDshowRatingProgress" style="cursor: pointer;">
 
-  <% if list.items.not_deleted.where.not(category_id: nil).size > 4 %>
+  <% if list.items.not_deleted.where.not(category_id: nil).size > 0 %>
     <%= link_to list_analyze_path(list), class:"btn btn-link btn-lg font-weight-light", style:"text-decoration: none;" do %>
       <p class="m-0 p-0 text-muted">
         <strong class="bigh1 font-weight-bold"><%= score %></strong>
@@ -20,10 +20,10 @@
 
 
   <% else %>
-    <p class="lead m-0 px-2 text-muted font-weight-bold text-center">Ajoutez 5 produits alimentaires pour commencer l'analyse !</p>
+    <p class="lead m-0 px-2 text-muted font-weight-bold text-center">Ajoutez un produit alimentaire pour commencer l'analyse !</p>
     <div class="bg-transparent d-flex justify-content-center" style="cursor: pointer;" id="OLDshowRatingProgress">
       <div class="border-0 border-success rounded-lg p-0">
-         <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= list.items.not_deleted.where.not(category_id: nil).size %></strong> <small class="text-muted">/ 5</small></p>
+         <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= list.items.not_deleted.where.not(category_id: nil).size %></strong> <small class="text-muted">/ 1</small></p>
       </div>
     </div>
 
