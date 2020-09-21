@@ -1,0 +1,14 @@
+var benefit = document.querySelector('.marketing').getAttribute('benefit')
+
+if(benefit === "1"){
+  document.getElementById('marketingBlock').innerHTML = ("<%= j render 'shared/marketing_benefit_2' %>");
+}
+if (benefit === "2"){
+  document.getElementById('marketingBlock').innerHTML = ("<%= j render 'shared/marketing_benefit_3' %>");
+}
+if (benefit === "3"){
+  document.getElementById('marketingBlock').innerHTML = ("<%= j render 'shared/marketing_benefit_4' %>");
+}
+if (benefit === "4"){
+  document.getElementById('marketingBlock').innerHTML = ("<%= j render 'shared/marketing_benefit_1' %>");
+}

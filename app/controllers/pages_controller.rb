@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
-                                                  :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install, :welcome]
+                                                  :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install, :start, :fetch_landing]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
 
@@ -32,6 +32,7 @@ class PagesController < ApplicationController
     @recipe_idea = Recipe.find(recipe_idea_id)
     @categories = Recommendation.find_by(name: "Categories")
 
+    redirect_to root_path
     ahoy.track "Cuisine"
   end
 
@@ -40,6 +41,7 @@ class PagesController < ApplicationController
     @weekly_menu = Recommendation.find_by(name: "Featured").recipe_lists.last
     @recipes = @weekly_menu.recipe_list_items.sort_by(&:id).map{ |rli| rli.recipe }.reverse.select{|r| r.is_published?}
 
+    redirect_to root_path
     ahoy.track "Explore"
   end
 
@@ -50,6 +52,7 @@ class PagesController < ApplicationController
 
   def favorites
     @recipes = current_user.get_latest_recipe_list.recipes.order(:title)
+    redirect_to root_path
     ahoy.track "Favorites"
   end
 
@@ -281,8 +284,12 @@ class PagesController < ApplicationController
    redirect_back(fallback_location:"/")
   end
 
-  def welcome
-    ahoy.track "Welcome"
+  def start
+    ahoy.track "Start"
+  end
+
+  def fetch_landing
+    render 'fetch_landing.js.erb'
   end
 
   def products_search

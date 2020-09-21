@@ -1,13 +1,13 @@
 <%= @list.name %>:
 
 <% @list.sort_by_store_sections.each do |key, array| %>
-<% if array.any? %>
-<%= key %>:
-  <%  array.sort_by{|e| e.name.parameterize }.each do |list_item| %>
-    - <%= list_item.name %>
-  <% end %>
+  <% if array.any? %>
+  <%= key %>:
+    <%  array.sort_by{|e| e.name.parameterize }.each do |list_item| %>
+      - <%= list_item.name %>
+    <% end %>
 
-<% end %>
+  <% end %>
 <% end %>
 Envoyée par <%= @email %>
 

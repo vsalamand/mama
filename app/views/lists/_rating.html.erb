@@ -20,7 +20,7 @@
 
 
   <% else %>
-    <p class="lead m-0 px-2 text-muted font-weight-bold text-center">Ajoutez un produit alimentaire pour commencer l'analyse !</p>
+    <p class="lead m-0 px-2 text-muted">Ajoutez un produit alimentaire pour commencer l'analyse</p>
     <div class="bg-transparent d-flex justify-content-center" style="cursor: pointer;" id="OLDshowRatingProgress">
       <div class="border-0 border-success rounded-lg p-0">
          <p class="m-0 p-0 text-muted"><strong class="bigh1 font-weight-bold text-primary"><%= list.items.not_deleted.where.not(category_id: nil).size %></strong> <small class="text-muted">/ 1</small></p>
