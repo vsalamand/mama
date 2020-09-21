@@ -2,7 +2,8 @@
 <div class="container">
   <nav class="sticky-top navbar navbar-expand-lg navbar-light border-bottom bg-white">
      <a class="navbar-brand d-flex align-items-center font-weight-bold" href="/">
-      <%= cl_image_tag("menu_icons/sparkling-heart", width: 30, height: 30) %> Supernet <span class="badge badge-pill badge-outline-secondary"></span>
+      <%= cl_image_tag("menu_icons/sparkling-heart", width: 20) %>
+      <span class="font-weight-bold rounded text-secondary">Supernet</span>
     </a>
   </nav>
 </div>
@@ -12,27 +13,20 @@
 
   <div class="container px-2">
 
-    <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0 my-3">
+    <div class="jumbotron d-flex align-items-center bg-white flex-column p-0">
 
 
-      <hr class="my-3">
+      <div class="px-3 my-4">
+        <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-light border btn-lg m-1 px-5" %>
+      </div>
 
-      <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-light border btn-lg m-1 px-5" %>
-
-
-
-      <div class="px-3 pt-5 rounded text-center mb-2">
+      <div class="px-3 rounded mb-2 text-center">
         <% if @lists.present? %>
             <% @lists.sort_by(&:id).reverse.each do |list|  %>
               <div class="d-flex flex-column m-0">
-                <%= link_to "#{list.name}", list_path(list), class:"lead font-weight-bold" %>
-                <% if false %>
-                  <small>
-                   <%= render "lists/edit_history", content: list.get_last_edit(current_user.id) %>
-                  </small>
-                <% end %>
+                <%= link_to "#{list.name}", list_path(list), class:"lead font-weight-bold m-1" %>
               </div>
-              <hr class="my-4">
+              <hr class="my-3">
             <% end %>
         <% end %>
       </div>

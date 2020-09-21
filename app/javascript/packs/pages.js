@@ -363,3 +363,24 @@ $(document).on("click", ".removeFromFavorites", function(event) {
   });
 });
 
+
+
+//  Autorefresh landing eveyr 5 seconds
+function autoRefresh_landing() {
+  if (document.getElementById('marketingBlock')){
+    $.ajax({
+      url: "/fetch_landing",
+      cache: false,
+      dataType: 'script',
+      success: function(){
+        setTimeout(autoRefresh_landing, 3000);
+      }
+    });
+  }
+}
+
+$(document).on("turbolinks:load", function(event) {
+  if (document.getElementById('marketingBlock')){
+    setTimeout(autoRefresh_landing, 3000);
+  }
+})

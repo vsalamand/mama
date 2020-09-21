@@ -29,7 +29,8 @@ class ListsController < ApplicationController
     if @list.save
       @list.set_game
       redirect_to lists_path if @list.list_type == "curated"
-      redirect_to list_path(@list, onboarding: 0) if @list.list_type == "personal"
+      # redirect_to list_path(@list, onboarding: 0) if @list.list_type == "personal"
+      redirect_to list_path(@list) if @list.list_type == "personal"
       ahoy.track "Create list", list_id: @list.id, name: @list.name
     else
       redirect_to new_list_path

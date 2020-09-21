@@ -2,7 +2,7 @@
   <div class="container">
 
        <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-          <a class="navbar-brand text-dark d-flex align-items-center" href="/welcome">
+          <a class="navbar-brand text-dark d-flex align-items-center" href="/start">
             <i class="fas fa-lg fa-arrow-left p-2"></i>
           </a>
        </nav>
@@ -13,41 +13,45 @@
 <div class="banner d-flex flex-column my-3">
 
   <div class="container my-3 px-2">
-
     <div class="jumbotron bg-white" id="loginPage">
-      <h1 class="bigh1 font-weight-bold">Connexion</h1>
-      <p class="lead">Accédez à votre compte<strong class="text-primary"> pour retrouver vos listes</strong>.</p>
-      <hr class="my-4">
+      <div class="row">
+        <div class="col-md-6 my-auto">
+          <h1 class="bigh1 font-weight-bold">Connectez-vous</h1>
+          <hr class="my-4">
 
-        <div class="errors"></div>
-        <% if flash[:alert].present? %>
-          <p class="alert alert-danger"><%= flash[:alert] %></p>
-        <% end %>
+            <div class="errors"></div>
+            <% if flash[:alert].present? %>
+              <p class="alert alert-danger"><%= flash[:alert] %></p>
+            <% end %>
 
-         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <%= f.error_notification %>
-            <div class="form-inputs mb-0">
-              <%= f.input :email,
-                          label: false,
-                          autofocus: true,
-                          placeholder: "Votre Adresse Email",
-                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold", value: params[:user_email] } %>
-              <%= f.input :password,
-                          label: false,
-                          placeholder: "Mot de passe",
-                          input_html: { autocomplete: "current-password", class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
-              <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
-            </div>
+             <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <%= f.error_notification %>
+                <div class="form-inputs mb-0">
+                  <%= f.input :email,
+                              label: false,
+                              autofocus: true,
+                              placeholder: "Votre Adresse Email",
+                              input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold", value: params[:user_email] } %>
+                  <%= f.input :password,
+                              label: false,
+                              placeholder: "Mot de passe",
+                              input_html: { autocomplete: "current-password", class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
+                  <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
+                </div>
 
-            <div class="form-actions d-flex justify-content-end">
-              <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-light border mb-1" %>
-            </div>
-          <% end %>
+              <div class="form-actions d-flex justify-content-end">
+                <%= f.button :submit, "Se connecter", class:"btn btn-lg btn-light border mb-1" %>
+              </div>
+              <%= link_to "Mot de passe oublié?", new_password_path(resource_name), class:"d-flex justify-content-end my-1" %>
 
-    <%= link_to "Mot de passe oublié?", new_password_path(resource_name), class:"d-flex justify-content-end my-1" %>
-    <%= link_to "Vous n'avez avez pas de compte?", new_registration_path(resource_name), class:"d-flex lead justify-content-center my-1 font-weight-bold mt-3" %>
+              <% end %>
+
+        </div>
+        <div class="col-md-6 d-flex justify-content-center text-center my-auto">
+          <%= link_to "Vous n'avez avez pas de compte?", new_registration_path(resource_name), class:"d-flex lead my-1 font-weight-bold mt-3" %>
+        </div>
+      </div>
     </div>
-
 
   </div>
 </div>

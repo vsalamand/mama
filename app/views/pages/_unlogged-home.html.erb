@@ -1,93 +1,31 @@
 
-<div class="banner d-flex flex-column" style="background: linear-gradient(#e66465, #9198e5); overflow-x: hidden; overflow-y: hidden;">
+<div class="banner">
 
-  <div class="container px-1">
-    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
-       <a class="navbar-brand text-white d-flex align-items-center font-weight-bold" href="/">
-        <%= cl_image_tag("menu_icons/sparkling-heart", width: 30, height: 30) %> Supernet <span class="badge badge-pill badge-outline-secondary"></span>
-      </a>
-    </nav>
-  </div>
+  <div class="p-0 m-0">
+    <div class="row">
+      <div class="col-md align-self-center">
+        <div id="presentation" class="mb-5">
+          <nav class="navbar navbar-light bg-transparent">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+              <%= cl_image_tag("menu_icons/sparkling-heart", width: 20, height: 20) %>
+              <span class="font-weight-bold rounded text-secondary">Supernet</span>
+            </a>
+          </nav>
+          <div class="container my-4">
+            <h1 class="display-4 font-weight-bold">Votre liste de courses <span style="background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));" class="p-1 rounded text-white font-weight-light">healthy</span> et facile</h1>
+            <p class="lead py-3">Amusez-vous à faire des listes de courses plus variées et équilibrées pour bien manger. Gratuitement !</p>
 
-  <div class="container bg-transparent d-flex align-items-center my-auto">
-    <div class="container text-white">
-      <div class="row text-center">
-        <div class="col-md-6 my-auto">
-          <h1 class="display-4 font-weight-bold">Enfin une liste de courses facile à faire</h1>
-          <p class="lead">Supernet est une application qui vous aide à faire des listes de courses plus saines et équilibrées.</p>
-
-          <%= link_to "C'est parti !", welcome_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold mb-3" %>
-
+             <%= link_to "C'est parti !", start_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold m-1 text-primary shadow" %>
+          </div>
         </div>
-        <div class="col-md-2">
-
-        </div>
-        <div class="col-md-4 my-4">
-            <%= cl_image_tag("product_screens/iphone11_list_analysis", :fetch_format=>:auto, :height=>500, class:"pl-1", style:"position:relative; top: -15px; left: -20%;") %>
-            <%= cl_image_tag("product_screens/iphone11_grocerylist", :fetch_format=>:auto, :height=>500, style:"position:absolute; top: +30px; left: 40%;") %>
+      </div>
+      <div class="col-md" style="background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24)); overflow-x: hidden; overflow-y: hidden;">
+        <div class="container my-5 text-white" id="marketingBlock">
+          <%= render "shared/marketing_benefit_1" %>
         </div>
       </div>
     </div>
   </div>
 
-</div>
 
-
-
-<div class=" jumbotron bg-transparent d-flex align-items-center">
-  <div class="container">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Prêt.e pour les courses ?</h2>
-        <p class="">En fonction des produits alimentaires que vous ajoutez, votre liste gagne (ou perd !) des points pour atteindre l'un des 5 niveaux suivants:</p>
-        <%= render 'shared/onboarding_levels' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
-  <div class="container">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Analyse des produits</h2>
-        <p class="">Les produits que vous ajoutez sont qualifiés par un badge de couleur selon le degré de <%= link_to "recommandation du programme national de santé (PNNS)", "https://www.mangerbouger.fr/Les-recommandations", target: "_blank", class:"font-weight-bold text-white" %>.</p>
-        <%= render 'shared/onboarding_product_ratings' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="jumbotron bg-transparent d-flex align-items-center">
-  <div class="container">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Suivi de consommation</h2>
-        <p class="">Chaque produit alimentaire ajouté permet de gagner ou perdre des points.</p>
-        <%= render 'shared/onboarding_points' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="jumbotron bg-transparent text-white rounded-0 d-flex align-items-center my-0" style="background: linear-gradient(#e66465, #9198e5);">
-  <div class="container px-0">
-    <div class="d-flex flex-wrap text-center justify-content-center">
-      <div class="col-md-8 p-0">
-        <h2 class="font-weight-bold">Challenges</h2>
-        <p class="">Suivez les recommandations pour gagner un maximum de points bonus !</p>
-        <ul class="list-group mb-3 text-primary">
-          <% List.last.tasks.order(:position).each do |task| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center px-2">
-              <%= render "lists/task_progress", task_item: TaskItem.find_by(list: List.where(list_type: "curated").last, task: task) %>
-            </li>
-          <% end %>
-        </ul>
-
-          <%= link_to "C'est parti !", welcome_path, class:"btn btn-light border btn-lg py-3 px-5 font-weight-bold goToSignupBtn" %>
-
-      </div>
-    </div>
-  </div>
 </div>
