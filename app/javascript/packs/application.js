@@ -104,6 +104,11 @@ $(document).on("turbolinks:load", function(event) {
     installBtn.style.display = "block";
   }
 })
+$(document).on("turbolinks:load", function(event) {
+  if (android === true && isInStandaloneMode === false && document.getElementById("androidInstallNavbar")) {
+    getInstallMessageAndroid();
+  }
+})
 
 function getInstallMessageAndroid() {
   $.ajax({
@@ -170,6 +175,11 @@ $(document).on("turbolinks:load", function(event) {
     // getInstallMessageIOS();
     var installBtn = document.getElementById('installBtn');
     installBtn.style.display = "block";
+  }
+})
+$(document).on("turbolinks:load", function(event) {
+  if (iOS === true && isSafari === true && isInStandaloneMode === false && document.getElementById("iOSInstallNavbar")) {
+    getInstallMessageIOS();
   }
 })
 
