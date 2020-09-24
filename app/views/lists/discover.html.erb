@@ -1,0 +1,41 @@
+<div class="sticky-top bg-white">
+  <div class="container px-2">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+       <a class="navbar-brand text-dark d-flex align-items-center m-0" href="/lists/<%= @list.slug %>">
+        <i class="fas fa-lg fa-arrow-left p-2"></i>
+      </a>
+
+      <button class="btn btn-outline-primary addToListButton" id="addToListBtn" data="<%= @list.id %>">Ajouter la sélection</button>
+
+    </nav>
+  </div>
+</div>
+
+
+
+
+<div class="container my-4 text-center">
+  <div class="jumbotron jumbotron-fluid bg-white m-0">
+    <h1 class="bigh1 font-weight-bold"><span style="background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));" class="p-1 rounded text-white font-weight-light"><%= @category.name %></span> <br>Suggestions d'associations</h1>
+    <hr class="my-4">
+    <p class="lead">Sélectionnez les produits que vous souhaitez ajouter.</p>
+    <a class="btn btn-light border text-primary btn-lg selectAllListItemsBtn" data="<%= @list.id %>" style="cursor: pointer;" role="button">Tout sélectionner</a>
+  </div>
+</div>
+
+
+<div class="wrapper" style="min-height: 90vh;">
+  <div class="container mb-3 px-2" id="todo_list" data="<%= @list.id %>">
+
+    <div class="">
+      <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(@list) %>">
+
+        <%= render "categories/unselected_items", category: @category %>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+

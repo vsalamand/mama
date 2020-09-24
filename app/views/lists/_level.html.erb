@@ -1,36 +1,36 @@
     <% case
        when score > 99 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(165, 5, 189),rgb(239, 87, 203));">
-           <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/sparkling-heart", width: 30, height: 30, class:"mb-1") %> Excellent!</p>
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(165, 5, 189),rgb(239, 87, 203));">
+           <p class="lead font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/sparkling-heart", width: 20, class:"m-0") %> Excellent!</p>
         </div>
       </div>
 
     <% when score > 59 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));">
-           <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/green-heart", width: 30, height: 30, class:"mb-1") %> Super</p>
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));">
+           <p class="lead font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/green-heart", width: 20, class:"m-0") %> Super</p>
         </div>
       </div>
 
     <% when score > 29 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(135deg, rgb(182, 244, 85),rgb(63, 128, 87));">
-           <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/yellow-heart", width: 30, height: 30, class:"mb-1") %> Bien</p>
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(135deg, rgb(182, 244, 85),rgb(63, 128, 87));">
+           <p class="lead font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/yellow-heart", width: 20, class:"m-0") %> Bien</p>
         </div>
       </div>
 
     <% when score > 0 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
-           <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/orange-heart", width: 30, height: 30, class:"mb-1") %> Correct</p>
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
+           <p class="lead font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/orange-heart", width: 20, class:"m-0") %> Correct</p>
         </div>
       </div>
 
     <% when score < 1 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-5 py-3" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));">
-           <p class="h2 font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/broken-heart", width: 30, height: 30, class:"mb-1") %> Pas top</p>
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));">
+           <p class="lead font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/broken-heart", width: 20, class:"m-0") %> Pas top</p>
         </div>
       </div>
     <% end %>

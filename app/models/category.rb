@@ -43,6 +43,18 @@ class Category < ApplicationRecord
     return nil
   end
 
+  def create_item
+    if self.store_section_id.present?
+      Item.create(
+        category_id: self.id,
+        name: self.name.downcase,
+        store_section_id: self.store_section_id,
+        is_non_food: false,
+        is_validated: true
+      )
+    end
+  end
+
   def set_foodgroup_rating
     rating = self.get_food_group.rating if self.get_food_group.present?
     case rating

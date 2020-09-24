@@ -5,7 +5,7 @@
         <i class="fas fa-lg fa-arrow-left p-2"></i>
       </a>
 
-      <button class="btn btn-outline-primary" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @ref_list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Ajouter la sélection</button>
+      <button class="btn btn-outline-primary addToListButton" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @ref_list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Ajouter la sélection</button>
 
     </nav>
   </div>

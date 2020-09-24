@@ -155,6 +155,7 @@ Rails.application.routes.draw do
     get :get_score
     get :get_rating_progress
     get :analyze
+    get :discover
     resources :items, only: [ :create, :show, :destroy, :edit, :update ] do
       get :complete
       get :uncomplete

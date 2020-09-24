@@ -29,8 +29,8 @@ class ListsController < ApplicationController
     if @list.save
       @list.set_game
       redirect_to lists_path if @list.list_type == "curated"
-      # redirect_to list_path(@list, onboarding: 0) if @list.list_type == "personal"
-      redirect_to list_path(@list) if @list.list_type == "personal"
+      redirect_to list_path(@list, onboarding: 0) if @list.list_type == "personal"
+      # redirect_to list_path(@list) if @list.list_type == "personal"
       ahoy.track "Create list", list_id: @list.id, name: @list.name
     else
       redirect_to new_list_path
@@ -52,12 +52,19 @@ class ListsController < ApplicationController
 
   def add
     @list = List.find(params[:list_id])
-    @items = params[:items]
 
-    ListItem.add_menu_to_list(@items, @list)
+    if params[:i].present?
+      item_inputs = params[:i]
+      Item.add_menu_to_list(item_inputs, @list)
+    end
 
-    render 'add.js.erb'
-    ahoy.track "Add list items", request.path_parameters
+    respond_to do |format|
+      format.html { redirect_to list_path(@list) }
+      format.js { render 'add.js.erb' }
+    end
+
+    # render 'add_to_list.js.erb'
+    ahoy.track "Add to list", list_id: @list.id, name: @list.name, items: params[:i]
   end
 
   def edit
@@ -250,6 +257,13 @@ class ListsController < ApplicationController
     @avoid_products = @list.get_rated_items([3])
     @score = @list.get_score
     ahoy.track "Analyze list", list_id: @list.id, name: @list.name
+  end
+
+  def discover
+    @list = List.friendly.find(params[:list_id])
+    @category = Category.find(params[:c])
+    @item = params[:i]
+    ahoy.track "Discover items", list_id: @list.id, name: @list.name, category: @category.name
   end
 
   def get_edit_history
