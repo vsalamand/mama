@@ -22,3 +22,33 @@ function getEditHistory(current_user_id) {
     }
   });
 }
+
+
+loadSuggestions();
+function loadSuggestions() {
+  if(document.querySelector("#todo_list")){
+    const id = document.querySelector("#todo_list").getAttribute('data');
+    $.ajax({
+      url: "/lists/" + id + "/fetch_suggested_items",
+      cache: false,
+      success: function(){
+      }
+    });
+  }
+}
+
+
+setScore();
+// Set list score
+function setScore() {
+  if(document.querySelector("#listScore")){
+    var listId = document.querySelector("#listScore").getAttribute('data');
+
+    $.ajax({
+      url: "/lists/" + listId + "/get_score",
+      cache: false,
+      success: function(){
+      }
+    });
+  }
+}

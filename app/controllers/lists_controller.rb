@@ -112,7 +112,12 @@ class ListsController < ApplicationController
 
   def fetch_suggested_items
     @list = List.friendly.find(params[:list_id])
-    render 'fetch_suggested_items.js.erb'
+    @item = @list.items.not_deleted.last
+
+    if @item.present? && @item.category.present?
+      @suggested_items = @item.category.get_top_categories(@list)
+      render 'fetch_suggested_items.js.erb'
+    end
   end
 
   def get_suggested_items
@@ -262,7 +267,8 @@ class ListsController < ApplicationController
   def discover
     @list = List.friendly.find(params[:list_id])
     @category = Category.find(params[:c])
-    @item = params[:i]
+    params[:i].present? ? @selected_category = Category.find_by(name: params[:i]) : @selected_category = nil
+    @categories = @category.get_top_categories(@list)
     ahoy.track "Discover items", list_id: @list.id, name: @list.name, category: @category.name
   end
 

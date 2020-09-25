@@ -1,4 +1,4 @@
-<% if category.siblings.any? %>
+<% if categories.any? %>
 
     <% StoreSection.order(:position).each do |store_section| %>
         <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader">
@@ -10,8 +10,12 @@
             </ul>
           </div>
           <div id="<%= store_section.name.parameterize(separator: '') %>Elements">
-            <% category.siblings.where(store_section: store_section).sort_by{|e| e.name.parameterize }.each do |c| %>
-              <%= render 'items/unselected_item', item: Item.find_by(name: c.name, list: nil) %>
+            <% categories.select{ |c| c.store_section == store_section}.sort_by{|e| e.name.parameterize }.each do |c| %>
+              <% if c == selected_category %>
+                <%= render 'items/selected_item', item: Item.find_by(name: c.name, list: nil) %>
+              <% else %>
+                <%= render 'items/unselected_item', item: Item.find_by(name: c.name, list: nil) %>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -26,7 +30,7 @@
         </ul>
       </div>
       <div id="non-alimentairesElements">
-        <%  category.siblings.where(store_section_id: nil).sort_by{|e| e.name.parameterize }.each do |c| %>
+        <%  categories.select{ |c| c.store_section.nil? }.sort_by{|e| e.name.parameterize }.each do |c| %>
           <%= render 'items/unselected_item', item: Item.find_by(name: c.name, list: nil) %>
         <% end %>
       </div>

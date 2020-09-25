@@ -30,7 +30,7 @@
     <div class="">
       <div class="list-group list-group-flush" id="uncomplete_list_items" data-url="<%= sort_list_list_items_path(@list) %>">
 
-        <%= render "categories/unselected_items", category: @category %>
+        <%= render "categories/unselected_items", categories: @categories, selected_category: @selected_category %>
 
       </div>
     </div>

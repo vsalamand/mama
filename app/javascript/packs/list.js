@@ -10,7 +10,7 @@ require("jquery-ui/ui/widgets/sortable")
 // loadSuggestions();
 
 $(document).on("turbolinks:load", function(event) {
-  // loadSuggestions();
+  loadSuggestions();
   // getPriceBtn();
   setListOnboarding();
   setStoreSectionHeaders();
@@ -27,7 +27,7 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   // loadSuggestions();
   // getPriceBtn();
   setStoreSectionHeaders();
-  setScore();
+  // setScore();
   // hideRatingProgress();
   // getListPlaceholder();
   // getCartsPrice();
@@ -53,11 +53,6 @@ $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
 // }
 
 
-// // open modal when click on button
-// $(document).on('click', '#loadStoreCartsBtn', function() {
-//   $('#loadStoreCartModal').modal('show');
-// })
-
 // on modal show, focus on input field
 $('#selectListModal').on('hide.bs.modal', function (e) {
   $('.modal').modal('hide');
@@ -65,45 +60,10 @@ $('#selectListModal').on('hide.bs.modal', function (e) {
   $('.modal-backdrop').remove();
 })
 
-// // close modal when list item is submitted
-// $('#addListItemModal').submit(function() {
-//   $('#addListItemModal').modal('hide');
-// });
-
-
-
 // when click on food reco, add in input field as value
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
 const form = document.getElementById('new_item');
-// const id = document.querySelector("#todo_list").getAttribute('data');
 
-function fetchSuggestedItems() {
-  // select word that is clicked
-  // $('.recommendations').on('click', function(event) {
-  $(document).on("click" , ".recommendations", function(event) {
-    const item = event.target.innerText;
-    const inputField = document.getElementById('newListItem');
-    const id = document.querySelector("#todo_list").getAttribute('data');
-
-    $.ajax({
-      url: "/lists/" + id +"/list_items",
-      cache: false,
-      type: "POST",
-      dataType: 'script',
-      data: {
-        list_item: {
-          name: item}
-        },
-      success: function(data){
-      }
-    });
-
-    // close modal is opened
-    $('.modal').modal('hide');
-    $(document.body).removeClass('modal-open');
-    $('.modal-backdrop').remove();
-  })
-}
 
 $(document).on("submit", "#new_item", function(event) {
   var addForm = document.getElementById('new_item');
@@ -231,36 +191,36 @@ function setListOnboarding() {
   }
 }
 
-// function getListPlaceholder() {
-//   if(document.getElementById("todo_list")) {
-//     var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
+function getListPlaceholder() {
+  if(document.getElementById("todo_list")) {
+    var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
 
-//     if(totalCount == 0){
-//       showListOnboarding();
-//     }
-//   }
-// }
+    if(totalCount == 0){
+      document.getElementById("listPlaceholder").style.display = "block";
+    } else {
+      document.getElementById("listPlaceholder").style.display = "none";
+    }
+  }
+}
 
 // On form submit, fetch updated suggested items inside the form
-const itemsRecommendations = document.getElementById('itemsRecommendations');
-// const spinner = document.getElementById('spinner');
+// const itemsRecommendations = document.getElementById('itemsRecommendations');
+// const spinner = document.querySelector('.spinner');
 
 
 
-// function loadSuggestions() {
-//   if(document.querySelector("#todo_list")){
-//     const id = document.querySelector("#todo_list").getAttribute('data');
-//     // Show spinner while doing ajax call
-//     $(spinner).show();
-//     // query suggested items
-//     $.ajax({
-//       url: "/lists/" + id +"/fetch_suggested_items",
-//       cache: false,
-//       success: function(){
-//       }
-//     });
-//   }
-// }
+function loadSuggestions() {
+  if(document.querySelector("#itemsRecommendations")){
+    const id = document.querySelector("#todo_list").getAttribute('data');
+
+    $.ajax({
+      url: "/lists/" + id + "/fetch_suggested_items",
+      cache: false,
+      success: function(){
+      }
+    });
+  }
+}
 
 // function getPriceBtn() {
 //   var count = $("#uncomplete_list_items li").length;

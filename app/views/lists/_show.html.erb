@@ -45,8 +45,6 @@
     </div>
   </div>
 
-  <%= render "lists/placeholder", list: list %>
-
 
   <div class="container px-2" style="min-height: 70vh;">
     <div class="container px-0" id="todo_list" data="<%= list.id %>">
@@ -59,13 +57,12 @@
         </ul>
         <%= simple_form_for([ list, item ], remote: true) do |form| %>
           <div class="search-form-control">
-            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"toggleListItemform", style:"cursor: pointer;" }, wrapper_html: { class:" rounded rounded-lg border border-light mb-0 shadow-lg"} %>
+            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"toggleListItemform", style:"cursor: pointer;" }, wrapper_html: { class:" rounded rounded-lg border border-light mb-0"} %>
           </div>
         <% end %>
 
-
-        <%= render "lists/get_suggested_items", list: list, item: list.items.not_deleted.last %>
-
+        <div id="itemsRecommendations">
+        </div>
 
 
         <% if false %>

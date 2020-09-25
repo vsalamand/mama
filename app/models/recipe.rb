@@ -10,6 +10,7 @@ class Recipe < ApplicationRecord
   validates :link, uniqueness: :true
 
   has_many :items, dependent: :destroy
+  has_many :categories, through: :items
   has_many :foods, through: :items
   has_many :cart_items, :as => :productable
   has_many :meta_recipe_lists, dependent: :nullify
@@ -21,8 +22,8 @@ class Recipe < ApplicationRecord
 
   RATING = ["excellent", "good", "limit", "avoid"]
 
-  acts_as_ordered_taggable
-  acts_as_taggable_on :categories
+  # acts_as_ordered_taggable
+  # acts_as_taggable_on :categories
 
   searchkick language: "french"
   scope :search_import, -> { where(status: "published").where.not(origin: "mama") }

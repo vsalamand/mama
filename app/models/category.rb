@@ -55,6 +55,19 @@ class Category < ApplicationRecord
     end
   end
 
+  def get_top_categories(list)
+    tops = Recipe.joins(:categories)
+                        .where( categories: {id: self.id} )
+                        .map{ |r| r.categories}
+                        .flatten
+                        .group_by{|x| x}
+                        .sort_by{|k, v| -v.size}
+                        .map(&:first)
+    banned = list.categories + Category.find(280).subtree + Array(Category.find(605)) + Array(Category.find(440)) + Array(Category.find(812)) + Array(Category.find(603)) + Array(Category.find(505)) + Category.find(87).subtree + Category.find(604).subtree + Category.find(499).subtree + Category.find(5).subtree + Category.find(726).subtree + Category.find(279).subtree + Category.find(793).subtree
+    results = tops - banned
+    return results[0..24]
+  end
+
   def set_foodgroup_rating
     rating = self.get_food_group.rating if self.get_food_group.present?
     case rating
