@@ -43,14 +43,25 @@ class Category < ApplicationRecord
     return nil
   end
 
+  def set_store_section
+    if self.store_section_id.nil?
+      store_section = self.get_store_section
+      if store_section.present?
+        self.store_section_id = store_section.id
+        self.save
+      end
+    end
+  end
+
   def create_item
     if self.store_section_id.present?
-      Item.create(
+      Item.find_or_create_by(
         category_id: self.id,
         name: self.name.downcase,
         store_section_id: self.store_section_id,
         is_non_food: false,
-        is_validated: true
+        is_validated: true,
+        list_id: nil
       )
     end
   end
