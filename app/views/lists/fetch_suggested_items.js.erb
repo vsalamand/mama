@@ -1,4 +1,4 @@
 // load suggested items
-document.getElementById('itemsRecommendations').innerHTML = ("<%= j render 'list_items/suggested_items', list: @list %>");
+document.getElementById('itemsRecommendations').innerHTML = ("<%= j render 'lists/get_suggested_items', list: @list, item: @item, suggested_items: @suggested_items %>");
 //  Hide spinner after showing new items
-$(spinner).hide();
+// $(spinner).hide();

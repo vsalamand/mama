@@ -160,7 +160,6 @@ class Item < ApplicationRecord
   end
 
 
-
   def self.add_list_items(list_items_array)
     new_items = []
 

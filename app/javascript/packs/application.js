@@ -127,36 +127,6 @@ $(document).on('click', '#androidInstallBtn',function() {
 });
 
 
-// var deferredPrompt;
-
-// window.addEventListener('beforeinstallprompt', (e) => {
-//   // prevent earlier version of chrome 67 to automatically showing the prompt
-//   e.preventDefault();
-//   // Stash the event so it can be triggered later.
-//   deferredPrompt = e;
-//   var androidInstallBanner = document.getElementById("androidInstallBanner");
-//   androidInstallBanner.style.display = "none";
-// });
-
-// $(document).on('click', '#androidInstallBtn', (e) => {
-//   console.log('👍', 'butInstall-clicked');
-//   const promptEvent = window.deferredPrompt;
-//   if (!promptEvent) {
-//     // The deferred prompt isn't available.
-//     return;
-//   }
-//   // Show the install prompt.
-//   promptEvent.prompt();
-//   // Log the result
-//   promptEvent.userChoice.then((result) => {
-//     console.log('👍', 'userChoice', result);
-//     // Reset the deferred prompt variable, since
-//     // prompt() can only be called once.
-//     window.deferredPrompt = null;
-//   });
-// });
-
-
 
 //  PWA prompt install on IOS
 // Detects if device is on iOS
@@ -374,9 +344,9 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
 })
 
 function getListBtn() {
-  if(document.querySelector("#getListBtn")){
+  if(document.querySelector(".addToListButton")){
     var selectedItemsCount = document.querySelectorAll(".selectedItem").length;
-    var btns = document.querySelectorAll("#getListBtn");
+    var btns = document.querySelectorAll(".addToListButton");
     if(selectedItemsCount > 0){
       $(btns).each(function() {
                       $(this).prop('disabled', false);

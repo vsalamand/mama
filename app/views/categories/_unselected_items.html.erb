@@ -1,0 +1,40 @@
+<% if categories.any? %>
+
+    <% StoreSection.order(:position).each do |store_section| %>
+        <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader">
+          <div id="<%= store_section.name.parameterize(separator: '') %>Header">
+            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+              <div class="d-flex align-items-center">
+                <p class="m-0 p-1 font-weight-bold lead"><%= store_section.name %></p>
+              </div>
+            </ul>
+          </div>
+          <div id="<%= store_section.name.parameterize(separator: '') %>Elements">
+            <% categories.select{ |c| c.store_section == store_section}.sort_by{|e| e.name.parameterize }.each do |c| %>
+              <% if c == selected_category %>
+                <%= render 'items/selected_item', item: Item.find_by(name: c.name, list: nil) %>
+              <% else %>
+                <%= render 'items/unselected_item', item: Item.find_by(name: c.name, list: nil) %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+
+    <div id="non-alimentaires" class="listHeader">
+      <div id="non-alimentairesHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead">Non-alimentaires</p>
+          </div>
+        </ul>
+      </div>
+      <div id="non-alimentairesElements">
+        <%  categories.select{ |c| c.store_section.nil? }.sort_by{|e| e.name.parameterize }.each do |c| %>
+          <%= render 'items/unselected_item', item: Item.find_by(name: c.name, list: nil) %>
+        <% end %>
+      </div>
+    </div>
+
+<% end %>
+

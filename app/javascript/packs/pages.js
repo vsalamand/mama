@@ -125,40 +125,6 @@ function getList(items, listId, context, sourceId) {
 }
 
 
-//  Add to list
-$(document).on("click" , "#addToListBtn", function(event) {
-
-   // disable button
-  $(this).prop("disabled", true);
-  // add spinner to button
-  $(this).html(
-    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
-  );
-
-  const listId = this.getAttribute('list-data');
-  const recipeIds = this.getAttribute('recipe-data');
-  const items = this.getAttribute('data');
-
-  addToList(items, listId, recipeIds);
-});
-
-function addToList(items, listId, recipeIds) {
-  // query suggested items
-  $.ajax({
-    url: "/add_to_list",
-    cache: false,
-    dataType: 'script',
-    data: {
-        l: listId,
-        r: recipeIds,
-        i: items
-        },
-    success: function(){
-    }
-  });
-}
-
-
 
 
 

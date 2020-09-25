@@ -1,14 +1,17 @@
-<% if lists.any? %>
-  <% lists.each do |list| %>
-    <div class="card rounded-0">
-      <div class="card-header text-primary font-weight-bold d-flex flex-column">
-        <span><%= list.name %></span>
-      </div>
-      <ul class="list-group list-group-flush p-1">
-        <% list.get_items_to_buy.compact.sort_by(&:name).each do |item| %>
-          <%= render 'items/unselected_item', item: item %>
+ <% if item.present? && item.category.present? && suggested_items.any? %>
+  <div class="alert alert-light border px-3 m-0">
+      <div class="col giveMeEllipsis4 px-0 text-primary">
+        <li class="btn btn-link p-0 recommendations text-muted"><%= item.name.capitalize %> +</li>
+        <% suggested_items.shuffle.each_with_index do |category, index| %>
+          <% if index < 6 %>
+            <%= link_to list_discover_path(list, c: item.category.id, i: category.name), style:"text-decoration: none;" do %>
+             <li class="btn btn-link p-0 pr-1 recommendations" id="<%= index %>"><%= category.name %>,</li>
+            <% end %>
+          <% end %>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <%= link_to list_discover_path(list, c: item.category.id), style:"text-decoration: none;" do %>
+          <li class="btn btn-link p-0 pr-2 recommendations">Plus <i class="fas fa-arrow-right"></i></li>
+        <% end %>
+      </div>
+  </div>
 <% end %>
