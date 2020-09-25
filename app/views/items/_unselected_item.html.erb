@@ -1,3 +1,4 @@
+<% if item.present? %>
   <div id="item-id<%= item.id %>">
     <li class="border-0 px-2 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;" id="<%= dom_id(item) %>">
 
@@ -14,3 +15,4 @@
 
     </li>
   </div>
+<% end %>
