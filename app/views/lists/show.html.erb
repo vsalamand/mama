@@ -1,6 +1,9 @@
 <% content_for :meta_title, "#{@list.name}" %>
 <% content_for :meta_description, "#{@items.pluck(:name).join(", ").capitalize[0..255] if @items.any?}" %>
 
+<div id="iOSInstallNavbar"></div>
+<div id="androidInstallNavbar"></div>
+
 
 <% if user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>

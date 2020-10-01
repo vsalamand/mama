@@ -31,6 +31,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
   def edit_modal
     @list = List.find(params[:list_id])
     @item = Item.find(params[:item_id])
@@ -60,7 +64,11 @@ class ItemsController < ApplicationController
       @item.save
       @headername = @item.get_header_name
 
-      render "update.js.erb"
+      respond_to do |format|
+        format.html { redirect_to list_path(@item.list) }
+        format.js { render 'update.js.erb' }
+      end
+
       ahoy.track "Edit list item", name: @item.name
 
     elsif @item.recipe_id.present?
