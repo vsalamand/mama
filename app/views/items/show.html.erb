@@ -1,0 +1,37 @@
+<div class="sticky-top bg-white">
+    <div class="container px-2">
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+          <%= link_to list_path(@item.list), class:"navbar-brand text-dark d-flex align-items-center" do %>
+            <i class="fas fa-lg fa-arrow-left p-2"></i>
+          <% end %>
+
+      </nav>
+    </div>
+</div>
+
+
+  <div class="container">
+    <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
+
+      <%= simple_form_for([ @item.list, @item ]) do |form| %>
+          <%= form.input :name, as: :string, label: false, input_html: { value: "#{@item.name}", id:"editListItem", class:"form-control form-control-lg font-weight-bold text-primary" }, wrapper_html: { class:"m-0" } %>
+
+        <div class="p-3 bg-white">
+          <label for="inputStoreSection">Rayon</label>
+          <%= form.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, input_html: {class:"form-control form-control-lg font-weight-bold text-primary" }, wrapper_html: { class:"m-0" } %>
+        </div>
+        <div class="modal-footer px-0">
+          <%= button_tag(type: "submit", class:"btn btn-lg btn-light border") do %>
+            Modifier
+          <% end %>
+        </div>
+      <% end %>
+
+
+
+
+  </div>
+</div>
+
+
+

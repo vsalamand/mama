@@ -10,7 +10,7 @@ require("jquery-ui/ui/widgets/sortable")
 // loadSuggestions();
 
 $(document).on("turbolinks:load", function(event) {
-  loadSuggestions();
+  // loadSuggestions();
   // getPriceBtn();
   setListOnboarding();
   setStoreSectionHeaders();

@@ -2,8 +2,8 @@
   <div class="alert alert-light border px-3 m-0">
       <div class="col giveMeEllipsis4 px-0 text-primary">
         <li class="btn btn-link p-0 recommendations text-muted"><%= item.name.capitalize %> +</li>
-        <% suggested_items.shuffle.each_with_index do |category, index| %>
-          <% if index < 6 %>
+        <% suggested_items[0..5].shuffle.each_with_index do |category, index| %>
+          <% if index < 3 %>
             <%= link_to list_discover_path(list, c: item.category.id, i: category.name), style:"text-decoration: none;" do %>
              <li class="btn btn-link p-0 pr-1 recommendations" id="<%= index %>"><%= category.name %>,</li>
             <% end %>

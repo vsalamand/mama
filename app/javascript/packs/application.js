@@ -97,15 +97,15 @@ var android = /(android)/i.test(navigator.userAgent);
 var isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
 
 
+// $(document).on("turbolinks:load", function(event) {
+//   if (android === true && isInStandaloneMode === false && document.getElementById("todo_list")) {
+//     getInstallMessageAndroid();
+//     // var installBtn = document.getElementById('installBtn');
+//     // installBtn.style.display = "block";
+//   }
+// })
 $(document).on("turbolinks:load", function(event) {
-  if (android === true && isInStandaloneMode === false && document.getElementById("todo_list")) {
-    // getInstallMessageAndroid();
-    var installBtn = document.getElementById('installBtn');
-    installBtn.style.display = "block";
-  }
-})
-$(document).on("turbolinks:load", function(event) {
-  if (android === true && isInStandaloneMode === false && document.getElementById("androidInstallNavbar")) {
+  if (android === true && isInStandaloneMode === false) {
     getInstallMessageAndroid();
   }
 })
@@ -140,15 +140,15 @@ var  isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matche
 // Checks if should display install popup notification:
 // if (isIos() && !isInStandaloneMode()) {
   // this.setState({ showInstallMessage: true });
+// $(document).on("turbolinks:load", function(event) {
+//   if (iOS === true && isSafari === true && isInStandaloneMode === false && document.getElementById("todo_list")) {
+//     getInstallMessageIOS();
+//     // var installBtn = document.getElementById('installBtn');
+//     // installBtn.style.display = "block";
+//   }
+// })
 $(document).on("turbolinks:load", function(event) {
-  if (iOS === true && isSafari === true && isInStandaloneMode === false && document.getElementById("todo_list")) {
-    // getInstallMessageIOS();
-    var installBtn = document.getElementById('installBtn');
-    installBtn.style.display = "block";
-  }
-})
-$(document).on("turbolinks:load", function(event) {
-  if (iOS === true && isSafari === true && isInStandaloneMode === false && document.getElementById("iOSInstallNavbar")) {
+  if (iOS === true && isSafari === true && isInStandaloneMode === false) {
     getInstallMessageIOS();
   }
 })
