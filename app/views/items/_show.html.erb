@@ -1,7 +1,7 @@
   <div id="grocerylist-item-id<%= item.id %>" class="listItemShow" data="<%= item.id %>">
-    <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between" >
 
       <% if item.is_completed == false %>
+        <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
           <div class="d-flex align-items-center">
             <%= link_to item_path(item), method: :delete, remote: true do %>
               <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
@@ -17,7 +17,10 @@
           <%= link_to list_item_complete_path(item.list, item), remote: true  do %>
            <i class="far fa-lg fa-square px-2"></i>
           <% end %>
+        </li>
       <% else %>
+
+         <li class="rounded bg-white mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed" >
           <div class="d-flex align-items-center">
             <%= link_to item_path(item), method: :delete, remote: true do %>
               <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
@@ -25,14 +28,16 @@
               </button>
             <% end %>
             <%= render "items/rating_indicator", item: item %>
-            <p class="lead m-0 p-0 text-muted no-link" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
+            <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
+              <p class="lead m-0 p-0 text-muted no-link" style="cursor: pointer;" data="<%= item.id %>"><del><%= item.name %></del></p>
+            <% end %>
           </div>
           <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
             <i class="fas fa-lg fa-check-square text-muted px-2"></i>
           <% end %>
+       </li>
       <% end %>
 
-    </li>
   </div>
 
 

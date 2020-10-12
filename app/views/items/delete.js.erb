@@ -1,5 +1,9 @@
 // then when click is detected do the following:
 // remove card from grocerylist
+var section = document.getElementById("<%= @headername %>")
+var newData = Number(section.getAttribute('data')) - 1;
+$(section).attr('data', newData);
+
 const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
 listItemCard.remove();
 

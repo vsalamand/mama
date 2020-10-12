@@ -15,7 +15,10 @@ function refreshForm(innerHTML) {
 }
 
 function insert() {
+  const section = document.getElementById("<%= @headername %>")
   const sectionElements = document.getElementById("<%= @headername %>Elements");
+  var newData = Number(section.getAttribute('data')) + 1;
+  $(section).attr('data', newData);
   sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @item %>");
   sortSectionElements(sectionElements);
 }

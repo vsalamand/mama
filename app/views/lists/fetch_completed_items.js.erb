@@ -1,0 +1,9 @@
+var section = document.getElementById("<%= @store_section ? @store_section.name.parameterize(separator: '') : 'non-alimentaires' %>");
+var items = section.querySelector(".sectionItems");
+var completedItems = items.querySelectorAll(".completed");
+var button = section.querySelector(".showCompletedItems");
+
+
+button.remove();
+$(completedItems).remove();
+items.insertAdjacentHTML('beforeend', "<%= j render 'items/index', items: @items %>");
