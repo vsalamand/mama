@@ -1,0 +1,53 @@
+<% unless store_section.nil? %>
+  <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader" data="<%= items.size %>">
+    <div id="<%= store_section.name.parameterize(separator: '') %>Header">
+      <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+        <div class="d-flex align-items-center">
+          <p class="m-0 p-1 font-weight-bold lead text-muted"><%= store_section.name %></p>
+        </div>
+      </ul>
+    </div>
+    <div id="<%= store_section.name.parameterize(separator: '') %>Elements" class="sectionItems">
+      <% items.where(is_completed: false).sort_by{|e| e.name.parameterize }.each do |item| %>
+        <%= render 'items/show', item: item %>
+      <% end %>
+    </div>
+
+    <% if items.where.not(is_completed: false).any? %>
+      <div class="btn btn-sm bg-transparent border rounded p-2 d-flex align-items-center showCompletedItems" data="<%= store_section.id %>">
+        <i class="fas fa-chevron-down text-primary mx-2"></i>
+        <p class="m-0 text-muted font-weight-light"> Produits barrés </p>
+      </div>
+    <% end %>
+
+  </div>
+
+
+
+<% else %>
+
+
+
+    <div id="non-alimentaires" class="listHeader"  data="<%= items.size %>">
+      <div id="non-alimentairesHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead text-muted">Non-alimentaires</p>
+          </div>
+        </ul>
+      </div>
+      <div id="non-alimentairesElements" class="sectionItems">
+        <%  items.where(is_completed: false).sort_by{|e| e.name.parameterize }.each do |item| %>
+          <%= render 'items/show', item: item %>
+        <% end %>
+      </div>
+      <% if items.where.not(is_completed: false).any? %>
+        <div class="btn btn-sm bg-transparent border rounded p-2 d-flex align-items-center showCompletedItems" data="0">
+          <i class="fas fa-chevron-down text-primary mx-2"></i>
+          <p class="m-0 text-muted font-weight-light"> Produits barrés </p>
+        </div>
+      <% end %>
+    </div>
+
+
+<% end %>

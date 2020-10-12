@@ -124,7 +124,7 @@ class ItemsController < ApplicationController
     @list = @item.list
     if @list
       @item.delete
-      # @headername = @item.get_header_name
+      @headername = @item.get_header_name
       render "delete.js.erb"
       ahoy.track "Destroy list item", name: @item.name
     else

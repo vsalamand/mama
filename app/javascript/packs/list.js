@@ -396,8 +396,8 @@ function setStoreSectionHeaders() {
   if(document.getElementById("todo_list")) {
     var headers = document.querySelectorAll('.listHeader');
     $(headers).map(function() {
-     var count = $(this).find('li').length;
-      if(count === 0){
+      var count = this.getAttribute("data");
+      if(count === "0"){
          this.style.display = "none";
       } else {
          this.style.display = "block";
@@ -405,6 +405,28 @@ function setStoreSectionHeaders() {
     })
   }
 }
+
+
+// unhide completed items
+$(document).on("click", ".showCompletedItems", function(event) {
+  var storeSectionId = this.getAttribute("data");
+  showCompletedItems(storeSectionId);
+})
+
+function showCompletedItems(storeSectionId) {
+  var listId = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + listId + "/fetch_completed_items",
+    cache: false,
+    data: {
+      ss: storeSectionId
+      },
+    success: function(){
+    }
+  });
+}
+
 
 
 // Set list score

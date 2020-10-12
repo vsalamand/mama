@@ -120,6 +120,21 @@ class ListsController < ApplicationController
     end
   end
 
+  def fetch_completed_items
+    @list = List.friendly.find(params[:list_id])
+    store_section_id = params[:ss].to_i
+
+    if store_section_id > 0
+      @store_section = StoreSection.find(store_section_id)
+      @items = @list.get_store_section_items(@store_section).where(is_completed: true).sort_by{|e| e.name.parameterize }
+    else
+      @store_section = nil
+      @items = @list.items.not_deleted.where(store_section_id: nil).where(is_completed: true).sort_by{|e| e.name.parameterize }
+    end
+
+    render 'fetch_completed_items.js.erb'
+  end
+
   def get_suggested_items
     @list = List.friendly.find(params[:list_id])
     @checklists = Checklist.first.get_curated_lists
