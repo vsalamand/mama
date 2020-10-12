@@ -18,9 +18,7 @@
 
       <div class="px-3 my-4 text-center">
         <% if current_user.beta %>
-          <%= link_to "Je veux manger", assistant_path, class:"btn bg-transparent text-primary border btn-lg m-1 px-5" %>
-        <% else %>
-          <%= link_to "Idée recette", cuisine_path, class:"btn bg-transparent text-primary border rounded btn-lg m-1 px-5" %>
+          <%= link_to "Idée recette", assistant_path, class:"btn bg-transparent text-primary border btn-lg m-1 px-5" %>
         <% end %>
         <%= link_to "Nouvelle liste", new_list_path, class:"btn bg-transparent text-primary border rounded btn-lg m-1 px-5" %>
       </div>

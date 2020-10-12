@@ -1,7 +1,23 @@
 const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
-listItemCard.innerHTML = "";
-listItemCard.innerHTML = ("<%= j render 'items/show', list: @list, item: @item %>");
+listItemCard.remove();
+insert();
 
+function insert() {
+  const section = document.getElementById("<%= @headername %>")
+  const sectionElements = document.getElementById("<%= @headername %>Elements");
+  var newData = Number(section.getAttribute('data')) + 1;
+  $(section).attr('data', newData);
+  sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @item %>");
+  sortSectionElements(sectionElements);
+}
+
+function sortSectionElements(sectionElements) {
+  const listItems = sectionElements.querySelectorAll(".listItemShow")
+  const sortedListItems = $(listItems).sort((a,b)=>a.innerText.toLowerCase()>b.innerText.toLowerCase()?1:-1)
+  const sortedSectionElements = $(sortedListItems).map(function() {
+    sectionElements.appendChild(this);
+  })
+}
 
 setScore();
 // Set list score
@@ -16,22 +32,4 @@ function setScore() {
       }
     });
   }
-}
-
-
-const current_user_id = "<%= current_user.id %>";
-// getEditHistory(current_user_id);
-
-function getEditHistory(current_user_id) {
-  const listId = document.querySelector("#todo_list").getAttribute('data');
-
-  $.ajax({
-    url: "/lists/" + listId + "/get_edit_history",
-    cache: false,
-    data: {
-      a: current_user_id
-      },
-    success: function(data){
-    }
-  });
 }

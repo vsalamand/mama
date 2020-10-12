@@ -96,6 +96,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:item_id])
     @list = @item.list
     @item.uncomplete
+    @headername = @item.get_header_name
 
     render "uncomplete.js.erb"
     ahoy.track "Uncomplete list item", name: @item.name
