@@ -68,7 +68,7 @@
 
     <div class="">
       <p class="bigh1 font-weight-bold text-center">Synthèse</p>
-      <%= pie_chart @list.items.not_deleted.map{|i| i.category.get_food_group if i.category.present?}.compact.group_by(&:root).map { |k, v| [k.name, v.size] }.to_h, legend: "bottom" %>
+      <%= pie_chart @list.items.not_deleted.where(is_completed: false).map{|i| i.category.get_food_group if i.category.present?}.compact.group_by(&:root).map { |k, v| [k.name, v.size] }.to_h, legend: "bottom" %>
     </div>
 
 

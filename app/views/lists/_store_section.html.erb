@@ -16,7 +16,7 @@
     <% if items.where.not(is_completed: false).any? %>
       <div class="btn btn-sm bg-transparent border rounded p-2 d-flex align-items-center showCompletedItems" data="<%= store_section.id %>">
         <i class="fas fa-chevron-down text-primary mx-2"></i>
-        <p class="m-0 text-muted font-weight-light"> Produits barrés </p>
+        <p class="m-0 text-muted font-weight-light"> Produits barrés dans <%= store_section.name %></p>
       </div>
     <% end %>
 

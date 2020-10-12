@@ -215,12 +215,14 @@ class List < ApplicationRecord
 
   def get_good_and_limit_foodgroup_items(foodgroup)
     Item.where(is_deleted: false,
+               is_completed: false,
                list_id: self.id,
                category_id: Category.where(rating: [1, 2]).where(:food_group_id => foodgroup.subtree.pluck(:id)).map{ |c| c.subtree }.flatten.uniq)
   end
 
   def get_rated_items(rating_array)
     Item.where(is_deleted: false,
+               is_completed: false,
                list_id: self.id,
                category_id: Category.where(rating: rating_array).pluck(:id))
   end
