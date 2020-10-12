@@ -1,49 +1,9 @@
 <% content_for :meta_title, "Cuisine" %>
-<% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas de la semaine sans même y penser." %>
+<% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas sans même y penser !" %>
 
 
-<div class="banner d-flex flex-column">
-  <div class="container px-2 mt-5">
-    <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
-
-<!--        <h1 class="bigh1 font-weight-bold">Cuisine</h1>
- -->
-      <hr class="my-3">
-
-        <% unless params[:l].present? %>
-          <div class="container px-1" id="searchRecipes" >
-              <div class="text-left text-muted" >
-                <div class="search-form-control form-group shadow-lg">
-                    <%= form_tag(meals_path, :method => "get") do %>
-                      <%= text_field_tag :query, params[:query], placeholder: "🔎 Chercher une recette", required: true, class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary" %>
-                      <%= submit_tag "Chercher", class: "btn btn-sm btn-primary" %>
-                    <% end %>
-                </div>
-              </div>
-          </div>
-        <% end %>
-
-        <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0 my-4">
-
-            <hr class="my-2 mx-5">
-            <div class="px-5 py-3 rounded text-center mb-2">
-              <% if @categories.present? %>
-                <% @categories.recommendation_items.order(:id).each do |recommendation|  %>
-                    <%= link_to "#{recommendation.name}", meals_path(category_id: recommendation.id), class:"p lead font-weight-bold" %>
-                    <hr class="my-4 mx-5">
-                <% end %>
-              <% end %>
-            </div>
-
-
-        </div>
-
-
-    </div>
-  </div>
-
+<div id="cuisineContent">
+  <%= render "assistant/meal", recipe: @recipe, selected_categories: @selected_categories %>
 </div>
-
-<div style="padding: 50px;"></div>
 
 

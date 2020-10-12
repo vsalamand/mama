@@ -20,3 +20,11 @@
   font-size: 2.5rem;
 }
 
+.giveMeEllipsis3 {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   color:white;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 3; /* number of lines to show */
+}

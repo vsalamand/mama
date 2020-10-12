@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_admin!
+  skip_before_action :authenticate_user!, only: [:select, :unselect]
+
 
   def show
     @category = Category.find(params[:id])
@@ -46,6 +48,18 @@ class CategoriesController < ApplicationController
     @parent = @category.parent
     @category.destroy
     redirect_to category_path(@parent)
+  end
+
+  def select
+    @category = Category.find(params[:category_id])
+    render "select.js.erb"
+    ahoy.track "Select item", name: @category.name
+  end
+
+  def unselect
+    @category = Category.find(params[:category_id])
+    render "unselect.js.erb"
+    ahoy.track "Unselect item", name: @category.name
   end
 
   def tree

@@ -1,0 +1,7 @@
+<% content_for :meta_title, "De quoi avez-vous envie ?" %>
+<% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas sans même y penser !" %>
+
+<div id="assistantContent">
+  <%= render "assistant/products", categories: @categories, selected_categories: @selected_categories %>
+</div>
+

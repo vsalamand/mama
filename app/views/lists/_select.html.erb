@@ -5,7 +5,7 @@
         <i class="fas fa-lg fa-arrow-left p-2"></i>
       </a>
 
-      <button class="btn btn-outline-primary addToListButton" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @ref_list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Ajouter la sélection</button>
+      <button class="btn bg-transparent btn-lg border text-primary font-weight-bold addToListButton" id="getListBtn" data="<%= @selected_items %>" context="list" source="<%= list.id %>" list-data="<%= @ref_list_id %>" recipe-data="<%= recipes.pluck(:id) if recipes.any? %>">Ajouter la sélection</button>
 
     </nav>
   </div>
@@ -14,10 +14,9 @@
 
 
 
-<div class="container my-4 text-center">
+<div class="container">
   <div class="jumbotron jumbotron-fluid bg-white m-0">
-    <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
-    <hr class="my-4">
+    <h1 class=""><%= list.name %></h1>
     <p class="lead">Sélectionnez les produits que vous souhaitez ajouter.</p>
     <a class="btn btn-light border text-primary btn-lg selectAllListItemsBtn" data="<%= list.id %>" style="cursor: pointer;" role="button">Tout sélectionner</a>
   </div>

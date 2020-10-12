@@ -1,16 +1,16 @@
 
 <% if recipe.items.any? %>
-    <% Category.roots.each do |category| %>
-        <div id="<%= category.name.parameterize(separator: '') %>" class="listHeader">
-          <div id="<%= category.name.parameterize(separator: '') %>Header">
+    <% StoreSection.order(:position).each do |store_section| %>
+        <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader">
+          <div id="<%= store_section.name.parameterize(separator: '') %>Header">
             <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
               <div class="d-flex align-items-center">
-                <p class="m-0 p-1 font-weight-bold lead"><%= category.name %></p>
+                <p class="m-0 p-1 font-weight-bold lead"><%= store_section.name %></p>
               </div>
             </ul>
           </div>
-          <div id="<%= category.name.parameterize(separator: '') %>Elements" class="recipeItem<%= recipe.id %>">
-            <% recipe.items.where(category_id: category.subtree.pluck(:id)).sort_by{|e| e.name.parameterize }.each do |item| %>
+          <div id="<%= store_section.name.parameterize(separator: '') %>Elements" class="recipeItem<%= recipe.id %>">
+            <% recipe.get_store_section_items(store_section).sort_by{|e| e.name.parameterize }.each do |item| %>
               <%= render 'items/unselected_item', item: item %>
             <% end %>
           </div>
@@ -25,9 +25,10 @@
         </ul>
       </div>
       <div id="non-alimentairesElements" class="recipeItem<%= recipe.id %>">
-        <%  recipe.items.where(category_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
+        <%  recipe.items.where(store_section_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
           <%= render 'items/unselected_item', item: item %>
         <% end %>
       </div>
     </div>
 <% end %>
+

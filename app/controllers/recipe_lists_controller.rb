@@ -15,7 +15,6 @@ class RecipeListsController < ApplicationController
     # @recipe_list.recipe_list_items.build
     # @checklist = Checklist.get_checklist(@recipe_list.foods)
     ahoy.track "Show recipe list", request.path_parameters
-    redirect_to root_path
   end
 
   def new
