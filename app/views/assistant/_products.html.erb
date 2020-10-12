@@ -1,0 +1,48 @@
+<div class="wrapper d-flex flex-column bd-highlight" id="assistantWrapper" style="background: grey; height: 100vh;">
+
+  <div class="">
+    <div class="container">
+       <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+          <a class="navbar-brand text-white d-flex align-items-center" href="/">
+            <i class="fas fa-lg fa-times p-2"></i>
+          </a>
+
+          <a class="btn btn-link btn-lg font-weight-bold text-white" id="" href="/cuisine">Continuer</a>
+
+       </nav>
+    </div>
+  </div>
+
+
+
+    <div class="container my-auto bd-highlight text-white text-center">
+
+      <div class="">
+
+          <div class="">
+            <h1 class="bigh1 font-weight-bold">Ça vous fait envie ?</h1>
+
+             <div class="giveMeEllipsis4">
+                <% if @selected_categories.present? %>
+                  <% @selected_categories.each do |c| %>
+                    <span class="selectedCategory"><%= c.capitalize %></span><small> +</small>
+                  <% end %>
+                <% end %>
+             </div>
+          </div>
+
+          <div class="my-5 col">
+            <%= render "categories/unselected", category: categories.first %>
+            <%= render "categories/unselected", category: categories.second %>
+          </div>
+
+
+          <button id="refreshAssistant" class="h3 bg-transparent font-weight-light border px-4 py-2 rounded rounded-pill text-white shadow-lg">Produits suivants <i class="fas fa-arrow-right"></i></button>
+
+      </div>
+
+
+    </div>
+
+</div>
+

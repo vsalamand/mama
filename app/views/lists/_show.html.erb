@@ -28,10 +28,10 @@
     </div>
 
   <div class="wrapper mb-5">
-    <div class="container text-center">
+    <div class="container">
       <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
-        <h1 class="bigh1 font-weight-bold"><%= list.name %></h1>
-        <div class="d-flex flex-row bd-highlight mt-3 justify-content-center" id="listOptions">
+        <h1 class=""><%= list.name %></h1>
+        <div class="d-flex flex-row bd-highlight mt-3 justify-content-start" id="listOptions">
           <%= render "lists/options", list: list %>
           <a class="bd-highlight py-2 mr-1 btn btn-sm bg-light border" style="cursor: pointer;" data-toggle="modal" data-target="#editListModal">Renommer</a>
            <%= link_to list_path(list), method: :delete,  data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn btn-sm bg-light border text-secondary" do %>

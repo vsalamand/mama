@@ -88,7 +88,7 @@
           <%= render 'shared/navbar_visitor' %>
         <% end %>
 
-        <% if ["products", "explore", "meals", "cuisine", "favorites"].include?(params[:action]) %>
+        <% if ["products", "explore", "meals", "favorites"].include?(params[:action]) %>
           <%= render 'shared/navbar_black' %>
         <% end %>
 
@@ -112,7 +112,9 @@
         <% end %>
       <% end %>
 
-      <%= render 'shared/footer'  %>
+      <% unless ["assistant", "cuisine"].include?(params[:action])%>
+        <%= render 'shared/footer'  %>
+      <% end %>
 
     <% unless user_signed_in? %>
     <!-- Navbar End -->

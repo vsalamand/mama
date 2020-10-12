@@ -16,6 +16,32 @@ class PagesController < ApplicationController
     end
   end
 
+  def assistant
+    @categories = Category.get_top_recipe_categories.shuffle[0..7]
+  end
+
+  def refresh_assistant
+    @categories = Category.get_top_recipe_categories.shuffle[0..7]
+    @selected_categories = params[:c].compact if params[:c].present?
+    render "refresh_assistant.js.erb"
+  end
+
+  def cuisine
+    recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
+    @recipe = Recipe.find(recipe_idea_id)
+    @selected_categories = params[:c].compact if params[:c].present?
+
+    ahoy.track "Cuisine"
+  end
+
+  def refresh_meal
+    recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
+    @recipe = Recipe.find(recipe_idea_id)
+    @selected_categories = params[:c].compact if params[:c].present?
+    render "refresh_meal.js.erb"
+  end
+
+
   def browse
     if user_signed_in?
       @lists = current_user.get_lists
@@ -27,21 +53,13 @@ class PagesController < ApplicationController
     ahoy.track "Browse"
   end
 
-  def cuisine
-    recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
-    @recipe_idea = Recipe.find(recipe_idea_id)
-    @categories = Recommendation.find_by(name: "Categories")
-
-    redirect_to root_path
-    ahoy.track "Cuisine"
-  end
 
   def explore
     # get last published recipes
     @weekly_menu = Recommendation.find_by(name: "Featured").recipe_lists.last
     @recipes = @weekly_menu.recipe_list_items.sort_by(&:id).map{ |rli| rli.recipe }.reverse.select{|r| r.is_published?}
 
-    redirect_to root_path
+    # redirect_to root_path
     ahoy.track "Explore"
   end
 
@@ -52,7 +70,7 @@ class PagesController < ApplicationController
 
   def favorites
     @recipes = current_user.get_latest_recipe_list.recipes.order(:title)
-    redirect_to root_path
+    # redirect_to root_path
     ahoy.track "Favorites"
   end
 

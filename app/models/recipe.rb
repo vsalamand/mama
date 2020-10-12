@@ -110,6 +110,11 @@ class Recipe < ApplicationRecord
     return data
   end
 
+  def get_store_section_items(store_section)
+     Item.where(is_deleted: false,
+               recipe_id: self.id,
+               store_section_id: store_section.id)
+  end
 
   def seasonal?
     seasonal_foods = FoodList.find_by(name: "seasonal foods", food_list_type: "pool")

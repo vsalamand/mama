@@ -1,0 +1,46 @@
+<div id="recipeOverlay" style="display: none;"><%= render "recipes/show", recipe: recipe %></div>
+
+
+
+<div id="assistantMeal">
+  <div class="wrapper d-flex flex-column bd-highlight" id="assistantWrapper" style="background: grey; height: 100vh;">
+
+      <div class="container">
+         <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+            <a class="navbar-brand text-white d-flex align-items-center" href="/">
+              <i class="fas fa-lg fa-times p-2"></i>
+            </a>
+
+            <a class="btn btn-link btn-lg font-weight-bold text-white" id="nextStepBtn" href="/cuisine">Terminer</a>
+
+         </nav>
+      </div>
+
+
+
+      <div class="container my-auto bd-highlight text-white text-center">
+
+            <div class="recipeLinkClick" style="cursor: pointer; height: 75vh; overflow-x: hidden; overflow-y: hidden;" id="toggleRecipeShow">
+              <h2 class="font-weight-bold giveMeEllipsis3 mb-0"><%= recipe.title %></h2>
+               <div class="giveMeEllipsis4">
+                  <% if @selected_categories.present? %>
+                    <% @selected_categories.each do |c| %>
+                      <span class="selectedCategory"><%= c.capitalize %></span><small> +</small>
+                    <% end %>
+                  <% end %>
+               </div>
+
+              <div class="d-flex justify-content-center">
+                <%= render "recipes/card", recipe: recipe %>
+              </div>
+            </div>
+
+            <div>
+              <button id="refreshMeal" class="h3 bg-transparent font-weight-light border px-4 py-2 mt-2 rounded rounded-pill text-white shadow-lg">Recette suivante <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+      </div>
+
+  </div>
+</div>
+

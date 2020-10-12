@@ -38,6 +38,8 @@ import 'packs/recipe_lists';
 import 'packs/recipes';
 import 'packs/items';
 import 'packs/pages';
+import 'packs/categories';
+import 'packs/assistant';
 
 
 // import { initListCable } from '../channels/list_channel';

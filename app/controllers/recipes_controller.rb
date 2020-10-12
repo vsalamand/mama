@@ -141,13 +141,20 @@ class RecipesController < ApplicationController
 
   def add_to_list
     @recipe = Recipe.friendly.find(params[:id])
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: "Liste de courses du #{Date.today.strftime("%d/%m")}", user: user, status: "saved", sorted_by: "rayon") if @list.nil?
+    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user, status: "saved", sorted_by: "rayon") if @list.nil?
 
-    items = params[:items]
+    params[:items] ? items = params[:items] : items = @recipe.items.pluck(:name)
 
-    ListItem.add_menu_to_list(items, @list)
+    Item.add_menu_to_list(items, @list)
 
-    render 'add_to_list.js.erb'
+    @recipe.add_recipe_to_list(@list.id)
+
+
+    respond_to do |format|
+      format.html { redirect_to list_path(@list) }
+      format.js { render 'add_to_list.js.erb' }
+    end
+
     ahoy.track "Create list from recipe", request.path_parameters
   end
 

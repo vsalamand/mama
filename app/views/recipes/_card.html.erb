@@ -1,0 +1,5 @@
+<div class="d-flex flex-column">
+  <small class="text-white p-2" ><%= URI("#{recipe.link }").host %></small>
+  <%= cl_image_tag("#{recipe.id}", :fetch_format=>:auto, :quality=>"auto:low", class:"rounded shadow-lg", style:"max-width: 80vh; max-height: 55vh;") %>
+</div>
+

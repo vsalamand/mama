@@ -96,6 +96,10 @@ Rails.application.routes.draw do
   get 'fetch_android_install', to: 'pages#fetch_android_install'
   get 'start', to:'pages#start'
   get 'fetch_landing', to:'pages#fetch_landing'
+  get 'assistant', to: 'pages#assistant'
+  get 'refresh_assistant', to:'pages#refresh_assistant'
+  get 'refresh_meal', to:'pages#refresh_meal'
+
 
   resources :recipes do
     collection do
@@ -179,6 +183,8 @@ Rails.application.routes.draw do
   end
 
   resources :categories do
+    get :select
+    get :unselect
     collection do
       get :tree
     end
