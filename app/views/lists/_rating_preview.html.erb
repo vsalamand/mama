@@ -2,27 +2,27 @@
     <% case
        when score > 99 %>
       <div class="bg-transparent d-flex justify-content-center px-2">
-        <%= cl_image_tag("menu_icons/sparkling-heart", width: 20, class:"m-0") %>
+        <%= cl_image_tag("menu_icons/sparkling-heart", width: 20, height: 20, class:"m-0") %>
       </div>
 
     <% when score > 59 %>
       <div class="bg-transparent d-flex justify-content-center px-2">
-         <%= cl_image_tag("menu_icons/green-heart", width: 20, class:"m-0") %>
+         <%= cl_image_tag("menu_icons/green-heart", width: 20, height: 20, class:"m-0") %>
       </div>
 
     <% when score > 29 %>
       <div class="bg-transparent d-flex justify-content-center px-2">
-        <%= cl_image_tag("menu_icons/yellow-heart", width: 20, class:"m-0") %>
+        <%= cl_image_tag("menu_icons/yellow-heart", width: 20, height: 20, class:"m-0") %>
       </div>
 
     <% when score > 0 %>
       <div class="bg-transparent d-flex justify-content-center px-2">
-        <%= cl_image_tag("menu_icons/orange-heart", width: 20, class:"m-0") %>
+        <%= cl_image_tag("menu_icons/orange-heart", width: 20, height: 20, class:"m-0") %>
       </div>
 
     <% when score < 1 %>
       <div class="bg-transparent d-flex justify-content-center px-2">
-        <%= cl_image_tag("menu_icons/broken-heart", width: 20, class:"m-0") %>
+        <%= cl_image_tag("menu_icons/broken-heart", width: 20, height: 20, class:"m-0") %>
       </div>
     <% end %>
 
