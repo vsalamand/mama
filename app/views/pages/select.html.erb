@@ -9,34 +9,37 @@
 </div>
 
 
-<div class="banner d-flex flex-column">
-
+<div class="wrapper d-flex flex-column bd-highlight" style="height: 100vh;">
 
   <div class="container">
 
-    <div class="jumbotron text-center d-flex align-items-center flex-column bg-white p-0 m-0">
-      <h1 class="bigh1 font-weight-bold">Ajoutez dans une liste</h1>
+      <h1 class="p-1">Ajouter dans</h1>
 
-      <hr class="my-3">
-
-      <% unless user_signed_in? %>
-        <%= link_to "Nouvelle liste", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"btn btn-flat2 font-weight-bold px-5 py-3 shadow m-1 signupBtn", context: "Add to list", action: "create list", style:"text-decoration: none;"  %>
-
-      <% else %>
-
-        <p class="btn btn-flat2 font-weight-bold px-5 py-3 shadow m-1" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="0" recipe-data="<%= @selected_recipes %>">Nouvelle liste</p>
-        <div class="px-5 py-3 rounded text-center my-2">
-          <% if current_user.get_lists.any? %>
-              <% current_user.get_lists.sort_by(&:id).reverse.each do |list|  %>
-                <p class="lead text-primary font-weight-bold" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="<%= list.id %>" recipe-data="<%= @selected_recipes %>"><%= list.name %></p>
-                <hr class="my-4 mx-5">
-              <% end %>
-          <% end %>
+      <div id="listsBrowse">
+        <div id="listsHeader">
+          <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+            <div class="d-flex align-items-center">
+              <p class="m-0 p-1 font-weight-bold lead text-muted">Vos listes</p>
+            </div>
+          </ul>
         </div>
+        <% if @lists.present? %>
+          <% @lists.sort_by(&:id).reverse.each do |list|  %>
+            <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+              <div class="lead text-primary font-weight-bold px-2" style="cursor: pointer;" id="addToListBtn" data="<%= list.id %>" recipe-data="<%= @selected_recipes %>"><%= list.name %></div>
+            </li>
+          <% end %>
+        <% end %>
+      </div>
 
-      <% end %>
+      <div class="pl-1 mb-4">
+        <% if @lists.size < 5 %>
+          <p class="btn btn-light border rounded m-1 px-5" style="cursor: pointer;" id="addToListBtn" data="<%= @selected_items %>" list-data="0" recipe-data="<%= @selected_recipes %>">Nouvelle liste</p>
+        <% else %>
+          <small class="m-1 text-muted"><i class="fas fa-check text-success pl-2 pr-1"></i> 5 listes maximum </small>
+        <% end %>
+      </div>
 
-    </div>
 
 
   </div>

@@ -479,15 +479,15 @@ $(document).on("click" , "#addToListBtn", function(event) {
   $(this).prop("disabled", true);
   // add spinner to button
   $(this).html(
-    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
   );
 
   const selectedItems = document.querySelectorAll(".selectedItem");
-  var items = []
+  var items = [];
   $(selectedItems).map(function() {
                    items.push($(this).text().trim());
 
-                })
+                });
 
   const listId = this.getAttribute('data');
 

@@ -1,0 +1,20 @@
+<div id="recipe-id<%= recipe.id %>" data="<%= recipe.id %>">
+  <li class="rounded alert-warning mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+    <div class="d-flex align-items-center">
+      <% if false %>
+      <%= link_to recipe_path(recipe) do %>
+        <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <% end %>
+      <% end %>
+      <%= link_to recipe_path(recipe) do %>
+         <p class="li lead m-0 px-2 no-link text-primary font-weight-bold" style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
+       <% end %>
+
+    </div>
+    <div id="isFavorite<%= recipe.id %>">
+      <%= render 'shared/favorite', recipe: recipe %>
+    </div>
+  </li>
+</div>
