@@ -1,0 +1,4 @@
+
+  var scorePreview = document.querySelector("#listScorePreview-<%= @list.id %>");
+  scorePreview.innerHTML = "";
+  scorePreview.innerHTML = ("<%= j render 'lists/rating_preview', list: @list, score: @list.get_score %>");

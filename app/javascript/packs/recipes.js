@@ -27,32 +27,33 @@ $(document).on("click" , "#addRecipeToListBtn", function(event) {
   $(this).prop("disabled", true);
   // add spinner to button
   $(this).html(
-    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement...`
+    `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`
   );
 
   // get items in list
-  const recipeId = this.getAttribute('data');
-  const recipeClass = ".recipeItem" + recipeId;
-  const recipeSelector = document.querySelector(recipeClass);
+  const recipeId = this.getAttribute('recipe-data');
+  const listId = this.getAttribute('list-data');
 
-  const selectedItems = recipeSelector.querySelectorAll(`.selectedItem`);
-
-  const items = []
+  const selectedItems = document.querySelectorAll(".selectedItem");
+  var items = [];
   $(selectedItems).map(function() {
                    items.push($(this).text().trim());
-                })
 
-  addRecipeToList(items, recipeId);
+                });
+
+  addRecipeToList(items, recipeId, listId);
 
 });
 
-function addRecipeToList(items, recipeId) {
+function addRecipeToList(items, recipeId, listId) {
   // query suggested items
   $.ajax({
     url: "/recipes/" + recipeId + "/add_to_list",
     cache: false,
+    dataType: 'script',
     data: {
-        items: items
+        l: listId,
+        i: items
         },
     success: function(){
     }

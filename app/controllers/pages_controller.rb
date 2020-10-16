@@ -48,8 +48,8 @@ class PagesController < ApplicationController
       current_user.reset_current_list
     end
 
-    @checklist = Checklist.find_by(name: "templates")
-    @checklists = @checklist.get_curated_lists
+    @recipes = Recommendation.last.recipe_lists.first.recipes
+
     ahoy.track "Browse"
   end
 
@@ -86,6 +86,7 @@ class PagesController < ApplicationController
     @recipes = Recipe.find(params[:r].split("&r=")) if params[:r] && params[:r].present?
 
     @list = List.friendly.find(params[:l]) if params[:l].present?
+    @lists = current_user.get_lists
 
     if @list.present?
       redirect_to add_to_list_path(l: @list.id, r: @selected_recipes, i: @selected_items)

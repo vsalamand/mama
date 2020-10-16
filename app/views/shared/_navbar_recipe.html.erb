@@ -7,14 +7,55 @@
       </a>
 
       <% if list.present? %>
-        <button class="btn btn-flat2" id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id  %>" recipe-data="<%= recipe.id %>">Ajouter la sélection</button>
+        <button class="btn bg-transparent btn-lg border text-primary font-weight-bold " id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id  %>" recipe-data="<%= recipe.id %>">Ajouter à une liste</button>
 
       <% else %>
-        <button class="btn btn-flat2" id="getListBtn" context="recipe" source="<%= recipe.id %>" recipe-data="<%= recipe.id %>">Ajouter la sélection</button>
+        <button type="button" class="btn bg-transparent btn-lg border text-primary font-weight-bold " data-toggle="modal" data-target="#addToListModal">
+          Ajouter à une liste
+        </button>
 
       <% end %>
 
     </nav>
   </div>
 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addToListModalLabel">Ajouter à</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="listIndex">
+          <div id="listsHeader">
+            <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+              <div class="d-flex align-items-center">
+                <p class="m-0 p-1 font-weight-bold lead text-muted">Vos listes</p>
+              </div>
+            </ul>
+          </div>
+          <% if lists.present? %>
+            <% lists.sort_by(&:id).reverse.each do |glist|  %>
+              <li class="rounded alert-primary mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+                <div class="lead text-primary font-weight-bold px-2" style="cursor: pointer;" id="addRecipeToListBtn" list-data="<%= glist.id %>" recipe-data="<%= recipe.id %>"><%= glist.name %></div>
+              </li>
+            <% end %>
+          <% end %>
+
+        <div class="pl-1 mb-4">
+          <% if lists.size < 5 %>
+            <p class="btn btn-light border rounded m-1 px-5" style="cursor: pointer;" id="addRecipeToListBtn" list-data="0" recipe-data="<%= recipe.id %>">Nouvelle liste</p>
+          <% else %>
+            <small class="m-1 text-muted"><i class="fas fa-check text-success pl-2 pr-1"></i> 5 listes maximum </small>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

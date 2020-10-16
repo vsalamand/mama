@@ -252,8 +252,12 @@ class ListsController < ApplicationController
   def destroy
     # @list = List.find(params[:id])
     @list.delete
-    redirect_to lists_path if @list.list_type == "curated"
-    redirect_to root_path if @list.list_type == "personal"
+    @lists = current_user.get_lists
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js { render 'destroy.js.erb' }
+    end
     ahoy.track "Destroy list", request.path_parameters
   end
 
@@ -299,6 +303,11 @@ class ListsController < ApplicationController
     @list.set_game if @list.task_items.size != Task.where(game_id: @list.id).size
     @score = @list.get_score
     render "get_score.js.erb"
+  end
+
+  def get_score_preview
+    @list = List.friendly.find(params[:list_id])
+    render "get_score_preview.js.erb"
   end
 
   def get_rating_progress

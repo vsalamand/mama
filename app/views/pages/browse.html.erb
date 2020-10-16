@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container px-2">
   <nav class="sticky-top navbar navbar-expand-lg navbar-light border-bottom bg-white">
      <a class="navbar-brand d-flex align-items-center font-weight-bold" href="/">
       <%= cl_image_tag("menu_icons/sparkling-heart", width: 20) %>
@@ -8,43 +8,55 @@
   </nav>
 </div>
 
-<div class="d-flex flex-column">
-
-
+<div class="wrapper d-flex flex-column bd-highlight" style="height: 75vh;">
   <div class="container px-2">
-
-    <div class="jumbotron d-flex align-items-center bg-white flex-column p-0">
-
-
-      <div class="px-3 my-4 text-center">
-        <% if current_user.beta %>
-          <%= link_to "Idée recette", assistant_path, class:"btn bg-transparent text-primary border btn-lg m-1 px-5" %>
-        <% end %>
-        <%= link_to "Nouvelle liste", new_list_path, class:"btn bg-transparent text-primary border rounded btn-lg m-1 px-5" %>
-      </div>
-
-      <div class="px-3 rounded mb-2 text-center">
+      <div id="listIndex">
+        <div id="listsHeader">
+          <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+            <div class="d-flex align-items-center">
+              <p class="m-0 p-1 font-weight-bold lead text-muted">Vos listes</p>
+            </div>
+          </ul>
+        </div>
         <% if @lists.present? %>
-            <% @lists.sort_by(&:id).reverse.each do |list|  %>
-              <div class="d-flex flex-column m-0">
-                <%= link_to "#{list.name}", list_path(list), class:"lead font-weight-bold m-1" %>
-              </div>
-              <hr class="my-3">
-            <% end %>
+          <% @lists.sort_by(&:id).reverse.each do |list|  %>
+            <div id="listElements">
+                <%= render 'lists/list', list: list %>
+            </div>
+          <% end %>
         <% end %>
       </div>
 
-
-    </div>
-
+      <div class="pl-1 mb-4" id="browseListActions">
+        <%= render 'lists/browse_actions', lists: @lists %>
+      </div>
   </div>
-
-  <div class="container fixed-bottom mb-3 text-right">
-    <a class="shadow-lg bg-white rounded-pill rounded-lg text-center ml-auto p-2 bd-highlight" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %></a>
-  </div>
-
 </div>
 
+<% if current_user.beta %>
+  <div class="container px-2 mb-5">
+    <div id="recipesBrowse">
+      <div id="recipesHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead text-muted">Un peu d'inspiration culinaire ?</p>
+          </div>
+        </ul>
+      </div>
+      <% if @recipes.present? %>
+        <% @recipes.sort_by(&:id).reverse.each do |recipe|  %>
+          <div id="recipeElements">
+              <%= render 'recipes/recipe', recipe: recipe %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="container fixed-bottom mb-3 text-right">
+  <a class="shadow-lg bg-white rounded-pill rounded-lg text-center ml-auto p-2 bd-highlight" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %></a>
+</div>
 
 
 

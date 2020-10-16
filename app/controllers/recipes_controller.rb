@@ -11,10 +11,15 @@ class RecipesController < ApplicationController
     @list_item = ListItem.new
     @list = List.find(params[:l]) if params[:l].present?
 
+    if user_signed_in?
+      @lists = current_user.get_lists
+    end
+
     @referrer = params[:ref]
     if @referrer.nil? || @referrer == request.url
-      @referrer = "/explore"
+      @referrer = "/"
     end
+
 
     respond_to do |format|
       format.html
@@ -141,9 +146,9 @@ class RecipesController < ApplicationController
 
   def add_to_list
     @recipe = Recipe.friendly.find(params[:id])
-    params[:list_id] ? @list = List.find(params[:list_id]) : @list = List.create(name: @recipe.title, user: current_user, status: "saved", sorted_by: "rayon") if @list.nil?
+    params[:l] != "0" ? @list = List.find(params[:l]) : @list = List.create(name: @recipe.title, user: current_user, status: "saved", sorted_by: "rayon") if @list.nil?
 
-    params[:items] ? items = params[:items] : items = @recipe.items.pluck(:name)
+    params[:i] ? items = params[:i] : items = @recipe.items.pluck(:name)
 
     Item.add_menu_to_list(items, @list)
 

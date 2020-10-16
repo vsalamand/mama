@@ -1,0 +1,10 @@
+<div>
+  <% if lists.size < 5 %>
+    <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-light border rounded m-1 px-5" %>
+  <% else %>
+    <small class="m-1 text-muted"><i class="fas fa-check text-success pl-2 pr-1"></i> 5 listes maximum </small>
+  <% end %>
+  <% if current_user.beta %>
+    <%= link_to "Idée recette", assistant_path, class:"btn btn-sm btn-link border rounded m-1 px-5" %>
+  <% end %>
+</div>

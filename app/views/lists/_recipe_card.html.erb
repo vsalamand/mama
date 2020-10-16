@@ -1,22 +1,20 @@
 <div id="<%= recipe.id %>">
 
-  <div class="card mb-3 rounded shadow border-0">
-    <div class="row no-gutters">
-      <div class="col-5">
-        <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid rounded-0") %>
-      </div>
-      <div class="col-7 d-flex align-items-start flex-column bd-highlight">
-        <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
-          <div class="card-body mb-auto p-2 bd-highlight" style="max-height: 4vh;">
-            <h5 class="card-title text-primary mb-0"><%= truncate(recipe.title, length:57) %></h5>
-            <p class="card-text m-0 p-0"><small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link }").host %></small></p>
-          </div>
-        <% end %>
-        <% if @list.user == current_user || @list.users.include?(current_user) %>
-          <button class="btn-sm border-0 text-secondary mt-auto ml-auto bd-highlight m-1 p-1" id="removeRecipefromListBtn" data="<%= recipe.id %>"><i class="fas fa-trash p-1"></i></button>
-        <% end %>
-      </div>
+  <li class="rounded alert-warning mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+    <div class="d-flex align-items-center">
+      <% if list.user == current_user || list.users.include?(current_user) %>
+        <button type="button" class="close ml-1 mr-0 text-muted" aria-label="Close" id="removeRecipefromListBtn" data="<%= recipe.id %>">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <% end %>
+      <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
+         <p class="li lead m-0 px-2 no-link text-primary font-weight-bold" style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
+       <% end %>
     </div>
-  </div>
+    <div id="isFavorite<%= recipe.id %>" class="px-2">
+      <%= render 'shared/favorite', recipe: recipe %>
+    </div>
+  </li>
 
 </div>
+

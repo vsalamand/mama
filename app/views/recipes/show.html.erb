@@ -2,8 +2,44 @@
 <% content_for :meta_description, "#{@recipe.items.pluck(:name).join(", ").capitalize[0..255]}" %>
 <% content_for :meta_image, cl_image_path(@recipe.image_url) %>
 
-<% if false %>
-<%= render "shared/navbar_recipe", recipe: @recipe, referrer: @referrer, list: @list %>
-<% end %>
+<%= render "shared/navbar_recipe", recipe: @recipe, referrer: @referrer, list: @list, lists: @lists %>
 
-<%= render 'show', recipe: @recipe, referrer: @referrer, list: @list %>
+
+
+
+<div class="container my-4  text-center">
+  <div class="jumbotron jumbotron-fluid bg-white py-3">
+      <div class="row">
+        <div class="col-md-6 p-0 my-auto d-flex flex-column p-2">
+          <h1 class="bigh1 font-weight-bold"><%= @recipe.title %></h1>
+          <p class="m-0 p-1 lead"><%= link_to "#{URI("#{@recipe.link }").host}", @recipe.link, target: "_blank", class:"recipeLinkClick" %></p>
+
+          <div class="d-flex justify-content-center align-items-center my-2">
+            <%= link_to "Voir la recette", @recipe.link, target: "_blank", class:"btn btn-primary recipeLinkClick m-1 px-4 py-2" %>
+            <% if user_signed_in? %>
+              <div id="isFavorite<%= @recipe.id %>" class="m-1 p-1">
+                <%= render 'shared/favorite', recipe: @recipe %>
+              </div>
+            <% end %>
+          </div>
+         </div>
+
+        <div class="col-md-6 text-center p-0">
+          <%= cl_image_tag("#{@recipe.id}", :width=>270, :fetch_format=>:auto, :quality=>"auto:low", class:"shadow rounded") %>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+
+<div class="container px-2" style="min-height: 90vh;">
+
+      <div id="recipeItems">
+          <%= render "recipes/selected_items", recipe: @recipe %>
+      </div>
+</div>
+
+<div style="padding: 50px;"></div>
+
+

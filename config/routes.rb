@@ -158,6 +158,7 @@ Rails.application.routes.draw do
     get :select_all
     get :get_edit_history
     get :get_score
+    get :get_score_preview
     get :get_rating_progress
     get :analyze
     get :discover
