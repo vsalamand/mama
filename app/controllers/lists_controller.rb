@@ -305,6 +305,11 @@ class ListsController < ApplicationController
     render "get_score.js.erb"
   end
 
+  def get_score_preview
+    @list = List.friendly.find(params[:list_id])
+    render "get_score_preview.js.erb"
+  end
+
   def get_rating_progress
     @list = List.friendly.find(params[:list_id])
     @good_products = @list.get_rated_items([1])

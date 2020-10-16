@@ -16,6 +16,7 @@ $(document).on("turbolinks:load", function(event) {
   setStoreSectionHeaders();
   setScore();
   setListItemForm();
+  fetchScorePreviews()
   // openSuggestedItemsModal();
   // disable Add List item button by default
   var submitButton = document.getElementById('addListItemBtn');
@@ -472,6 +473,30 @@ function hideRatingProgress() {
 
 
 
+// Show list score preview in borwse
+function fetchScorePreviews() {
+  if(document.getElementById("listIndex")){
+    var lists = document.querySelectorAll(".listIndex");
+    var listIds = [];
+    $(lists).map(function() {
+                  var listId = this.getAttribute('data');
+                  get_score_preview(listId);
+                });
+  }
+}
+
+function get_score_preview(listId) {
+  $.ajax({
+    url: "/lists/" + listId + "/get_score_preview",
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+}
+
+
+
 //  Add to list
 $(document).on("click" , "#addToListBtn", function(event) {
 
@@ -486,7 +511,6 @@ $(document).on("click" , "#addToListBtn", function(event) {
   var items = [];
   $(selectedItems).map(function() {
                    items.push($(this).text().trim());
-
                 });
 
   const listId = this.getAttribute('data');

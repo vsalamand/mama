@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container px-2">
   <nav class="sticky-top navbar navbar-expand-lg navbar-light border-bottom bg-white">
      <a class="navbar-brand d-flex align-items-center font-weight-bold" href="/">
       <%= cl_image_tag("menu_icons/sparkling-heart", width: 20) %>
@@ -9,8 +9,8 @@
 </div>
 
 <div class="wrapper d-flex flex-column bd-highlight" style="height: 75vh;">
-  <div class="container">
-      <div id="listsBrowse">
+  <div class="container px-2">
+      <div id="listIndex">
         <div id="listsHeader">
           <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
             <div class="d-flex align-items-center">
@@ -33,24 +33,26 @@
   </div>
 </div>
 
-<div class="container mb-5">
-  <div id="recipesBrowse">
-    <div id="recipesHeader">
-      <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
-        <div class="d-flex align-items-center">
-          <p class="m-0 p-1 font-weight-bold lead text-muted">Un peu d'inspiration ?</p>
-        </div>
-      </ul>
-    </div>
-    <% if @recipes.present? %>
-      <% @recipes.sort_by(&:id).reverse.each do |recipe|  %>
-        <div id="recipeElements">
-            <%= render 'recipes/recipe', recipe: recipe %>
-        </div>
+<% if current_user.beta %>
+  <div class="container px-2 mb-5">
+    <div id="recipesBrowse">
+      <div id="recipesHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead text-muted">Un peu d'inspiration culinaire ?</p>
+          </div>
+        </ul>
+      </div>
+      <% if @recipes.present? %>
+        <% @recipes.sort_by(&:id).reverse.each do |recipe|  %>
+          <div id="recipeElements">
+              <%= render 'recipes/recipe', recipe: recipe %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="container fixed-bottom mb-3 text-right">
   <a class="shadow-lg bg-white rounded-pill rounded-lg text-center ml-auto p-2 bd-highlight" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %></a>

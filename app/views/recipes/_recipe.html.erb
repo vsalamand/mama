@@ -8,13 +8,13 @@
         </button>
       <% end %>
       <% end %>
+      <div id="isFavorite<%= recipe.id %>">
+        <%= render 'shared/favorite', recipe: recipe %>
+      </div>
       <%= link_to recipe_path(recipe) do %>
          <p class="li lead m-0 px-2 no-link text-primary font-weight-bold" style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
        <% end %>
 
-    </div>
-    <div id="isFavorite<%= recipe.id %>">
-      <%= render 'shared/favorite', recipe: recipe %>
     </div>
   </li>
 </div>
