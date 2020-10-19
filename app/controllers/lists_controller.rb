@@ -253,6 +253,7 @@ class ListsController < ApplicationController
     # @list = List.find(params[:id])
     @list.delete
     @lists = current_user.get_lists
+    @new_list = List.new
 
     respond_to do |format|
       format.html { redirect_to root_path }
