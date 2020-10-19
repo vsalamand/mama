@@ -1,5 +1,5 @@
 <% if checklists.present? %>
   <% checklists.get_curated_lists.each do |checklist|  %>
-      <%= link_to "#{checklist.name}", list_path(checklist, ref: (request.url + "?form"), l: list.id), class:"btn btn-sm btn-light border m-1" %>
+      <%= link_to "#{checklist.name}", list_path(checklist, l: list.id, form: 1), class:"btn btn-sm btn-light border m-1" %>
   <% end %>
 <% end %>
