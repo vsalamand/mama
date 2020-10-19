@@ -6,15 +6,10 @@
         <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
       </a>
 
-      <% if list.present? %>
-        <button class="btn bg-transparent btn-lg border text-primary font-weight-bold " id="getListBtn" context="recipe" source="<%= recipe.id %>" list-data="<%= list.id  %>" recipe-data="<%= recipe.id %>">Ajouter à une liste</button>
 
-      <% else %>
-        <button type="button" class="btn bg-transparent btn-lg border text-primary font-weight-bold " data-toggle="modal" data-target="#addToListModal">
-          Ajouter à une liste
-        </button>
-
-      <% end %>
+      <button type="button" class="btn bg-transparent btn-lg border text-primary font-weight-bold " data-toggle="modal" data-target="#addToListModal">
+        Ajouter à une liste
+      </button>
 
     </nav>
   </div>

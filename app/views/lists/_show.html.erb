@@ -39,8 +39,10 @@
           <% end %>
         </div>
       </div>
+
     </div>
   </div>
+
 
 
   <div class="container px-2" style="min-height: 70vh;">
@@ -61,6 +63,8 @@
 
         <div id="itemsRecommendations">
         </div>
+
+          <%= render 'lists/related_recipes', recipes: recipes, list: list %>
 
 
         <% if false %>
@@ -84,7 +88,6 @@
           <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
             <%= render 'lists/uncomplete_todo_list', list: list %>
           </div>
-          <%= render 'lists/related_recipes', recipes: recipes, list: list %>
         </div>
 
 

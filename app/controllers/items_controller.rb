@@ -33,6 +33,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @recipes = Recipe.where(status: "published").search(@item.category.name, fields: [:title, :ingredients])[0..19] if @item.category.present?
   end
 
   def edit_modal
