@@ -10,28 +10,44 @@
 </div>
 
 
-  <div class="container">
-    <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
+<div class="container px-2">
+  <div class="jumbotron jumbotron-fluid mt-2 rounded p-0">
 
-      <%= simple_form_for([ @item.list, @item ]) do |form| %>
-          <%= form.input :name, as: :string, label: false, input_html: { value: "#{@item.name}", id:"editListItem", class:"form-control form-control-lg font-weight-bold text-primary" }, wrapper_html: { class:"m-0" } %>
-
-        <div class="p-3 bg-white">
-          <label for="inputStoreSection">Rayon</label>
-          <%= form.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, input_html: {class:"form-control form-control-lg font-weight-bold text-primary" }, wrapper_html: { class:"m-0" } %>
-        </div>
-        <div class="modal-footer px-0">
-          <%= button_tag(type: "submit", class:"btn btn-lg btn-light border") do %>
-            Modifier
-          <% end %>
-        </div>
-      <% end %>
-
-
-
-
+    <%= simple_form_for([ @item.list, @item ]) do |form| %>
+      <div class="p-2">
+        <%= form.input :name, as: :string, label: false, input_html: { value: "#{@item.name}", id:"editListItem", class:"form-control form-control-lg font-weight-bold text-primary" }, wrapper_html: { class:"m-0" } %>
+      </div>
+      <div class="p-2">
+        <label for="inputStoreSection">Rayon</label>
+        <%= form.collection_select :store_section_id, StoreSection.all.order(:name), :id, :name, :include_blank => true, input_html: {class:"form-control form-control-lg font-weight-bold text-primary" }, wrapper_html: { class:"m-0" } %>
+      </div>
+      <div class="modal-footer p-2">
+        <%= button_tag(type: "submit", class:"btn btn-lg btn-light border") do %>
+          Modifier
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 
+
+<% if @recipes.present? %>
+  <div class="container px-2 my-5">
+    <div id="recipesBrowse">
+      <div id="recipesHeader">
+        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+          <div class="d-flex align-items-center">
+            <p class="m-0 p-1 font-weight-bold lead text-muted">Idées recettes</p>
+          </div>
+        </ul>
+      </div>
+      <% @recipes.sort_by(&:id).reverse.each do |recipe|  %>
+        <div id="recipeElements">
+            <%= render 'recipes/recipe', recipe: recipe, list: @item.list %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 
 

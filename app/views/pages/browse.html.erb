@@ -46,7 +46,7 @@
       <% if @recipes.present? %>
         <% @recipes.sort_by(&:id).reverse.each do |recipe|  %>
           <div id="recipeElements">
-              <%= render 'recipes/recipe', recipe: recipe %>
+              <%= render 'recipes/recipe', recipe: recipe, list: nil %>
           </div>
         <% end %>
       <% end %>

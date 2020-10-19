@@ -1,10 +1,11 @@
 <% if items.any? %>
 
-  <div id="enregistres" class="listHeader"  data="<%= items.size %>">
+  <div id="enregistres" class="listHeader mt-4"  data="<%= items.size %>">
     <div id="enregistresHeader">
       <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
-        <div class="d-flex align-items-center">
-          <p class="m-0 p-1 font-weight-bold lead text-muted">Produits enregistrés</p>
+        <div class="d-flex flex-column">
+          <p class="m-0 p-1 pb-0 font-weight-bold lead text-muted">Produits enregistrés</p>
+          <small class="font-weight-light pl-1 m-0">Sélectionner un produit pour l'ajouter</small>
         </div>
       </ul>
     </div>
