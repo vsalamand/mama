@@ -28,8 +28,8 @@ class ListsController < ApplicationController
     @list.sorted_by = "rayon"
     if @list.save
       @list.set_game
+      redirect_to list_path(Checklist.find_by(name: "suggestions").get_curated_lists.first, l: @list.id) if @list.list_type == "personal"
       redirect_to lists_path if @list.list_type == "curated"
-      redirect_to list_path(@list) if @list.list_type == "personal"
       # redirect_to list_path(@list) if @list.list_type == "personal"
       ahoy.track "Create list", list_id: @list.id, name: @list.name
     else
@@ -98,7 +98,11 @@ class ListsController < ApplicationController
     @ref_list_id = params[:l]
     if @ref_list_id.present?
       @ref_list = List.find(@ref_list_id)
-      @referrer = list_url(@ref_list) + "?form"
+      if params[:form].present?
+        @referrer = list_url(@ref_list) + "?form"
+      else
+        @referrer = list_url(@ref_list)
+      end
     end
 
     # if @referrer.nil? || @referrer == request.url
@@ -253,6 +257,7 @@ class ListsController < ApplicationController
     # @list = List.find(params[:id])
     @list.delete
     @lists = current_user.get_lists
+    @new_list = List.new
 
     respond_to do |format|
       format.html { redirect_to root_path }

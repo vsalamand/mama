@@ -68,6 +68,15 @@ class User < ApplicationRecord
     end
   end
 
+  def set_new_list_name
+    count = self.get_lists.size
+    if count == 0
+      return "Liste de courses"
+    else
+      return "Liste de courses #{count + 1}"
+    end
+  end
+
 
   private
 

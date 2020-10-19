@@ -80,14 +80,14 @@ class Category < ApplicationRecord
   end
 
   def self.get_top_recipe_categories
-    tops = Recipe.last(50).map{ |r| r.categories}
+    tops = Recipe.last(25).map{ |r| r.categories}
                         .flatten
                         .group_by{|x| x}
                         .sort_by{|k, v| -v.size}
                         .map(&:first)
     banned = Category.find(280).subtree + Array(Category.find(605)) + Array(Category.find(440)) + Array(Category.find(812)) + Array(Category.find(603)) + Array(Category.find(505)) + Category.find(87).subtree + Category.find(604).subtree + Category.find(499).subtree + Category.find(5).subtree + Category.find(726).subtree + Category.find(279).subtree + Category.find(793).subtree
     results = tops - banned
-    return results
+    return results[0..49]
   end
 
   def set_foodgroup_rating

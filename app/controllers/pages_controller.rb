@@ -43,6 +43,8 @@ class PagesController < ApplicationController
 
 
   def browse
+    @list = List.new
+
     if user_signed_in?
       @lists = current_user.get_lists
       current_user.reset_current_list

@@ -1,10 +1,19 @@
-<div>
-  <% if lists.size < 5 %>
-    <%= link_to "Nouvelle liste", new_list_path, class:"btn btn-light border rounded m-1 px-5" %>
-  <% else %>
-    <small class="m-1 text-muted"><i class="fas fa-check text-success pl-2 pr-1"></i> 5 listes maximum </small>
-  <% end %>
-  <% if current_user.beta %>
-    <%= link_to "Idée recette", assistant_path, class:"btn btn-sm btn-link border rounded m-1 px-5" %>
-  <% end %>
-</div>
+<% if user_signed_in? %>
+  <div>
+    <% if lists.size < 5 %>
+
+      <%= simple_form_for list do |f| %>
+            <%= f.input :name, input_html: { value: current_user.set_new_list_name }, :as => :hidden, :wrapper_html=> { class: "m-0" } %>
+            <%= f.input :user_id, input_html: {value: current_user.id}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :sorted_by, input_html: {value: "rayon"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+            <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
+
+            <%= f.submit "Nouvelle liste", class:"btn btn-light border rounded m-1 px-5" %>
+      <% end %>
+
+    <% else %>
+
+      <small class="m-1 text-muted"><i class="fas fa-check text-success pl-2 pr-1"></i> 5 listes maximum </small>
+    <% end %>
+  </div>
+<% end %>

@@ -2,4 +2,4 @@ document.getElementById('list-id<%= @list.id %>').remove();
 
 var action = document.getElementById('browseListActions');
 action.innerHTML = "";
-action.innerHTML = ("<%= j render 'lists/browse_actions', lists: @lists %>");
+action.innerHTML = ("<%= j render 'lists/browse_actions', lists: @lists, list: @new_list %>");
