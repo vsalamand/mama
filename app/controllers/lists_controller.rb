@@ -28,9 +28,9 @@ class ListsController < ApplicationController
     @list.sorted_by = "rayon"
     if @list.save
       @list.set_game
-      redirect_to list_path(Checklist.find_by(name: "suggestions").get_curated_lists.first, l: @list.id) if @list.list_type == "personal"
+      # redirect_to list_path(Checklist.find_by(name: "suggestions").get_curated_lists.first, l: @list.id) if @list.list_type == "personal"
       redirect_to lists_path if @list.list_type == "curated"
-      # redirect_to list_path(@list) if @list.list_type == "personal"
+      redirect_to list_path(@list) if @list.list_type == "personal"
       ahoy.track "Create list", list_id: @list.id, name: @list.name
     else
       redirect_to new_list_path
@@ -116,12 +116,9 @@ class ListsController < ApplicationController
 
   def fetch_suggested_items
     @list = List.friendly.find(params[:list_id])
-    @item = @list.items.not_deleted.last
+    @categories = Category.get_top_recipe_categories
 
-    if @item.present? && @item.category.present?
-      @suggested_items = @item.category.get_top_categories(@list)
-      render 'fetch_suggested_items.js.erb'
-    end
+    render 'fetch_suggested_items.js.erb'
   end
 
   def fetch_completed_items

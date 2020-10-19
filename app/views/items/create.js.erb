@@ -31,7 +31,7 @@ function sortSectionElements(sectionElements) {
   })
 }
 
-const current_user_id = "<%= user_signed_in? ? current_user.id : nil %>";
+// var current_user_id = "<%= user_signed_in? ? current_user.id : nil %>";
 // getEditHistory(current_user_id);
 
 function getEditHistory(current_user_id) {
@@ -53,19 +53,6 @@ $('#newListItem').focus();
 
 
 
-
-loadSuggestions();
-function loadSuggestions() {
-  if(document.querySelector("#todo_list")){
-    const id = document.querySelector("#todo_list").getAttribute('data');
-    $.ajax({
-      url: "/lists/" + id + "/fetch_suggested_items",
-      cache: false,
-      success: function(){
-      }
-    });
-  }
-}
 
 
 setScore();

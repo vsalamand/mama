@@ -10,7 +10,7 @@ require("jquery-ui/ui/widgets/sortable")
 // loadSuggestions();
 
 $(document).on("turbolinks:load", function(event) {
-  // loadSuggestions();
+  getListPlaceholder();
   // getPriceBtn();
   setListOnboarding();
   setStoreSectionHeaders();
@@ -30,12 +30,10 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
   setStoreSectionHeaders();
   // setScore();
   // hideRatingProgress();
-  // getListPlaceholder();
   // getCartsPrice();
 })
 
 $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
-  // getListPlaceholder();
   setStoreSectionHeaders();
   setScore();
   // hideRatingProgress();
@@ -197,9 +195,7 @@ function getListPlaceholder() {
     var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
 
     if(totalCount == 0){
-      document.getElementById("listPlaceholder").style.display = "block";
-    } else {
-      document.getElementById("listPlaceholder").style.display = "none";
+      loadSuggestions();
     }
   }
 }
@@ -532,4 +528,34 @@ function addToList(items, listId) {
     }
   });
 }
+
+
+//  Create new list item
+$(document).on("click" , ".addCategoryToList", function(event) {
+  var categoryName = this.getAttribute('data');
+  var listId = document.querySelector("#todo_list").getAttribute('data');
+
+  var categoryId = this.getAttribute('data-id');
+  var element = "grocerylist-category-id" + categoryId
+  document.getElementById(element).remove();
+
+  $.ajax({
+    type: "POST",
+    url: "/items",
+    cache: false,
+    dataType: 'script',
+    data: {
+        item: {
+          name: categoryName
+        },
+        list_id: listId
+        },
+    success: function(){
+    }
+  });
+});
+
+
+
+
 
