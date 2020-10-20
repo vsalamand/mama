@@ -88,7 +88,8 @@ class Item < ApplicationRecord
       item.quantity = valid_item.quantity
       item.is_non_food = valid_item.is_non_food
       item.is_validated = valid_item.is_validated
-      valid_item.is_non_food ? item.store_section_id = valid_item.store_section_id : item.store_section_id = nil
+      item.store_section_id = valid_item.store_section_id
+      item.store_section_id = nil if valid_item.is_non_food
       item.recipe = nil
     else
       query = "query=#{item.name}"
