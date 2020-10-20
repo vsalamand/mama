@@ -50,20 +50,20 @@ class ItemsController < ApplicationController
   end
 
   def update
-
     if params[:list_id]
-      completed_status = @item.is_completed
-      store_section = @item.store_section_id
-      new_store_section = items_params["store_section_id"].to_i
 
+      @item.is_validated = false
       @item.update(items_params)
       @item = @item.set
-      @item.is_completed = completed_status
+
       # if user is updating store section specificaly
-      if (new_store_section != store_section)
-        new_store_section > 0 ? @item.store_section_id = new_store_section : @item.store_section_id = nil
+      store_section_id = @item.store_section_id.to_i
+      new_store_section_id = items_params["store_section_id"].to_i
+      if (new_store_section_id != store_section_id)
+        new_store_section_id > 0 ? @item.store_section_id = new_store_section_id : @item.store_section_id = nil
         @item.is_validated = false
       end
+
       @item.save
       @headername = @item.get_header_name
 
