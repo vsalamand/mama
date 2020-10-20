@@ -37,9 +37,7 @@ class Recipe < ApplicationRecord
   def search_data
     {
       title: title,
-      ingredients: ingredients,
-      tags: tag_list,
-      categories: category_list
+      ingredients: ingredients
     }
   end
 

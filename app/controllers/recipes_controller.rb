@@ -207,6 +207,11 @@ class RecipesController < ApplicationController
     render "add_menu_to_list.js.erb"
   end
 
+  def destroy
+    @recipe = Recipe.friendly.find(params[:id])
+    @recipe.destroy
+    redirect_back(fallback_location:"/")
+  end
 
   private
 

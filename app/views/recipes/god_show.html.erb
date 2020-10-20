@@ -16,13 +16,6 @@
       <% end %>
     </div>
      <h5><%= link_to 'Modifier', edit_recipe_path(@recipe), class:"btn btn-outline-primary" %></h5>
-    <div class="recipe-tags">
-      <% @recipe.tag_list.each do |tag| %>
-        <div class="tag-item">
-          <%= tag %>
-        </div>
-      <% end %>
-    </div>
 </div>
 
 <% if current_user %>
