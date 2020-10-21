@@ -1,6 +1,6 @@
 <div id="<%= recipe.id %>">
 
-  <li class="rounded alert-warning mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+  <li class="rounded alert-warning mb-1 py-3 px-2 d-flex align-items-center justify-content-between uncompleted" >
     <div class="d-flex align-items-center">
       <% if list.user == current_user || list.users.include?(current_user) %>
         <button type="button" class="close ml-1 mr-0 text-muted" aria-label="Close" id="removeRecipefromListBtn" data="<%= recipe.id %>">

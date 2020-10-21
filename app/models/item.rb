@@ -122,12 +122,12 @@ class Item < ApplicationRecord
     return item
   end
 
-  def self.add_menu_to_list(inputs_list, list)
+  def self.add_menu_to_list(ingredients, list)
     new_items = []
 
-    queries = inputs_list.map{|input| "query=#{input}" }.compact
+    queries = ingredients.map{|input| "query=#{input}" }.compact
 
-    if inputs_list.any?
+    if ingredients.any?
       url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
       parser = JSON.parse(open(url).read)
 
@@ -142,7 +142,7 @@ class Item < ApplicationRecord
 
         store_section_id = category.get_store_section.id if category.present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-        new_item =  Item.new(name: inputs_list[index],
+        new_item =  Item.new(name: ingredients[index],
                               category: category,
                               is_validated: false,
                               quantity: quantity,
@@ -163,9 +163,10 @@ class Item < ApplicationRecord
 
   def self.add_recipe_items(recipe)
     new_items = []
-    queries = recipe.ingredients.split("\r\n").map{|input| "query=#{input}" }.compact
+    ingredients = recipe.ingredients.split("\r\n")
+    queries = ingredients.map{|input| "query=#{input}" }.compact
 
-    if inputs_list.any?
+    if ingredients.any?
       url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
       parser = JSON.parse(open(url).read)
 
@@ -180,7 +181,7 @@ class Item < ApplicationRecord
 
         store_section_id = category.get_store_section.id if category.present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-        new_item =  Item.new(name: inputs_list[index],
+        new_item =  Item.new(name: ingredients[index],
                               category: category,
                               is_validated: false,
                               quantity: quantity,
