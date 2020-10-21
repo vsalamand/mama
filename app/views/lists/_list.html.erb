@@ -1,5 +1,5 @@
 <div id="list-id<%= list.id %>" data="<%= list.id %>" class="listIndex">
-  <li class="rounded alert-primary mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+  <li class="rounded alert-primary mb-1 py-3 px-2 d-flex align-items-center justify-content-between uncompleted" >
     <div class="d-flex align-items-center">
       <%= link_to list_path(list), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, remote: true do %>
         <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">

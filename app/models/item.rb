@@ -161,83 +161,92 @@ class Item < ApplicationRecord
   end
 
 
-  def self.add_list_items(list_items_array)
+  def self.add_recipe_items(recipe)
     new_items = []
+    queries = recipe.ingredients.split("\r\n").map{|input| "query=#{input}" }.compact
 
-    # get parsing for each list item that does not have an item yet
-    cleaned_list_items = list_items_array.select{|list_item| list_item.item.nil? }
-
-    queries = cleaned_list_items.map{|list_item| "query=#{list_item.name}" }.compact
-
-    unless queries.compact.empty?
+    if inputs_list.any?
       url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
-      # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
       parser = JSON.parse(open(url).read)
 
       parser.each_with_index do |element, index|
         quantity = element['quantity_match'] if element['quantity_match'].present?
         category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-        if category.nil? && parser['clean_item'].present?
-          product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+        if category.nil? && element['clean_item'].present?
+          product = StoreItem.search(element['clean_item'], where: {store_id: 1}).first
           category = product.get_category if product.present?
         end
         unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+
         store_section_id = category.get_store_section.id if category.present?
         # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-        new_items << Item.new(category: category, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit, store_section_id: store_section_id)
+        new_item =  Item.new(name: inputs_list[index],
+                              category: category,
+                              is_validated: false,
+                              quantity: quantity,
+                              unit: unit,
+                              store_section_id: store_section_id,
+                              is_completed: false,
+                              is_deleted: false,
+                              recipe: recipe)
+
+        valid_item = Item.where("lower(trim(name)) = ?", element['clean_item'].downcase.strip).where(is_validated: true).first
+        valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
+        new_items << new_item
       end
       Item.import new_items
     end
   end
 
-  def set_list_item(list_item)
-    query = "query=#{list_item.name}"
-    url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{query}"))
-    # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{query}"))
-    parser = JSON.parse(open(url).read).first
 
-    quantity = parser['quantity_match'] if parser['quantity_match'].present?
-    category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-    if category.nil? && parser['clean_item'].present?
-      product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
-      category = product.get_category if product.present?
-    end
-    unit = Unit.search(parser['unit_match'], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
-    store_section_id = category.get_store_section.id if category.present?
+  # def self.add_list_items(list_items_array)
+  #   new_items = []
 
-    # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-    self.update(quantity: quantity, unit: unit, category: category, list_item: list_item, name: list_item.name, is_validated: false, store_section_id: store_section_id)
-  end
+  #   # get parsing for each list item that does not have an item yet
+  #   cleaned_list_items = list_items_array.select{|list_item| list_item.item.nil? }
 
-  def self.add_recipe_items(recipe)
-    new_items = []
-    url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")
-    # url = URI.parse("http://127.0.0.1:5000/api/v1/parse/recipe?id=#{recipe.id}")
+  #   queries = cleaned_list_items.map{|list_item| "query=#{list_item.name}" }.compact
 
-    parser = JSON.parse(open(url).read)
+  #   unless queries.compact.empty?
+  #     url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
+  #     # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
+  #     parser = JSON.parse(open(url).read)
 
-    parser.each do |element|
-      valid_item = self.get_valid_item
+  #     parser.each_with_index do |element, index|
+  #       quantity = element['quantity_match'] if element['quantity_match'].present?
+  #       category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+  #       if category.nil? && parser['clean_item'].present?
+  #         product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+  #         category = product.get_category if product.present?
+  #       end
+  #       unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+  #       store_section_id = category.get_store_section.id if category.present?
+  #       # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
+  #       new_items << Item.new(category: category, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit, store_section_id: store_section_id)
+  #     end
+  #     Item.import new_items
+  #   end
+  # end
 
-      if valid_item.present?
-        new_items << Item.new(quantity: valid_item.quantity, unit: valid_item.unit, category: valid_item.category, recipe: recipe, name: element['ingredients'], is_validated: valid_item.is_validated, store_section_id: valid_item.store_section_id)
+  # def set_list_item(list_item)
+  #   query = "query=#{list_item.name}"
+  #   url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{query}"))
+  #   # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{query}"))
+  #   parser = JSON.parse(open(url).read).first
 
-      else
-        quantity = element['quantity_match'] if element['quantity_match'].present?
-        category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-        if category.nil? && parser['clean_item'].present?
-          product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
-          category = product.get_category if product.present?
-        end
-        unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-        store_section_id = category.get_store_section.id if category.present?
+  #   quantity = parser['quantity_match'] if parser['quantity_match'].present?
+  #   category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+  #   if category.nil? && parser['clean_item'].present?
+  #     product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+  #     category = product.get_category if product.present?
+  #   end
+  #   unit = Unit.search(parser['unit_match'], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
+  #   store_section_id = category.get_store_section.id if category.present?
 
-        new_items << Item.new(quantity: quantity, unit: unit, category: category, recipe: recipe, name: element['ingredients'], is_validated: false, store_section_id: store_section_id)
-      end
-    end
+  #   # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
+  #   self.update(quantity: quantity, unit: unit, category: category, list_item: list_item, name: list_item.name, is_validated: false, store_section_id: store_section_id)
+  # end
 
-    Item.import new_items
-  end
 
   def self.update_recipe_items(recipe)
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")
