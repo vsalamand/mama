@@ -24,8 +24,11 @@ class ItemsController < ApplicationController
       else
         redirect_to list_path(@list)
       end
-    elsif @item.recipe
-      redirect_to god_show_recipe_path(@item.recipe)
+    elsif params[:recipe_id]
+      @item = @item.set
+      @item.recipe = Recipe.friendly.find(params[:recipe_id])
+      @item.save
+      redirect_to recipe_path(@item.recipe)
     else
       render 'new'
     end
@@ -76,7 +79,7 @@ class ItemsController < ApplicationController
 
     elsif @item.recipe_id.present?
       @item.update(items_params)
-      redirect_to god_show_recipe_path(@item.recipe_id)
+      redirect_to recipe_path(@item.recipe_id)
     # elsif @item.list_item_id.present?
     #   redirect_to list_path(@item.list_item.list)
     else

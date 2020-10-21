@@ -5,38 +5,44 @@
     <h1>Nouveau contenu en attente de validation</h1>
   </div>
   <div class="my-3">
-    <% @recipes.order(:id).each do |recipe| %>
-      <h1 class="mt-5">
-        <%= recipe.id %> |
-        <%= link_to recipe.title, recipe_path(recipe), target: "_blank" %>
-      </h1>
-      <div class="m-1 d-flex flex-column">
-          <button class="btn btn-light m-0 border p-1 editRecipeListItemsModalbtn" data="<%= recipe.id %>">Gérer</button>
-          <% recipe.get_curated_lists.each do |cl| %>
-            <span class="m-0 small"><%= cl.name %></span>
-          <% end %>
-      </div>
-      <div class="d-flex">
-        <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-sm btn-light border text-danger m-1" %>
-        <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"btn btn-sm btn-success m-1" %>
-      </div>
-      <div class="recipe-ingredients">
-        <ul>
-          <% recipe.items.order(:id).each do |item| %>
-            <li class="recipe-ingredients__list__item">
-              <p class="font-weight-bold text-success"><%= item.name %></p>
-              <% if current_user %>
-                <% if item.food  %>
-                  <p class="lead border"><%= item.quantity %> <%= item.unit.name if item.unit_id %> <%= link_to item.food.name, edit_recipe_item_path(recipe, item), target: "_blank" %></p>
-                <% else %>
-                  <p class="recipe-ingredient-item"><%= link_to "not found", edit_recipe_item_path(recipe, item), target: "_blank" %></p>
-                <% end %>
+    <% @recipes.order(:id).reverse[0..2].each do |recipe| %>
+          <div class="jumbotron">
+            <h2 class=""><%= recipe.title %> <span class="badge badge-secondary"><%= recipe.id %></span></h2>
+            <%= link_to recipe.link, recipe_path(recipe), target: "_blank" %>
+            <div class="d-flex flex-row bd-highlight mt-3 justify-content-start">
+              <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"bd-highlight mr-1 btn btn-light border m-1" %>
+              <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn btn-light border m-1" %>
+              <%= link_to "Delete", recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, method: :delete, class:"bd-highlight mr-1 btn btn-danger m-1" %>
+            </div>
+
+            <hr class="my-4">
+
+            <button class="btn btn-light border text-primary editRecipeListItemsModalbtn mb-1" data="<%= recipe.id %>">Ajouter à une catégorie</button>
+            <ul class="m-0">
+              <% recipe.get_curated_lists.each do |cl| %>
+                <li><%= cl.name %></li>
               <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-      <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: recipe.id), target: "_blank", class:"btn btn-outline-primary px-5" %>
+            </ul>
+
+            <hr class="my-4">
+
+            <div class="ingredients">
+              <ul class="list-group p-0">
+                <% recipe.items.order(:id).each do |item| %>
+                  <li class="list-group-item p-1 px-2">
+                    <p class="font-weight-bold m-0"><%= item.name %></p>
+                    <% if item.category  %>
+                      <small class="text-muted"><%= item.quantity %> <%= item.unit.name if item.unit_id %> <%= link_to item.category.name, edit_recipe_item_path(recipe, item), target: "_blank" %></small>
+                    <% else %>
+                      <small class=""><%= link_to "not found", edit_recipe_item_path(recipe, item), target: "_blank" %></small>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: recipe.id), target: "_blank", class:"btn btn-light border m-2" %>
+            </div>
+
+          </div>
 
     <% end %>
   </div>

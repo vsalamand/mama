@@ -30,30 +30,27 @@
     <% if @recipes %>
         <% @recipes.reverse.each do |recipe| %>
 
-           <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom">
-                <div class="product-info p-2">
-                    <div class="d-flex bd-highlight">
+          <div class="jumbotron">
+            <h2 class="m-0"><%= recipe.title %> <span class="badge badge-secondary"><%= recipe.id %></span></h2>
+            <div class="d-flex flex-column m-0">
+              <%= link_to recipe.link, recipe_path(recipe), target: "_blank" %>
+              <small class="text-muted m-0"><span class="badge badge-warning"><%= recipe.status %></span> <%= recipe.created_at.to_date %> </small>
+            </div>
+            <div class="d-flex flex-row bd-highlight mt-3 justify-content-start">
+              <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"bd-highlight mr-1 btn btn-light border m-1" %>
+              <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn btn-light border m-1" %>
+              <%= link_to "Delete", recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, method: :delete, class:"bd-highlight mr-1 btn btn-danger m-1" %>
+            </div>
 
-                      <div class="mr-auto bd-highlight d-flex flex-column align-items-start">
-                        <p class="lead m-0 p-0 text-primary"><small class="m-0 text-muted"><%= recipe.id %></small>. <strong><%= link_to recipe.title, recipe_path(recipe) %></strong></p>
-                        <p class="small m-0"><%= link_to "#{URI("#{recipe.link }").host}", recipe.link, target: "_blank" %></p>
-                        <small class="text-muted m-0"><%= recipe.created_at.to_date %></small>
-                        <% if recipe.status == "published" %>
-                          <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-sm btn-light p-0 border text-danger" %>
-                        <% else %>
-                          <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-sm btn-light p-0 border text-danger" %>
-                          <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"btn btn-sm btn-success" %>
-                        <% end %>
-                      </div>
+            <hr class="my-4">
 
-                      <div class="bd-highlight d-flex flex-column">
-                        <button class="btn btn-light m-0 border p-1 editRecipeListItemsModalbtn" data="<%= recipe.id %>">Gérer</button>
-                        <% recipe.get_curated_lists.each do |cl| %>
-                          <span class="m-0 small"><%= cl.name %></span>
-                        <% end %>
-                      </div>
-                    </div>
-                </div>
+            <button class="btn btn-light border text-primary editRecipeListItemsModalbtn m-1" data="<%= recipe.id %>">Ajouter à une catégorie</button>
+            <ul class="m-0">
+              <% recipe.get_curated_lists.each do |cl| %>
+                <li><%= cl.name %></li>
+              <% end %>
+            </ul>
+
           </div>
 
         <% end %>
