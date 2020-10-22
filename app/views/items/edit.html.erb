@@ -26,16 +26,16 @@
 
   <% else %>
     <%= render 'form', item: @item %>
+    <div style="padding: 50px;"></div>
+    <div class="container fixed-bottom d-flex justify-content-around my-2">
+      <%= link_to "Passer sans valider", edit_item_path(@next_item), class:"btn btn-block btn-primary m-2 py-3" %>
+      <%= link_to "Valider et passer", item_validate_path(@item), class:"btn btn-flat btn-block m-2 py-3" %>
+    </div>
 
   <% end %>
 
 </div>
 
-<div style="padding: 50px;"></div>
 
 
-<div class="container fixed-bottom d-flex justify-content-around my-2">
-  <%= link_to "Passer sans valider", edit_item_path(@next_item), class:"btn btn-block btn-primary m-2 py-3" %>
-  <%= link_to "Valider et passer", item_validate_path(@item), class:"btn btn-flat btn-block m-2 py-3" %>
-</div>
 

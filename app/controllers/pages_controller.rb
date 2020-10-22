@@ -50,7 +50,7 @@ class PagesController < ApplicationController
       current_user.reset_current_list
     end
 
-    @recipes = Recommendation.last.recipe_lists.first.recipes
+    @recipes = Recommendation.last.recipe_lists.first.recipes.where(status: "published").last(20)
 
     ahoy.track "Browse"
   end
@@ -276,6 +276,7 @@ class PagesController < ApplicationController
 
   def pending
     @recipes = Recipe.where(status: "pending")
+    @recommend = RecipeList.find_by(recipe_list_type: "curated", name: "Idées repas")
   end
 
   def unmatch_foods

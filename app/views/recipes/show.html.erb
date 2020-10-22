@@ -25,7 +25,12 @@
          </div>
 
         <div class="col-md-6 text-center" style="min-height: 270px;">
-          <%= cl_image_tag("#{@recipe.id}", :width=>270, :fetch_format=>:auto, :quality=>"auto:low", class:"shadow rounded") %>
+          <%= link_to @recipe.link, target: "_blank" do %>
+            <div style="position: relative; text-align: center;">
+              <%= cl_image_tag("#{@recipe.id}", :width=>270, :fetch_format=>:auto, :quality=>"auto:low", class:"shadow rounded") %>
+              <p class="lead font-weight-bold shadow-lg p-2 rounded text-primary" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; opacity: 0.8;">Voir la recette</p>
+            </div>
+          <% end %>
         </div>
       </div>
 
@@ -34,10 +39,14 @@
 
 
 <div class="container px-2" style="min-height: 90vh;">
-
-      <div id="recipeItems">
-          <%= render "recipes/selected_items", recipe: @recipe %>
+    <% if @recipe.servings.present? %>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-sm btn-transparent border rounded ml-1 text-muted">Pour <%= @recipe.servings %></button>
       </div>
+    <% end %>
+    <div id="recipeItems">
+        <%= render "recipes/selected_items", recipe: @recipe %>
+    </div>
 </div>
 
 <div style="padding: 50px;"></div>

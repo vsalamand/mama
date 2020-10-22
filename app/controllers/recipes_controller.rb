@@ -188,7 +188,11 @@ class RecipesController < ApplicationController
 
     @recipe.add_to_recipe_list(@recipe_list)
 
-    render 'add_to_menu.js.erb'
+    respond_to do |format|
+      format.html { redirect_back(fallback_location:"/") }
+      format.js { render 'add_to_menu.js.erb' }
+    end
+
     ahoy.track "Add recipe", request.path_parameters
   end
 

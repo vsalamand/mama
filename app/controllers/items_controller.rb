@@ -79,7 +79,7 @@ class ItemsController < ApplicationController
 
     elsif @item.recipe_id.present?
       @item.update(items_params)
-      redirect_to recipe_path(@item.recipe_id)
+      redirect_to pending_path
     # elsif @item.list_item_id.present?
     #   redirect_to list_path(@item.list_item.list)
     else
@@ -136,7 +136,7 @@ class ItemsController < ApplicationController
       ahoy.track "Destroy list item", name: @item.name
     else
       @item.destroy
-      redirect_to verify_items_path
+      redirect_back(fallback_location:"/")
     end
   end
 

@@ -29,7 +29,7 @@
             <% end %>
             <%= render "items/rating_indicator", item: item %>
             <%= link_to item_path(item) do %>
-              <p class="lead m-0 p-0 text-muted no-link" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
+              <p class="lead m-0 p-0 text-muted font-weight-bold no-link" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
             <% end %>
           </div>
           <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>

@@ -18,6 +18,8 @@
             <hr class="my-4">
 
             <button class="btn btn-light border text-primary editRecipeListItemsModalbtn mb-1" data="<%= recipe.id %>">Ajouter à une catégorie</button>
+            <%= link_to "Ajouter aux idées du moment", add_to_menu_recipe_path(recipe, recipe_list_id: @recommend.id), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-light border text-primary mb-1" %>
+
             <ul class="m-0">
               <% recipe.get_curated_lists.each do |cl| %>
                 <li><%= cl.name %></li>
@@ -30,11 +32,23 @@
               <ul class="list-group p-0">
                 <% recipe.items.order(:id).each do |item| %>
                   <li class="list-group-item p-1 px-2">
-                    <p class="font-weight-bold m-0"><%= item.name %></p>
+                    <%= link_to item_path(item), method: :delete, remote: true do %>
+                      <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    <% end %>
+
+                    <p class="m-0 text-muted"><%= item.name %></p>
+
                     <% if item.category  %>
-                      <small class="text-muted"><%= item.quantity %> <%= item.unit.name if item.unit_id %> <%= link_to item.category.name, edit_recipe_item_path(recipe, item), target: "_blank" %></small>
+                      <p class="lead m-0 p-0 font-weight-bold">
+                        <%= link_to item.category.name, edit_recipe_item_path(recipe, item, ref: "pending") %>
+                        <% if item.quantity %>
+                          <span class="lead font-weight-light text-muted">x <%= "%g" % ("%.2f" % item.quantity) %> <%= item.unit.name if item.unit %></span>
+                        <% end %>
+                      </p>
                     <% else %>
-                      <small class=""><%= link_to "not found", edit_recipe_item_path(recipe, item), target: "_blank" %></small>
+                      <p class="lead m-0 p-0 font-weight-bold"><%= link_to "not found", edit_recipe_item_path(recipe, item), target: "_blank" %></p>
                     <% end %>
                   </li>
                 <% end %>

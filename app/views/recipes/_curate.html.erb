@@ -11,18 +11,14 @@
     <% end %>
   </div>
 <% end %>
+            <hr class="my-4">
 
-<p>
-  <a class="btn btn-primary mt-3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Ajouter dans une liste
-  </a>
+<p class="text-muted">
+  Ajouter dans:
+  <ul class="list-group p-0">
+    <% RecipeList.curated.each do |category| %>
+     <%= link_to category.name, add_to_menu_recipe_path(recipe, recipe_list_id: category.id), remote: true, data: { confirm: 'Êtes-vous sûr ?' }, class:"list-group-item" %>
+    <% end %>
+  </ul>
+
 </p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body p-0">
-    <ul class="list-group p-0">
-      <% RecipeList.curated.each do |category| %>
-       <%= link_to category.name, add_to_menu_recipe_path(recipe, recipe_list_id: category.id), remote: true, data: { confirm: 'Êtes-vous sûr ?' }, class:"list-group-item" %>
-      <% end %>
-    </ul>
-  </div>
-</div>

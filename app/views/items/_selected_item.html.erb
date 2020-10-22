@@ -5,26 +5,17 @@
       <div class="d-flex align-items-center text-primary selectedItem" data="<%= item.id %>">
         <i class="far fa-lg fa-check-square px-1 pt-1 m-0"></i>
         <%= render "items/rating_indicator", item: item %>
-        <p class="lead m-0 p-0 font-weight-bold"><%= item.name %></p>
+        <p class="lead m-0 p-0 font-weight-bold"><%= item.category.name %>
+          <% if item.quantity %>
+            <span class="lead font-weight-light text-muted">x <%= "%g" % ("%.2f" % item.quantity) %> <%= item.unit.name if item.unit %></span>
+          <% end %>
+        </p>
       </div>
        <% if user_signed_in? && current_user.admin == true %>
         <%= link_to edit_item_path(item), target: "_blank" do  %>
           <i class="fas fa-edit fa-xs m-0 p-0 text-muted"></i>
         <% end %>
       <% end %>
-    </li>
-  </div>
-
-<% else %>
-  <div id="">
-    <li class="bg-dark border-0 px-2 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;" >
-
-      <div class="d-flex align-items-center text-primary selectedItem">
-        <i class="far fa-lg fa-check-square px-1 pt-1 m-0"></i>
-        <%= render "items/rating_indicator", item: item %>
-        <p class="lead m-0 pl-2 p-1"><%= list_item.name %></p>
-      </div>
-
     </li>
   </div>
 <% end %>

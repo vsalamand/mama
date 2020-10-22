@@ -5,7 +5,11 @@
       <div class="d-flex align-items-center text-muted unselectedItem" data="<%= item.id %>">
         <i class="far fa-lg fa-square px-1 pt-1 m-0"></i>
         <%= render "items/rating_indicator", item: item %>
-        <p class="lead m-0 p-0"><%= item.name %></p>
+        <p class="lead m-0 p-0 font-weight-bold"><%= item.category.name %>
+          <% if item.quantity %>
+            <span class="lead font-weight-light text-muted">x <%= "%g" % ("%.2f" % item.quantity) %> <%= item.unit.name if item.unit %></span>
+          <% end %>
+        </p>
       </div>
        <% if user_signed_in? && current_user.admin == true %>
         <%= link_to edit_item_path(item), target: "_blank" do  %>
