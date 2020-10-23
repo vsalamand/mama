@@ -107,3 +107,27 @@ function setStoreSectionHeaders() {
   }
 }
 
+
+//  update servings quanitites
+$(document).on("click", "#updateServingsBtn", function(event) {
+  var recipeId = this.getAttribute('data');
+  var number = document.getElementById('servingsNum').value;
+
+  $('.modal').modal('hide');
+  $(document.body).removeClass('modal-open');
+  $('.modal-backdrop').remove();
+
+  $.ajax({
+    url: "/recipes/" + recipeId + "/update_servings",
+    cache: false,
+    dataType: 'script',
+    data: {
+      s: number
+    },
+    success: function(){
+    }
+  });
+
+});
+
+

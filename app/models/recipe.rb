@@ -97,12 +97,14 @@ class Recipe < ApplicationRecord
 
   def sort_by_store_sections
     store_sections = StoreSection.order(:position).pluck(:name)
-    store_sections << "Autres"
+    store_sections << "Non-alimentaires"
     data = Hash[store_sections.map {|x| [x, Array.new]}]
 
     self.items.each do |item|
-      item.get_store_section.present? ? section = item.get_store_section.name : section = "Autres"
-      data[section] << item
+      if item.get_store_section.present?
+        section = item.get_store_section.name
+        data[section] << item
+      end
     end
 
     return data

@@ -11,7 +11,7 @@
       <div class="recipeItem<%= recipe.id %>">
         <%  array.sort_by{|e| e.name.parameterize }.each do |item| %>
           <% if item.category.present? %>
-            <%= render 'items/selected_item', item: item %>
+            <%= render 'items/selected_item', item: item, servings_delta: servings_delta %>
           <% end %>
         <% end %>
 

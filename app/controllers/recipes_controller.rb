@@ -11,6 +11,8 @@ class RecipesController < ApplicationController
     @list_item = ListItem.new
     @list = List.find(params[:l]) if params[:l].present?
 
+    @recipe.servings.nil? ? @servings = 1 : @servings = @recipe.servings.delete('^0-9').to_i
+
     if user_signed_in?
       @lists = current_user.get_lists
     end
@@ -215,6 +217,13 @@ class RecipesController < ApplicationController
     @recipe = Recipe.friendly.find(params[:id])
     @recipe.destroy
     redirect_back(fallback_location:"/")
+  end
+
+  def update_servings
+    @recipe = Recipe.friendly.find(params[:id])
+    @servings = params[:s].to_i
+    @servings_delta = params[:s].to_f / @recipe.servings.delete('^0-9').to_f
+    render "update_servings.js.erb"
   end
 
   private

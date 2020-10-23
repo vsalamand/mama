@@ -181,12 +181,14 @@ class ItemsController < ApplicationController
 
   def select
     @item = Item.find(params[:item_id])
+    @servings_delta = params[:s].to_f
     render "select.js.erb"
     ahoy.track "Select item", name: @item.name
   end
 
   def unselect
     @item = Item.find(params[:item_id])
+    @servings_delta = params[:s].to_f
     render "unselect.js.erb"
     ahoy.track "Unselect item", name: @item.name
   end

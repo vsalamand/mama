@@ -121,6 +121,7 @@ Rails.application.routes.draw do
       get :add_to_menu
       get :select_all
       get :edit_modal
+      get :update_servings
     end
     resources :items do
       get :add_to_list
