@@ -1,4 +1,4 @@
-<% unless recipe.servings.nil? %>
+<% if recipe.servings.present? %>
   <div class="d-flex justify-content-center">
     <!-- Button trigger servings modal -->
     <button type="button" class="btn btn-sm btn-transparent border rounded ml-1 text-muted" data-toggle="modal" data-target="#servingsModal">
