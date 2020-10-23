@@ -11,7 +11,7 @@
           </div>
           <div id="<%= store_section.name.parameterize(separator: '') %>Elements" class="recipeItem<%= recipe.id %>">
             <% recipe.get_store_section_items(store_section).sort_by{|e| e.name.parameterize }.each do |item| %>
-              <%= render 'items/unselected_item', item: item %>
+              <%= render 'items/unselected_item', item: item, servings_delta: servings_delta %>
             <% end %>
           </div>
         </div>
@@ -26,7 +26,7 @@
       </div>
       <div id="non-alimentairesElements" class="recipeItem<%= recipe.id %>">
         <%  recipe.items.where(store_section_id: nil).sort_by{|e| e.name.parameterize }.each do |item| %>
-          <%= render 'items/unselected_item', item: item %>
+          <%= render 'items/unselected_item', item: item, servings_delta: servings_delta %>
         <% end %>
       </div>
     </div>

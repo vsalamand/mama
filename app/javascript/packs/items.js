@@ -4,10 +4,14 @@ import 'bootstrap';
 
 $(document).on("click" , ".unselectedItem", function(event) {
   const itemId = this.getAttribute('data');
+  var servings_delta = this.getAttribute('servings-data');
 
   $.ajax({
     url: "/items/" + itemId + "/select",
     cache: false,
+    data: {
+      s: servings_delta
+    },
     success: function(){
     }
   });
@@ -16,10 +20,14 @@ $(document).on("click" , ".unselectedItem", function(event) {
 
 $(document).on("click" , ".selectedItem", function(event) {
   const itemId = this.getAttribute('data');
+  var servings_delta = this.getAttribute('servings-data');
 
   $.ajax({
     url: "/items/" + itemId + "/unselect",
     cache: false,
+    data: {
+      s: servings_delta
+    },
     success: function(){
     }
   });

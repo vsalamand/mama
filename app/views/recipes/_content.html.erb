@@ -1,0 +1,27 @@
+<% unless recipe.servings.nil? %>
+  <div class="d-flex justify-content-center">
+    <!-- Button trigger servings modal -->
+    <button type="button" class="btn btn-sm btn-transparent border rounded ml-1 text-muted" data-toggle="modal" data-target="#servingsModal">
+      Pour <%= servings %> <%= recipe.servings.downcase.gsub(/[^a-zA-Zéèê\s]/, '') %>
+    </button>
+  </div>
+  <!-- Servings Modal -->
+  <div class="modal fade" id="servingsModal" tabindex="-1" role="dialog" aria-labelledby="servingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h1 class="bigh1 font-weight-bold">Combien ?</h1>
+          <input class="h2 text-center text-muted my-3" style="max-width: 75px;" id="servingsNum" type="number" name="servingsNum" value="<%= servings %>">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ountline-secondary border" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-light border" id="updateServingsBtn" data="<%= recipe.id %>">Valider</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div id="recipeItems">
+    <%= render "recipes/selected_items", recipe: recipe, servings_delta: servings_delta %>
+</div>
