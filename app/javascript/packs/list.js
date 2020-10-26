@@ -128,6 +128,7 @@ function showListItemForm() {
   listShow.style.display = "none";
   // hideRatingProgress();
   // hideBottomMenu();
+  ahoy.track("List item form");
 }
 
 function hideListItemForm() {

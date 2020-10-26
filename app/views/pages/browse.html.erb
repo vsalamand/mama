@@ -36,11 +36,16 @@
 <div class="container px-2 mb-5">
   <div id="recipesBrowse">
     <div id="recipesHeader">
-      <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+      <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0">
         <div class="d-flex align-items-center">
-          <p class="m-0 p-1 font-weight-bold lead text-muted">Un peu d'inspiration culinaire ?</p>
+          <p class="m-0 p-1 font-weight-bold lead text-muted" style="filter: brightness(1.40);">Un peu d'inspiration culinaire ?</p>
         </div>
       </ul>
+    </div>
+    <div class="m-2">
+      <%= link_to favorites_path do %>
+        <p class="btn btn-light border"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %> <span class="pt-2">Recettes enregistrées</span></p>
+      <% end %>
     </div>
     <% if @recipes.present? %>
       <% @recipes.sort_by(&:id).reverse.each do |recipe|  %>

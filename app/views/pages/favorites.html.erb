@@ -2,31 +2,45 @@
 <% content_for :meta_description, "Toutes vos recettes préférées réunies au même endroit pour les retrouver facilement." %>
 
 
+<div class="sticky-top bg-white">
+
+  <div class="container px-2">
+    <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+       <a class="navbar-brand text-dark d-flex align-items-center m-0 text-muted" href="/">
+        <i class="fas fa-lg fa-times p-2"></i> <span class="text-white"></span>
+      </a>
+    </nav>
+  </div>
+
+</div>
 
 
-<div class="banner d-flex flex-column">
-  <div class="container p-0">
-    <div class="jumbotron text-center d-flex align-items-center bg-white flex-column p-0">
-       <h1 class="bigh1 font-weight-bold">Vos favoris</h1>
-       <hr class="my-3">
-      <div class="rounded text-center mb-2">
-        <div class="container p-0 my-4" id="recipeCategory">
-          <div class="recipesGrid">
-            <% if @recipes.any? %>
-              <%= render 'card_grid', recipes: @recipes, list: @list %>
-            <% else %>
-                <div class="d-flex align-items-center justify-content-center m-2">
-                  <div id="description">
-                    <div class="d-flex w-100 flex-column mb-0">
-                      <p class="lead text-muted">Pour ajouter une recette en favoris, cliquez sur <%= cl_image_tag("menu_icons/star", width: 20, height: 20, class:"m-0") %> dans la page recette.</p>
-                    </div>
-                  </div>
-                </div>
-            <% end %>
+
+
+<div class="container px-2 mb-5">
+  <div id="recipesFavorites">
+    <div id="recipesHeader">
+      <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+        <div class="d-flex align-items-center">
+          <p class="m-0 p-1 font-weight-bold lead text-muted">Vos recettes enregistrées</p>
+        </div>
+      </ul>
+    </div>
+    <% if @recipes.present? %>
+      <% @recipes.sort_by{|r| r.title.parameterize }.each do |recipe|  %>
+        <div id="recipeElements">
+            <%= render 'recipes/recipe', recipe: recipe, list: nil %>
+        </div>
+      <% end %>
+    <% else %>
+        <div class="d-flex align-items-center m-2">
+          <div id="description">
+            <div class="d-flex w-100 flex-column mb-0">
+              <p class="text-muted">Pour enregistrer une recette, cliquez sur <%= cl_image_tag("menu_icons/star", width: 20, height: 20, class:"m-0") %> dans la page recette.</p>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+    <% end %>
   </div>
 </div>
 
