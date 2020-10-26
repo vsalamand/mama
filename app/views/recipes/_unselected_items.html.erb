@@ -3,7 +3,7 @@
     <% StoreSection.order(:position).each do |store_section| %>
         <div id="<%= store_section.name.parameterize(separator: '') %>" class="listHeader">
           <div id="<%= store_section.name.parameterize(separator: '') %>Header">
-            <ul class="border-0 list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+            <ul class="border-0 d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
               <div class="d-flex align-items-center">
                 <p class="m-0 p-1 font-weight-bold lead"><%= store_section.name %></p>
               </div>
@@ -18,7 +18,7 @@
     <% end %>
     <div id="non-alimentaires" class="listHeader">
       <div id="non-alimentairesHeader">
-        <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+        <ul class="border-0 rounded-top d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
           <div class="d-flex align-items-center">
             <p class="m-0 p-1 font-weight-bold lead">Non-alimentaires</p>
           </div>
