@@ -1,4 +1,4 @@
-<% if list.items.not_deleted.where.not(category_id: nil).size > 0 %>
+<% if list.items.not_deleted.where(is_completed: false).size > 0 && list.items.not_deleted.where.not(category_id: nil).size > 0 %>
     <%= link_to list_analyze_path(list), class:"btn btn-link font-weight-light p-0 d-flex align-items-center", style:"text-decoration: none;" do %>
       <%= render "lists/level", score: score %>
     <% end %>
