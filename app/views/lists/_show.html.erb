@@ -1,9 +1,9 @@
-<div id="newlistItemForm" style="display: none;"><%= render "items/list_item_form", list: list, item: item %></div>
+<div id="newlistItemForm" style="display: none;"><%= render "items/list_item_form", list: list, item: item, saved_items:saved_items  %></div>
 
 <div id="listOnboarding" style="display: none;"><%= render "lists/onboarding", list: list %></div>
 
 
-<div id="listShow" class="alert-primary">
+<div id="listShow" class="alert-primary" style="min-height: 100vh;">
   <div class="sticky-top alert-primary mb-3" id="listBarTop">
     <div class="container px-2">
       <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
@@ -23,12 +23,12 @@
     </div>
   </div>
 
-    <div class="container">
-      <%= render 'shared/flashes' %>
-    </div>
+  <div class="container">
+    <%= render 'shared/flashes' %>
+  </div>
 
-  <div class="wrapper mb-5">
-    <div class="container">
+  <div class="wrapper" style="min-height: 70vh;">
+    <div class="container mb-5">
       <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
         <h1 class=""><%= list.name %></h1>
         <div class="d-flex flex-row bd-highlight mt-3 justify-content-start" id="listOptions">
@@ -39,77 +39,58 @@
           <% end %>
         </div>
       </div>
-
     </div>
-  </div>
+    <div class="container px-2">
+      <div class="container px-0" id="todo_list" data="<%= list.id %>">
+        <div class="container px-0">
 
-
-
-  <div class="container px-2" style="min-height: 70vh;">
-    <div class="container px-0" id="todo_list" data="<%= list.id %>">
-
-      <div class="container px-0">
-
-
-        <ul class="border-0 list-group-item d-flex align-items-center justify-content-between p-0 pl-1 m-0" >
-          <div class="d-flex align-items-center">
-          </div>
-        </ul>
-        <%= simple_form_for([ list, item ], remote: true) do |form| %>
+          <ul class="border-0 list-group-item d-flex align-items-center justify-content-between p-0 pl-1 m-0" >
+            <div class="d-flex align-items-center">
+            </div>
+          </ul>
           <div class="search-form-control">
-            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"toggleListItemform", style:"cursor: pointer;" }, wrapper_html: { class:" rounded rounded-lg border border-light mb-0"} %>
+              <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleListItemform" style="cursor: pointer;" >
           </div>
-        <% end %>
-
-
 
           <%= render 'lists/related_recipes', recipes: recipes, list: list %>
 
 
-
-
-        <% if false %>
-            <div id="editHistory" class="m-1">
-              <%= render "lists/edit_history", content: @message %>
-            </div>
-            <div class="dropdown">
-              <button class="btn-block btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= list.sorted_by %>
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <%= link_to "Tri par rayon", list_sort_path(list, sort_option: "rayon"), remote: true, class:"dropdown-item" %>
-                <%= link_to "Tri par catégorie", list_sort_path(list, sort_option: "category"), remote: true, class:"dropdown-item" %>
-                <%= link_to "Tri par date", list_sort_path(list, sort_option: "date"), remote: true, class:"dropdown-item" %>
-                <%= link_to "Tri par foodgroup", list_sort_path(list, sort_option: "foodgroup"), remote: true, class:"dropdown-item" %>
+          <% if false %>
+              <div id="editHistory" class="m-1">
+                <%= render "lists/edit_history", content: @message %>
               </div>
-            </div>
-        <% end %>
+              <div class="dropdown">
+                <button class="btn-block btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= list.sorted_by %>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <%= link_to "Tri par rayon", list_sort_path(list, sort_option: "rayon"), remote: true, class:"dropdown-item" %>
+                  <%= link_to "Tri par catégorie", list_sort_path(list, sort_option: "category"), remote: true, class:"dropdown-item" %>
+                  <%= link_to "Tri par date", list_sort_path(list, sort_option: "date"), remote: true, class:"dropdown-item" %>
+                  <%= link_to "Tri par foodgroup", list_sort_path(list, sort_option: "foodgroup"), remote: true, class:"dropdown-item" %>
+                </div>
+              </div>
+          <% end %>
 
-        <div class="my-3">
-          <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
-            <%= render 'lists/uncomplete_todo_list', list: list %>
-          </div>
-        </div>
-
-        <div id="scrollPoint" style="padding: 40px;"></div>
-        <div id="itemsRecommendations">
-        </div>
-
-
-        <% if false %>
-          <div class="shadow rounded">
-            <div class="list-group list-group-flush" id="complete_list_items" data-url="<%= sort_list_list_items_path(list) %>">
-              <%= render 'lists/complete_todo_list', list: list, list_items: list_items %>
+          <div class="my-3">
+            <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
+              <%= render 'lists/uncomplete_todo_list', list: list %>
             </div>
           </div>
-        <% end %>
 
+
+          <div id="scrollPoint" style="padding: 30px;">
+          </div>
+
+        </div>
       </div>
-
     </div>
-
+  </div>
+  <div class="container px-2">
+    <div id="itemsRecommendations" class="pb-5">
+    </div>
+  </div>
 </div>
-
 
 
 

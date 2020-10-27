@@ -3,9 +3,9 @@
   <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed" >
     <div class="d-flex align-items-center">
       <%= render "categories/rating_indicator", category: category %>
-      <p class="lead m-0 p-0 text-primary font-weight-bold no-link addCategoryToList" style="cursor: pointer;" data="<%= category.name %>" data-id="<%= category.id %>"><%= category.name %></p>
+      <p class="lead m-0 p-0 text-muted font-weight-bold no-link addCategoryToList" style="cursor: pointer;" data="<%= category.name %>" data-id="<%= category.id %>"><%= category.name %></p>
     </div>
-    <i class="far fa-lg fa-plus-square text-primary px-2 addCategoryToList" data="<%= category.name %>"  data-id="<%= category.id %>" style="cursor: pointer;"></i>
+    <i class="far fa-lg fa-plus-square text-muted px-2 addCategoryToList" data="<%= category.name %>"  data-id="<%= category.id %>" style="cursor: pointer;"></i>
   </li>
 
 </div>

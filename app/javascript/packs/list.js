@@ -10,18 +10,21 @@ require("jquery-ui/ui/widgets/sortable")
 // loadSuggestions();
 
 $(document).on("turbolinks:load", function(event) {
-  getListPlaceholder();
-  // getPriceBtn();
-  setListOnboarding();
-  setStoreSectionHeaders();
-  setScore();
-  setListItemForm();
   fetchScorePreviews()
-  // openSuggestedItemsModal();
-  // disable Add List item button by default
-  var submitButton = document.getElementById('addListItemBtn');
-  $(submitButton).prop('disabled', true);
-  // getCartsPrice();
+  if(document.getElementById("todo_list")) {
+    // getListPlaceholder();
+    loadSuggestions();
+    // getPriceBtn();
+    setScore();
+    setListOnboarding();
+    setStoreSectionHeaders();
+    setListItemForm();
+    // openSuggestedItemsModal();
+    // disable Add List item button by default
+    var submitButton = document.getElementById('addListItemBtn');
+    $(submitButton).prop('disabled', true);
+    // getCartsPrice();
+  }
 })
 
 $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
@@ -130,6 +133,7 @@ function showListItemForm() {
   // hideBottomMenu();
   ahoy.track("List item form");
 }
+
 
 function hideListItemForm() {
   var newListItemForm = document.getElementById('newlistItemForm');

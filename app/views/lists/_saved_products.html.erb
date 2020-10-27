@@ -1,5 +1,4 @@
 <% if items.any? %>
-
   <div id="enregistres" class="listHeader mt-4"  data="<%= items.size %>">
     <div id="enregistresHeader">
       <ul class="border-0 rounded-top d-flex align-items-center justify-content-between pl-1 pb-0 m-0">
@@ -10,7 +9,7 @@
       </ul>
     </div>
     <div id="enregistresElements" class="sectionItems">
-      <%  items.sort_by{|e| e.name.parameterize }.each do |item| %>
+      <%  items.order(:updated_at).reverse.each do |item| %>
         <%= render 'items/show', item: item %>
       <% end %>
     </div>

@@ -141,6 +141,7 @@ Rails.application.routes.draw do
 
   resources :lists do
     get :fetch_suggested_items
+    get :fetch_saved_items
     get :fetch_completed_items
     get 'fetch_price', to: "lists#fetch_price"
     get 'get_cart', to: "lists#get_cart"

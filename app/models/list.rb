@@ -76,26 +76,6 @@ class List < ApplicationRecord
     return new_list
   end
 
-  def duplicate_list_items(list)
-    list.list_items.not_deleted.each do |list_item|
-      new_list_item = ListItem.create(name: list_item.name,
-        list_id: self.id,
-        deleted: list_item.deleted,
-        is_completed: list_item.is_completed,
-        position: list_item.position)
-
-      valid_item = Item.where("lower(name) = ?", new_list_item.name.downcase).where(is_validated: true).first
-      Thread.new do
-        if valid_item.present?
-          # Item.create(quantity: valid_item.quantity, unit: valid_item.unit, food: valid_item.food, list_item: @list_item, name: valid_item.name, is_validated: valid_item.is_validated)
-          Item.create(category: valid_item.category, list_item: new_list_item, name: valid_item.category.name, is_validated: valid_item.is_validated)
-        else
-          Item.create_list_item(new_list_item)
-        end
-      end
-    end
-  end
-
   def get_products
     list_products = []
     self.list_items.not_deleted.each do |list_item|
@@ -140,16 +120,6 @@ class List < ApplicationRecord
     end
   end
 
-  def get_curated_food
-    results = []
-    User.find_by_email("mama@clubmama.co").lists.each do |list|
-      results << list.foods.shuffle[0..3].pluck(:name).map{|x| x.downcase}
-    end
-
-    curated_foods = results.flatten - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
-    return curated_foods
-  end
-
   # get list of seasonings
   def self.get_seasonings
     category_ids = []
@@ -162,26 +132,6 @@ class List < ApplicationRecord
 
     seasonings = Food.where("category_id IN (?)", category_ids.flatten) + Category.find(14).foods.tagged_with("légumes bulbes")
     return seasonings
-  end
-
-  # get list of most popular food in recipes
-  def get_top_foods
-    result = Food.left_joins(:recipes).group(:id).order('COUNT(recipes.id) DESC').limit(15).pluck(:name)
-    # clean_top_foods = top_foods - List.get_seasonings
-    top_foods = result - List.get_seasonings.pluck(:name).map{|x| x.downcase} - self.list_items.not_completed.pluck(:name).map{|x| x.downcase}
-    return top_foods
-  end
-
-  def get_items_to_buy
-    self.list_items.not_completed.map{ |list_item| list_item.item }
-  end
-
-  def get_not_completed
-    self.list_items.not_completed
-  end
-
-  def get_not_deleted
-    self.list_items.not_deleted
   end
 
   def get_sort_options
@@ -203,8 +153,9 @@ class List < ApplicationRecord
 
   def get_store_section_items(store_section)
      Item.where(is_deleted: false,
-               list_id: self.id,
-               store_section_id: store_section.id)
+                is_completed: false,
+                list_id: self.id,
+                store_section_id: store_section.id)
   end
 
   def get_foodgroup_items(foodgroup)
@@ -225,6 +176,17 @@ class List < ApplicationRecord
                is_completed: false,
                list_id: self.id,
                category_id: Category.where(rating: rating_array).pluck(:id))
+  end
+
+  def get_saved_items
+    self.items.where(is_completed: true)
+  end
+
+  def unsave_items(item)
+    if item.category.present?
+      items_to_delete = self.items.where(is_completed: true).where.not(category_id: nil).where(category_id: item.category.id)
+      items_to_delete.each{ |i| i.delete } if items_to_delete.any?
+    end
   end
 
   def get_store_carts

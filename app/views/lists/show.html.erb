@@ -7,7 +7,7 @@
 
 <% if user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>
-      <%= render "lists/show", list: @list, items: @items, item: @item, recipes: @recipes %>
+      <%= render "lists/show", list: @list, items: @items, item: @item, recipes: @recipes, saved_items: @saved_items %>
     <% else %>
       <%= render 'lists/select', list: @list, items: @items, item: @item, recipes: @recipes %>
     <% end %>
@@ -23,10 +23,6 @@
 
 
 
-<div style="padding: 10px;"></div>
-
-
-<div style="padding: 50px;"></div>
 
 
 <!-- Modal views  -->
