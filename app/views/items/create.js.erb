@@ -1,14 +1,14 @@
 <% if @item.errors.any? %>
-  refreshForm('<%= j render "items/list_item_form", list: @list, item: @item %>');
+  refreshForm();
 <% else %>
   insert();
-  refreshForm('<%= j render "items/list_item_form", list: @list, item: Item.new %>');
+  refreshForm();
 <% end %>
 
 
-function refreshForm(innerHTML) {
-  const newListItemForm = document.getElementById('new_item');
-  newListItemForm.innerHTML = innerHTML;
+function refreshForm() {
+  const newListItemForm = document.getElementById('newListItem');
+  newListItemForm.value = '';
   var submitButton = document.getElementById('addListItemBtn');
   $(submitButton).prop('disabled', true);
   event.preventDefault();

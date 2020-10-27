@@ -7,30 +7,10 @@ $(section).attr('data', newData);
 const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
 listItemCard.remove();
 
-
-
-if(document.getElementById("todo_list")) {
-  var totalCount = $("#uncomplete_list_items li").length + $("#complete_list_items li").length;
-
-  if(totalCount == 0){
-    loadSuggestions();
-  }
-}
-
-loadSuggestions();
-function loadSuggestions() {
-  if(document.querySelector("#todo_list")){
-    const id = document.querySelector("#todo_list").getAttribute('data');
-    $.ajax({
-      url: "/lists/" + id + "/fetch_suggested_items",
-      cache: false,
-      success: function(){
-      }
-    });
-  }
-}
-
 setScore();
+
+
+
 // Set list score
 function setScore() {
   if(document.querySelector("#listScore")){

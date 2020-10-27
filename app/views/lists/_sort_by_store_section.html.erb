@@ -1,7 +1,5 @@
     <% StoreSection.order(:position).each do |store_section| %>
-      <%= render "lists/store_section", store_section: store_section, items: list.get_store_section_items(store_section).where(is_completed: false) %>
+      <%= render "lists/store_section", store_section: store_section, items: list.get_store_section_items(store_section) %>
     <% end %>
 
     <%= render "lists/store_section", store_section: nil, items: list.items.not_deleted.where(store_section_id: nil).where(is_completed: false) %>
-
-    <%=  render"lists/saved_products", items: list.items.not_deleted.where(is_completed: true) %>

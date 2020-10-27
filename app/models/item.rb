@@ -218,55 +218,6 @@ class Item < ApplicationRecord
   end
 
 
-  # def self.add_list_items(list_items_array)
-  #   new_items = []
-
-  #   # get parsing for each list item that does not have an item yet
-  #   cleaned_list_items = list_items_array.select{|list_item| list_item.item.nil? }
-
-  #   queries = cleaned_list_items.map{|list_item| "query=#{list_item.name}" }.compact
-
-  #   unless queries.compact.empty?
-  #     url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
-  #     # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{queries.join("&")}"))
-  #     parser = JSON.parse(open(url).read)
-
-  #     parser.each_with_index do |element, index|
-  #       quantity = element['quantity_match'] if element['quantity_match'].present?
-  #       category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-  #       if category.nil? && parser['clean_item'].present?
-  #         product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
-  #         category = product.get_category if product.present?
-  #       end
-  #       unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-  #       store_section_id = category.get_store_section.id if category.present?
-  #       # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-  #       new_items << Item.new(category: category, list_item: cleaned_list_items[index], name: cleaned_list_items[index].name, is_validated: false, quantity: quantity, unit: unit, store_section_id: store_section_id)
-  #     end
-  #     Item.import new_items
-  #   end
-  # end
-
-  # def set_list_item(list_item)
-  #   query = "query=#{list_item.name}"
-  #   url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{query}"))
-  #   # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{query}"))
-  #   parser = JSON.parse(open(url).read).first
-
-  #   quantity = parser['quantity_match'] if parser['quantity_match'].present?
-  #   category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-  #   if category.nil? && parser['clean_item'].present?
-  #     product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
-  #     category = product.get_category if product.present?
-  #   end
-  #   unit = Unit.search(parser['unit_match'], misspellings: {edit_distance: 1}).first if parser['unit_match'].present?
-  #   store_section_id = category.get_store_section.id if category.present?
-
-  #   # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-  #   self.update(quantity: quantity, unit: unit, category: category, list_item: list_item, name: list_item.name, is_validated: false, store_section_id: store_section_id)
-  # end
-
-
   def self.update_recipe_items(recipe)
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/parse/recipe?id=#{recipe.id}")
     parser = JSON.parse(open(url).read)
@@ -303,16 +254,6 @@ class Item < ApplicationRecord
                      is_validated: self.is_validated)
       # end
     end
-    # # method to create items for list items that have no associated item
-    # missing_list_items_items = ListItem.left_outer_joins(:item).where(items: {id: nil})
-    # matching_list_items = missing_list_items_items.select{ |el| el.name.downcase == self.name.downcase}
-    # if matching_list_items.any?
-    #   new_validated_items = []
-    #   matching_list_items.each do |list_item|
-    #     new_validated_items << Item.new(food: self.food, list_item: list_item, name: list_item.name, is_validated: self.is_validated, quantity: self.quantity, unit: self.unit, store_section_id: self.store_section_id, is_non_food: self.is_non_food)
-    #   end
-    #   Item.import new_validated_items
-    # end
   end
 
   def unvalidate
@@ -321,17 +262,27 @@ class Item < ApplicationRecord
 
   # make a complete method
   def complete
-    update(is_completed: true)
+    self.is_completed = true
+    self.is_deleted = true
+    self.save
   end
 
   # make an uncomplete method
   def uncomplete
-    update(is_completed: false)
+    self.is_completed = false
+    self.is_deleted = false
+    self.save
   end
 
   #create the soft delete method
   def delete
-    update(is_deleted: true)
+    self.is_completed = false
+    self.is_deleted = true
+    self.save
+  end
+
+  def find_saved_item(list)
+    Item.where("lower(trim(name)) = ?", self.name.downcase.strip).where(list: list).where(is_completed: true).first
   end
 
   def get_store_section

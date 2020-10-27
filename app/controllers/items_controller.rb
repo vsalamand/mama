@@ -14,16 +14,34 @@ class ItemsController < ApplicationController
     @item = Item.new(items_params)
     if params[:list_id]
       @list = List.friendly.find(params[:list_id])
-      @item = @item.set
-      @item.list = @list
-      if @item.save
-        @headername = @item.get_header_name
-        render "create.js.erb"
-        # redirect_to list_path(@list)
+      @saved_item = @item.find_saved_item(@list)
+      # if new item name is similar to saved products => use uncomplete method
+      if @saved_item.present?
+        @item = @saved_item
+        @list = @item.list
+        @new_item = @item.dup
+        @new_item.uncomplete
+        @item.delete
+
+        @headername = @new_item.get_header_name
+
+        render "uncomplete.js.erb"
         ahoy.track "Create list item", name: @item.name
+      # else just create new item
       else
-        redirect_to list_path(@list)
+        @item = @item.set
+        @item.list = @list
+        if @item.save
+          @headername = @item.get_header_name
+          render "create.js.erb"
+          @list.unsave_items(@item)
+          # redirect_to list_path(@list)
+          ahoy.track "Create list item", name: @item.name
+        else
+          redirect_to list_path(@list)
+        end
       end
+
     elsif params[:recipe_id]
       @item = @item.set
       @item.recipe = Recipe.friendly.find(params[:recipe_id])
@@ -92,6 +110,7 @@ class ItemsController < ApplicationController
   def complete
     @item = Item.find(params[:item_id])
     @list = @item.list
+    @list.unsave_items(@item)
     @item.complete
 
     render "complete.js.erb"
@@ -101,11 +120,14 @@ class ItemsController < ApplicationController
   def uncomplete
     @item = Item.find(params[:item_id])
     @list = @item.list
-    @item.uncomplete
-    @headername = @item.get_header_name
+    @new_item = @item.dup
+    @new_item.uncomplete
+    @item.delete
+
+    @headername = @new_item.get_header_name
 
     render "uncomplete.js.erb"
-    ahoy.track "Uncomplete list item", name: @item.name
+    ahoy.track "Create list item", name: @item.name
   end
 
   def validate

@@ -5,15 +5,15 @@
       <ul class="border-0 rounded-top d-flex align-items-center justify-content-between pl-1 pb-0 m-0">
         <div class="d-flex flex-column text-muted">
           <div class="m-0 pb-0 pl-1 d-flex align-items-center">
-              <%= cl_image_tag("menu_icons/fire", width: 20, height: 20, class:"mr-1") %>
-              <span class="font-weight-bold lead" style="filter: brightness(1.40);">Produits populaires</span>
+              <%= cl_image_tag("menu_icons/light-bulb", width: 20, height: 20, class:"mr-1") %>
+              <span class="font-weight-bold lead" style="filter: brightness(1.40);">Pour compléter</span>
           </div>
           <small class="font-weight-light pl-1 mb-1">Sélectionner un produit pour l'ajouter</small>
         </div>
       </ul>
     </div>
     <div id="suggestionsElements" class="sectionItems mt-1">
-      <%  categories.each do |category| %>
+      <% categories.each do |category| %>
         <%= render 'categories/add', category: category %>
       <% end %>
     </div>

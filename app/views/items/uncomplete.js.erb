@@ -1,13 +1,15 @@
 const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
 listItemCard.remove();
 insert();
+refreshForm();
+setScore();
 
 function insert() {
   const section = document.getElementById("<%= @headername %>")
   const sectionElements = document.getElementById("<%= @headername %>Elements");
   var newData = Number(section.getAttribute('data')) + 1;
   $(section).attr('data', newData);
-  sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @item %>");
+  sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @new_item %>");
   sortSectionElements(sectionElements);
 }
 
@@ -19,7 +21,6 @@ function sortSectionElements(sectionElements) {
   })
 }
 
-setScore();
 // Set list score
 function setScore() {
   if(document.querySelector("#listScore")){
@@ -32,4 +33,12 @@ function setScore() {
       }
     });
   }
+}
+
+function refreshForm() {
+  const newListItemForm = document.getElementById('newListItem');
+  newListItemForm.value = '';
+  var submitButton = document.getElementById('addListItemBtn');
+  $(submitButton).prop('disabled', true);
+  event.preventDefault();
 }
