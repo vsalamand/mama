@@ -1,13 +1,6 @@
 <div id="recipe-id<%= recipe.id %>" data="<%= recipe.id %>">
   <li class="rounded alert-warning mb-1 py-3 px-2 d-flex align-items-center justify-content-between uncompleted" >
     <div class="d-flex align-items-center">
-      <% if false %>
-      <%= link_to recipe_path(recipe) do %>
-        <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      <% end %>
-      <% end %>
       <div id="isFavorite<%= recipe.id %>">
         <%= render 'shared/favorite', recipe: recipe %>
       </div>

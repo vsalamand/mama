@@ -1,0 +1,20 @@
+document.getElementById('contentShow').innerHTML = ("<%= j render'items/modal_show', item: @item %>");
+
+var itemName = "<%= @item.category.name %>";
+var listId = "<%= @item.list.id %>";
+
+fetchRecipes(listId, itemName)
+
+function fetchRecipes(listId, itemName) {
+  $.ajax({
+    url: "/recipes/fetch_recipes",
+    cache: false,
+    dataType: 'script',
+    data: {
+        l: listId,
+        q: itemName
+        },
+    success: function(){
+    }
+  });
+}

@@ -18,6 +18,7 @@ class RecipesController < ApplicationController
     end
 
     @referrer = params[:ref]
+    @referrer = list_path(@list) if @list.present?
     if @referrer.nil? || @referrer == request.url
       @referrer = "/"
     end
@@ -224,6 +225,13 @@ class RecipesController < ApplicationController
     @servings = params[:s].to_i
     @servings_delta = params[:s].to_f / @recipe.servings.delete('^0-9').to_f
     render "update_servings.js.erb"
+  end
+
+  def fetch_recipes
+    query = params[:q]
+    @recipes = Recipe.where(status: "published").search(query, fields: [:title, :ingredients])[0..19] if query.present?
+    @list = List.friendly.find(params[:l])
+    render "fetch_recipes.js.erb"
   end
 
   private

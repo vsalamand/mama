@@ -109,6 +109,7 @@ Rails.application.routes.draw do
       get :fetch_suggested_recipes
       get :fetch_menu
       get :add_menu_to_list
+      get :fetch_recipes
     end
     member do
       # get 'card', to: "recipes#card"
@@ -143,6 +144,7 @@ Rails.application.routes.draw do
     get :fetch_suggested_items
     get :fetch_saved_items
     get :fetch_completed_items
+    get :fetch_category
     get 'fetch_price', to: "lists#fetch_price"
     get 'get_cart', to: "lists#get_cart"
     post 'email', to: "lists#email"

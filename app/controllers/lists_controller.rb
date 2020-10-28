@@ -143,6 +143,14 @@ class ListsController < ApplicationController
     render 'get_suggested_items.js.erb'
   end
 
+  def fetch_category
+    @list = List.friendly.find(params[:list_id])
+    @category = Category.find(params[:c])
+    # @recipes = Recipe.where(status: "published").search(@category.name, fields: [:title, :ingredients])[0..19] if @category.present?
+    render 'fetch_category.js.erb'
+    ahoy.track "Show category", list_id: @list.id, category_id: @category.id, name: @category.name
+  end
+
   def fetch_price
     @list = List.friendly.find(params[:list_id])
     @carts_price = Store.get_cheapest_store_price(@list)
