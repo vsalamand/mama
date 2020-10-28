@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
         @headername = @new_item.get_header_name
 
         render "uncomplete.js.erb"
-        ahoy.track "Create list item", name: @item.name
+        ahoy.track "Create list item", name: @item.name, context: "saved products"
       # else just create new item
       else
         @item = @item.set
@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
           render "create.js.erb"
           @list.unsave_items(@item)
           # redirect_to list_path(@list)
-          ahoy.track "Create list item", name: @item.name
+          ahoy.track "Create list item", name: @item.name, context: "#{params[:c]}"
         else
           redirect_to list_path(@list)
         end
@@ -127,7 +127,7 @@ class ItemsController < ApplicationController
     @headername = @new_item.get_header_name
 
     render "uncomplete.js.erb"
-    ahoy.track "Create list item", name: @item.name
+    ahoy.track "Create list item", name: @item.name, context: "saved products"
   end
 
   def validate

@@ -546,7 +546,7 @@ $(document).on("click" , ".addCategoryToList", function(event) {
 
   $.ajax({
     type: "POST",
-    url: "/items",
+    url: "/items?c=add",
     cache: false,
     dataType: 'script',
     data: {
