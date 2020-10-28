@@ -54,7 +54,11 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @recipes = Recipe.where(status: "published").search(@item.category.name, fields: [:title, :ingredients])[0..19] if @item.category.present?
+
+    respond_to do |format|
+      format.html { redirect_to item_path(@item) }
+      format.js { render 'show.js.erb' }
+    end
 
     ahoy.track "Show item", name: @item.name
   end

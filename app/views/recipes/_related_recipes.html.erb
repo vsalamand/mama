@@ -1,0 +1,16 @@
+  <% if recipes.present? %>
+      <div id="recipesBrowse">
+        <div id="recipesHeader">
+          <ul class="border-0 rounded-top d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+            <div class="d-flex align-items-center">
+              <p class="m-0 p-1 font-weight-bold lead text-muted">Idées recettes</p>
+            </div>
+          </ul>
+        </div>
+        <% recipes.sort_by(&:id).reverse.each do |recipe|  %>
+          <div id="recipeElements">
+              <%= render 'recipes/recipe', recipe: recipe, list: list %>
+          </div>
+        <% end %>
+      </div>
+  <% end %>

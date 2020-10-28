@@ -66,3 +66,25 @@ function addToList(items, listId) {
     }
   });
 }
+
+
+
+// show / hide item
+$(document).on("click", ".fetchItem", function(event) {
+  var itemId = this.getAttribute('data');
+  $('#contentModal').modal('show')
+  $('#contentShow').html(
+    `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+  );
+  fetchCategory(itemId);
+})
+
+function fetchCategory(itemId) {
+  $.ajax({
+    url: "/items/" + itemId,
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+}

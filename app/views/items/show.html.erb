@@ -32,6 +32,30 @@
     </div>
   </div>
 
+  <div class="container px-2">
+    <div id="itemsRecommendations" class="pb-5">
+      <% if @item.category.present? %>
+
+        <div id="suggestions" class="listHeader mt-4"  data="">
+          <div id="suggestionsHeader">
+            <ul class="border-0 rounded-top d-flex align-items-center justify-content-between pl-1 pb-0 m-0">
+              <div class="d-flex flex-column text-muted">
+                <div class="m-0 pb-0 pl-1 d-flex align-items-center">
+                    <span class="font-weight-bold lead" style="filter: brightness(1.40);"><%= @item.name %> +</span>
+                </div>
+                <small class="font-weight-light pl-1 mb-1">Ajouter un produit avec <i class="far fa-plus-square text-muted"></i></small>
+              </div>
+            </ul>
+          </div>
+          <div id="suggestionsElements" class="sectionItems mt-1">
+            <% @item.category.get_top_categories(@item.list).shuffle[0..4].each do |category| %>
+              <%= render 'categories/add', category: category %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <% if @recipes.present? %>
     <div class="container px-2">
