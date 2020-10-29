@@ -13,7 +13,7 @@
 
           </div>
           <%= link_to list_item_complete_path(item.list, item), remote: true  do %>
-           <i class="far fa-2x fa-square text-muted px-1"></i>
+           <i class="far fa-2x fa-square text-muted px-1" style="filter: brightness(1.40);"></i>
           <% end %>
         </li>
       <% else %>
@@ -29,7 +29,7 @@
             <p class="lead m-0 p-0 text-muted font-weight-bold no-link fetchItem" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
           </div>
           <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
-            <i class="far fa-2x fa-check-square text-muted px-1"></i>
+            <i class="fas fa-2x fa-check-square text-muted px-1" style="filter: brightness(1.40);"></i>
           <% end %>
        </li>
       <% end %>
