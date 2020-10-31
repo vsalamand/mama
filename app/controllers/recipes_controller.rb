@@ -230,10 +230,12 @@ class RecipesController < ApplicationController
   end
 
   def fetch_recipes
-    query = params[:q]
+    query = Array(params[:q])
     @list = List.friendly.find(params[:l])
-    query = @list.items.not_deleted.last.name if query.nil?
-    @recipes = Recipe.where(status: "published").search(query, fields: [:title, :ingredients])[0..19] if query.present?
+
+    query = @list.items.not_deleted.where(is_completed: false).pluck(:name) if params[:q].nil?
+
+    @recipes = Recipe.multi_search(query)[0..19] if query.present?
 
     if params[:source]
       @source_id = params[:source].gsub(/[^0-9]/, '')
