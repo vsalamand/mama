@@ -88,3 +88,22 @@ function fetchCategory(itemId) {
     }
   });
 }
+
+
+// Show item modal
+$(document).on("turbolinks:load", function(event) {
+  if(document.getElementById("todo_list")) {
+    var searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.get('type') === "item") {
+      var itemId = searchParams.get('content');
+      $('#contentModal').modal('show')
+      $('#contentShow').html(
+        `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+      );
+
+      fetchCategory(itemId);
+
+    }
+  }
+})

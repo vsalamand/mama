@@ -18,7 +18,8 @@ class RecipesController < ApplicationController
     end
 
     @referrer = params[:ref]
-    @referrer = list_path(@list) if @list.present?
+    # @referrer = list_path(@list) if @list.present?
+    @referrer = list_path(@list, type: params[:type], content: params[:content]) if @list.present?
     if @referrer.nil? || @referrer == request.url
       @referrer = "/"
     end
@@ -26,6 +27,7 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.js
     end
     ahoy.track "Show recipe", recipe_id: @recipe.id, title: @recipe.title
   end
@@ -229,8 +231,15 @@ class RecipesController < ApplicationController
 
   def fetch_recipes
     query = params[:q]
-    @recipes = Recipe.where(status: "published").search(query, fields: [:title, :ingredients])[0..19] if query.present?
     @list = List.friendly.find(params[:l])
+    query = @list.items.not_deleted.last.name if query.nil?
+    @recipes = Recipe.where(status: "published").search(query, fields: [:title, :ingredients])[0..19] if query.present?
+
+    if params[:source]
+      @source_id = params[:source].gsub(/[^0-9]/, '')
+      @source_type = params[:source].gsub(/[^a-z]/, '')
+    end
+
     render "fetch_recipes.js.erb"
   end
 

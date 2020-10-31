@@ -1,0 +1,28 @@
+<div class="sticky-top alert-primary">
+    <div class="container px-2">
+      <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-end" style="background-color: transparent;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fas fa-lg fa-times p-2"></i>
+          </button>
+      </nav>
+    </div>
+</div>
+
+
+<div id="categoryShow" class="alert-primary">
+
+    <div class="container px-2">
+      <h1 class="pl-1">Pour cuisiner vos produits:</h1>
+    </div>
+
+  <div class="container px-2">
+    <div id="relatedRecipes">
+      <%= render "recipes/related_recipes", recipes: recipes, list: list, source_type: source_type, source_id: source_id  %>
+    </div>
+  </div>
+
+
+
+  <div style="padding: 50px;"></div>
+
+</div>

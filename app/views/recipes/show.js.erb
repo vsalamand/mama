@@ -1,0 +1,2 @@
+document.getElementById('contentShow').innerHTML = "";
+document.getElementById('contentShow').innerHTML = ("<%= j render'recipes/show', recipe: @recipe, servings: @servings, list: @list, lists: @lists %>");

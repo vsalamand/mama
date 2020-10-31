@@ -9,7 +9,7 @@
         </div>
         <% recipes.sort_by(&:id).reverse.each do |recipe|  %>
           <div id="recipeElements">
-              <%= render 'recipes/recipe', recipe: recipe, list: list %>
+              <%= render 'recipes/recipe', recipe: recipe, list: list, source_type: source_type, source_id: source_id  %>
           </div>
         <% end %>
       </div>
