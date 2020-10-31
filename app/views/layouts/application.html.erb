@@ -112,7 +112,7 @@
         <% end %>
       <% end %>
 
-      <% unless ["assistant", "cuisine"].include?(params[:action])%>
+      <% if ["landing", "home", "browse"].include?(params[:action])%>
         <%= render 'shared/footer'  %>
       <% end %>
 

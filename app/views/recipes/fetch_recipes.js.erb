@@ -1,2 +1,7 @@
-document.getElementById('relatedRecipes').innerHTML = ""
-document.getElementById('relatedRecipes').innerHTML = ("<%= j render'recipes/related_recipes', recipes: @recipes, list: @list %>");
+if(document.getElementById('relatedRecipes')) {
+  document.getElementById('relatedRecipes').innerHTML = ""
+  document.getElementById('relatedRecipes').innerHTML = ("<%= j render'recipes/related_recipes', recipes: @recipes, list: @list, source_type: @source_type, source_id: @source_id %>");
+} else {
+  document.getElementById('contentShow').innerHTML = "";
+  document.getElementById('contentShow').innerHTML = ("<%= j render'recipes/list_recipes', recipes: @recipes, list: @list, source_type: @source_type, source_id: @source_id %>");
+}

@@ -80,3 +80,22 @@ function fetchCategory(listId, categoryId) {
 }
 
 
+
+// Show category modal
+$(document).on("turbolinks:load", function(event) {
+  if(document.getElementById("todo_list")) {
+    var searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.get('type') === "category") {
+      var listId = document.querySelector("#todo_list").getAttribute('data');
+      var categoryId = searchParams.get('content');
+      $('#contentModal').modal('show')
+      $('#contentShow').html(
+        `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+      );
+
+      fetchCategory(listId, categoryId);
+
+    }
+  }
+})

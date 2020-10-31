@@ -1,54 +1,95 @@
-  <div class="sticky-top bg-white">
-    <div class="container">
-       <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
-          <div class="navbar-brand d-flex align-items-center text-muted" id="hideRecipeShow" style="cursor: pointer;">
-            <i class="fas fa-lg fa-times p-2"></i>
+<div class="sticky-top alert-warning">
+  <div class="container">
+     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
+        <div class="navbar-brand d-flex align-items-center text-muted" id="hideRecipeShow" style="cursor: pointer;">
+          <i class="fas fa-lg fa-arrow-left p-2"></i>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-lg fa-times p-2"></i>
+        </button>
+
+     </nav>
+  </div>
+</div>
+
+
+<div id="recipeShow" class="alert-warning">
+
+  <div class="container">
+    <div class="jumbotron bg-transparent p-0 m-0 d-flex flex-column">
+          <div class="text-center my-auto d-flex flex-column" style="min-height: 100px;">
+            <h1 class="">
+              <% if user_signed_in? %>
+                <span id="isFavorite<%= recipe.id %>">
+                  <%= render 'shared/favorite', recipe: recipe %>
+                </span>
+              <% end %>
+              <%= recipe.title %>
+            </h1>
+            <p class="m-0 p-1 lead"><%= link_to "#{URI("#{recipe.link }").host}", recipe.link, target: "_blank", class:"recipeLinkClick" %></p>
           </div>
 
-          <%= link_to "Choisir cette recette", add_to_list_recipe_path(recipe), class:"btn border text-primary btn-lg font-weight-bold" %>
-
-       </nav>
-    </div>
-  </div>
-
-<div class="container my-4">
-  <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
-      <div class="row">
-        <div class="col-md-6 p-0 my-auto d-flex flex-column">
-          <h1 class=""><%= recipe.title %></h1>
-          <p class="m-0 p-1 lead"><%= link_to "#{URI("#{recipe.link }").host}", recipe.link, target: "_blank", class:"recipeLinkClick" %></p>
-
-          <div class="d-flex justify-content-start my-2">
-            <%= link_to "Voir la recette", recipe.link, target: "_blank", class:"btn btn-primary recipeLinkClick m-1 px-4" %>
-            <% if user_signed_in? %>
-              <div id="isFavorite<%= recipe.id %>" class="m-1 p-1">
-                <%= render 'shared/favorite', recipe: recipe %>
+          <div class="text-center mt-2" style="min-height: 270px;">
+            <%= link_to recipe.link, target: "_blank", class:"recipeLinkClick" do %>
+              <div style="position: relative; text-align: center;">
+                <%= cl_image_tag("#{recipe.id}", :width=>270, :fetch_format=>:auto, :quality=>"auto:low", class:"shadow rounded") %>
+                <p class="lead font-weight-bold shadow-lg p-2 rounded text-primary" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; opacity: 0.8;">Voir la recette</p>
               </div>
             <% end %>
           </div>
-         </div>
 
-       <div class="col-md-6 text-center" style="min-height: 270px;">
-          <%= link_to recipe.link, target: "_blank" do %>
-            <div style="position: relative; text-align: center;">
-              <%= cl_image_tag("#{recipe.id}", :width=>270, :fetch_format=>:auto, :quality=>"auto:low", class:"shadow rounded") %>
-              <p class="lead font-weight-bold shadow-lg p-2 rounded text-primary" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; opacity: 0.8;">Voir la recette</p>
+    </div>
+  </div>
+
+
+  <div class="container px-2 my-2" style="min-height: 50vh;" id="recipeContent">
+    <%= render "recipes/content", recipe: recipe, servings: servings, servings_delta: 1 %>
+  </div>
+
+  <div class="container px-2 text-center my-3">
+    <button type="button" class="btn btn-light border rounded m-1 shadow" data-toggle="modal" data-target="#addToListModal">
+      Ajouter dans une liste de courses
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addToListModal" tabindex="-1" role="dialog" aria-labelledby="addToListModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addToListModalLabel">Ajouter à</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="listIndex">
+              <div id="listsHeader">
+                <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0" style="filter: brightness(1.40);">
+                  <div class="d-flex align-items-center">
+                    <p class="m-0 p-1 font-weight-bold lead text-muted">Vos listes</p>
+                  </div>
+                </ul>
+              </div>
+              <% if lists.present? %>
+                <% lists.sort_by(&:id).reverse.each do |glist|  %>
+                  <li class="rounded alert-primary mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+                    <div class="lead text-primary font-weight-bold px-2" style="cursor: pointer;" id="addRecipeToListBtn" list-data="<%= glist.id %>" recipe-data="<%= recipe.id %>"><%= glist.name %></div>
+                  </li>
+                <% end %>
+              <% end %>
+
+            <div class="pl-1 mb-4">
+              <% if lists.size < 5 %>
+                <p class="btn btn-light border rounded m-1 px-5" style="cursor: pointer;" id="addRecipeToListBtn" list-data="0" recipe-data="<%= recipe.id %>">Nouvelle liste</p>
+              <% else %>
+                <small class="m-1 text-muted"><i class="fas fa-check text-success pl-2 pr-1"></i> 5 listes maximum </small>
+              <% end %>
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
-<!--       <a class="btn btn-light border text-primary btn-lg selectAllRecipeItemsBtn" data="<%= recipe.id %>" style="cursor: pointer;" role="button">Tout sélectionner</a> -->
-
+    </div>
   </div>
+
+  <div style="padding: 50px;"></div>
+
 </div>
-
-
-<div class="container px-2" style="min-height: 90vh;">
-
-      <div id="recipeItems">
-          <%= render "recipes/selected_items", recipe: recipe %>
-      </div>
-</div>
-
-<div style="padding: 50px;"></div>
-

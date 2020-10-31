@@ -136,6 +136,18 @@ class Recipe < ApplicationRecord
     self.recipe_list_items.select{ |rli| rli.is_curated?} if self.recipe_list_items.any?
   end
 
+  def self.multi_search(query)
+    search_queries = []
+    query.each do |q|
+      search_queries << Recipe.where(status: "published").search(q, fields: [:title, :ingredients], execute: false)
+    end
+
+    Searchkick.multi_search(search_queries)
+    results = search_queries.map{ |search| search.results}.flatten.group_by {|i| i}.sort_by {|_, a| -a.count}.map &:first
+
+    return results.flatten
+  end
+
   def scrape
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/scrape?link=#{self.link}")
     # url = URI.parse("http://127.0.0.1:5000/api/v1/scrape?link=#{self.link}")

@@ -12,7 +12,8 @@ function fetchRecipes(listId, itemName) {
     dataType: 'script',
     data: {
         l: listId,
-        q: itemName
+        q: itemName,
+        source: "item<%= @item.id %>"
         },
     success: function(){
     }

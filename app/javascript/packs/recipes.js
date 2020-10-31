@@ -113,8 +113,8 @@ $(document).on("click", "#updateServingsBtn", function(event) {
   var recipeId = this.getAttribute('data');
   var number = document.getElementById('servingsNum').value;
 
-  $('.modal').modal('hide');
-  $(document.body).removeClass('modal-open');
+  $('#servingsModal').modal('hide');
+  // $(document.body).removeClass('modal-open');
   $('.modal-backdrop').remove();
 
   $.ajax({
@@ -131,3 +131,70 @@ $(document).on("click", "#updateServingsBtn", function(event) {
 });
 
 
+
+// show recipes in list
+$(document).on("click", ".fetchRecipes", function(event) {
+  var listId = document.querySelector("#todo_list").getAttribute('data');
+  $('#contentModal').modal('show')
+  $('#contentShow').html(
+    `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+  );
+  fetchRecipes(listId);
+})
+
+function fetchRecipes(listId) {
+  $.ajax({
+    url: "/recipes/fetch_recipes",
+    cache: false,
+    dataType: 'script',
+    data: {
+        l: listId,
+        source: "meals"
+        },
+    success: function(){
+    }
+  });
+}
+
+// show recipe
+$(document).on("click", ".loadRecipe", function(event) {
+  var listId = document.querySelector("#todo_list").getAttribute('data');
+  var recipeId = this.getAttribute('data');
+  $('#contentModal').modal('show')
+  $('#contentShow').html(
+    `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+  );
+  showRecipe(recipeId, listId);
+})
+
+function showRecipe(recipeId, listId) {
+  $.ajax({
+    url: "/recipes/" + recipeId,
+    cache: false,
+    dataType: 'script',
+    data: {
+        l: listId
+        },
+    success: function(){
+    }
+  });
+}
+
+
+// Show category modal
+$(document).on("turbolinks:load", function(event) {
+  if(document.getElementById("todo_list")) {
+    var searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.get('type') === "meals") {
+      var listId = document.querySelector("#todo_list").getAttribute('data');
+      $('#contentModal').modal('show')
+      $('#contentShow').html(
+        `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+      );
+
+      fetchRecipes(listId);
+
+    }
+  }
+})
