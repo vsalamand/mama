@@ -140,6 +140,7 @@ $(document).on("click", ".fetchRecipes", function(event) {
     `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
   );
   fetchRecipes(listId);
+  ahoy.track("Meal ideas");
 })
 
 function fetchRecipes(listId) {
@@ -192,6 +193,7 @@ $(document).on("turbolinks:load", function(event) {
       $('#contentShow').html(
         `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
       );
+
 
       fetchRecipes(listId);
 
