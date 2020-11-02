@@ -1,6 +1,6 @@
 document.getElementById('contentShow').innerHTML = ("<%= j render'items/modal_show', item: @item %>");
 
-var itemName = "<%= @item.category.name %>";
+var itemName = "<%= @item.category.present? ? @item.category.name : '' %>";
 var listId = "<%= @item.list.id %>";
 
 fetchRecipes(listId, itemName)
