@@ -68,26 +68,29 @@ class Category < ApplicationRecord
 
   def get_top_categories(list)
     tops = Recipe.where(status: "published")
+                 .last(20)
                  .joins(:categories)
-                  .where( categories: {id: self.id} )
-                  .map{ |r| r.categories}
-                  .flatten
-                  .group_by{|x| x}
-                  .sort_by{|k, v| -v.size}
-                  .map(&:first)
-                  .pluck(:id)
+                 .where( categories: {id: self.id} )
+                 .map{ |r| r.categories}
+                 .flatten
+                 .group_by{|x| x}
+                 .sort_by{|k, v| -v.size}
+                 .map(&:first)
+                 .pluck(:id)
     banned = list.items.not_deleted.pluck(:category_id).compact + Category.find(280).subtree.pluck(:id) + Array(Category.find(605)).pluck(:id) + Array(Category.find(440)).pluck(:id) + Array(Category.find(812)).pluck(:id) + Array(Category.find(603)).pluck(:id) + Array(Category.find(505)).pluck(:id) + Category.find(87).subtree.pluck(:id) + Category.find(604).subtree.pluck(:id) + Category.find(499).subtree.pluck(:id) + Category.find(5).subtree.pluck(:id) + Category.find(726).subtree.pluck(:id) + Category.find(279).subtree.pluck(:id) + Category.find(793).subtree.pluck(:id)
     results = tops - banned
     return Category.find(results[0..24])
   end
 
   def self.get_top_recipe_categories(list)
-    tops = Recipe.last(25).map{ |r| r.categories}
-                        .flatten
-                        .group_by{|x| x}
-                        .sort_by{|k, v| -v.size}
-                        .map(&:first)
-                        .pluck(:id)
+    tops = Recipe.where(status: "published")
+                  .last(20)
+                  .map{ |r| r.categories}
+                  .flatten
+                  .group_by{|x| x}
+                  .sort_by{|k, v| -v.size}
+                  .map(&:first)
+                  .pluck(:id)
     banned = list.items.not_deleted.pluck(:category_id).compact + Category.find(280).subtree.pluck(:id) + Array(Category.find(605)).pluck(:id) + Array(Category.find(440)).pluck(:id) + Array(Category.find(812)).pluck(:id) + Array(Category.find(603)).pluck(:id) + Array(Category.find(505)).pluck(:id) + Category.find(87).subtree.pluck(:id) + Category.find(604).subtree.pluck(:id) + Category.find(499).subtree.pluck(:id) + Category.find(5).subtree.pluck(:id) + Category.find(726).subtree.pluck(:id) + Category.find(279).subtree.pluck(:id) + Category.find(793).subtree.pluck(:id)
     results = tops - banned
     return Category.find(results[0..24])
