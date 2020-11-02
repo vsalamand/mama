@@ -14,7 +14,7 @@
   <% end %>
 
   <ol>
-     <% list.get_items_to_buy.map do |li| %>
+     <% list.items.not_deleted.where(is_completed: false).map do |li| %>
       <li><%= li.name %></li>
      <% end %>
   </ol>

@@ -15,7 +15,9 @@
               Ajouter
             <% end %>
           </div>
-          <%= render 'checklists/suggested', checklists: Checklist.find_by(name: "suggestions"), list: list %>
+          <% if false %>
+            <%= render 'checklists/suggested', checklists: Checklist.find_by(name: "suggestions"), list: list %>
+          <% end %>
         </div>
   <% end %>
 
