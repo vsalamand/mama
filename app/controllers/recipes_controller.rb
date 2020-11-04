@@ -20,7 +20,7 @@ class RecipesController < ApplicationController
     @referrer = params[:ref]
     # @referrer = list_path(@list) if @list.present?
     @referrer = list_path(@list, type: params[:type], content: params[:content]) if @list.present?
-    if @referrer.nil? || @referrer == request.url
+    if @referrer.nil? || @referrer == request.url || @referrer.include?("/recipes")
       @referrer = "/"
     end
 
@@ -231,11 +231,16 @@ class RecipesController < ApplicationController
 
   def fetch_recipes
     query = Array(params[:q])
-    @list = List.friendly.find(params[:l])
 
-    query = @list.items.not_deleted.where(is_completed: false).pluck(:name) if params[:q].nil?
-
-    @recipes = Recipe.multi_search(query)[0..19] if query.present?
+    if params[:l].present?
+      @list = List.friendly.find(params[:l])
+      query = @list.items.not_deleted.where(is_completed: false).pluck(:name) if params[:q].nil?
+    end
+    if query.present?
+      @recipes = Recipe.multi_search(query)[0..19]
+    else
+      @recipes = Recommendation.last.recipe_lists.first.recipes.where(status: "published").last(20)
+    end
 
     if params[:source]
       @source_id = params[:source].gsub(/[^0-9]/, '')

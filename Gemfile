@@ -112,6 +112,9 @@ gem "audited", "~> 4.9"
 
 # Create beautiful JavaScript charts with one line of Ruby
 gem "chartkick"
+#The simplest way to group temporal data
+gem 'groupdate'
+
 
 
 

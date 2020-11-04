@@ -1,0 +1,20 @@
+    <div class="jumbotron d-flex flex-column bg-transparent p-0">
+      <p class="h3 font-weight-bold text-center">Produits ajoutés</p>
+
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+          <div class="lead p-1 m-0 d-flex align-items-center"><strong class="text-primary h3 m-0"><%= good_products.size %></strong><span class="text-muted px-1"><%= good_products.size > 1 ? "produits" : "produit" %></span><span class="lead badge badge-success badge-pill" style="opacity: 0.7">Bon</span></div>
+          <div class="lead p-1 m-0"><strong class="text-primary h3">+<%= good_products.size * 3 %></strong> <small class="text-muted"><%= good_products.size > 1 ? "points" : "point" %></small></div>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+          <div class="lead p-1 m-0 d-flex align-items-center"><strong class="text-primary h3 m-0"><%= limit_products.size %></strong><span class="text-muted px-1"><%= limit_products.size > 1 ? "produits" : "produit" %></span><span class="lead badge badge-warning badge-pill" style="opacity: 0.7">À limiter</span></div>
+          <div class="lead p-1 m-0"><strong class="text-primary h3"><%= limit_products.size * -1 %></strong> <small class="text-muted"><%= limit_products.size > 1 ? "points" : "point" %></small></div>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+          <div class="lead p-1 m-0 d-flex align-items-center"><strong class="text-primary h3 m-0"><%= avoid_products.size %></strong><span class="text-muted px-1"><%= avoid_products.size > 1 ? "produits" : "produit" %></span><span class="lead badge badge-danger badge-pill" style="opacity: 0.7">À éviter</span></div>
+          <div class="lead p-1 m-0"><strong class="text-primary h3"><%= avoid_products.size * -3 %></strong> <small class="text-muted"><%= avoid_products.size > 0 ? "points" : "point" %></small></div>
+        </li>
+      </ul>
+    </div>

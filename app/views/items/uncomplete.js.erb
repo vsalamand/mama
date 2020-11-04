@@ -1,15 +1,15 @@
-const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
+const listItemCard = document.querySelector("#grocerylist-item-id<%= @saved_item.id %>");
 listItemCard.remove();
 insert();
 refreshForm();
-setScore();
+updateScore();
 
 function insert() {
   const section = document.getElementById("<%= @headername %>")
   const sectionElements = document.getElementById("<%= @headername %>Elements");
   var newData = Number(section.getAttribute('data')) + 1;
   $(section).attr('data', newData);
-  sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @new_item %>");
+  sectionElements.insertAdjacentHTML("beforeEnd", "<%= j render 'items/show', list: @list, item: @item %>");
   sortSectionElements(sectionElements);
 }
 
@@ -21,13 +21,13 @@ function sortSectionElements(sectionElements) {
   })
 }
 
-// Set list score
-function setScore() {
-  if(document.querySelector("#listScore")){
-    var listId = document.querySelector("#listScore").getAttribute('data');
+
+// update list score
+function updateScore() {
+  if(document.querySelector("#score")){
 
     $.ajax({
-      url: "/lists/" + listId + "/get_score",
+      url: "/get_score",
       cache: false,
       success: function(){
       }

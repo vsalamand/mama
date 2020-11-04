@@ -40,6 +40,7 @@ import 'packs/items';
 import 'packs/pages';
 import 'packs/categories';
 import 'packs/assistant';
+import 'packs/score';
 
 
 // import { initListCable } from '../channels/list_channel';

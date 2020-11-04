@@ -1,5 +1,4 @@
 <% content_for :meta_title, "#{@list.name}" %>
-<% content_for :meta_description, "#{@items.pluck(:name).join(", ").capitalize[0..255] if @items.any?}" %>
 
 <div id="iOSInstallNavbar"></div>
 <div id="androidInstallNavbar"></div>
@@ -7,7 +6,7 @@
 
 <% if user_signed_in? %>
     <% if @list.user == current_user || @list.users.include?(current_user) %>
-      <%= render "lists/show", list: @list, items: @items, item: @item, recipes: @recipes, saved_items: @saved_items %>
+      <%= render "lists/show", list: @list, recipes: @recipes %>
     <% else %>
       <%= render 'lists/select', list: @list, items: @items, item: @item, recipes: @recipes %>
     <% end %>

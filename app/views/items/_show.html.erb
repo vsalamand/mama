@@ -10,11 +10,12 @@
             <% end %>
             <%= render "items/rating_indicator", item: item %>
             <p class="li lead m-0 p-0 no-link text-primary font-weight-bold fetchItem" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
-
           </div>
-          <%= link_to list_item_complete_path(item.list, item), remote: true  do %>
-           <i class="far fa-2x fa-square text-muted px-1" style="filter: brightness(1.40);"></i>
-          <% end %>
+          <div class="d-flex align-items-center">
+            <%= link_to list_item_complete_path(item.list, item), remote: true  do %>
+             <i class="far fa-2x fa-square text-muted px-1" style="filter: brightness(1.40);"></i>
+            <% end %>
+          </div>
         </li>
       <% else %>
 
@@ -28,9 +29,13 @@
             <%= render "items/rating_indicator", item: item %>
             <p class="lead m-0 p-0 text-muted font-weight-bold no-link fetchItem" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
           </div>
-          <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
-            <i class="fas fa-2x fa-check-square text-muted px-1" style="filter: brightness(1.40);"></i>
-          <% end %>
+
+          <div class="d-flex align-items-center">
+            <%= render "shared/badge_points", points: item.get_points %>
+            <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
+              <i class="fas fa-2x fa-check-square text-muted px-1" style="filter: brightness(1.40);"></i>
+            <% end %>
+          </div>
        </li>
       <% end %>
 

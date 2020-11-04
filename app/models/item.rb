@@ -17,6 +17,7 @@ class Item < ApplicationRecord
   # validates :food_id, presence: true
   has_many :cart_items, dependent: :destroy
   has_many :store_cart_items, dependent: :destroy
+  has_many :item_histories
 
   scope :not_deleted, -> { where(is_deleted: false) }
   scope :deleted, -> { where(is_deleted: true) }
@@ -30,6 +31,12 @@ class Item < ApplicationRecord
     self.validate if self.is_validated == true
     self.set_store_section if saved_change_to_name? || saved_change_to_category_id?
   end
+
+  after_update do
+    self.update_score if saved_change_to_category_id?
+  end
+
+  after_create :create_item_history
   # after_create :broadcast_create
   # after_update :broadcast_update
 
@@ -91,6 +98,7 @@ class Item < ApplicationRecord
       item.is_validated = valid_item.is_validated
       item.store_section_id = valid_item.store_section_id
       item.store_section_id = nil if valid_item.is_non_food
+      item.is_deleted = false
       item.recipe = nil
     else
       query = "query=#{item.name}"
@@ -113,11 +121,8 @@ class Item < ApplicationRecord
       item.unit = unit
       item.category = category
       item.store_section_id = category.get_store_section.id if category.present?
+      item.is_deleted = false
       item.is_validated = false
-      # if category.present?
-      # elsif store_section_item_search.present?
-      #   item.store_section_id = store_section_item_search.first.store_section_item.get_store_section.id if store_section_item_search.first.store_section_item.get_store_section.present?
-      # end
     end
 
     return item
@@ -133,6 +138,8 @@ class Item < ApplicationRecord
         new_items << new_item
       end
       Item.import new_items
+
+      new_items.each{ |i| i.create_item_history}
     end
 
     # queries = ingredients.map{|input| "query=#{input}" }.compact
@@ -182,6 +189,8 @@ class Item < ApplicationRecord
         new_items << new_item
       end
       Item.import new_items
+
+      new_items.each{ |i| i.create_item_history}
     end
     # queries = ingredients.map{|input| "query=#{input}" }.compact
     # if ingredients.any?
@@ -265,6 +274,7 @@ class Item < ApplicationRecord
     self.is_completed = true
     self.is_deleted = true
     self.save
+    self.create_item_history
   end
 
   # make an uncomplete method
@@ -279,6 +289,7 @@ class Item < ApplicationRecord
     self.is_completed = false
     self.is_deleted = true
     self.save
+    self.create_item_history
   end
 
   def find_saved_item(list)
@@ -328,5 +339,25 @@ class Item < ApplicationRecord
     else
       return "non-alimentaires"
     end
+  end
+
+  def get_points
+    self.category.present? ? rating = self.category.rating.to_i  : rating = 0
+    case rating
+      when 0 then points = 0
+      when 1 then points = 3
+      when 2 then points = -1
+      when 3 then points = -3
+    end
+  end
+
+  def update_score
+    if self.list.present?
+      self.list.user.score.set_score
+    end
+  end
+
+  def create_item_history
+    ItemHistory.find_or_create_by(item_id: self.id, is_deleted: self.is_deleted)
   end
 end

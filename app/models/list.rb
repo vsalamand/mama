@@ -40,7 +40,7 @@ class List < ApplicationRecord
   #create the soft delete method
   def delete
     update(is_deleted: true, status: "deleted")
-    self.list_items.map{|list_item| list_item.delete }
+    self.items.not_deleted.each{|item| item.delete }
   end
 
   # make an undelete method

@@ -3,6 +3,7 @@
 <% else %>
   insert();
   refreshForm();
+  updateScore();
 <% end %>
 
 
@@ -55,14 +56,12 @@ $('#newListItem').focus();
 
 
 
-setScore();
-// Set list score
-function setScore() {
-  if(document.querySelector("#listScore")){
-    var listId = document.querySelector("#listScore").getAttribute('data');
+// update list score
+function updateScore() {
+  if(document.querySelector("#score")){
 
     $.ajax({
-      url: "/lists/" + listId + "/get_score",
+      url: "/get_score",
       cache: false,
       success: function(){
       }

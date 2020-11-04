@@ -17,13 +17,13 @@ class ItemsController < ApplicationController
       @saved_item = @item.find_saved_item(@list)
       # if new item name is similar to saved products => use uncomplete method
       if @saved_item.present?
-        @item = @saved_item
-        @list = @item.list
-        @new_item = @item.dup
-        @new_item.uncomplete
-        @item.delete
+        @item = @saved_item.dup
+        @item.list = @list
+        @item.uncomplete
+        @item.save
+        @saved_item.delete
 
-        @headername = @new_item.get_header_name
+        @headername = @item.get_header_name
 
         render "uncomplete.js.erb"
         ahoy.track "Create list item", name: @item.name, context: "saved products"
@@ -122,13 +122,13 @@ class ItemsController < ApplicationController
   end
 
   def uncomplete
-    @item = Item.find(params[:item_id])
-    @list = @item.list
-    @new_item = @item.dup
-    @new_item.uncomplete
-    @item.delete
+    @saved_item = Item.find(params[:item_id])
+    @list = @saved_item.list
+    @item = @saved_item.dup
+    @item.uncomplete
+    @saved_item.delete
 
-    @headername = @new_item.get_header_name
+    @headername = @item.get_header_name
 
     render "uncomplete.js.erb"
     ahoy.track "Create list item", name: @item.name, context: "saved products"

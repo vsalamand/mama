@@ -1,0 +1,3 @@
+var score = document.querySelector("#score");
+score.innerHTML = "";
+score.innerHTML = ("<%= j render 'shared/score', score: @score %>");

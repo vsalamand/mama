@@ -34,11 +34,12 @@ $(document).on("click" , "#addRecipeToListBtn", function(event) {
   const recipeId = this.getAttribute('recipe-data');
   const listId = this.getAttribute('list-data');
 
-  const selectedItems = document.querySelectorAll(".selectedItem");
+  var selectedItems = [];
+  document.querySelectorAll(".selectedItem ").forEach(i => { selectedItems.push(i.querySelector('p')); })
+
   var items = [];
   $(selectedItems).map(function() {
                    items.push($(this).text().trim());
-
                 });
 
   addRecipeToList(items, recipeId, listId);

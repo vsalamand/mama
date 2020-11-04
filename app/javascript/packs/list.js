@@ -10,12 +10,13 @@ require("jquery-ui/ui/widgets/sortable")
 // loadSuggestions();
 
 $(document).on("turbolinks:load", function(event) {
-  fetchScorePreviews()
+  // fetchScorePreviews()
   if(document.getElementById("todo_list")) {
     // getListPlaceholder();
     loadSuggestions();
+    fetchNewItemForm();
     // getPriceBtn();
-    setScore();
+    // setScore();
     setListOnboarding();
     setStoreSectionHeaders();
     setListItemForm();
@@ -38,7 +39,7 @@ $(document).on("DOMSubtreeModified", "#uncomplete_list_items", function(event) {
 
 $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
   setStoreSectionHeaders();
-  setScore();
+  // setScore();
   // hideRatingProgress();
 })
 
@@ -66,6 +67,18 @@ $('#selectListModal').on('hide.bs.modal', function (e) {
 //$('#addListItemModal').on('shown.bs.modal', function (e) {
 const form = document.getElementById('new_item');
 
+
+function fetchNewItemForm() {
+  const id = document.querySelector("#todo_list").getAttribute('data');
+
+  $.ajax({
+    url: "/lists/" + id + "/fetch_item_form",
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+}
 
 $(document).on("submit", "#new_item", function(event) {
   var addForm = document.getElementById('new_item');

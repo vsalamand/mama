@@ -50,7 +50,6 @@ class PagesController < ApplicationController
       current_user.reset_current_list
     end
 
-    @recipes = Recommendation.last.recipe_lists.first.recipes.where(status: "published").last(20)
 
     ahoy.track "Browse"
   end
@@ -248,6 +247,31 @@ class PagesController < ApplicationController
     end
   end
 
+  def activity
+    @user = current_user
+    @score = @user.scores.first.value
+
+    if params[:l]
+      list = List.find(params[:l])
+      @items = list.items
+    else
+      @items = @user.get_items
+    end
+
+    @data = ItemHistory.get_score_progress(@items, @score, 150)
+
+    @good_products = @items.where(is_completed: false, is_deleted: false).where(category_id: Category.where(rating: 1).pluck(:id))
+    @limit_products = @items.where(is_completed: false, is_deleted: false).where(category_id: Category.where(rating: 2).pluck(:id))
+    @avoid_products = @items.where(is_completed: false, is_deleted: false).where(category_id: Category.where(rating: 3).pluck(:id))
+
+
+    ahoy.track "Activity", user_id: @user.id, email: @user.email
+  end
+
+  def get_score
+    @score = current_user.get_score
+    render "get_score.js.erb"
+  end
 
   def thank_you
     @user = current_user

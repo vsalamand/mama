@@ -1,0 +1,54 @@
+<% if current_user %>
+
+      <% case
+       when score > 99 %>
+      <div class="jumbotron bg-transparent p-2">
+        <div class="border-0 rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(165, 5, 189),rgb(239, 87, 203));">
+        <p class="lead text-white text-center">Votre score est Excellent <%= cl_image_tag("menu_icons/sparkling-heart", width: 20, height: 20) %></p>
+          <p class="m-0 text-white text-center"><strong class="display-2 font-weight-bold"><%= score %></strong> points</p>
+        </div>
+      </div>
+
+    <% when score > 59 %>
+      <div class="jumbotron bg-transparent p-2">
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));">
+          <p class="lead text-white text-center">Votre score est Très bon <%= cl_image_tag("menu_icons/green-heart", width: 20, height: 20) %></p>
+          <p class="m-0 text-white text-center"><strong class="display-2 font-weight-bold"><%= score %></strong> points</p>
+        </div>
+      </div>
+
+    <% when score > 29 %>
+      <div class="jumbotron bg-transparent p-2">
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(135deg, rgb(182, 244, 85),rgb(63, 128, 87));">
+          <p class="lead text-white text-center">Votre score est Bon <%= cl_image_tag("menu_icons/yellow-heart", width: 20, height: 20) %></p>
+          <p class="m-0 text-white text-center"><strong class="display-2 font-weight-bold"><%= score %></strong> points</p>
+        </div>
+      </div>
+
+    <% when score > 0 %>
+      <div class="jumbotron bg-transparent p-2">
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
+          <p class="lead text-white text-center">Votre score est Correct <%= cl_image_tag("menu_icons/orange-heart", width: 20, height: 20) %></p>
+          <p class="m-0 text-white text-center"><strong class="display-2 font-weight-bold"><%= score %></strong> points</p>
+        </div>
+      </div>
+
+    <% when score < 1 && score > -1%>
+      <div class="jumbotron bg-transparent p-2">
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));">
+          <p class="lead text-white text-center">Votre score n'est pas top <%= cl_image_tag("menu_icons/white-heart", width: 20, height: 20) %></p>
+          <p class="m-0 text-white text-center"><strong class="display-2 font-weight-bold"><%= score %></strong> point</p>
+        </div>
+      </div>
+
+    <% when score < -1%>
+      <div class="jumbotron bg-transparent p-2">
+        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));">
+          <p class="lead text-white text-center">Votre score n'est pas top <%= cl_image_tag("menu_icons/broken-heart", width: 20, height: 20) %></p>
+          <p class="m-0 text-white text-center"><strong class="display-2 font-weight-bold"><%= score %></strong> points</p>
+        </div>
+      </div>
+    <% end %>
+
+
+<% end %>

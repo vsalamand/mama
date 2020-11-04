@@ -1,0 +1,3 @@
+var graph = document.getElementById("foodMixGraph");
+graph.innerHTML = "";
+graph.innerHTML = ("<%= j render 'shared/food_mix_graph', items: @items %>");

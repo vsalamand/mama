@@ -90,10 +90,7 @@ class ListsController < ApplicationController
     @list = List.friendly.find(params[:id])
     @list.set_game if @list.game.nil?
 
-    @item = Item.new
-    @items = @list.items.not_deleted
     @recipes = @list.recipes
-    @saved_items = @list.get_saved_items
 
     @ref_list_id = params[:l]
     if @ref_list_id.present?
@@ -112,6 +109,14 @@ class ListsController < ApplicationController
     # @message = @list.get_last_edit(current_user.id) if user_signed_in?
     # current_user.set_current_list(@list.id) if user_signed_in? && @list.user == current_user || @list.users.include?(current_user)
     ahoy.track "Show list", list_id: @list.id, name: @list.name
+  end
+
+  def fetch_item_form
+    @list = List.friendly.find(params[:list_id])
+    @item = Item.new
+    @saved_items = @list.get_saved_items
+
+    render 'fetch_item_form.js.erb'
   end
 
   def fetch_suggested_items

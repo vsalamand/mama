@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_164828) do
+ActiveRecord::Schema.define(version: 2020_11_03_124804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -309,6 +309,14 @@ ActiveRecord::Schema.define(version: 2020_08_28_164828) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "item_histories", force: :cascade do |t|
+    t.bigint "item_id"
+    t.boolean "is_deleted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_histories_on_item_id"
+  end
+
   create_table "items", id: :serial, force: :cascade do |t|
     t.integer "food_id"
     t.integer "recipe_id"
@@ -501,6 +509,16 @@ ActiveRecord::Schema.define(version: 2020_08_28_164828) do
     t.integer "user_id"
     t.boolean "is_active", default: false
     t.index ["user_id"], name: "index_recommendations_on_user_id"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.integer "value", default: 0
+    t.bigint "user_id"
+    t.bigint "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_scores_on_game_id"
+    t.index ["user_id"], name: "index_scores_on_user_id"
   end
 
   create_table "store_cart_items", id: :serial, force: :cascade do |t|
@@ -706,6 +724,7 @@ ActiveRecord::Schema.define(version: 2020_08_28_164828) do
   add_foreign_key "foods", "food_groups"
   add_foreign_key "foods", "store_sections"
   add_foreign_key "foods", "units"
+  add_foreign_key "item_histories", "items"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "foods"
   add_foreign_key "items", "list_items"
@@ -733,6 +752,8 @@ ActiveRecord::Schema.define(version: 2020_08_28_164828) do
   add_foreign_key "recommendation_items", "recipe_lists"
   add_foreign_key "recommendation_items", "recommendations"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "scores", "games"
+  add_foreign_key "scores", "users"
   add_foreign_key "store_cart_items", "items"
   add_foreign_key "store_cart_items", "store_carts"
   add_foreign_key "store_cart_items", "store_items"
