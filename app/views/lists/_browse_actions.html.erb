@@ -8,7 +8,12 @@
             <%= f.input :sorted_by, input_html: {value: "rayon"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
             <%= f.input :status, input_html: {value: "saved"}, :as => :hidden, :wrapper_html=> { class: "m-0" }  %>
 
-            <%= f.submit "Nouvelle liste", class:"btn btn-light border rounded m-1 shadow" %>
+            <%= f.button :button, class:"m-0 p-0" do %>
+              <div class="btn btn-light border rounded m-0">
+                <%= cl_image_tag("menu_icons/list", width: 20, class:"pb-1") %>
+                <span class="pt-2">Nouvelle liste</span>
+              </div>
+            <% end %>
       <% end %>
 
     <% else %>

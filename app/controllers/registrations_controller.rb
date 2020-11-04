@@ -17,10 +17,10 @@ class RegistrationsController < Devise::RegistrationsController
           root_path
         end
       else
-        root_path
+        list_path(current_user.get_lists.first)
       end
     else
-      root_path
+      list_path(current_user.get_lists.first)
     end
     # root_path
   end

@@ -99,6 +99,8 @@ Rails.application.routes.draw do
   get 'assistant', to: 'pages#assistant'
   get 'refresh_assistant', to:'pages#refresh_assistant'
   get 'refresh_meal', to:'pages#refresh_meal'
+  get 'activity', to: 'pages#activity'
+  get 'get_score', to: 'pages#get_score'
 
 
   resources :recipes do
@@ -141,6 +143,7 @@ Rails.application.routes.draw do
 
 
   resources :lists do
+    get :fetch_item_form
     get :fetch_suggested_items
     get :fetch_saved_items
     get :fetch_completed_items

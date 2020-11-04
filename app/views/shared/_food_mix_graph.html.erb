@@ -1,0 +1,4 @@
+<div class="jumbotron d-flex flex-column bg-transparent p-0">
+  <p class="h3 font-weight-bold text-center">Répartition alimentaire</p>
+  <%= bar_chart items.where(is_completed: false, is_deleted: false).map{|i| i.category.get_food_group if i.category.present?}.compact.group_by(&:root).map { |k, v| [k.name, v.size] }.to_h, legend: false, defer: true, colors: ["#3CB371", "#00FA9A"], round: 1  %>
+</div>

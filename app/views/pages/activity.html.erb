@@ -1,0 +1,33 @@
+<div id="activityContent" class="bg-light" style="min-height: 200vh;">
+
+  <div class="sticky-top bg-light">
+      <div class="container px-2">
+        <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between" style="background-color: transparent;">
+            <%= link_to :back, class:"navbar-brand text-dark d-flex align-items-center" do %>
+              <i class="fas fa-lg fa-arrow-left p-2"></i>
+            <% end %>
+        </nav>
+      </div>
+  </div>
+
+
+  <div class="container">
+      <%= render "shared/big_score", score: @score %>
+  </div>
+
+  <div class="container my-5" id="scoreProgress">
+    <%= render "shared/score_progress_chart", data: @data %>
+  </div>
+
+  <div class="container my-5">
+    <%= render "shared/product_mix", good_products: @good_products, limit_products: @limit_products, avoid_products: @avoid_products %>
+  </div>
+
+  <div class="container my-5" id="foodMixGraph">
+    <%= render "shared/food_mix_graph", items: @items %>
+
+  </div>
+
+   <div style="padding: 50px;"></div>
+
+</div>

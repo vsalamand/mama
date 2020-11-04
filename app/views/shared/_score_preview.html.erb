@@ -1,0 +1,16 @@
+<% if points >= 1 %>
+  <div class="d-flex flex-column align-items-center" style="filter: brightness(1.40);">
+    <span class="lead text-muted font-weight-bold m-0 p-0"><%= points %></span>
+    <small class="text-muted m-0 p-0">points</small>
+  </div>
+<% elsif  points >= -1 && points < 1 %>
+  <div class="d-flex flex-column align-items-center" style="filter: brightness(1.40);">
+    <span class="lead text-muted font-weight-bold m-0 p-0"><%= points %></span>
+    <small class="text-muted m-0 p-0">point</small>
+  </div>
+<% else %>
+  <div class="d-flex flex-column align-items-center" style="filter: brightness(1.40);">
+    <span class="lead text-muted font-weight-bold m-0 p-0"><%= points %></span>
+    <small class="text-muted m-0 p-0">points</small>
+  </div>
+<% end %>

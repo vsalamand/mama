@@ -1,0 +1,4 @@
+    <div class="jumbotron d-flex flex-column bg-transparent p-0">
+        <p class="h3 font-weight-bold text-center text-center">Suivi des points</p>
+        <%= area_chart data, {discrete: true, curve: false, points: false, defer: true, colors: ["#3CB371", "#00FA9A"], library: { scales: { xAxes: [{ display: false }] } }} %>
+    </div>

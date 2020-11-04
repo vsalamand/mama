@@ -5,6 +5,11 @@
        <a class="navbar-brand text-dark d-flex align-items-center m-0 text-muted" href="<%= referrer %>">
         <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
       </a>
+
+
+      <div id="score" data="" style="min-height: 45px;">
+        <%= render "shared/score", score: current_user.get_score %>
+      </div>
     </nav>
   </div>
 

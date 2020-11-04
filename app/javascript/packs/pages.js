@@ -350,3 +350,21 @@ $(document).on("turbolinks:load", function(event) {
     setTimeout(autoRefresh_landing, 3000);
   }
 })
+
+
+// show recipes in Browse
+$(document).on('turbolinks:load', function() {
+  if (document.getElementById('relatedRecipes')) {
+    fetchRecipes();
+  }
+})
+
+function fetchRecipes() {
+  $.ajax({
+    url: "/recipes/fetch_recipes",
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+}

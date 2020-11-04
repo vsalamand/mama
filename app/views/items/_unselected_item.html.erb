@@ -1,21 +1,20 @@
 <% if item.present? %>
   <div id="item-id<%= item.id %>">
-    <li class="border-0 mb-1 py-2 px-2 list-group-item d-flex align-items-center justify-content-between" style="cursor: pointer;" id="<%= dom_id(item) %>">
+    <li class="border-0 mb-1 py-2 px-2 list-group-item d-flex align-items-center justify-content-between unselectedItem" style="cursor: pointer;" id="<%= dom_id(item) %>" data="<%= item.id %>" servings-data="<%= servings_delta %>">
 
-      <div class="d-flex align-items-center text-muted unselectedItem" data="<%= item.id %>" servings-data="<%= servings_delta %>">
-        <i class="far fa-lg fa-square px-1 pt-1 m-0"></i>
+      <div class="d-flex align-items-center text-muted">
         <%= render "items/rating_indicator", item: item %>
-        <p class="lead m-0 p-0 font-weight-bold"><%= item.category.name %>
+        <p class="lead m-0 p-0 font-weight-bold itemName"><%= item.category.name %>
           <% if item.quantity %>
-            <span class="lead font-weight-light text-muted">x <%= "%g" % ("%.2f" % [item.quantity.to_f * servings_delta]) %> <%= item.unit.name if item.unit %></span>
+            <span class="small font-weight-light text-muted">x <%= "%g" % ("%.2f" % [item.quantity.to_f * servings_delta]) %> <%= item.unit.name if item.unit %></span>
           <% end %>
         </p>
       </div>
-       <% if user_signed_in? && current_user.admin == true %>
-        <%= link_to edit_item_path(item), target: "_blank" do  %>
-          <i class="fas fa-edit fa-xs m-0 p-0 text-muted"></i>
-        <% end %>
-      <% end %>
+
+      <div class="d-flex align-items-center">
+        <%= render "shared/badge_points", points: item.get_points %>
+        <i class="far fa-lg fa-square px-1 pt-1 m-0"></i>
+      </div>
 
     </li>
   </div>

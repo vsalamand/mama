@@ -2,14 +2,14 @@ const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>
 listItemCard.innerHTML = "";
 listItemCard.innerHTML = ("<%= j render 'items/show', list: @list, item: @item %>");
 
-setScore();
-// Set list score
-function setScore() {
-  if(document.querySelector("#listScore")){
-    var listId = document.querySelector("#listScore").getAttribute('data');
+updateScore();
+
+// update list score
+function updateScore() {
+  if(document.querySelector("#score")){
 
     $.ajax({
-      url: "/lists/" + listId + "/get_score",
+      url: "/get_score",
       cache: false,
       success: function(){
       }
