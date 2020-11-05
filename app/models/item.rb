@@ -353,7 +353,7 @@ class Item < ApplicationRecord
 
   def update_score
     if self.list.present?
-      self.list.user.score.set_score
+      self.list.user.scores.first.set_score
     end
   end
 
