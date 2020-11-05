@@ -5,12 +5,17 @@ class Category < ApplicationRecord
   has_many :store_section_items
   has_many :stores, through: :store_section_items
   has_many :items
+  has_many :item_histories, through: :items
 
   has_ancestry
   searchkick language: "french"
 
   before_save do
     self.update_related_items_store_section_id if will_save_change_to_store_section_id?
+  end
+
+  after_update do
+    self.update_score if saved_change_to_rating?
   end
 
   def update_related_items_store_section_id
@@ -113,6 +118,12 @@ class Category < ApplicationRecord
     when "avoid" then self.rating = 3
     end
     self.save
+  end
+
+  def update_score
+    Thread.new do
+      Score.all.each{ |s| s.set_score }
+    end
   end
 
   def self.arrange_as_array(options={}, hash=nil)

@@ -47,9 +47,17 @@ class ItemHistory < ApplicationRecord
   end
 
   def self.get_score(items)
-    item_histories = ItemHistory.where(item_id: items.pluck(:id))
-    item_histories = item_histories.order(:created_at).map{|ih| ih.get_points}
-    item_histories.sum
+    points = []
+    points << ItemHistory.where(item_id: items.where(category_id: Category.where(rating: 1).pluck(:id)).pluck(:id)).where(is_deleted: false).size * 3
+    points << ItemHistory.where(item_id: items.where(category_id: Category.where(rating: 1).pluck(:id)).pluck(:id)).where(is_deleted: true).size * 3 * -1
+    points << ItemHistory.where(item_id: items.where(category_id: Category.where(rating: 2).pluck(:id)).pluck(:id)).where(is_deleted: false).size * -1
+    points << ItemHistory.where(item_id: items.where(category_id: Category.where(rating: 2).pluck(:id)).pluck(:id)).where(is_deleted: true).size * -1 * -1
+    points << ItemHistory.where(item_id: items.where(category_id: Category.where(rating: 3).pluck(:id)).pluck(:id)).where(is_deleted: false).size * -3
+    points << ItemHistory.where(item_id: items.where(category_id: Category.where(rating: 3).pluck(:id)).pluck(:id)).where(is_deleted: true).size * -3 * -1
+    points.flatten.sum
+    # item_histories = ItemHistory.where(item_id: items.pluck(:id))
+    # item_histories = item_histories.map{|ih| ih.get_points}
+    # item_histories.sum
   end
 
   def update_score
