@@ -239,7 +239,7 @@ class RecipesController < ApplicationController
     if query.present?
       @recipes = Recipe.multi_search(query)[0..19]
     else
-      @recipes = Recommendation.last.recipe_lists.first.recipes.where(status: "published").last(20)
+      @recipes = Recommendation.last.recipe_lists.first.recipes.where(status: "published").last(10)
     end
 
     if params[:source]

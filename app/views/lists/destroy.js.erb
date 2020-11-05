@@ -3,3 +3,18 @@ document.getElementById('list-id<%= @list.id %>').remove();
 var action = document.getElementById('browseListActions');
 action.innerHTML = "";
 action.innerHTML = ("<%= j render 'lists/browse_actions', lists: @lists, list: @new_list %>");
+
+updateScore();
+
+// update list score
+function updateScore() {
+  if(document.querySelector("#score")){
+
+    $.ajax({
+      url: "/get_score",
+      cache: false,
+      success: function(){
+      }
+    });
+  }
+}
