@@ -1,25 +1,25 @@
 <div class="banner d-flex flex-column alert-primary">
-  <div class="sticky-top mb-3 alert-primary">
+  <div class="sticky-top alert-primary">
     <div class="container px-2">
       <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
         <div class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" id="hideNewlistItemForm" style="cursor: pointer;"><i class="fas fa-lg fa-arrow-left p-2"></i>
         </div>
       </nav>
     </div>
-  </div>
-  <%= simple_form_for([ list, item ], remote: true) do |form| %>
-        <div class="container px-2 mt-2">
-          <div class="search-form-control">
-            <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"newListItem", autocomplete: 'off' }, wrapper_html: { class:" rounded rounded-lg shadow-lg"} %>
-            <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
-              Ajouter
+    <%= simple_form_for([ list, item ], remote: true) do |form| %>
+          <div class="container px-2 mt-2">
+            <div class="search-form-control">
+              <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"newListItem", autocomplete: 'off' }, wrapper_html: { class:" rounded rounded-lg shadow-lg"} %>
+              <%= button_tag(type: "submit", class: "btn btn-sm btn-primary", id:"addListItemBtn") do %>
+                Ajouter
+              <% end %>
+            </div>
+            <% if false %>
+              <%= render 'checklists/suggested', checklists: Checklist.find_by(name: "suggestions"), list: list %>
             <% end %>
           </div>
-          <% if false %>
-            <%= render 'checklists/suggested', checklists: Checklist.find_by(name: "suggestions"), list: list %>
-          <% end %>
-        </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <div class="container px-2" id="savedProducts">
     <%=  render"lists/saved_products", items: saved_items %>

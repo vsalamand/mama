@@ -17,7 +17,7 @@ class Item < ApplicationRecord
   # validates :food_id, presence: true
   has_many :cart_items, dependent: :destroy
   has_many :store_cart_items, dependent: :destroy
-  has_many :item_histories
+  has_many :item_histories, dependent: :destroy
 
   scope :not_deleted, -> { where(is_deleted: false) }
   scope :deleted, -> { where(is_deleted: true) }
