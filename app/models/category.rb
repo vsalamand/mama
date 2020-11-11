@@ -72,10 +72,11 @@ class Category < ApplicationRecord
   end
 
   def get_top_categories(list)
-    tops = Recipe.where(status: "published")
+    # tops = Recipe.where(status: "published")
+    tops = Recommendation.last.recipe_lists.first.recipes.where(status: "published")
                  .joins(:categories)
                  .where( categories: {id: self.id} )
-                 .last(20)
+                 .last(15)
                  .map{ |r| r.categories}
                  .flatten
                  .group_by{|x| x}
@@ -88,9 +89,10 @@ class Category < ApplicationRecord
   end
 
   def self.get_top_recipe_categories(list)
-    tops = Recipe.where(status: "published")
+    # tops = Recipe.where(status: "published")
+    tops = Recommendation.last.recipe_lists.first.recipes.where(status: "published")
                   .map{ |r| r.categories}
-                  .last(20)
+                  .last(15)
                   .flatten
                   .group_by{|x| x}
                   .sort_by{|k, v| -v.size}

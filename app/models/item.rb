@@ -130,100 +130,109 @@ class Item < ApplicationRecord
 
   def self.add_menu_to_list(ingredients, list)
     new_items = []
-    if ingredients.any?
-      ingredients.each do |ing|
-        new_item = Item.new(name: ing.squeeze(' '))
-        new_item = new_item.set
-        new_item.list = list
-        new_items << new_item
-      end
-      Item.import new_items
 
-      new_items.each{ |i| i.create_item_history}
-    end
-
-    # queries = ingredients.map{|input| "query=#{input}" }.compact
     # if ingredients.any?
-    #   url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
-    #   parser = JSON.parse(open(url).read)
-
-    #   parser.each_with_index do |element, index|
-    #     quantity = element['quantity_match'] if element['quantity_match'].present?
-    #     category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-    #     if category.nil? && element['clean_item'].present?
-    #       product = StoreItem.search(element['clean_item'], where: {store_id: 1}).first
-    #       category = product.get_category if product.present?
-    #     end
-    #     unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-
-    #     store_section_id = category.get_store_section.id if category.present?
-    #     # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-    #     new_item =  Item.new(name: ingredients[index].squeeze(' '),
-    #                           category: category,
-    #                           is_validated: false,
-    #                           quantity: quantity,
-    #                           unit: unit,
-    #                           store_section_id: store_section_id,
-    #                           is_completed: false,
-    #                           is_deleted: false,
-    #                           list: list)
-
-    #     valid_item = Item.where("lower(trim(name)) = ?", element['clean_item'].downcase.strip).where(is_validated: true).first
-    #     valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
+    #   ingredients.each do |ing|
+    #     new_item = Item.new(name: ing.squeeze(' '))
+    #     new_item = new_item.set
+    #     new_item.list = list
     #     new_items << new_item
     #   end
     #   Item.import new_items
+
+    #   new_items.each{ |i| i.create_item_history}
     # end
+
+    queries = ingredients.map{|input| "query=#{input}" }.compact
+    if ingredients.any?
+      url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
+      parser = JSON.parse(open(url).read)
+
+      parser.each_with_index do |element, index|
+        quantity = element['quantity_match'] if element['quantity_match'].present?
+        category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        if category.nil? && element['clean_item'].present?
+          product = StoreItem.search(element['clean_item'], where: {store_id: 1}).first
+          category = product.get_category if product.present?
+        end
+        unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+
+        store_section_id = category.get_store_section.id if category.present?
+        # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
+        new_item =  Item.new(name: ingredients[index].squeeze(' '),
+                              category: category,
+                              is_validated: false,
+                              quantity: quantity,
+                              unit: unit,
+                              store_section_id: store_section_id,
+                              is_completed: false,
+                              is_deleted: false,
+                              list: list)
+
+        valid_item = Item.where("lower(trim(name)) = ?", element['clean_item'].downcase.strip).where(is_validated: true).first
+        valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
+        new_items << new_item
+      end
+
+      Item.import new_items
+      new_items.each{ |i| i.create_item_history}
+    end
   end
 
 
   def self.add_recipe_items(recipe)
     new_items = []
+
     ingredients = recipe.ingredients.split("\r\n")
-      if ingredients.any?
-      ingredients.each do |ing|
-        new_item = Item.new(name: ing.squeeze(' '))
-        new_item = new_item.set
-        new_item.list = nil
-        new_item.recipe = recipe
-        new_items << new_item
-      end
-      Item.import new_items
 
-      new_items.each{ |i| i.create_item_history}
-    end
-    # queries = ingredients.map{|input| "query=#{input}" }.compact
-    # if ingredients.any?
-    #   url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
-    #   parser = JSON.parse(open(url).read)
-
-    #   parser.each_with_index do |element, index|
-    #     quantity = element['quantity_match'] if element['quantity_match'].present?
-    #     category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
-    #     if category.nil? && element['clean_item'].present?
-    #       product = StoreItem.search(element['clean_item'], where: {store_id: 1}).first
-    #       category = product.get_category if product.present?
-    #     end
-    #     unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
-
-    #     store_section_id = category.get_store_section.id if category.present?
-    #     # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
-    #     new_item =  Item.new(name: ingredients[index].squeeze(' '),
-    #                           category: category,
-    #                           is_validated: false,
-    #                           quantity: quantity,
-    #                           unit: unit,
-    #                           store_section_id: store_section_id,
-    #                           is_completed: false,
-    #                           is_deleted: false,
-    #                           recipe: recipe)
-
-    #     valid_item = Item.where("lower(trim(name)) = ?", element['clean_item'].downcase.strip).where(is_validated: true).first
-    #     valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
+    #   if ingredients.any?
+    #   ingredients.each do |ing|
+    #     new_item = Item.new(name: ing.squeeze(' '))
+    #     new_item = new_item.set
+    #     new_item.list = nil
+    #     new_item.recipe = recipe
     #     new_items << new_item
     #   end
-      # Item.import new_items
+    #   Item.import new_items
+
+    #   new_items.each{ |i| i.create_item_history}
     # end
+
+    queries = ingredients.map{|input| "query=#{input}" }.compact
+    if ingredients.any?
+      url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
+      parser = JSON.parse(open(url).read)
+
+      parser.each_with_index do |element, index|
+        quantity = element['quantity_match'] if element['quantity_match'].present?
+        category = Category.search(element['food_match'], misspellings: {edit_distance: 1}).first if element['food_match'].present?
+        if category.nil? && element['clean_item'].present?
+          product = StoreItem.search(element['clean_item'], where: {store_id: 1}).first
+          category = product.get_category if product.present?
+        end
+        unit = Unit.search(element['unit_match'], misspellings: {edit_distance: 1}).first if element['unit_match'].present?
+
+        store_section_id = category.get_store_section.id if category.present?
+        # Attention !! index must be set on clean array otherwise item creation is all mixed up :(
+        new_item =  Item.new(name: ingredients[index].squeeze(' '),
+                              category: category,
+                              is_validated: false,
+                              quantity: quantity,
+                              unit: unit,
+                              store_section_id: store_section_id,
+                              is_completed: false,
+                              is_deleted: false,
+                              recipe: recipe)
+
+        valid_item = Item.where("lower(trim(name)) = ?", element['clean_item'].downcase.strip).where(is_validated: true).first
+        valid_item.present? ? new_item.is_validated = true : new_item.is_validated = false
+        new_items << new_item
+      end
+
+      Item.import new_items
+      new_items.each{ |i| i.create_item_history}
+
+    end
   end
 
 
