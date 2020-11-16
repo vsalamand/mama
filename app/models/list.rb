@@ -120,6 +120,15 @@ class List < ApplicationRecord
     end
   end
 
+  def get_similar_products
+    # find recipe ids that contains product from user
+    recipe_ids = Item.where(recipe_id: Recipe.where(status: "published").pluck(:id), category_id: Category.find(list.items.not_deleted.pluck(:category_id).compact.pluck(:id))).pluck(:recipe_id).sort.reverse.last(150)
+    similar = Item.where(recipe_id: recipe_ids).pluck(:category_id).compact.group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
+
+    Category.find(similar - Category.get_seasonings)
+
+  end
+
   # get list of seasonings
   def self.get_seasonings
     category_ids = []

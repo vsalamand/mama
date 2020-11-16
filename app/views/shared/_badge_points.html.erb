@@ -1,9 +1,9 @@
-<% if points >= 1 %>
-  <small class="small badge badge-light ml-1 text-success font-weight-light border">+<%= points %> pts</small>
+<% if points == 3 %>
+  <small class="small badge badge-light ml-1 text-success font-weight-light border">+3 pts</small>
+<% elsif  points == -1 %>
+  <small class="small badge badge-light ml-1 text-secondary font-weight-light border">-1 pt</small>
 <% elsif  points == 0 %>
-  <small class="small badge badge-light ml-1 text-secondary font-weight-light border">+<%= points %> pt</small>
-<% elsif  points >= -1 && points < 1 %>
-  <small class="small badge badge-light ml-1 text-warning font-weight-light border"><%= points %> pt</small>
-<% else %>
-  <small class="small badge badge-light ml-1 text-danger font-weight-light border"><%= points %> pts</small>
+  <small class="small badge badge-light ml-1 text-warning font-weight-light border">0 pt</small>
+<% elsif points == -3 %>
+  <small class="small badge badge-light ml-1 text-danger font-weight-light border">-3 pts</small>
 <% end %>
