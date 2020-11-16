@@ -193,9 +193,10 @@ Rails.application.routes.draw do
   end
 
   resources :categories do
-    get :select
     get :unselect
+    get :fetch_similar
     collection do
+      get :select
       get :tree
     end
   end

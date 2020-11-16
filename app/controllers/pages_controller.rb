@@ -17,7 +17,8 @@ class PagesController < ApplicationController
   end
 
   def assistant
-    @categories = Category.get_top_recipe_categories.shuffle[0..7]
+    @categories = current_user.recommended_categories
+    ahoy.track "Assistant"
   end
 
   def refresh_assistant

@@ -1,0 +1,21 @@
+document.getElementById('contentShow').innerHTML = "";
+document.getElementById('contentShow').innerHTML = ("<%= j render'categories/modal_show', category: @category %>");
+
+
+var categoryName = "<%= @category.name %>"
+
+fetchRecipes(categoryName)
+
+function fetchRecipes(categoryName) {
+  $.ajax({
+    url: "/recipes/fetch_recipes",
+    cache: false,
+    dataType: 'script',
+    data: {
+        q: categoryName,
+        source: "category<%= @category.id %>"
+        },
+    success: function(){
+    }
+  });
+}

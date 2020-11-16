@@ -551,6 +551,31 @@ function addToList(items, listId) {
 
 
 
+// show recipes in list
+$(document).on("click", ".fetchRecipes", function(event) {
+  if(document.querySelector("#todo_list")) {
+    var listId = document.querySelector("#todo_list").getAttribute('data');
+    $('#contentModal').modal('show')
+    $('#contentShow').html(
+      `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+    );
+    fetchRecipes(listId);
+    ahoy.track("Meal ideas");
+  }
+})
 
+function fetchRecipes(listId) {
+  $.ajax({
+    url: "/recipes/fetch_recipes",
+    cache: false,
+    dataType: 'script',
+    data: {
+        l: listId,
+        source: "meals"
+        },
+    success: function(){
+    }
+  });
+}
 
 

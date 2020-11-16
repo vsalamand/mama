@@ -48,6 +48,25 @@ class Category < ApplicationRecord
     return nil
   end
 
+  def self.get_match(content)
+    content = content.squeeze(' ')
+    valid_item = Item.where("lower(trim(name)) = ?", content.downcase.strip).where(is_validated: true).first
+    if valid_item.present?
+      category = valid_item.category
+    else
+      query = "query=#{content}"
+      url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{query}"))
+      # url = URI.parse(URI::encode("http://127.0.0.1:5000/api/v1/parse/items?#{query}"))
+      parser = JSON.parse(open(url).read).first
+      category = Category.search(parser['food_match'], misspellings: {edit_distance: 1}).first if parser['food_match'].present?
+      if category.nil? && parser['clean_item'].present?
+        product = StoreItem.search(parser['clean_item'], where: {store_id: 1}).first
+        category = product.get_category if product.present?
+      end
+    end
+    return category
+  end
+
   def set_store_section
     if self.store_section_id.nil?
       store_section = self.get_store_section
@@ -86,6 +105,21 @@ class Category < ApplicationRecord
     banned = list.items.not_deleted.pluck(:category_id).compact + Category.get_seasonings
     results = tops - banned
     return Category.find(results[0..24])
+  end
+
+  def get_similar_categories
+    recipe_ids =  Item.where(recipe_id: Recipe.where(status: "published").pluck(:id))
+                      .where(category_id: self.id)
+                      .pluck(:recipe_id)
+    similars = Item.where(recipe_id: recipe_ids)
+                    .pluck(:category_id)
+                    .group_by{|x| x}
+                    .sort_by{|k, v| -v.size}
+                    .map(&:first)
+                    .compact
+    banned = Array(self.id) + Category.get_seasonings
+    results = similars - banned
+    return Category.find(results)
   end
 
 

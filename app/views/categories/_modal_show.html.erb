@@ -31,7 +31,7 @@
             </ul>
           </div>
           <div id="suggestionsElements" class="sectionItems mt-1">
-            <% category.get_top_categories(list).shuffle[0..9].each do |related_category| %>
+            <% category.get_similar_categories[0..9].each do |related_category| %>
               <%= render 'categories/add', category: related_category, context: nil %>
             <% end %>
           </div>
@@ -39,7 +39,6 @@
 
     </div>
     <div id="relatedRecipes">
-      <%= render "recipes/related_recipes", recipes: recipes, list: list %>
     </div>
   </div>
 

@@ -1,10 +1,8 @@
 
-<div class="container sticky-top bg-white px-0">
-  <nav class="navbar navbar-expand-lg navbar-light border-bottom d-flex justify-content-between p-2">
-     <a class="navbar-brand d-flex align-items-center font-weight-bold" href="/">
-      <%= cl_image_tag("menu_icons/sparkling-heart", width: 20) %>
-      <span class="font-weight-bold rounded text-secondary">Supernet</span>
-     </a>
+<div class="container sticky-top px-0">
+  <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between p-2">
+    <a class="bg-white p-2 rounded-pill rounded-lg text-center" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %>
+    </a>
 
     <div id="score" data="" style="min-height: 45px;">
       <% if current_user %>
@@ -48,11 +46,14 @@
 </div>
 
 <div class="container px-2 mb-5" style="min-height: 100vh;">
-  <div id="relatedRecipes"></div>
-</div>
+<!--   <div id="relatedRecipes"></div>
+ --></div>
 
-<div class="container fixed-bottom mb-3 text-right">
-  <a class="shadow-lg bg-white rounded-pill rounded-lg text-center ml-auto p-2 bd-highlight" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %></a>
+<div class="container fixed-bottom">
+    <nav class="d-flex justify-content-around p-2">
+      <a class="p-3 bg-white rounded-pill rounded-lg text-center" href="/assistant" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); cursor: pointer;"><%= cl_image_tag("menu_icons/crystal-ball", width: 35, class:"m-0") %>
+    </a>
+  </nav>
 </div>
 
 

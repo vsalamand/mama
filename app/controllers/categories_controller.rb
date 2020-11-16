@@ -51,9 +51,10 @@ class CategoriesController < ApplicationController
   end
 
   def select
-    @category = Category.find(params[:category_id])
+    @content = params[:c]
+    @category = Category.get_match(@content)
     render "select.js.erb"
-    ahoy.track "Select item", name: @category.name
+    ahoy.track "Select category", name: @content
   end
 
   def unselect
@@ -64,6 +65,12 @@ class CategoriesController < ApplicationController
 
   def tree
     @categories = Category.roots
+  end
+
+  def fetch_similar
+    @category = Category.find(params[:category_id]) if params[:category_id]
+    render 'fetch_similar.js.erb'
+    ahoy.track "Show category", category_id: @category.id, name: @category.name
   end
 
   private

@@ -1,7 +1,102 @@
 <% content_for :meta_title, "De quoi avez-vous envie ?" %>
-<% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas sans même y penser !" %>
+<% content_for :meta_description, "Trouvez l'inspiration pour vos prochains repas !" %>
 
-<div id="assistantContent">
-  <%= render "assistant/products", categories: @categories, selected_categories: @selected_categories %>
+
+
+<div id="assistantForm" style="display: none;">
+  <%= render 'assistant/form' %>
 </div>
+
+
+<div id="assistantContent" class="alert-success" style="min-height: 200vh;">
+  <div class="sticky-top alert-success mb-3" id="listBarTop">
+    <div class="container px-2">
+      <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
+        <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-times p-2"></i></a>
+
+
+
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <%= render 'shared/flashes' %>
+  </div>
+
+  <div class="wrapper" style="min-height: 40vh;">
+    <div class="container mb-3">
+      <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
+        <h1 class="">De quoi avez-vous envie ?</h1>
+      </div>
+    </div>
+    <div class="container px-2">
+      <div class="container px-0">
+        <div class="container px-0">
+
+          <ul class="border-0 list-group-item d-flex align-items-center justify-content-between p-0 pl-1 m-0" >
+            <div class="d-flex align-items-center">
+            </div>
+          </ul>
+          <div class="search-form-control">
+              <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleAssistantForm" style="cursor: pointer;" >
+          </div>
+
+          <div class="mt-4">
+            <div id="selectedCategories">
+            </div>
+          </div>
+
+
+
+
+          <div id="scrollPoint" style="padding: 10px;">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container px-2">
+    <div id="itemsRecommendations" class="pb-5">
+      <%= render'lists/suggested_products', categories: @categories %>
+    </div>
+  </div>
+
+  <div class="container fixed-bottom bg-transparent"  id="listRecipe">
+      <div class="d-flex justify-content-around p-2">
+         <a class="p-3 rounded-pill rounded-lg text-center fetchRecipes" style="background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer;"><%= cl_image_tag("menu_icons/search", width: 35, class:"m-0") %>
+         </a>
+      </div>
+  </div>
+
+  <div style="padding: 50px;"></div>
+
+</div>
+
+
+
+  <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-0 p-0 alert-primary" style="min-height: 50vh;">
+
+          <div id="contentShow"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<% unless user_signed_in? %>
+<!-- Navbar End -->
+<%= render 'shared/login_form' %>
+<%= render 'shared/signup_form' %>
+<% end %>
+<!-- PWA prompt on safari IOS -->
+<%= render 'shared/ios_install_popup' %>
+<!-- PWA prompt on Android -->
+<%= render 'shared/android_install_popup' %>
+
 

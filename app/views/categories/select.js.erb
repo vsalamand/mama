@@ -1,3 +1,2 @@
-var category = document.querySelector("#category-id<%= @category.id %>");
-category.innerHTML = "";
-category.innerHTML = ("<%= j render 'categories/selected', category: @category %>");
+var content = document.querySelector("#selectedCategories");
+content.insertAdjacentHTML("beforeEnd", "<%= j render 'categories/selected', content: @content, category: @category %>");
