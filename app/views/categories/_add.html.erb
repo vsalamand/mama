@@ -2,12 +2,28 @@
 
   <li class="rounded bg-white mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed" >
     <div class="d-flex align-items-center">
+      <%= link_to dislike_items_path(name: category.name), remote: true do %>
+        <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <% end %>
       <%= render "categories/rating_indicator", category: category %>
       <p class="lead m-0 p-0 text-muted font-weight-bold no-link fetchCategory" style="cursor: pointer;" data="<%= category.name %>" data-id="<%= category.id %>"><%= category.name %></p>
+      <% if context.present? %>
+        <span class="ml-1 mr-0">
+          <%= cl_image_tag("menu_icons/check-mark", width: 10, class:"pb-2") if context == "user_top" %>
+          <%= cl_image_tag("menu_icons/fire", width: 10, class:"pb-2") if context == "recipe_top" %>
+          <%= cl_image_tag("menu_icons/fire", width: 10, class:"pb-2") if context == "global_top" %>
+          <%= cl_image_tag("menu_icons/red-heart", width: 10, class:"pb-2") if context == "recommended" %>
+          <%= cl_image_tag("menu_icons/crystal-ball", width: 10, class:"pb-2") if context == "similar" %>
+        </span>
+      <% end %>
     </div>
 
     <div class="d-flex align-items-center">
+
       <%= render "shared/badge_points", points: category.get_points %>
+
       <i class="fas fa-2x fa-plus text-muted px-1 addCategoryToList" data="<%= category.name %>"  data-id="<%= category.id %>" style="cursor: pointer; filter: brightness(1.40);"></i>
     </div>
   </li>

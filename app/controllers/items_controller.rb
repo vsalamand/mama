@@ -219,6 +219,19 @@ class ItemsController < ApplicationController
     ahoy.track "Unselect item", name: @item.name
   end
 
+  def dislike
+    user_dislikes = current_user.get_dislikes_list
+    item = Item.new(name: params[:name])
+    item = item.set
+    item.list = user_dislikes
+    # import item to skip item history create callback
+    Item.import(Array(item))
+    # remove corresponding category card
+    @category_id = item.category_id
+    render "dislike.js.erb"
+    ahoy.track "Dislike item", name: item.name
+  end
+
 
   private
   def set_recipe

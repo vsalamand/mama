@@ -48,7 +48,7 @@
           </div>
           <div id="suggestionsElements" class="sectionItems mt-1">
             <% item.category.get_top_categories(item.list).shuffle[0..9].each do |category| %>
-              <%= render 'categories/add', category: category %>
+              <%= render 'categories/add', category: category, context: nil %>
             <% end %>
           </div>
         </div>

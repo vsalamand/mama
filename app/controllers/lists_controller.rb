@@ -121,8 +121,8 @@ class ListsController < ApplicationController
 
   def fetch_suggested_items
     @list = List.friendly.find(params[:list_id])
-    @categories = Category.get_top_recipe_categories(@list)
-
+    # @categories = Category.get_top_recipe_categories(@list)
+    @categories = current_user.recommended_categories.first(30)
     render 'fetch_suggested_items.js.erb'
   end
 

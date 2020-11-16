@@ -13,7 +13,7 @@
 
     <div class="container px-2">
       <h1 class="pl-1"><%= category.name %></h1>
-      <%= render 'categories/add', category: category %>
+      <%= render 'categories/add', category: category, context: nil %>
     </div>
 
   <div class="container px-2">
@@ -32,7 +32,7 @@
           </div>
           <div id="suggestionsElements" class="sectionItems mt-1">
             <% category.get_top_categories(list).shuffle[0..9].each do |related_category| %>
-              <%= render 'categories/add', category: related_category %>
+              <%= render 'categories/add', category: related_category, context: nil %>
             <% end %>
           </div>
         </div>

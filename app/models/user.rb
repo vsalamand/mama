@@ -74,6 +74,10 @@ class User < ApplicationRecord
     self.items.where(list_id: self.get_lists.pluck(:id))
   end
 
+  def get_category_ids
+    Item.where(list_id: self.get_lists.pluck(:id), is_completed: false, is_deleted: false).pluck(:category_id).compact
+  end
+
   def set_initial_list
     list = List.new
     list.name = self.set_new_list_name
@@ -102,8 +106,73 @@ class User < ApplicationRecord
     end
   end
 
+  def get_dislikes_list
+    List.find_or_create_by(name: "Dislikes", user_id: self.id, status: "archived", list_type: "personal", sorted_by: "rayon")
+  end
+
   def create_score(game)
     Score.find_or_create_by(user: self, game: game)
+  end
+
+  def recommended_categories
+    data = []
+
+    user_history = Item.where(['created_at > ?', 7.days.ago])
+                        .where(list_id: self.get_lists.pluck(:id))
+                        .pluck(:category_id)
+                        .uniq
+                        .compact
+    seasonings = Category.get_seasonings
+    snoozed = Item.where(list_id: self.get_dislikes_list).pluck(:category_id)
+    banned_products = user_history + seasonings + snoozed
+
+
+    user_tops = Item.where(['created_at > ?', 30.days.ago])
+                    .where(list_id: self.get_lists.pluck(:id))
+                    .pluck(:category_id)
+                    .group_by{|x| x}.sort_by{|k, v| -v.size}
+                    .map(&:first)
+                    .compact
+
+    user_tops = (user_tops - user_history - snoozed).map{|id| {id: id, context: "user_top"}}
+    data << user_tops
+
+    recipe_tops = Item.where(recipe_id: Recipe.where(['created_at > ?', 45.days.ago]).where(status: "published").pluck(:id))
+                      .pluck(:category_id)
+                      .group_by{|x| x}
+                      .sort_by{|k, v| -v.size}
+                      .map(&:first)
+                      .compact
+
+    recipe_tops = (recipe_tops - banned_products).map{|id| {id: id, context: "recipe_top"}}
+    data << recipe_tops
+
+    global_tops = Item.where(['created_at > ?', 30.days.ago])
+                      .where.not(list_id: nil)
+                      .pluck(:category_id)
+                      .group_by{|x| x}
+                      .sort_by{|k, v| -v.size}
+                      .map(&:first)
+                      .compact
+
+    global_tops = (global_tops - banned_products).map{|id| {id: id, context: "global_top"}}
+    data << global_tops
+
+    # Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
+    #   category_ids = checklist.list.categories.pluck(:id)
+    #   data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(2).to_a if (user_history & category_ids).empty?
+    # end
+
+
+    data = data.first.zip(*data[1..])
+                    .flatten
+                    .compact
+                    .uniq! {|e| e[:id] }
+                    # .group_by { |item| item[:id] }
+                    # .map{ |arr| arr.second.reduce(&:merge)}
+                    # .each_slice(1).to_a
+    # return array of hashes
+    return data
   end
 
 
