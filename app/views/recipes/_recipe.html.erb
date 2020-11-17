@@ -5,15 +5,22 @@
         <%= render 'shared/favorite', recipe: recipe %>
       </div>
 
-       <% if list.present? %>
-        <%= link_to recipe_path(recipe, l: list.id, ref: request.path, type: source_type, content: source_id ) do %>
-           <p class="li lead m-0 px-2 no-link text-primary font-weight-bold " style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
-         <% end %>
-       <% else %>
-        <%= link_to recipe_path(recipe, ref: request.original_url) do %>
-           <p class="li lead m-0 px-2 no-link text-primary font-weight-bold" style="cursor: pointer;" data="<%= recipe.id %>"  data-ref="request.path"><%= recipe.title %></p>
+        <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
+         <p class="li lead m-0 px-2 no-link text-primary font-weight-bold " style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
+        <% end %>
+
+        <%  if false %>
+         <% if list.present? %>
+          <%= link_to recipe_path(recipe, l: list.id, ref: request.path, type: source_type, content: source_id ) do %>
+             <p class="li lead m-0 px-2 no-link text-primary font-weight-bold " style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
+           <% end %>
+         <% else %>
+          <%= link_to recipe_path(recipe, ref: request.original_url) do %>
+             <p class="li lead m-0 px-2 no-link text-primary font-weight-bold" style="cursor: pointer;" data="<%= recipe.id %>"  data-ref="request.path"><%= recipe.title %></p>
+           <% end %>
          <% end %>
        <% end %>
+
     </div>
     <div class="d-flex align-items-center">
       <p style="" class="lead font-weight-bold text-muted text-right m-0">

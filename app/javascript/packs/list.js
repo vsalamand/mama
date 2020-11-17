@@ -130,6 +130,8 @@ function enableElements(list) {
 
 // show / hide top and bottom menu while focus on create form
 $(document).on("focus", "#toggleListItemform", function(event) {
+  var inputField = document.getElementById('newListItem');
+  setInputForm(inputField);
   showListItemForm();
 })
 $(document).on("click", "#hideNewlistItemForm", function(event) {
