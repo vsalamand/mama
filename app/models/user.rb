@@ -134,7 +134,7 @@ class User < ApplicationRecord
                     .map(&:first)
                     .compact
 
-    user_tops = (user_tops - user_history - snoozed).map{|id| {id: id, context: "user_top"}}
+    user_tops = (user_tops - user_history - snoozed).map{|id| {id: id, context: "user_top"}}.each_slice(3).to_a
     data << user_tops
 
     recipe_tops = Item.where(recipe_id: Recipe.where(['created_at > ?', 45.days.ago]).where(status: "published").pluck(:id))
@@ -144,7 +144,7 @@ class User < ApplicationRecord
                       .map(&:first)
                       .compact
 
-    recipe_tops = (recipe_tops - banned_products).map{|id| {id: id, context: "recipe_top"}}
+    recipe_tops = (recipe_tops - banned_products).map{|id| {id: id, context: "recipe_top"}}.each_slice(3).to_a
     data << recipe_tops
 
     global_tops = Item.where(['created_at > ?', 30.days.ago])
@@ -155,7 +155,7 @@ class User < ApplicationRecord
                       .map(&:first)
                       .compact
 
-    global_tops = (global_tops - banned_products).map{|id| {id: id, context: "global_top"}}
+    global_tops = (global_tops - banned_products).map{|id| {id: id, context: "global_top"}}.each_slice(2).to_a
     data << global_tops
 
     # Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
@@ -163,7 +163,7 @@ class User < ApplicationRecord
     #   data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(2).to_a if (user_history & category_ids).empty?
     # end
 
-
+    data = data.select(&:present?)
     data = data.first.zip(*data[1..])
                     .flatten
                     .compact
