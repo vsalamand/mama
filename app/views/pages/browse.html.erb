@@ -34,11 +34,9 @@
           </ul>
         </div>
         <% if @lists.present? %>
-          <% @lists.sort_by(&:id).reverse.each do |list|  %>
-            <div id="listElements">
-                <%= render 'lists/list', list: list %>
-            </div>
-          <% end %>
+          <div id="listElements">
+             <%= render partial: 'lists/list', collection: @lists.sort_by(&:id).reverse, as: :list %>
+          </div>
         <% end %>
       </div>
 
@@ -51,8 +49,9 @@
 
 <div class="container fixed-bottom">
     <nav class="d-flex justify-content-around p-2">
-      <a class="p-3 bg-white rounded-pill rounded-lg text-center" href="/assistant" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); cursor: pointer;"><%= cl_image_tag("menu_icons/crystal-ball", width: 35, class:"m-0") %>
-    </a>
+      <%= link_to assistant_path, class:"p-3 bg-white rounded-pill rounded-lg text-center", style:"background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); cursor: pointer;" do  %>
+        <%= cl_image_tag("menu_icons/crystal-ball", width: 35, class:"m-0") %>
+      <% end %>
   </nav>
 </div>
 

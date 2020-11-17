@@ -234,6 +234,46 @@ class List < ApplicationRecord
     end
   end
 
+  def get_suggestions
+    data = []
+
+    user_history = Category.get_user_category_ids_history(self.user)
+    seasonings = Category.get_seasonings
+    snoozed = Category.get_user_snoozed_category_ids(self.user)
+    banned_products = user_history + seasonings + snoozed
+
+    top_user_category_ids = Category.get_top_user_category_ids(self.user)
+    top_recipe_category_ids = Category.get_top_recipe_category_ids
+    top_added_category_ids = Category.get_top_added_category_ids
+
+
+    cleaned_top_user_category_ids = (top_user_category_ids - banned_products)
+    if cleaned_top_user_category_ids.size < 10
+      cleaned_top_user_category_ids = cleaned_top_user_category_ids.fill(nil, cleaned_top_user_category_ids.size...15)
+    end
+    user_tops = cleaned_top_user_category_ids.map{|id| {id: id, context: "user_top"}}.each_slice(2).to_a
+    data << user_tops
+
+    recipe_tops = (top_recipe_category_ids - banned_products).map{|id| {id: id, context: "recipe_top"}}.each_slice(2).to_a
+    data << recipe_tops
+
+    if Checklist.find_by(name: "healthy").present?
+      Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
+        category_ids = (top_recipe_category_ids & checklist.list.categories.pluck(:id))
+        data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(1).to_a if (user_history & category_ids).empty?
+      end
+    end
+
+    data = data.select(&:present?)
+    data = data.first.zip(*data[1..].shuffle)
+                    .flatten
+                    .compact
+                    .uniq! {|e| e[:id] }
+
+    # return array of hashes
+    return data
+  end
+
   def get_score
     Task.set_bonus_scores(self)
     points = []

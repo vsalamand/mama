@@ -8,9 +8,8 @@
       </ul>
     </div>
     <div id="<%= store_section.name.parameterize(separator: '') %>Elements" class="sectionItems">
-      <% items.where(is_completed: false).sort_by{|e| e.name.parameterize }.each do |item| %>
-        <%= render 'items/unselected_item', item: item, servings_delta: 1 %>
-      <% end %>
+        <%= render partial: 'items/unselected_item', collection: items.where(is_completed: false).sort_by{|e| e.name.parameterize }, as: :item, locals: {servings_delta: 1} %>
+
     </div>
   </div>
 
@@ -27,8 +26,7 @@
         </ul>
       </div>
       <div id="non-alimentairesElements" class="sectionItems">
-        <%  items.where(is_completed: false).sort_by{|e| e.name.parameterize }.each do |item| %>
-          <%= render 'items/unselected_item', item: item, servings_delta: 1 %>
+        <%= render partial: 'items/unselected_item', collection: items.where(is_completed: false).sort_by{|e| e.name.parameterize }, as: :item, locals: {servings_delta: 1} %>
         <% end %>
       </div>
     </div>

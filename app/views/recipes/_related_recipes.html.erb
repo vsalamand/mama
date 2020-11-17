@@ -7,10 +7,9 @@
             </div>
           </ul>
         </div>
-        <% recipes.sort_by(&:id).reverse.each do |recipe|  %>
-          <div id="recipeElements">
-              <%= render 'recipes/recipe', recipe: recipe, list: list, source_type: source_type, source_id: source_id  %>
-          </div>
-        <% end %>
+
+        <div id="recipeElements">
+           <%= render partial: 'recipes/recipe', collection: recipes.sort_by(&:id).reverse, as: :recipe, locals: {list: list, source_type: source_type, source_id: source_id} %>
+        </div>
       </div>
   <% end %>

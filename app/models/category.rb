@@ -139,7 +139,104 @@ class Category < ApplicationRecord
   end
 
   def self.get_seasonings
-    return Category.find(280).subtree.pluck(:id) + Array(Category.find(605)).pluck(:id) + Array(Category.find(440)).pluck(:id) + Array(Category.find(812)).pluck(:id) + Array(Category.find(603)).pluck(:id) + Array(Category.find(505)).pluck(:id) + Category.find(87).subtree.pluck(:id) + Category.find(604).subtree.pluck(:id) + Category.find(499).subtree.pluck(:id) + Category.find(5).subtree.pluck(:id) + Category.find(726).subtree.pluck(:id) + Category.find(279).subtree.pluck(:id) + Category.find(793).subtree.pluck(:id)
+    ids = []
+    ids << Category.find(280).subtree.pluck(:id)
+    ids << Array(Category.find(605)).pluck(:id)
+    ids << Array(Category.find(440)).pluck(:id)
+    ids << Array(Category.find(812)).pluck(:id)
+    ids << Array(Category.find(603)).pluck(:id)
+    ids << Array(Category.find(505)).pluck(:id)
+    ids << Category.find(87).subtree.pluck(:id)
+    ids << Category.find(604).subtree.pluck(:id)
+    ids << Category.find(499).subtree.pluck(:id)
+    ids << Category.find(5).subtree.pluck(:id)
+    ids << Category.find(726).subtree.pluck(:id)
+    ids << Category.find(279).subtree.pluck(:id)
+    ids << Category.find(793).subtree.pluck(:id)
+    ids << Category.find(538).subtree.pluck(:id)
+    ids << Category.find(282).subtree.pluck(:id)
+    ids << Category.find(603).subtree.pluck(:id)
+    ids << Category.find(727).subtree.pluck(:id)
+    return ids.flatten
+  end
+
+  def self.get_top_user_category_ids(user)
+    ids =  Item.where(['created_at > ?', 30.days.ago])
+                    .where(list_id: user.get_lists.pluck(:id))
+                    .pluck(:category_id)
+                    .group_by{|x| x}.sort_by{|k, v| -v.size}
+                    .map(&:first)
+                    .compact
+    data = ids[0..5].shuffle + ids[6..-1]
+    return data
+  end
+
+  def self.get_user_category_ids_history(user)
+    return Item.where(['created_at > ?', 7.days.ago])
+                        .where(list_id: user.get_lists.pluck(:id))
+                        .pluck(:category_id)
+                        .uniq
+                        .compact
+  end
+
+  def self.get_user_snoozed_category_ids(user)
+    return Item.where(list_id: user.get_dislikes_list).pluck(:category_id)
+  end
+
+  def self.get_top_recipe_category_ids
+    ids = Item.where(recipe_id: Recipe.where(status: "published").last(50).pluck(:id))
+                      .pluck(:category_id)
+                      .group_by{|x| x}
+                      .sort_by{|k, v| -v.size}
+                      .map(&:first)
+                      .compact
+    data = ids[0..5].shuffle + ids[6..-1]
+    return data
+  end
+
+  def self.get_top_added_category_ids
+    ids = Item.where(['created_at > ?', 7.days.ago])
+                      .where.not(list_id: nil)
+                      .pluck(:category_id)
+                      .group_by{|x| x}
+                      .sort_by{|k, v| -v.size}
+                      .map(&:first)
+                      .compact
+    data = ids[0..5].shuffle + ids[6..-1]
+    return data
+  end
+
+  def self.get_suggestions
+    data = []
+
+    seasonings = Category.get_seasonings
+    banned_products = seasonings
+
+    top_recipe_category_ids = Category.get_top_recipe_category_ids
+    top_added_category_ids = Category.get_top_added_category_ids
+
+    recipe_tops = (top_recipe_category_ids - banned_products).map{|id| {id: id, context: "recipe_top"}}.each_slice(2).to_a
+    data << recipe_tops
+
+    if Checklist.find_by(name: "healthy").present?
+      Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
+        category_ids = (top_recipe_category_ids & checklist.list.categories.pluck(:id))
+        data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(1).to_a
+      end
+    end
+
+    global_tops = (top_added_category_ids - banned_products).map{|id| {id: id, context: "global_top"}}.each_slice(2).to_a
+    data << global_tops
+
+    data = data.select(&:present?)
+    data = data.first.zip(*data[1..].shuffle)
+                    .flatten
+                    .compact
+                    .uniq! {|e| e[:id] }
+
+    # return array of hashes
+    return data
+
   end
 
   def get_points

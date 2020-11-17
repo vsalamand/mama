@@ -4,7 +4,7 @@ require 'hangry'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
-  skip_before_action :authenticate_user!, only: [ :card, :cart, :select_all ]
+  skip_before_action :authenticate_user!, only: [ :card, :cart, :select_all, :fetch_recipes ]
   before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage]
 
   def show

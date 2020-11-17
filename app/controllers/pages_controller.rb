@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
-                                                  :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install, :start, :fetch_landing]
+                                                  :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install,
+                                                  :start, :fetch_landing, :assistant]
   before_action :authenticate_admin!, only: [:dashboard, :pending]
 
 
@@ -17,7 +18,11 @@ class PagesController < ApplicationController
   end
 
   def assistant
-    @categories = current_user.recommended_categories
+    if current_user
+      @categories = current_user.get_suggestions
+    else
+      @categories = Category.get_suggestions
+    end
     ahoy.track "Assistant"
   end
 

@@ -27,11 +27,10 @@
       </ul>
     </div>
     <% if @recipes.present? %>
-      <% @recipes.sort_by{|r| r.title.parameterize }.each do |recipe|  %>
-        <div id="recipeElements">
-            <%= render 'recipes/recipe', recipe: recipe, list: nil %>
-        </div>
-      <% end %>
+      <div id="recipeElements">
+        <%= render partial: 'recipes/recipe', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
+      </div>
+
     <% else %>
         <div class="d-flex align-items-center m-2">
           <div id="description">
