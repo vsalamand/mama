@@ -136,9 +136,11 @@ class User < ApplicationRecord
     recipe_tops = (top_recipe_category_ids - banned_products).map{|id| {id: id, context: "recipe_top"}}.each_slice(2).to_a
     data << recipe_tops
 
-    Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
-      category_ids = (top_recipe_category_ids & checklist.list.categories.pluck(:id))
-      data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(1).to_a
+    if Checklist.find_by(name: "healthy").present?
+      Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
+        category_ids = (top_recipe_category_ids & checklist.list.categories.pluck(:id))
+        data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(1).to_a
+      end
     end
 
 
