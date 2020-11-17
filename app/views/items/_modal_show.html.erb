@@ -1,4 +1,4 @@
-<div class="sticky-top alert-primary">
+<div class="sticky-top bg-white">
     <div class="container px-2">
       <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-end" style="background-color: transparent;">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -9,7 +9,7 @@
 </div>
 
 
-<div id="itemShow" class="alert-primary">
+<div id="itemShow" class="bg-white">
 
     <div class="container px-2">
       <div class="jumbotron jumbotron-fluid rounded p-0">
@@ -47,9 +47,7 @@
             </ul>
           </div>
           <div id="suggestionsElements" class="sectionItems mt-1">
-            <% item.category.get_top_categories(item.list).shuffle[0..9].each do |category| %>
-              <%= render 'categories/add', category: category, context: nil %>
-            <% end %>
+           <%= render partial: 'categories/add', collection: item.category.get_top_categories(item.list).shuffle[0..9], as: :category, locals: {context: nil} %>
           </div>
         </div>
       <% end %>

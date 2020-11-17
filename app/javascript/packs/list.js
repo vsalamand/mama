@@ -13,7 +13,7 @@ $(document).on("turbolinks:load", function(event) {
   // fetchScorePreviews()
   if(document.getElementById("todo_list")) {
     // getListPlaceholder();
-    loadSuggestions();
+    // loadSuggestions();
     fetchNewItemForm();
     // getPriceBtn();
     // setScore();

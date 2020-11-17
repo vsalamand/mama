@@ -1,7 +1,7 @@
   <div id="grocerylist-item-id<%= item.id %>" class="listItemShow" data="<%= item.id %>">
 
       <% if item.is_completed == false %>
-        <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
+        <li class="rounded bg-white mb-1 py-2 px-2 d-flex align-items-center justify-content-between uncompleted" >
           <div class="d-flex align-items-center">
             <%= link_to item_path(item), method: :delete, remote: true do %>
               <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
@@ -19,7 +19,7 @@
         </li>
       <% else %>
 
-         <li class="rounded bg-white mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed" >
+         <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed" >
           <div class="d-flex align-items-center">
             <%= link_to item_path(item), method: :delete, remote: true do %>
               <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
@@ -31,7 +31,9 @@
           </div>
 
           <div class="d-flex align-items-center">
+            <% if false %>
             <%= render "shared/badge_points", points: item.get_points %>
+            <% end %>
             <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
               <i class="fas fa-2x fa-check-square text-muted px-1" style="filter: brightness(1.40);"></i>
             <% end %>

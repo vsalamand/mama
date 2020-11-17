@@ -1,4 +1,4 @@
-<div class="sticky-top alert-primary">
+<div class="sticky-top bg-white">
     <div class="container px-2">
       <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-end" style="background-color: transparent;">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -9,7 +9,7 @@
 </div>
 
 
-<div id="categoryShow" class="alert-primary">
+<div id="categoryShow" class="bg-white">
 
     <div class="container px-2">
       <h1 class="pl-1"><%= category.name %></h1>
@@ -31,9 +31,7 @@
             </ul>
           </div>
           <div id="suggestionsElements" class="sectionItems mt-1">
-            <% category.get_similar_categories[0..9].each do |related_category| %>
-              <%= render 'categories/add', category: related_category, context: nil %>
-            <% end %>
+          <%= render partial: 'categories/add', collection: category.get_similar_categories[0..9], as: :category, locals: {context: nil} %>
           </div>
         </div>
 

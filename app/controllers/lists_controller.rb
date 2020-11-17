@@ -91,6 +91,7 @@ class ListsController < ApplicationController
     @list.set_game if @list.game.nil?
 
     @recipes = @list.recipes
+    @categories = @list.get_suggestions
 
     @ref_list_id = params[:l]
     if @ref_list_id.present?
@@ -122,7 +123,7 @@ class ListsController < ApplicationController
   def fetch_suggested_items
     @list = List.friendly.find(params[:list_id])
     # @categories = Category.get_top_recipe_categories(@list)
-    @categories = current_user.recommended_categories.first(30)
+    @categories = @list.get_suggestions
     render 'fetch_suggested_items.js.erb'
   end
 

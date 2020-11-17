@@ -1,6 +1,7 @@
+
 <div id="grocerylist-category-id<%= category.id %>" data="<%= category.id %>">
 
-  <li class="rounded bg-white mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed" >
+  <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed" >
     <div class="d-flex align-items-center">
       <%= link_to dislike_items_path(name: category.name), remote: true do %>
         <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
@@ -11,11 +12,11 @@
       <p class="lead m-0 p-0 text-muted font-weight-bold no-link fetchCategory" style="cursor: pointer;" data="<%= category.name %>" data-id="<%= category.id %>"><%= category.name %></p>
       <% if context.present? %>
         <span class="ml-1 mr-0">
-          <%= cl_image_tag("menu_icons/check-mark", width: 10, class:"pb-2") if context == "user_top" %>
-          <%= cl_image_tag("menu_icons/fire", width: 10, class:"pb-2") if context == "recipe_top" %>
-          <%= cl_image_tag("menu_icons/fire", width: 10, class:"pb-2") if context == "global_top" %>
-          <%= cl_image_tag("menu_icons/red-heart", width: 10, class:"pb-2") if context == "recommended" %>
-          <%= cl_image_tag("menu_icons/crystal-ball", width: 10, class:"pb-2") if context == "similar" %>
+          <%= cl_image_tag("menu_icons/check-mark", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "user_top" %>
+          <%= cl_image_tag("menu_icons/fire", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "recipe_top" %>
+          <%= cl_image_tag("menu_icons/check-mark", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "global_top" %>
+          <%= cl_image_tag("menu_icons/red-heart", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "recommended" %>
+          <%= cl_image_tag("menu_icons/crystal-ball", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "similar" %>
         </span>
       <% end %>
     </div>
