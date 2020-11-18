@@ -55,7 +55,6 @@ $(document).on("click" , ".addCategoryToList", function(event) {
     $.ajax({
       url: "/categories/select",
       cache: false,
-      dataType: 'script',
       data: {
             c: categoryName
           },

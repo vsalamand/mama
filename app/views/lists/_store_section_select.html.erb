@@ -15,8 +15,6 @@
 
 
 <% else %>
-
-
     <div id="non-alimentaires" class="listHeader"  data="<%= items.size %>">
       <div id="non-alimentairesHeader">
         <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-between pl-1 pb-0 m-0">
@@ -27,9 +25,7 @@
       </div>
       <div id="non-alimentairesElements" class="sectionItems">
         <%= render partial: 'items/unselected_item', collection: items.where(is_completed: false).sort_by{|e| e.name.parameterize }, as: :item, locals: {servings_delta: 1} %>
-        <% end %>
       </div>
     </div>
-
 
 <% end %>

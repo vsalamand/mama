@@ -35,7 +35,6 @@ function addContent(content) {
   $.ajax({
     url: "/categories/select",
     cache: false,
-    dataType: 'script',
     data: {
           c: content
         },

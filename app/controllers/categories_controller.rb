@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_admin!
-  skip_before_action :authenticate_user!, only: [ :select, :unselect ]
+  skip_before_action :authenticate_user!, only: [:select, :unselect, :fetch_similar ]
+  before_action :authenticate_admin!, only: [:show, :index, :create, :new, :edit, :update, :destroy]
 
 
   def show
