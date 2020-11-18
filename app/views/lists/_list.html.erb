@@ -13,9 +13,7 @@
 
     <div class="d-flex align-items-center">
       <p style="" class="lead font-weight-bold text-muted text-right m-0">
-        <% if false %>
         <%= render "shared/score_preview", points: ItemHistory.get_score(list.items.not_deleted.where(is_completed: false)) %>
-        <% end %>
       </p>
     </div>
   </li>

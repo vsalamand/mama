@@ -237,9 +237,9 @@ class RecipesController < ApplicationController
       query = @list.items.not_deleted.where(is_completed: false).pluck(:name) if params[:q].nil?
     end
     if query.present?
-      @recipes = Recipe.multi_search(query)[0..19]
+      @recipes = Recipe.multi_search(query)[0..29]
     else
-      @recipes = Recipe.where(status: "published").last(10)
+      @recipes = Recipe.where(status: "published").last(30)
     end
 
     if params[:source]
