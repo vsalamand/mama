@@ -12,26 +12,24 @@
 <div id="categoryShow" class="bg-white">
 
     <div class="container px-2">
-      <h1 class="pl-1"><%= category.name %></h1>
       <%= render 'categories/add', category: category, context: nil %>
     </div>
 
   <div class="container px-2">
-    <div id="itemsRecommendations" class="pb-5">
+    <div id="itemsRecommendations" class="pb-3">
 
-        <div id="suggestions" class="listHeader mt-4"  data="">
+        <div id="suggestions" class="listHeader mt-3"  data="">
           <div id="suggestionsHeader">
             <ul class="border-0 rounded-top d-flex align-items-center justify-content-between pl-1 pb-0 m-0">
               <div class="d-flex flex-column text-muted">
                 <div class="m-0 pb-0 pl-1 d-flex align-items-center">
                     <span class="font-weight-bold lead" style="filter: brightness(1.40);"><%= category.name %> +</span>
                 </div>
-                <small class="font-weight-light pl-1 mb-1">Appuyer sur <i class="fas fa-plus text-muted"></i> pour ajouter un produit</small>
               </div>
             </ul>
           </div>
           <div id="suggestionsElements" class="sectionItems mt-1">
-          <%= render partial: 'categories/add', collection: category.get_similar_categories[0..9], as: :category, locals: {context: nil} %>
+          <%= render partial: 'categories/add', collection: category.get_similar_categories[0..3], as: :category, locals: {context: nil} %>
           </div>
         </div>
 

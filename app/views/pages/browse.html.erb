@@ -47,13 +47,25 @@
 <!--   <div id="relatedRecipes"></div>
  --></div>
 
-<div class="container fixed-bottom">
-    <nav class="d-flex justify-content-around p-2">
-      <%= link_to assistant_path, class:"p-3 bg-white rounded-pill rounded-lg text-center", style:"background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); cursor: pointer;" do  %>
-        <%= cl_image_tag("menu_icons/crystal-ball", width: 35, class:"m-0") %>
-      <% end %>
+
+
+<div class="container fixed-bottom bg-transparent">
+  <nav class="d-flex justify-content-around p-2">
+    <%= link_to assistant_path, :"data-turbolinks" => false, class:"btn btn-lg px-5 py-2 border-0 rounded text-center text-white font-weight-bold", style:"background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); cursor: pointer;" do  %>
+      <%= cl_image_tag("menu_icons/search", width: 20, class:"m-0") %>
+      Trouver une idée
+    <% end %>
   </nav>
 </div>
+<% if false %>
+<div class="container fixed-bottom">
+  <nav class="d-flex justify-content-around p-2">
+    <%= link_to assistant_path, :"data-turbolinks" => false, class:"p-3 bg-white rounded-pill rounded-lg text-center", style:"background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); cursor: pointer;" do  %>
+      <%= cl_image_tag("menu_icons/crystal-ball", width: 35, class:"m-0") %>
+    <% end %>
+  </nav>
+</div>
+<% end %>
 
 
 

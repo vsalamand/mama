@@ -118,19 +118,20 @@ class User < ApplicationRecord
     data = []
 
     seasonings = Category.get_seasonings
+    fruits = Category.find(86).subtree.pluck(:id)
     snoozed = Category.get_user_snoozed_category_ids(self)
-    banned_products = seasonings + snoozed
+    banned_products = seasonings + snoozed + fruits
 
+    history_user_category_ids = Category.get_user_category_ids_history(self)
     top_user_category_ids = Category.get_top_user_category_ids(self)
     top_recipe_category_ids = Category.get_top_recipe_category_ids
     top_added_category_ids = Category.get_top_added_category_ids
 
-
-    cleaned_top_user_category_ids = (top_user_category_ids - banned_products)
-    if cleaned_top_user_category_ids.size < 10
-      cleaned_top_user_category_ids = cleaned_top_user_category_ids.fill(nil, cleaned_top_user_category_ids.size...15)
+    cleaned_user_category_ids = (history_user_category_ids + top_user_category_ids - banned_products)
+    if cleaned_user_category_ids.size < 10
+      cleaned_user_category_ids = cleaned_user_category_ids.fill(nil, cleaned_user_category_ids.size...15)
     end
-    user_tops = cleaned_top_user_category_ids.map{|id| {id: id, context: "user_top"}}.each_slice(2).to_a
+    user_tops = cleaned_user_category_ids.map{|id| {id: id, context: "user_top"}}.each_slice(2).to_a
     data << user_tops
 
     recipe_tops = (top_recipe_category_ids - banned_products).map{|id| {id: id, context: "recipe_top"}}.each_slice(2).to_a
@@ -151,7 +152,7 @@ class User < ApplicationRecord
                     .uniq! {|e| e[:id] }
 
     # return array of hashes
-    return data
+    return data.first(50).shuffle
   end
 
 

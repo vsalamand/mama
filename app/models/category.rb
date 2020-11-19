@@ -157,11 +157,13 @@ class Category < ApplicationRecord
     ids << Category.find(282).subtree.pluck(:id)
     ids << Category.find(603).subtree.pluck(:id)
     ids << Category.find(727).subtree.pluck(:id)
+    ids << Category.find(436).subtree.pluck(:id)
+    ids << Category.find(502).children.pluck(:id)
     return ids.flatten
   end
 
   def self.get_top_user_category_ids(user)
-    ids =  Item.where(['created_at > ?', 30.days.ago])
+    ids =  Item.where('created_at >= ?', 30.days.ago)
                     .where(list_id: user.get_lists.pluck(:id))
                     .pluck(:category_id)
                     .group_by{|x| x}.sort_by{|k, v| -v.size}
@@ -172,7 +174,7 @@ class Category < ApplicationRecord
   end
 
   def self.get_user_category_ids_history(user)
-    return Item.where(['created_at > ?', 7.days.ago])
+    return Item.where('created_at >= ?', 1.week.ago)
                         .where(list_id: user.get_lists.pluck(:id))
                         .pluck(:category_id)
                         .uniq
@@ -195,7 +197,7 @@ class Category < ApplicationRecord
   end
 
   def self.get_top_added_category_ids
-    ids = Item.where(['created_at > ?', 7.days.ago])
+    ids = Item.where('created_at >= ?', 1.week.ago)
                       .where.not(list_id: nil)
                       .pluck(:category_id)
                       .group_by{|x| x}
@@ -210,7 +212,8 @@ class Category < ApplicationRecord
     data = []
 
     seasonings = Category.get_seasonings
-    banned_products = seasonings
+    fruits = Category.find(86).subtree.pluck(:id)
+    banned_products = seasonings + fruits
 
     top_recipe_category_ids = Category.get_top_recipe_category_ids
     top_added_category_ids = Category.get_top_added_category_ids
@@ -235,7 +238,7 @@ class Category < ApplicationRecord
                     .uniq! {|e| e[:id] }
 
     # return array of hashes
-    return data
+    return data.first(50).shuffle
 
   end
 

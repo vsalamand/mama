@@ -28,9 +28,10 @@
     <div class="container mb-3">
       <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
         <h1 class="">De quoi avez-vous envie ?</h1>
+        <p class="lead"><%= cl_image_tag("menu_icons/pointing-right", width: 25, class:"m-0") %> Appuyez sur le bouton en bas pour afficher des idées recettes</p>
       </div>
     </div>
-    <div class="container px-2">
+    <div class="container px-1">
       <div class="container px-0">
         <div class="container px-0">
 
@@ -39,8 +40,10 @@
             </div>
           </ul>
           <div class="search-form-control">
-              <input type="text" placeholder="Produit ou recette..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleAssistantForm" style="cursor: pointer;" >
-              <button class="btn btn-sm btn-primary disabled" id="addContentBtn">Ajouter</button>
+              <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleAssistantForm" style="cursor: pointer;" >
+              <button class="btn btn-sm p-0">
+               <i class="fas fa-2x fa-plus text-muted px-1" style="cursor: pointer; filter: brightness(1.40);"></i>
+              </button>
           </div>
 
           <div class="mt-4">
@@ -51,7 +54,7 @@
 
 
 
-          <div id="scrollPoint" style="padding: 10px;">
+          <div id="scrollPoint" style="padding: 20px;">
           </div>
 
         </div>
@@ -64,12 +67,24 @@
     </div>
   </div>
 
+
+  <div class="container fixed-bottom bg-transparent"  id="listRecipe">
+      <div class="d-flex justify-content-around p-2">
+         <button class="btn btn-lg px-5 py-2 border-0 rounded text-center text-white font-weight-bold fetchRecipes" style="background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer;">
+            <%= cl_image_tag("menu_icons/search", width: 20, class:"m-0") %>
+            Idées recettes
+         </button>
+      </div>
+  </div>
+
+<% if false %>
   <div class="container fixed-bottom bg-transparent"  id="listRecipe">
       <div class="d-flex justify-content-around p-2">
          <a class="p-3 rounded-pill rounded-lg text-center fetchRecipes" style="background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer;"><%= cl_image_tag("menu_icons/search", width: 35, class:"m-0") %>
          </a>
       </div>
   </div>
+<% end %>
 
   <div style="padding: 50px;"></div>
 
