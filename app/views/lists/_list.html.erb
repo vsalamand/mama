@@ -6,7 +6,7 @@
           <span aria-hidden="true" class="h2 font-weight-bold">&times;</span>
         </button>
       <% end %>
-      <%= link_to list_path(list), :"data-turbolinks" => false do %>
+      <%= link_to list_path(list), :"data-turbolinks" => true do %>
          <p class="li lead m-0 pl-2 no-link text-primary font-weight-bold" style="cursor: pointer;" data="<%= list.id %>"><%= list.name %></p>
        <% end %>
     </div>
