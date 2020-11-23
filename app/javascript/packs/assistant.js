@@ -91,11 +91,37 @@ function enableElements(list) {
 }
 
 
+
+// show / hide top and bottom menu while focus on create form
+$(document).on("click", "#searchRecipeBtn", function(event) {
+  showRecipeResults();
+})
+$(document).on("click", "#hideRecipeSearch", function(event) {
+  hideRecipeResults();
+})
+
+function showRecipeResults() {
+  var recipeResults = document.getElementById('searchResults');
+  recipeResults.style.display = "block";
+  var assistantContent = document.getElementById('assistantContent');
+  assistantContent.style.display = "none";
+
+  ahoy.track("Search recipes");
+}
+
+function hideRecipeResults() {
+  var recipeResults = document.getElementById('searchResults');
+  recipeResults.style.display = "none";
+  $(document.getElementById("inputContent")).val('');
+  var assistantContent = document.getElementById('assistantContent');
+  assistantContent.style.display = "block";
+}
+
 // show recipes in list
 $(document).on("click", ".fetchRecipes", function(event) {
   if(document.getElementById('assistantContent')){
-    $('#contentModal').modal('show')
-    $('#contentShow').html(
+    // $('#contentModal').modal('show')
+    $('#recipeResults').html(
       `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
     );
 
@@ -106,7 +132,6 @@ $(document).on("click", ".fetchRecipes", function(event) {
                   });
 
     fetchRecipes(inputs);
-    ahoy.track("Meal ideas");
   }
 })
 

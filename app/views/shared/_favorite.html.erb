@@ -1,5 +1,11 @@
-<% if current_user && recipe.is_user_favorite?(current_user) %>
-  <button class="btn btn-transparent rounded removeFromFavorites p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i></button>
+<% if current_user %>
+  <% if recipe.is_user_favorite?(current_user) %>
+    <button class="btn btn-transparent rounded removeFromFavorites p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i></button>
+  <% else %>
+    <button class="btn btn-transparent rounded text-muted addToFavorites p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
+  <% end %>
 <% else %>
-  <button class="btn btn-transparent rounded text-muted addToFavorites p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
+  <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
+     <button class="btn btn-transparent rounded text-muted p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
+  <% end %>
 <% end %>

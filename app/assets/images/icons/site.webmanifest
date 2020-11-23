@@ -1,10 +1,15 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Supernet",
+    "short_name": "Supernet",
     "icons": [
         {
-            "src": "/android-chrome-144x144.png",
-            "sizes": "144x144",
+            "src": "/Downloads/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/Downloads/android-chrome-384x384.png",
+            "sizes": "384x384",
             "type": "image/png"
         }
     ],

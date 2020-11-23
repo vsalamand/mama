@@ -120,7 +120,8 @@ class User < ApplicationRecord
     seasonings = Category.get_seasonings
     fruits = Category.find(86).subtree.pluck(:id)
     snoozed = Category.get_user_snoozed_category_ids(self)
-    banned_products = seasonings + snoozed + fruits
+    beverages = Category.find(1).subtree.pluck(:id)
+    banned_products = seasonings + snoozed + fruits + beverages
 
     history_user_category_ids = Category.get_user_category_ids_history(self)
     top_user_category_ids = Category.get_top_user_category_ids(self)

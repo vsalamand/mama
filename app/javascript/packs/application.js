@@ -79,6 +79,17 @@ window.addEventListener('appinstalled', (e) =>{
 
 
 
+
+
+// PWA prompt install on ANDROID
+// Detects if device is on iOS
+var android = /(android)/i.test(navigator.userAgent);
+// Detects if device is in standalone mode
+var isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
+// var isInStandaloneMode = window.matchMedia('(display-mode: fullscreen)').matches;
+
+
+
 // open install modal if param is present
 $(document).on("turbolinks:load", function(event) {
   if(window.location.href.indexOf("install") > -1 ) {
@@ -90,15 +101,6 @@ $(document).on("turbolinks:load", function(event) {
     }
   }
 });
-
-
-
-// PWA prompt install on ANDROID
-// Detects if device is on iOS
-var android = /(android)/i.test(navigator.userAgent);
-// Detects if device is in standalone mode
-var isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
-
 
 // $(document).on("turbolinks:load", function(event) {
 //   if (android === true && isInStandaloneMode === false && document.getElementById("todo_list")) {

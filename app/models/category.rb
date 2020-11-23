@@ -213,7 +213,8 @@ class Category < ApplicationRecord
 
     seasonings = Category.get_seasonings
     fruits = Category.find(86).subtree.pluck(:id)
-    banned_products = seasonings + fruits
+    beverages = Category.find(1).subtree.pluck(:id)
+    banned_products = seasonings + fruits + beverages
 
     top_recipe_category_ids = Category.get_top_recipe_category_ids
     top_added_category_ids = Category.get_top_added_category_ids

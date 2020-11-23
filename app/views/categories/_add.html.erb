@@ -10,7 +10,8 @@
       <% end %>
       <%= render "categories/rating_indicator", category: category %>
       <p class="lead m-0 p-0 text-muted font-weight-bold no-link fetchCategory" style="cursor: pointer;" data="<%= category.name %>" data-id="<%= category.id %>"><%= category.name %></p>
-      <% if context.present? %>
+
+      <% if false %>
         <span class="ml-1 mr-0">
           <%= cl_image_tag("menu_icons/check-mark", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "user_top" %>
           <%= cl_image_tag("menu_icons/fire", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "recipe_top" %>
@@ -19,6 +20,7 @@
           <%= cl_image_tag("menu_icons/crystal-ball", width: 10, class:"pb-2") if context.find{|el| el[:id] == category.id }[:context] == "similar" %>
         </span>
       <% end %>
+
     </div>
 
     <div class="d-flex align-items-center">
