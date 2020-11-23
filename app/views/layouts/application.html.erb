@@ -83,7 +83,7 @@
 
 
     <div class="sticky-top bg-white">
-      <% unless ["users/sessions", "registrations", "devise/passwords"].include?(params[:controller]) || ["home", "welcome", "start"].include?(params[:action]) %>
+      <% unless ["users/sessions", "registrations", "devise/passwords"].include?(params[:controller]) || ["home", "welcome", "start", "assistant"].include?(params[:action]) %>
         <% unless user_signed_in? %>
           <%= render 'shared/navbar_visitor' %>
         <% end %>

@@ -1,0 +1,13 @@
+<% if category.rating == 1 %>
+      <div class="alert alert-light text-success px-2 m-0" role="alert">
+        Produit recommandé pour la santé !
+      </div>
+<% elsif category.rating == 2 %>
+      <div class="alert alert-light text-warning px-2 m-0" role="alert">
+        Limitez la consommation de ce produit.
+      </div>
+<% elsif category.rating == 3 %>
+      <div class="alert alert-light text-danger px-2 m-0" role="alert">
+        Réduisez la consommation de ce produit.
+      </div>
+<% end %>

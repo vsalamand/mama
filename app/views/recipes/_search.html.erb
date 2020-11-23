@@ -1,0 +1,19 @@
+<div id="categoryShow" class="bg-white">
+
+  <div class="container px-2">
+    <div id="relatedRecipes">
+      <% if @recipes.present? %>
+        <div id="recipeElements">
+           <%= render partial: 'recipes/recipe', collection: @recipes, as: :recipe, locals: {list: list, source_type: source_type, source_id: source_id} %>
+        </div>
+      <% else %>
+        <p class="lead text-muted mt-5">Ajouter des produits pour obtenir des résultats.</p>
+      <% end %>
+    </div>
+  </div>
+
+
+
+  <div style="padding: 50px;"></div>
+
+</div>

@@ -6,15 +6,27 @@
 <div id="assistantForm" style="display: none;">
   <%= render 'assistant/form' %>
 </div>
+<div id="searchResults" style="display: none;">
+  <%= render 'shared/recipe_results' %>
+</div>
 
-
-<div id="assistantContent" class="alert-success" style="min-height: 200vh;">
-  <div class="sticky-top alert-success mb-3" id="listBarTop">
+<div id="assistantContent" class="bg-white" style="min-height: 200vh;">
+  <div class="sticky-top bg-white mb-1" id="listBarTop">
     <div class="container px-2">
-      <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
-        <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-times p-2"></i></a>
+      <nav class="px-2 navbar navbar-expand-lg d-flex bd-highlight">
+       <a href="/" class="navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">Supernet</a>
 
 
+
+        <% if current_user %>
+          <%= link_to favorites_path do %>
+            <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
+          <% end %>
+        <% else %>
+          <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
+            <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
+          <% end %>
+        <% end %>
 
       </nav>
     </div>
@@ -24,11 +36,10 @@
     <%= render 'shared/flashes' %>
   </div>
 
-  <div class="wrapper" style="min-height: 40vh;">
+  <div class="wrapper" style="min-height: 50vh;">
     <div class="container mb-3">
       <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
-        <h1 class="">De quoi avez-vous envie ?</h1>
-        <p class="lead"><%= cl_image_tag("menu_icons/pointing-right", width: 25, class:"m-0") %> Appuyez sur le bouton en bas pour afficher des idées recettes</p>
+        <h1 class="font-weight-bold">De quoi avez-vous envie ?</h1>
       </div>
     </div>
     <div class="container px-1">
@@ -53,7 +64,6 @@
 
 
 
-
           <div id="scrollPoint" style="padding: 20px;">
           </div>
 
@@ -68,26 +78,20 @@
   </div>
 
 
-  <div class="container fixed-bottom bg-transparent"  id="listRecipe">
-      <div class="d-flex justify-content-around p-2">
-         <button class="btn btn-lg px-5 py-2 border-0 rounded text-center text-white font-weight-bold fetchRecipes" style="background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer;">
-            <%= cl_image_tag("menu_icons/search", width: 20, class:"m-0") %>
-            Idées recettes
-         </button>
-      </div>
-  </div>
 
-<% if false %>
-  <div class="container fixed-bottom bg-transparent"  id="listRecipe">
-      <div class="d-flex justify-content-around p-2">
-         <a class="p-3 rounded-pill rounded-lg text-center fetchRecipes" style="background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer;"><%= cl_image_tag("menu_icons/search", width: 35, class:"m-0") %>
-         </a>
-      </div>
-  </div>
-<% end %>
+
 
   <div style="padding: 50px;"></div>
 
+  <nav class="wrapper nav-light fixed-bottom shadow-lg bg-light">
+    <div class="container d-flex justify-content-end p-2" id="searchRecipeBtn">
+       <button class="btn btn-lg px-4 py-2 border-0 rounded text-center text-white fetchRecipes" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));  cursor: pointer;  font-size: 1.5rem;">
+          <%= cl_image_tag("menu_icons/search", width: 25, class:"m-0") %>
+          Recherche
+       </button>
+     </div>
+
+  </nav>
 </div>
 
 
