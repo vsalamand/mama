@@ -13,16 +13,20 @@
 <div id="assistantContent" class="bg-white" style="min-height: 200vh;">
   <div class="sticky-top bg-white mb-1" id="listBarTop">
     <div class="container px-2">
-      <nav class="px-2 navbar navbar-expand-lg d-flex bd-highlight">
-       <a href="/" class="navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">Supernet</a>
-
-
-
+      <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
         <% if current_user %>
+          <% if current_user.beta %>
+            <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+          <% else %>
+              <%= render 'shared/nav_actions' %>
+          <% end %>
           <%= link_to favorites_path do %>
             <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
           <% end %>
+
         <% else %>
+          <%= link_to "Supernet", root_path, class:"px-2 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight", style:"background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;" %>
+
           <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
             <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
           <% end %>
@@ -30,10 +34,6 @@
 
       </nav>
     </div>
-  </div>
-
-  <div class="container">
-    <%= render 'shared/flashes' %>
   </div>
 
   <div class="wrapper" style="min-height: 50vh;">

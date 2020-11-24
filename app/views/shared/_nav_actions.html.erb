@@ -1,0 +1,22 @@
+<div class="d-flex align-items-center">
+
+  <% if current_user  %>
+    <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/profile">
+      <%= cl_image_tag("menu_icons/waving-hand", width: 30, class:"m-0") %>
+    </a>
+  <% else %>
+    <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/start">
+      <%= cl_image_tag("menu_icons/waving-hand", width: 30, class:"m-0") %>
+    </a>
+  <% end %>
+
+  <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/profile">
+    <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
+  </a>
+
+  <% unless current_user && current_user.beta %>
+    <span class="pl-1 font-weight-bold rounded" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.2rem;">
+     BETA
+     </span>
+  <% end %>
+</div>

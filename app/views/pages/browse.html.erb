@@ -1,8 +1,7 @@
 
-<div class="container sticky-top px-0">
+<div class="container sticky-top px-0 bg-white">
   <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between p-2">
-    <a class="bg-white p-2 rounded-pill rounded-lg text-center" href="/profile"><%= cl_image_tag("menu_icons/waving-hand", width: 25, height: 25, class:"m-0") %>
-    </a>
+      <%= render 'shared/nav_actions' %>
 
     <div id="score" data="" style="min-height: 45px;">
       <% if current_user %>

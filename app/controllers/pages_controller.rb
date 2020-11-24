@@ -3,15 +3,21 @@ class PagesController < ApplicationController
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
                                                   :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install,
                                                   :start, :fetch_landing, :assistant]
-  before_action :authenticate_admin!, only: [:dashboard, :pending]
+  before_action :authenticate_admin!, only: [:dashboard, :pending, :users, :verify_items, :add_to_beta ]
 
 
   def home
     if params[:mode].present?
       ahoy.track "Webapp launch"
     end
+
     if user_signed_in?
-      redirect_to browse_path
+      if current_user.beta
+        redirect_to browse_path
+      else
+        # redirect if current user is not in beta
+        redirect_to assistant_path
+      end
     else
       ahoy.track "Landing"
     end
@@ -49,6 +55,9 @@ class PagesController < ApplicationController
 
 
   def browse
+    # redirect if current user is not in beta
+    redirect_to assistant_path unless current_user.beta
+
     @list = List.new
 
     if user_signed_in?
@@ -364,6 +373,17 @@ class PagesController < ApplicationController
       @results = Product.search(query, page: params[:page], per_page: 50, aggs: [:stores]) if query
     end
     # @results = search.zip(search.hits.map{ |hit| hit["_score"] }) if search
+  end
+
+  def users
+    @users = User.all
+    @beta_users = User.where(beta: true)
+  end
+
+  def add_to_beta
+    @user = User.find(params[:id])
+    @user.add_to_beta
+    redirect_to users_path
   end
 
   def fetch_ios_install
