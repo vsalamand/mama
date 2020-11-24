@@ -1,0 +1,15 @@
+  <div>
+     <div class="pl-2 pr-2 p-0 list-group-item list-group-item-action border-bottom d-flex flex-column justify-content-start">
+          <div class="product-info p-2">
+            <div class="product-description text-dark">
+              <div class="d-flex justify-content-between">
+                <h5 class="mb-1 text-primary"><%= user.id %><br><span class="text-muted"> <%= user.email %></span> </h5>
+                <div class="d-flex flex-column align-items-end">
+                  <p class="text-primary m-0"><%= 'BETA' if user.beta %></p>
+                  <%= link_to 'Add to BETA', add_to_beta_path(id: user.id), class:"btn btn-light text-warning" unless user.beta %>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>

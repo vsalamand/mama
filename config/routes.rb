@@ -101,6 +101,8 @@ Rails.application.routes.draw do
   get 'refresh_meal', to:'pages#refresh_meal'
   get 'activity', to: 'pages#activity'
   get 'get_score', to: 'pages#get_score'
+  get 'users', to: 'pages#users'
+  get 'add_to_beta', to: 'pages#add_to_beta'
 
 
   resources :recipes do

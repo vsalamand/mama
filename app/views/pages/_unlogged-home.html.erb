@@ -1,11 +1,13 @@
 
-<div class="banner bg-light" style="overflow-x: hidden; overflow-y: hidden;">
-  <nav class="container navbar navbar-light bg-transparent">
-    <a class=" navbar-brand d-flex align-items-center" href="/">
-      <span class="font-weight-bold rounded" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">Supernet</span>
-      <%= link_to "Mon compte", start_path, class:"btn btn-light border btn-lg" %>
-    </a>
-  </nav>
+<nav class="container navbar navbar-light bg-white sticky-top">
+  <a class="navbar-brand d-flex align-items-center p-0 m-0">
+    <span class="font-weight-bold rounded m-0" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">Supernet</span>
+
+      <%= render 'shared/nav_actions' %>
+  </a>
+</nav>
+
+<div class="banner bg-white" style="overflow-x: hidden; overflow-y: hidden;">
   <div class="wrapper m-0">
     <div class="row">
       <div class="col-md align-self-center">
@@ -16,7 +18,7 @@
             <p class="lead">
              Trouvez votre prochaine idée repas à partir des produits dans votre frigo et vos placards !
             <br>
-              Super facile et gratuit <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %>
+              Super facile et rapide <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %>
             </p>
              <%= link_to "Trouver une idée repas", assistant_path, class:"btn btn-lg btn-light px-4 py-2 border-0 rounded text-white shadow-lg", style:"background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); font-size: 1.5rem;" %>
           </div>

@@ -1,29 +1,25 @@
 <div class="sticky-top bg-white">
-
   <div class="container px-2">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
        <a class="navbar-brand text-dark d-flex align-items-center m-0 text-muted" href="/">
-        <i class="fas fa-lg fa-times p-2"></i> <span class="text-white"></span>
+        <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
       </a>
+      <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-light btn-lg border text-danger", id:"signout" %>
     </nav>
   </div>
-
 </div>
 
 
 
-<div class="wrapper">
-  <div class="container px-2 mt-5">
-    <div class="jumbotron d-flex flex-column bg-white text-center">
-      <h1 class="display-4 font-weight-bold">Mon compte</h1>
-
-      <hr class="my-3">
-      <div class="mb-2 rounded d-flex align-items-center justify-content-between flex-column">
-        <h2 class="" id="title"><%= current_user.username %></h2>
-        <p class="font-weight-light">Inscrit depuis le <%= current_user.created_at.strftime("%d/%m/%Y") %></p>
-        <p class="font-weight-light">Email: <%= current_user.email %></p>
-        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-danger mt-4", id:"signout" %>
-      </div>
-    </div>
+<div class="wrapper bg-white">
+  <div class="container mt-2 px-0">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%= cl_image_tag("menu_icons/gear", width: 20, class:"pb-1") %> <%= current_user.email %></li>
+      <li class="list-group-item"><%= cl_image_tag("menu_icons/mobile", width: 20, class:"pb-1") %> Installer l'application</li>
+      <li class="list-group-item"><%= cl_image_tag("menu_icons/fire", width: 20, class:"pb-1") %> Fonctionnalités</li>
+      <li class="list-group-item"><%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %> <span class="font-weight-bold rounded" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Programme BETA</span></li>
+      <li class="list-group-item"><%= cl_image_tag("menu_icons/speech-balloon", width: 20, class:"pb-1") %> Envoyer un message</li>
+      <li class="list-group-item"><%= cl_image_tag("menu_icons/pointing-right", width: 20, class:"pb-1") %> À propos</li>
+    </ul>
   </div>
 </div>
