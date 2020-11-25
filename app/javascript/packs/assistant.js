@@ -27,6 +27,7 @@ function hideAssistantForm() {
   var assistantForm = document.getElementById('assistantForm');
   assistantForm.style.display = "none";
   $(document.getElementById("inputContent")).val('');
+  window.scrollTo(0,0);
   var assistantContent = document.getElementById('assistantContent');
   assistantContent.style.display = "block";
 }
@@ -113,6 +114,7 @@ function hideRecipeResults() {
   var recipeResults = document.getElementById('searchResults');
   recipeResults.style.display = "none";
   $(document.getElementById("inputContent")).val('');
+  window.scrollTo(0,0);
   var assistantContent = document.getElementById('assistantContent');
   assistantContent.style.display = "block";
 }
