@@ -10,7 +10,7 @@
   <%= render 'shared/recipe_results' %>
 </div>
 
-<div id="assistantContent" class="bg-white" style="min-height: 200vh;">
+<div id="assistantContent" class="bg-white">
   <div class="sticky-top bg-white mb-1" id="listBarTop">
       <nav class="container navbar d-flex bd-highlight">
         <% if current_user %>
@@ -31,16 +31,16 @@
           <% end %>
 
           <div>
-              <%= link_to 'https://go.crisp.chat/chat/embed/?website_id=32b1bab5-33b2-4a6b-baee-556ff68f8dfc', target: "_blank" do %>
-                <span class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center">
-                  <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
-                </span>
-              <% end %>
-              <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
-                <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
-              <% end %>
+            <%= link_to 'https://go.crisp.chat/chat/embed/?website_id=32b1bab5-33b2-4a6b-baee-556ff68f8dfc', target: "_blank" do %>
+              <span class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center">
+                <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
+              </span>
+            <% end %>
+            <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
+              <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
             <% end %>
           </div>
+        <% end %>
 
       </nav>
   </div>
@@ -119,16 +119,5 @@
       </div>
     </div>
   </div>
-
-
-<% unless user_signed_in? %>
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
-<% end %>
-<!-- PWA prompt on safari IOS -->
-<%= render 'shared/ios_install_popup' %>
-<!-- PWA prompt on Android -->
-<%= render 'shared/android_install_popup' %>
 
 

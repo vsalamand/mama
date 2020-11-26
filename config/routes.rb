@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   get 'get_score', to: 'pages#get_score'
   get 'users', to: 'pages#users'
   get 'add_to_beta', to: 'pages#add_to_beta'
+  get 'add_to_homescreen', to: 'pages#add_to_homescreen'
 
 
   resources :recipes do

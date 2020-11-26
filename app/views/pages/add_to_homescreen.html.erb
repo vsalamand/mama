@@ -1,0 +1,122 @@
+<% content_for :meta_title, "Installer Supernet" %>
+<% content_for :meta_description, "Instructions pour ajouter l'appli sur votre écran d'accueil." %>
+
+
+<div class="sticky-top bg-white mb-1">
+    <nav class="container navbar d-flex bd-highlight">
+        <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+
+        <div>
+          <%= link_to 'https://go.crisp.chat/chat/embed/?website_id=32b1bab5-33b2-4a6b-baee-556ff68f8dfc', target: "_blank" do %>
+            <span class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center">
+              <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
+            </span>
+          <% end %>
+        </div>
+
+    </nav>
+</div>
+
+<div class="wrapper" style="min-height: 50vh;">
+  <div class="container mb-3">
+    <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
+      <h1 class="font-weight-bold text-center"><span style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Supernet</span> sur votre écran d'accueil en 2 étapes</h1>
+    </div>
+  </div>
+
+  <% if @device == "ios" %>
+    <div class="jumbotron bg-white d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 text-center p-0 ">
+            <p class="lead font-weight-bold text-primary">1. Afficher les options de Safari </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_safari", :width=>200, class:"shadow-lg") %>
+            <div style="padding: 50px;"></div>
+          </div>
+          <div class="col-md-6 text-center p-0">
+            <p class="lead font-weight-bold text-primary">2. Sélectionner "Sur l'écran d'accueil" </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_button", :height=>350, class:"shadow-lg") %>
+            <div style="padding: 10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% elsif @device == "android" %>
+    <div class="jumbotron bg-white d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center p-0 ">
+            <p class="lead font-weight-bold text-primary">1. Afficher les options du navigateur </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_android_browser", :width=>200, class:"shadow-lg") %>
+            <div style="padding: 50px;"></div>
+          </div>
+          <div class="col-md-4 text-center p-0">
+            <p class="lead font-weight-bold text-primary">2. Sélectionner "Ajouter à l'écran d'accueil" </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_android_button", :height=>350, class:"shadow-lg") %>
+            <div style="padding: 50px;"></div>
+          </div>
+          <div class="col-md-4 text-center p-0">
+            <p class="lead font-weight-bold text-primary">3. Appuyer sur "Ajouter" </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_android_confirm", :height=>150, class:"shadow-lg") %>
+            <div style="padding: 10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% else %>
+    <div class="jumbotron bg-white d-flex align-items-center">
+      <div class="container">
+        <h2 class="text-center">iOS</h2>
+          <hr class="my-4">
+        <div class="row">
+          <div class="col-md-6 text-center p-0 ">
+            <p class="lead font-weight-bold text-primary">1. Afficher les options de Safari </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_safari", :width=>200, class:"shadow-lg") %>
+            <div style="padding: 50px;"></div>
+          </div>
+          <div class="col-md-6 text-center p-0">
+            <p class="lead font-weight-bold text-primary">2. Sélectionner "Sur l'écran d'accueil" </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_button", :height=>350, class:"shadow-lg") %>
+            <div style="padding: 10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jumbotron bg-white d-flex align-items-center">
+      <div class="container">
+        <h2 class="text-center">Android</h2>
+          <hr class="my-4">
+        <div class="row">
+          <div class="col-md-4 text-center p-0 ">
+            <p class="lead font-weight-bold text-primary">1. Afficher les options du navigateur </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_android_browser", :width=>200, class:"shadow-lg") %>
+            <div style="padding: 50px;"></div>
+          </div>
+          <div class="col-md-4 text-center p-0">
+            <p class="lead font-weight-bold text-primary">2. Sélectionner "Ajouter à l'écran d'accueil" </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_android_button", :height=>350, class:"shadow-lg") %>
+            <div style="padding: 50px;"></div>
+          </div>
+          <div class="col-md-4 text-center p-0">
+            <p class="lead font-weight-bold text-primary">3. Appuyer sur "Ajouter" </p>
+            <div style="padding: 10px;"></div>
+            <%= cl_image_tag("a2hs/a2hs_android_confirm", :height=>150, class:"shadow-lg") %>
+            <div style="padding: 10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+</div>

@@ -116,15 +116,3 @@
 
 
 
-
-
-<% unless user_signed_in? %>
-<!-- Navbar End -->
-<%= render 'shared/login_form' %>
-<%= render 'shared/signup_form' %>
-<% end %>
-<!-- PWA prompt on safari IOS -->
-<%= render 'shared/ios_install_popup' %>
-<!-- PWA prompt on Android -->
-<%= render 'shared/android_install_popup' %>
-
