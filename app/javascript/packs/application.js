@@ -51,6 +51,8 @@ import 'packs/score';
 // });
 
 
+
+
 // Service worker for progressive web app management
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register('/service-worker.js')
