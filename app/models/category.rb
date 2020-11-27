@@ -197,15 +197,18 @@ class Category < ApplicationRecord
   end
 
   def self.get_top_added_category_ids
-    ids = Item.where('created_at >= ?', 1.week.ago)
+    ids = Item.where('created_at >= ?', 4.week.ago)
                       .where.not(list_id: nil)
                       .pluck(:category_id)
                       .group_by{|x| x}
                       .sort_by{|k, v| -v.size}
                       .map(&:first)
                       .compact
-    data = ids[0..5].shuffle + ids[6..-1]
-    return data
+    if ids.size > 5
+      return ids[0..5].shuffle + ids[6..-1]
+    else
+      return ids
+    end
   end
 
   def self.get_suggestions

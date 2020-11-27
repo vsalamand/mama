@@ -31,11 +31,9 @@
           <% end %>
 
           <div>
-            <%= link_to 'https://go.crisp.chat/chat/embed/?website_id=32b1bab5-33b2-4a6b-baee-556ff68f8dfc', target: "_blank" do %>
-              <span class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center">
-                <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
-              </span>
-            <% end %>
+            <button class="btn bg-white p-2 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
+              <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
+            </button>
             <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
               <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
             <% end %>

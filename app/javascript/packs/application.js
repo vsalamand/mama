@@ -230,6 +230,12 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+
+// open message modal after click
+$(document).on('click', '#messageModalBtn',function() {
+  $('#messageModal').modal('show');
+});
+
 // close  modal after click
 $(document).on('click', '#startGroceriesModal',function() {
   $('.modal').modal('hide');

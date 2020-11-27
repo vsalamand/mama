@@ -10,11 +10,9 @@
     </a>
   <% end %>
 
-  <%= link_to 'https://go.crisp.chat/chat/embed/?website_id=32b1bab5-33b2-4a6b-baee-556ff68f8dfc', target: "_blank" do %>
-    <span class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center">
-      <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
-    </span>
-  <% end %>
+  <button class="btn bg-white p-2 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
+    <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
+  </button>
 
   <% unless current_user && current_user.beta %>
     <div class="px-2 py-1 font-weight-bold rounded border text-white font-weight-bold" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); font-size: 0.9rem;">
