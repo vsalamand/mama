@@ -14,7 +14,11 @@
 <div class="wrapper bg-white">
   <div class="container mt-2 px-0">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item"><%= cl_image_tag("menu_icons/gear", width: 20, class:"pb-1") %> <%= current_user.email %></li>
+      <li class="list-group-item">
+        <%= link_to edit_user_registration_path(current_user) do %>
+          <%= cl_image_tag("menu_icons/gear", width: 20, class:"pb-1") %> Modifier le profil
+        <% end %>
+      </li>
       <li class="list-group-item">
         <%= link_to add_to_homescreen_path do %>
           <%= cl_image_tag("menu_icons/mobile", width: 20, class:"pb-1") %> Installer l'application
