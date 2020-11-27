@@ -4,7 +4,9 @@
 
 <div class="sticky-top bg-white mb-1">
     <nav class="container navbar d-flex bd-highlight">
-        <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+        <%= link_to :back, class:"navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" do %>
+          <i class="fas fa-lg fa-arrow-left p-2"></i>
+        <% end %>
 
         <div>
           <%= link_to 'https://go.crisp.chat/chat/embed/?website_id=32b1bab5-33b2-4a6b-baee-556ff68f8dfc', target: "_blank" do %>

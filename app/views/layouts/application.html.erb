@@ -82,19 +82,11 @@
 
 
 
-    <div class="sticky-top bg-white">
-      <% unless ["users/sessions", "registrations", "devise/passwords"].include?(params[:controller]) || ["home", "welcome", "start", "assistant"].include?(params[:action]) %>
 
-        <% if ["products", "explore", "meals"].include?(params[:action]) %>
-          <%= render 'shared/navbar_black' %>
-        <% end %>
-
-      <% end %>
-    </div>
-
-
-    <div id="iOSInstallNavbar"></div>
-    <div id="androidInstallNavbar"></div>
+    <% unless ["add_to_homescreen"].include?(params[:action])%>
+      <div id="iOSInstallNavbar"></div>
+      <div id="androidInstallNavbar"></div>
+    <% end %>
 
      <div id="page-container">
        <div id="content-wrap ">
@@ -104,7 +96,7 @@
      </div>
 
 
-      <% if ["landing", "home", "browse"].include?(params[:action])%>
+      <% if ["landing", "home"].include?(params[:action])%>
         <%= render 'shared/footer'  %>
       <% end %>
 
@@ -114,12 +106,6 @@
     <%= render 'shared/signup_form' %>
     <% end %>
 
-    <% unless ["add_to_homescreen"].include?(params[:action])%>
-      <!-- PWA prompt on safari IOS -->
-      <%= render 'shared/ios_install_popup' %>
-      <!-- PWA prompt on Android -->
-      <%= render 'shared/android_install_popup' %>
-    <% end %>
 
 
   </body>
