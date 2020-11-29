@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
                                                   :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install,
-                                                  :start, :fetch_landing, :assistant, :add_to_homescreen]
+                                                  :start, :fetch_landing, :assistant, :add_to_homescreen, :beta]
   before_action :authenticate_admin!, only: [:dashboard, :pending, :users, :verify_items, :add_to_beta ]
 
 
@@ -396,6 +396,10 @@ class PagesController < ApplicationController
 
   def add_to_homescreen
     @device = params[:device]
+  end
+
+  def beta
+
   end
 
 end
