@@ -1,0 +1,47 @@
+<% content_for :meta_title, "Supernet Plus" %>
+<% content_for :meta_description, "Optimisez les achats de la vie courante avec Supernet Plus" %>
+
+
+
+<div id="assistantForm" style="display: none;">
+  <%= render 'assistant/form' %>
+</div>
+<div id="searchResults" style="display: none;">
+  <%= render 'shared/recipe_results' %>
+</div>
+
+<div id="assistantContent" class="bg-white">
+  <div class="sticky-top bg-white mb-1" id="listBarTop">
+      <nav class="container navbar d-flex bd-highlight">
+       <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight" do %>
+          <span style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">
+              Supernet
+          </span>
+        <% end %>
+
+      </nav>
+  </div>
+
+  <div class="wrapper" style="min-height: 50vh;">
+    <div class="container mb-3">
+
+      <div class="jumbotron text-white" style="background-image: linear-gradient(45deg, rgb(51, 138, 249),rgb(47, 248, 255)); ">
+        <p class="display-4 font-weight-bold">Supernet Plus</p>
+        <h1 class="">Optimisez les achats de la vie courante</h1>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Ç m'intéresse</a>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div style="padding: 50px;"></div>
+
+
+</div>

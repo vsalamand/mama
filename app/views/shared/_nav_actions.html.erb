@@ -15,8 +15,8 @@
   </button>
 
   <% unless current_user && current_user.beta %>
-    <div class="px-2 py-1 font-weight-bold rounded border text-white font-weight-bold" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); font-size: 0.9rem;">
-     BETA
-     </div>
+     <a class="p-1 font-weight-bold rounded text-white font-weight-bold" style="background-image: linear-gradient(45deg, rgb(51, 138, 249),rgb(47, 248, 255)); font-size: 0.8rem;" href='/beta'>
+      PLUS
+     </a>
   <% end %>
 </div>

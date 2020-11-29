@@ -169,8 +169,11 @@ class Category < ApplicationRecord
                     .group_by{|x| x}.sort_by{|k, v| -v.size}
                     .map(&:first)
                     .compact
-    data = ids[0..5].shuffle + ids[6..-1]
-    return data
+    if ids.size > 5
+      return ids[0..5].shuffle + ids[6..-1]
+    else
+      return ids
+    end
   end
 
   def self.get_user_category_ids_history(user)
@@ -192,8 +195,11 @@ class Category < ApplicationRecord
                       .sort_by{|k, v| -v.size}
                       .map(&:first)
                       .compact
-    data = ids[0..5].shuffle + ids[6..-1]
-    return data
+    if ids.size > 5
+      return ids[0..5].shuffle + ids[6..-1]
+    else
+      return ids
+    end
   end
 
   def self.get_top_added_category_ids
