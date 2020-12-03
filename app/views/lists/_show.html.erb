@@ -52,31 +52,12 @@
             </div>
           </ul>
           <div class="search-form-control">
-              <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleListItemform" style="cursor: pointer;" >
-              <button class="btn btn-sm p-0">
-                <i class="fas fa-2x fa-plus text-muted px-1" style="cursor: pointer; filter: brightness(1.40);"></i>
-              </button>
+              <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg border" id="toggleListItemform" style="cursor: pointer;" >
+
           </div>
 
           <%= render 'lists/related_recipes', recipes: recipes, list: list %>
 
-
-          <% if false %>
-              <div id="editHistory" class="m-1">
-                <%= render "lists/edit_history", content: @message %>
-              </div>
-              <div class="dropdown">
-                <button class="btn-block btn btn-light border dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <%= list.sorted_by %>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <%= link_to "Tri par rayon", list_sort_path(list, sort_option: "rayon"), remote: true, class:"dropdown-item" %>
-                  <%= link_to "Tri par catégorie", list_sort_path(list, sort_option: "category"), remote: true, class:"dropdown-item" %>
-                  <%= link_to "Tri par date", list_sort_path(list, sort_option: "date"), remote: true, class:"dropdown-item" %>
-                  <%= link_to "Tri par foodgroup", list_sort_path(list, sort_option: "foodgroup"), remote: true, class:"dropdown-item" %>
-                </div>
-              </div>
-          <% end %>
 
           <div class="my-3">
             <div class="" id="uncomplete_list_items" data-list-id="<%= list.id %>" data-url="<%= sort_list_list_items_path(list) %>">
@@ -94,21 +75,17 @@
   </div>
 
   <div class="container px-2">
-    <div id="itemsRecommendations" class="pb-5">
-        <%= render'lists/suggested_products', categories: @categories %>
+    <div id="savedProducts">
+      <%=  render"lists/saved_products", items: @saved_items %>
     </div>
-  </div>
-
-
-
-<% if false %>
-  <div class="container fixed-bottom bg-transparent"  id="listRecipe">
-      <div class="d-flex justify-content-around p-2">
-         <a class="p-3 rounded-pill rounded-lg text-center fetchRecipes" style="background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer;"><%= cl_image_tag("menu_icons/search", width: 35, class:"m-0") %>
-         </a>
+    <% if @categories.present? %>
+      <div id="itemsRecommendations" class="pb-5">
+          <%= render'lists/suggested_products', categories: @categories %>
       </div>
+    <% end %>
   </div>
-<% end %>
+
+
 
   <div style="padding: 50px;"></div>
 

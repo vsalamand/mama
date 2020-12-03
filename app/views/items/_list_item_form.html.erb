@@ -11,7 +11,7 @@
             <div class="search-form-control">
               <%= form.input :name, as: :string, label: false, placeholder: "Ajouter un produit...", input_html: { class:"py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary", id:"newListItem", autocomplete: 'off' }, wrapper_html: { class:"m-0 rounded rounded-lg shadow-lg"} %>
               <%= button_tag(type: "submit", class: "btn btn-sm p-0", id:"addListItemBtn") do %>
-                <i class="fas fa-2x fa-plus text-muted px-1" style="cursor: pointer; filter: brightness(1.40);"></i>
+                <i class="fas fa-2x fa-plus-square text-primary px-1" style="cursor: pointer;"></i>
               <% end %>
             </div>
             <% if false %>

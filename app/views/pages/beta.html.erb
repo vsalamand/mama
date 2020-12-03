@@ -1,5 +1,5 @@
 <% content_for :meta_title, "Supernet Plus" %>
-<% content_for :meta_description, "Optimisez les achats de la vie courante avec Supernet Plus" %>
+<% content_for :meta_description, "Des courses simples et optimisés" %>
 
 
 
@@ -18,30 +18,86 @@
               Supernet
           </span>
         <% end %>
-
       </nav>
   </div>
 
-  <div class="wrapper" style="min-height: 50vh;">
-    <div class="container mb-3">
-
-      <div class="jumbotron text-white" style="background-image: linear-gradient(45deg, rgb(51, 138, 249),rgb(47, 248, 255)); ">
-        <p class="display-4 font-weight-bold">Supernet Plus</p>
-        <h1 class="">Optimisez les achats de la vie courante</h1>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Ç m'intéresse</a>
+  <div class="wrapper bg-white" style="min-height: 50vh;">
+    <div class="container">
+      <div class="jumbotron text-white text-center" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225));">
+        <h1 class="mb-3"><span class="font-weight-bold display-4">Supernet Plus</span><br>Des courses simples et optimisées</h1>
       </div>
     </div>
 
-  </div>
+    <div class="container my-5 px-0 text-center ">
+      <h2 class="">Ce que Supernet Plus fait pour vous</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+
+          <ul class="p-0">
+            <li class="rounded d-flex align-items-center text-left m-1" >
+                <%= cl_image_tag("menu_icons/search", width: 20, class:"m-2") %>
+                <p class="m-0">Chercher des idées en fonction de vos produits</p>
+            </li>
+            <li class="rounded d-flex align-items-center text-left m-1" >
+                <%= cl_image_tag("menu_icons/list", width: 20, class:"m-2") %>
+                <p class="m-0">Remplir votre liste de courses semi-automatiquement</p>
+            </li>
+            <li class="rounded d-flex align-items-center text-left m-1" >
+                <%= cl_image_tag("menu_icons/green-heart", width: 20, class:"m-2") %>
+                <p class="m-0">Analyser l'impact santé de vos choix alimentaires</p>
+            </li>
+            <li class="rounded d-flex align-items-center text-left m-1" >
+                <%= cl_image_tag("menu_icons/cart", width: 20, class:"m-2") %>
+                <p class="m-0">Créer un panier de courses optimisés</p>
+            </li>
+            <li class="rounded d-flex align-items-center text-left m-1" >
+                <%= cl_image_tag("menu_icons/store", width: 20, class:"m-2") %>
+                <p class="m-0">Comparer les prix autour de chez vous</p>
+            </li>
+            <li class="rounded d-flex align-items-center text-left m-1" >
+                <%= cl_image_tag("menu_icons/party", width: 20, class:"m-2") %>
+                <p class="m-0">Commander ou réserver vos courses</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
 
-
-
-
-
+    <div class="jumbotron bg-transparent m-0 p-0">
+      <div class="container text-center">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="list-group">
+              <a href="https://forms.gle/FEQvLVX3FArL32Y38" target="_blank" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-center">
+                  <h5 class="my-1">0,99 €/mois</h5>
+                  <h5 class="my-1"></h5>
+                </div>
+              </a>
+<!--               <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="my-1">12 mois : 6,99€/an</h5>
+                  <h5 class="my-1"><span class="badge badge-primary">-59%</span></h5>
+                </div>
+              </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container my-3 text-center">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <a class="btn btn-lg btn-light px-4 py-2 border-0 rounded text-white shadow-lg" href="https://forms.gle/FEQvLVX3FArL32Y38" target="_blank" role="button" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); font-size: 1.5rem;">
+              Profitez de 30 jours gratuits !
+            </a>
+            <br>
+            <small class="text-muted font-weight-bold">Annulez à tout moment</small>
+          </div>
+        </div>
+      </div>
+    </div>
   <div style="padding: 50px;"></div>
 
-
 </div>
+

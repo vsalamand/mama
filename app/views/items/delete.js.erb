@@ -4,12 +4,24 @@ var section = document.getElementById("<%= @headername %>")
 var newData = Number(section.getAttribute('data')) - 1;
 $(section).attr('data', newData);
 
-const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>");
-listItemCard.remove();
+const listItemCards = document.querySelectorAll("#grocerylist-item-id<%= @item.id %>");
+listItemCards.forEach(n => n.remove());
 
+
+updateSavedSectionHead()
 updateScore();
 
-
+function updateSavedSectionHead() {
+  if(document.getElementById("enregistres")) {
+    var header = document.getElementById("enregistres");
+    var count = header.querySelectorAll(".completed").length;
+    if(count === 0){
+       document.querySelectorAll("#enregistres").forEach(n => n.style.display = "none");
+    } else {
+       document.querySelectorAll("#enregistres").forEach(n => n.style.display = "block");
+    }
+  }
+}
 
 // update list score
 function updateScore() {
