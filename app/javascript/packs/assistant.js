@@ -92,6 +92,26 @@ function enableElements(list) {
 }
 
 
+// show / hide search bottom nav & button
+
+$(document).on("turbolinks:load", function(event) {
+  if(document.getElementById("selectedCategories")) {
+    setSearchBar();
+  }
+})
+
+$(document).on("DOMSubtreeModified", "#selectedCategories", function(event) {
+  setSearchBar();
+})
+function setSearchBar() {
+  var searchBar = document.getElementById("searchRecipeBtn");
+  var selectedCategories = document.querySelectorAll('.selectedContent').length;
+  if((selectedCategories > 0)){
+     searchBar.style.display = "block";
+  } else {
+     searchBar.style.display = "none";
+  }
+}
 
 // show / hide top and bottom menu while focus on create form
 $(document).on("click", "#searchRecipeBtn", function(event) {
@@ -243,17 +263,4 @@ $(document).on("click", ".removeContent", function(event) {
 //   wrapper.style.display = "block";
 // }
 
-// // show / hide section headers
-// function setStoreSectionHeaders() {
-//   if(document.getElementById("recipeItems")) {
-//     var headers = document.querySelectorAll('.listHeader');
-//     $(headers).map(function() {
-//      var count = $(this).find('li').length;
-//       if(count === 0){
-//          this.style.display = "none";
-//       } else {
-//          this.style.display = "block";
-//       }
-//     })
-//   }
-// }
+

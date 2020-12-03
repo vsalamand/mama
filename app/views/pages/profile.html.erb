@@ -24,8 +24,11 @@
           <%= cl_image_tag("menu_icons/mobile", width: 20, class:"pb-1") %> Installer l'application
         <% end %>
       </li>
-      <li class="list-group-item"><%= cl_image_tag("menu_icons/fire", width: 20, class:"pb-1") %> Fonctionnalités</li>
-      <li class="list-group-item"><%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %> <span class="font-weight-bold rounded" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Programme BETA</span></li>
+      <li class="list-group-item">
+        <%= link_to beta_path, class:"no-link" do %>
+          <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %> <span class="font-weight-bold rounded" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Supernet Plus</span>
+        <% end %>
+      </li>
       <li class="list-group-item">
         <%= link_to 'https://bit.ly/2NGEeRd', target: "_blank" do %>
           <%= cl_image_tag("menu_icons/thank-you", width: 20, class:"pb-1") %> Donner votre avis
@@ -36,7 +39,6 @@
           <%= cl_image_tag("menu_icons/speech-balloon", width: 20, class:"pb-1") %> Envoyer un message
         <% end %>
       </li>
-      <li class="list-group-item"><%= cl_image_tag("menu_icons/pointing-right", width: 20, class:"pb-1") %> À propos</li>
     </ul>
   </div>
 </div>

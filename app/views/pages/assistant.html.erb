@@ -43,7 +43,7 @@
       </nav>
   </div>
 
-  <div class="wrapper" style="min-height: 50vh;">
+  <div class="wrapper" style="min-height: 40vh;">
     <div class="container mb-3">
       <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
         <h2 class="font-weight-bold">De quels produits disposez-vous ?</h2>
@@ -58,10 +58,7 @@
             </div>
           </ul>
           <div class="search-form-control">
-              <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleAssistantForm" style="cursor: pointer;" >
-              <button class="btn btn-sm p-0">
-               <i class="fas fa-2x fa-plus text-muted px-1" style="cursor: pointer; filter: brightness(1.40);"></i>
-              </button>
+              <input type="text" placeholder="Ajouter un produit..." class="py-4 border rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleAssistantForm" style="cursor: pointer;" >
           </div>
 
           <div class="mt-4">
@@ -91,8 +88,8 @@
   <div style="padding: 50px;"></div>
 
   <nav class="wrapper nav-light fixed-bottom shadow-lg bg-light">
-    <div class="container d-flex justify-content-end p-2" id="searchRecipeBtn">
-       <button class="btn btn-lg px-4 py-2 border-0 rounded text-center text-white fetchRecipes" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));  cursor: pointer;  font-size: 1.5rem;">
+    <div class="container d-flex justify-content-end p-2" >
+       <button class="btn btn-lg px-4 py-2 border-0 rounded text-center text-white fetchRecipes" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer; font-size: 1.5rem; display: none" id="searchRecipeBtn">
           <%= cl_image_tag("menu_icons/search", width: 25, class:"m-0") %>
           Recherche
        </button>

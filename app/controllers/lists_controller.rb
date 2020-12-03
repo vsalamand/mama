@@ -91,7 +91,10 @@ class ListsController < ApplicationController
     @list.set_game if @list.game.nil?
 
     @recipes = @list.recipes
-    @categories = @list.get_suggestions
+    @saved_items = @list.get_saved_items
+    if @saved_items.size < 5
+      @categories = @list.get_suggestions
+    end
 
     @ref_list_id = params[:l]
     if @ref_list_id.present?
