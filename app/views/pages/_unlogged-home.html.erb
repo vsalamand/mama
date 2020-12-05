@@ -1,48 +1,81 @@
 
-<nav class="container navbar navbar-light bg-white sticky-top d-flex align-items-center">
- <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight" do %>
-    <span style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">
-        Supernet
-    </span>
-  <% end %>
-  <%= render 'shared/nav_actions' %>
-</nav>
-
-<div class="banner bg-white" style="overflow-x: hidden; overflow-y: hidden;">
-  <div class="wrapper m-0">
-    <div class="row">
-      <div class="col-md align-self-center">
-        <div id="presentation" class="mb-5">
-          <div class="container">
-            <h1 class="mb-3">Vous avez les produits?<br><span class="display-4 font-weight-bold">On a les idées !</span></h1>
-
-            <p class="lead">
-             Trouvez votre prochaine idée repas à partir des produits de votre frigo et vos placards !
-            <br>
-            Super facile et sans pub <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %>
-            </p>
-             <%= link_to "Trouver une idée repas", assistant_path, class:"btn btn-lg btn-light px-4 py-2 border-0 rounded text-white shadow-lg", style:"background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); font-size: 1.5rem;" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container sticky-top px-0 bg-white">
+  <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between p-2"> <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight" do %>
+      <span style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">
+          Supernet
+      </span>
+    <% end %>
+    <%= render 'shared/nav_actions' %>
+  </nav>
 </div>
 
 
+  <div class="wrapper bg-white" style="min-height: 100vh; overflow-x: hidden; overflow-y: hidden;">
+    <div class="container p-2">
+      <div class="jumbotron text-center text-white" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
+        <h1 class="my-3">Vous avez les produits?<br><span class="font-weight-bold display-4">Nous trouvons les recettes !</h1>
+        <%= link_to "Trouver une recette", assistant_path, class:"my-3 btn btn-lg btn-light px-4 py-2 border-0 rounded shadow-lg", style:" font-size: 1.5rem;" %>
+        <p class="m-0">Facile, gratuit et sans pub <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %>
+        </p>
+      </div>
+    </div>
+
+    <div class="container text-center d-flex bd-highlight flex-column">
+      <div class="jumbotron bg-transparent">
+        <h2 class="">Un vrai jeu d'enfants</h2>
+        <p class="lead">Trouvez des recettes à partir des produits de votre frigo, vos placards, ou votre liste de courses !</p>
+          <div class="row my-5">
+            <div class="col-md-4 my-3 rounded d-flex flex-column align-items-center" >
+                <%= cl_image_tag("menu_icons/list", width: 50, class:"m-2") %>
+                <p class="lead m-0">Ajoutez vos produits</p>
+            </div>
+            <div class="col-md-4 my-3 rounded d-flex flex-column align-items-center" >
+                <%= cl_image_tag("menu_icons/search", width: 50, class:"m-2") %>
+                <p class="lead m-0">Lancez une recherche</p>
+            </div>
+            <div class="col-md-4 my-3 rounded d-flex flex-column align-items-center" >
+                <%= cl_image_tag("menu_icons/party", width: 50, class:"m-2") %>
+                <p class="lead m-0">Choisissez une recette</p>
+            </div>
+          </div>
+
+          <div class="my-3 text-center">
+            <%= link_to "Trouver une recette", assistant_path, class:"btn btn-lg btn-light px-4 py-2 border-0 rounded text-white shadow-lg", style:"background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); font-size: 1.5rem;" %>
+          </div>
+      </div>
+    </div>
 
 
 
+    <div class="container px-0">
+      <div class="jumbotron bg-light text-center d-flex bd-highlight flex-column">
+        <h2 class="mb-3">Les fonctionnalités de Supernet</h2>
+        <ul class="px-1 mx-auto">
+          <li class="rounded d-flex align-items-center text-left m-1" >
+              <%= cl_image_tag("menu_icons/list", width: 20, class:"m-2") %>
+              <p class="lead m-0">Reconnaissance de vos préférences</p>
+          </li>
+          <li class="rounded d-flex align-items-center text-left m-1" >
+              <%= cl_image_tag("menu_icons/crystal-ball", width: 20, class:"m-2") %>
+              <p class="lead m-0">Recommandation de produits</p>
+          </li>
+          <li class="rounded d-flex align-items-center text-left m-1" >
+              <%= cl_image_tag("menu_icons/green-heart", width: 20, class:"m-2") %>
+              <p class="lead m-0">Recettes des meilleurs blogs</p>
+          </li>
+          <li class="rounded d-flex align-items-center text-left m-1" >
+              <%= cl_image_tag("menu_icons/star", width: 20, class:"m-2") %>
+              <p class="lead m-0">Enregistrement de vos recettes</p>
+          </li>
+        </ul>
+        <div class="my-3">
+          <%= link_to "Trouver une recette", assistant_path, class:"btn btn-lg btn-light px-4 py-2 border-0 rounded text-white shadow-lg", style:"background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); font-size: 1.5rem;" %>
+        </div>
+      </div>
+    </div>
 
+  </div>
 
-
-
-
-
-
-
-
-  <div style="padding: 50px;"></div>
 
 
 </div>
