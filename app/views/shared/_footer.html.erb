@@ -1,5 +1,5 @@
 <div class="container">
-  <hr class="my-4">
+  <div style="padding: 20px;"></div>
 </div>
 
 <div class="d-flex align-items-center justify-content-center flex-column">
@@ -12,13 +12,13 @@
         <% end %>
       </li>
       <li class="my-1">
-        <%= link_to add_to_homescreen_path, class:"text-muted" do %>
-          <%= cl_image_tag("menu_icons/mobile", width: 20, class:"pb-1") %> Installer l'application
+        <%= link_to start_path, class:"text-muted" do %>
+          <%= cl_image_tag("menu_icons/waving-hand", width: 20, class:"pb-1") %> Se connecter
         <% end %>
       </li>
       <li class="my-1">
-        <%= link_to beta_path, class:"text-muted" do %>
-          <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %> <span class="font-weight-bold rounded" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Supernet Plus</span>
+        <%= link_to add_to_homescreen_path, class:"text-muted" do %>
+          <%= cl_image_tag("menu_icons/mobile", width: 20, class:"pb-1") %> Installer l'application
         <% end %>
       </li>
       <li class="my-1">
