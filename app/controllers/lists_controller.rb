@@ -119,8 +119,6 @@ class ListsController < ApplicationController
     @list = List.friendly.find(params[:list_id])
     @item = Item.new
     @saved_items = @list.get_saved_items
-
-    render 'fetch_item_form.js.erb'
   end
 
   def fetch_suggested_items

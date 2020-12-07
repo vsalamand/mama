@@ -2,13 +2,43 @@ import Rails from 'rails-ujs'
 import 'bootstrap';
 
 
+
 // show / hide top and bottom menu while focus on create form
 $(document).on("focus", "#toggleAssistantForm", function(event) {
   showAssistantForm();
+  // push state to manage back button
+  history.pushState({page:1}, "Assistant form back", window.location.path);
 })
+
 $(document).on("click", "#hideAssistantForm", function(event) {
   hideAssistantForm();
 })
+
+// Manage back button if form or search page is displayed
+$(document).on("turbolinks:load", function(event) {
+  if (document.getElementById('assistantForm')) {
+    // push state to manage back button
+    history.pushState({page:1}, "Assistant form back", window.location.path);
+  }
+});
+
+window.onpopstate = function(event) {
+  if (document.getElementById('assistantForm') && document.getElementById('assistantForm').style.display === "block") {
+    event.preventDefault();
+    // DO some other action besides going back
+    hideAssistantForm();
+    return false
+  }
+  if (document.getElementById('assistantForm') && document.getElementById('searchResults').style.display === "block") {
+    event.preventDefault();
+    // DO some other action besides going back
+    hideRecipeResults();
+    return false
+  }
+}
+
+
+
 
 function showAssistantForm() {
   var assistantForm = document.getElementById('assistantForm');
@@ -18,8 +48,6 @@ function showAssistantForm() {
   $(submitButton).prop('disabled', true);
   var assistantContent = document.getElementById('assistantContent');
   assistantContent.style.display = "none";
-
-  ahoy.track("Assistant form");
 }
 
 
@@ -42,6 +70,8 @@ function addContent(content) {
     success: function(){
     }
   });
+  // push state to manage back button
+  history.pushState({page:1}, "Assistant form back", window.location.path);
 }
 
 
@@ -116,6 +146,8 @@ function setSearchBar() {
 // show / hide top and bottom menu while focus on create form
 $(document).on("click", "#searchRecipeBtn", function(event) {
   showRecipeResults();
+  // push state to manage back button
+  history.pushState({page:1}, "Assistant form back", window.location.path);
 })
 $(document).on("click", "#hideRecipeSearch", function(event) {
   hideRecipeResults();
