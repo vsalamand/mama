@@ -21,12 +21,12 @@
             <% else %>
                 <%= render 'shared/nav_actions' %>
             <% end %>
-            <%= link_to favorites_path do %>
+            <%= link_to favorites_path, class:"openLink" do %>
               <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
             <% end %>
 
           <% else %>
-            <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight" do %>
+            <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight openLink" do %>
               <span style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">
                   Supernet
               </span>

@@ -1,21 +1,21 @@
 <div class="d-flex align-items-center">
 
   <% if current_user  %>
-    <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/profile">
+    <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center openLink" href="/profile">
       <%= cl_image_tag("menu_icons/waving-hand", width: 30, class:"m-0") %>
     </a>
   <% else %>
-    <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/start">
+    <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center openLink" href="/start">
       <%= cl_image_tag("menu_icons/waving-hand", width: 30, class:"m-0") %>
     </a>
   <% end %>
 
-  <button class="btn bg-white p-2 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
+  <button class="btn bg-white p-2 mr-2 rounded-pill rounded-lg text-center openLink" id="messageModalBtn">
     <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
   </button>
 
   <% if false %>
-     <a class="p-1 font-weight-bold rounded text-white font-weight-bold" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); font-size: 0.8rem;" href='/beta'>
+     <a class="p-1 font-weight-bold rounded text-white font-weight-bold openLink" style="background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); font-size: 0.8rem;" href='/beta'>
       PLUS
      </a>
   <% end %>

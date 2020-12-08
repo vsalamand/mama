@@ -51,6 +51,12 @@ import 'packs/score';
 // });
 
 
+// manage history
+$(document).on('click', '.openLink',function() {
+  history.pushState({page:1}, "", window.location.path);
+});
+
+
 
 // Service worker for progressive web app management
 if (navigator.serviceWorker) {
