@@ -16,7 +16,7 @@ $(document).on("click", "#hideAssistantForm", function(event) {
 
 // Manage back button if form or search page is displayed
 $(document).on("turbolinks:load", function(event) {
-  if (document.getElementById('assistant')) {
+  if (document.getElementById('toggleAssistantForm')) {
     // push state to manage back button
     history.pushState({page:1}, "Assistant form back", window.location.path);
   }

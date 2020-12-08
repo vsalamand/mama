@@ -131,7 +131,6 @@ function enableElements(list) {
 
 // show / hide top and bottom menu while focus on create form
 $(document).on("focus", "#toggleListItemform", function(event) {
-  history.pushState({page:1}, "List assistant form back", window.location.path);
   var inputField = document.getElementById('newListItem');
   setInputForm(inputField);
   showListItemForm();
