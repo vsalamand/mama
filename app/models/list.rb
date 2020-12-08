@@ -30,7 +30,7 @@ class List < ApplicationRecord
   accepts_nested_attributes_for :checklist_items
 
   STATUS = ["archived", "opened", "saved", "deleted"]
-  LIST_TYPE = ["personal", "curated"]
+  LIST_TYPE = ["personal", "curated", "assistant"]
 
   scope :saved, -> { where(status: "saved").where( is_deleted: false) }
   scope :opened, -> { where(status: "opened").where( is_deleted: false) }

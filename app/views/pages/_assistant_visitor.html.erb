@@ -1,0 +1,115 @@
+
+
+<div id="assistantForm" style="display: none;">
+  <%= render 'assistant/form' %>
+</div>
+<div id="searchResults" style="display: none;">
+  <%= render 'shared/recipe_results' %>
+</div>
+
+<div id="assistantContent" class="bg-white">
+  <div class="sticky-top bg-white mb-1" id="listBarTop">
+      <nav class="container navbar d-flex bd-highlight">
+        <% if current_user %>
+          <% if current_user.beta %>
+            <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+          <% else %>
+              <%= render 'shared/nav_actions' %>
+          <% end %>
+          <%= link_to favorites_path do %>
+            <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
+          <% end %>
+
+        <% else %>
+          <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight" do %>
+            <span style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">
+                Supernet
+            </span>
+          <% end %>
+
+          <div>
+            <button class="btn bg-white p-2 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
+              <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
+            </button>
+            <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
+              <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
+            <% end %>
+          </div>
+        <% end %>
+
+      </nav>
+  </div>
+
+  <div class="wrapper" style="min-height: 40vh;">
+    <div class="container mb-3">
+      <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
+        <h2 class="font-weight-bold">De quels produits disposez-vous ?</h2>
+      </div>
+    </div>
+    <div class="container px-1">
+      <div class="container px-0">
+        <div class="container px-0">
+
+          <ul class="border-0 list-group-item d-flex align-items-center justify-content-between p-0 pl-1 m-0" >
+            <div class="d-flex align-items-center">
+            </div>
+          </ul>
+          <div class="search-form-control">
+              <input type="text" placeholder="Ajouter un produit..." class="py-4 border rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleAssistantForm" style="cursor: pointer;" >
+          </div>
+
+          <div class="mt-4" id="assistantItems">
+            <div id="selectedCategories">
+            </div>
+          </div>
+
+
+
+          <div id="scrollPoint" style="padding: 20px;">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container px-2">
+    <div id="itemsRecommendations" class="pb-5">
+      <%= render'lists/suggested_products', categories: @categories %>
+    </div>
+  </div>
+
+
+
+
+
+  <div style="padding: 50px;"></div>
+
+  <nav class="wrapper nav-light fixed-bottom shadow-lg bg-light">
+    <div class="container d-flex justify-content-end p-2" >
+       <button class="btn btn-lg px-4 py-2 border-0 rounded text-center text-white fetchRecipes" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer; font-size: 1.5rem; display: none" id="searchRecipeBtn">
+          <%= cl_image_tag("menu_icons/search", width: 25, class:"m-0") %>
+          Recherche
+       </button>
+     </div>
+
+  </nav>
+</div>
+
+
+
+  <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-0 p-0" style="min-height: 50vh;">
+
+          <div id="contentShow"></div>
+
+        </div>
+        <div class="modal-footer bg-white">
+          <button type="button" class="btn btn-light border" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

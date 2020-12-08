@@ -2,6 +2,8 @@ const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>
 listItemCard.innerHTML = "";
 listItemCard.innerHTML = ("<%= j render 'items/show', list: @list, item: @item %>");
 
+history.pushState({page:1}, "List assistant form back", window.location.path);
+
 updateScore();
 
 // update list score

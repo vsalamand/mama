@@ -1,5 +1,5 @@
-<div class="banner d-flex flex-column alert-primary">
-  <div class="sticky-top alert-primary">
+<div class="banner d-flex flex-column bg-white">
+  <div class="sticky-top bg-white">
     <div class="container px-2">
       <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
         <div class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" id="hideNewlistItemForm" style="cursor: pointer;"><i class="fas fa-lg fa-arrow-left p-2"></i>
@@ -22,7 +22,12 @@
   </div>
 
   <div class="container px-2" id="savedProducts">
-    <%=  render"lists/saved_products", items: saved_items %>
+    <div id="savedProducts">
+      <%=  render"lists/saved_products", items: saved_items %>
+    </div>
+    <div id="itemsRecommendations" class="pb-5">
+        <%= render'lists/suggested_products', categories: @categories %>
+    </div>
   </div>
 
   <div style="padding: 50px;"></div>

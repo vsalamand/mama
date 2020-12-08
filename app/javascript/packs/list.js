@@ -43,6 +43,7 @@ $(document).on("DOMSubtreeModified", "#complete_list_items", function(event) {
   // hideRatingProgress();
 })
 
+
 // function sort() {
 //   $("#uncomplete_list_items").sortable({
 //     update: function(e, ui) {
@@ -130,6 +131,7 @@ function enableElements(list) {
 
 // show / hide top and bottom menu while focus on create form
 $(document).on("focus", "#toggleListItemform", function(event) {
+  history.pushState({page:1}, "List assistant form back", window.location.path);
   var inputField = document.getElementById('newListItem');
   setInputForm(inputField);
   showListItemForm();
@@ -141,6 +143,7 @@ $(document).on("click", "#hideNewlistItemForm", function(event) {
 function showListItemForm() {
   var newListItemForm = document.getElementById('newlistItemForm');
   newListItemForm.style.display = "block";
+  window.scrollTo(0,0);
   $('#newListItem').focus();
   var listShow = document.getElementById('listShow');
   listShow.style.display = "none";
@@ -165,6 +168,8 @@ function setListItemForm() {
     showListItemForm();
   }
 }
+
+
 
 function hideBottomMenu() {
   var bottomMenu = document.getElementById('menuBarBottom');
@@ -554,31 +559,33 @@ function addToList(items, listId) {
 
 
 
-// show recipes in list
-$(document).on("click", ".fetchRecipes", function(event) {
-  if(document.querySelector("#todo_list")) {
-    var listId = document.querySelector("#todo_list").getAttribute('data');
-    $('#contentModal').modal('show')
-    $('#contentShow').html(
-      `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
-    );
-    fetchRecipes(listId);
-    ahoy.track("Meal ideas");
-  }
-})
 
-function fetchRecipes(listId) {
-  $.ajax({
-    url: "/recipes/fetch_recipes",
-    cache: false,
-    dataType: 'script',
-    data: {
-        l: listId,
-        source: "meals"
-        },
-    success: function(){
-    }
-  });
-}
+
+// // show recipes in list
+// $(document).on("click", ".fetchRecipes", function(event) {
+//   if(document.querySelector("#todo_list")) {
+//     var listId = document.querySelector("#todo_list").getAttribute('data');
+//     $('#contentModal').modal('show')
+//     $('#contentShow').html(
+//       `<span class="spinner-border spinner-border-lg m-5" role="status" aria-hidden="true"></span>`
+//     );
+//     fetchRecipes(listId);
+//     ahoy.track("Meal ideas");
+//   }
+// })
+
+// function fetchRecipes(listId) {
+//   $.ajax({
+//     url: "/recipes/fetch_recipes",
+//     cache: false,
+//     dataType: 'script',
+//     data: {
+//         l: listId,
+//         source: "meals"
+//         },
+//     success: function(){
+//     }
+//   });
+// }
 
 

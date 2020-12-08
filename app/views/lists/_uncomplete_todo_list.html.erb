@@ -11,10 +11,13 @@
 
 
   <% else list.sorted_by == "date" || nil %>
-      <div id="date">
-        <% list.items.not_deleted.sort_by(&:id).each do |item| %>
-          <%= render 'items/show', item: item %>
-        <% end %>
+
+      <div id="date" class="listHeader" data="<%= list.items.size %>">
+        <div id="dateHeader">
+        </div>
+        <div id="dateElements" class="sectionItems">
+            <%= render partial: 'items/show', collection: list.items.not_deleted.where(is_completed: false).sort_by{|e| e.name.parameterize }, as: :item %>
+        </div>
       </div>
 
   <% end %>
