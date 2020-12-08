@@ -99,6 +99,10 @@ class User < ApplicationRecord
     list.set_game
   end
 
+  def get_assistant
+    List.find_or_create_by(name: "Assistant", user_id: self.id, status: "archived", list_type: "assistant", sorted_by: "date")
+  end
+
   def get_latest_recipe_list
     if self.recipe_lists.where(status: "opened").any?
       return self.recipe_lists.where(status: "opened").last

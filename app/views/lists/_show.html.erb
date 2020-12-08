@@ -1,8 +1,8 @@
 <div id="newlistItemForm" style="display: none;"></div>
 
 
-<div id="listShow" class="alert-primary" style="min-height: 200vh;">
-  <div class="sticky-top alert-primary mb-3" id="listBarTop">
+<div id="listShow" class="bg-white" style="min-height: 200vh;">
+  <div class="sticky-top bg-white mb-3" id="listBarTop">
     <div class="container px-2">
       <nav class="px-0 navbar navbar-expand-lg d-flex bd-highlight">
         <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
@@ -53,7 +53,6 @@
           </ul>
           <div class="search-form-control">
               <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg border" id="toggleListItemform" style="cursor: pointer;" >
-
           </div>
 
           <%= render 'lists/related_recipes', recipes: recipes, list: list %>

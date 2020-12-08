@@ -50,8 +50,7 @@ $(document).on("click" , ".addCategoryToList", function(event) {
       success: function(){
       }
     });
-  }
-  if(document.getElementById('assistantContent')) {
+  } else {
     $.ajax({
       url: "/categories/select",
       cache: false,
@@ -61,7 +60,7 @@ $(document).on("click" , ".addCategoryToList", function(event) {
       success: function(){
       }
     });
-  }
+  };
 });
 
 

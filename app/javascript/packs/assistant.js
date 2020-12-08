@@ -16,7 +16,7 @@ $(document).on("click", "#hideAssistantForm", function(event) {
 
 // Manage back button if form or search page is displayed
 $(document).on("turbolinks:load", function(event) {
-  if (document.getElementById('assistantForm')) {
+  if (document.getElementById('assistant')) {
     // push state to manage back button
     history.pushState({page:1}, "Assistant form back", window.location.path);
   }
@@ -29,7 +29,13 @@ window.onpopstate = function(event) {
     hideAssistantForm();
     return false
   }
-  if (document.getElementById('assistantForm') && document.getElementById('searchResults').style.display === "block") {
+  if (document.getElementById('newlistItemForm') && document.getElementById('newlistItemForm').style.display === "block") {
+    event.preventDefault();
+    // DO some other action besides going back
+    hideListItemForm();
+    return false
+  }
+  if (document.getElementById('assistant') && document.getElementById('searchResults').style.display === "block") {
     event.preventDefault();
     // DO some other action besides going back
     hideRecipeResults();
@@ -37,12 +43,21 @@ window.onpopstate = function(event) {
   }
 }
 
-
+//  copy of function in list js to make it work with onpopstate
+function hideListItemForm() {
+  var newListItemForm = document.getElementById('newlistItemForm');
+  newListItemForm.style.display = "none";
+  window.scrollTo(0,0);
+  var listShow = document.getElementById('listShow');
+  listShow.style.display = "block";
+  // showBottomMenu();
+}
 
 
 function showAssistantForm() {
   var assistantForm = document.getElementById('assistantForm');
   assistantForm.style.display = "block";
+  window.scrollTo(0,0);
   $(document.getElementById("inputContent")).focus();
   var submitButton = document.getElementById('addContentBtn');
   $(submitButton).prop('disabled', true);
@@ -125,17 +140,24 @@ function enableElements(list) {
 // show / hide search bottom nav & button
 
 $(document).on("turbolinks:load", function(event) {
-  if(document.getElementById("selectedCategories")) {
+  if(document.getElementById("assistant")) {
     setSearchBar();
   }
 })
 
-$(document).on("DOMSubtreeModified", "#selectedCategories", function(event) {
+$(document).on("DOMSubtreeModified", "#assistantItems", function(event) {
   setSearchBar();
 })
 function setSearchBar() {
   var searchBar = document.getElementById("searchRecipeBtn");
-  var selectedCategories = document.querySelectorAll('.selectedContent').length;
+
+  if (document.getElementById('todo_list')) {
+     var selectedCategories = document.querySelectorAll('.uncompleted').length;
+  }
+  if (document.getElementById('assistantForm')) {
+     var selectedCategories = document.querySelectorAll('.selectedContent').length;
+  }
+
   if((selectedCategories > 0)){
      searchBar.style.display = "block";
   } else {
@@ -195,8 +217,7 @@ function fetchRecipes(inputs) {
     cache: false,
     dataType: 'script',
     data: {
-        q: inputs,
-        source: "meals"
+        q: inputs
         },
     success: function(){
     }
