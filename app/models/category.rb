@@ -6,6 +6,7 @@ class Category < ApplicationRecord
   has_many :stores, through: :store_section_items
   has_many :items
   has_many :item_histories, through: :items
+  has_many :recipes, through: :items
 
   has_ancestry
   searchkick language: "french"

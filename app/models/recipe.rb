@@ -138,12 +138,16 @@ class Recipe < ApplicationRecord
 
   def self.multi_search(query)
     search_queries = []
+    recipes = []
     query.each do |q|
       search_queries << Recipe.where(status: "published").search(q, fields: [:title, :ingredients], execute: false)
+      recipes << Category.find_by(name: q).recipes.where(status: "published") if Category.find_by(name: q).present?
     end
 
     Searchkick.multi_search(search_queries)
-    results = search_queries.map{ |search| search.results}.flatten.group_by {|i| i}.sort_by {|_, a| -a.count}.map &:first
+    recipes << search_queries.map{ |search| search.results}
+
+    results = recipes.flatten.group_by {|i| i}.sort_by {|_, a| -a.count}.map &:first
 
     return results.flatten
   end
