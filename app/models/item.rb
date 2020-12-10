@@ -2,7 +2,7 @@ require 'open-uri'
 require 'fuzzy_match'
 
 class Item < ApplicationRecord
-  # validates :ingredient_id, presence: true
+  validates :name, presence: true
   # validates :ingredient_id, uniqueness: { scope: [:recipe_id, :unit_id] }
 
   belongs_to :food, optional: true
