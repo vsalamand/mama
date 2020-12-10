@@ -136,12 +136,17 @@ class Recipe < ApplicationRecord
     self.recipe_list_items.select{ |rli| rli.is_curated?} if self.recipe_list_items.any?
   end
 
+  def add_to_favorites(user)
+    recipe_list = user.get_latest_recipe_list
+    self.add_to_recipe_list(recipe_list)
+  end
+
   def self.multi_search(query)
     search_queries = []
     recipes = []
     query.each do |q|
       search_queries << Recipe.where(status: "published").search(q, fields: [:title, :ingredients], execute: false)
-      recipes << Category.find_by(name: q).recipes.where(status: "published") if Category.find_by(name: q).present?
+      Category.find_by(name: q).subtree.each{ |c| recipes << c.recipes.where(status: "published") } if Category.find_by(name: q).present?
     end
 
     Searchkick.multi_search(search_queries)

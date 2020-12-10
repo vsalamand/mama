@@ -27,7 +27,18 @@ class ApplicationController < ActionController::Base
   # end
 
   def after_sign_in_path_for(resource)
-    return root_path
+    if params[:user][:context].present?
+      if params[:user][:context] == "favorites"
+        @context = "favorites"
+      elsif params[:user][:context] !~ /\D/
+        recipe = Recipe.find(params[:user][:context])
+        recipe.add_to_favorites(current_user) if recipe.present?
+        @context = "favorites"
+      end
+    else
+      @context = ""
+      root_path
+    end
     # @lists = current_user.lists.saved + current_user.shared_lists
 
     # if @lists.any?
@@ -51,7 +62,7 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    attributes = [:email]
+    attributes = [:email, :context]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
     devise_parameter_sanitizer.permit(:account_update, keys: attributes)
   end

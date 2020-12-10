@@ -105,6 +105,7 @@ Rails.application.routes.draw do
   get 'add_to_beta', to: 'pages#add_to_beta'
   get 'add_to_homescreen', to: 'pages#add_to_homescreen'
   get 'beta', to:'pages#beta'
+  get 'check_user', to:'pages#check_user'
 
 
   resources :recipes do

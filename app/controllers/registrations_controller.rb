@@ -6,8 +6,17 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
+    # check signup context
+    if params[:user][:context].present?
+      if params[:user][:context] == "favorites"
+        @context = "favorites"
+      elsif params[:user][:context] !~ /\D/
+        recipe = Recipe.find(params[:user][:context])
+        recipe.add_to_favorites(current_user) if recipe.present?
+        @context = "favorites"
+      end
     # check if user sign-up using a list invite link
-    if params[:shared_list].present?
+    elsif params[:shared_list].present?
       if params[:shared_list].first.present?
        if params[:shared_list].keys.first.to_i > 0
           list = List.find(params[:shared_list].keys.first.to_i)
