@@ -1,42 +1,48 @@
-<div class="modal fade bd-login-modal-lg" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-body p-3" style="min-height: 75vh;">
-        <h2 class="bigh1 font-weight-bold">Connexion</h2>
+      <nav class="container navbar d-flex bd-highlight p-0">
+        <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" id="startAuthenticationBtn"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+      </nav>
+
+        <h1 class="font-weight-bold">Connexion</h1>
 
 
         <% if flash[:alert].present? %>
           <p class="alert alert-danger"><%= flash[:alert] %></p>
         <% end %>
 
-        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
-          <%= f.error_notification %>
-          <div class="form-inputs mb-0">
-            <%= f.input :email,
-                        label: false,
-                        autofocus: true,
-                        placeholder: "Votre Adresse Email",
-                        input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" } %>
-            <%= f.input :password,
-                        label: false,
-                        placeholder: "Mot de passe",
-                        input_html: { autocomplete: "current-password", class:"py-3 px-2 rounded autofocus form-control form-control-lg" } %>
-            <%= f.input :remember_me, label: " Se souvenir de moi", as: :boolean, :wrapper_html=> { class: "m-1" } if devise_mapping.rememberable? %>
-          </div>
+        <div class="errors alert-danger p-1 rounded" id="loginError" style="display: none;"></div>
+
+        <div class="my-4">
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
+            <%= f.error_notification %>
+            <div class="form-input">
+              <div style="display: none;">
+              <%= f.input :email,
+                          label: false,
+                          autofocus: false,
+                          placeholder: "Votre Adresse Email",
+                          input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold",
+                                        value: email } %>
+              </div>
+              <%= f.input :password,
+                          label: false,
+                          autofocus: true,
+                          placeholder: "Mot de passe",
+                          input_html: { autocomplete: "current-password", class:"py-4 border rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" } %>
+
+
+              <%= f.hidden_field :context, value: context %>
+
+              <div class="px-2">
+                <%= f.input :remember_me, label: "Se souvenir de moi", as: :boolean if devise_mapping.rememberable? %>
+              </div>
+            </div>
 
             <div class="form-actions d-flex justify-content-end">
-              <%= f.button :submit, "Se connecter", class: "btn btn-lg btn-light border mb-1" %>
+              <%= f.button :submit, "Suivant", class: "btn btn-light border btn-lg shadow-lg px-5", id:"loginBtn" %>
             </div>
-        <% end %>
+          <% end %>
 
-         <%= link_to "Mot de passe oublié?", new_password_path(resource_name), class:"d-flex justify-content-end my-1" %>
-          <%= link_to "Vous n'avez avez pas de compte?", "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"d-flex font-weight-bold justify-content-end closeModal my-2", style:"text-decoration: none;", id:"closeModalBtn" %>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
+          <div class="mt-5">
+            <%= link_to "Mot de passe oublié?", new_password_path(resource_name), class:"d-flex justify-content-end my-1" %>
+          </div>
+        </div>

@@ -31,9 +31,9 @@
             <button class="btn bg-white p-2 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
               <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
             </button>
-            <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
-              <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
-            <% end %>
+            <div class="btn btn-light border btn-lg" id="startAuthenticationBtn" data="favorites">
+              <%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class=""> Favoris</span>
+            </div>
           </div>
         <% end %>
 

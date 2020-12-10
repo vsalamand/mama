@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
                                                   :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install,
-                                                  :start, :fetch_landing, :assistant, :add_to_homescreen, :beta]
+                                                  :start, :fetch_landing, :assistant, :add_to_homescreen, :beta, :check_user]
   before_action :authenticate_admin!, only: [:dashboard, :pending, :users, :verify_items, :add_to_beta ]
 
 
@@ -245,9 +245,8 @@ class PagesController < ApplicationController
 
   def add_to_favorites
     @recipe = Recipe.find(params[:r])
-    @recipe_list = current_user.get_latest_recipe_list
+    @recipe.add_to_favorites(current_user)
 
-    @recipe.add_to_recipe_list(@recipe_list)
     render 'add_to_favorites.js.erb'
     ahoy.track "Add to favorites", recipe_id: @recipe.id, title: @recipe.title
   end
@@ -348,7 +347,25 @@ class PagesController < ApplicationController
   end
 
   def start
+    @context = params[:c] if params[:c].present?
+    render 'user_start.js.erb'
     ahoy.track "Start"
+  end
+
+  def check_user
+    @email = params[:e]
+    user = User.find_by(email: @email)
+    @context = params[:c]
+
+    if user.present?
+      # render login form
+      render 'user_login.js.erb'
+      ahoy.track "Login"
+    else
+      # render signup form
+      render 'user_signup.js.erb'
+      ahoy.track "Signup"
+    end
   end
 
   def fetch_landing

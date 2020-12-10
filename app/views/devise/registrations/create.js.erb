@@ -1,1 +1,11 @@
-window.location.reload()
+$('#authenticationContent').html(
+  `<span class="spinner-border spinner-border-lg m-5 text-center" role="status" aria-hidden="true"></span>`
+);
+
+var context = "<%= @context %>"
+
+if (context === "favorites"){
+  window.location.href = "/favorites"
+} else {
+  window.location.reload()
+}

@@ -12,9 +12,9 @@
         <% end %>
       </li>
       <li class="my-1">
-        <%= link_to start_path, class:"text-muted" do %>
+        <div class="text-muted" id="startAuthenticationBtn" data="" style="cursor: pointer;">
           <%= cl_image_tag("menu_icons/waving-hand", width: 20, class:"pb-1") %> Se connecter
-        <% end %>
+        </div>
       </li>
       <li class="my-1">
         <%= link_to add_to_homescreen_path, class:"text-muted" do %>

@@ -41,6 +41,7 @@ import 'packs/pages';
 import 'packs/categories';
 import 'packs/assistant';
 import 'packs/score';
+import 'packs/authentication';
 
 
 // import { initListCable } from '../channels/list_channel';

@@ -5,7 +5,5 @@
     <button class="btn btn-transparent rounded text-muted addToFavorites p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
   <% end %>
 <% else %>
-  <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
-     <button class="btn btn-transparent rounded text-muted p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
-  <% end %>
+   <button class="btn btn-transparent rounded text-muted p-0 m-0 pb-1" style="cursor: pointer;"  id="startAuthenticationBtn" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
 <% end %>

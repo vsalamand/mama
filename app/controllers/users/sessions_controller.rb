@@ -12,9 +12,15 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    resource = User.find_for_database_authentication(email: params[:user][:email])
+    if resource.valid_password?(params[:user][:password])
+      super
+    else
+      render 'new.js.erb'
+      ahoy.track 'invalid login'
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
