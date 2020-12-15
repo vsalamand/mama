@@ -27,7 +27,7 @@ class PagesController < ApplicationController
     if current_user
       @list = current_user.get_assistant
       @saved_items = @list.get_saved_items
-      @categories = current_user.get_suggestions
+      @categories = Category.get_suggestions
     else
       @categories = Category.get_suggestions
     end

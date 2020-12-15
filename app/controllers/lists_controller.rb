@@ -119,7 +119,8 @@ class ListsController < ApplicationController
     @list = List.friendly.find(params[:list_id])
     @item = Item.new
     @saved_items = @list.get_saved_items
-    @categories = current_user.get_suggestions
+    # @categories = current_user.get_suggestions
+    @categories = Category.get_suggestions
   end
 
   def fetch_suggested_items

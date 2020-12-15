@@ -232,24 +232,16 @@ class Category < ApplicationRecord
     recipe_tops = (top_recipe_category_ids - banned_products).map{|id| {id: id, context: "recipe_top"}}.each_slice(2).to_a
     data << recipe_tops
 
-    if Checklist.find_by(name: "healthy").present?
-      Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
-        category_ids = (top_recipe_category_ids & checklist.list.categories.pluck(:id))
-        data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(1).to_a
-      end
-    end
-
-    global_tops = (top_added_category_ids - banned_products).map{|id| {id: id, context: "global_top"}}.each_slice(2).to_a
-    data << global_tops
-
     data = data.select(&:present?)
+
     data = data.first.zip(*data[1..].shuffle)
                     .flatten
                     .compact
-                    .uniq! {|e| e[:id] }
+                    # .uniq! {|e| e[:id] }
 
     # return array of hashes
-    return data.first(50).shuffle
+    # return data.first(50).shuffle
+    return data
 
   end
 
