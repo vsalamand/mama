@@ -157,6 +157,23 @@ class Recipe < ApplicationRecord
     return results.flatten
   end
 
+  def self.search_by_categories(category_ids)
+    category_recipe_ids = []
+
+
+    Category.find(category_ids).each do |c|
+      recipe_ids = c.subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
+      category_recipe_ids << recipe_ids
+    end
+
+    intersections = category_recipe_ids.inject(:&)
+
+    Recipe.where(id: intersections)
+          .left_joins(:categories)
+          .group(:id)
+          .order('COUNT(categories.id) ASC')
+  end
+
   def scrape
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/scrape?link=#{self.link}")
     # url = URI.parse("http://127.0.0.1:5000/api/v1/scrape?link=#{self.link}")

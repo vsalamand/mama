@@ -1,8 +1,12 @@
-const listItemCard = document.querySelector("#grocerylist-item-id<%= @saved_item.id %>");
-listItemCard.remove();
+updateSavedItems();
 insert();
 refreshForm();
 updateScore();
+
+function updateSavedItems() {
+  var listItemCards = document.querySelectorAll("#grocerylist-item-id<%= @saved_item.id %>");
+  listItemCards.forEach(n => n.remove());
+}
 
 function insert() {
   const section = document.getElementById("<%= @headername %>")

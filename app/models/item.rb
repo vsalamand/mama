@@ -27,13 +27,15 @@ class Item < ApplicationRecord
   scope :recipe_items_to_validate, -> { includes(:recipe).where(is_validated: false).where.not(:recipe_id => nil ).where(:recipes => { :status => "published" } ) }
 
   # update item validations if new item is validated
-  after_save do
-    self.validate if self.is_validated == true
-    self.set_store_section if saved_change_to_name? || saved_change_to_category_id?
-  end
-
   after_update do
-    self.update_score if saved_change_to_category_id?
+    if saved_change_to_name?
+      self.validate if self.is_validated == true
+    end
+    if saved_change_to_category_id?
+      self.set_store_section
+      self.update_score
+      self.validate if self.is_validated == true
+    end
   end
 
   after_create :create_item_history

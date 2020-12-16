@@ -202,22 +202,35 @@ $(document).on("click", ".fetchRecipes", function(event) {
     );
 
     const selectedContent = document.querySelectorAll(".selectedContent");
-    var inputs = [];
-    $(selectedContent).map(function() {
-                     inputs.push($(this).text().trim());
-                  });
 
-    fetchRecipes(inputs);
+    if(document.getElementById('selectedCategories')){
+      var category_ids = [];
+      $(selectedContent).map(function() {
+                       category_ids.push(this.getAttribute('data-id'));
+                    });
+      var type = "v"
+      fetchRecipes(type, category_ids);
+    }
+    if(document.getElementById('uncomplete_list_items')){
+      var item_ids = [];
+      $(selectedContent).map(function() {
+                       item_ids.push(this.getAttribute('data'));
+                    });
+      var type = "u"
+      fetchRecipes(type, item_ids);
+    }
+
   }
 })
 
-function fetchRecipes(inputs) {
+function fetchRecipes(type, ids) {
   $.ajax({
     url: "/recipes/fetch_recipes",
     cache: false,
     dataType: 'script',
     data: {
-        q: inputs
+        t: type,
+        i: ids
         },
     success: function(){
     }

@@ -10,7 +10,6 @@
     <% else %>
       <%= render 'lists/select', list: @list, items: @items, item: @item, recipes: @recipes %>
     <% end %>
-
 <% else  %>
   <% if @list.user.nil? %>
       <%= render "lists/show_free", list: @list, items: @items, item: @item, recipes: @recipes %>
