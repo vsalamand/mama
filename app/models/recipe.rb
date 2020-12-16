@@ -160,18 +160,22 @@ class Recipe < ApplicationRecord
   def self.search_by_categories(category_ids)
     category_recipe_ids = []
 
-
     Category.find(category_ids).each do |c|
       recipe_ids = c.subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
       category_recipe_ids << recipe_ids
     end
 
-    intersections = category_recipe_ids.inject(:&)
+    intersection_recipe_ids = category_recipe_ids.inject(:&)
+    sorted_recipe_ids = (category_recipe_ids.flatten - intersection_recipe_ids).group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
 
-    Recipe.where(id: intersections)
-          .left_joins(:categories)
-          .group(:id)
-          .order('COUNT(categories.id) ASC')
+
+    intersection_recipes = Recipe.where(id: intersection_recipe_ids)
+                          .left_joins(:categories)
+                          .group(:id)
+                          .order('COUNT(categories.id) ASC')
+    sorted_recipes = Recipe.where(id: sorted_recipe_ids)
+
+    return intersection_recipes + sorted_recipes
   end
 
   def scrape
