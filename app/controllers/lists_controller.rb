@@ -88,6 +88,11 @@ class ListsController < ApplicationController
 
   def show
     @list = List.friendly.find(params[:id])
+
+    if @list.list_type == "assistant"
+      redirect_to assistant_path
+    end
+
     @list.set_game if @list.game.nil?
 
     @recipes = @list.recipes
@@ -120,7 +125,7 @@ class ListsController < ApplicationController
     @item = Item.new
     @saved_items = @list.get_saved_items
     # @categories = current_user.get_suggestions
-    @categories = Category.get_suggestions
+    @categories = @list.get_suggestions
   end
 
   def fetch_suggested_items

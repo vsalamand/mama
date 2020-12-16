@@ -230,21 +230,25 @@ class RecipesController < ApplicationController
   end
 
   def fetch_recipes
-    query = Array(params[:q])
+    # query = Array(params[:q])
+    # if params[:l].present?
+    #   @list = List.friendly.find(params[:l])
+    #   query = @list.items.not_deleted.where(is_completed: false).pluck(:name) if params[:q].nil?
+    # end
+    # if query.present?
+    #   @recipes = Recipe.multi_search(query)[0..49]
+    # end
+    # if params[:source]
+    #   @source_id = params[:source].gsub(/[^0-9]/, '')
+    #   @source_type = params[:source].gsub(/[^a-z]/, '')
+    # end
+    type = params[:t]
+    input_ids = params[:i]
 
-    if params[:l].present?
-      @list = List.friendly.find(params[:l])
-      query = @list.items.not_deleted.where(is_completed: false).pluck(:name) if params[:q].nil?
-    end
-    if query.present?
-      @recipes = Recipe.multi_search(query)[0..49]
-    # else
-    #   @recipes = Recipe.where(status: "published").last(30)
-    end
-
-    if params[:source]
-      @source_id = params[:source].gsub(/[^0-9]/, '')
-      @source_type = params[:source].gsub(/[^a-z]/, '')
+    if type == "v"
+      @recipes = Recipe.search_by_categories(input_ids)[0..49]
+    elsif type == "u"
+      @recipes = Recipe.search_by_categories(Item.find(input_ids).pluck(:category_id).compact)[0..49]
     end
 
     render "fetch_recipes.js.erb"
