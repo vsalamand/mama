@@ -1,2 +1,2 @@
 var recipeCard = document.getElementById("isFavorite<%= @recipe.id %>");
-recipeCard.innerHTML = ("<%= j render 'shared/favorite', recipe: @recipe %>");
+recipeCard.innerHTML = ("<%= j render 'shared/favorite_button', recipe: @recipe %>");
