@@ -1,7 +1,8 @@
-<% if @recipes.present? %>
-  <div id="recipeElements">
-     <%= render partial: 'recipes/recipe_card', collection: @recipes, as: :recipe, locals: {list: list, source_type: source_type, source_id: source_id} %>
+<% if recipes.present? %>
+  <div id="recipeElements" data="">
+     <%= render partial: 'recipes/recipe_card', collection: Recipe.find(recipes), as: :recipe, locals: {list: list, source_type: source_type, source_id: source_id} %>
   </div>
+
 <% else %>
   <p class="lead text-white mt-5">Ajouter des produits pour obtenir des résultats.</p>
 <% end %>

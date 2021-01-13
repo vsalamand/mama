@@ -159,26 +159,28 @@ class Recipe < ApplicationRecord
 
   def self.search_by_categories(category_ids)
     category_recipe_ids = []
+    sweet_recipe_ids = Category.find(436).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
+    # pie_ids = Category.find(729).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
+    # pasta_ids = Category.find(629).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
+    # recipe_ids = recipe_ids & pasta_ids
 
     Category.find(category_ids).each do |c|
       recipe_ids = c.subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
 
-      # pie_ids = Category.find(729).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
-      # pasta_ids = Category.find(629).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
-      # recipe_ids = recipe_ids & pasta_ids
-      sweet_recipe_ids = Category.find(436).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
 
       category_recipe_ids << (recipe_ids - sweet_recipe_ids)
     end
 
+    return category_recipe_ids.flatten.compact
+
     # sorted_recipe_ids = category_recipe_ids.flatten.group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
     # return Recipe.find(sorted_recipe_ids)
 
-    seasonings = Category.get_seasonings
-    recipes = Recipe.where(id: category_recipe_ids.flatten)
-                    .sort_by{ |r| (r.categories.pluck(:id) - seasonings - category_ids).size + (category_ids - r.categories.pluck(:id)).size}
+    # seasonings = Category.get_seasonings
+    # recipes = Recipe.where(id: category_recipe_ids.flatten)
+    #                 .sort_by{ |r| (r.categories.pluck(:id) - seasonings - category_ids).size + (category_ids - r.categories.pluck(:id)).size}
 
-    return recipes
+    # return recipes
   end
 
   def scrape

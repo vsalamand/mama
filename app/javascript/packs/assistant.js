@@ -241,6 +241,34 @@ function recommend(type, ids) {
   });
 }
 
+// show next recommended recipes
+$(document).on("click", "#nextRecipeRecommendationsBtn", function(event) {
+  $('#recipeRecommendations').html(
+    // `<p class="lead text-center text-white font-weight-bold">Chargement...</p>`
+    // `<span class="spinner-border spinner-border-lg text-white text-center" role="status" aria-hidden="true"></span>`
+    `<p class="lead text-center text-white font-weight-bold">
+        <span class="spinner-border spinner-border-lg text-white text-center" role="status" aria-hidden="true"></span>
+    </p>`
+  );
+
+  var category_ids = document.getElementById('recipeRecommendations').getAttribute('data');
+  load_next_recipes(category_ids);
+})
+
+
+function load_next_recipes(category_ids) {
+  $.ajax({
+    url: "/recipes/next",
+    cache: false,
+    dataType: 'script',
+    data: {
+        i: category_ids
+        },
+    success: function(){
+    }
+  });
+}
+
 // function fetchRecipes(type, ids) {
 //   $.ajax({
 //     url: "/recipes/fetch_recipes",
