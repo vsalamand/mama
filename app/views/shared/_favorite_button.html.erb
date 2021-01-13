@@ -1,0 +1,9 @@
+<% if current_user %>
+  <% if recipe.is_user_favorite?(current_user) %>
+    <button class="btn btn-transparent rounded text-muted removeFromFavorites p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>">Retirer de vos favoris</button>
+  <% else %>
+    <button class="btn btn-transparent rounded text-success addToFavorites p-0 m-0 pb-1" style="cursor: pointer;" data="<%= recipe.id %>">Ajouter aux favoris</button>
+  <% end %>
+<% else %>
+   <button class="btn btn-transparent rounded text-success font-weight-bold p-0 m-0 pb-1" style="cursor: pointer;"  id="startAuthenticationBtn" data="<%= recipe.id %>">Ajouter aux favoris</button>
+<% end %>

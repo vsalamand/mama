@@ -1,0 +1,29 @@
+<div class="wrapper d-flex flex-column bd-highlight" id="assistantWrapper" style="background: grey; height: 100vh;">
+
+  <div class="sticky-top bg-transparent">
+    <div class="container px-2">
+      <nav class="px-0 navbar d-flex text-white font-weight-bold">
+        <div class="navbar-brand d-flex align-items-center mr-auto bd-highlight" id="hideRecipeSearch" style="cursor: pointer;">
+            <i class="fas fa-lg fa-arrow-left p-2"></i>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container px-0 d-flex align-items-center justify-content-center bd-highlight" style="height: 80vh;">
+    <div id="recipeRecommendations" class="col-sm-4 my-auto" data="">
+
+    </div>
+  </div>
+
+  <nav class="fixed-bottom bg-transparent mt-5">
+    <div class="container d-flex justify-content-center p-2" >
+       <button class="btn btn-lg px-4 py-2 border rounded text-center text-white d-flex align-items-center" style="cursor: pointer; font-size: 1.5rem;" id="nextRecipeRecommendationsBtn">
+          <%= cl_image_tag("menu_icons/crystal-ball", width: 25, class:"m-1") %>
+          Nouvelles recettes
+       </button>
+     </div>
+
+  </nav>
+
+</div>

@@ -1,10 +1,11 @@
 require 'open-uri'
 require 'hangry'
+require 'yaml'
 
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
-  skip_before_action :authenticate_user!, only: [ :card, :cart, :select_all, :fetch_recipes ]
+  skip_before_action :authenticate_user!, only: [ :card, :cart, :select_all, :fetch_recipes, :recommend, :next ]
   before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage]
 
   def show
@@ -252,6 +253,26 @@ class RecipesController < ApplicationController
     end
 
     render "fetch_recipes.js.erb"
+  end
+
+  def recommend
+    type = params[:t]
+    if type == "u"
+      @category_ids = Item.find(params[:i]).pluck(:category_id).compact
+    else
+      @category_ids = params[:i].reject(&:empty?).map(&:to_i)
+    end
+
+    @recipes = Recipe.search_by_categories(@category_ids).shuffle[0..2]
+
+    render "recommend.js.erb"
+  end
+
+  def next
+    @category_ids = YAML.load(params[:i])
+    @recipes = Recipe.search_by_categories(@category_ids).shuffle[0..2]
+
+    render "recommend.js.erb"
   end
 
   private

@@ -117,6 +117,8 @@ Rails.application.routes.draw do
       get :fetch_menu
       get :add_menu_to_list
       get :fetch_recipes
+      get :recommend
+      get :next
     end
     member do
       # get 'card', to: "recipes#card"

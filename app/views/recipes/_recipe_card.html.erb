@@ -1,24 +1,18 @@
-
-
-  <div class="card mb-2 rounded shadow">
-    <div class="row no-gutters">
-      <div class="col-5">
-        <%= cl_image_tag("#{recipe.id}", :width=>400, :height=>400, :fetch_format=>:auto, :crop=>"fill", :quality=>"auto:low", class:"card-img-top img-fluid rounded-0") %>
+<div class="card mb-2 rounded shadow-lg">
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
+    <div class="d-flex text-dark mb-0 bd-highlight">
+      <div class="mr-2 p-2 my-auto">
+         <%= cl_image_tag("#{recipe.id}", :fetch_format=>:auto, :quality=>"auto:low", class:"avatar-large", alt:"#{recipe.title}") %>
       </div>
-      <div class="col-7 d-flex align-items-start flex-column bd-highlight">
-        <%= link_to recipe_path(recipe), target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
-          <div class="card-body mb-auto p-2 bd-highlight text-left" style="max-height: 4vh;">
-            <h5 class="card-title text-primary mb-0 pb-0"><%= truncate(recipe.title, length:60) %></h5>
-            <p class="card-text m-0 p-0"><small class="text-muted" style="font-size: 0.5rem;"><%= URI("#{recipe.link }").host %></small></p>
-          </div>
-        <% end %>
-        <div class="mt-auto bd-highlight m-2 d-flex">
-          <% if user_signed_in? %>
-            <div id="isFavorite<%= recipe.id %>">
-              <%= render 'shared/favorite', recipe: recipe %>
-            </div>
-          <% end %>
-        </div>
+      <div class="card-body p-1 my-auto">
+        <p class="card-title mb-0 font-weight-bold text-primary"><%= truncate(recipe.title, length:260) %></p>
+        <small class="text-muted"><%= URI("#{recipe.link }").host %></small>
       </div>
     </div>
+  <% end %>
+  <div class="card-footer bg-transparent border-light p-2 text-center">
+    <div id="isFavorite<%= recipe.id %>">
+      <%= render 'shared/favorite_button', recipe: recipe %>
+    </div>
   </div>
+</div>
