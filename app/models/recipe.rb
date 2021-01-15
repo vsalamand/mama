@@ -165,13 +165,12 @@ class Recipe < ApplicationRecord
     # recipe_ids = recipe_ids & pasta_ids
 
     Category.find(category_ids).each do |c|
-      recipe_ids = c.subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
-
-
-      category_recipe_ids << (recipe_ids - sweet_recipe_ids)
+      category_recipe_ids << c.subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
     end
 
-    return category_recipe_ids.flatten.compact
+    sorted_recipe_ids = category_recipe_ids.flatten.group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
+    recipe_ids = sorted_recipe_ids - sweet_recipe_ids
+    return recipe_ids.compact[0..29]
 
     # sorted_recipe_ids = category_recipe_ids.flatten.group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
     # return Recipe.find(sorted_recipe_ids)
