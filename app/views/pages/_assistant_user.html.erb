@@ -14,7 +14,7 @@
 <div id="listShow">
   <div id="assistantContent" class="bg-white">
     <div class="sticky-top bg-white mb-1" id="listBarTop">
-        <nav class="container navbar d-flex bd-highlight">
+        <nav class="container navbar d-flex bd-highlight px-2">
           <% if current_user %>
             <% if current_user.beta %>
               <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
@@ -22,7 +22,9 @@
                 <%= render 'shared/nav_actions' %>
             <% end %>
             <%= link_to favorites_path, class:"openLink" do %>
-              <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
+              <div class="btn btn-light border btn-lg">
+                  <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
+              </div>
             <% end %>
 
           <% else %>
@@ -37,7 +39,9 @@
                 <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
               </button>
               <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
-                <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
+                <div class="btn btn-light border btn-lg">
+                  <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
+                </div>
               <% end %>
             </div>
           <% end %>
@@ -45,10 +49,10 @@
         </nav>
     </div>
 
-    <div class="wrapper" style="min-height: 40vh;">
+    <div class="wrapper" style="min-height: 60vh;">
       <div class="container mb-3">
-        <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
-          <h2 class="font-weight-bold">De quels produits disposez-vous ?</h2>
+        <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
+          <h2 class="font-weight-bold text-muted">De quels produits disposez-vous ?</h2>
         </div>
       </div>
       <div class="container px-1">
@@ -60,10 +64,13 @@
               </div>
             </ul>
             <div class="search-form-control">
-                <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg border" id="toggleListItemform" style="cursor: pointer;" >
+                <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary border" id="toggleListItemform" style="cursor: pointer;" >
+                <button class="btn btn-sm btn-primary font-weight-bold" id="addContentBtn" type="submit">
+                 Ajouter
+                </button>
             </div>
 
-            <div class="mt-4" id="assistantItems">
+            <div class="mt-3" id="assistantItems">
               <div class="" id="uncomplete_list_items">
                 <%= render 'lists/uncomplete_todo_list', list: @list %>
               </div>

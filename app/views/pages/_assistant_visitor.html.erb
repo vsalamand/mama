@@ -17,7 +17,7 @@
               <%= render 'shared/nav_actions' %>
           <% end %>
           <%= link_to favorites_path do %>
-            <div class="btn btn-light border btn-lg"><%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class="pt-2">Favoris</span></div>
+            <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
           <% end %>
 
         <% else %>
@@ -32,7 +32,7 @@
               <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
             </button>
             <div class="btn btn-light border btn-lg" id="startAuthenticationBtn" data="favorites">
-              <%= cl_image_tag("menu_icons/star", width: 20, class:"pb-1") %><span class=""> Favoris</span>
+                <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
             </div>
           </div>
         <% end %>
@@ -40,10 +40,10 @@
       </nav>
   </div>
 
-  <div class="wrapper" style="min-height: 40vh;">
+  <div class="wrapper" style="min-height: 60vh;">
     <div class="container mb-3">
-      <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0 m-0">
-        <h2 class="font-weight-bold">De quels produits disposez-vous ?</h2>
+      <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
+        <h2 class="font-weight-bold text-muted">De quels produits disposez-vous ?</h2>
       </div>
     </div>
     <div class="container px-1">
@@ -55,10 +55,13 @@
             </div>
           </ul>
           <div class="search-form-control">
-              <input type="text" placeholder="Ajouter un produit..." class="py-4 border rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" id="toggleAssistantForm" style="cursor: pointer;" >
+            <input type="text" placeholder="Ajouter un produit..." class="py-4 border rounded rounded-lg font-weight-bold form-control form-control-lg text-primary" id="toggleAssistantForm" style="cursor: pointer;" >
+            <button class="btn btn-sm btn-primary font-weight-bold" id="addContentBtn" type="submit">
+             Ajouter
+            </button>
           </div>
 
-          <div class="mt-4" id="assistantItems">
+          <div class="mt-3" id="assistantItems">
             <div id="selectedCategories">
             </div>
           </div>

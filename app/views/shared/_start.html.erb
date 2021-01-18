@@ -1,12 +1,28 @@
-<h1 class="font-weight-bold px-1">Entrez votre email</h1>
-<p class="lead px-1">Retrouvez vos recettes préférées avec votre compte <span class="font-weight-bold" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-  Supernet</span></p>
+<div class="container px-0 d-flex bd-highlight flex-column">
+  <h1 class="font-weight-bold px-2" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Supernet</h1>
+
+  <ul class="px-0 m-0">
+    <li class="rounded d-flex align-items-center text-left m-1" >
+        <%= cl_image_tag("menu_icons/list", width: 20, class:"m-2") %>
+        <p class=" m-0">Retrouvez votre liste de produits</p>
+    </li>
+    <li class="rounded d-flex align-items-center text-left m-1" >
+        <%= cl_image_tag("menu_icons/star", width: 20, class:"m-2") %>
+        <p class=" m-0">Enregistrez vos recettes préférées</p>
+    </li>
+    <li class="rounded d-flex align-items-center text-left m-1" >
+        <%= cl_image_tag("menu_icons/crystal-ball", width: 20, class:"m-2") %>
+        <p class=" m-0">Améliorez vos recommandations</p>
+    </li>
+  </ul>
+</div>
+
 
 <form id="startAuthentication" class="my-5" data-context="">
   <div class="form-group">
     <input type="email" id="startInputEmail" placeholder="Votre addresse email" class="py-4 border rounded rounded-lg font-weight-bold form-control form-control-lg text-primary shadow-lg" style="cursor: pointer;">
   </div>
   <div class="text-right">
-    <button type="submit" class="btn btn-light border btn-lg shadow-lg px-5">Suivant</button>
+    <button type="submit" class="btn btn-primary border btn-lg shadow-lg px-5">Suivant</button>
   </div>
 </form>
