@@ -8,6 +8,10 @@
 </div>
 
 <div id="assistantContent" class="bg-white">
+  <% unless ["add_to_homescreen"].include?(params[:action])%>
+    <div id="iOSInstallNavbar"></div>
+    <div id="androidInstallNavbar"></div>
+  <% end %>
   <div class="sticky-top bg-white mb-1" id="listBarTop">
       <nav class="container navbar d-flex bd-highlight">
         <% if current_user %>
