@@ -29,7 +29,7 @@ class List < ApplicationRecord
   accepts_nested_attributes_for :items, allow_destroy: true
   accepts_nested_attributes_for :checklist_items
 
-  STATUS = ["archived", "opened", "saved", "deleted"]
+  STATUS = ["archived", "opened", "saved", "deleted", "temporary"]
   LIST_TYPE = ["personal", "curated", "assistant"]
 
   scope :saved, -> { where(status: "saved").where( is_deleted: false) }

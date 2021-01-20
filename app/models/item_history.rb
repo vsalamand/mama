@@ -61,7 +61,7 @@ class ItemHistory < ApplicationRecord
   end
 
   def update_score
-    if self.item.list.present?
+    if self.item.list.present? && self.item.list.game.present?
       points = self.get_points
       self.item.list.user.scores.first.add(points)
     end

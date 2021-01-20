@@ -5,6 +5,25 @@ class ApplicationController < ActionController::Base
 
   helper_method :resource_name, :resource, :devise_mapping, :resource_class
 
+  def current_list
+    if current_user
+      @list = current_user.get_assistant
+    else
+      session[:list] = nil
+      if session[:list]
+        @list = List.find(session[:list])
+      else
+        @list = List.where("created_at < ?", 2.days.ago).where(name: "Assistant", status: "temporary", list_type: "assistant", sorted_by: "rayon").first
+        if @list.nil?
+          @list = List.create(name: "Assistant", status: "temporary", list_type: "assistant", sorted_by: "rayon")
+        else
+          @list.items.destroy_all
+        end
+        session[:list] = @list.id
+      end
+    end
+  end
+
   def resource_name
     :user
   end

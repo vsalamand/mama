@@ -6,6 +6,9 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
+
+    assign_list_to_new_user
+
     # check signup context
     if params[:user][:context].present?
       if params[:user][:context] == "favorites"
@@ -15,6 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
         recipe.add_to_favorites(current_user) if recipe.present?
         @context = "favorites"
       end
+
     # check if user sign-up using a list invite link
     elsif params[:shared_list].present?
       if params[:shared_list].first.present?
@@ -32,6 +36,16 @@ class RegistrationsController < Devise::RegistrationsController
       root_path
     end
     # root_path
+  end
+
+  def assign_list_to_new_user
+    if session[:list]
+      list = List.find(session[:list])
+      list.user_id = @user.id
+      list.status = "archived"
+      list.save
+      session[:list] = nil
+    end
   end
 
   private

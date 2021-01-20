@@ -1,7 +1,7 @@
 
 
 <div id="newlistItemForm" style="display: none;">
-    <%= render 'items/list_item_form', list: @list, item: Item.new, saved_items: @saved_items %>
+    <%= render 'items/list_item_form', list: @list, item: Item.new %>
 
 </div>
 
@@ -42,18 +42,16 @@
               <button class="btn bg-white p-2 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
                 <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
               </button>
-              <%= link_to "", data: {toggle: "modal", target: ".bd-signup-modal-lg"}, class:"signupBtn", context: "assistant", action: "signup" do %>
-                <div class="btn btn-light border btn-lg">
+              <div class="btn btn-light border btn-lg" id="startAuthenticationBtn" data="favorites">
                   <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
-                </div>
-              <% end %>
+              </div>
             </div>
           <% end %>
 
         </nav>
     </div>
 
-    <div class="wrapper" style="min-height: 60vh;">
+    <div class="wrapper" style="min-height: 70vh;">
       <div class="container mb-3">
         <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
           <h2 class="font-weight-bold text-muted">De quels produits disposez-vous ?</h2>
@@ -68,7 +66,7 @@
               </div>
             </ul>
             <div class="search-form-control">
-                <input type="text" placeholder="Ajouter un produit..." class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary border" id="toggleListItemform" style="cursor: pointer;" >
+                <input type="text" placeholder="Nouveau produit" class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary border" id="toggleListItemform" style="cursor: pointer;" >
                 <button class="btn btn-sm btn-primary font-weight-bold" id="addContentBtn" type="submit">
                  Ajouter
                 </button>
