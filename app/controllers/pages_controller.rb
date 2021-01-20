@@ -24,13 +24,18 @@ class PagesController < ApplicationController
   end
 
   def assistant
+
     if current_user
-      @list = current_user.get_assistant
+      @list = current_list
+      # @list = current_user.get_assistant
       @saved_items = @list.get_saved_items
       @categories = @list.get_suggestions
     else
+      @list = List.find(current_list)
+      @saved_items = []
       @categories = Category.get_suggestions
     end
+
     ahoy.track "Assistant"
   end
 

@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   after_create do
     self.create_score(Game.first)
-    self.set_initial_list
+    # self.set_initial_list
   end
   after_create :subscribe_to_waiting_list
   # after_create :send_welcome_email

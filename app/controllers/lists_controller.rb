@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [ :show, :update, :copy, :share, :save, :destroy, :archive, :accept_invite, :send_invite, :email, :select_all, :remove_recipe, :sort ]
-  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :create, :share, :email, :select_all, :get_edit_history]
+  skip_before_action :authenticate_user!, only: [:accept_invite, :show, :sort, :edit, :update, :remove_recipe, :create, :share, :email, :select_all, :get_edit_history, :fetch_item_form, :fetch_category]
   after_action :current_list
 
   def current_list

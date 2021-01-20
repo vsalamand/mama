@@ -1,10 +1,30 @@
-<% content_for :meta_title, "De quoi avez-vous envie ?" %>
+<% content_for :meta_title, "De quels produits disposez-vous ?" %>
 <% content_for :meta_description, "Trouvez une recette en fonction des produits à votre disposition !" %>
 
 <div id="assistant">
-  <% if current_user %>
-    <%= render 'pages/assistant_user' %>
-  <% else %>
-    <%= render 'pages/assistant_visitor' %>
+  <%= render 'pages/assistant_user' %>
+  <% if false %>
+    <% if current_user %>
+      <%= render 'pages/assistant_user' %>
+    <% else %>
+      <%= render 'pages/assistant_visitor' %>
+    <% end %>
   <% end %>
+
+  <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-0 p-0" style="min-height: 50vh;">
+
+          <div id="contentShow"></div>
+
+        </div>
+        <div class="modal-footer bg-white">
+          <button type="button" class="btn btn-light border" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
