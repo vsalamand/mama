@@ -253,6 +253,7 @@ $(document).on("click", "#nextRecipeRecommendationsBtn", function(event) {
 
   var category_ids = document.getElementById('recipeRecommendations').getAttribute('data');
   load_next_recipes(category_ids);
+  ahoy.track("Next recommendations");
 })
 
 

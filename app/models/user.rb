@@ -100,7 +100,7 @@ class User < ApplicationRecord
   end
 
   def get_assistant
-    List.find_or_create_by(name: "Assistant", user_id: self.id, status: "archived", list_type: "assistant", sorted_by: "date")
+    List.find_or_create_by(name: "Assistant", user_id: self.id, status: "archived", list_type: "assistant", sorted_by: "rayon")
   end
 
   def get_latest_recipe_list
