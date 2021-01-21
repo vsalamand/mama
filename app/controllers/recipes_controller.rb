@@ -263,14 +263,14 @@ class RecipesController < ApplicationController
       @category_ids = params[:i].reject(&:empty?).map(&:to_i)
     end
 
-    @recipes = Recipe.search_by_categories(@category_ids).shuffle[0..2]
+    @recipes = Recipe.search_by_categories(@category_ids).shuffle.first(2)
 
     render "recommend.js.erb"
   end
 
   def next
     @category_ids = YAML.load(params[:i])
-    @recipes = Recipe.search_by_categories(@category_ids).shuffle[0..2]
+    @recipes = Recipe.search_by_categories(@category_ids).shuffle.first(2)
 
     render "recommend.js.erb"
   end

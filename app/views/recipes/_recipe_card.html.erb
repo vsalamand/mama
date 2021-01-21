@@ -1,4 +1,4 @@
-<div class="card mb-2 rounded shadow-lg">
+<div class="card mb-2 rounded">
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
     <div class="d-flex text-dark mb-0 bd-highlight">
       <div class="mr-2 p-2 my-auto">
@@ -10,7 +10,7 @@
       </div>
     </div>
   <% end %>
-  <div class="card-footer bg-transparent border-light p-2 text-center d-flex justify-content-around">
+  <div class="card-footer bg-light border-light p-2 text-center d-flex justify-content-around">
     <div id="">
       <%= render 'shared/ban_button', recipe: recipe %>
     </div>
