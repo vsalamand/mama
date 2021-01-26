@@ -268,6 +268,28 @@ class PagesController < ApplicationController
     end
   end
 
+  def dislike_recipe
+    @recipe = Recipe.find(params[:r])
+    @recipe.dislike_recipe(current_user)
+
+    render 'dislike_recipe.js.erb'
+    ahoy.track "Dislike recipe", recipe_id: @recipe.id, title: @recipe.title
+  end
+
+
+  def remove_recipe_from_dislikes
+    @recipe = Recipe.find(params[:r])
+    @dislikes_recipe_list = current_user.get_dislikes_recipe_list
+    @recipe_list_item = RecipeListItem.find_by(recipe_id: @recipe.id, recipe_list_id: @dislikes_recipe_list.id)
+
+    if @recipe_list_item.present?
+      @recipe_list_item.destroy
+
+      render 'remove_recipe_from_dislikes.js.erb'
+      ahoy.track "Undislike recipe", recipe_id: @recipe.id, title: @recipe.title
+    end
+  end
+
   def activity
     @user = current_user
     @score = @user.scores.first.value

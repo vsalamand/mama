@@ -1,0 +1,2 @@
+var recipeCard = document.getElementById("isDisliked<%= @recipe.id %>");
+recipeCard.innerHTML = ("<%= j render 'shared/dislike_recipe_button', recipe: @recipe %>");

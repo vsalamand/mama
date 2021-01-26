@@ -86,6 +86,10 @@ class Recipe < ApplicationRecord
     user.get_latest_recipe_list.recipes.pluck(:id).include?(self.id)
   end
 
+  def is_disliked_by_user?(user)
+    user.get_dislikes_recipe_list.recipes.pluck(:id).include?(self.id)
+  end
+
 
   def get_best_store
     store_prices = []
@@ -139,6 +143,11 @@ class Recipe < ApplicationRecord
   def add_to_favorites(user)
     recipe_list = user.get_latest_recipe_list
     self.add_to_recipe_list(recipe_list)
+  end
+
+  def dislike_recipe(user)
+    dislikes_recipe_list = user.get_dislikes_recipe_list
+    self.add_to_recipe_list(dislikes_recipe_list)
   end
 
   def self.multi_search(query)

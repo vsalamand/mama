@@ -11,8 +11,8 @@
     </div>
   <% end %>
   <div class="card-footer bg-light border-light p-2 text-center d-flex justify-content-around">
-    <div id="">
-      <%= render 'shared/ban_button', recipe: recipe %>
+    <div id="isDisliked<%= recipe.id %>">
+      <%= render 'shared/dislike_recipe_button', recipe: recipe %>
     </div>
     <div id="isFavorite<%= recipe.id %>">
       <%= render 'shared/favorite_button', recipe: recipe %>

@@ -106,6 +106,8 @@ Rails.application.routes.draw do
   get 'add_to_homescreen', to: 'pages#add_to_homescreen'
   get 'beta', to:'pages#beta'
   get 'check_user', to:'pages#check_user'
+  get 'dislike_recipe', to: 'pages#dislike_recipe'
+  get 'remove_recipe_from_dislikes', to: 'pages#remove_recipe_from_dislikes'
 
 
   resources :recipes do
