@@ -329,6 +329,38 @@ $(document).on("click", ".removeFromFavorites", function(event) {
   });
 });
 
+//  Dislike recipe
+$(document).on("click", ".dislikeRecipe", function(event) {
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/dislike_recipe",
+    cache: false,
+    dataType: 'script',
+    data: {
+        r: recipeId
+        },
+    success: function(){
+    }
+  });
+});
+
+//  Remove recipe from dislikes
+$(document).on("click", ".removeFromDislikedRecipes", function(event) {
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/remove_recipe_from_dislikes",
+    cache: false,
+    dataType: 'script',
+    data: {
+        r: recipeId
+        },
+    success: function(){
+    }
+  });
+});
+
 
 
 //  Autorefresh landing eveyr 5 seconds

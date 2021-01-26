@@ -103,6 +103,10 @@ class User < ApplicationRecord
     List.find_or_create_by(name: "Assistant", user_id: self.id, status: "archived", list_type: "assistant", sorted_by: "rayon")
   end
 
+  def get_dislikes_recipe_list
+    RecipeList.find_or_create_by(name: "Dislikes", user_id: self.id, recipe_list_type: "dislikes", status: "archived")
+  end
+
   def get_latest_recipe_list
     if self.recipe_lists.where(status: "opened").any?
       return self.recipe_lists.where(status: "opened").last
@@ -121,7 +125,7 @@ class User < ApplicationRecord
   end
 
   def get_dislikes_list
-    List.find_or_create_by(name: "Dislikes", user_id: self.id, status: "archived", list_type: "personal", sorted_by: "rayon")
+    List.find_or_create_by(name: "Dislikes", user_id: self.id, status: "archived", list_type: "dislikes", sorted_by: "rayon")
   end
 
   def create_score(game)

@@ -1,0 +1,9 @@
+<% if current_user %>
+  <% if recipe.is_disliked_by_user?(current_user) %>
+    <button class="btn btn-transparent rounded text-danger p-0 m-0 pb-1 removeFromDislikedRecipes" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-ban"></i></button>
+  <% else %>
+    <button class="btn btn-transparent rounded text-muted p-0 m-0 pb-1 dislikeRecipe" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-ban"></i></button>
+  <% end %>
+<% else %>
+   <button class="btn btn-transparent rounded text-muted font-weight-bold p-0 m-0 pb-1" style="cursor: pointer;"  id="startAuthenticationBtn" data="<%= recipe.id %>"><i class="fas fa-lg fa-ban"></i></button>
+<% end %>

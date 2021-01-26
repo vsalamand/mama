@@ -18,7 +18,7 @@ class RecipeList < ApplicationRecord
   scope :curated, -> { where(recipe_list_type: "curated") }
 
 
-  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool"]
+  RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool", "dislikes"]
   STATUS = ["archived", "saved", "opened"]
 
   # after_create_commit :get_name
