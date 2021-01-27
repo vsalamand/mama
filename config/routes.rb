@@ -121,6 +121,7 @@ Rails.application.routes.draw do
       get :fetch_recipes
       get :recommend
       get :next
+      get :analytics
     end
     member do
       # get 'card', to: "recipes#card"
@@ -134,6 +135,7 @@ Rails.application.routes.draw do
       get :select_all
       get :edit_modal
       get :update_servings
+      get :click
     end
     resources :items do
       get :add_to_list

@@ -1,0 +1,26 @@
+<%= render 'shared/admin-navbar' %>
+
+<div class="container">
+  <h1>Recipe analytics</h1>
+
+  <div class="row my-5">
+    <div class="col-md-6">
+      <p>Total impressions: <%= @impressions.size %></p>
+
+      <ol>
+        <% @impressions_per_recipe.each do |recipe_h| %>
+          <li><%= Recipe.find(recipe_h[:recipe_id]).title %>  x<%= recipe_h[:count] %> </li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="col-md-6">
+      <p>Total clicks: <%= @clicks.size %> </p>
+      <ol>
+        <% @clicks_per_recipe.each do |recipe_h| %>
+          <li><%= Recipe.find(recipe_h[:recipe_id]).title %>  x<%= recipe_h[:count] %> </li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+
+</div>

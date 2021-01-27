@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :resource_name, :resource, :devise_mapping, :resource_class
 
+
   def current_list
     if current_user
       @list = current_user.get_assistant
@@ -70,7 +71,6 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { host: ENV["DOMAIN"] || "localhost:3000" }
   end
-
 
 
   protected

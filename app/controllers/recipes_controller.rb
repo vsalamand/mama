@@ -4,9 +4,9 @@ require 'yaml'
 
 
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show ]
-  skip_before_action :authenticate_user!, only: [ :card, :cart, :select_all, :fetch_recipes, :recommend, :next ]
-  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage]
+  before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show, :click ]
+  skip_before_action :authenticate_user!, only: [ :card, :cart, :select_all, :fetch_recipes, :recommend, :next, :click ]
+  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage, :analytics]
 
   def show
     @list_item = ListItem.new
@@ -263,16 +263,36 @@ class RecipesController < ApplicationController
       @category_ids = params[:i].reject(&:empty?).map(&:to_i)
     end
 
-    @recipes = Recipe.search_by_categories(@category_ids).shuffle.first(2)
+    @recipe_ids = Recipe.search_by_categories(@category_ids).shuffle.first(2)
+
+    @recipe_ids.each{ |r_id| ahoy.track "Recommend recipe", recipe_id: r_id }
 
     render "recommend.js.erb"
   end
 
   def next
     @category_ids = YAML.load(params[:i])
-    @recipes = Recipe.search_by_categories(@category_ids).shuffle.first(2)
+    @recipe_ids = Recipe.search_by_categories(@category_ids).shuffle.first(2)
+
+    @recipe_ids.each{ |r_id| ahoy.track "Recommend recipe", recipe_id: r_id }
 
     render "recommend.js.erb"
+  end
+
+  def click
+    ahoy.track "Click recipe", recipe_id: @recipe.id, title: @recipe.title
+  end
+
+ def analytics
+    @impressions = Ahoy::Event.where(name: "Recommend recipe")
+    @impressions_per_recipe = []
+    @impressions.pluck(:properties).inject({}) { |sum, val| sum[val["recipe_id"]] = sum[val["recipe_id"]].to_i + 1; sum }.each{|key, value| @impressions_per_recipe << {:recipe_id => key, :count => value} }
+    @impressions_per_recipe = @impressions_per_recipe.sort_by { |k| k[:count] }.reverse
+
+    @clicks = Ahoy::Event.where(name: "Click recipe")
+    @clicks_per_recipe = []
+    @clicks.pluck(:properties).inject({}) { |sum, val| sum[val["recipe_id"]] = sum[val["recipe_id"]].to_i + 1; sum }.each{|key, value| @clicks_per_recipe << {:recipe_id => key, :count => value} }
+    @clicks_per_recipe = @clicks_per_recipe.sort_by { |k| k[:count] }.reverse
   end
 
   private

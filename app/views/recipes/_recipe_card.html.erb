@@ -1,5 +1,5 @@
 <div class="card mb-2 rounded">
-  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick", data:"#{recipe.id}" do %>
     <div class="d-flex text-dark mb-0 bd-highlight">
       <div class="mr-2 p-2 my-auto">
          <%= cl_image_tag("#{recipe.id}", :fetch_format=>:auto, :quality=>"auto:low", class:"avatar-large", alt:"#{recipe.title}") %>
