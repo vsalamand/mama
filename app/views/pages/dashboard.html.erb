@@ -6,7 +6,12 @@
 
 <div class="container mt-3" style="display: flex; justify-content: space-evenly;">
   <div>
-    <h1>Verify</h1>
+    <h2>Analytics</h2>
+    <%= link_to "Recipes stats", analytics_recipes_path %>
+
+  </div>
+  <div>
+    <h2>Verify</h2>
 
     <table>
 
@@ -29,7 +34,7 @@
   </div>
 
   <div>
-    <h1>Products (<%= @products.size %>)</h1>
+    <h2>Products (<%= @products.size %>)</h2>
 
     <table>
 
@@ -51,7 +56,7 @@
   </div>
 
   <div>
-    <h1>Foods (<%= @foods.size %>)</h1>
+    <h2>Foods (<%= @foods.size %>)</h2>
 
     <table>
 

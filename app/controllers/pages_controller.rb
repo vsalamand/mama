@@ -399,6 +399,7 @@ class PagesController < ApplicationController
     render 'fetch_landing.js.erb'
   end
 
+
   def products_search
     query = params[:query].present? ? params[:query] : nil
     store_id = params[:store].present? ? params[:store]['id'] : nil

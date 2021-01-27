@@ -296,10 +296,19 @@ $(document).on("click", "#signout", function(event) {
 })
 
 
-// tracking click on recipe links
+// tracking clicks on recipe links
 $(document).on("click", ".recipeLinkClick", function(event) {
-  var link = this.getAttribute('href')
-  ahoy.track("Click recipe link", {link:  link});
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/recipes/" + recipeId + "/click",
+    cache: false,
+    dataType: 'script',
+    data: {
+      },
+    success: function(data){
+    }
+  });
 })
 
 // tracking click on share list
