@@ -65,7 +65,6 @@ Rails.application.routes.draw do
   get 'unmatch_foods', to: 'pages#unmatch_foods'
   get 'unmatch_products', to: 'pages#unmatch_products'
   get 'verify_items', to: 'pages#verify_items'
-  get 'verify_listitems', to: 'pages#verify_listitems'
   get 'duplicated_list_items', to: 'pages#duplicated_list_items'
   get 'verify_products', to: 'pages#verify_products'
   post 'import', to: 'pages#import'
@@ -122,6 +121,8 @@ Rails.application.routes.draw do
       get :recommend
       get :next
       get :analytics
+      get :visualization
+      get :visualize
     end
     member do
       # get 'card', to: "recipes#card"

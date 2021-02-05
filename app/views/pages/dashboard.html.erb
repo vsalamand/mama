@@ -1,83 +1,42 @@
 <%= render 'shared/admin-navbar' %>
 
-<div class="container m-3 d-flex justify-content-center">
-  <%= link_to "Annoter", edit_item_path(@labeling), class:"btn btn-lg btn-primary" %>
+
+
+<div class="wrapper">
+  <div class="row">
+    <div class="col-md-2 d-flex flex-column align-items-start bg-light border">
+        <h2>Menu</h2>
+        <%= link_to "Liste d'attente", pending_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Créer une recette", import_recipes_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Recipes", manage_recipes_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Categories", categories_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Food", foods_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Search products", advanced_search_products_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Products", products_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Items", items_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Recipe lists", recipe_lists_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Recommendations", recommendations_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Curated lists", lists_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Checklists", checklists_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Stores", stores_path, class: "btn btn-sm btn-link" %>
+        <%= link_to "Users", users_path, class: "btn btn-sm btn-link" %>
+    </div>
+    <div class="col-md-3 d-flex flex-column align-items-start">
+      <h2>Analytics</h2>
+      <%= link_to "Recipes", analytics_recipes_path, class: "btn btn-link" %>
+    </div>
+    <div class="col-md-3 d-flex flex-column align-items-start">
+      <h2>Visualization</h2>
+      <%= link_to "Recommended recipes", visualization_recipes_path, class: "btn btn-link" %>
+    </div>
+    <div class="col-md-3 d-flex flex-column align-items-start">
+      <h2>Annotations</h2>
+      <%= link_to "Items", verify_items_path, class: "btn btn-link" %>
+      <%= link_to "Reported products", verify_products_path, class: "btn btn-link" %>
+    </div>
+  </div>
 </div>
 
-<div class="container mt-3" style="display: flex; justify-content: space-evenly;">
-  <div>
-    <h2>Analytics</h2>
-    <%= link_to "Recipes stats", analytics_recipes_path %>
-
-  </div>
-  <div>
-    <h2>Verify</h2>
-
-    <table>
-
-      <tbody>
-          <tr>
-            <td><%= @items_validation_size %></td>
-            <td><%= link_to "➡️ Verify items", verify_items_path %></td>
-          </tr>
-          <tr>
-            <td><%= @list_items_verification_size %></td>
-            <td><%= link_to "➡️ Verify list items", verify_listitems_path %></td>
-          </tr>
-          <tr>
-            <td><%= @reported_products %></td>
-            <td><%= link_to "➡️ Verify reported products", verify_products_path %></td>
-          </tr>
-      </tbody>
-
-    </table>
-  </div>
-
-  <div>
-    <h2>Products (<%= @products.size %>)</h2>
-
-    <table>
-
-      <thead>
-        <tr>
-          <td><strong>Nb of products  |</strong></td>
-          <td><strong>Name</strong></td>
-        </tr>
-      </thead>
-
-      <tbody>
-          <tr>
-            <td><%= @no_food_products.size %></td>
-            <td><%= link_to "liste de produits sans food", unmatch_products_path %></td>
-          </tr>
-      </tbody>
-
-    </table>
-  </div>
-
-  <div>
-    <h2>Foods (<%= @foods.size %>)</h2>
-
-    <table>
-
-      <thead>
-        <tr>
-          <td><strong>Nb of foods  |</strong></td>
-          <td><strong>Name</strong></td>
-        </tr>
-      </thead>
-
-      <tbody>
-          <tr>
-            <td><%= @foods_without_products.size %></td>
-            <td><%= link_to "liste de foods sans products", unmatch_foods_path %></td>
-          </tr>
-      </tbody>
-
-    </table>
-  </div>
-
-</div>
 
 <div class="container fixed-bottom p-4">
   <div class="my-4">

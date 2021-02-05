@@ -114,6 +114,9 @@ gem "audited", "~> 4.9"
 gem "chartkick"
 #The simplest way to group temporal data
 gem 'groupdate'
+# Allow you to pluck attributes from nested associations without loading a bunch of records.
+gem 'deep_pluck'
+
 
 
 
