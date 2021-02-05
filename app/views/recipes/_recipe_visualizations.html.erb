@@ -1,0 +1,8 @@
+<% if recipes_hashes.present? %>
+  <div>
+     <%= render partial: 'recipes/recipe_card_admin', collection: recipes_hashes, as: :recipe_hash %>
+  </div>
+
+<% else %>
+  <p class="lead text-white mt-5">Aucun résultat</p>
+<% end %>

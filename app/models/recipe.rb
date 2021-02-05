@@ -166,34 +166,40 @@ class Recipe < ApplicationRecord
     return results.flatten
   end
 
+
+
+
   def self.search_by_categories(category_ids)
-    category_recipe_ids = []
     sweet_recipe_ids = Category.find(436).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
     # pie_ids = Category.find(729).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
     # pasta_ids = Category.find(629).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
     # recipe_ids = recipe_ids & pasta_ids
 
-    Category.find(category_ids).each do |c|
-      category_recipe_ids << c.subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
+    broad_category_ids = Category.find(category_ids).map{ |c| c.subtree.pluck(:id) }.flatten.compact
+
+    seasonings_ids = Category.get_seasonings
+
+    filtered_recipe_ids = Recipe.includes(:categories).where(categories: { id: broad_category_ids }).pluck(:id)
+    filtered_recipe_ids = filtered_recipe_ids - sweet_recipe_ids
+
+    recipe_categories_hash_results = Recipe.where(id: filtered_recipe_ids, status: "published").deep_pluck(:id, :link, :title, 'categories' => [:id, :rating])
+
+    recipe_categories_hash_results.each do |key, value|
+      key["categories_used"] = (broad_category_ids & key["categories"].map{|x| x["id"]})
+      key["nb_categories_used"] = key["categories_used"].size
+      key["categories_unused"] = (broad_category_ids - key["categories_used"])
+      key["nb_categories_unused"] = key["categories_unused"].size
+      key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]}).size
+      key["recipe_categories_left"] = (key["categories"].map{|x| x["id"]} - broad_category_ids - seasonings_ids)
+      key["nb_recipe_categories_left"] = key["recipe_categories_left"].size
     end
 
-    categories = Category.find(category_ids + Category.get_seasonings)
-    binding.pry
-    hash = Recipe.find(category_recipe_ids.flatten.uniq).map{|recipe| {recipe_id: recipe.id, categories: recipe.categories}}
+    sorted_recipe_hashes = recipe_categories_hash_results.sort_by! { |k| [ k["nb_recipe_categories_left"], -k["nb_categories_used"], k["nb_recipe_categories"] ] }
 
-    sorted_recipe_ids = category_recipe_ids.flatten.group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
-    recipe_ids = sorted_recipe_ids - sweet_recipe_ids
-    return recipe_ids.compact[0..29]
-
-    # sorted_recipe_ids = category_recipe_ids.flatten.group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
-    # return Recipe.find(sorted_recipe_ids)
-
-    # seasonings = Category.get_seasonings
-    # recipes = Recipe.where(id: category_recipe_ids.flatten)
-    #                 .sort_by{ |r| (r.categories.pluck(:id) - seasonings - category_ids).size + (category_ids - r.categories.pluck(:id)).size}
-
-    # return recipes
+    return sorted_recipe_hashes[0..39]
   end
+
+
 
   def scrape
     url = URI.parse("https://smartmama.herokuapp.com/api/v1/scrape?link=#{self.link}")

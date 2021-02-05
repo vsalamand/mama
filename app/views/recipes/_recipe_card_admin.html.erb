@@ -18,4 +18,9 @@
       <%= render 'shared/favorite_button', recipe: Recipe.find(recipe_hash["id"]) %>
     </div>
   </div>
+  <div class="card-footer bg-white border-light p-2 d-flex flex-column">
+    <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["nb_categories_used"] %> <small class="text-muted">matches</small></p>
+    <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["nb_recipe_categories"] %> <small class="text-muted">total</small></p>
+    <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["nb_recipe_categories_left"] %> <small class="text-muted">left</small></p>
+  </div>
 </div>

@@ -277,7 +277,6 @@ function load_next_recipes(category_ids) {
 
 // Visualize recipes recommendations
 $(document).on("click", ".visualizeRecipes", function(event) {
-  if(document.getElementById('assistantContent')){
 
     const selectedContent = document.querySelectorAll(".selectedContent");
 
@@ -287,7 +286,7 @@ $(document).on("click", ".visualizeRecipes", function(event) {
                        category_ids.push(this.getAttribute('data-id'));
                     });
       var type = "v"
-      recommend(type, category_ids);
+      visualize(type, category_ids);
     }
     if(document.getElementById('uncomplete_list_items')){
       var item_ids = [];
@@ -295,13 +294,12 @@ $(document).on("click", ".visualizeRecipes", function(event) {
                        item_ids.push(this.getAttribute('data'));
                     });
       var type = "u"
-      recommend(type, item_ids);
+      visualize(type, item_ids);
     }
 
-  }
 })
 
-function recommend(type, ids) {
+function visualize(type, ids) {
   $.ajax({
     url: "/recipes/visualize",
     cache: false,

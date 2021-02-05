@@ -1,2 +1,2 @@
 document.getElementById('visualizationResults').innerHTML = "";
-document.getElementById('visualizationResults').innerHTML = ("<%= j render partial: 'recipes/recipe_card', collection: Recipe.find(@recipe_ids), as: :recipe %>");
+document.getElementById('visualizationResults').innerHTML = ("<%= j render 'recipes/recipe_visualizations', recipes_hashes: @recipes_hashes %>");
