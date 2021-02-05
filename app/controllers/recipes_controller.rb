@@ -295,6 +295,25 @@ class RecipesController < ApplicationController
     @clicks_per_recipe = @clicks_per_recipe.sort_by { |k| k[:count] }.reverse
   end
 
+  def visualization
+    @list = current_list
+    @saved_items = @list.get_saved_items
+    @categories = @list.get_suggestions
+  end
+
+  def visualize
+    type = params[:t]
+    if type == "u"
+      @category_ids = Item.find(params[:i]).pluck(:category_id).compact
+    else
+      @category_ids = params[:i].reject(&:empty?).map(&:to_i)
+    end
+
+    @recipe_ids = Recipe.search_by_categories(@category_ids)
+
+    render "visualize.js.erb"
+  end
+
   private
 
   def set_recipe

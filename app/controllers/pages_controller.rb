@@ -359,11 +359,6 @@ class PagesController < ApplicationController
     @items_listitems = Item.where(is_validated: true).last(100)
   end
 
-  def verify_listitems
-    @list_items = ListItem.all.select{ |it| it.item.nil?}
-    @item = Item.new
-  end
-
   def verify_products
     @products = Product.where(is_reported: true)
   end

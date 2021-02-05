@@ -177,6 +177,10 @@ class Recipe < ApplicationRecord
       category_recipe_ids << c.subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
     end
 
+    categories = Category.find(category_ids + Category.get_seasonings)
+    binding.pry
+    hash = Recipe.find(category_recipe_ids.flatten.uniq).map{|recipe| {recipe_id: recipe.id, categories: recipe.categories}}
+
     sorted_recipe_ids = category_recipe_ids.flatten.group_by{|x| x}.sort_by{|k, v| -v.size}.map(&:first)
     recipe_ids = sorted_recipe_ids - sweet_recipe_ids
     return recipe_ids.compact[0..29]

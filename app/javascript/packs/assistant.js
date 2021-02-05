@@ -146,8 +146,11 @@ $(document).on("turbolinks:load", function(event) {
 })
 
 $(document).on("DOMSubtreeModified", "#assistantItems", function(event) {
-  setSearchBar();
+  if (document.getElementById('searchRecipeBtn'))  {
+    setSearchBar();
+  }
 })
+
 function setSearchBar() {
   var searchBar = document.getElementById("searchRecipeBtn");
 
@@ -264,6 +267,48 @@ function load_next_recipes(category_ids) {
     dataType: 'script',
     data: {
         i: category_ids
+        },
+    success: function(){
+    }
+  });
+}
+
+
+
+// Visualize recipes recommendations
+$(document).on("click", ".visualizeRecipes", function(event) {
+  if(document.getElementById('assistantContent')){
+
+    const selectedContent = document.querySelectorAll(".selectedContent");
+
+    if(document.getElementById('selectedCategories')){
+      var category_ids = [];
+      $(selectedContent).map(function() {
+                       category_ids.push(this.getAttribute('data-id'));
+                    });
+      var type = "v"
+      recommend(type, category_ids);
+    }
+    if(document.getElementById('uncomplete_list_items')){
+      var item_ids = [];
+      $(selectedContent).map(function() {
+                       item_ids.push(this.getAttribute('data'));
+                    });
+      var type = "u"
+      recommend(type, item_ids);
+    }
+
+  }
+})
+
+function recommend(type, ids) {
+  $.ajax({
+    url: "/recipes/visualize",
+    cache: false,
+    dataType: 'script',
+    data: {
+        t: type,
+        i: ids
         },
     success: function(){
     }
