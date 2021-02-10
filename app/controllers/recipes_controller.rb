@@ -263,12 +263,12 @@ class RecipesController < ApplicationController
       @category_ids = params[:i].reject(&:empty?).map(&:to_i)
     end
 
-    recipe_ids = Recipe.search_by_categories(@category_ids, current_user).map{|x| x["id"]}
+    @recipe_ids = Recipe.search_by_categories(@category_ids, current_user).map{|x| x["id"]}
 
-    @recipes = Recipe.find(recipe_ids.take(2))
+    @recipes = Recipe.find(@recipe_ids.take(2))
 
-    session[:recommendations] = nil
-    session[:recommendations] = recipe_ids.drop(2)
+    # session[:recommendations] = nil
+    # session[:recommendations] = recipe_ids.drop(2)
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
@@ -276,13 +276,14 @@ class RecipesController < ApplicationController
   end
 
   def next
-    @category_ids = YAML.load(params[:i])
-    recipe_ids = session[:recommendations]
+    @category_ids = YAML.load(params[:c])
+    @recipe_ids = YAML.load(params[:r]).drop(2)
+    # @recipe_ids = session[:recommendations]
 
-    @recipes = Recipe.find(recipe_ids.take(2))
+    @recipes = Recipe.find(@recipe_ids.take(2))
 
-    session[:recommendations] = nil
-    session[:recommendations] = recipe_ids.drop(2)
+    # session[:recommendations] = nil
+    # session[:recommendations] = @recipe_ids.drop(2)
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 

@@ -2,3 +2,4 @@ document.getElementById('recipeRecommendations').innerHTML = "";
 document.getElementById('recipeRecommendations').innerHTML = ("<%= j render'recipes/recommendations', recipes: @recipes, list: @list, source_type: @source_type, source_id: @source_id %>");
 
 document.getElementById('recipeRecommendations').setAttribute('data', "<%= @category_ids %>");
+document.getElementById('recommendationData').setAttribute('data', "<%= @recipe_ids %>");

@@ -246,6 +246,9 @@ function recommend(type, ids) {
 
 // show next recommended recipes
 $(document).on("click", "#nextRecipeRecommendationsBtn", function(event) {
+  var category_ids = document.getElementById('recipeRecommendations').getAttribute('data');
+  var recipe_ids = document.getElementById('recommendationData').getAttribute('data');
+
   $('#recipeRecommendations').html(
     // `<p class="lead text-center text-white font-weight-bold">Chargement...</p>`
     // `<span class="spinner-border spinner-border-lg text-white text-center" role="status" aria-hidden="true"></span>`
@@ -254,20 +257,19 @@ $(document).on("click", "#nextRecipeRecommendationsBtn", function(event) {
     </p>`
   );
 
-  var category_ids = document.getElementById('recipeRecommendations').getAttribute('data');
-  load_next_recipes(category_ids);
+  load_next_recipes(category_ids, recipe_ids);
   ahoy.track("Next recommendations");
 })
 
 
-function load_next_recipes(category_ids) {
+function load_next_recipes(category_ids, recipe_ids) {
   $.ajax({
     url: "/recipes/next",
     cache: false,
     dataType: 'script',
     data: {
-        i: category_ids,
-        no_turbolink: true
+        c: category_ids,
+        r: recipe_ids
         },
     success: function(){
     }

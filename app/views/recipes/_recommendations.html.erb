@@ -1,5 +1,5 @@
 <% if recipes.present? %>
-  <div class="d-flex flex-column justify-content-around" style="height: 90vh; overflow-x: hidden; overflow-y: hidden;">
+  <div class="d-flex flex-column justify-content-around" style="height: 90vh; overflow-x: hidden; overflow-y: hidden;" id="recommendationData" data="">
     <div id="recipeElements" data="">
        <%= render 'recipes/recipe_card', recipe: recipes.first, list: list, source_type: source_type, source_id: source_id %>
     </div>
