@@ -5,7 +5,7 @@
       <%= render 'items/list_item_form', list: @list, item: Item.new %>
   </div>
   <div class="row p-0">
-    <div class="col-md-6">
+    <div class="col-md-4">
 
 
       <div id="searchResults" style="display: none;">
@@ -75,7 +75,7 @@
 
 
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="jumbotron jumbotron-fluid bg-transparent p-0 border-0">
           <h2 class="font-weight-bold text-muted">Recommandations</h2>
         </div>
@@ -85,7 +85,17 @@
               Recherche
            </button>
         </div>
-        <div id="visualizationResults" class="col-sm-8 mx-auto mt-5">
+        <div class="row">
+          <div class="col-sm-5 mx-auto mt-5">
+            <h3>Global results</h3>
+            <div id="visualizationResults">
+            </div>
+          </div>
+          <div class="col-sm-5 mx-auto mt-5">
+            <h3>Current user results</h3>
+            <div id="userVisualizationResults">
+            </div>
+          </div>
         </div>
     </div>
 

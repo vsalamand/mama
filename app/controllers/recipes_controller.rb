@@ -263,18 +263,28 @@ class RecipesController < ApplicationController
       @category_ids = params[:i].reject(&:empty?).map(&:to_i)
     end
 
-    @recipes_hashes = Recipe.search_by_categories(@category_ids).shuffle.first(2)
+    recipe_ids = Recipe.search_by_categories(@category_ids, current_user).map{|x| x["id"]}
 
-    @recipes_hashes.each{ |recipe_hash| ahoy.track "Recommend recipe", recipe_id: recipe_hash["id"], title: recipe_hash["title"] }
+    @recipes = Recipe.find(recipe_ids.take(2))
+
+    flash[:recommendations] = []
+    flash[:recommendations] = recipe_ids.drop(2)
+
+    @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
     render "recommend.js.erb"
   end
 
   def next
     @category_ids = YAML.load(params[:i])
-    @recipes_hashes = Recipe.search_by_categories(@category_ids).shuffle.first(2)
+    recipe_ids = flash[:recommendations]
 
-    @recipes_hashes.each{ |recipe_hash| ahoy.track "Recommend recipe", recipe_id: recipe_hash["id"], title: recipe_hash["title"] }
+    @recipes = Recipe.find(recipe_ids.take(2))
+
+    flash[:recommendations] = []
+    flash[:recommendations] = recipe_ids.drop(2)
+
+    @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
     render "recommend.js.erb"
   end
@@ -309,7 +319,9 @@ class RecipesController < ApplicationController
       @category_ids = params[:i].reject(&:empty?).map(&:to_i)
     end
 
-    @recipes_hashes = Recipe.search_by_categories(@category_ids)
+    @recipes_hashes = Recipe.search_by_categories(@category_ids, nil)
+    @user_recipes_hashes = Recipe.search_by_categories(@category_ids, current_user)
+
 
     render "visualize.js.erb"
   end

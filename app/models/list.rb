@@ -237,10 +237,10 @@ class List < ApplicationRecord
   def get_suggestions
     data = []
 
-    seasonings = Category.get_seasonings
+    non_essentials = Category.get_non_essentials
     fruits = Category.find(86).subtree.pluck(:id)
     beverages = Category.find(1).subtree.pluck(:id)
-    banned_products = seasonings + fruits + beverages
+    banned_products = non_essentials + fruits + beverages
 
     list_categories = self.items.not_deleted.pluck(:category_id).compact
     saved_products = self.get_saved_items.pluck(:category_id).compact

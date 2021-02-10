@@ -1,2 +1,5 @@
 document.getElementById('visualizationResults').innerHTML = "";
 document.getElementById('visualizationResults').innerHTML = ("<%= j render 'recipes/recipe_visualizations', recipes_hashes: @recipes_hashes %>");
+
+document.getElementById('userVisualizationResults').innerHTML = "";
+document.getElementById('userVisualizationResults').innerHTML = ("<%= j render 'recipes/recipe_visualizations', recipes_hashes: @user_recipes_hashes %>");
