@@ -266,7 +266,8 @@ function load_next_recipes(category_ids) {
     cache: false,
     dataType: 'script',
     data: {
-        i: category_ids
+        i: category_ids,
+        no_turbolink: true
         },
     success: function(){
     }
