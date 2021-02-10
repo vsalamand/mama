@@ -267,8 +267,8 @@ class RecipesController < ApplicationController
 
     @recipes = Recipe.find(recipe_ids.take(2))
 
-    flash[:recommendations] = []
-    flash[:recommendations] = recipe_ids.drop(2)
+    session[:recommendations] = nil
+    session[:recommendations] = recipe_ids.drop(2)
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
@@ -277,12 +277,12 @@ class RecipesController < ApplicationController
 
   def next
     @category_ids = YAML.load(params[:i])
-    recipe_ids = flash[:recommendations]
+    recipe_ids = session[:recommendations]
 
     @recipes = Recipe.find(recipe_ids.take(2))
 
-    flash[:recommendations] = []
-    flash[:recommendations] = recipe_ids.drop(2)
+    session[:recommendations] = nil
+    session[:recommendations] = recipe_ids.drop(2)
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 

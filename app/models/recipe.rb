@@ -230,7 +230,7 @@ class Recipe < ApplicationRecord
     sorted_recipe_hashes = recipe_categories_hash_results.sort_by! { |k| -k["score"] }
 
 
-    return sorted_recipe_hashes[0..39]
+    return sorted_recipe_hashes[0..49]
   end
 
 
