@@ -20,6 +20,7 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :recipe_list_items
 
+
   RATING = ["excellent", "good", "limit", "avoid"]
 
   # acts_as_ordered_taggable
@@ -166,35 +167,68 @@ class Recipe < ApplicationRecord
     return results.flatten
   end
 
+  def self.get_disliked_recipe_ids
+    RecipeListItem.where(recipe_list_id: RecipeList.where(recipe_list_type: "dislikes").pluck(:id)).pluck(:recipe_id)
+  end
+
+  def self.get_events(recipe_id)
+    Ahoy::Event.where_properties(recipe_id: recipe_id)
+  end
 
 
 
-  def self.search_by_categories(category_ids)
+  def self.search_by_categories(category_ids, user)
     sweet_recipe_ids = Category.find(436).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
-    # pie_ids = Category.find(729).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
-    # pasta_ids = Category.find(629).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
-    # recipe_ids = recipe_ids & pasta_ids
+    disliked_recipe_ids = Recipe.get_disliked_recipe_ids
 
-    broad_category_ids = Category.find(category_ids).map{ |c| c.subtree.pluck(:id) }.flatten.compact
+    user_disliked_recipe_ids = user.present? ? user.get_dislikes_recipe_list.recipes.pluck(:id) : Array.new
 
+    # broad_category_ids = Category.find(category_ids).map{ |c| c.subtree.pluck(:id) }.flatten.compact
+    broad_category_ids = category_ids
     seasonings_ids = Category.get_seasonings
 
     filtered_recipe_ids = Recipe.includes(:categories).where(categories: { id: broad_category_ids }).pluck(:id)
-    filtered_recipe_ids = filtered_recipe_ids - sweet_recipe_ids
+    filtered_recipe_ids = filtered_recipe_ids - sweet_recipe_ids - user_disliked_recipe_ids
 
-    recipe_categories_hash_results = Recipe.where(id: filtered_recipe_ids, status: "published").deep_pluck(:id, :link, :title, 'categories' => [:id, :rating])
+    recipe_categories_hash_results = Recipe.where(id: filtered_recipe_ids, status: "published")
+                                            .deep_pluck(:id, :link, :title, 'categories' => [:id, :rating])
 
     recipe_categories_hash_results.each do |key, value|
+      events = Recipe.get_events(key["id"])
+      impressions = events.where(name: "Recommend recipe").count.to_f
+      user_impressions = user.present? ? events.where(user_id: user.id).where(time: 2.days.ago..Time.now).where(name: "Recommend recipe").count.to_f : 0
+      key["user_impressions"] = user_impressions.to_i
+
+      # clicks = events.where(name: "Click recipe").count.to_f
+      # nb_dislikes = disliked_recipe_ids.count(key["id"])
+      # key["impressions"] = impressions.to_i
+      # key["clicks"] = clicks.to_i
+      # key["nb_dislikes"] = nb_dislikes
+      # key["dislike_rate"] = (nb_dislikes / impressions)
+      # key["dislike_rate"] = 0 if key["dislike_rate"].nan?
+      # key["click_rate"] = (clicks / impressions)
+      # key["click_rate"] = 0 if key["click_rate"].nan?
+
       key["categories_used"] = (broad_category_ids & key["categories"].map{|x| x["id"]})
       key["nb_categories_used"] = key["categories_used"].size
-      key["categories_unused"] = (broad_category_ids - key["categories_used"])
-      key["nb_categories_unused"] = key["categories_unused"].size
-      key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]}).size
+      # key["categories_unused"] = (broad_category_ids - key["categories_used"])
+      # key["nb_categories_unused"] = key["categories_unused"].size
+      key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]} - seasonings_ids).size
       key["recipe_categories_left"] = (key["categories"].map{|x| x["id"]} - broad_category_ids - seasonings_ids)
       key["nb_recipe_categories_left"] = key["recipe_categories_left"].size
+
+
+      key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_recipe_categories"].to_f)
+      key["fill_rate"] = 1 - (key["nb_recipe_categories_left"].to_f / key["nb_recipe_categories"].to_f)
+      key["usage_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f )
+
+      key["score"] = (key["match_rate"] * 1) - (key["fill_rate"] * 0.25) + (key["usage_rate"] * 0.25) - (key["user_impressions"] / 2 * 0.3)
+
     end
 
-    sorted_recipe_hashes = recipe_categories_hash_results.sort_by! { |k| [ k["nb_recipe_categories_left"], -k["nb_categories_used"], k["nb_recipe_categories"] ] }
+    # sorted_recipe_hashes = recipe_categories_hash_results.sort_by! { |k| [ k["nb_recipe_categories_left"], -k["nb_categories_used"], k["nb_recipe_categories"] ] }
+    sorted_recipe_hashes = recipe_categories_hash_results.sort_by! { |k| -k["score"] }
+
 
     return sorted_recipe_hashes[0..39]
   end

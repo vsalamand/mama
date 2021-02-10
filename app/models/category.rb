@@ -141,24 +141,51 @@ class Category < ApplicationRecord
 
   def self.get_seasonings
     ids = []
-    ids << Category.find(280).subtree.pluck(:id)
-    ids << Array(Category.find(605)).pluck(:id)
-    ids << Array(Category.find(440)).pluck(:id)
-    ids << Array(Category.find(812)).pluck(:id)
-    ids << Array(Category.find(603)).pluck(:id)
-    ids << Array(Category.find(505)).pluck(:id)
-    ids << Category.find(87).subtree.pluck(:id)
-    ids << Category.find(604).subtree.pluck(:id)
-    ids << Category.find(499).subtree.pluck(:id)
+    # eaux
     ids << Category.find(5).subtree.pluck(:id)
-    ids << Category.find(726).subtree.pluck(:id)
-    ids << Category.find(279).subtree.pluck(:id)
+    # aides à la cuisine
     ids << Category.find(793).subtree.pluck(:id)
-    ids << Category.find(538).subtree.pluck(:id)
+    # => sel & poivre
     ids << Category.find(282).subtree.pluck(:id)
+
+    return ids.flatten
+  end
+
+  def self.get_non_essentials
+    ids = []
+    # herbes
+    ids << Category.find(280).subtree.pluck(:id)
+    # huiles
     ids << Category.find(603).subtree.pluck(:id)
+    # vinagres
+    ids << Category.find(604).subtree.pluck(:id)
+    # beurres
+    ids << Category.find(499).subtree.pluck(:id)
+    # eaux
+    ids << Category.find(5).subtree.pluck(:id)
+    # soupes
+    ids << Category.find(726).subtree.pluck(:id)
+    # aides à la cuisine
+    ids << Category.find(793).subtree.pluck(:id)
+    # sucres, farines
+    ids << Category.find(538).subtree.pluck(:id)
+    # => sel & poivre
+    ids << Category.find(282).subtree.pluck(:id)
+    # condiments
     ids << Category.find(727).subtree.pluck(:id)
+    # fromages
+    # ids << Array(Category.find(440)).pluck(:id)
+    # sauces
+    ids << Array(Category.find(812)).pluck(:id)
+    # crèmes
+    ids << Array(Category.find(505)).pluck(:id)
+    # légumes à bulbes
+    ids << Category.find(87).subtree.pluck(:id)
+    # oeufs
+    # ids << Category.find(279).subtree.pluck(:id)
+    # # produits sucrés
     ids << Category.find(436).subtree.pluck(:id)
+    # crèmes fraiches
     ids << Category.find(502).children.pluck(:id)
     return ids.flatten
   end
@@ -221,10 +248,10 @@ class Category < ApplicationRecord
   def self.get_suggestions
     data = []
 
-    seasonings = Category.get_seasonings
+    non_essentials = Category.get_non_essentials
     fruits = Category.find(86).subtree.pluck(:id)
     beverages = Category.find(1).subtree.pluck(:id)
-    banned_products = seasonings + fruits + beverages
+    banned_products = non_essentials + fruits + beverages
 
     top_recipe_category_ids = Category.get_top_recipe_category_ids
     top_added_category_ids = Category.get_top_added_category_ids

@@ -1,21 +1,21 @@
 <div class="card mb-2 rounded">
-  <%= link_to recipe_hash["link"], target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick", data:"#{recipe_hash["id"]}" do %>
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick", data:"#{recipe.id}" do %>
     <div class="d-flex text-dark mb-0 bd-highlight">
       <div class="mr-2 p-2 my-auto">
-         <%= cl_image_tag("#{recipe_hash["id"]}", :fetch_format=>:auto, :quality=>"auto:low", class:"avatar-large", alt:"#{recipe_hash["title"]}") %>
+         <%= cl_image_tag("#{recipe.id}", :fetch_format=>:auto, :quality=>"auto:low", class:"avatar-large", alt:"#{recipe.title}") %>
       </div>
       <div class="card-body p-1 my-auto">
-        <p class="card-title mb-0 font-weight-bold text-primary"><%= truncate(recipe_hash["title"], length:260) %></p>
-        <small class="text-muted"><%= URI("#{recipe_hash["link"]}").host %></small>
+        <p class="card-title mb-0 font-weight-bold text-primary"><%= truncate(recipe.title, length:260) %></p>
+        <small class="text-muted"><%= URI("#{recipe.link}").host %></small>
       </div>
     </div>
   <% end %>
   <div class="card-footer bg-light border-light p-2 text-center d-flex justify-content-around">
-    <div id="isDisliked<%= recipe_hash["id"] %>">
-      <%= render 'shared/dislike_recipe_button', recipe: Recipe.find(recipe_hash["id"]) %>
+    <div id="isDisliked<%= recipe.id %>">
+      <%= render 'shared/dislike_recipe_button', recipe: recipe %>
     </div>
-    <div id="isFavorite<%= recipe_hash["id"] %>">
-      <%= render 'shared/favorite_button', recipe: Recipe.find(recipe_hash["id"]) %>
+    <div id="isFavorite<%= recipe.id %>">
+      <%= render 'shared/favorite_button', recipe: recipe %>
     </div>
   </div>
 </div>
