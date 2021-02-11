@@ -26,18 +26,18 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             <% end %>
-            <%= render "items/rating_indicator", item: item %>
-            <p class="lead m-0 p-0 text-muted font-weight-bold no-link fetchItem" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
+            <%= link_to list_item_uncomplete_path(item.list, item), remote: true, style:"text-decoration:none;" do %>
+              <div class="d-flex align-items-center no-link">
+                <%= render "items/rating_indicator", item: item %>
+                <!-- add fetchItem class to popup modal -->
+                <p class="lead m-0 p-0 text-muted font-weight-bold no-link" style="cursor: pointer;" data="<%= item.id %>"><%= item.name %></p>
+              </div>
           </div>
 
-          <div class="d-flex align-items-center">
-            <% if false %>
-            <%= render "shared/badge_points", points: item.get_points %>
+              <div class="d-flex align-items-center">
+                  <i class="fas fa-2x fa-check-square text-muted px-1" style="filter: brightness(1.40);"></i>
+              </div>
             <% end %>
-            <%= link_to list_item_uncomplete_path(item.list, item), remote: true do %>
-              <i class="fas fa-2x fa-check-square text-muted px-1" style="filter: brightness(1.40);"></i>
-            <% end %>
-          </div>
        </li>
       <% end %>
 
