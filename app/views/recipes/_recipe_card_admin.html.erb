@@ -19,22 +19,15 @@
     </div>
   </div>
   <div class="card-footer bg-white border-light p-2 d-flex flex-column">
-      <p class="h3 m-0 text-primary font-weight-bold mb-2"><%= recipe_hash["score"].round(3) %> <small class="text-muted">score</small></p>
+      <p class="h3 m-0 text-primary font-weight-bold mb-2 text-center"><%= sprintf('%.2f', recipe_hash["score"] * 100) %> <small class="text-muted">score</small></p>
     <div class="d-flex justify-content-around text-left">
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["match_rate"].round(3) %> <small class="text-muted">match</small></p>
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["fill_rate"].round(3) %> <small class="text-muted">fill</small></p>
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["usage_rate"].round(3) %> <small class="text-muted">use</small></p>
+      <p class="m-0 font-weight-bold"><%= sprintf('%.2f', recipe_hash["match_rate"] * 100) %> <small class="text-muted">match</small></p>
+      <p class="m-0 font-weight-bold"><%= sprintf('%.2f', recipe_hash["fill_rate"] * 100) %> <small class="text-muted">fill</small></p>
+      <p class="m-0 font-weight-bold"><%= sprintf('%.2f', recipe_hash["random_score"] * 100) %> <small class="text-muted">rand</small></p>
     </div>
     <div class="d-flex justify-content-around text-left my-2">
       <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["nb_categories_used"] %> <small class="text-muted">matches</small></p>
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["nb_recipe_categories"] %> <small class="text-muted">categories</small></p>
-    </div>
-    <div class="d-flex justify-content-around text-left">
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["impressions"] %> <small class="text-muted">imps</small></p>
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["user_impressions"] %> <small class="text-muted">user_imps</small></p>
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["clicks"] %> <small class="text-muted">clicks</small></p>
-      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["nb_dislikes"] %> <small class="text-muted">bans</small></p>
-
+      <p class="m-0 text-primary font-weight-bold"><%= recipe_hash["nb_recipe_categories"] %> <small class="text-muted">ingredients</small></p>
     </div>
   </div>
 </div>
