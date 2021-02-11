@@ -196,7 +196,7 @@ class Recipe < ApplicationRecord
     recipe_categories_hash_results.each do |key, value|
       events = Recipe.get_events(key["id"])
       impressions = events.where(name: "Recommend recipe").count.to_f
-      user_impressions = user.present? ? events.where(user_id: user.id).where(time: 2.days.ago..Time.now).where(name: "Recommend recipe").count.to_f : 0
+      user_impressions = user.present? ? events.where(user_id: user.id).where(time: 2.hours.ago..Time.now).where(name: "Recommend recipe").count.to_f : 0
       key["user_impressions"] = user_impressions.to_i
 
       # clicks = events.where(name: "Click recipe").count.to_f
@@ -214,23 +214,22 @@ class Recipe < ApplicationRecord
       # key["categories_unused"] = (broad_category_ids - key["categories_used"])
       # key["nb_categories_unused"] = key["categories_unused"].size
       key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]} - seasonings_ids).size
-      key["recipe_categories_left"] = (key["categories"].map{|x| x["id"]} - broad_category_ids - seasonings_ids)
-      key["nb_recipe_categories_left"] = key["recipe_categories_left"].size
+      # key["recipe_categories_left"] = (key["categories"].map{|x| x["id"]} - broad_category_ids - seasonings_ids)
+      # key["nb_recipe_categories_left"] = key["recipe_categories_left"].size
 
 
       key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_recipe_categories"].to_f)
-      key["fill_rate"] = 1 - (key["nb_recipe_categories_left"].to_f / key["nb_recipe_categories"].to_f)
-      key["usage_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f )
+      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f )
+      key["random_score"] = rand(-1.0..1.0).round(3)
 
-      key["score"] = (key["match_rate"] * 1) - (key["fill_rate"] * 0.25) + (key["usage_rate"] * 0.25) - (key["user_impressions"] / 2 * 0.3)
-
+      key["score"] = key["match_rate"] + (key["fill_rate"] * 0.3) - (key["user_impressions"] / 3 * 0.3) + (key["random_score"] * 0.2)
     end
 
     # sorted_recipe_hashes = recipe_categories_hash_results.sort_by! { |k| [ k["nb_recipe_categories_left"], -k["nb_categories_used"], k["nb_recipe_categories"] ] }
     sorted_recipe_hashes = recipe_categories_hash_results.sort_by! { |k| -k["score"] }
 
 
-    return sorted_recipe_hashes[0..49]
+    return sorted_recipe_hashes[0..39]
   end
 
 

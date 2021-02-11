@@ -267,9 +267,6 @@ class RecipesController < ApplicationController
 
     @recipes = Recipe.find(@recipe_ids.take(2))
 
-    # session[:recommendations] = nil
-    # session[:recommendations] = recipe_ids.drop(2)
-
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
     render "recommend.js.erb"
@@ -278,12 +275,8 @@ class RecipesController < ApplicationController
   def next
     @category_ids = YAML.load(params[:c])
     @recipe_ids = YAML.load(params[:r]).drop(2)
-    # @recipe_ids = session[:recommendations]
 
     @recipes = Recipe.find(@recipe_ids.take(2))
-
-    # session[:recommendations] = nil
-    # session[:recommendations] = @recipe_ids.drop(2)
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
