@@ -274,6 +274,12 @@ class List < ApplicationRecord
     return points.flatten.compact.reduce(:+)
   end
 
+  def get_healthy_score
+    good_bad_ratio = self.get_rated_items([1]).size - self.get_rated_items([3]).size
+    score = good_bad_ratio / self.get_rated_items([1, 2, 3]).size.to_f
+    return score
+  end
+
   def set_game
     self.game = Game.first
     self.save
