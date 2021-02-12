@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_124804) do
+ActiveRecord::Schema.define(version: 2021_02_12_095225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -482,9 +482,9 @@ ActiveRecord::Schema.define(version: 2020_11_03_124804) do
     t.string "status"
     t.string "origin"
     t.string "link"
-    t.string "rating"
     t.string "image_url"
     t.string "slug"
+    t.float "rating"
     t.index ["slug"], name: "index_recipes_on_slug", unique: true
   end
 
