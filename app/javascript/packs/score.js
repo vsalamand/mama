@@ -2,17 +2,21 @@ import Rails from 'rails-ujs'
 import 'bootstrap';
 
 $(document).on("turbolinks:load", function(event) {
-  setScore();
+  // setScore();
 })
 
 
 // Set list score
 function setScore() {
   if(document.querySelector("#score")){
+    var listId = document.querySelector("#score").getAttribute('data');
 
     $.ajax({
       url: "/get_score",
       cache: false,
+      data: {
+        l: listId
+      },
       success: function(){
       }
     });

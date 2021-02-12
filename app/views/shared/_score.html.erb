@@ -1,49 +1,75 @@
-<% if current_user %>
-  <%= link_to activity_path, :"data-turbolinks" => false, id:"getScoreBtn", class:"btn btn-link font-weight-light p-0 d-flex align-items-center", style:"text-decoration: none;" do %>
+  <% if false %>
+    <%= link_to activity_path, :"data-turbolinks" => false, id:"getScoreBtn", class:"btn btn-link font-weight-light p-0 d-flex align-items-center", style:"text-decoration: none;" do %>
+    <% end %>
+  <% end %>
+
+  <div class="btn btn-link font-weight-light p-0 d-flex align-items-center" style="text-decoration: none;">
+
 
       <% case
        when score > 99 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(165, 5, 189),rgb(239, 87, 203));">
-          <p class="lead font-weight-bold m-0 text-white"><%= score %> points</p>
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-color:#17B169; width:85px;">
+          <p class="lead font-weight-bold m-0 text-white"><%= score %> <%= cl_image_tag("menu_icons/fire", width: 20, class:"m-0 pb-1") %></p>
+        </div>
+      </div>
+
+      <% when score > 79 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24)); width:85px;">
+          <p class="lead font-weight-bold m-0 text-white"><%= score %> %</p>
+        </div>
+      </div>
+
+    <% when score > 69 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-color: #32de84; width:85px;">
+           <p class="lead font-weight-bold m-0 text-white"><%= score %> %</p>
         </div>
       </div>
 
     <% when score > 59 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(1, 198, 86),rgb(47, 152, 24));">
-           <p class="lead font-weight-bold m-0 text-white"><%= score %> points</p>
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-image: linear-gradient(145deg, rgba(232, 87, 237, 0.15) 0%,rgba(109, 137, 69, 0.15) 100%),linear-gradient(75deg, rgb(33, 138, 184),rgb(0, 241, 181)); width:85px;">
+           <p class="lead font-weight-bold m-0 text-white"><%= score %> %</p>
         </div>
       </div>
 
-    <% when score > 29 %>
+    <% when score > 49 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(135deg, rgb(182, 244, 85),rgb(63, 128, 87));">
-           <p class="lead font-weight-bold m-0 text-white"><%= score %> points</p>
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(237, 228, 100),rgb(252, 152, 51)); width:85px;">
+           <p class="lead font-weight-bold m-0 text-white"><%= score %> %</p>
+        </div>
+      </div>
+
+    <% when score > 19 %>
+      <div class="bg-transparent d-flex justify-content-center">
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-image: linear-gradient(135deg, rgb(245, 177, 77),rgb(237, 53, 115)); width:85px;">
+           <p class="lead font-weight-bold m-0 text-white"><%= score %> %</p>
         </div>
       </div>
 
     <% when score > 1 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
-           <p class="lead font-weight-bold m-0 text-white"><%= score %> points</p>
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-image: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); width:85px;">
+           <p class="lead font-weight-bold m-0 text-white"><%= score %> %</p>
         </div>
       </div>
 
-    <% when score.between?(-1, 1) %>
+    <% when score == 0 %>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));">
-           <p class="lead font-weight-bold m-0 text-white"><%= score %> point</p>
+        <div class="border-0 border-success rounded-lg shadow-lg py-2" style="cursor: pointer; background-image: linear-gradient(45deg, rgb(51, 138, 249),rgb(47, 248, 255)); width:85px;">
+           <p class="lead font-weight-bold m-0 text-white"><%= score %> %</p>
         </div>
       </div>
 
-    <% when score < -1%>
+    <% when score < 0%>
       <div class="bg-transparent d-flex justify-content-center">
-        <div class="border-0 border-success rounded-lg shadow-lg px-3 py-2" style="cursor: pointer; background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));">
-           <p class="lead font-weight-bold m-0 text-white"><%= score %> points</p>
+        <div class="border-0 border-success rounded-lg py-2" style="cursor: pointer; background-image: linear-gradient(90deg, rgb(165, 5, 189),rgb(239, 87, 203)); width:85px;">
+           <p class="lead font-weight-bold m-0 text-white"><%= cl_image_tag("menu_icons/down-arrow", width: 20, class:"mr-1") %><%= score * -1 %> %</p>
         </div>
       </div>
     <% end %>
 
-  <% end %>
-<% end %>
+  </div>
+

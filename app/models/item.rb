@@ -133,18 +133,6 @@ class Item < ApplicationRecord
   def self.add_menu_to_list(ingredients, list)
     new_items = []
 
-    # if ingredients.any?
-    #   ingredients.each do |ing|
-    #     new_item = Item.new(name: ing.squeeze(' '))
-    #     new_item = new_item.set
-    #     new_item.list = list
-    #     new_items << new_item
-    #   end
-    #   Item.import new_items
-
-    #   new_items.each{ |i| i.create_item_history}
-    # end
-
     queries = ingredients.map{|input| "query=#{input}" }.compact
     if ingredients.any?
       url = URI.parse(URI::encode("https://smartmama.herokuapp.com/api/v1/parse/items?#{queries.join("&")}"))
@@ -186,19 +174,6 @@ class Item < ApplicationRecord
     new_items = []
 
     ingredients = recipe.ingredients.split("\r\n")
-
-    #   if ingredients.any?
-    #   ingredients.each do |ing|
-    #     new_item = Item.new(name: ing.squeeze(' '))
-    #     new_item = new_item.set
-    #     new_item.list = nil
-    #     new_item.recipe = recipe
-    #     new_items << new_item
-    #   end
-    #   Item.import new_items
-
-    #   new_items.each{ |i| i.create_item_history}
-    # end
 
     queries = ingredients.map{|input| "query=#{input}" }.compact
     if ingredients.any?

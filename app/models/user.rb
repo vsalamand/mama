@@ -132,47 +132,6 @@ class User < ApplicationRecord
     Score.find_or_create_by(user: self, game: game)
   end
 
-  def get_suggestions
-    data = []
-
-    seasonings = Category.get_seasonings
-    fruits = Category.find(86).subtree.pluck(:id)
-    snoozed = Category.get_user_snoozed_category_ids(self)
-    beverages = Category.find(1).subtree.pluck(:id)
-    banned_products = seasonings + snoozed + fruits + beverages
-
-    history_user_category_ids = Category.get_user_category_ids_history(self)
-    top_user_category_ids = Category.get_top_user_category_ids(self)
-    top_recipe_category_ids = Category.get_top_recipe_category_ids
-    top_added_category_ids = Category.get_top_added_category_ids
-
-    cleaned_user_category_ids = (history_user_category_ids + top_user_category_ids - banned_products)
-    if cleaned_user_category_ids.size < 10
-      cleaned_user_category_ids = cleaned_user_category_ids.fill(nil, cleaned_user_category_ids.size...15)
-    end
-    user_tops = cleaned_user_category_ids.map{|id| {id: id, context: "user_top"}}.each_slice(2).to_a
-    data << user_tops
-
-    recipe_tops = (top_recipe_category_ids - banned_products).map{|id| {id: id, context: "recipe_top"}}.each_slice(2).to_a
-    data << recipe_tops
-
-    if Checklist.find_by(name: "healthy").present?
-      Checklist.find_by(name: "healthy").checklist_items.each do |checklist|
-        category_ids = (top_recipe_category_ids & checklist.list.categories.pluck(:id))
-        data << (category_ids - banned_products).map{|id| {id: id, context: "recommended"}}.each_slice(1).to_a
-      end
-    end
-
-
-    data = data.select(&:present?)
-    data = data.first.zip(*data[1..].shuffle)
-                    .flatten
-                    .compact
-                    .uniq! {|e| e[:id] }
-
-    # return array of hashes
-    return data.first(50).shuffle
-  end
 
 
   private

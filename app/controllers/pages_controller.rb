@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
                                                   :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install,
-                                                  :start, :fetch_landing, :assistant, :add_to_homescreen, :beta, :check_user]
+                                                  :start, :fetch_landing, :assistant, :add_to_homescreen, :beta, :check_user, :get_score]
   before_action :authenticate_admin!, only: [:dashboard, :pending, :users, :verify_items, :add_to_beta ]
 
 
@@ -312,7 +312,8 @@ class PagesController < ApplicationController
   end
 
   def get_score
-    @score = current_user.get_score
+    @list = List.find(params[:l])
+    @score = (@list.get_healthy_score * 100).round
     render "get_score.js.erb"
   end
 

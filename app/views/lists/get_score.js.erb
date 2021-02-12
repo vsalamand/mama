@@ -1,3 +1,3 @@
-var score = document.querySelector("#listScore");
+var score = document.querySelector("#score");
 score.innerHTML = "";
-score.innerHTML = ("<%= j render 'lists/rating', list: @list, score: @score %>");
+score.innerHTML = ("<%= j render 'shared/score', score: @score, list: @list %>");
