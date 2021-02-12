@@ -277,6 +277,7 @@ class List < ApplicationRecord
   def get_healthy_score
     good_bad_ratio = self.get_rated_items([1]).size - self.get_rated_items([3]).size
     score = good_bad_ratio / self.get_rated_items([1, 2, 3]).size.to_f
+    score = 0 if score.nan?
     return score
   end
 

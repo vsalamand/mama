@@ -18,7 +18,7 @@
         <% end %>
 
 
-        <div id="score" data="" style="min-height: 45px;">
+        <div id="score" data="<%= list.id %>" style="min-height: 45px;">
           <%= render "shared/score", score: current_user.get_score %>
         </div>
 
