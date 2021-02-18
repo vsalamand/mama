@@ -189,6 +189,8 @@ class Recipe < ApplicationRecord
   end
 
   def self.search_by_categories(category_ids, user)
+    curated_recipe_list_ids = RecipeList.curated.pluck(:id)
+    curated_recipe_ids = RecipeListItem.where(recipe_list_id: curated_recipe_list_ids).pluck(:recipe_id).uniq
     sweet_recipe_ids = Category.find(436).subtree.map{ |c| c.recipes.where(status: "published").pluck(:id) }.flatten
     user_disliked_recipe_ids = user.present? ? user.get_dislikes_recipe_list.recipes.pluck(:id) : Array.new
 
@@ -214,8 +216,9 @@ class Recipe < ApplicationRecord
       key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.3
       key["random_score"] = (rand(-1.0..1.0).round(3) * 0.2)
       key["healthy_rate"] = key["rating"] * 0.2
+      key["hot_score"] = curated_recipe_ids.include?(key["id"]) ? 0.3 : 0
 
-      key["score"] = key["match_rate"] + key["fill_rate"] + key["user_impressions_rate"] + key["healthy_rate"] + key["random_score"]
+      key["score"] = key["match_rate"] + key["hot_score"] + key["fill_rate"] + key["user_impressions_rate"] + key["healthy_rate"] + key["random_score"]
     end
 
     sorted_recipe_hashes = recipes_hash.sort_by! { |k| -k["score"] }
