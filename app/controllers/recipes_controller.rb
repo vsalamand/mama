@@ -275,8 +275,10 @@ class RecipesController < ApplicationController
   def next
     @category_ids = YAML.load(params[:c])
     @recipe_ids = YAML.load(params[:r]).drop(2)
+    @recipe_ids = Recipe.search_by_categories(@category_ids, current_user).map{|x| x["id"]} if @recipe_ids.size < 2
 
     @recipes = Recipe.find(@recipe_ids.take(2))
+
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 

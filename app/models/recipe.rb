@@ -213,9 +213,9 @@ class Recipe < ApplicationRecord
       key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]} - seasonings_ids).size
 
       key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_recipe_categories"].to_f)
-      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.3
-      key["random_score"] = (rand(-1.0..1.0).round(3) * 0.2)
-      key["healthy_rate"] = key["rating"] * 0.2
+      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.5
+      key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
+      key["healthy_rate"] = key["rating"] * 0.0
       key["hot_score"] = curated_recipe_ids.include?(key["id"]) ? 0.3 : 0
 
       key["score"] = key["match_rate"] + key["hot_score"] + key["fill_rate"] + key["user_impressions_rate"] + key["healthy_rate"] + key["random_score"]
