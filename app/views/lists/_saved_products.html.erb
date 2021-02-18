@@ -9,7 +9,7 @@
       </ul>
     </div>
     <div id="enregistresElements" class="sectionItems">
-      <%= render partial: 'items/show', collection: items.order(:updated_at).reverse, as: :item %>
+      <%= render partial: 'items/show', collection: items.sort_by{|e| e.name.parameterize }, as: :item %>
     </div>
   </div>
 <% end %>

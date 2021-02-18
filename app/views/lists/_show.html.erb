@@ -17,10 +17,12 @@
           </div>
         <% end %>
 
+        <% if false %>
 
-        <div id="score" data="<%= list.id %>" style="min-height: 45px;">
-          <%= render "shared/score", score: current_user.get_score %>
-        </div>
+          <div id="score" data="<%= list.id %>" style="min-height: 45px;">
+            <%= render "shared/score", score: current_user.get_score %>
+          </div>
+        <% end %>
 
       </nav>
     </div>

@@ -30,9 +30,12 @@
                   <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
               </div>
             <% end %>
-            <div class="ml-1" id="score" data="<%= @list.id %>" style="min-height: 45px;">
-              <%= render "shared/score", score: (@list.get_healthy_score * 100).round, list: @list %>
-            </div>
+
+            <% if false %>
+              <div class="ml-1" id="score" data="<%= @list.id %>" style="min-height: 45px;">
+                <%= render "shared/score", score: (@list.get_healthy_score * 100).round, list: @list %>
+              </div>
+            <% end %>
 
           <% else %>
             <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight openLink" do %>
@@ -46,9 +49,13 @@
               <div class="btn btn-light border btn-lg" id="startAuthenticationBtn" data="favorites">
                   <i class="fas fa-lg fa-star" style="color: #ffd700;"></i>
               </div>
-              <div class="ml-1" id="score" data="<%= @list.id %>" style="min-height: 45px;">
-                <%= render "shared/score", score: (@list.get_healthy_score * 100).round, list: @list %>
-              </div>
+
+              <% if false %>
+                <div class="ml-1" id="score" data="<%= @list.id %>" style="min-height: 45px;">
+                  <%= render "shared/score", score: (@list.get_healthy_score * 100).round, list: @list %>
+                </div>
+              <% end %>
+
             </div>
           <% end %>
 
@@ -85,9 +92,12 @@
       <div id="savedProducts">
         <%=  render"lists/saved_products", items: @saved_items %>
       </div>
-      <div id="itemsRecommendations" class="pb-5">
-          <%= render'lists/suggested_products', categories: @categories %>
-      </div>
+
+      <% if false %>
+        <div id="itemsRecommendations" class="pb-5">
+            <%= render'lists/suggested_products', categories: @categories %>
+        </div>
+      <% end %>
     </div>
 
 
