@@ -28,33 +28,7 @@
 
   <div>
     <% if @recipes %>
-        <% @recipes.reverse.each do |recipe| %>
-
-          <div class="jumbotron">
-            <h2 class="m-0"><%= recipe.title %> <span class="badge badge-secondary"><%= recipe.id %></span></h2>
-            <div class="d-flex flex-column m-0">
-              <%= link_to recipe.link, recipe_path(recipe), target: "_blank" %>
-              <small class="text-muted m-0"><span class="badge badge-warning"><%= recipe.status %></span> <%= recipe.created_at.to_date %> </small>
-            </div>
-            <div class="d-flex flex-row bd-highlight mt-3 justify-content-start">
-              <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"bd-highlight mr-1 btn btn-light border m-1" %>
-              <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn btn-light border m-1" %>
-              <%= link_to "Delete", recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, method: :delete, class:"bd-highlight mr-1 btn btn-danger m-1" %>
-            </div>
-
-            <hr class="my-4">
-
-            <button class="btn btn-light border text-primary editRecipeListItemsModalbtn m-1" data="<%= recipe.id %>">Ajouter à une catégorie</button>
-            <ul class="m-0">
-              <% recipe.get_curated_lists.each do |cl| %>
-                <li><%= cl.name %></li>
-              <% end %>
-            </ul>
-
-          </div>
-
-        <% end %>
-
+      <%= render partial: 'recipes/admin_recipe', collection: @recipes.reverse, as: :recipe %>
     <% end %>
 
   </div>

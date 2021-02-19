@@ -1,3 +1,8 @@
+if(document.querySelector(".adminRecipe")){
+  var card = document.getElementById("recipe-id<%= @recipe.id %>");
+  $(card).replaceWith("<%= j render 'recipes/admin_recipe', recipe: @recipe %>");
+    }
+
 if(document.getElementById("recipeCard<%= @recipe.id %>")){
   var card = document.getElementById("recipeCard<%= @recipe.id %>");
   $(card).replaceWith("<%= j render 'recipes/recipe_card', recipe: @recipe, recipe_list: @recipe_list %>");

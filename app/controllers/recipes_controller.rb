@@ -125,14 +125,21 @@ class RecipesController < ApplicationController
     @recipe.save
     @recipe.items.each{ |item| item.validate }
     # @recipe.upload_to_cloudinary
-   redirect_back(fallback_location:"/")
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location:"/") }
+      format.js { render 'set_published_status.js.erb' }
+    end
   end
 
   def set_dismissed_status
     @recipe.status = "dismissed"
     @recipe.save
     # @recipe.items.each{ |item| item.unvalidate }
-   redirect_back(fallback_location:"/")
+    respond_to do |format|
+      format.html { redirect_back(fallback_location:"/") }
+      format.js { render 'set_dismissed_status.js.erb' }
+    end
   end
 
 
@@ -220,7 +227,10 @@ class RecipesController < ApplicationController
   def destroy
     @recipe = Recipe.friendly.find(params[:id])
     @recipe.destroy
-    redirect_back(fallback_location:"/")
+    respond_to do |format|
+      format.html { redirect_back(fallback_location:"/") }
+      format.js { render 'destroy.js.erb' }
+    end
   end
 
   def update_servings
