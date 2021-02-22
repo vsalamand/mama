@@ -1,7 +1,7 @@
 <%= render 'shared/admin-navbar' %>
 
 
-<div class="container mb-5">
+<div class="wrapper px-2 mb-5">
   <h1>Recipes</h1>
 
   <div class="d-flex flex-column bd-highlight my-2">
@@ -15,7 +15,7 @@
         <button class="bd-highlight mr-1 btn bg-light border dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= @category.present? ? @category.name : "Catégories" %>
         </button>
-        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownSortButton">
+        <div class="dropdown-menu" aria-labelledby="dropdownSortButton">
           <%= link_to "ALL", manage_recipes_path, class:"dropdown-item" %>
           <%= link_to "PENDING", manage_recipes_path(pending: 1), class:"dropdown-item" %>
           <% @categories.order(:name).each do |category| %>
@@ -27,11 +27,15 @@
   </div>
 
   <div>
+  <%= will_paginate @recipes %>
+  <div class="my-3">
     <% if @recipes %>
-      <%= render partial: 'recipes/admin_recipe', collection: @recipes.reverse, as: :recipe %>
+      <%= render partial: 'recipes/admin_recipe', collection: @recipes, as: :recipe %>
     <% end %>
 
   </div>
+  <%= will_paginate @recipes %>
+
 </div>
 
     <!-- Edit Recipe List Item Modal -->

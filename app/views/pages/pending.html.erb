@@ -4,29 +4,12 @@
   <div class="row">
     <h1>Nouveau contenu en attente de validation</h1>
   </div>
+  <%= will_paginate @recipes %>
   <div class="my-3">
-    <% @recipes.order(:id).reverse[0..2].each do |recipe| %>
-          <div class="jumbotron">
-            <h2 class=""><%= recipe.title %> <span class="badge badge-secondary"><%= recipe.id %></span></h2>
-            <%= link_to recipe.link, recipe_path(recipe), target: "_blank" %>
-            <div class="d-flex flex-row bd-highlight mt-3 justify-content-start">
-              <%= link_to "Publish", set_published_status_recipe_path(recipe), class:"bd-highlight mr-1 btn btn-light border m-1" %>
-              <%= link_to "Dissmiss", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, class:"bd-highlight mr-1 btn btn-light border m-1" %>
-              <%= link_to "Delete", recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, method: :delete, class:"bd-highlight mr-1 btn btn-danger m-1" %>
-            </div>
 
-            <hr class="my-4">
+    <% @recipes.each do |recipe| %>
 
-            <button class="btn btn-light border text-primary editRecipeListItemsModalbtn mb-1" data="<%= recipe.id %>">Ajouter à une catégorie</button>
-            <%= link_to "Ajouter aux idées du moment", add_to_menu_recipe_path(recipe, recipe_list_id: @recommend.id), data: { confirm: 'Êtes-vous sûr ?' }, class:"btn btn-light border text-primary mb-1" %>
-
-            <ul class="m-0">
-              <% recipe.get_curated_lists.each do |cl| %>
-                <li><%= cl.name %></li>
-              <% end %>
-            </ul>
-
-            <hr class="my-4">
+            <%= render "recipes/admin_recipe", recipe: recipe %>
 
             <div class="ingredients">
               <ul class="list-group p-0">
@@ -56,10 +39,10 @@
             <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: recipe.id), target: "_blank", class:"btn btn-light border m-2" %>
             </div>
 
-          </div>
 
     <% end %>
   </div>
+  <%= will_paginate @recipes %>
 
 </div>
 

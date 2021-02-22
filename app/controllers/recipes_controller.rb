@@ -70,12 +70,14 @@ class RecipesController < ApplicationController
     if @category.present?
       @recipes = @category.recipes
     elsif params[:pending].present?
-      @recipes = Recipe.where(status: "pending")
+      @recipes = Recipe.where(status: "pending").order(:id).reverse
     elsif @query.present?
-      @recipes = Recipe.search(@query, fields: [:title])[0..49] if @query
+      @recipes = Recipe.search(@query, fields: [:title]) if @query
     else
-      @recipes = Recipe.where(status: "published").last(100)
+      @recipes = Recipe.where(status: "published").order(:id).reverse
     end
+
+    @recipes = @recipes.paginate(page: params[:page], per_page: 100)
 
     respond_to do |format|
       format.html
@@ -207,6 +209,24 @@ class RecipesController < ApplicationController
     end
 
     ahoy.track "Add recipe", request.path_parameters
+  end
+
+  def categorize
+    category = params[:c]
+    @recipe = Recipe.friendly.find(params[:id])
+
+    if @recipe.category_list.include?(category)
+      @recipe.category_list = ""
+      @recipe.save
+    else
+      @recipe.category_list = category
+      @recipe.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location:"/") }
+      format.js { render 'categorize.js.erb' }
+    end
   end
 
   def add_menu_to_list

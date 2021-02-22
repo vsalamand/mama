@@ -5,13 +5,16 @@
          <%= cl_image_tag("#{recipe.id}", :fetch_format=>:auto, :quality=>"auto:low", class:"avatar-large p-2", alt:"#{recipe.title}") %>
       </div>
 
-      <div>
+      <div >
+        <small class="text-muted px-2"> <%= recipe.id %> </small>
         <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
          <p class="li lead m-0 px-2 no-link text-primary font-weight-bold " style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
         <% end %>
+         <small class="px-2"><%= URI("#{recipe.link}").host %></small>
+        <p class="px-2 font-weight-bold"><%= recipe.rating.round(2) %></p>
 
 
-        <div class="d-flex justify-content-start">
+        <div class="d-flex justify-content-start px-2">
           <% if recipe.is_published? %>
             <%= link_to "Unpublish", set_dismissed_status_recipe_path(recipe), data: { confirm: 'Êtes-vous sûr ?' }, remote: true, class:"btn btn-sm btn-outline-danger" %>
           <% else %>
@@ -23,7 +26,23 @@
       </div>
 
     </div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center flex-column">
+
+        <div>
+
+          <% if recipe.good? %>
+          <%= link_to "😇 GOOD", categorize_recipe_path(recipe, c: "good"), remote: true, class:"btn btn-lg btn-success m-2" %>
+          <% else %>
+          <%= link_to "😇 GOOD", categorize_recipe_path(recipe, c: "good"), remote: true, class:"btn btn-lg btn-light border m-2" %>
+          <% end %>
+
+          <% if recipe.limit? %>
+            <%= link_to "🤭 LIMIT", categorize_recipe_path(recipe, c: "limit"), remote: true, class:"btn btn-lg btn-success m-2" %>
+          <% else %>
+            <%= link_to "🤭 LIMIT", categorize_recipe_path(recipe, c: "limit"), remote: true, class:"btn btn-lg btn-light border m-2" %>
+          <% end %>
+
+        </div>
 
         <div class="btn-group" role="group">
           <% RecipeList.curated.each do |category| %>

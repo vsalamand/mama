@@ -30,18 +30,17 @@
 
 <div class="container my-3">
 
-    <div class="row">
-      <% @recipe_lists.order(:id).each do |recipe_list| %>
-        <div class="col-sm-6 p-1">
-            <div class="card bg-white shadow border-0" style="height: 120px;">
-              <div class="card-body">
-                <h5 class="card-title"><%= recipe_list.name %></h5>
-                <button class="font-weight-bold btn btn-outline-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editCuratedRecipeList<%= recipe_list.id %>Modal">modifier</button>
-                <%= link_to 'Voir', recipe_list_path(recipe_list), class:"btn btn-info", target: "_blank" %>
-
-              </div>
-            </div>
-        </div>
+    <ul class="list-group">
+      <% @recipe_lists.order(:name).each do |recipe_list| %>
+        <li class="list-group-item d-flex align-items-center justify-content-between">
+          <div class="d-flex flex-column">
+            <%= link_to recipe_list.name, recipe_list_path(recipe_list), class:"btn btn-lg btn-link font-weight-bold p-0 m-0", target: "_blank" %>
+            <small class="pl-2 text-muted"><%= recipe_list.status %></small>
+          </div>
+          <div>
+            <button class="font-weight-bold btn btn-outline-primary" style="cursor: pointer;" data-toggle="modal" data-target="#editCuratedRecipeList<%= recipe_list.id %>Modal">modifier</button>
+          </div>
+        </li>
 
         <!-- Edit Recipe List Modal -->
         <div class="modal fade" id="editCuratedRecipeList<%= recipe_list.id %>Modal" tabindex="-1" role="dialog" aria-labelledby="editCuratedRecipeListModal<%= recipe_list.id %>Label" aria-hidden="true">
@@ -65,7 +64,7 @@
 
 
       <% end %>
-    </div>
+    </ul>
 
 </div>
 

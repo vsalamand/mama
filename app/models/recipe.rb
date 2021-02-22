@@ -23,12 +23,16 @@ class Recipe < ApplicationRecord
 
   RATING = ["excellent", "good", "limit", "avoid"]
 
-  # acts_as_ordered_taggable
-  # acts_as_taggable_on :categories
+  acts_as_ordered_taggable
+  acts_as_taggable_on :categories
 
   searchkick language: "french"
   scope :search_import, -> { where(status: "published").where.not(origin: "mama") }
   scope :to_validate, -> { includes(:items).where(status: "published").where( :items => { :is_validated => false } ) }
+  scope :published, -> { where(status: "published").where.not(origin: "mama") }
+  scope :pending, -> { where(status: "pending").where.not(origin: "mama") }
+  scope :dismissed, -> { where(status: "dismissed").where.not(origin: "mama") }
+
 
   after_create do
     # update to cloudinary
@@ -131,6 +135,14 @@ class Recipe < ApplicationRecord
     end
 
     self.save
+  end
+
+  def good?
+    return self.category_list.include?("good")
+  end
+
+  def limit?
+    return self.category_list.include?("limit")
   end
 
   def get_curated_lists
