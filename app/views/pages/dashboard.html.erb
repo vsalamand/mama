@@ -23,7 +23,12 @@
     </div>
     <div class="col-md-3 d-flex flex-column align-items-start">
       <h2>Analytics</h2>
-      <%= link_to "Recipes", analytics_recipes_path, class: "btn btn-link" %>
+      <%= link_to "Recipes", analytics_recipes_path, class: "btn btn-link m-0" %>
+      <p class="btn btn-link disabled m-0"><%= Recipe.published.size %> live recipes</p>
+      <p class="btn btn-link disabled m-0"><%= Recipe.pending.size %> pending recipes</p>
+      <p class="btn btn-link disabled m-0"><%= Recipe.dismissed.size %> unpublished recipes</p>
+      <p class="btn btn-link disabled m-0"><%= Recipe.tagged_with("good").size %> good</p>
+      <p class="btn btn-link disabled m-0"><%= Recipe.tagged_with("limit").size %> limit</p>
     </div>
     <div class="col-md-3 d-flex flex-column align-items-start">
       <h2>Visualization</h2>

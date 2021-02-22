@@ -137,6 +137,7 @@ Rails.application.routes.draw do
       get :edit_modal
       get :update_servings
       get :click
+      get :categorize
     end
     resources :items do
       get :add_to_list

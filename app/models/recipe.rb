@@ -23,12 +23,16 @@ class Recipe < ApplicationRecord
 
   RATING = ["excellent", "good", "limit", "avoid"]
 
-  # acts_as_ordered_taggable
-  # acts_as_taggable_on :categories
+  acts_as_ordered_taggable
+  acts_as_taggable_on :categories
 
   searchkick language: "french"
   scope :search_import, -> { where(status: "published").where.not(origin: "mama") }
   scope :to_validate, -> { includes(:items).where(status: "published").where( :items => { :is_validated => false } ) }
+  scope :published, -> { where(status: "published").where.not(origin: "mama") }
+  scope :pending, -> { where(status: "pending").where.not(origin: "mama") }
+  scope :dismissed, -> { where(status: "dismissed").where.not(origin: "mama") }
+
 
   after_create do
     # update to cloudinary
@@ -133,6 +137,14 @@ class Recipe < ApplicationRecord
     self.save
   end
 
+  def good?
+    return self.category_list.include?("good")
+  end
+
+  def limit?
+    return self.category_list.include?("limit")
+  end
+
   def get_curated_lists
     self.recipe_lists.where(recipe_list_type: "curated")
   end
@@ -213,9 +225,9 @@ class Recipe < ApplicationRecord
       key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]} - seasonings_ids).size
 
       key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_recipe_categories"].to_f)
-      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.3
-      key["random_score"] = (rand(-1.0..1.0).round(3) * 0.2)
-      key["healthy_rate"] = key["rating"] * 0.2
+      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.5
+      key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
+      key["healthy_rate"] = key["rating"] * 0.0
       key["hot_score"] = curated_recipe_ids.include?(key["id"]) ? 0.3 : 0
 
       key["score"] = key["match_rate"] + key["hot_score"] + key["fill_rate"] + key["user_impressions_rate"] + key["healthy_rate"] + key["random_score"]
