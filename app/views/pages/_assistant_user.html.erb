@@ -66,14 +66,14 @@
     <div class="wrapper" style="min-height: 70vh;">
       <div class="container px-1" id="todo_list" data="<%= @list.id %>">
 
-          <div class="jumbotron text-white mb-2 px-2 py-3" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
-            <p class="pl-1 lead text-white mb-3">Listez vos produits ci-dessous <span class="small">⬇️</span></p>
-            <div class="search-form-control">
-              <input type="text" placeholder="Nouveau produit" class="py-4 rounded rounded-lg font-weight-bold form-control form-control-lg text-primary border" id="toggleListItemform" style="cursor: pointer;" >
-<!--               <button class="btn btn-sm btn-primary font-weight-bold" id="addContentBtn" type="submit">
-               Ajouter
-              </button> -->
-            </div>
+          <div class="jumbotron text-white text-center mb-2 px-2 py-3" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
+            <p class="pl-1 lead text-white mb-3">
+              <%= cl_image_tag("menu_icons/down-arrow", width: 15, class:"span small pb-1") %>
+               Listez vos produits disponibles
+              <%= cl_image_tag("menu_icons/down-arrow", width: 15, class:"span small pb-1") %>
+             </p>
+            <button class="btn btn-lg btn-light px-4 py-2 border-0 rounded shadow-lg" style="font-size: 1.5rem;" id="toggleListItemform">Nouveau produit</button>
+
           </div>
 
           <div class="px-2 mt-3" id="assistantItems">
