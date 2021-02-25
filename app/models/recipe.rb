@@ -25,7 +25,7 @@ class Recipe < ApplicationRecord
 
   acts_as_ordered_taggable
   acts_as_taggable_on :tags
-  acts_as_taggable_on :categories
+  # acts_as_taggable_on :categories
 
   searchkick language: "french"
   scope :search_import, -> { where(status: "published").where.not(origin: "mama") }
