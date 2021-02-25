@@ -68,16 +68,14 @@ class RecipesController < ApplicationController
     @recipe_list_item = RecipeListItem.new
 
     if @category.present?
-      @recipes = @category.recipes
+      @recipes = @category.recipes.paginate(page: params[:page], per_page: 100)
     elsif params[:pending].present?
-      @recipes = Recipe.where(status: "pending").order(:id).reverse
+      @recipes = Recipe.where(status: "pending").order(:id).reverse.paginate(page: params[:page], per_page: 100)
     elsif @query.present?
-      @recipes = Recipe.search(@query, fields: [:title]) if @query
+      @recipes = Recipe.search(@query, fields: [:title], page: params[:page], per_page: 100) if @query
     else
-      @recipes = Recipe.where(status: "published").order(:id).reverse
+      @recipes = Recipe.where(status: "published").order(:id).reverse.paginate(page: params[:page], per_page: 100)
     end
-
-    @recipes = @recipes.paginate(page: params[:page], per_page: 100)
 
     respond_to do |format|
       format.html
@@ -215,11 +213,11 @@ class RecipesController < ApplicationController
     category = params[:c]
     @recipe = Recipe.friendly.find(params[:id])
 
-    if @recipe.category_list.include?(category)
-      @recipe.category_list = ""
+    if @recipe.tag_list.include?(category)
+      @recipe.tag_list = ""
       @recipe.save
     else
-      @recipe.category_list = category
+      @recipe.tag_list = category
       @recipe.save
     end
 
@@ -293,7 +291,7 @@ class RecipesController < ApplicationController
       @category_ids = params[:i].reject(&:empty?).map(&:to_i)
     end
 
-    @recipe_ids = Recipe.search_by_categories(@category_ids, current_user).map{|x| x["id"]}
+    @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]}
 
     @recipes = Recipe.find(@recipe_ids.take(2))
 
@@ -305,7 +303,7 @@ class RecipesController < ApplicationController
   def next
     @category_ids = YAML.load(params[:c])
     @recipe_ids = YAML.load(params[:r]).drop(2)
-    @recipe_ids = Recipe.search_by_categories(@category_ids, current_user).map{|x| x["id"]} if @recipe_ids.size < 2
+    @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]} if @recipe_ids.size < 2
 
     @recipes = Recipe.find(@recipe_ids.take(2))
 

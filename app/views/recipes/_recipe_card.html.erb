@@ -1,4 +1,5 @@
-<div class="card mb-2 rounded">
+<div class="card mb-2 rounded m-2" style="position: relative;" >
+  <%= render 'shared/recipe_tag', recipe: recipe %>
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick", data:"#{recipe.id}" do %>
     <div class="d-flex text-dark mb-0 bd-highlight">
       <div class="mr-2 p-2 my-auto">
@@ -6,7 +7,7 @@
       </div>
       <div class="card-body p-1 my-auto">
         <p class="card-title mb-0 font-weight-bold text-primary"><%= truncate(recipe.title, length:260) %></p>
-        <small class="text-muted"><%= URI("#{recipe.link}").host %></small>
+        <small class="text-muted" style="font-size: 0.6rem;"><%= URI("#{recipe.link}").host %></small>
       </div>
     </div>
   <% end %>
@@ -19,3 +20,4 @@
     </div>
   </div>
 </div>
+
