@@ -90,7 +90,11 @@ class Recipe < ApplicationRecord
   end
 
   def is_user_favorite?(user)
-    user.get_latest_recipe_list.recipes.pluck(:id).include?(self.id)
+    user.get_likes_recipe_list.recipes.pluck(:id).include?(self.id)
+  end
+
+  def is_selected?(recipe_list)
+    recipe_list.recipes.pluck(:id).include?(self.id)
   end
 
   def is_disliked_by_user?(user)
@@ -156,7 +160,7 @@ class Recipe < ApplicationRecord
   end
 
   def add_to_favorites(user)
-    recipe_list = user.get_latest_recipe_list
+    recipe_list = user.get_likes_recipe_list
     self.add_to_recipe_list(recipe_list)
   end
 
@@ -261,6 +265,7 @@ class Recipe < ApplicationRecord
     # create  hash with relevant recipe data
     data = []
 
+    # create recipe hash for good recipes
     recipe_hash = Recipe.where(id: good_eligible_recipe_ids)
                           .deep_pluck(:id, :link, :title, :rating, 'categories' => [:id, :rating])
 
@@ -281,6 +286,7 @@ class Recipe < ApplicationRecord
     end
     data << recipe_hash.sort_by! { |k| -k["score"] }
 
+    # create recipe hash for limit recipes
     recipe_hash = Recipe.where(id: limit_eligible_recipe_ids)
                           .deep_pluck(:id, :link, :title, :rating, 'categories' => [:id, :rating])
 
@@ -301,6 +307,7 @@ class Recipe < ApplicationRecord
     end
     data << recipe_hash.sort_by! { |k| -k["score"] }
 
+    # merge hashes
     recommendations = data.first.zip(data.second).flatten
     return recommendations[0..39]
   end

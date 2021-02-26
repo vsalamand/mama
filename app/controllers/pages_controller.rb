@@ -46,11 +46,16 @@ class PagesController < ApplicationController
   end
 
   def cuisine
-    recipe_idea_id = RecipeList.where(recipe_list_type: "curated").map{ |rl| rl.recipes.pluck(:id)}.flatten.shuffle[0]
-    @recipe = Recipe.find(recipe_idea_id)
-    @selected_categories = params[:c].compact if params[:c].present?
+    @recipes = current_recipe_list.recipes.order(:id)
 
     ahoy.track "Cuisine"
+  end
+
+  def favorites
+    @recipes = current_user.get_likes_recipe_list.recipes.order(:title)
+    # redirect_to root_path
+    @recipe_list = current_recipe_list
+    ahoy.track "Favorites"
   end
 
   def refresh_meal
@@ -90,12 +95,6 @@ class PagesController < ApplicationController
   #   @recipes = current_user.recipe_list_items.last(50).reverse.map{ |rli| rli.recipe}.uniq
   #   ahoy.track "History"
   # end
-
-  def favorites
-    @recipes = current_user.get_latest_recipe_list.recipes.order(:title)
-    # redirect_to root_path
-    ahoy.track "Favorites"
-  end
 
   def select
     @selected_items = params[:i].join("&i=") if params[:i]
@@ -190,25 +189,6 @@ class PagesController < ApplicationController
     render 'get_list.js.erb'
   end
 
-  def add_recipe
-    @recipe = Recipe.find(params[:recipe_id])
-    render 'add_recipe.js.erb'
-    ahoy.track "Add recipe", recipe_id: @recipe.id, title: @recipe.title
-  end
-
-  def remove_recipe
-    @recipe = Recipe.find(params[:recipe_id])
-    render 'remove_recipe.js.erb'
-    ahoy.track "Remove recipe", recipe_id: @recipe.id, title: @recipe.title
-  end
-
-  # def explore_recipes
-  #   @categories = Recommendation.where(is_active: true).last
-  #   render 'explore_recipes.js.erb'
-  #   ahoy.track "Explore recipes", request.path_parameters
-  # end
-
-
 
   def add_to_list
     user = current_user if user_signed_in?
@@ -258,13 +238,33 @@ class PagesController < ApplicationController
 
   def remove_from_favorites
     @recipe = Recipe.find(params[:r])
-    @recipe_list = current_user.get_latest_recipe_list
+    @recipe_list = current_user.get_likes_recipe_list
     @recipe_list_item = RecipeListItem.find_by(recipe_id: @recipe.id, recipe_list_id: @recipe_list.id)
 
     if @recipe_list_item.present?
       @recipe_list_item.destroy
       render 'remove_from_favorites.js.erb'
       ahoy.track "Remove from favorites", recipe_id: @recipe.id, title: @recipe.title
+    end
+  end
+
+  def add_recipe
+    @recipe = Recipe.find(params[:r])
+    @recipe.add_to_recipe_list(current_recipe_list)
+
+    render 'add_recipe.js.erb'
+    ahoy.track "Add recipe", recipe_id: @recipe.id, title: @recipe.title
+  end
+
+  def remove_recipe
+    @recipe = Recipe.find(params[:r])
+    @recipe_list = current_recipe_list
+    @recipe_list_item = RecipeListItem.find_by(recipe_id: @recipe.id, recipe_list_id: @recipe_list.id)
+
+    if @recipe_list_item.present?
+      @recipe_list_item.destroy
+      render 'remove_recipe.js.erb'
+      ahoy.track "Remove recipe", recipe_id: @recipe.id, title: @recipe.title
     end
   end
 

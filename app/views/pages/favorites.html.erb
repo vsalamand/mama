@@ -1,5 +1,5 @@
 <% content_for :meta_title, "Favoris" %>
-<% content_for :meta_description, "Toutes vos recettes préférées réunies au même endroit pour les retrouver facilement." %>
+<% content_for :meta_description, "Enregistrez vos recettes préférées pour les retrouver facilement." %>
 
 <% unless ["add_to_homescreen"].include?(params[:action])%>
   <div id="iOSInstallNavbar"></div>
@@ -21,16 +21,23 @@
 
 
 
-<div class="container px-2 mb-5">
+<div class="container px-0 mb-5">
   <div id="recipesFavorites">
     <div id="recipesHeader">
       <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-center pl-1 pb-0 m-0">
         <div class="d-flex align-items-center">
-          <h1 class="font-weight-bold text-muted"><i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i></p>
+          <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+              <a class="nav-link" href="/cuisine">Sélectionnées</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Enregistrées</a>
+            </li>
+          </ul>
         </div>
       </ul>
     </div>
-    <div class="d-flex align-items-center justify-content-center">
+    <div class="d-flex align-items-center justify-content-center mt-3">
       <% if @recipes.present? %>
         <div id="recipeElements" class="col-sm-4 my-auto">
           <%= render partial: 'recipes/recipe_card', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
@@ -40,7 +47,7 @@
           <div class="d-flex align-items-center m-2">
             <div id="description">
               <div class="d-flex w-100 flex-column mb-0">
-                <p class="text-muted">Vous n'avez pas encore ajouté de recettes aux favoris.</p>
+                <p class="text-muted">Vous n'avez pas encore enregistré de recettes.</p>
               </div>
             </div>
           </div>

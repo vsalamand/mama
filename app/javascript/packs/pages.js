@@ -362,6 +362,39 @@ $(document).on("click", ".removeFromDislikedRecipes", function(event) {
 });
 
 
+//  Add recipe to selection
+$(document).on("click", ".addRecipe", function(event) {
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/add_recipe",
+    cache: false,
+    dataType: 'script',
+    data: {
+        r: recipeId
+        },
+    success: function(){
+    }
+  });
+});
+
+//  Remove recipe from selection
+$(document).on("click", ".removeRecipe", function(event) {
+  var recipeId = this.getAttribute('data');
+
+  $.ajax({
+    url: "/remove_recipe",
+    cache: false,
+    dataType: 'script',
+    data: {
+        r: recipeId
+        },
+    success: function(){
+    }
+  });
+});
+
+
 
 //  Autorefresh landing eveyr 5 seconds
 function autoRefresh_landing() {

@@ -1,2 +1,2 @@
-var recipeCard = document.getElementById("<%= @recipe.id %>");
-recipeCard.remove();
+var recipeCard = document.getElementById("isSelected<%= @recipe.id %>");
+recipeCard.innerHTML = ("<%= j render 'shared/select_recipe_button', recipe: @recipe %>");

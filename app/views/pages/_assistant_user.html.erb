@@ -25,9 +25,10 @@
             <% else %>
                 <%= render 'shared/nav_actions' %>
             <% end %>
-            <%= link_to favorites_path, class:"openLink" do %>
+            <%= link_to cuisine_path, class:"openLink" do %>
               <div class="btn btn-light border btn-lg">
                   <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
+                  Vos recettes
               </div>
             <% end %>
 
@@ -72,10 +73,10 @@
                Listez vos produits disponibles
               <%= cl_image_tag("menu_icons/down-arrow", width: 15, class:"span small pb-1") %>
             </p>
-            <button id="toggleListItemform" class="btn btn-lg btn-light px-4 py-2 border-0 rounded shadow-lg" style="font-size: 1.5rem;" >Nouveau produit</button>
+            <div id="toggleListItemform" class="bg-white text-left text-muted px-2 py-2 border rounded shadow-lg" style="font-size: 1.3rem; cursor: pointer;" ><small class="text-muted"><i class="fas fa-plus"></i></small> Ajouter un produit</div>
           </div>
 
-          <div class="px-2 mt-3" id="assistantItems">
+          <div class="px-0 mt-3" id="assistantItems">
             <div class="" id="uncomplete_list_items">
               <%= render 'lists/uncomplete_todo_list', list: @list %>
             </div>
@@ -87,7 +88,7 @@
 
       </div>
     </div>
-    <div class="container px-2">
+    <div class="container px-1">
       <div id="savedProducts">
         <%=  render"lists/saved_products", items: @saved_items %>
       </div>

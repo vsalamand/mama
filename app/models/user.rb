@@ -107,6 +107,10 @@ class User < ApplicationRecord
     RecipeList.find_or_create_by(name: "Dislikes", user_id: self.id, recipe_list_type: "dislikes", status: "archived")
   end
 
+  def get_likes_recipe_list
+    RecipeList.find_or_create_by(name: "Likes", user_id: self.id, recipe_list_type: "likes", status: "archived")
+  end
+
   def get_latest_recipe_list
     if self.recipe_lists.where(status: "opened").any?
       return self.recipe_lists.where(status: "opened").last

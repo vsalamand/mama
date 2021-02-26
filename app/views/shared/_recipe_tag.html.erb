@@ -1,9 +1,11 @@
-<% if recipe.good? %>
-  <div class="rounded-pill rounded-lg p-2"  style="position: absolute; top: -10px; left: -5px; background: #00FA9A; opacity: 1.0;">
-    <%= cl_image_tag("menu_icons/smiling-face-with-halo", width: 25, height: 25, class:"shadow-lg", style:"opacity: 0.9;") %>
-  </div>
-<% elsif recipe.limit? %>
-  <div class="rounded-pill rounded-lg p-2"  style="position: absolute; top: -10px; left: -5px; background: #FF7F50; opacity: 1.0;">
-    <%= cl_image_tag("menu_icons/face-with-hand-over-mouth", width: 25, height: 25, class:"shadow-lg", style:"opacity: 0.9;") %>
-  </div>
+<% if ["recommend", "next"].include?(params[:action]) %>
+  <% if recipe.good? %>
+    <div class="rounded-pill rounded-lg p-2"  style="position: absolute; top: -10px; left: -5px; background: #00FA9A; opacity: 1.0;">
+      <%= cl_image_tag("menu_icons/smiling-face-with-halo", width: 25, height: 25, class:"shadow-lg", style:"opacity: 0.9;") %>
+    </div>
+  <% elsif recipe.limit? %>
+    <div class="rounded-pill rounded-lg p-2"  style="position: absolute; top: -10px; left: -5px; background: #FF7F50; opacity: 1.0;">
+      <%= cl_image_tag("menu_icons/face-with-hand-over-mouth", width: 25, height: 25, class:"shadow-lg", style:"opacity: 0.9;") %>
+    </div>
+  <% end %>
 <% end %>
