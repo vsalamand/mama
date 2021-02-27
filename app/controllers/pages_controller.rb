@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :browse, :cuisine, :products, :meals, :select_products, :select_recipes, :explore_recipes,
                                                   :search_recipes, :browse_category, :add_recipe, :remove_recipe, :get_list,
                                                   :add_to_list, :add_to_list_modal, :explore, :select_list, :fetch_ios_install, :fetch_android_install,
-                                                  :start, :fetch_landing, :assistant, :add_to_homescreen, :beta, :check_user, :get_score]
+                                                  :start, :fetch_landing, :assistant, :add_to_homescreen, :beta, :check_user, :get_score, :favorites]
   before_action :authenticate_admin!, only: [:dashboard, :pending, :users, :verify_items, :add_to_beta ]
 
 
@@ -24,17 +24,21 @@ class PagesController < ApplicationController
   end
 
   def assistant
+    @list = current_list
+    @recipe_list = current_recipe_list
 
     if current_user
-      @list = current_list
       # @list = current_user.get_assistant
       @saved_items = @list.get_saved_items
       @categories = @list.get_suggestions
     else
-      @list = List.find(current_list)
       @saved_items = []
       @categories = Category.get_suggestions
     end
+
+    # double check on class name to prevend weid bug retrieving data from session params
+    @list = current_list if @list.class.name != "List"
+    @recipe_list = current_recipe_list  if @recipe_list.class.name != "RecipeList"
 
     ahoy.track "Assistant"
   end
@@ -46,15 +50,25 @@ class PagesController < ApplicationController
   end
 
   def cuisine
-    @recipes = current_recipe_list.recipes.order(:id)
+    if current_user
+      @recipe_list = current_recipe_list
+    else
+      @recipe_list = current_recipe_list
+    end
+    @recipes = @recipe_list.recipes.order(:id)
 
     ahoy.track "Cuisine"
   end
 
   def favorites
-    @recipes = current_user.get_likes_recipe_list.recipes.order(:title)
-    # redirect_to root_path
     @recipe_list = current_recipe_list
+
+    if current_user
+      @recipes = current_user.get_likes_recipe_list.recipes.order(:title)
+    else
+      @recipes = []
+    end
+
     ahoy.track "Favorites"
   end
 
@@ -250,7 +264,9 @@ class PagesController < ApplicationController
 
   def add_recipe
     @recipe = Recipe.find(params[:r])
+
     @recipe.add_to_recipe_list(current_recipe_list)
+
 
     render 'add_recipe.js.erb'
     ahoy.track "Add recipe", recipe_id: @recipe.id, title: @recipe.title
@@ -258,6 +274,8 @@ class PagesController < ApplicationController
 
   def remove_recipe
     @recipe = Recipe.find(params[:r])
+
+
     @recipe_list = current_recipe_list
     @recipe_list_item = RecipeListItem.find_by(recipe_id: @recipe.id, recipe_list_id: @recipe_list.id)
 

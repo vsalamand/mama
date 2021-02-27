@@ -24,6 +24,7 @@
 <div class="container px-0 mb-5">
   <div id="recipesFavorites">
     <div id="recipesHeader">
+      <h1 class="text-muted text-center"><%= cl_image_tag("menu_icons/cook", width: 30, class:"m-0 pb-1") %> Vos recettes</h1>
       <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-center pl-1 pb-0 m-0">
         <div class="d-flex align-items-center">
           <ul class="nav nav-pills nav-justified">
@@ -44,10 +45,10 @@
         </div>
 
       <% else %>
-          <div class="d-flex align-items-center m-2">
+          <div class="d-flex align-items-center m-2 mt-5">
             <div id="description">
               <div class="d-flex w-100 flex-column mb-0">
-                <p class="text-muted">Vous n'avez pas encore enregistré de recettes.</p>
+                <p class="text-muted">Vous n'avez pas enregistré de recette.</p>
               </div>
             </div>
           </div>

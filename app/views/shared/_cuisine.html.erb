@@ -1,0 +1,6 @@
+
+  <%= link_to cuisine_path, class:"openLink" do %>
+    <div class="btn btn-light border btn-lg align-items-center">
+       <%= cl_image_tag("menu_icons/cook", width: 20, class:"m-0 pb-1") %> <span class="badge badge-primary"><%= recipe_list.recipes.size %></span>
+    </div>
+  <% end %>

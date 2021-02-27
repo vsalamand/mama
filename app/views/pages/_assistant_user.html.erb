@@ -25,12 +25,10 @@
             <% else %>
                 <%= render 'shared/nav_actions' %>
             <% end %>
-            <%= link_to cuisine_path, class:"openLink" do %>
-              <div class="btn btn-light border btn-lg">
-                  <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
-                  Vos recettes
-              </div>
-            <% end %>
+
+            <div class="ml-1" id="cuisine" data="<%= @recipe_list.id %>" style="min-height: 45px;">
+              <%= render "shared/cuisine", recipe_list: @recipe_list %>
+            </div>
 
             <% if false %>
               <div class="ml-1" id="score" data="<%= @list.id %>" style="min-height: 45px;">
@@ -47,8 +45,8 @@
               <button class="btn bg-white p-1 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
                 <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
               </button>
-              <div class="btn btn-light border btn-lg" id="startAuthenticationBtn" data="favorites">
-                  <i class="fas fa-lg fa-star" style="color: #ffd700;"></i>
+              <div class="ml-1" id="cuisine" data="<%= @recipe_list.id %>" style="min-height: 45px;">
+                <%= render "shared/cuisine", recipe_list: @recipe_list %>
               </div>
 
               <% if false %>
@@ -73,7 +71,7 @@
                Listez vos produits disponibles
               <%= cl_image_tag("menu_icons/down-arrow", width: 15, class:"span small pb-1") %>
             </p>
-            <div id="toggleListItemform" class="bg-white text-left text-muted px-2 py-2 border rounded shadow-lg" style="font-size: 1.3rem; cursor: pointer;" ><small class="text-muted"><i class="fas fa-plus"></i></small> Ajouter un produit</div>
+            <div id="toggleListItemform" class="bg-white text-left text-muted px-2 py-2 border rounded shadow-lg" style="font-size: 1.3rem; cursor: pointer;" ><small class="text-muted"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</div>
           </div>
 
           <div class="px-0 mt-3" id="assistantItems">

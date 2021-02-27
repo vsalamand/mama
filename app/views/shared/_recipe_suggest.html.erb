@@ -5,12 +5,9 @@
         <div class="navbar-brand d-flex align-items-center mr-auto bd-highlight text-white" id="hideRecipeSearch" style="cursor: pointer;">
             <i class="fas fa-lg fa-arrow-left p-2"></i>
         </div>
-        <%= link_to cuisine_path, class:"openLink ml-auto bd-highlight" do %>
-          <div class="btn btn-light border btn-lg">
-              <i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i>
-              Vos recettes
-          </div>
-        <% end %>
+        <div class="ml-1" id="cuisine" data="<%= @recipe_list.id %>" style="min-height: 45px;">
+          <%= render "shared/cuisine", recipe_list: @recipe_list %>
+        </div>
     </nav>
   </div>
 

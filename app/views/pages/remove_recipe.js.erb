@@ -1,2 +1,8 @@
 var recipeCard = document.getElementById("isSelected<%= @recipe.id %>");
 recipeCard.innerHTML = ("<%= j render 'shared/select_recipe_button', recipe: @recipe %>");
+
+if(document.getElementById("cuisine")){
+  var cuisineBtn = document.getElementById("cuisine")
+  cuisineBtn.innerHTML = ("<%= j render 'shared/cuisine', recipe_list: @recipe_list %>");
+}
+

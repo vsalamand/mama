@@ -1,6 +1,6 @@
 <% if current_user %>
   <% if recipe.is_user_favorite?(current_user) %>
-    <button class="btn btn-transparent rounded removeFromFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-star" style="color: #ffd700 ;"></i> Enregistrée</button>
+    <button class="btn btn-transparent rounded removeFromFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-check" style="color: #ffd700;"></i> Enregistrée</button>
   <% else %>
     <button class="btn btn-transparent rounded text-muted addToFavorites" style="cursor: pointer;" data="<%= recipe.id %>">Enregistrer</button>
   <% end %>

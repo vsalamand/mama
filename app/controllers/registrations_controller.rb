@@ -8,6 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
 
     assign_list_to_new_user
+    assign_recipe_list_to_new_user
 
     # check signup context
     if params[:user][:context].present?
@@ -45,6 +46,17 @@ class RegistrationsController < Devise::RegistrationsController
       list.status = "archived"
       list.save
       session[:list] = nil
+    end
+  end
+
+
+  def assign_recipe_list_to_new_user
+    if session[:recipe_list]
+      recipe_list = RecipeList.find(session[:recipe_list])
+      recipe_list.user_id = @user.id
+      recipe_list.status = "opened"
+      recipe_list.save
+      session[:recipe_list] = nil
     end
   end
 
