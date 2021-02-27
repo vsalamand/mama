@@ -1,0 +1,26 @@
+<% if ["recommend", "next"].include?(params[:action]) %>
+  <div id="isDisliked<%= recipe.id %>">
+    <%= render 'shared/dislike_recipe_button', recipe: recipe %>
+  </div>
+  <div id="isSelected<%= recipe.id %>">
+    <%= render 'shared/select_recipe_button', recipe: recipe %>
+  </div>
+
+<% elsif ["cuisine", "favorites"].include?(params[:action]) %>
+  <div id="isFavorite<%= recipe.id %>">
+    <%= render 'shared/favorite_button', recipe: recipe %>
+  </div>
+  <div id="isSelected<%= recipe.id %>">
+    <%= render 'shared/select_recipe_button', recipe: recipe %>
+  </div>
+
+
+<% else %>
+  <div id="isDisliked<%= recipe.id %>">
+    <%= render 'shared/dislike_recipe_button', recipe: recipe %>
+  </div>
+  <div id="isSelected<%= recipe.id %>">
+    <%= render 'shared/select_recipe_button', recipe: recipe %>
+  </div>
+
+<% end %>

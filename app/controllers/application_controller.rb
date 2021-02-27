@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if current_user
       @list = current_user.get_assistant
     else
-      session[:list] = nil
+      # session[:list] = nil
       if session[:list]
         @list = List.find(session[:list])
       else
@@ -21,6 +21,25 @@ class ApplicationController < ActionController::Base
           @list.items.destroy_all
         end
         session[:list] = @list.id
+      end
+    end
+  end
+
+  def current_recipe_list
+    if current_user
+      @recipe_list = current_user.get_latest_recipe_list
+    else
+      # session[:recipe_list] = nil
+      if session[:recipe_list]
+        @recipe_list = RecipeList.find(session[:recipe_list])
+      else
+        @recipe_list = RecipeList.where("created_at < ?", 2.days.ago).where(status: "temporary", recipe_list_type: "personal").first
+        if @recipe_list.nil?
+          @recipe_list = RecipeList.create(status: "temporary", recipe_list_type: "personal")
+        else
+          @recipe_list.recipe_list_items.destroy_all
+        end
+        session[:recipe_list] = @recipe_list.id
       end
     end
   end

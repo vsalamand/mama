@@ -284,6 +284,8 @@ class RecipesController < ApplicationController
   end
 
   def recommend
+    @recipe_list = current_recipe_list
+
     type = params[:t]
     if type == "u"
       @category_ids = Item.find(params[:i]).pluck(:category_id).compact
@@ -301,6 +303,8 @@ class RecipesController < ApplicationController
   end
 
   def next
+    @recipe_list = current_recipe_list
+
     @category_ids = YAML.load(params[:c])
     @recipe_ids = YAML.load(params[:r]).drop(2)
     @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]} if @recipe_ids.size < 2

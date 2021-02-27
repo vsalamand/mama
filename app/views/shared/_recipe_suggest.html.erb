@@ -1,13 +1,14 @@
 <div class="wrapper d-flex flex-column bd-highlight" id="assistantWrapper" style="background: grey; height: 100vh;">
 
   <div class="sticky-top bg-transparent">
-    <div class="container px-2">
-      <nav class="px-0 navbar d-flex text-white font-weight-bold">
-        <div class="navbar-brand d-flex align-items-center mr-auto bd-highlight" id="hideRecipeSearch" style="cursor: pointer;">
+    <nav class="container navbar d-flex bd-highlight px-2">
+        <div class="navbar-brand d-flex align-items-center mr-auto bd-highlight text-white" id="hideRecipeSearch" style="cursor: pointer;">
             <i class="fas fa-lg fa-arrow-left p-2"></i>
         </div>
-      </nav>
-    </div>
+        <div class="ml-1" id="cuisine" data="<%= @recipe_list.id %>" style="min-height: 45px;">
+          <%= render "shared/cuisine", recipe_list: @recipe_list %>
+        </div>
+    </nav>
   </div>
 
   <div class="container px-0 d-flex align-items-center justify-content-center bd-highlight my-auto">

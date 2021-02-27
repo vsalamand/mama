@@ -1,0 +1,5 @@
+<% if recipe.is_selected?(@recipe_list) %>
+  <button class="btn btn-light border rounded removeRecipe" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-check"></i> Sélectionnée</button>
+<% else %>
+  <button class="btn btn-light border text-primary rounded addRecipe" style="cursor: pointer;" data="<%= recipe.id %>">Sélectionner</button>
+<% end %>
