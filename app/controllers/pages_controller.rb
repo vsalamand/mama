@@ -55,9 +55,13 @@ class PagesController < ApplicationController
     else
       @recipe_list = current_recipe_list
     end
-    @recipes = @recipe_list.recipes.order(:id)
-
-    ahoy.track "Cuisine"
+    # double check on class name to prevend weid bug retrieving data from session params
+    if @recipe_list.class.name != "RecipeList"
+      redirect_to root_path
+    else
+      @recipes = @recipe_list.recipes.order(:id)
+      ahoy.track "Cuisine"
+    end
   end
 
   def favorites
