@@ -27,18 +27,45 @@
         <div class="d-flex align-items-center">
           <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Sélectionnées</a>
+              <a class="nav-link active" href="#"><i class="fas fa-lg fa-check-circle text-success"></i><br>Sélectionnées</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/favorites">Enregistrées</a>
+              <a class="nav-link" href="/favorites"><i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i><br>Enregistrées</a>
             </li>
           </ul>
         </div>
       </ul>
     </div>
-    <div class="d-flex align-items-center justify-content-center mt-3">
+
+    <div class="d-flex flex-column align-items-center justify-content-center mt-3">
       <% if @recipes.present? %>
+
         <div id="recipeElements" class="col-sm-4 my-auto">
+          <div class="container px-1">
+            <div class="jumbotron text-center mb-2 px-2 py-3">
+              <p class="pl-1 lead mb-3">
+                <i class="fas fa-share"></i>
+                 Partager votre sélection
+              </p>
+
+              <% if false %>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                  <label class="custom-control-label" for="customSwitch1">Créer un sondage</label>
+                </div>
+                <small class="text-muted">Toute personne disposant du lien pourra voter.</small>
+              <% end %>
+
+              <div class="d-flex">
+                <!-- COPY LINK Target -->
+                <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list) %>">
+                <!-- COPY LINK Trigger -->
+                <button class="clipboard-btn btn btn-light border" data-clipboard-target="#recipelistLink" id="copyLink">
+                    COPIER
+                </button>
+              </div>
+            </div>
+          </div>
           <%= render partial: 'recipes/recipe_card', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
         </div>
 

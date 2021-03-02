@@ -9,9 +9,10 @@ class RecipeListsController < ApplicationController
   end
 
   def show
-    @list = List.new
+    # @list = List.new
     @recipe_list = RecipeList.find(params[:id])
-    @lists = current_user.lists.saved + current_user.shared_lists
+    @recipes = @recipe_list.recipes
+    # @lists = current_user.lists.saved + current_user.shared_lists
     # @recipe_list.recipe_list_items.build
     # @checklist = Checklist.get_checklist(@recipe_list.foods)
     ahoy.track "Show recipe list", request.path_parameters

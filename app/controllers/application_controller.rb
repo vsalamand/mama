@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+  helper_method :resource_name, :resource, :devise_mapping, :resource_class, :current_list, :current_recipe_list
 
 
   def current_list
@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
           @list.items.destroy_all
         end
         session[:list] = @list.id
+        return @list
       end
     end
   end
@@ -40,6 +41,7 @@ class ApplicationController < ActionController::Base
           @recipe_list.recipe_list_items.destroy_all
         end
         session[:recipe_list] = @recipe_list.id
+        return @recipe_list
       end
     end
   end
