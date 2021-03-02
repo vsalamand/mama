@@ -62,7 +62,7 @@ config.webpacker.check_yarn_integrity = false
 
   # default url options
   config.action_mailer.default_url_options = { host: "http://www.supernet.fr" }
-  config.action_controller.default_url_options = { host: 'http://www.supernet.fr' }
+  config.action_controller.default_url_options = { host: 'www.supernet.fr' }
 
 
   config.action_mailer.delivery_method     = :postmark

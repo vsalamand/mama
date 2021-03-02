@@ -5,13 +5,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :resource_name, :resource, :devise_mapping, :resource_class, :current_list, :current_recipe_list
 
-  def default_url_options
-    if Rails.env.production?
-      {:host => "supernet.fr"}
-    else
-      {}
-    end
-  end
 
   def current_list
     if current_user
