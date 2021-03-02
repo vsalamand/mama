@@ -58,7 +58,7 @@
 
               <div class="d-flex">
                 <!-- COPY LINK Target -->
-                <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list) %>">
+                <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list, host: request.host) %>">
                 <!-- COPY LINK Trigger -->
                 <button class="clipboard-btn btn btn-light border" data-clipboard-target="#recipelistLink" id="copyLink">
                     COPIER
