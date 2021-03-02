@@ -1,9 +1,9 @@
 <div class="sticky-top bg-white">
   <div class="container px-2">
     <nav class="px-0 navbar navbar-expand-lg d-flex justify-content-between">
-       <a class="navbar-brand text-dark d-flex align-items-center m-0 text-muted" href="/">
+      <%= link_to root_path, class:"navbar-brand text-dark d-flex align-items-center m-0 text-muted" do %>
         <i class="fas fa-lg fa-arrow-left p-2"></i> <span class="text-white"></span>
-      </a>
+      <% end %>
       <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class:"btn btn-light btn-lg border text-danger", id:"signout" %>
     </nav>
   </div>

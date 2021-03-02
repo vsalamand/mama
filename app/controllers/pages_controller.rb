@@ -12,7 +12,7 @@ class PagesController < ApplicationController
     end
 
     if user_signed_in?
-      if current_user.beta
+      if current_user.id == 310
         redirect_to browse_path
       else
         # redirect if current user is not in beta
