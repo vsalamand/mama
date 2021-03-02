@@ -1,12 +1,90 @@
-  <%= render 'shared/navbar' %>
+<% content_for :meta_title, "Sélection de recettes" %>
+<% content_for :meta_description, "Sélectionnez les recettes qui vous plaisent pour vos prochains repas !" %>
 
-<div class="container d-flex justify-content-center my-2">
-  <%= link_to "Parcourir les recettes", explore_recipe_list_path, class:"btn btn-lg btn-primary bordr-0" %>
+<% unless ["add_to_homescreen"].include?(params[:action])%>
+  <div id="iOSInstallNavbar"></div>
+  <div id="androidInstallNavbar"></div>
+<% end %>
+
+<div class="sticky-top bg-white mb-1" id="listBarTop">
+    <nav class="container navbar d-flex bd-highlight px-2">
+      <% if current_user %>
+        <% if current_user.beta %>
+          <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" href="/"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
+        <% else %>
+            <%= render 'shared/nav_actions' %>
+        <% end %>
+
+        <div class="ml-1" id="cuisine" data="<%= @recipe_list.id %>" style="min-height: 45px;">
+          <%= render "shared/cuisine" %>
+        </div>
+
+
+      <% else %>
+        <%= link_to root_path, class:"m-0 navbar-brand font-weight-bold d-flex align-items-center mr-auto bd-highlight openLink" do %>
+          <span style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem;">
+              Supernet
+          </span>
+        <% end %>
+
+        <div class="d-flex bd-highlight m-0">
+          <button class="btn bg-white p-1 mr-2 rounded-pill rounded-lg text-center" id="messageModalBtn">
+            <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
+          </button>
+          <div class="ml-1" id="cuisine" data="<%= @recipe_list.id %>" style="min-height: 45px;">
+            <%= render "shared/cuisine" %>
+          </div>
+
+        </div>
+      <% end %>
+
+    </nav>
 </div>
 
-<div class="container px-0" id="recipe_list" data="<%= @recipe_list.id %>">
-  <div class="recipesGrid">
-    <%= render 'content', recipe_list: @recipe_list %>
+
+<div class="container px-0 mb-5">
+  <div id="recipesCuisine">
+    <div id="recipesHeader" class="d-flex flex-column align-items-center justify-content-center">
+      <h1 class="text-muted text-center">
+        Sélection
+      </h1>
+      <small class="text-muted">de <%= @recipe_list.user.email %></small>
+    </div>
+
+    <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+      <% if @recipes.present? %>
+
+        <div id="recipeElements" class="col-sm-4 my-auto">
+          <%= render partial: 'recipes/recipe_card', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
+          <div class="container px-1 mt-3">
+            <div class="jumbotron text-center mb-2 px-2 py-3">
+              <p class="pl-1 lead mb-3">
+                <i class="fas fa-share"></i>
+                 Partager la sélection
+              </p>
+
+              <div class="d-flex">
+                <!-- COPY LINK Target -->
+                <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list) %>">
+                <!-- COPY LINK Trigger -->
+                <button class="clipboard-btn btn btn-light border" data-clipboard-target="#recipelistLink" id="copyLink">
+                    COPIER
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <% else %>
+          <div class="d-flex align-items-center m-2 mt-5">
+            <div id="description">
+              <div class="d-flex w-100 flex-column mb-0">
+                <p class="text-muted">Il n'y a pas de recette.</p>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
@@ -14,4 +92,3 @@
 
 <div style="padding: 50px;"></div>
 
-<%= render 'recipe_lists/add_to_list', recipe_list: @recipe_list %>

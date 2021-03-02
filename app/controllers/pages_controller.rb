@@ -36,9 +36,9 @@ class PagesController < ApplicationController
       @categories = Category.get_suggestions
     end
 
-    # double check on class name to prevend weid bug retrieving data from session params
-    @list = current_list if @list.class.name != "List"
-    @recipe_list = current_recipe_list  if @recipe_list.class.name != "RecipeList"
+    # # double check on class name to prevend weid bug retrieving data from session params
+    # @list = current_list if @list.class.name != "List"
+    # @recipe_list = current_recipe_list  if @recipe_list.class.name != "RecipeList"
 
     ahoy.track "Assistant"
   end
