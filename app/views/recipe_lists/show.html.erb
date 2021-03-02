@@ -6,7 +6,9 @@
   <div id="androidInstallNavbar"></div>
 <% end %>
 
-<div class="sticky-top bg-white mb-1" id="listBarTop">
+<%= render 'shared/nav_actions' %>
+
+<!-- <div class="sticky-top bg-white mb-1" id="listBarTop">
     <nav class="container navbar d-flex bd-highlight px-2">
       <% if current_user %>
         <% if current_user.beta %>
@@ -39,7 +41,7 @@
       <% end %>
 
     </nav>
-</div>
+</div> -->
 
 
 <div class="container px-0 mb-5">
@@ -48,7 +50,6 @@
       <h1 class="text-muted text-center">
         Sélection
       </h1>
-      <small class="text-muted">de <%= @recipe_list.user.email %></small>
     </div>
 
     <div class="d-flex flex-column align-items-center justify-content-center mt-3">

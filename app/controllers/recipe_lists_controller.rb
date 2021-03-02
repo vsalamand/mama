@@ -11,6 +11,7 @@ class RecipeListsController < ApplicationController
   def show
     # @list = List.new
     @recipe_list = RecipeList.find(params[:id])
+
     @recipes = @recipe_list.recipes
     # @lists = current_user.lists.saved + current_user.shared_lists
     # @recipe_list.recipe_list_items.build
