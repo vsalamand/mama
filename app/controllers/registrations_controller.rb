@@ -39,6 +39,10 @@ class RegistrationsController < Devise::RegistrationsController
     # root_path
   end
 
+  def after_update_path_for(resource)
+    profile_path
+  end
+
   def assign_list_to_new_user
     if session[:list]
       list = List.find(session[:list])

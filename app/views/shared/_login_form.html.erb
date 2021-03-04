@@ -2,7 +2,7 @@
         <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" id="startAuthenticationBtn"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
       </nav>
 
-        <h1 class="font-weight-bold">Connexion</h1>
+        <h1 class="font-weight-bold text-secondary">Connectez-vous</h1>
 
 
         <% if flash[:alert].present? %>
@@ -19,7 +19,7 @@
               <%= f.input :email,
                           label: false,
                           autofocus: false,
-                          placeholder: "Votre Adresse Email",
+                          placeholder: "Votre email",
                           input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold",
                                         value: email } %>
               </div>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="form-actions d-flex justify-content-end">
-              <%= f.button :submit, "Suivant", class: "btn btn-primary border btn-lg shadow-lg px-5", id:"loginBtn" %>
+              <%= f.button :submit, "Je me connecte", class: "btn btn-primary border btn-lg shadow-lg px-5", id:"loginBtn" %>
             </div>
           <% end %>
 

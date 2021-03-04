@@ -5,7 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   # validates :sender_id, uniqueness: true
-  # validates :username, uniqueness: true
+  # validates :username, presence: true, uniqueness: true, uniqueness: { case_sensitive: false }
+  # validates_length_of :username, minimum: 2
+  # validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+
   validates :email, presence: true, uniqueness: true
 
   # validates :email, :uniqueness => {:allow_blank => true}
@@ -33,12 +36,59 @@ class User < ApplicationRecord
     self.create_score(Game.first)
     # self.set_initial_list
   end
+  after_create :set_username
   after_create :subscribe_to_waiting_list
+  after_save do
+    set_username if self.saved_change_to_username?
+  end
   # after_create :send_welcome_email
 
   # after_save do
   #   send_welcome_email_to_beta_user if self.beta_changed? && self.beta == true
   # end
+
+ def correct_username(username)
+    ActiveSupport::Inflector.transliterate(username) # change ñ => n
+      .downcase              # only lower case
+      .strip                 # remove spaces around the string
+      .gsub(/[^a-z]/, '_')   # any character that is not a letter or a number will be _
+      .gsub(/_+\Z/, '')      # remove underscores at the end
+      .gsub(/_+/, '_')       # maximum an underscore in a row
+      # .gsub(/\A_+/, '')      # remove underscores at the beginning
+  end
+
+ def find_unique_username(username)
+    taken_usernames = User
+      .where("username LIKE ?", "#{username}%")
+      .pluck(:username)
+
+    # username if it's free
+    return username if ! taken_usernames.include?(username)
+
+    count = 2
+    while true
+      # username_2, username_3...
+      new_username = "#{username}_#{count}"
+      return new_username if ! taken_usernames.include?(new_username)
+      count += 1
+    end
+  end
+
+  def set_username
+    if self.username.nil? || self.username.empty? || self.username.size < 2
+      username = self.email.split(/@/).first
+      username = self.correct_username(username)
+      username = self.find_unique_username(username)
+      self.username = username
+      self.save
+    elsif self.username.count("A-Z") > 0 || !self.username[/\W/].nil? || User.find_by(username: self.username) != self
+      username = self.username
+      username = self.correct_username(username)
+      username = self.find_unique_username(username)
+      self.username = username
+      self.save
+    end
+  end
 
   def add_to_beta
     self.beta = true
