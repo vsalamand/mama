@@ -13,7 +13,8 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    resource = User.find_for_database_authentication(email: params[:user][:email])
+    # resource = User.find_for_database_authentication(email: params[:user][:email])
+    resource = User.find_for_database_authentication(login: params[:user][:login])
     if resource.valid_password?(params[:user][:password])
       super
     else

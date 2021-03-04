@@ -29,6 +29,7 @@
                             required: true,
                             label: false,
                             placeholder: "Entrez un nom d'utilisateur",
+                            hint: "Seuls les lettres, les chiffres et les traits de soulignement sont autorisés. 2 caractères minimum.",
                             input_html: { autocomplete: "nom d'utilisteur", class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" }
                              %>
                 <%= f.input :email,
@@ -44,7 +45,7 @@
                             required: true,
                             label: false,
                             placeholder: "Votre mot de passe",
-                            input_html: { autocomplete: "current-password", class:"py-3 px-2 rounded form-control form-control-lg" }
+                            input_html: { autocomplete: "current-password", class:"text-primary py-3 px-2 rounded form-control form-control-lg" }
                              %>
               </div>
               <div class="form-actions d-flex justify-content-end">

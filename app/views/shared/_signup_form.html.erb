@@ -2,7 +2,7 @@
   <a class="navbar-brand text-muted d-flex align-items-center mr-auto bd-highlight" id="startAuthenticationBtn"><i class="fas fa-lg fa-arrow-left p-2"></i></a>
 </nav>
 
-<h1 class="font-weight-bold px-1">Inscription</h1>
+<h1 class="font-weight-bold px-1 text-secondary">Création d'un nouveau compte</h1>
 
 <div class="errors alert-danger p-1 rounded" id="signupError" style="display: none;"></div>
 
@@ -11,12 +11,11 @@
     <%= f.error_notification %>
 
     <div class="form-input">
-      <div style="display: none;">
+      <div style="display: block;">
         <%= f.input :email,
                     label: false,
-                    autofocus: false,
                     placeholder: "Adresse email",
-                    input_html: { class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold", value: email }
+                    input_html: { class:"py-3 px-2 rounded form-control form-control-lg font-weight-bold", value: email }
                     %>
       </div>
     <%= f.input :password,
@@ -30,7 +29,7 @@
     </div>
 
     <div class="form-actions d-flex justify-content-end">
-      <%= f.button :submit, "Suivant", class: "btn btn-primary border btn-lg shadow-lg px-5", id:"signupBtn" %>
+      <%= f.button :submit, "Je crée mon compte", class: "btn btn-primary border btn-lg shadow-lg px-5", id:"signupBtn" %>
     </div>
   <% end %>
 </div>
