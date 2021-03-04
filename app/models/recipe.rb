@@ -308,7 +308,7 @@ class Recipe < ApplicationRecord
     data << recipe_hash.sort_by! { |k| -k["score"] }
 
     # merge hashes
-    recommendations = data.first.zip(data.second).flatten
+    recommendations = data.first.zip(data.second).flatten[0..[data.first.size, data.second.size].min]
     return recommendations[0..39]
   end
 
