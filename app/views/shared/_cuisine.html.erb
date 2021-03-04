@@ -1,12 +1,18 @@
 <% if current_user %>
   <%= link_to cuisine_path, class:"openLink" do %>
     <div class="btn btn-light border btn-lg align-items-center">
-       <%= cl_image_tag("menu_icons/cook", width: 20, class:"m-0 pb-1") %> <span class="badge badge-success"><%= current_recipe_list.recipes.size %></span>
+      <p class="m-0">
+        <i class="fas fa-lg fa-shopping-bag text-secondary"></i>
+         <span class="badge badge-success"><%= current_recipe_list.recipes.size %> <i class="fas fa-check-circle"></i></span>
+      </p>
     </div>
   <% end %>
 
 <% else %>
     <div class="btn btn-light border btn-lg align-items-center" style="cursor: pointer;"  id="startAuthenticationBtn">
-       <%= cl_image_tag("menu_icons/cook", width: 20, class:"m-0 pb-1") %> <span class="badge badge-success"><%= current_recipe_list.recipes.size %></span>
+      <p class="m-0">
+        <i class="fas fa-lg fa-shopping-bag text-secondary"></i>
+         <span class="badge badge-success"><%= current_recipe_list.recipes.size %> <i class="fas fa-check-circle"></i></span>
+      </p>
     </div>
 <% end %>

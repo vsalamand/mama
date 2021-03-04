@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
 
     # For additional in app/views/devise/registrations/edit.html.erb
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :username])
 
     # For additional fields in app/views/devise/session/new.html.erb
     devise_parameter_sanitizer.permit(:sign_in, keys: [:email])

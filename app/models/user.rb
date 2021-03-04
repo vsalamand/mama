@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   # validates :sender_id, uniqueness: true
-  # validates :username, uniqueness: true
+  validates :username, uniqueness: true
   validates :email, presence: true, uniqueness: true
 
   # validates :email, :uniqueness => {:allow_blank => true}

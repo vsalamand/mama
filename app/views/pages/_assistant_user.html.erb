@@ -26,11 +26,9 @@
 
           <div class="jumbotron text-white text-center mb-2 px-2 py-3" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
             <p class="pl-1 lead text-white mb-3">
-              <%= cl_image_tag("menu_icons/down-arrow", width: 15, class:"span small pb-1") %>
                Votre liste de produits
-              <%= cl_image_tag("menu_icons/down-arrow", width: 15, class:"span small pb-1") %>
             </p>
-            <div id="toggleListItemform" class="bg-white text-left text-muted px-2 py-2 border rounded shadow-lg" style="font-size: 1.3rem; cursor: pointer;" ><small class="text-muted"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</div>
+            <p id="toggleListItemform" class="lead m-0 font-weight-bold bg-white text-left text-muted px-2 py-2 border rounded shadow-lg" style=" cursor: pointer;" ><small class="text-muted"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</p>
           </div>
 
           <div class="px-0 mt-3" id="assistantItems">
@@ -65,7 +63,7 @@
 
     <nav class="wrapper nav-light fixed-bottom shadow-lg bg-light">
       <div class="container d-flex justify-content-end p-2" >
-         <button class="btn btn-lg px-4 py-2 border-0 rounded text-center text-white fetchRecipes" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer; font-size: 1.5rem; display: none" id="searchRecipeBtn">
+         <button class="btn btn-lg px-4 py-2 border-0 rounded text-center text-white fetchRecipes" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37)); cursor: pointer; font-size: 1.3rem; display: none" id="searchRecipeBtn">
             <%= cl_image_tag("menu_icons/search", width: 25, class:"m-0") %>
             Recherche
          </button>

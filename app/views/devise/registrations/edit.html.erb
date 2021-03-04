@@ -16,7 +16,7 @@
     <div class="jumbotron bg-white" id="signupPage">
       <div class="row">
         <div class="col-md-12 my-auto">
-          <h1 class="font-weight-bold">Modifier le profil</h1>
+          <h1 class="font-weight-bold text-secondary">Modifier votre profil</h1>
           <hr class="my-4">
             <div class="errors"></div>
             <% if flash[:alert].present? %>
@@ -25,11 +25,17 @@
               <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
               <%= f.error_notification %>
               <div class=" my-3">
+                <%= f.input :username,
+                            required: true,
+                            label: false,
+                            placeholder: "Entrez un nom d'utilisateur",
+                            input_html: { autocomplete: "nom d'utilisteur", class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" }
+                             %>
                 <%= f.input :email,
                             required: true,
                             label: false,
                             placeholder: "Entrez votre email",
-                            input_html: { autocomplete: "email",class:"py-3 px-2 rounded autofocus form-control form-control-lg font-weight-bold" }%>
+                            input_html: { autocomplete: "email",class:"py-3 px-2 rounded form-control form-control-lg font-weight-bold" }%>
                 <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                   <p>En attente de confirmation pour: <%= resource.unconfirmed_email %></p>
                 <% end %>
@@ -38,7 +44,7 @@
                             required: true,
                             label: false,
                             placeholder: "Votre mot de passe",
-                            input_html: { autocomplete: "current-password", class:"py-3 px-2 rounded autofocus form-control form-control-lg" }
+                            input_html: { autocomplete: "current-password", class:"py-3 px-2 rounded form-control form-control-lg" }
                              %>
               </div>
               <div class="form-actions d-flex justify-content-end">
