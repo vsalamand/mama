@@ -240,6 +240,7 @@ Rails.application.routes.draw do
       get :search
       get :category
       get :clean
+      get :set_poll
     end
   end
 

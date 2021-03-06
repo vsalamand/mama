@@ -10,7 +10,7 @@
 
         <div class="d-flex align-items-center">
           <button class="btn bg-white p-2 mr-1 rounded-pill rounded-lg text-center" id="messageModalBtn">
-            <i class="far fa-2x text-secondary fa-comment"></i>
+            <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
           </button>
           <button class="btn btn-lg btn-light border" id="startAuthenticationBtn">Connexion</button>
         </div>
@@ -19,22 +19,24 @@
   <% else %>
       <nav class="container navbar d-flex justify-content-between px-2">
         <div class="d-flex align-items-center">
+
           <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/profile">
-            <i class="far fa-2x text-secondary fa-user-circle"></i>
+            <%= cl_image_tag("menu_icons/waving-hand", width: 30, class:"m-0") %>
           </a>
+
           <button class="btn bg-white p-2 mr-1 rounded-pill rounded-lg text-center" id="messageModalBtn">
-            <i class="far fa-2x text-secondary fa-comment"></i>
+            <%= cl_image_tag("menu_icons/speech-balloon", width: 30, class:"m-0") %>
           </button>
 
           <% if current_user.beta %>
             <% if ["assistant"].include?(params[:action])%>
               <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/browse">
-                <i class="fas fa-2x text-secondary  fa-tasks"></i>
+                <%= cl_image_tag("menu_icons/list", width: 30, class:"m-0") %>
               </a>
             <% end %>
             <% if ["browse"].include?(params[:action])%>
               <a class="bg-white p-2 mr-2 rounded-pill rounded-lg text-center" href="/assistant">
-                <i class="fas fa-2x text-secondary fa-search-plus"></i>
+                <%= cl_image_tag("menu_icons/search", width: 30, class:"m-0") %>
               </a>
             <% end %>
           <% end %>

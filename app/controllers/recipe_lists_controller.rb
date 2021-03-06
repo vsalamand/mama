@@ -11,6 +11,7 @@ class RecipeListsController < ApplicationController
   def show
     # @list = List.new
     @recipe_list = RecipeList.find(params[:id])
+    # redirect_to cuisine_path if @recipe_list == current_recipe_list
 
     @recipes = @recipe_list.recipes
     # @lists = current_user.lists.saved + current_user.shared_lists
@@ -132,6 +133,17 @@ class RecipeListsController < ApplicationController
     @recipe_list.clean
 
     redirect_to root_path
+  end
+
+  def set_poll
+    @recipe_list = RecipeList.find(params[:id])
+    if @recipe_list.poll?
+      @recipe_list.opened
+    else
+      @recipe_list.is_poll
+    end
+
+    redirect_to cuisine_path
   end
 
   private

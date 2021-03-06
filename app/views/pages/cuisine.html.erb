@@ -22,7 +22,7 @@
 <div class="container px-0 mb-5">
   <div id="recipesCuisine">
     <div id="recipesHeader">
-      <h1 class="text-muted text-center p-2"><i class="fas fa-shopping-bag text-secondary"></i> Vos recettes</h1>
+      <h1 class="text-muted text-center p-2"><i class="fas fa-utensils text-secondary"></i> Vos recettes</h1>
       <ul class="border-0 rounded-top list-group-item d-flex align-items-center justify-content-center pl-1 pb-0 m-0">
         <div class="d-flex align-items-center">
           <ul class="nav nav-pills nav-justified">
@@ -42,19 +42,22 @@
 
         <div id="recipeElements" class="col-sm-4 my-auto">
           <div class="container px-1">
-            <div class="jumbotron text-center mb-2 px-2 py-3">
+            <div class="jumbotron text-center text-muted mb-2 px-2 py-3">
               <p class="pl-1 lead mb-3">
                 <i class="fas fa-share"></i>
                  Partager votre sélection
               </p>
 
-              <% if false %>
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1">Créer un sondage</label>
-                </div>
-                <small class="text-muted">Toute personne disposant du lien pourra voter.</small>
-              <% end %>
+              <div id="poll" class="mb-3 d-flex flex-column px-5">
+                <% if @recipe_list.user == current_user %>
+                  <% if @recipe_list.poll? %>
+                    <%= link_to "Terminer le sondage", set_poll_recipe_list_path(@recipe_list), class:"btn btn-outline-primary border shadow-lg", data: {:confirm => 'Êtes-vous sûr de mettre fin au sondage ? Tous les votes seront perdus.'} %>
+                    <small class="text-muted">Toute personne disposant du lien pourra voter.</small>
+                  <% else %>
+                    <%= link_to "Créer un sondage", set_poll_recipe_list_path(@recipe_list), class:"btn btn-light border shadow-lg" %>
+                  <% end %>
+                <% end %>
+              </div>
 
               <div class="d-flex">
                 <!-- COPY LINK Target -->
@@ -66,7 +69,7 @@
               </div>
             </div>
           </div>
-          <%= render partial: 'recipes/recipe_card', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
+          <%= render partial: 'recipe_list_items/recipe_list_item_card', collection: @recipe_list.recipe_list_items.sort_by{|rli| rli.recipe.title.parameterize }, as: :recipe_list_item, locals: {list: nil } %>
         </div>
 
       <% else %>

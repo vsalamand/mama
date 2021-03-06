@@ -23,7 +23,7 @@
       <% if @recipes.present? %>
 
         <div id="recipeElements" class="col-sm-4 my-auto">
-          <%= render partial: 'recipes/recipe_card', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
+          <%= render partial: 'recipe_list_items/recipe_list_item_card', collection: @recipe_list.recipe_list_items.sort_by{|rli| rli.recipe.title.parameterize }, as: :recipe_list_item, locals: {list: nil } %>
           <div class="container px-1 mt-3">
             <div class="jumbotron text-center mb-2 px-2 py-3">
               <p class="pl-1 lead mb-3">
