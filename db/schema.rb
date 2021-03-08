@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_095225) do
+ActiveRecord::Schema.define(version: 2021_03_06_083040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -698,6 +698,15 @@ ActiveRecord::Schema.define(version: 2021_02_12_095225) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.bigint "recipe_list_item_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_list_item_id"], name: "index_votes_on_recipe_list_item_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "banned_categories", "diets"
   add_foreign_key "banned_categories", "food_groups", column: "category_id"
   add_foreign_key "banned_foods", "diets"
@@ -773,4 +782,6 @@ ActiveRecord::Schema.define(version: 2021_02_12_095225) do
   add_foreign_key "task_items", "tasks"
   add_foreign_key "tasks", "games"
   add_foreign_key "users", "diets"
+  add_foreign_key "votes", "recipe_list_items"
+  add_foreign_key "votes", "users"
 end

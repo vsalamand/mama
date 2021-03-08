@@ -19,28 +19,23 @@
       <p class="text-muted text-center m-0">de <%= @recipe_list.user.username %> </p>
     </div>
 
-    <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+    <div class="container">
+      <%= render 'shared/flashes' %>
+    </div>
+
+    <div class="d-flex flex-column align-items-center justify-content-center">
       <% if @recipes.present? %>
 
         <div id="recipeElements" class="col-sm-4 my-auto">
-          <%= render partial: 'recipes/recipe_card', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
-          <div class="container px-1 mt-3">
-            <div class="jumbotron text-center mb-2 px-2 py-3">
-              <p class="pl-1 lead mb-3">
-                <i class="fas fa-share"></i>
-                 Partager la sélection
-              </p>
 
-              <div class="d-flex">
-                <!-- COPY LINK Target -->
-                <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list, host: request.host) %>">
-                <!-- COPY LINK Trigger -->
-                <button class="clipboard-btn btn btn-light border" data-clipboard-target="#recipelistLink" id="copyLink">
-                    COPIER
-                </button>
-              </div>
+          <% if @recipe_list.poll? && ["poll"].include?(params[:type])%>
+            <div class="jumbotron text-center text-white mb-2 p-3" style="background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
+              <p class="lead m-0"><i class="fas fa-check-square"></i> Votez pour les recettes que vous donnent envie !</p>
             </div>
-          </div>
+          <% end %>
+
+          <%= render partial: 'recipe_list_items/recipe_list_item_card', collection: @recipe_list.recipe_list_items.sort_by{|rli| rli.recipe.title.parameterize }, as: :recipe_list_item, locals: {list: nil } %>
+
         </div>
 
       <% else %>
@@ -60,3 +55,13 @@
 
 <div style="padding: 50px;"></div>
 
+<% if @recipe_list.poll? && ["poll"].include?(params[:type])%>
+    <nav class="wrapper nav-light fixed-bottom bg-white">
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-lg btn-light shadow-lg border rounded m-1"  id="voteBtn" data="<%= @recipe_list.id %>">
+            Valider mon vote
+         </button>
+        </div>
+
+    </nav>
+<% end %>

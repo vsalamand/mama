@@ -1,0 +1,7 @@
+<% if recipe_list_item.recipe_list.poll? && !["poll"].include?(params[:type])%>
+  <% if recipe_list_item.votes.size > 1 %>
+    <p class="lead font-weight-bold text-warning m-0 text-center"><%= recipe_list_item.votes.size %> votes</p>
+  <% else %>
+    <p class="lead font-weight-bold text-warning m-0 text-center"><%= recipe_list_item.votes.size %> vote</p>
+  <% end %>
+<% end %>

@@ -19,7 +19,7 @@ class RecipeList < ApplicationRecord
 
 
   RECIPE_LIST_TYPE = ["curated", "mama", "personal", "pool", "dislikes", "likes"]
-  STATUS = ["archived", "saved", "opened", "temporary"]
+  STATUS = ["archived", "saved", "opened", "temporary", "poll"]
 
   # after_create_commit :get_name
   after_update_commit :get_name
@@ -30,6 +30,20 @@ class RecipeList < ApplicationRecord
       self.name = self.get_top_foods[0..6].join(", ")
       self.save
     end
+  end
+
+  def is_poll
+    self.status = "poll"
+    self.save
+  end
+
+  def poll?
+    self.status == "poll"
+  end
+
+  def opened
+    self.status = "opened"
+    self.save
   end
 
   def archive

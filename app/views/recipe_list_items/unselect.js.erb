@@ -1,0 +1,3 @@
+var recipe_list_item = document.querySelector("#recipe-list_item-id<%= @recipe_list_item.id %>");
+recipe_list_item.innerHTML = "";
+recipe_list_item.innerHTML = ("<%= j render 'recipe_list_items/unselected', recipe_list_item: @recipe_list_item %>");
