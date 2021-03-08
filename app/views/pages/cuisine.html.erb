@@ -41,34 +41,46 @@
       <% if @recipes.present? %>
 
         <div id="recipeElements" class="col-sm-4 my-auto">
+
           <div class="container px-1">
             <div class="jumbotron text-center text-muted mb-2 px-2 py-3">
-              <p class="pl-1 lead mb-3">
-                <i class="fas fa-share"></i>
-                 Partager votre sélection
-              </p>
+              <% if @recipe_list.poll? %>
+                <p class="pl-1 lead mb-3"><i class="fas fa-share"></i> Partager votre sondage</p>
 
-              <div id="poll" class="mb-3 d-flex flex-column px-5">
-                <% if @recipe_list.user == current_user %>
-                  <% if @recipe_list.poll? %>
-                    <%= link_to "Terminer le sondage", set_poll_recipe_list_path(@recipe_list), class:"btn btn-outline-primary border shadow-lg", data: {:confirm => 'Êtes-vous sûr de mettre fin au sondage ? Tous les votes seront perdus.'} %>
-                    <small class="text-muted">Toute personne disposant du lien pourra voter.</small>
-                  <% else %>
+                <div id="poll" class="mb-3 d-flex flex-column px-5">
+                  <%= link_to "Terminer le sondage", set_poll_recipe_list_path(@recipe_list), class:"btn btn-outline-primary border shadow-lg", data: {:confirm => 'Êtes-vous sûr de mettre fin au sondage ? Les votes seront remise à zéro !'} %>
+                </div>
+
+                <small class="text-muted">Toute personne disposant de ce lien pourra voter.</small>
+                <div class="d-flex">
+                  <!-- COPY LINK Target -->
+                  <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list, host: request.host) %>?type=poll">
+                  <!-- COPY LINK Trigger -->
+                  <button class="clipboard-btn btn btn-light border" data-clipboard-target="#recipelistLink" id="copyLink">
+                      COPIER
+                  </button>
+                </div>
+
+              <% else %>
+
+                <p class="pl-1 lead mb-3"><i class="fas fa-share"></i> Partager votre sélection</p>
+
+                <div id="poll" class="mb-3 d-flex flex-column px-5">
                     <%= link_to "Créer un sondage", set_poll_recipe_list_path(@recipe_list), class:"btn btn-light border shadow-lg" %>
-                  <% end %>
-                <% end %>
-              </div>
+                </div>
 
-              <div class="d-flex">
-                <!-- COPY LINK Target -->
-                <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list, host: request.host) %>">
-                <!-- COPY LINK Trigger -->
-                <button class="clipboard-btn btn btn-light border" data-clipboard-target="#recipelistLink" id="copyLink">
-                    COPIER
-                </button>
-              </div>
+                <div class="d-flex">
+                  <!-- COPY LINK Target -->
+                  <input class="form-control" type="text" id="recipelistLink" value="<%= recipe_list_url(@recipe_list, host: request.host) %>">
+                  <!-- COPY LINK Trigger -->
+                  <button class="clipboard-btn btn btn-light border" data-clipboard-target="#recipelistLink" id="copyLink">
+                      COPIER
+                  </button>
+                </div>
+              <% end %>
             </div>
           </div>
+
           <%= render partial: 'recipe_list_items/recipe_list_item_card', collection: @recipe_list.recipe_list_items.sort_by{|rli| rli.recipe.title.parameterize }, as: :recipe_list_item, locals: {list: nil } %>
         </div>
 

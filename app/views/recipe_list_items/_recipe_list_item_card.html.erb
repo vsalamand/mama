@@ -1,4 +1,6 @@
-  <%= render 'recipe_list_items/votes', recipe_list_item: recipe_list_item %>
+
+<div class="mt-4"><%= render 'recipe_list_items/votes', recipe_list_item: recipe_list_item %></div>
+
 <div class="card mx-2 mb-2 rounded" style="position: relative;" >
   <%= link_to recipe_list_item.recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick", data:"#{recipe_list_item.recipe.id}" do %>
     <div class="d-flex text-dark mb-0 bd-highlight">
@@ -11,7 +13,15 @@
       </div>
     </div>
   <% end %>
+
   <div class="card-footer bg-light border-light p-2 text-center d-flex justify-content-around align-items-center">
-    <%= render 'shared/recipe_card_actions', recipe: recipe_list_item.recipe %>
+    <% if recipe_list_item.recipe_list.poll? && ["poll"].include?(params[:type])%>
+      <div id="recipe-list_item-id<%= recipe_list_item.id %>">
+        <%= render 'recipe_list_items/unselected', recipe_list_item: recipe_list_item %>
+      </div>
+    <% else %>
+      <%= render 'shared/recipe_card_actions', recipe: recipe_list_item.recipe %>
+    <% end %>
   </div>
+
 </div>

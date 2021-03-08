@@ -47,6 +47,74 @@ function removeFromMenu(recipeListId, recipeListItemId) {
 }
 
 
+
+//  Vote for recipe
+$(document).on("click" , ".unselectedRecipeListItem", function(event) {
+  const recipelistItemId = this.getAttribute('data');
+  const recipeListId = this.getAttribute('data-context');
+  selectRecipeListItem(recipelistItemId, recipeListId);
+});
+
+function selectRecipeListItem(recipelistItemId, recipeListId) {
+  $.ajax({
+    url: "/recipe_lists/" + recipeListId + "/recipe_list_items/" + recipelistItemId + "/select",
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+}
+
+//  unvote for recipe
+$(document).on("click" , ".selectedRecipeListItem", function(event) {
+  const recipelistItemId = this.getAttribute('data');
+  const recipeListId = this.getAttribute('data-context');
+  unselectRecipeListItem(recipelistItemId, recipeListId);
+});
+
+function unselectRecipeListItem(recipelistItemId, recipeListId) {
+  $.ajax({
+    url: "/recipe_lists/" + recipeListId + "/recipe_list_items/" + recipelistItemId + "/unselect",
+    cache: false,
+    dataType: 'script',
+    success: function(){
+    }
+  });
+}
+
+//  Confirm votes
+$(document).on("click" , "#voteBtn", function(event) {
+  var recipeListId = this.getAttribute('data');
+  var selectedRecipeListItems = document.querySelectorAll('.selectedRecipeListItem');
+
+  var recipeListItemIds = []
+  $(selectedRecipeListItems).map(function() {
+                   recipeListItemIds.push(this.getAttribute('data'));
+                })
+
+  $('#voteBtn').html(
+    `<span class="spinner-border spinner-border-sm" role="status"></span> Validation...`
+  );
+
+  vote(recipeListId, recipeListItemIds);
+});
+
+function vote(recipeListId, recipeListItemIds) {
+  $.ajax({
+    url: "/recipe_lists/" + recipeListId + "/vote",
+    cache: false,
+    dataType: 'script',
+    data: {
+        rli: recipeListItemIds,
+      },
+    success: function(){
+    }
+  });
+}
+
+
+
+
 //  Add menu items to list
 $(document).on("click" , "#addMenuToListBtn", function(event) {
 

@@ -146,6 +146,21 @@ class RecipeListsController < ApplicationController
     redirect_to cuisine_path
   end
 
+  def vote
+    @recipe_list = RecipeList.find(params[:id])
+    recipe_list_item_ids = params[:rli]
+    current_user_id = current_user.id if current_user
+    recipe_list_item_ids.each{ |rli_id| Vote.create(user_id: current_user_id, recipe_list_item_id: rli_id ) }
+
+    flash[:notice] = 'Votre vote a bien été pris en compte !'
+
+    ahoy.track "Vote", recipe_list: @recipe_list.id, author: @recipe_list.user.username
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   private
   def recipe_list_params
     params.require(:recipe_list).permit(:id, :name, :user_id, :diet_id, :description, :status, :tag_list, :recipe_list_type, recipe_ids: [])

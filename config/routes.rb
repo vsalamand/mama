@@ -230,7 +230,12 @@ Rails.application.routes.draw do
   end
 
   resources :recipe_lists do
-    resources :recipe_list_items, only: [:show, :destroy, :edit, :update]
+    resources :recipe_list_items, only: [:show, :destroy, :edit, :update] do
+      member do
+        get :select
+        get :unselect
+      end
+    end
     member do
       get :explore
       get :add_recipe
@@ -241,6 +246,7 @@ Rails.application.routes.draw do
       get :category
       get :clean
       get :set_poll
+      get :vote
     end
   end
 
