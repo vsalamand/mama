@@ -120,9 +120,9 @@ class RecipesController < ApplicationController
   end
 
   def set_published_status
-    @recipe.status = "published"
+    @recipe.publish
     # generate_ingredients_tags(@recipe)
-    @recipe.save
+    # @recipe.save
     @recipe.items.each{ |item| item.validate }
     # @recipe.upload_to_cloudinary
 

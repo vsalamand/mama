@@ -83,6 +83,7 @@ class Recipe < ApplicationRecord
   def publish
     self.status = "published"
     self.rate #save in rate method
+    self.save
   end
 
   def is_published?
@@ -290,7 +291,8 @@ class Recipe < ApplicationRecord
       key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
       key["healthy_rate"] = key["rating"] * 0.0
 
-      key["score"] = key["user_impressions_rate"] * (key["match_rate"] + key["fill_rate"] + key["healthy_rate"] + key["random_score"])
+      key["score"] = key["match_rate"] + key["fill_rate"] + key["healthy_rate"] + key["random_score"]
+      key["score"] = (key["user_impressions_rate"] * key["score"]) if key["user_impressions_rate"].present?
     end
 
     data << recipe_hash.sort_by! { |k| -k["score"] }
@@ -314,7 +316,8 @@ class Recipe < ApplicationRecord
       key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
       key["healthy_rate"] = key["rating"] * 0.0
 
-      key["score"] = key["user_impressions_rate"] * (key["match_rate"] + key["fill_rate"] + key["healthy_rate"] + key["random_score"])
+      key["score"] = key["match_rate"] + key["fill_rate"] + key["healthy_rate"] + key["random_score"]
+      key["score"] = (key["user_impressions_rate"] * key["score"]) if key["user_impressions_rate"].present?
     end
     data << recipe_hash.sort_by! { |k| -k["score"] }
 
