@@ -10,6 +10,7 @@
         <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick" do %>
          <p class="li lead m-0 px-2 no-link text-primary font-weight-bold " style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
         <% end %>
+        <%= link_to "Manage items", recipe_path(recipe), class:"btn btn-light btn-sm border px-2", target: "_blank" %>
          <small class="px-2"><%= URI("#{recipe.link}").host %></small>
         <p class="px-2 font-weight-bold"><%= recipe.rating.round(2) if recipe.rating %></p>
 

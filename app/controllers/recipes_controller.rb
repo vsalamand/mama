@@ -5,11 +5,10 @@ require 'yaml'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show, :click ]
-  skip_before_action :authenticate_user!, only: [ :card, :cart, :select_all, :fetch_recipes, :recommend, :next, :click ]
-  before_action :authenticate_admin!, only: [:new, :import, :create, :import, :god_show, :manage, :analytics]
+  skip_before_action :authenticate_user!, only: [:fetch_recipes, :recommend, :next, :click ]
+  before_action :authenticate_admin!, only: [:new, :show, :import, :create, :import, :god_show, :manage, :analytics]
 
   def show
-    @list_item = ListItem.new
     @list = List.find(params[:l]) if params[:l].present?
 
     @recipe.servings.nil? ? @servings = 1 : @servings = @recipe.servings.delete('^0-9').to_i

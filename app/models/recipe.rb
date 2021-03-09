@@ -83,7 +83,6 @@ class Recipe < ApplicationRecord
   def publish
     self.status = "published"
     self.rate #save in rate method
-    self.save
   end
 
   def is_published?

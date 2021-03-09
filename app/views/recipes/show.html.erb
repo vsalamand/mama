@@ -2,7 +2,7 @@
 <% content_for :meta_description, "#{@recipe.items.pluck(:name).join(", ").capitalize[0..255]}" %>
 <% content_for :meta_image, cl_image_path(@recipe.image_url) %>
 
-<%= render "shared/navbar_recipe", recipe: @recipe, referrer: @referrer, list: @list, lists: @lists %>
+<%= render "shared/admin-navbar" %>
 
 
 
@@ -13,11 +13,6 @@
         <div class="row">
           <div class="col-md-6 my-auto d-flex flex-column" style="min-height: 200px;">
             <h1 class="">
-              <% if user_signed_in? %>
-                <span id="isFavorite<%= @recipe.id %>">
-                  <%= render 'shared/favorite', recipe: @recipe %>
-                </span>
-              <% end %>
               <%= @recipe.title %>
             </h1>
             <p class="m-0 p-1 lead"><%= link_to "#{URI("#{@recipe.link }").host}", @recipe.link, target: "_blank", class:"recipeLinkClick" %></p>
@@ -33,6 +28,37 @@
           </div>
         </div>
 
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="ingredients">
+      <ul class="list-group p-0">
+        <% @recipe.items.order(:id).each do |item| %>
+          <li class="list-group-item p-1 px-2">
+            <%= link_to item_path(item), method: :delete, remote: true do %>
+              <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <% end %>
+
+            <p class="m-0 text-muted"><%= item.name %></p>
+
+            <% if item.category  %>
+              <p class="lead m-0 p-0 font-weight-bold">
+                <%= link_to item.category.name, edit_recipe_item_path(@recipe, item), target: "_blank" %>
+                <% if item.quantity %>
+                  <span class="lead font-weight-light text-muted">x <%= "%g" % ("%.2f" % item.quantity) %> <%= item.unit.name if item.unit %></span>
+                <% end %>
+              </p>
+            <% else %>
+              <p class="lead m-0 p-0 font-weight-bold"><%= link_to "not found", edit_recipe_item_path(@recipe, item), target: "_blank" %></p>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <%= link_to 'Ajouter un item', new_recipe_item_path(recipe_id: @recipe.id), target: "_blank", class:"btn btn-light border m-2" %>
     </div>
   </div>
 

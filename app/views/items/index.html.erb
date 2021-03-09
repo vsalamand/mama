@@ -11,8 +11,7 @@
       <div class="my-3 d-flex">
         <%= form_tag(items_path, :method => "get", class:"form-inline") do %>
           <%= text_field_tag :query, params[:query], class: 'form-control' %>
-           <%= collection_select :food_id, :id, Food.all.order(:name), :id, :name, :include_blank => true, class: 'form-control' %>
-           <%= f.collection_select(:category_id, Category.arrange_as_array, :id, :name_for_selects, {:include_blank => true}, {:class => 'form-control form-control-lg select'}) %>
+          <%= collection_select(:category_id, Category.arrange_as_array, :id, :name_for_selects, {:include_blank => true}, {:class => 'form-control form-control-lg select'}) %>
           <%= submit_tag "Search", class: 'form-control  btn-primary' %>
         <% end %>
       </div>
