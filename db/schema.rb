@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(version: 2021_03_06_083040) do
     t.index ["unit_id"], name: "index_foods_on_unit_id"
   end
 
-  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
+  create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -686,16 +686,6 @@ ActiveRecord::Schema.define(version: 2021_03_06_083040) do
     t.index ["diet_id"], name: "index_users_on_diet_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "versions", id: :serial, force: :cascade do |t|
-    t.string "item_type", null: false
-    t.bigint "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "votes", force: :cascade do |t|
