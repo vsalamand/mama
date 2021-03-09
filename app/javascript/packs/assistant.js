@@ -153,6 +153,7 @@ $(document).on("DOMSubtreeModified", "#assistantItems", function(event) {
 
 function setSearchBar() {
   var searchBar = document.getElementById("searchRecipeBtn");
+  var suggestBar = document.getElementById('suggestRecipeBtn')
 
   if (document.getElementById('todo_list')) {
      var selectedCategories = document.querySelectorAll('.uncompleted').length;
@@ -162,14 +163,21 @@ function setSearchBar() {
   }
 
   if((selectedCategories > 0)){
-     searchBar.style.display = "block";
+    searchBar.style.display = "block";
+    suggestBar.style.display = "none";
   } else {
-     searchBar.style.display = "none";
+    searchBar.style.display = "none";
+    suggestBar.style.display = "block";
   }
 }
 
 // show / hide top and bottom menu while focus on create form
 $(document).on("click", "#searchRecipeBtn", function(event) {
+  showRecipeResults();
+  // push state to manage back button
+  history.pushState({page:1}, "Assistant form back", window.location.path);
+})
+$(document).on("click", "#suggestRecipeBtn", function(event) {
   showRecipeResults();
   // push state to manage back button
   history.pushState({page:1}, "Assistant form back", window.location.path);

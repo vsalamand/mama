@@ -33,7 +33,7 @@ class Recipe < ApplicationRecord
   scope :published, -> { where(status: "published").where.not(origin: "mama") }
   scope :pending, -> { where(status: "pending").where.not(origin: "mama") }
   scope :dismissed, -> { where(status: "dismissed").where.not(origin: "mama") }
-  scope :curated, -> { includes(:recipe_lists).where(status: "published").where.not(origin: "mama").where( :recipe_lists => { :recipe_list_type => "curated" } ).where.not( :recipe_lists => { :id => 581 } ) }
+  scope :curated, -> { includes(:recipe_lists).where(status: "published").where.not(origin: "mama").where( :recipe_lists => { :recipe_list_type => "curated" } ).where.not( :recipe_lists => { :id => [581, 770, 585, 583, 584, 594, 595] } ) }
 
 
   after_create do
@@ -255,8 +255,14 @@ class Recipe < ApplicationRecord
     seasonings_ids = Category.get_seasonings
 
     # select eligible recipes
-    good_recipe_ids = Recipe.curated.tagged_with("good").includes(:categories).where(categories: { id: broad_category_ids }).pluck(:id)
-    limit_recipe_ids = Recipe.curated.tagged_with("limit").includes(:categories).where(categories: { id: broad_category_ids }).pluck(:id)
+    if broad_category_ids.any?
+      good_recipe_ids = Recipe.curated.tagged_with("good").includes(:categories).where(categories: { id: broad_category_ids }).pluck(:id)
+      limit_recipe_ids = Recipe.curated.tagged_with("limit").includes(:categories).where(categories: { id: broad_category_ids }).pluck(:id)
+    else
+      good_recipe_ids = Recipe.curated.tagged_with("good").includes(:categories).last(100).pluck(:id)
+      limit_recipe_ids = Recipe.curated.tagged_with("limit").includes(:categories).last(100).pluck(:id)
+    end
+
     user_disliked_recipe_ids = user.present? ? user.get_dislikes_recipe_list.recipes.pluck(:id) : Array.new
 
     good_eligible_recipe_ids = good_recipe_ids - user_disliked_recipe_ids
@@ -270,20 +276,23 @@ class Recipe < ApplicationRecord
                           .deep_pluck(:id, :link, :title, :rating, 'categories' => [:id, :rating])
 
     recipe_hash.each do |key, value|
-      user_impressions = user.present? ? Ahoy::Event.where(user_id: user.id, time: 2.hours.ago..Time.now, name: "Recommend recipe").where_properties(recipe_id: key["id"]).count.to_f : 0
-      key["user_impressions_rate"] = (user_impressions.to_i / 3 * -0.3)
+      user_impressions = user.present? ? Ahoy::Event.where(user_id: user.id, time: 2.days.ago..Time.now, name: "Recommend recipe").where_properties(recipe_id: key["id"]).count.to_f : 0
+      # user capping decay
+      user_impressions.to_i > 0 ? key["user_impressions_rate"] = (0.9/ user_impressions.to_i) : key["user_impressions_rate"] = 1
 
       key["categories_used"] = (broad_category_ids & key["categories"].map{|x| x["id"]})
       key["nb_categories_used"] = key["categories_used"].size
       key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]} - seasonings_ids).size
 
       key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_recipe_categories"].to_f)
-      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.5
+      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.3
+      key["fill_rate"] = 0.0 if key["fill_rate"].nan?
       key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
       key["healthy_rate"] = key["rating"] * 0.0
 
-      key["score"] = key["match_rate"] + key["fill_rate"] + key["user_impressions_rate"] + key["healthy_rate"] + key["random_score"]
+      key["score"] = key["user_impressions_rate"] * (key["match_rate"] + key["fill_rate"] + key["healthy_rate"] + key["random_score"])
     end
+
     data << recipe_hash.sort_by! { |k| -k["score"] }
 
     # create recipe hash for limit recipes
@@ -291,19 +300,21 @@ class Recipe < ApplicationRecord
                           .deep_pluck(:id, :link, :title, :rating, 'categories' => [:id, :rating])
 
     recipe_hash.each do |key, value|
-      user_impressions = user.present? ? Ahoy::Event.where(user_id: user.id, time: 2.hours.ago..Time.now, name: "Recommend recipe").where_properties(recipe_id: key["id"]).count.to_f : 0
-      key["user_impressions_rate"] = (user_impressions.to_i / 3 * -0.3)
+      user_impressions = user.present? ? Ahoy::Event.where(user_id: user.id, time: 2.days.ago..Time.now, name: "Recommend recipe").where_properties(recipe_id: key["id"]).count.to_f : 0
+      # user capping decay
+      user_impressions.to_i > 0 ? key["user_impressions_rate"] = (0.9/ user_impressions.to_i) : key["user_impressions_rate"] = 1
 
       key["categories_used"] = (broad_category_ids & key["categories"].map{|x| x["id"]})
       key["nb_categories_used"] = key["categories_used"].size
       key["nb_recipe_categories"] = (key["categories"].map{|x| x["id"]} - seasonings_ids).size
 
       key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_recipe_categories"].to_f)
-      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.5
+      key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.3
+      key["fill_rate"] = 0.0 if key["fill_rate"].nan?
       key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
       key["healthy_rate"] = key["rating"] * 0.0
 
-      key["score"] = key["match_rate"] + key["fill_rate"] + key["user_impressions_rate"] + key["healthy_rate"] + key["random_score"]
+      key["score"] = key["user_impressions_rate"] * (key["match_rate"] + key["fill_rate"] + key["healthy_rate"] + key["random_score"])
     end
     data << recipe_hash.sort_by! { |k| -k["score"] }
 
