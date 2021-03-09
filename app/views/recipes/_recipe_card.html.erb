@@ -1,5 +1,7 @@
 <div class="card mb-2 rounded m-2" style="position: relative;" >
-  <%= render 'shared/recipe_tag', recipe: recipe %>
+
+  <% if false %><%= render 'shared/recipe_tag', recipe: recipe %><% end %>
+
   <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick", data:"#{recipe.id}" do %>
     <div class="d-flex text-dark mb-0 bd-highlight">
       <div class="mr-2 p-2 my-auto">

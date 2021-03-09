@@ -287,10 +287,16 @@ class RecipesController < ApplicationController
     @recipe_list = current_recipe_list
 
     type = params[:t]
-    if type == "u"
-      @category_ids = Item.find(params[:i]).pluck(:category_id).compact
+    query_ids = params[:i]
+
+    if query_ids.present?
+      if type == "u"
+        @category_ids = Item.find(query_ids).pluck(:category_id).compact
+      else
+        @category_ids = query_ids.reject(&:empty?).map(&:to_i)
+      end
     else
-      @category_ids = params[:i].reject(&:empty?).map(&:to_i)
+      @category_ids = []
     end
 
     @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]}
