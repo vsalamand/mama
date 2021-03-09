@@ -11,7 +11,7 @@
          <p class="li lead m-0 px-2 no-link text-primary font-weight-bold " style="cursor: pointer;" data="<%= recipe.id %>"><%= recipe.title %></p>
         <% end %>
          <small class="px-2"><%= URI("#{recipe.link}").host %></small>
-        <p class="px-2 font-weight-bold"><%= recipe.rating.round(2) %></p>
+        <p class="px-2 font-weight-bold"><%= recipe.rating.round(2) if recipe.rating %></p>
 
 
         <div class="d-flex justify-content-start px-2">
