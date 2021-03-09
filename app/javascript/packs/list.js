@@ -155,6 +155,7 @@ function showListItemForm() {
 function hideListItemForm() {
   var newListItemForm = document.getElementById('newlistItemForm');
   newListItemForm.style.display = "none";
+  $('#newListItem').blur();
   window.scrollTo(0,0);
   var listShow = document.getElementById('listShow');
   listShow.style.display = "block";
