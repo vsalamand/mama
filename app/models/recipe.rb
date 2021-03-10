@@ -338,7 +338,11 @@ class Recipe < ApplicationRecord
       self.origin = URI("#{self.link }").host if self.origin.nil?
       self.title = parser["name"].downcase.capitalize
       self.ingredients = parser["recipeIngredient"].join("\r\n")
-      parser["recipeInstructions"].class == "String" ? self.instructions = parser["recipeInstructions"] : self.instructions = parser["recipeInstructions"].join("\r\n")
+
+      if parser["recipeInstructions"]
+        parser["recipeInstructions"].class == "String" ? self.instructions = parser["recipeInstructions"] : self.instructions = parser["recipeInstructions"].join("\r\n")
+      end
+
       self.servings = parser["recipeYield"]
       unless Recipe.find_by(title: self.title, origin: self.origin)
         self.save
