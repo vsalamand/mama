@@ -248,15 +248,16 @@ class Recipe < ApplicationRecord
 
 
       key["nb_categories_left"] > 0 ? key["categories_left_penalty"] = (0.9 / key["nb_categories_left"]) : key["categories_left_penalty"] = 1
+      key["quality_score"] = key["nb_categories_used"] * key["categories_left_penalty"]
 
-      key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_categories"].to_f)
+      # key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_categories"].to_f)
 
       # key["fill_rate"] = (key["nb_categories_used"].to_f / category_ids.size.to_f ) * 0.3
       # key["fill_rate"] = 0.0 if key["fill_rate"].nan?
       key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
       # key["healthy_rate"] = key["rating"] * 0.0
 
-      key["score"] = (key["categories_left_penalty"] * key["match_rate"]) + key["random_score"]
+      key["score"] = (key["categories_left_penalty"] * key["quality_score"]) + key["random_score"]
       key["score"] = (key["user_impressions_penalty"] * key["score"]) if key["user_impressions_penalty"].present?
     end
 
