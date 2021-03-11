@@ -365,7 +365,8 @@ class PagesController < ApplicationController
   end
 
   def pending
-    @recipes = Recipe.where(status: "pending").order(:id).reverse.paginate(page: params[:page], per_page: 10)
+    # @recipes = Recipe.where(status: "pending").order(:id).reverse.first(3)
+    @recipes = Recipe.where(status: "pending").order(:id).reverse.paginate(page: params[:page], per_page: 2)
     # @recommend = RecipeList.find_by(recipe_list_type: "curated", name: "Idées repas")
   end
 

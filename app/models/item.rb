@@ -38,6 +38,10 @@ class Item < ApplicationRecord
     end
   end
 
+  before_update do
+    self.set_non_food if self.is_non_food
+  end
+
   after_create :create_item_history
   # after_create :broadcast_create
   # after_update :broadcast_update
@@ -252,6 +256,16 @@ class Item < ApplicationRecord
   end
 
   def unvalidate
+    if self.is_validated == false
+      # Thread.new do
+        # validate any items with same name and not yet validated
+        Item.where("lower(trim(name)) = ?", self.name.downcase.strip)
+            .update_all(is_validated: false)
+      # end
+    end
+  end
+
+  def unvalidate
     self.update_column(:is_validated, false)
   end
 
@@ -276,6 +290,12 @@ class Item < ApplicationRecord
     self.is_deleted = true
     self.save
     self.create_item_history
+  end
+
+  def set_non_food
+    if self.is_non_food
+      self.update_columns(category_id: nil, unit_id: nil, store_section_id: nil)
+    end
   end
 
   def find_saved_item(list)

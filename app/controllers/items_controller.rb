@@ -101,9 +101,15 @@ class ItemsController < ApplicationController
 
     elsif @item.recipe_id.present?
       @item.update(items_params)
-      redirect_to pending_path
-    # elsif @item.list_item_id.present?
-    #   redirect_to list_path(@item.list_item.list)
+
+      @all_categories = Category.arrange_as_array
+      @all_units = Unit.all.order(:name)
+      @all_store_sections = StoreSection.all.order(:name)
+
+      respond_to do |format|
+        format.html { redirect_to pending_path }
+        format.js { render 'inline_update.js.erb' }
+      end
     else
       @item.update(items_params)
       @item = @item.set
@@ -162,7 +168,10 @@ class ItemsController < ApplicationController
       ahoy.track "Destroy list item", name: @item.name
     else
       @item.destroy
-      redirect_back(fallback_location:"/")
+      respond_to do |format|
+        format.html { redirect_back(fallback_location:"/") }
+        format.js { render 'inline_delete.js.erb' }
+      end
     end
   end
 

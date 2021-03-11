@@ -47,7 +47,6 @@ gem "font-awesome-sass"
 gem "simple_form"
 gem 'nested_form_fields'
 gem "autoprefixer-rails"
-
 # debugging
 gem 'better_errors'
 gem 'binding_of_caller'
