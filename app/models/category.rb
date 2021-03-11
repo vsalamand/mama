@@ -151,6 +151,12 @@ class Category < ApplicationRecord
     ids << Category.find(603).subtree.pluck(:id)
     # vinagres
     ids << Category.find(604).subtree.pluck(:id)
+    # beurres
+    ids << Category.find(499).subtree.pluck(:id)
+    # herbes
+    ids << Category.find(280).subtree.pluck(:id)
+    # huiles
+    ids << Category.find(603).subtree.pluck(:id)
     return ids.flatten
   end
 
