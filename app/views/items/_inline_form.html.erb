@@ -1,0 +1,39 @@
+<li class="list-group-item p-1 px-2" id="item-id-<%= item.id %>">
+  <%= link_to item_path(item), method: :delete, remote: true do %>
+    <button type="button" class="close ml-1 mr-0 remove-item text-muted" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  <% end %>
+
+  <p class="text-muted font-weight-bold"><%= item.name %></p>
+
+  <%= simple_form_for item, remote: true do |f| %>
+
+    <div class="form-row">
+      <div class="col-2">
+        <%= f.collection_select(:category_id, all_categories, :id, :name_for_selects, {:include_blank => true}, class:"m-0 select" ) %>
+      </div>
+      <div class="col-1">
+        <%= f.input :quantity, label: false, class:"m-0 form-control" %>
+      </div>
+      <div class="col-2">
+        <%= f.collection_select(:unit_id, all_units, :id, :name, {:include_blank => true}, {class:"m-0 form-control"}) %>
+      </div>
+      <div class="col-2">
+        <%= f.collection_select(:store_section_id, all_store_sections, :id, :name, {:include_blank => true}, {class:"m-0 form-control"}) %>
+      </div>
+      <div class="col-1">
+        <%= f.input :is_non_food, as: :boolean, boolean_style: :inline, class:"form-control m-0" %>
+      </div>
+      <div class="col-1">
+        <%= f.input :is_validated, as: :boolean, boolean_style: :inline, class:"form-control m-0"  %>
+      </div>
+      <div class="col-1">
+        <%= f.submit "Mettre à jour", class: "btn btn-primary btn-sm m-0" %>
+      </div>
+    </div>
+  <% end %>
+
+
+</li>
+
