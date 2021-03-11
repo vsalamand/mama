@@ -1,4 +1,3 @@
-const recipeItem = document.querySelector("#item-id<%= @item.id %>");
-// this is not working
-recipeItem.innerHTML = '';
-recipeItem.innerHTML = ("<%= j render 'items/inline_form', item: @item, all_categories: @all_categories, all_units: @all_units, all_store_sections: @all_store_sections %>");
+const recipeItem = document.querySelector("#item-id-<%= @item.id %>");
+
+$(recipeItem).html("<%= j render 'items/inline_form', item: @item, all_categories: @all_categories, all_units: @all_units, all_store_sections: @all_store_sections %>");

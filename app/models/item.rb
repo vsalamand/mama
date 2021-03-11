@@ -28,7 +28,7 @@ class Item < ApplicationRecord
 
   # update item validations if new item is validated
   after_update do
-    if saved_change_to_name?
+    if saved_change_to_name? || saved_change_to_unit_id? || saved_change_to_quantity? || saved_change_to_is_non_food?
       self.validate if self.is_validated == true
     end
     if saved_change_to_category_id?
