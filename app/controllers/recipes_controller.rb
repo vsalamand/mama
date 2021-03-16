@@ -63,7 +63,7 @@ class RecipesController < ApplicationController
   def manage
     @categories = RecipeList.curated
     @category = RecipeList.find(params[:category_id]) if params[:category_id].present?
-    @query = params[:query].present?
+    @query = params[:query]
     @recipe_list_item = RecipeListItem.new
 
     if @category.present?
@@ -283,8 +283,6 @@ class RecipesController < ApplicationController
   end
 
   def recommend
-    @recipe_list = current_recipe_list
-
     type = params[:t]
     query_ids = params[:i]
 
@@ -308,8 +306,6 @@ class RecipesController < ApplicationController
   end
 
   def next
-    @recipe_list = current_recipe_list
-
     @category_ids = YAML.load(params[:c])
     @recipe_ids = YAML.load(params[:r]).drop(2)
     @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]} if @recipe_ids.size < 2
@@ -352,9 +348,9 @@ class RecipesController < ApplicationController
       @category_ids = params[:i].reject(&:empty?).map(&:to_i)
     end
 
-    @recipes_hashes = Recipe.search_by_categories(@category_ids, nil)
-    @user_recipes_hashes = Recipe.search_by_categories(@category_ids, current_user)
+    @recipes_hashes = Recipe.recommend(@category_ids, nil)
 
+    @user_recipes_hashes = Recipe.recommend(@category_ids, current_user)
 
     render "visualize.js.erb"
   end

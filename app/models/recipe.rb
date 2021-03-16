@@ -246,9 +246,9 @@ class Recipe < ApplicationRecord
       key["nb_categories"] = key["cleaned_categories"].size
       key["nb_categories_left"] = key["nb_categories"] - key["nb_categories_used"]
 
-
+      key["nb_categories_used"] > 1 ? key["match_bonus"] = Math::acosh(key["nb_categories_used"]) : key["match_bonus"] = 1
       key["nb_categories_left"] > 0 ? key["categories_left_penalty"] = (0.9 / key["nb_categories_left"]) : key["categories_left_penalty"] = 1
-      key["quality_score"] = key["nb_categories_used"] * key["categories_left_penalty"]
+      key["quality_score"] = key["nb_categories_used"] * key["categories_left_penalty"] * key["match_bonus"]
 
       # key["match_rate"] = (key["nb_categories_used"].to_f / key["nb_categories"].to_f)
 
@@ -257,7 +257,7 @@ class Recipe < ApplicationRecord
       key["random_score"] = (rand(-1.0..1.0).round(3) * 0.1)
       # key["healthy_rate"] = key["rating"] * 0.0
 
-      key["score"] = (key["categories_left_penalty"] * key["quality_score"]) + key["random_score"]
+      key["score"] = key["quality_score"] + key["random_score"]
       key["score"] = (key["user_impressions_penalty"] * key["score"]) if key["user_impressions_penalty"].present?
     end
 
