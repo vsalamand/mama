@@ -19,6 +19,7 @@ class PagesController < ApplicationController
         redirect_to assistant_path
       end
     else
+      @categories = Category.get_suggestions
       ahoy.track "Landing"
     end
   end
