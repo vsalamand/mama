@@ -3,10 +3,12 @@
 
   <li class="rounded bg-light mb-1 py-2 px-2 d-flex align-items-center justify-content-between completed addCategoryToList"  data="<%= category.name %>"  data-id="<%= category.id %>" style="cursor: pointer;">
     <div class="d-flex align-items-center">
-      <%= link_to dislike_items_path(name: category.name), remote: true do %>
-        <button type="button" class="close mx-1 remove-item text-muted" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <% if false %>
+        <%= link_to dislike_items_path(name: category.name), remote: true do %>
+          <button type="button" class="close mx-1 remove-item text-muted" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        <% end %>
       <% end %>
 <!--       <%= render "categories/rating_indicator", category: category %>
  -->
