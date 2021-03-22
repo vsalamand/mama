@@ -153,7 +153,8 @@ $(document).on("DOMSubtreeModified", "#assistantItems", function(event) {
 
 function setSearchBar() {
   var searchBar = document.getElementById("searchRecipeBtn");
-  var suggestBar = document.getElementById('suggestRecipeBtn')
+  var suggestBar = document.getElementById('suggestRecipeBtn');
+  var saveListBtn = document.getElementById('saveListBtn');
 
   if (document.getElementById('todo_list')) {
      var selectedCategories = document.querySelectorAll('.uncompleted').length;
@@ -165,9 +166,11 @@ function setSearchBar() {
   if((selectedCategories > 0)){
     searchBar.style.display = "block";
     suggestBar.style.display = "none";
+    saveListBtn.children[0].style.display = "block";
   } else {
     searchBar.style.display = "none";
     suggestBar.style.display = "block";
+    saveListBtn.children[0].style.display = "none";
   }
 }
 

@@ -31,12 +31,18 @@
             <p id="toggleListItemform" class="lead m-0 font-weight-bold bg-white text-left text-muted px-2 py-2 border rounded shadow-lg" style=" cursor: pointer;" ><small class="text-muted"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</p>
           </div>
 
+
           <div class="px-0 mt-3" id="assistantItems">
             <div class="" id="uncomplete_list_items">
               <%= render 'lists/uncomplete_todo_list', list: @list %>
             </div>
           </div>
 
+          <% unless current_user %>
+            <div id="saveListBtn" class="d-flex justify-content-center mt-4">
+              <button class="btn-lg btn-light border" id="startAuthenticationBtn">Enregistrer votre liste</button>
+            </div>
+          <% end %>
 
           <div id="scrollPoint" style="padding: 20px;">
           </div>
