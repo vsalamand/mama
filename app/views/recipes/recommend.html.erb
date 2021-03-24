@@ -3,8 +3,8 @@
     <%= render "shared/cuisine" %>
   </nav>
 
-  <div class="container px-0 d-flex align-items-center justify-content-center bd-highlight my-auto" id="recommendationData" data="<%= @recipe_ids %>">
-    <div id="recipeRecommendations" class="col-sm-4 mb-5" data="">
+  <div class="d-flex justify-content-center" id="recommendationData" data="<%= @recipe_ids %>">
+    <div id="recipeRecommendations" class="col-sm-4" data="">
       <%= render'recipes/recommendations', recipes: @recipes %>
     </div>
   </div>

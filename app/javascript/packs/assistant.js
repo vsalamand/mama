@@ -139,17 +139,17 @@ function enableElements(list) {
 
 // show / hide search bottom nav & button
 
-$(document).on("turbolinks:load", function(event) {
-  if(document.getElementById("assistant")) {
-    setSearchBar();
-  }
-})
+// $(document).on("turbolinks:load", function(event) {
+//   if(document.getElementById("assistant")) {
+//     setSearchBar();
+//   }
+// })
 
-$(document).on("DOMSubtreeModified", "#assistantItems", function(event) {
-  if (document.getElementById('searchRecipeBtn'))  {
-    setSearchBar();
-  }
-})
+// $(document).on("DOMSubtreeModified", "#assistantItems", function(event) {
+//   if (document.getElementById('searchRecipeBtn'))  {
+//     setSearchBar();
+//   }
+// })
 
 function setSearchBar() {
   var searchBar = document.getElementById("searchRecipeBtn");

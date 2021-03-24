@@ -1,4 +1,4 @@
-<nav class="navbar fixed-bottom navbar-light bg-light d-flex justify-content-around align-items-end pt-3">
+<nav class="navbar fixed-bottom navbar-light bg-light d-flex justify-content-around align-items-end pt-2 pb-4">
 
  <% if ["assistant"].include?(params[:action])%>
     <a class="text-center d-flex flex-column align-items-center" href="/assistant" style="text-decoration: none;">
@@ -15,12 +15,12 @@
  <% if ["recommend"].include?(params[:action])%>
 
     <a class="ext-center d-flex flex-column align-items-center text-muted" href="/recipes/recommend" style="text-decoration: none;">
-      <%= cl_image_tag("menu_icons/crystal-ball", width: 40, class:"m-0",style: "position: absolute; bottom: 25px;") %>
+      <%= cl_image_tag("menu_icons/crystal-ball", width: 40, class:"m-0",style: "position: absolute; bottom: 40px;") %>
       <small class="font-weight-bold" style="background: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.6rem; position: relative;">Recommendations</small>
     </a>
   <% else %>
     <a class="ext-center d-flex flex-column align-items-center text-muted" href="/recipes/recommend" style="text-decoration: none;">
-      <%= cl_image_tag("menu_icons/crystal-ball", width: 40, class:"m-0",style: "position: absolute; bottom: 25px;") %>
+      <%= cl_image_tag("menu_icons/crystal-ball", width: 40, class:"m-0",style: "position: absolute; bottom: 40px;") %>
       <small class="text-muted" style="filter: brightness(1.40); font-size: 0.6rem;">Recommendations</small>
     </a>
   <% end %>
