@@ -1,9 +1,15 @@
-  <div id="isDisliked<%= recipe.id %>">
+<!--   <div id="isDisliked<%= recipe.id %>">
     <%= render 'shared/dislike_recipe_button', recipe: recipe %>
-  </div>
+  </div> -->
+
+  <%= link_to recipe.link, target: "_blank", style:"text-decoration: none;", class:"recipeLinkClick", data:"#{recipe.id}" do %>
+    <div class="btn btn-sm btn-link px-0">Afficher</div>
+  <% end %>
+
   <div id="isSelected<%= recipe.id %>">
     <%= render 'shared/select_recipe_button', recipe: recipe %>
   </div>
+
   <div id="isFavorite<%= recipe.id %>">
     <%= render 'shared/favorite_button', recipe: recipe %>
   </div>

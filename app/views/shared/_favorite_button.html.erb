@@ -1,9 +1,9 @@
 <% if current_user %>
   <% if recipe.is_user_favorite?(current_user) %>
-    <button class="btn btn-sm btn-transparent rounded removeFromFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star" style="color: #ffd700 ;"></i></button>
+    <button class="btn btn-sm btn-transparent rounded removeFromFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-bookmark"></i></button>
   <% else %>
-    <button class="btn btn-sm btn-transparent rounded text-muted addToFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
+    <button class="btn btn-sm btn-transparent rounded text-muted addToFavorites" style="cursor: pointer;" data="<%= recipe.id %>"><i class="far fa-lg fa-bookmark"></i></button>
   <% end %>
 <% else %>
-   <button class="btn btn-sm btn-transparent rounded text-muted font-weight-bold" style="cursor: pointer;"  id="startAuthenticationBtn" data="<%= recipe.id %>"><i class="fas fa-lg fa-star"></i></button>
+   <button class="btn btn-sm btn-transparent rounded text-muted font-weight-bold" style="cursor: pointer;"  id="startAuthenticationBtn" data="<%= recipe.id %>"><i class="far fa-lg fa-bookmark"></i></button>
 <% end %>

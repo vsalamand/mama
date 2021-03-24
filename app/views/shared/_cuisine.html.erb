@@ -2,8 +2,7 @@
   <%= link_to cuisine_path, class:"openLink" do %>
     <div class="btn btn-light border btn-lg align-items-center">
       <p class="m-0">
-        <i class="fas fa-utensils text-muted" style="filter: brightness(1.40);"></i>
-         <span class="badge badge-success"><%= current_recipe_list.recipes.size %> <i class="fas fa-check-circle"></i></span>
+         <i class="fas fa-check-circle text-success"></i> <%= current_recipe_list.recipes.size %>
       </p>
     </div>
   <% end %>
@@ -11,8 +10,7 @@
 <% else %>
     <div class="btn btn-light border btn-lg align-items-center" style="cursor: pointer;"  id="startAuthenticationBtn">
       <p class="m-0">
-        <i class="fas fa-utensils text-muted" style="filter: brightness(1.40);"></i>
-         <span class="badge badge-success"><%= current_recipe_list.recipes.size %> <i class="fas fa-check-circle"></i></span>
+         <i class="fas fa-check-circle text-success"></i> <%= current_recipe_list.recipes.size %>
       </p>
     </div>
 <% end %>

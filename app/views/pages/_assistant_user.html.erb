@@ -5,11 +5,8 @@
 
 </div>
 
-<div id="searchResults" style="display: none;">
-  <%= render 'shared/recipe_suggest' %>
-</div>
 
-<div>
+
 
 <div id="listShow">
   <div id="assistantContent" class="bg-white">
@@ -24,25 +21,18 @@
     <div class="wrapper" style="min-height: 70vh;">
       <div class="container px-1" id="todo_list" data="<%= @list.id %>">
 
-          <div class="jumbotron text-white text-center mb-2 px-2 py-3">
-            <p class="pl-1 lead text-dark mb-3">
-               Votre liste de produits
-            </p>
-            <p id="toggleListItemform" class="lead m-0 font-weight-bold bg-white text-left text-muted px-2 py-2 border rounded shadow-lg" style=" cursor: pointer;" ><small class="text-muted"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</p>
+          <div class="jumbotron bg-white text-center mb-2 px-2 py-0">
+            <h1 class="text-dark text-center p-2 display-4" style="display: none;">Mes produits</h1>
+            <p id="toggleListItemform" class="lead m-0 font-weight-bold bg-white text-center text-primary px-2 py-2 border rounded shadow-lg" style=" cursor: pointer;" ><small class="text-primary"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</p>
           </div>
 
 
-          <div class="px-0 mt-3" id="assistantItems">
+          <div class="px-0" id="assistantItems">
             <div class="" id="uncomplete_list_items">
               <%= render 'lists/uncomplete_todo_list', list: @list %>
             </div>
           </div>
 
-          <% unless current_user %>
-            <div id="saveListBtn" class="d-flex justify-content-center mt-4">
-              <button class="btn-lg btn-light border" id="startAuthenticationBtn">Enregistrer votre liste</button>
-            </div>
-          <% end %>
 
           <div id="scrollPoint" style="padding: 20px;">
           </div>
@@ -53,12 +43,6 @@
       <div id="savedProducts">
         <%=  render"lists/saved_products", items: @saved_items %>
       </div>
-
-      <% if false %>
-        <div id="itemsRecommendations" class="pb-5">
-            <%= render'lists/suggested_products', categories: @categories %>
-        </div>
-      <% end %>
     </div>
 
 
@@ -67,14 +51,17 @@
 
     <div style="padding: 50px;"></div>
 
+    <% if false %>
       <div class="fixed-bottom d-flex justify-content-center text-center">
         <button class="btn btn-lg shadow-lg border border-warning rounded-pill rounded-lg p-3 mb-2 mx-1 fetchRecipes" style="cursor: pointer; background: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225))" id="suggestRecipeBtn">
-          <%= cl_image_tag("menu_icons/crystal-ball", width: 35, class:"m-0") %>
+          <%= cl_image_tag("menu_icons/crystal-ball", width: 15, class:"m-0") %>
        </button>
         <button class="btn btn-lg shadow-lg border border-warning rounded-pill rounded-lg p-3 mb-2 mx-1 fetchRecipes" style="cursor: pointer; background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));" id="searchRecipeBtn">
-          <%= cl_image_tag("menu_icons/search", width: 35, class:"m-0") %>
+          <%= cl_image_tag("menu_icons/search", width: 15, class:"m-0") %>
        </button>
       </div>
+    <% end %>
+
   </div>
 </div>
 

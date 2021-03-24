@@ -91,7 +91,7 @@ $(document).on("submit", "#new_item", function(event) {
   //   </div>
   //   `
   // );
-  hideListItemForm();
+  // hideListItemForm();
 })
 
 

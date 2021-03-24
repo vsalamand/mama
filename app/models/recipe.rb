@@ -225,6 +225,7 @@ class Recipe < ApplicationRecord
     end
 
     user_disliked_recipe_ids = user.present? ? user.get_dislikes_recipe_list.recipes.pluck(:id) : Array.new
+    user_recipe_impressions = Ahoy::Event.where(user_id: user.id, time: 1.day.ago..Time.now, name: "Recommend recipe") if user.present?
 
     eligible_recipe_ids = recipe_ids - user_disliked_recipe_ids
 
@@ -236,7 +237,7 @@ class Recipe < ApplicationRecord
     recipe_hash.each do |key, value|
       key["curated_category"] = (curated_list_ids & key["recipe_lists"].map{|x| x["id"]}).first
 
-      user_impressions = user.present? ? Ahoy::Event.where(user_id: user.id, time: 1.day.ago..Time.now, name: "Recommend recipe").where_properties(recipe_id: key["id"]).count.to_f : 0
+      user_impressions = user.present? ? user_recipe_impressions.where_properties(recipe_id: key["id"]).count.to_f : 0
       # user capping decay
       user_impressions.to_i > 0 ? key["user_impressions_penalty"] = (0.5/ user_impressions.to_i) : key["user_impressions_penalty"] = 1
 
