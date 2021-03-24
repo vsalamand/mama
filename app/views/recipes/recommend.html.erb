@@ -1,0 +1,12 @@
+<div class="wrapper d-flex flex-column bd-highlight" id="assistantWrapper" style="background: grey; height: 100vh;">
+  <nav class="sticky-top container navbar d-flex justify-content-end" id="cuisine" data="<%= current_recipe_list.id %>">
+    <%= render "shared/cuisine" %>
+  </nav>
+
+  <div class="container px-0 d-flex align-items-center justify-content-center bd-highlight my-auto" id="recommendationData" data="<%= @recipe_ids %>">
+    <div id="recipeRecommendations" class="col-sm-4 mb-5" data="">
+      <%= render'recipes/recommendations', recipes: @recipes %>
+    </div>
+  </div>
+
+</div>

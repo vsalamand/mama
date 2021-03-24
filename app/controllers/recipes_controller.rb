@@ -283,18 +283,20 @@ class RecipesController < ApplicationController
   end
 
   def recommend
-    type = params[:t]
-    query_ids = params[:i]
+    # type = params[:t]
+    # query_ids = params[:i]
 
-    if query_ids.present?
-      if type == "u"
-        @category_ids = Item.find(query_ids).pluck(:category_id).compact
-      else
-        @category_ids = query_ids.reject(&:empty?).map(&:to_i)
-      end
-    else
-      @category_ids = []
-    end
+    # if query_ids.present?
+    #   if type == "u"
+    #     @category_ids = Item.find(query_ids).pluck(:category_id).compact
+    #   else
+    #     @category_ids = query_ids.reject(&:empty?).map(&:to_i)
+    #   end
+    # else
+    #   @category_ids = []
+    # end
+
+    @category_ids = current_list.items.not_deleted.pluck(:category_id).compact
 
     @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]}
 
@@ -302,13 +304,15 @@ class RecipesController < ApplicationController
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
-    render "recommend.js.erb"
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def next
-    @category_ids = YAML.load(params[:c])
     @recipe_ids = YAML.load(params[:r]).drop(2)
-    @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]} if @recipe_ids.size < 2
+    @recipe_ids = Recipe.recommend(current_list.items.not_deleted.pluck(:category_id).compact, current_user).map{|x| x["id"]} if @recipe_ids.size < 2
 
     @recipes = Recipe.find(@recipe_ids.take(2))
 

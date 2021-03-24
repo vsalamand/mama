@@ -95,8 +95,10 @@
       <%= render 'shared/contact_us' %>
 
 
-      <% if ["landing", "home", "beta"].include?(params[:action])%>
+      <% if ["landing", "home", "beta"].include?(params[:action]) %>
         <%= render 'shared/footer'  %>
+      <% else %>
+        <%= render'shared/tapbar' %>
       <% end %>
 
     <% unless user_signed_in? %>

@@ -11,14 +11,14 @@
       <div class="jumbotron text-center text-white my-3 d-flex bd-highlight flex-column" style="min-height: 80vh; background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
         <div class="bd-highlight my-auto">
           <h1 class="font-weight-bold display-4">Rien prévu ?</h1>
-          <p class="lead">Faites de la <%= cl_image_tag("menu_icons/magic-wand", width: 20, class:"pb-1") %><span class="font-weight-bold border-0 p-1 rounded bg-white text-warning"> magie</span> en cuisine avec les produits que vous avez !</p>
-          <%= link_to assistant_path, class:"mt-5 btn btn-lg btn-light px-4 py-2 border-0 rounded shadow-lg", style:" font-size: 1.5rem;" do %>
+          <p class="" style="font-size: 1.5rem;">Planifiez votre prochain repas à la dernière minute avec les produits que vous avez !</p>
+
+          <p class="m-0 mt-5">Facile, gratuit et sans pub <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %></p>
+          <%= link_to assistant_path, class:"btn btn-lg btn-light px-4 py-2 border-0 rounded shadow-lg", style:" font-size: 1.5rem;" do %>
             <div class="d-flex align-items-center">
               <span> Trouver une recette</span>
             </div>
           <% end %>
-          <p class="m-0">Facile, gratuit et sans pub <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %>
-          </p>
         </div>
       </div>
     </div>
