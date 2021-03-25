@@ -119,6 +119,7 @@ Rails.application.routes.draw do
       get :add_menu_to_list
       get :fetch_recipes
       get :recommend
+      get :fetch_recommendations
       get :next
       get :analytics
       get :visualization

@@ -5,7 +5,7 @@ require 'yaml'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [ :show, :card, :edit, :update, :set_published_status, :set_dismissed_status, :god_show, :click ]
-  skip_before_action :authenticate_user!, only: [:fetch_recipes, :recommend, :next, :click ]
+  skip_before_action :authenticate_user!, only: [:fetch_recipes, :recommend, :fetch_recommendations, :next, :click ]
   before_action :authenticate_admin!, only: [:new, :show, :import, :create, :import, :god_show, :manage, :analytics]
 
   def show
@@ -283,19 +283,9 @@ class RecipesController < ApplicationController
   end
 
   def recommend
-    # type = params[:t]
-    # query_ids = params[:i]
+  end
 
-    # if query_ids.present?
-    #   if type == "u"
-    #     @category_ids = Item.find(query_ids).pluck(:category_id).compact
-    #   else
-    #     @category_ids = query_ids.reject(&:empty?).map(&:to_i)
-    #   end
-    # else
-    #   @category_ids = []
-    # end
-
+  def fetch_recommendations
     @category_ids = current_list.items.not_deleted.pluck(:category_id).compact
 
     @recipe_ids = Recipe.recommend(@category_ids, current_user).map{|x| x["id"]}
@@ -304,10 +294,7 @@ class RecipesController < ApplicationController
 
     @recipes.each{ |recipe| ahoy.track "Recommend recipe", recipe_id: recipe.id, title: recipe.title }
 
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    render "recommend.js.erb"
   end
 
   def next

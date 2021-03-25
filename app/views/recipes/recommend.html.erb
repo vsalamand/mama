@@ -3,9 +3,9 @@
     <%= render "shared/cuisine" %>
   </nav>
 
-  <div class="d-flex justify-content-center" id="recommendationData" data="<%= @recipe_ids %>">
-    <div id="recipeRecommendations" class="col-sm-4" data="">
-      <%= render'recipes/recommendations', recipes: @recipes %>
+  <div class="d-flex justify-content-center bd-highlight" id="recommendationData" data="<%= @recipe_ids %>"  style="overflow-x: hidden; overflow-y: hidden; height: 75vh;">
+    <div id="recipeRecommendations" class="col-sm-4 mx-auto my-auto" data="">
+      <!-- insert recommened recipes here -->
     </div>
   </div>
 
