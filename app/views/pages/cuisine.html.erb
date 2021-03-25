@@ -1,19 +1,18 @@
-<% content_for :meta_title, "Cuisine" %>
+<% content_for :meta_title, "Sélection" %>
 <% content_for :meta_description, "Sélectionnez les recettes qui vous plaisent pour vos prochains repas !" %>
 
 
 
 <div class="wrapper" id="assistantWrapper" style="background: grey;">
 
-   <nav class="container navbar navbar-expand-lg d-flex justify-content-between">
-      <%= link_to :back, class:"navbar-brand d-flex align-items-center text-white" do %>
-        <i class="fas fa-lg fa-arrow-left p-2"></i>
-      <% end %>
+   <nav class="px-2 navbar d-flex justify-content-between">
+      <div class="navbar-brand font-weight-bold text-white" style="font-size: 1.5rem"><i class="fas fa-check-circle text-success"></i> Sélectionnées</div>
+
+
    </nav>
 
   <div id="recipesCuisine">
     <div id="recipesHeader">
-      <h1 class="text-white text-center p-2"><i class="fas fa-check-circle text-success"></i> Sélectionnées</h1>
     </div>
 
     <div class="d-flex flex-column align-items-center justify-content-center mt-3" >
