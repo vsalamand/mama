@@ -204,9 +204,9 @@ function hideRecipeResults() {
   assistantContent.style.display = "block";
 }
 
-// show recipes in list
-$(document).on("click", ".fetchRecipes", function(event) {
-  if(document.getElementById('assistantContent')){
+// fetch recommended recipes when opening recommend page
+$(document).on("turbolinks:load", function(event) {
+  if(document.getElementById('recipeRecommendations')){
     // $('#contentModal').modal('show')
     $('#recipeRecommendations').html(
       // `<p class="lead text-center text-white font-weight-bold">Chargement...</p>`
@@ -216,37 +216,16 @@ $(document).on("click", ".fetchRecipes", function(event) {
       </p>`
     );
 
-    const selectedContent = document.querySelectorAll(".selectedContent");
-
-    if(document.getElementById('selectedCategories')){
-      var category_ids = [];
-      $(selectedContent).map(function() {
-                       category_ids.push(this.getAttribute('data-id'));
-                    });
-      var type = "v"
-      recommend(type, category_ids);
-    }
-    if(document.getElementById('uncomplete_list_items')){
-      var item_ids = [];
-      $(selectedContent).map(function() {
-                       item_ids.push(this.getAttribute('data'));
-                    });
-      var type = "u"
-      recommend(type, item_ids);
-    }
+    recommend();
 
   }
 })
 
-function recommend(type, ids) {
+function recommend() {
   $.ajax({
-    url: "/recipes/recommend",
+    url: "/recipes/fetch_recommendations",
     cache: false,
     dataType: 'script',
-    data: {
-        t: type,
-        i: ids
-        },
     success: function(){
     }
   });
