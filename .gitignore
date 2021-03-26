@@ -29,3 +29,4 @@ node_modules
 dist
 .latest.dump*
 #db/product_catalogs
+.env*
