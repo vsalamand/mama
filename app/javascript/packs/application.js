@@ -10,7 +10,10 @@
 
 require("chartkick")
 require("chart.js")
-
+require("jquery-ui")
+require("jquery-ui/ui/widget")
+require("jquery-ui/ui/widgets/sortable")
+require("jquery-ui/ui/widgets/autocomplete")
 
 // import Rails from 'jquery_ujs'
 import 'bootstrap';
