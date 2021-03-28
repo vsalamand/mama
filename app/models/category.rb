@@ -9,7 +9,7 @@ class Category < ApplicationRecord
   has_many :recipes, through: :items
 
   has_ancestry
-  searchkick language: "french"
+  searchkick language: "french", text_start: [:name], word_start: [:name]
 
   before_save do
     self.update_related_items_store_section_id if will_save_change_to_store_section_id?

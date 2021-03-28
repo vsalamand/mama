@@ -18,7 +18,7 @@
     </div>
     <div class="d-flex align-items-center justify-content-center mt-3">
       <% if @recipes.present? %>
-        <div id="recipeElements" class="col-sm-4 my-auto">
+        <div id="recipeElements" class="col-sm-4 mx-auto my-auto">
           <%= render partial: 'recipes/recipe_card', collection: @recipes.sort_by{|r| r.title.parameterize }, as: :recipe, locals: {list: nil } %>
         </div>
 

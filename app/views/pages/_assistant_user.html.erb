@@ -19,12 +19,13 @@
 
 
     <div class="wrapper" style="min-height: 70vh;">
-      <div class="container px-1" id="todo_list" data="<%= @list.id %>">
+      <div class="container px-2 mb-1" id="todo_list" data="<%= @list.id %>">
 
-          <div class="jumbotron bg-white text-center mb-2 px-2 py-0">
-            <h1 class="text-dark text-center p-2 display-4" style="display: none;">Mes produits</h1>
-            <p id="toggleListItemform" class="lead m-0 font-weight-bold bg-white text-center text-primary px-2 py-2 border rounded shadow-lg" style=" cursor: pointer;" ><small class="text-primary"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</p>
-          </div>
+          <h1 class="text-dark text-center p-2 display-4" style="display: none;">Mes produits</h1>
+          <small id="inputHelpInline" class="text-muted px-2">
+            Quels produits pouvez-vous pour cuisiner ?
+          </small>
+          <p id="toggleListItemform" class="lead font-weight-bold bg-white text-left px-2 py-3 border rounded shadow-lg" style=" cursor: pointer;" ><small class="text-primary"><i class="fas fa-plus pl-1"></i></small> Ajouter un produit</p>
 
 
           <div class="px-0" id="assistantItems">

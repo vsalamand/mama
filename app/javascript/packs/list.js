@@ -4,6 +4,7 @@ import 'bootstrap';
 
 require("jquery-ui/ui/widget")
 require("jquery-ui/ui/widgets/sortable")
+require("jquery-ui/ui/widgets/autocomplete")
 
 // sort();
 // fetchSuggestedItems();
@@ -99,6 +100,24 @@ $(document).on("keyup", "#newListItem", function(event) {
   var inputField = document.getElementById('newListItem');
   setInputForm(inputField);
 })
+
+$(document).on("keyup", "#newListItem", function(event) {
+    $( "#newListItem" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax( {
+          url: "categories/autocomplete",
+          data: {
+            q: document.getElementById('newListItem').value
+          },
+          success: function( data ) {
+            response( data.results );
+          }
+        } );
+      },
+      minLength: 1
+    });
+});
+
 
 // When list item input field is empty, ||| not used any more => then disable submit button and show item suggestion lists
 function setInputForm(inputField) {

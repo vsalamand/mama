@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:select, :unselect, :fetch_similar ]
+  skip_before_action :authenticate_user!, only: [:select, :unselect, :fetch_similar, :autocomplete ]
   before_action :authenticate_admin!, only: [:show, :index, :create, :new, :edit, :update, :destroy]
+  before_action  :force_json, only: :autocomplete
+
 
 
   def show
@@ -73,6 +75,11 @@ class CategoriesController < ApplicationController
     ahoy.track "Show category", category_id: @category.id, name: @category.name
   end
 
+  def autocomplete
+    query = params[:q]
+    @results = Category.search(query, {fields: [:name], match: :word_start}).first(5).pluck(:name)
+  end
+
   private
   def set_category
     @category = category.find(params[:category_id])
@@ -80,5 +87,9 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name, :category_type, :store_section_id, :food_group_id, :food_id, :level, :parent_id, :rating) ## Rails 4 strong params usage
+  end
+
+  def force_json
+    request.format = :json
   end
 end
