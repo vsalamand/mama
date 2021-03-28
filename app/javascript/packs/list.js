@@ -2,9 +2,9 @@ import Rails from 'rails-ujs'
 import 'bootstrap';
 
 
-require("jquery-ui/ui/widget")
-require("jquery-ui/ui/widgets/sortable")
-require("jquery-ui/ui/widgets/autocomplete")
+// require("jquery-ui/ui/widget")
+// require("jquery-ui/ui/widgets/sortable")
+// require("jquery-ui/ui/widgets/autocomplete")
 
 // sort();
 // fetchSuggestedItems();
