@@ -19,6 +19,7 @@ import 'bootstrap/js/dist/dropdown';
 
 import ahoy from "ahoy.js";
 
+import Rails from 'rails-ujs'
 
 // import '../components/selectize1';
 // import '../components/selectize';
@@ -32,6 +33,7 @@ $(document).on("turbolinks:load", function() {
   })
 })
 
+
 import 'packs/list';
 import 'packs/cart';
 import 'packs/store_cart';
@@ -43,7 +45,6 @@ import 'packs/categories';
 import 'packs/assistant';
 import 'packs/score';
 import 'packs/authentication';
-
 
 // import { initListCable } from '../channels/list_channel';
 

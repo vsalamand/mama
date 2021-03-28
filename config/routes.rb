@@ -212,6 +212,7 @@ Rails.application.routes.draw do
     collection do
       get :select
       get :tree
+      get :autocomplete
     end
   end
 
