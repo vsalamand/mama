@@ -1,4 +1,4 @@
-<% content_for :meta_title, "Favoris" %>
+<% content_for :meta_title, "Recettes" %>
 <% content_for :meta_description, "Enregistrez vos recettes préférées pour les retrouver facilement." %>
 
 <% unless ["add_to_homescreen"].include?(params[:action])%>
@@ -14,7 +14,7 @@
 <div class="container px-0 mb-5">
   <div id="recipesFavorites">
     <div id="recipesHeader">
-      <h1 class="text-dark text-center p-2 display-4" style="display: none;">Mes recettes</h1>
+      <h1 class="text-dark text-center p-2 display-4" style="display: none;">Recettes</h1>
     </div>
     <div class="d-flex align-items-center justify-content-center mt-3">
       <% if @recipes.present? %>

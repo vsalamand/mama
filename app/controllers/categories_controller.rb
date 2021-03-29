@@ -77,7 +77,8 @@ class CategoriesController < ApplicationController
 
   def autocomplete
     query = params[:q]
-    @results = Category.search(query, {fields: [:name], match: :word_start}).first(5).pluck(:name)
+    # @results = Category.search(query, {fields: [:name], match: :word_start}).first(5).pluck(:name)
+    @results = Category.where("name ILIKE '#{query}%'").pluck(:name).sort.first(5)
   end
 
   private
