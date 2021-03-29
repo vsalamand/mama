@@ -8,18 +8,19 @@
 
   <div class="wrapper bg-white" style="min-height: 100vh; overflow-x: hidden; overflow-y: hidden;">
     <div class="container p-2">
-      <div class="jumbotron text-center text-white my-3 d-flex bd-highlight flex-column" style="min-height: 80vh; background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
-        <div class="bd-highlight my-auto">
-          <h1 class="font-weight-bold display-4">Rien prévu ?</h1>
-          <p class="" style="font-size: 1.5rem;">Planifiez vos repas à la dernière minute <u>avec les produits que vous avez</u> !</p>
-
-          <p class="m-0 mt-5">Facile, gratuit et sans pub <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %></p>
-          <%= link_to assistant_path, class:"btn btn-lg btn-light px-4 py-2 border-0 rounded shadow-lg", style:" font-size: 1.5rem;" do %>
-            <div class="d-flex align-items-center">
-              <span> Trouver une recette</span>
-            </div>
-          <% end %>
-        </div>
+      <div class="jumbotron text-center text-white my-2 d-flex flex-column justify-content-around" style="min-height: 80vh; background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));">
+          <div>
+            <h1 class="font-weight-bold display-4">Gérez vos repas à la dernière minute</h1>
+            <p class="" style="font-size: 1.5rem;">En fonction des produits que vous avez !</p>
+          </div>
+          <div>
+            <p class="m-0">Facile, gratuit et sans pub <%= cl_image_tag("menu_icons/rocket", width: 20, class:"pb-1") %></p>
+            <%= link_to assistant_path, class:"btn btn-lg btn-light px-4 py-2 border-0 rounded shadow-lg", style:" font-size: 1.5rem;" do %>
+              <div class="d-flex align-items-center">
+                <span> Trouver une recette</span>
+              </div>
+            <% end %>
+          </div>
       </div>
     </div>
 
