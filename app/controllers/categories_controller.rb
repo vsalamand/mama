@@ -78,7 +78,7 @@ class CategoriesController < ApplicationController
   def autocomplete
     query = params[:q]
     # @results = Category.search(query, {fields: [:name], match: :word_start}).first(5).pluck(:name)
-    @results = Category.where("name ILIKE '#{query}%'").pluck(:name).sort.first(5)
+    @results = Category.where(is_visible: true).where("name ILIKE '#{query}%'").pluck(:name).sort.first(5)
   end
 
   private
@@ -87,7 +87,7 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :category_type, :store_section_id, :food_group_id, :food_id, :level, :parent_id, :rating) ## Rails 4 strong params usage
+    params.require(:category).permit(:name, :category_type, :store_section_id, :food_group_id, :food_id, :level, :parent_id, :rating, :is_visible) ## Rails 4 strong params usage
   end
 
   def force_json
