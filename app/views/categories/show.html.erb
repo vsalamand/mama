@@ -13,6 +13,11 @@
       <%= render "categories/rating_indicator", category: @category %>
       <%= link_to @category.name.capitalize, edit_category_path(@category) %>
     </h1>
+    <% if @category.is_visible %>
+      <p class="text-success p-2">Visible</p>
+    <% else %>
+      <p class="text-muted p-2">Non visible</p>
+    <% end %>
     <div class="">
       <% if @category.get_store_section.present? %>
         <p class="btn btn-warning border lead m-0 font-weight-bold">rayon: <%= @category.get_store_section.name %></p>

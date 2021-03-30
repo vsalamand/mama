@@ -2,6 +2,10 @@
   <div class="mt-4 bg-white">
 
     <%= f.input :name, class: 'form-control form-control-lg' %>
+
+    <div class="form-group">
+    <%= f.input :is_visible, :label => "Visible ?", input_html: { class:"form-check-input", type:"checkbox"  } %>
+    </div>
     <label>Rating</label>
     <div class="form-group">
     <%= f.select :rating, priority: [ 1 ], collection: [ 0, 1, 2, 3], class: 'form-control form-control-lg' %>
