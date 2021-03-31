@@ -90,6 +90,10 @@
          <!-- all other page content -->
           <%= yield %>
        </div>
+      <% unless user_signed_in? %>
+      <!-- Navbar End -->
+      <%= render 'shared/authentication' %>
+      <% end %>
      </div>
 
 
@@ -102,10 +106,6 @@
         <%= render'shared/tapbar' %>
       <% end %>
 
-    <% unless user_signed_in? %>
-    <!-- Navbar End -->
-    <%= render 'shared/authentication' %>
-    <% end %>
 
 
 
