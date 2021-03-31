@@ -2,9 +2,21 @@ const listItemCard = document.querySelector("#grocerylist-item-id<%= @item.id %>
 listItemCard.innerHTML = "";
 listItemCard.innerHTML = ("<%= j render 'items/show', list: @list, item: @item %>");
 
+// animate reco icon
+bounceIcon();
+
+function bounceIcon() {
+  var recoIcon = document.getElementById('recoIcon');
+  $(recoIcon).addClass("bounceBtn");
+  setTimeout(function() {
+    $(recoIcon).removeClass("bounceBtn");
+  }, 800);
+}
+
+
 history.pushState({page:1}, "List assistant form back", window.location.path);
 
-updateScore();
+// updateScore();
 
 // update list score
 function updateScore() {

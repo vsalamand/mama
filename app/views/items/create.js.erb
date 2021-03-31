@@ -4,8 +4,19 @@
   insert();
   refreshForm();
   updateScore();
+  // animate reco icon
+  bounceIcon();
+  // hide autocomplete
+  $(".ui-autocomplete").hide();
 <% end %>
 
+function bounceIcon() {
+  var recoIcon = document.getElementById('recoIcon');
+  $(recoIcon).addClass("bounceBtn");
+  setTimeout(function() {
+    $(recoIcon).removeClass("bounceBtn");
+  }, 800);
+}
 
 function refreshForm() {
   const newListItemForm = document.getElementById('newListItem');

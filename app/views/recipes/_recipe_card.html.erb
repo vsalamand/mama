@@ -1,4 +1,4 @@
-<div class="card rounded m-3" style="position: relative;" >
+<div class="card rounded m-1 mt-2" style="position: relative;" >
 
   <% if false %><%= render 'shared/recipe_tag', recipe: recipe %><% end %>
 
@@ -7,7 +7,7 @@
       <div class="my-auto">
          <%= cl_image_tag("#{recipe.id}", :fetch_format=>:auto, :quality=>"auto:low", class:"avatar-large p-2", alt:"#{recipe.title}") %>
       </div>
-      <div class="card-body p-1 pr-2 my-auto">
+      <div class="card-body p-1 my-auto">
         <p class="card-title mb-0 font-weight-bold text-primary"><%= truncate(recipe.title, length:260) %></p>
         <small class="text-muted" style="font-size: 0.4rem;"><%= URI("#{recipe.link}").host %></small>
       </div>

@@ -82,18 +82,18 @@ function fetchNewItemForm() {
   });
 }
 
-$(document).on("submit", "#new_item", function(event) {
-  var addForm = document.getElementById('new_item');
-  // $(addForm).html(
-  //   `<div class="my-2">
-  //     <div class="search-form-control border border-primary m-0 py-3 rounded bg-white">
-  //     <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
-  //     </div>
-  //   </div>
-  //   `
-  // );
-  // hideListItemForm();
-})
+// $(document).on("submit", "#new_item", function(event) {
+//   var addForm = document.getElementById('new_item');
+//   // $(addForm).html(
+//   //   `<div class="my-2">
+//   //     <div class="search-form-control border border-primary m-0 py-3 rounded bg-white">
+//   //     <i id="spinner" class="fas fa-circle-notch fa-spin text-primary mx-2"></i>
+//   //     </div>
+//   //   </div>
+//   //   `
+//   // );
+//   // hideListItemForm();
+// })
 
 
 $(document).on("keyup", "#newListItem", function(event) {

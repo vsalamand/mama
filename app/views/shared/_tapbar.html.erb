@@ -2,30 +2,30 @@
 
  <% if ["assistant"].include?(params[:action])%>
     <a class="text-center d-flex flex-column align-items-center" style="text-decoration: none; cursor: pointer;">
-      <i class="fas fa-lg fa-shopping-cart pb-1 text-dark" style="filter: brightness(1.40);"></i>
-      <small class="text-dark" style="filter: brightness(1.40); font-size: 0.6rem;">Produits</small>
+      <i class="fas fa-2x fa-shopping-cart pb-1 text-dark" style="filter: brightness(2.40);"></i>
+      <small class="text-dark font-weight-bold" style="filter: brightness(1.40); font-size: 0.6rem;">Produits</small>
     </a>
  <% else %>
     <a class="text-center d-flex flex-column align-items-center" href="/assistant" style="text-decoration: none;">
-      <i class="fas fa-lg fa-shopping-cart pb-1 text-muted" style="filter: brightness(1.40);"></i>
-      <small class="text-muted" style="filter: brightness(1.40); font-size: 0.6rem;">Produits</small>
+      <i class="fas fa-2x fa-shopping-cart pb-1 text-dark" style="filter: brightness(2.40);"></i>
+      <small class="text-dark" style="filter: brightness(1.40); font-size: 0.6rem;">Produits</small>
     </a>
   <% end %>
 
  <% if ["recommend"].include?(params[:action])%>
 
-    <a class="ext-center d-flex flex-column align-items-center text-muted" style="text-decoration: none; cursor: pointer;">
-      <%= cl_image_tag("menu_icons/crystal-ball", width: 40, class:"m-0",style: "position: absolute; bottom: 40px;") %>
+    <a class="text-center d-flex flex-column align-items-center text-muted" style="text-decoration: none; cursor: pointer;">
+      <%= cl_image_tag("menu_icons/crystal-ball", width: 35, id:"recoIcon", class:"m-0",style: "position: absolute; bottom: 40px;") %>
       <small class="font-weight-bold" style="background: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.6rem; position: relative;">Recommendations</small>
     </a>
   <% else %>
-    <a class="ext-center d-flex flex-column align-items-center text-muted" href="/recipes/recommend" style="text-decoration: none;">
-      <%= cl_image_tag("menu_icons/crystal-ball", width: 40, class:"m-0",style: "position: absolute; bottom: 40px;") %>
-      <small class="text-muted" style="filter: brightness(1.40); font-size: 0.6rem;">Recommendations</small>
+    <a class="text-center d-flex flex-column align-items-center text-muted" href="/recipes/recommend" style="text-decoration: none;">
+      <%= cl_image_tag("menu_icons/crystal-ball", width: 35, id:"recoIcon", class:"m-0",style: "position: absolute; bottom: 40px;") %>
+      <small class="text-muted" style="background: linear-gradient(3deg, rgb(249, 144, 110),rgb(225, 14, 225)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.6rem; position: relative;">Recommendations</small>
     </a>
   <% end %>
 
- <% if ["favorites"].include?(params[:action])%>
+<!--  <% if ["favorites"].include?(params[:action])%>
     <a class="ext-center d-flex flex-column align-items-center text-muted" style="text-decoration: none; cursor: pointer;">
       <i class="fas fa-bookmark fa-lg pb-1 text-dark" style="filter: brightness(1.40);"></i>
       <small class="text-dark" style="filter: brightness(1.40); font-size: 0.6rem;">Recettes</small>
@@ -37,3 +37,4 @@
     </a>
   <% end %>
 </nav>
+ -->

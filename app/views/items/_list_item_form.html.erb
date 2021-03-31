@@ -14,7 +14,7 @@
     <%= simple_form_for([ list, item ], remote: true) do |form| %>
           <div class="container px-2 mb-1">
             <small id="inputHelpInline" class="text-muted px-2">
-              Quels produits pouvez-vous pour cuisiner ?
+              Quels produits pouvez-vous cuisiner ?
             </small>
             <div class="search-form-control">
               <%= form.input :name, as: :string, label: false, placeholder: "Produit", input_html: { class:"m-0 rounded rounded-lg font-weight-bold form-control text-primary", style:"font-size: 1.2rem; height:65px;", id:"newListItem", autocomplete: 'off' }, wrapper_html: { class:"rounded rounded-lg shadow-lg m-0"} %>

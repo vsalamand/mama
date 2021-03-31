@@ -58,3 +58,5 @@
 }
 
 
+@keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+.bounceBtn { animation: bounce 0.2s infinite alternate; }

@@ -1,7 +1,18 @@
 updateSavedItems();
 insert();
 refreshForm();
-updateScore();
+// updateScore();
+// animate reco icon
+bounceIcon();
+
+function bounceIcon() {
+  var recoIcon = document.getElementById('recoIcon');
+  $(recoIcon).addClass("bounceBtn");
+  setTimeout(function() {
+    $(recoIcon).removeClass("bounceBtn");
+  }, 800);
+}
+
 
 function updateSavedItems() {
   var listItemCards = document.querySelectorAll("#grocerylist-item-id<%= @saved_item.id %>");
