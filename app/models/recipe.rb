@@ -220,6 +220,7 @@ class Recipe < ApplicationRecord
     # select eligible recipes
     if broad_category_ids.any?
       recipe_ids = Recipe.curated.includes(:categories).where(categories: { id: broad_category_ids }).pluck(:id)
+      recipe_ids = Recipe.curated.pluck(:id).last(100) if recipe_ids.empty?
     else
       recipe_ids = Recipe.curated.pluck(:id).last(100)
     end

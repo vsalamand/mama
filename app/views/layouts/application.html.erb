@@ -103,7 +103,9 @@
       <% if ["landing", "home", "beta"].include?(params[:action]) %>
         <%= render 'shared/footer'  %>
       <% else %>
-        <%= render'shared/tapbar' %>
+        <div id="tapbar">
+          <%= render'shared/tapbar' %>
+        </div>
       <% end %>
 
 

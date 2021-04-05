@@ -218,6 +218,22 @@ document.addEventListener('turbolinks:before-cache', () => {
 });
 
 
+
+// Hide/unhide de tapbar on keyboard show
+$(document).on("focus", '#newListItem', function(event) {
+  if (android === true && document.getElementById('tapbar')) {
+   document.getElementById('tapbar').style.display = "none";
+  }
+});
+
+$(document).on("focusout", '#newListItem', function(event) {
+  if (android === true && document.getElementById('tapbar')) {
+    document.getElementById('tapbar').style.display = "block";
+  }
+});
+
+
+
 // make bootstrap dropdowns work with turbolinks
 function toggleDropdown(element) {
   var dropdown = new Dropdown(element);
